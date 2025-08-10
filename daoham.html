@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề Toán học - Ứng dụng đạo hàm | Minh Tâm Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles4.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="img/logo.png" alt="">
+                <div class="logo-text">
+                    <h1>MINHTAM EDUCATION</h1>
+                    <p>Vững kiến thức - Sáng tương lai</p>
+                </div>
+            </div>
+             <button class="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="gioithieu.html">Giới thiệu</a></li>
+                    <li class="has-submenu">
+                        <a href="#">Chương trình học <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="#">Lớp 1-5</a></li>
+                            <li class="has-submenu">
+                                <a href="#">Lớp 6-9 <i class="fas fa-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="#">Toán</a></li>
+                                    <li><a href="#">KHTN</a></li>
+                                    <li><a href="#">Văn</a></li>
+                                    <li><a href="#">Tiếng Anh</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#">Lớp 10-12 <i class="fas fa-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="#">Toán</a></li>
+                                    <li><a href="#">Lý</a></li>
+                                    <li><a href="#">Hóa</a></li>
+                                    <li><a href="#">Văn</a></li>
+                                    <li><a href="#">Tiếng Anh</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Luyện thi Đại học</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="congkhai.html">Bảng công khai</a></li>
+                    <li><a href="dangky.html" onclick="openPopup(); return false;" class="register-btn">Đăng ký học</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar điều hướng tài liệu -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">DANH MỤC TÀI LIỆU</div>
+                <ul class="document-nav" id="documentNav">
+                    <!-- Các mục tài liệu sẽ được thêm bằng JavaScript -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">TÀI LIỆU MỚI</div>
+                <ul class="article-list">
+                    <li><a href="#" data-doc="toan12-chuong1">Toán 12 - Chương 1: Ứng dụng đạo hàm</a></li>
+                    <li><a href="#" data-doc="ly12-chuong2">Lý 12 - Chương 2: Sóng cơ</a></li>
+                    <li><a href="#" data-doc="hoa12-chuong3">Hóa 12 - Chương 3: Este - Lipit</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Nội dung -->
+        <main class="main-content">
+            <div id="documentViewer">
+                <h1 class="article-title">CHUYÊN ĐỀ: ỨNG DỤNG ĐẠO HÀM</h1>
+                <p class="doc-subtitle">Môn Toán - Lớp 12</p>
+                <div class="doc-meta">
+                    <span><i class="fas fa-book"></i> 7 dạng bài</span>
+                    <span><i class="fas fa-lightbulb"></i> 25 ví dụ</span>
+                    <span><i class="fas fa-pencil-alt"></i> 50 bài tập</span>
+                    <span><i class="fas fa-calendar-alt"></i> Cập nhật: 20/08/2025</span>
+                    <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Văn A</span>
+                </div>
+                
+                <!-- Knowledge Summary Section -->
+                <section class="doc-section">
+                    <h2 class="article-subtitle"><i class="fas fa-book-open"></i> TÓM TẮT KIẾN THỨC</h2>
+                    
+                    <div class="theory-box">
+                        <h3>I. Đạo hàm và ứng dụng</h3>
+                        <ul class="styled-list">
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Định nghĩa đạo hàm: \( f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} \)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Quy tắc tính đạo hàm: \((u \pm v)' = u' \pm v'\), \((uv)' = u'v + uv'\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Đạo hàm hàm hợp: \((f(g(x)))' = f'(g(x)) \cdot g'(x)\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Ứng dụng đạo hàm để khảo sát hàm số</li>
+                        </ul>
+                        
+                        <div class="formula-box">
+                            <h4><i class="fas fa-square-root-alt"></i> Công thức đạo hàm cơ bản:</h4>
+                            <div class="formula-grid">
+                                <div>\((x^n)' = nx^{n-1}\)</div>
+                                <div>\((\sin x)' = \cos x\)</div>
+                                <div>\((e^x)' = e^x\)</div>
+                                <div>\((\ln x)' = \frac{1}{x}\)</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Problem Types Section -->
+                <section class="doc-section">
+                    <h2 class="article-subtitle"><i class="fas fa-tasks"></i> CÁC DẠNG TOÁN VÀ PHƯƠNG PHÁP GIẢI</h2>
+                    
+                    <!-- Problem Type 1 -->
+                    <div class="problem-type">
+                        <div class="problem-header">
+                            <div class="problem-number">1</div>
+                            <h3>Dạng 1: Tính đạo hàm bằng định nghĩa</h3>
+                        </div>
+                        
+                        <div class="problem-content">
+                            <p><strong>Phương pháp:</strong> Sử dụng công thức định nghĩa đạo hàm tại điểm \(x_0\):</p>
+                            
+                            <div class="formula-display">
+                                \[ f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \]
+                            </div>
+                            
+                            <div class="solution-steps">
+                                <h4><i class="fas fa-list-ol"></i> Các bước giải:</h4>
+                                <ol>
+                                    <li>Tính \(\Delta y = f(x_0 + \Delta x) - f(x_0)\)</li>
+                                    <li>Lập tỉ số \(\frac{\Delta y}{\Delta x}\)</li>
+                                    <li>Tính giới hạn khi \(\Delta x \to 0\)</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Problem Type 2 -->
+                    <div class="problem-type">
+                        <div class="problem-header">
+                            <div class="problem-number">2</div>
+                            <h3>Dạng 2: Ứng dụng đạo hàm để khảo sát hàm số</h3>
+                        </div>
+                        
+                        <div class="problem-content">
+                            <p><strong>Phương pháp:</strong> Sử dụng đạo hàm để xét tính đơn điệu, cực trị của hàm số.</p>
+                            
+                            <div class="method-grid">
+                                <div class="method-box">
+                                    <h4><i class="fas fa-chart-line"></i> Tính đơn điệu:</h4>
+                                    <ul>
+                                        <li>\(f'(x) > 0\): Hàm số đồng biến</li>
+                                        <li>\(f'(x) < 0\): Hàm số nghịch biến</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="method-box">
+                                    <h4><i class="fas fa-mountain"></i> Cực trị:</h4>
+                                    <ul>
+                                        <li>Điểm cực trị khi \(f'(x)\) đổi dấu</li>
+                                        <li>\(f'(x_0) = 0\) hoặc không xác định</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Examples Section -->
+                <section class="doc-section">
+                    <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+                    
+                    <!-- Example 1 -->
+                    <div class="example">
+                        <div class="example-header">
+                            <h3>Ví dụ 1: Tính đạo hàm bằng định nghĩa</h3>
+                            <span class="tag">Cơ bản</span>
+                        </div>
+                        
+                        <div class="example-question">
+                            <p>Tính đạo hàm của hàm số \(f(x) = x^2\) tại điểm \(x_0 = 1\) bằng định nghĩa.</p>
+                        </div>
+                        
+                        <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                        
+                        <div class="solution">
+                            <h4>Lời giải:</h4>
+                            <p>Áp dụng công thức định nghĩa:</p>
+                            <div class="math-display">
+                                \[
+                                f'(1) = \lim_{x \to 1} \frac{f(x) - f(1)}{x - 1} = \lim_{x \to 1} \frac{x^2 - 1}{x - 1} = \lim_{x \to 1} (x + 1) = 2
+                                \]
+                            </div>
+                            <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: \(f'(1) = 2\)</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Example 2 -->
+                    <div class="example">
+                        <div class="example-header">
+                            <h3>Ví dụ 2: Khảo sát hàm số</h3>
+                            <span class="tag" style="background: #ff9800;">Nâng cao</span>
+                        </div>
+                        
+                        <div class="example-question">
+                            <p>Cho hàm số \(y = x^3 - 3x^2 + 2\). Khảo sát sự biến thiên và vẽ đồ thị hàm số.</p>
+                        </div>
+                        
+                        <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                        
+                        <div class="solution">
+                            <h4>Lời giải:</h4>
+                            <p>1. Tập xác định: \(D = \mathbb{R}\)</p>
+                            <p>2. Đạo hàm: \(y' = 3x^2 - 6x\)</p>
+                            <div class="math-display">
+                                \[
+                                y' = 0 \Leftrightarrow 3x^2 - 6x = 0 \Leftrightarrow \left[\begin{array}{l}
+                                x = 0 \\
+                                x = 2
+                                \end{array}\right.
+                                \]
+                            </div>
+                            <p>3. Bảng biến thiên:</p>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>\(x\)</th>
+                                            <th>\(-\infty\)</th>
+                                            <th>0</th>
+                                            <th>2</th>
+                                            <th>\(+\infty\)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\(y'\)</td>
+                                            <td>+</td>
+                                            <td>0</td>
+                                            <td>-</td>
+                                            <td>+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\(y\)</td>
+                                            <td>\(-\infty\)</td>
+                                            <td>2 (CĐ)</td>
+                                            <td>-2 (CT)</td>
+                                            <td>\(+\infty\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Hàm số đồng biến trên các khoảng \((-\infty, 0)\) và \((2, +\infty)\), nghịch biến trên \((0, 2)\).</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Practice Section -->
+                <section class="doc-section">
+                    <h2 class="article-subtitle"><i class="fas fa-pencil-alt"></i> BÀI TẬP VẬN DỤNG</h2>
+                    
+                    <!-- Multiple Choice -->
+                    <div class="quiz-section">
+                        <h3>Trắc nghiệm nhiều lựa chọn</h3>
+                        
+                        <div class="quiz-item">
+                            <p class="quiz-question">Câu 1: Đạo hàm của hàm số \(y = x^3 - 2x + 1\) tại \(x = 1\) là:</p>
+                            
+                            <div class="quiz-options">
+                                <label>
+                                    <input type="radio" name="q1">
+                                    <span>A. 1</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="q1">
+                                    <span>B. 2</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="q1">
+                                    <span>C. 3</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="q1">
+                                    <span>D. 4</span>
+                                </label>
+                            </div>
+                            <button onclick="checkMultipleChoice('q1', 'A')" class="btn"><i class="fas fa-check mr-2"></i>Kiểm tra</button>
+                        </div>
+                        
+                        <div class="quiz-item">
+                            <p class="quiz-question">Câu 2: Hàm số nào sau đây có đạo hàm bằng \(3x^2\)?</p>
+                            
+                            <div class="quiz-options">
+                                <label>
+                                    <input type="radio" name="q2">
+                                    <span>A. \(y = x^3\)</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="q2">
+                                    <span>B. \(y = 3x^3\)</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="q2">
+                                    <span>C. \(y = x^3 + 5\)</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="q2">
+                                    <span>D. \(y = x^3 - 2x\)</span>
+                                </label>
+                            </div>
+                            <button onclick="checkMultipleChoice('q2', 'C')" class="btn"><i class="fas fa-check mr-2"></i>Kiểm tra</button>
+                        </div>
+                    </div>
+                    
+                    <!-- True/False -->
+                     <!-- Câu 13 -->
+<div class="question" id="q13">
+<div class="summary-box">
+<p><strong>Câu 13</strong>. Trong không gian tọa độ \( Oxyz \), cho đường thẳng \( \Delta: \frac{x-2}{5} = \frac{y-1}{12} = \frac{z-6}{-13} \) và mặt phẳng \( (P): x - 2y - 2z - 2025 = 0 \).</p>
+
+<div class="options">
+<p>a) Vectơ có tọa độ \( (2; 1; 6) \) là một vectơ chỉ phương của \( \Delta \).</p>
+<label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
+<label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
+<p>b) Vectơ có tọa độ \( (1; 2; -2) \) là một vectơ pháp tuyến của \( (P) \).</p>
+<label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
+<label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
+<p>c) Cosin của góc giữa hai vectơ \( \vec{u} = (5; 12; -13) \) và \( \vec{n} = (1; -2; -2) \) bằng \( \frac{7}{39 \sqrt{2}} \).</p>
+<label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
+<label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
+<p>d) Góc giữa đường thẳng \( \Delta \) và mặt phẳng \( (P) \) (làm tròn đến hàng đơn vị của độ) bằng \( 83^\circ \).</p>
+<label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
+<label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q13', ['Sai', 'Sai', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
+<div class="solution" id="solution-q13"></div>
+</div>
+</div>
+
+                    <div class="quiz-section">
+                        <h3>Trắc nghiệm đúng/sai</h3>
+                        
+                        <div class="quiz-item">
+                            <p class="quiz-question">Câu 3: Xét các mệnh đề sau về hàm số \(y = x^4 - 2x^2 + 3\):</p>
+                            
+                            <div class="true-false-questions">
+                                <div class="tf-question">
+                                    <p>a) Hàm số có 3 điểm cực trị</p>
+                                    <div class="tf-options">
+                                        <label>
+                                            <input type="radio" name="q3a">
+                                            <span>Đúng</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="q3a">
+                                            <span>Sai</span>
+                                        </label>
+                                        <button onclick="checkTrueFalse('q3', 'a', false)" class="btn"><i class="fas fa-check mr-2"></i>Kiểm tra</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="tf-question">
+                                    <p>b) Hàm số đạt cực tiểu tại \(x = 0\)</p>
+                                    <div class="tf-options">
+                                        <label>
+                                            <input type="radio" name="q3b">
+                                            <span>Đúng</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="q3b">
+                                            <span>Sai</span>
+                                        </label>
+                                        <button onclick="checkTrueFalse('q3', 'b', false)" class="btn"><i class="fas fa-check mr-2"></i>Kiểm tra</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Short Answer -->
+                    <div class="quiz-section">
+                        <h3>Trả lời ngắn</h3>
+                        
+                        <div class="quiz-item">
+                            <p class="quiz-question">Câu 4: Tìm giá trị lớn nhất của hàm số \(y = -x^2 + 4x - 3\) trên đoạn \([0, 3]\).</p>
+                            
+                            <div class="short-answer">
+                                <input type="text" id="q4-answer" placeholder="Nhập đáp án">
+                                <button onclick="checkShortAnswer('q4-answer', '1')" class="btn"><i class="fas fa-check mr-2"></i>Kiểm tra</button>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-item">
+                            <p class="quiz-question">Câu 5: Tìm đạo hàm của hàm số \(y = \ln(x^2 + 1)\).</p>
+                            
+                            <div class="short-answer">
+                                <input type="text" id="q5-answer" placeholder="Nhập đáp án">
+                                <button onclick="checkShortAnswer('q5-answer', '2x/(x^2+1)')" class="btn"><i class="fas fa-check mr-2"></i>Kiểm tra</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tools Section -->
+                <section class="doc-section">
+                    <h2 class="article-subtitle"><i class="fas fa-tools"></i> CÔNG CỤ HỖ TRỢ</h2>
+                    
+                    <div class="tools-grid">
+                        <button class="btn tool-btn">
+                            <i class="fas fa-calculator"></i>
+                            <span>Máy tính khoa học</span>
+                        </button>
+                        
+                        <button class="btn tool-btn">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Công cụ vẽ đồ thị</span>
+                        </button>
+                    </div>
+                </section>
+                
+                <div class="download-bar">
+                    <div class="download-info">
+                        <i class="fas fa-file-pdf"></i>
+                        <strong>Tài liệu đầy đủ có hình ảnh và công thức</strong>
+                    </div>
+                    <a href="#" class="btn"><i class="fas fa-download mr-2"></i> Tải PDF</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Về chúng tôi</h3>
+                <p>Minh Tâm được thành lập tháng 08/2025 với tầm nhìn trở thành điểm đến giáo dục uy tín tại Thạnh Phú. Tiếp nối truyền thống nhiều năm kinh nghiệm trong ngành giáo dục của đội ngũ sáng lập, chúng tôi đã hoàn thiện những bước cuối cùng để chính thức khai trương vào tháng 8/2025.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Liên hệ</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> khu phố 3, xã Thạnh Phú, tỉnh Vĩnh Long</p>
+                    <p><i class="fas fa-phone"></i> 0977899749-0918300170-0915870280</p>
+                    <p><i class="fas fa-envelope"></i> minhtamedu.thanhphu@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Thứ 2-CN: 7h30 - 20h30</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="#">Lịch khai giảng</a></li>
+                    <li><a href="#">Bảng giá học phí</a></li>
+                    <li><a href="#">Đội ngũ giáo viên</a></li>
+                    <li><a href="#">Thành tích học sinh</a></li>
+                    <li><a href="#">Câu hỏi thường gặp</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Trung tâm Bồi dưỡng Văn hóa Minh Tâm. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Các phần khác (Zalo, chatbox, popup) -->
+    <!-- ... (giữ nguyên như các trang khác) ... -->
+
+    <!-- Thêm CSS cho phần tài liệu -->
+    <style>
+        /* CSS cho thanh điều hướng tài liệu */
+        .document-nav {
+            list-style: none;
+        }
+        
+        .document-nav li {
+            margin-bottom: 5px;
+        }
+        
+        .document-nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .document-nav a:hover,
+        .document-nav a.active {
+            background: #f0f0f0;
+            border-left: 3px solid #c8102e;
+            color: #c8102e;
+        }
+        
+        .document-nav .submenu {
+            padding-left: 20px;
+            display: none;
+        }
+        
+        .document-nav .active .submenu {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .document-nav .submenu {
+                padding-left: 15px;
+            }
+        }
+    </style>
+
+    <script>
+        // Dữ liệu tài liệu mẫu (tập trung vào Toán 12)
+        const documentData = {
+            "toan12": {
+                "title": "Toán lớp 12",
+                "docs": {
+                    "toan12-chuong1": "Chương 1: Ứng dụng đạo hàm",
+                    "toan12-chuong2": "Chương 2: Hàm số lũy thừa, mũ, logarit",
+                    "toan12-chuong3": "Chương 3: Nguyên hàm - Tích phân"
+                }
+            },
+            "ly12": {
+                "title": "Lý lớp 12",
+                "docs": {
+                    "ly12-chuong1": "Chương 1: Dao động cơ",
+                    "ly12-chuong2": "Chương 2: Sóng cơ",
+                    "ly12-chuong3": "Chương 3: Dòng điện xoay chiều"
+                }
+            },
+            "hoa12": {
+                "title": "Hóa lớp 12",
+                "docs": {
+                    "hoa12-chuong1": "Chương 1: Este - Lipit",
+                    "hoa12-chuong2": "Chương 2: Cacbohidrat",
+                    "hoa12-chuong3": "Chương 3: Amin, Amino axit"
+                }
+            }
+        };
+
+        // Tạo menu điều hướng tài liệu
+        function initDocumentNav() {
+            const navContainer = document.getElementById('documentNav');
+            
+            for (const [key, category] of Object.entries(documentData)) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="#" class="category-link" data-category="${key}">
+                        ${category.title} <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu" id="submenu-${key}"></ul>
+                `;
+                navContainer.appendChild(li);
+                
+                // Thêm tài liệu con
+                const submenu = document.getElementById(`submenu-${key}`);
+                for (const [docId, docTitle] of Object.entries(category.docs)) {
+                    const subLi = document.createElement('li');
+                    subLi.innerHTML = `<a href="#" data-doc="${docId}">${docTitle}</a>`;
+                    submenu.appendChild(subLi);
+                }
+            }
+            
+            // Xử lý click category
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-chevron-up');
+                    this.querySelector('i').classList.toggle('fa-chevron-down');
+                });
+            });
+            
+            // Xử lý click tài liệu
+            document.querySelectorAll('[data-doc]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const docId = this.getAttribute('data-doc');
+                    
+                    // Đánh dấu active
+                    document.querySelectorAll('[data-doc]').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Cập nhật URL (không reload trang)
+                    history.pushState(null, null, `?doc=${docId}`);
+                });
+            });
+        }
+        
+        // Khởi tạo khi trang tải xong
+        document.addEventListener('DOMContentLoaded', function() {
+            initDocumentNav();
+            
+            // Mở rộng danh mục chứa tài liệu hiện tại (nếu có)
+            const urlParams = new URLSearchParams(window.location.search);
+            const docParam = urlParams.get('doc');
+            if (docParam) {
+                const category = docParam.split('-')[0];
+                const categoryElement = document.querySelector(`[data-category="${category}"]`);
+                if (categoryElement) {
+                    categoryElement.click(); // Mở rộng danh mục
+                }
+                
+                // Đánh dấu active cho tài liệu
+                const docElement = document.querySelector(`[data-doc="${docParam}"]`);
+                if (docElement) {
+                    docElement.click();
+                }
+            }
+        });
+    </script>
+    
+    <script>
+        // Toggle solution visibility
+        document.querySelectorAll('.solution-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const solution = this.nextElementSibling;
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+                
+                if (solution.style.display === 'block') {
+                    this.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>Ẩn lời giải';
+                } else {
+                    this.innerHTML = '<i class="fas fa-eye mr-2"></i>Xem lời giải';
+                }
+            });
+        });
+        
+        // Initialize all solutions as hidden
+        document.querySelectorAll('.solution').forEach(solution => {
+            solution.style.display = 'none';
+        });
+        
+        // Hàm kiểm tra đáp án trắc nghiệm
+        function checkMultipleChoice(questionId, correctOption) {
+            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+            if (!selectedOption) {
+                alert("Vui lòng chọn đáp án!");
+                return;
+            }
+            
+            const optionValue = selectedOption.nextElementSibling.textContent.trim().charAt(0);
+            const isCorrect = optionValue === correctOption;
+            
+            showResult(selectedOption.closest('.quiz-item'), isCorrect, correctOption);
+        }
+        
+        // Hàm kiểm tra đúng/sai
+        function checkTrueFalse(questionId, part, isCorrect) {
+            const selectedOption = document.querySelector(`input[name="${questionId}${part}"]:checked`);
+            if (!selectedOption) {
+                alert("Vui lòng chọn đáp án!");
+                return;
+            }
+            
+            const userAnswer = selectedOption.nextElementSibling.textContent.trim() === "Đúng";
+            const result = userAnswer === isCorrect;
+            
+            showResult(selectedOption.closest('.quiz-item'), result, isCorrect ? "Đúng" : "Sai");
+        }
+        
+        // Hàm kiểm tra câu trả lời ngắn
+        function checkShortAnswer(inputId, correctAnswer) {
+            const inputElement = document.getElementById(inputId);
+            const userAnswer = inputElement.value.trim();
+            if (!userAnswer) {
+                alert("Vui lòng nhập đáp án!");
+                return;
+            }
+            
+            // Cho phép đáp án có nhiều cách viết
+            const normalizedUserAnswer = userAnswer.replace(/\s+/g, '');
+            const normalizedCorrectAnswer = correctAnswer.replace(/\s+/g, '');
+            
+            const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
+            showResult(inputElement.closest('.quiz-item'), isCorrect, correctAnswer);
+        }
+        
+        // Hiển thị kết quả
+        function showResult(container, isCorrect, correctAnswer) {
+            // Xóa thông báo cũ nếu có
+            const oldResult = container.querySelector('.result-message');
+            if (oldResult) {
+                oldResult.remove();
+            }
+            
+            // Tạo thông báo mới
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `result-message ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            if (isCorrect) {
+                resultDiv.innerHTML = `<i class="fas fa-check-circle mr-2"></i>Chính xác!`;
+            } else {
+                resultDiv.innerHTML = `<i class="fas fa-times-circle mr-2"></i>Sai rồi. Đáp án đúng là: ${correctAnswer}`;
+            }
+            
+            container.appendChild(resultDiv);
+        }
+        
+        // Hiệu ứng khi click nút download
+        document.querySelector('.download-bar .btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Đang tải xuống bản PDF đầy đủ...');
+            // Thực tế sẽ thay bằng link download thật
+        });
+    </script>
+    <!-- Đảm bảo MathJax được load đúng cách -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+    // Fix công thức trong nội dung động
+    document.addEventListener('DOMContentLoaded', function() {
+      // Xử lý khi click nút solution
+      document.querySelectorAll('.solution-toggle').forEach(btn => {
+        btn.addEventListener('click', function() {
+          setTimeout(() => {
+            if (window.MathJax) {
+              MathJax.typesetPromise();
+            }
+          }, 100);
+        });
+      });
+      
+      // Kiểm tra nếu MathJax đã sẵn sàng
+      if (window.MathJax) {
+        MathJax.startup.promise.then(() => {
+          MathJax.typesetPromise();
+        });
+      }
+    });
+    </script>
+    <script>
+    // Xử lý menu mobile
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+        });
+    });
+</script>
+    
+</body>
+</html>
