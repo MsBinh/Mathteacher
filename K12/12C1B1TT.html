@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TÀI LIỆU TOÁN HỌC</title>
+
+  <!-- Polyfill ES6 -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+  <!-- MathJax -->
+  <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Slick Carousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+  <!-- Font Awesome -->
+   <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles1.css">
+</head>
+
+<body>
+    <!-- Thay thế toàn bộ phần <header> hiện tại bằng code này -->
+ <header>
+        <div class="header-container">
+             <div class="logo">
+            <img src="logo3.jpg" alt="" class="logo-img">
+            <div class="logo-text">
+                <h1>EDUCODE </h1>
+                <p>Chia sẻ & Truyền cảm hứng học toán</p>
+            </div>
+        </div>
+
+             <button class="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav id="mainNav">
+                <ul class="main-menu">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li>
+                        <a href="#courses">Chuyên đề 12 <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math">Đạo hàm và ứng dụng <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3">Tiệm cận</a></li>
+                                    <li><a href="12C1B4">Đồ thị hàm số</a></li>
+                                      </ul>
+                            </li>
+                            <li>
+                                <a href="#math">Véc tơ và hệ tọa độ KG <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3">Biểu thức tọa độ</a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> Thống kê <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1">Bài 1</a></li>
+                                    <li><a href="12C3B2">Bài 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#math">Nguyên hàm,tích phân <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1">Tích phân</a></li>
+                                    <li><a href="12C4B3">Ứng dụng </a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> PT trong KG <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1">Bài 1</a></li>
+                                    <li><a href="12C5B2">Bài 2</a></li>
+                                    <li><a href="12C5B2">Bài 3</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> Xác suất <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1">Bài 1</a></li>
+                                    <li><a href="12C6B2">Bài 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Trắc nghiệm <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1TN">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2TN">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3TN">Tiệm cận</a></li>
+                                    <li><a href="12C1B4TN">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1TN">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1TN">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3TN">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1TN">Bài 1</a></li>
+                                    <li><a href="12C3B2TN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1TN">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1TN">Tích phân</a></li>
+                                    <li><a href="12C4B3TN">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1TN">Bài 1</a></li>
+                                    <li><a href="12C5B2TN">Bài 2</a></li>
+                                    <li><a href="12C5B2TN">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1TN">Bài 1</a></li>
+                                    <li><a href="12C6B2TN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Đúng sai <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1DS">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2DS">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3DS">Tiệm cận</a></li>
+                                    <li><a href="12C1B4DS">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1DS">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1DS">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3DS">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1DS">Bài 1</a></li>
+                                    <li><a href="12C3B1DS">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1DS">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1DS">Tích phân</a></li>
+                                    <li><a href="12C4B1DS">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1DS">Bài 1</a></li>
+                                    <li><a href="12C5B1DS">Bài 2</a></li>
+                                    <li><a href="12C5B1DS">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1DS">Bài 1</a></li>
+                                    <li><a href="12C5B1DS">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Trả lời ngắn <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1TLN">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2TLN">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3TLN">Tiệm cận</a></li>
+                                    <li><a href="12C1B4TLN">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1TLN">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1TLN">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3TLN">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1TLN">Bài 1</a></li>
+                                    <li><a href="12C3B2TLN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1TLN">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1TLN">Tích phân</a></li>
+                                    <li><a href="12C4B3TLN">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1TLN">Bài 1</a></li>
+                                    <li><a href="12C5B2TLN">Bài 2</a></li>
+                                    <li><a href="12C5B2TLN">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1TLN">Bài 1</a></li>
+                                    <li><a href="12C6B2TLN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Toán thực tế <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1TT">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2TT">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3TT">Tiệm cận</a></li>
+                                    <li><a href="12C1B4TT">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1TT">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1TT">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3TT">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1TT">Bài 1</a></li>
+                                    <li><a href="12C3B1TT">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1TT">Nguyên hàm</a></li>
+                                    <li><a href="12C4B2TT">Tích phân</a></li>
+                                    <li><a href="12C4B3TT">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1TT">Bài 1</a></li>
+                                    <li><a href="12C5B2TT">Bài 2</a></li>
+                                    <li><a href="12C5B3TT">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1TT">Bài 1</a></li>
+                                    <li><a href="12C6B2TT">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                   <li><a href="#" class="login-btn" id="login-button">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    
+      
+    
+      </header>
+
+
+  <!-- Modal Đăng Nhập -->
+  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+      <h2 class="text-xl font-bold mb-4 text-center">Đăng nhập bằng mã</h2>
+      <form id="code-login-form">
+        <input type="text" id="login-code" class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg" placeholder="Nhập mã thẻ (VD: ABC123DEF4)" required>
+        <div class="flex justify-center gap-4">
+          <button type="submit" class="px-6 py-2 bg-purple-800 text-white rounded-full hover:bg-purple-900">Đăng nhập</button>
+          <button type="button" id="close-modal" class="px-6 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600">Đóng</button>
+        </div>
+      </form>
+      <div id="auth-status" class="mt-4 text-center font-bold"></div>
+    </div>
+  </div>
+
+
+<main class="main-content">
+            <div id="documentViewer">
+                <h1 class="article-title">CHUYÊN ĐỀ: ỨNG DỤNG ĐẠO HÀM</h1>
+                <p class="doc-subtitle">Môn Toán - Lớp 12</p>
+                <div class="doc-meta">
+                    <span><i class="fas fa-book"></i> 7 dạng bài</span>
+                    <span><i class="fas fa-lightbulb"></i> 25 ví dụ</span>
+                    <span><i class="fas fa-pencil-alt"></i> 50 bài tập</span>
+                    <span><i class="fas fa-calendar-alt"></i> Cập nhật: 20/08/2025</span>
+                    <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
+                </div>
+
+<!-- Câu 1 -->
+<div class="question" id="q1">
+<div class="summary-box">
+<p><strong>Câu 1</strong>. Cho đồ thị \( y = f(x) \) như hình vẽ dưới đây:<br/>
+<img alt="" loading="lazy" src="data/anh2/3.1.png"/><br/>
+
+Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</p>
+
+<div class="options">
+<label><input name="q1" onchange="showOptionIcon('q1', 'A', 'C')" type="radio" value="A"/> A. \( (-\infty ; 1) \)<span class="option-icon" id="icon-q1-A"></span></label>
+<label><input name="q1" onchange="showOptionIcon('q1', 'B', 'C')" type="radio" value="B"/> B. \( (2 ; +\infty) \)<span class="option-icon" id="icon-q1-B"></span></label>
+<label><input name="q1" onchange="showOptionIcon('q1', 'C', 'C')" type="radio" value="C"/> C. \( (0 ; 1) \)<span class="option-icon" id="icon-q1-C"></span></label>
+<label><input name="q1" onchange="showOptionIcon('q1', 'D', 'C')" type="radio" value="D"/> D. \( (1 ; 2) \)<span class="option-icon" id="icon-q1-D"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkAnswer('q1', 'B')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q1')">Xem lời giải</button>
+<div class="solution" id="solution-q1">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Nhìn vào đồ thị ta thấy hàm số <span class="math">\(y=f(x)\)</span> đi lên (đồng biến) trên khoảng <span class="math">\((2; +\infty)\)</span>.</p>
+  <p>Các khoảng khác: 
+    <br/>• \((-∞;1)\): hàm đang giảm. 
+    <br/>• \((0;1)\): hàm đi xuống. 
+    <br/>• \((1;2)\): hàm vẫn giảm.
+  </p>
+  <p>👉 Vậy đáp án đúng là <strong>B</strong>.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Câu 2 -->
+<div class="question" id="q2">
+<div class="summary-box">
+<p><strong>Câu 2</strong>. Trong không gian \( Oxyz \), cho mặt phẳng \( (P): 2x + y - z - 1 = 0 \). Vector nào dưới đây là một vector pháp tuyến của mặt phẳng \( (P) \)?</p>
+
+<div class="options">
+<label><input name="q2" onchange="showOptionIcon('q2', 'A', 'A')" type="radio" value="A"/> A. \( \overrightarrow{n_3} = (2 ; 1 ; -1) \)<span class="option-icon" id="icon-q2-A"></span></label>
+<label><input name="q2" onchange="showOptionIcon('q2', 'B', 'A')" type="radio" value="B"/> B. \( \overrightarrow{n_1} = (2 ; -1 ; 1) \)<span class="option-icon" id="icon-q2-B"></span></label>
+<label><input name="q2" onchange="showOptionIcon('q2', 'C', 'A')" type="radio" value="C"/> C. \( \overrightarrow{n_4} = (-2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-C"></span></label>
+<label><input name="q2" onchange="showOptionIcon('q2', 'D', 'A')" type="radio" value="D"/> D. \( \overrightarrow{n_2} = (2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-D"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkAnswer('q2', 'A')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q2')">Xem lời giải</button>
+<div class="solution" id="solution-q2"></div>
+</div>
+</div>
+
+
+<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 13 đến câu 16</h3>
+
+<!-- Câu 13 -->
+<div class="question" id="q13">
+<div class="summary-box">
+<p><strong>Câu 13</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
+<img alt="" loading="lazy" src="data/anh2/3.13.png"/><br/>
+<div class="options">
+<p>a) Tổng quãng đường vật đi được trong 60(s) đầu tiên là 650(m).</p>
+<label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
+<label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
+<p>b) Trong khoảng thời gian từ 0(s) đến 10(s), phương trình vận tốc của vật là \( v(t) = \frac{1}{2}t + 10 \, (\mathrm{m/s}) \).</p>
+<label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
+<label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
+<p>c) Trong khoảng thời gian từ 30(s) đến 60(s), phương trình vận tốc của vật là \( v(t) = -\frac{1}{2}t + 30 \, (\mathrm{m/s}) \).</p>
+<label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
+<label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
+<p>d) Trong khoảng thời gian từ 10(s) đến 30(s), vật chuyển động đều.</p>
+<label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
+<label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
+<div class="solution" id="solution-q13"></div>
+</div>
+</div>
+
+
+<h3>Phần III: Trắc Nghiệm Trả Lời Ngắn - từ câu 17 đến câu 22</h3>
+
+<!-- Câu 17 -->
+<div class="question" id="q17">
+<div class="summary-box">
+<p><strong>Câu 17</strong>. Câu lạc bộ thiện nguyện của một trường THPT dự định làm các bình hoa bằng giấy để bán trong một hội chợ gây quỹ từ thiện. Cần 1 giờ để làm một bình hoa nhỏ và sẽ bán với giá 100 nghìn đồng và 90 phút để làm một bình hoa lớn và bán với giá 200 nghìn đồng. Biết rằng câu lạc bộ có 30 giờ để làm các bình hoa và muốn tổng số bình hoa không quá 24 bình. Số tiền lớn nhất mà câu lạc bộ có thể thu được là bao nhiêu triệu đồng?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q17" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q17', '1800')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q17')">Xem lời giải</button>
+<div class="solution" id="solution-q17"></div>
+<div class="answer-feedback" id="feedback-q17"></div>
+</div>
+</div>
+
+
+
+ <div class="score-section">
+ <h3>Tính tổng điểm</h3>
+    <p>Nhập họ và tên:</p>
+    <input id="student-name" type="text" placeholder="Họ và tên"/>   
+<button onclick="calculateScore()">Tính điểm</button>
+<div id="score-result"></div>
+</div>
+
+<footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Về Educode</h3>
+                 <p>EduCode là nền tảng học online đang trên hình trình xây dưng, với kỳ vọng mang đến các khóa học toán chất lượng cao. Chúng tôi cam kết giúp bạn nắm vững kiến thức và chuẩn bị cho tương lai với các khóa học lý, hóa, tin học và AI sắp ra mắt.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+                          
+                      
+            <div class="footer-col">
+                <h3>Liên hệ</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> 0878042368</p>
+                    <p><i class="fas fa-envelope"></i> nguyenthanhbinh_thpt_tts@bentre.edu.vn</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                     <li><a href="https://meet.google.com/osh-vjqs-vdg">Học online </a></li>
+                    <li><a href="12C1B1.html">Tài liệu & Đề ôn luyện</a></li>
+                    <li><a href="#coming-soon">Sắp ra mắt: Lý, Hóa, AI</a></li>
+                    <li><a href="#blog">Blog EduCode</a></li>
+                </ul>
+            </div>
+            </div>
+        
+        <div class="copyright">
+            <p>© 2025 EduCode – Thạc sĩ Nguyễn Thanh Bình. All Rights Reserved.</p>
+        </div>
+    </footer>
+             
+  
+    
+          <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+          import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+          // --- Firebase config ---
+          const firebaseConfig = {
+            apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
+            authDomain: "veonline-3bcbf.firebaseapp.com",
+            projectId: "veonline-3bcbf",
+            storageBucket: "veonline-3bcbf.appspot.com",
+            messagingSenderId: "83902304195",
+            appId: "1:83902304195:web:2f9ec1ee0c23d6e21bb776"
+          };
+
+          const app = initializeApp(firebaseConfig);
+          const db = getFirestore(app);
+
+            // ===== Toggle lời giải =====
+            window.toggleSolution = function(solutionId) {
+              const solutionBox = document.getElementById(solutionId);
+              if (!solutionBox) return alert(`Không tìm thấy box lời giải với ID: ${solutionId}`);
+              const studentCode = localStorage.getItem("studentCode");
+              if (studentCode) solutionBox.classList.toggle('visible');
+              else document.getElementById('login-modal').classList.remove('hidden');
+            };
+        
+
+                // ===== Form đăng nhập =====
+                const codeForm = document.getElementById('code-login-form');
+                if (codeForm) {
+                  codeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const code = document.getElementById('login-code')?.value?.trim() || '';
+                    const nameInput = document.getElementById('student-name');
+                    const name = nameInput ? nameInput.value.trim() : '';
+
+                    console.log("🔹 Mã nhập:", code); // debug
+
+                    try {
+                      const codesRef = collection(db, "codes");
+                      const q = query(codesRef, where("code", "==", code));
+                      const querySnapshot = await getDocs(q);
+
+                      console.log("🔹 Số document tìm được:", querySnapshot.size);
+
+                      if (!querySnapshot.empty) {
+                        // Lấy document đầu tiên
+                        const docData = querySnapshot.docs[0].data();
+                        const studentNameFromDB = docData.name || name;
+
+                        localStorage.setItem("studentName", studentNameFromDB);
+                        localStorage.setItem("studentCode", code);
+
+                        document.getElementById('login-modal').classList.add('hidden');
+                        document.getElementById('auth-status').textContent = '✅ Đăng nhập thành công';
+                      } else {
+                        document.getElementById('auth-status').textContent = '❌ Mã không hợp lệ';
+                        document.getElementById('login-modal').classList.remove('hidden');
+                      }
+
+                    } catch (err) {
+                      console.error(err);
+                      document.getElementById('auth-status').textContent = '❌ Lỗi đăng nhập: ' + err.message;
+                    }
+                  });
+                }
+
+                // ===== Nút đăng nhập/đăng xuất =====
+                document.getElementById('login-button').addEventListener('click', (e) => {
+                  e.preventDefault();
+                  const studentCode = localStorage.getItem("studentCode");
+                  if (studentCode) {
+                    localStorage.removeItem("studentName");
+                    localStorage.removeItem("studentCode");
+                    document.getElementById('auth-status').textContent = 'Đã đăng xuất';
+                    document.querySelectorAll('.solution').forEach(el => el.classList.remove('visible'));
+                  } else {
+                    document.getElementById('login-modal').classList.remove('hidden');
+                  }
+                });
+
+                // ===== Đóng modal =====
+                document.getElementById('close-modal').addEventListener('click', () => {
+                  document.getElementById('login-modal').classList.add('hidden');
+                  document.getElementById('auth-status').textContent = '';
+                  document.getElementById('login-code').value = '';
+                });
+
+                // ===== Lưu kết quả bài làm =====
+                window.saveAttempt = async function(testId, answersObject, score) {
+                  const studentName = localStorage.getItem("studentName") || null;
+                  const studentCode = localStorage.getItem("studentCode") || null;
+                  if (!studentCode) return alert('⚠️ Vui lòng nhập mã trước khi lưu kết quả!');
+
+                  try {
+                    await addDoc(collection(db, 'attempts'), {
+                      name: studentName,
+                      code: studentCode,
+                      testId: testId || 'unknown',
+                      answers: answersObject || {},
+                      score: score,
+                      createdAt: serverTimestamp()
+                    });
+                    console.log('✅ Đã lưu bài làm');
+                  } catch (err) {
+                    console.error('❌ Lưu bài làm thất bại:', err);
+                  }
+                };
+
+        </script>
+
+<!-- Floating button để toggle vẽ -->
+<button class="floating-button" id="toggle-draw" aria-label="Bật/tắt chế độ vẽ">🖊️ Vẽ</button>
+<!-- Canvas cho vẽ -->
+<canvas id="drawCanvas"></canvas>
+<!-- Toolbar công cụ vẽ -->
+<div class="toolbar" id="drawToolbar" role="toolbar" aria-label="Thanh công cụ vẽ">
+    <div class="drawing-tools">
+        <select id="tool" title="Chọn công cụ" aria-label="Chọn công cụ vẽ">
+            <option value="pen">✏️</option>
+            <option value="line">📏</option>
+            <option value="rect">⬛</option>
+            <option value="circle">⚪</option>
+            <option value="cube">📦</option>
+            <option value="cone">🔺</option>
+            <option value="cylinder">⬤</option>
+            <option value="pyramid">🔻</option>
+            <option value="sphere">⚽</option>
+        </select>
+        <button title="Undo" id="undo-canvas">↩️</button>
+        <button title="Xóa" id="clear-canvas">🧹</button>
+        <button title="Lưu" id="save-canvas">💾</button>
+        <button title="Thoát" id="exit-draw">❌</button>
+    </div>
+            <input type="color" id="colorPicker" value="#ffffff" title="Chọn màu" aria-label="Chọn màu vẽ">
+            <input type="range" id="draw-width" min="1" max="14" value="2" title="" aria-label="">
+        </div>
+        <!-- Nút toggle bảng xanh -->
+        <button class="blackboard-toggle" id="toggle-blackboard" aria-label="Bật/tắt bảng xanh">📋</button>
+
+        <!-- Bảng xanh -->
+        <div id="blackboard" class="blackboard" role="region" aria-label="Bảng xanh">
+            <button id="close-blackboard" aria-label="Đóng bảng xanh">❌</button>
+        </div>
+
+
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      <script>
+      MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+          chtml: { linebreaks: { automatic: true } }
+      };
+      </script>
+
+
+
+
+
+           
+            <script src="de.js"></script>
+
+           <!-- Đáp án đề (phải sau de.js) -->
+
+            <script>
+              window.correctAnswers = {
+                q1: 'B', q2: 'A', q3: 'C', q4: 'B',
+                q5: 'A', q6: 'B', q7: 'A', q8: 'B',
+                q9: 'D', q10: 'A', q11: 'C', q12: 'B',
+                q13: ['Đúng','Đúng','Đúng','Đúng'],
+                q14: ['Đúng','Sai','Đúng','Sai'],
+                q15: ['Sai','Đúng','Đúng','Sai'],
+                q16: ['Sai','Sai','Đúng','Sai'],
+                q17: '1800', q18: '12.4', q19: '0.24',
+                q20: '95', q21: '875', q22: '55.4'
+              };
+            </script>
+
+          
+
+
+
+</body>
+</html>

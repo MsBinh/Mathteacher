@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CƠ SỞ DẠY THÊM MINH TÂM</title>
+    <title>TÀI LIỆU TOÁN HỌC MIỄN PHÍ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     
@@ -11,153 +11,297 @@
 </head>
 <body>
     <!-- Thay thế toàn bộ phần <header> hiện tại bằng code này -->
-<header>
-    <div class="header-container">
-        <div class="logo">
-            <img src="img/logo.png" alt="Logo" class="logo-img">
-            <div class="logo-text">
-                <h1>MINHTAMEDUCATION</h1>
-                <p>Vững kiến thức - Sáng tương lai</p>
+ <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo3.jpg" alt="" class="logo-img">
+                <div class="logo-text">
+                    <h1>EDUCODE</h1>
+                    <p>Chinh phục tri thức, dẫn đầu tương lai</p>
+                </div>
             </div>
-        </div>
 
-         <button class="hamburger-btn">
+            <button class="hamburger-btn">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
 
-         <nav id="mainNav">
-                <ul class="main-menu">
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="gioithieu.html">Giới thiệu</a></li>
+            <nav id="mainNav">
+                <nav id="mainNav">
+                    <ul class="main-menu">
+                        <li><a href="K12/12C1B1.html">Trang chủ</a></li>
+                        <li><a href="Mẫu soạnde.html">Giới thiệu</a></li>
                     <li>
-                        <a href="#">Chương trình học <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <a href="K12/12C1B1.html">Khóa học <i class="fas fa-chevron-down dropdown-icon"></i></a>
                         <ul class="submenu">
-                            <li><a href="#">Lớp 1-5</a></li>
                             <li>
-                                <a href="#">Lớp 6-9 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <a href="K12/12C1B1.html">Toán học <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
                                 <ul class="nested-sub-menu">
-                                    <li><a href="#">Toán</a></li>
-                                    <li><a href="#">Lý</a></li>
-                                    <li><a href="#">Hóa</a></li>
+                                    <li><a href="#math-tieu-hoc">Tiểu học (Lớp 1-5)</a></li>
+                                    <li><a href="#math-thcs">THCS (Lớp 6-9)</a></li>
+                                    <li><a href="#math-thpt">THPT (Lớp 10-12)</a></li>
                                 </ul>
                             </li>
-                            <li><a href="daoham - Sao chép.html">Lớp 10-12</a></li>
+                            <li>
+                                <a href="#physics">Lý (Sắp ra mắt) <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#physics-thcs">THCS (Lớp 6-9)</a></li>
+                                    <li><a href="#physics-thpt">THPT (Lớp 10-12)</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry">Hóa (Sắp ra mắt) <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#chemistry-thcs">THCS (Lớp 6-9)</a></li>
+                                    <li><a href="#chemistry-thpt">THPT (Lớp 10-12)</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#informatics">Tin học (Sắp ra mắt) <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#informatics-thcs">THCS (Lớp 6-9)</a></li>
+                                    <li><a href="#informatics-thpt">THPT (Lớp 10-12)</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#ai">AI (Sắp ra mắt) <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#ai-thpt">THPT (Lớp 10-12)</a></li>
+                                    <li><a href="#ai-advanced">Nâng cao</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
-                    <li><a href="congkhai.html">Bảng công khai</a></li>
-                    <li><a href="dangky.html" class="register-btn">Đăng ký học</a></li>
+                    <li>
+                        <a href="#resources">Tài liệu <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Toán học <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Tiểu học (Lớp 1-5)</a></li>
+                                    <li><a href="#math-thcs-resources">THCS (Lớp 6-9)</a></li>
+                                    <li><a href="#math-thpt-resources">THPT (Lớp 10-12)</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#other-resources">Sắp ra mắt: Lý, Hóa, Tin học, AI <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#physics-resources">Lý</a></li>
+                                    <li><a href="#chemistry-resources">Hóa</a></li>
+                                    <li><a href="#informatics-resources">Tin học</a></li>
+                                    <li><a href="#ai-resources">AI</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#exercises">Đề ôn luyện</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact" class="register-btn">Liên hệ</a></li>
                 </ul>
             </nav>
         </div>
-</header>
+    </header>
+   
+
+
+    <!-- Slider -->
+   <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCode - Khóa học Toán Online Chất Lượng</title>
+    <meta name="description" content="Khóa học toán online từ Thạc sĩ Nguyễn Thanh Bình. Chuẩn bị cho tương lai với lý, hóa, tin học và AI.">
+    <meta name="keywords" content="toán online, khóa học toán, lý, hóa, tin học, AI, Nguyễn Thanh Bình">
+    <meta name="author" content="Nguyễn Thanh Bình">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo3.jpg" alt="" class="logo-img">
+                <div class="logo-text">
+                    <h1>EDUCODE</h1>
+                    <p>Chinh phục tri thức, dẫn đầu tương lai</p>
+                </div>
+            </div>
+
+            <button class="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav id="mainNav">
+                <ul class="main-menu">
+                    
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li>
+                        <a href="#courses">Tài liệu <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math">Khối 12 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="K12/12C1B1.html">Học kỳ 1</a></li>
+                                    <li><a href="#math-thcs">Học kỳ 2</a></li>
+                               </ul>
+                            </li>
+                            <li>
+                                <a href="#physics">Khối 11 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#physics-thcs">Học kỳ 1</a></li>
+                                    <li><a href="#physics-thpt">Học kỳ 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#physics">Khối 10 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#physics-thcs">Học kỳ 1</a></li>
+                                    <li><a href="#physics-thpt">Học kỳ 2</a></li>
+                                </ul>
+                            </li>                         
+                        </ul>
+                    </li>
+<li>
+                        <a href="#courses"> Đề theo bài <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math">Khối 12 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#K12/12C1B1.html">Học kỳ 1</a></li>
+                                    <li><a href="#math-thcs">Học kỳ 2</a></li>
+                               </ul>
+                            </li>
+                            <li>
+                                <a href="#physics">Khối 11 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#physics-thcs">Học kỳ 1</a></li>
+                                    <li><a href="#physics-thpt">Học kỳ 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#physics">Khối 10 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#physics-thcs">Học kỳ 1</a></li>
+                                    <li><a href="#physics-thpt">Học kỳ 2</a></li>
+                                </ul>
+                            </li>                         
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#courses">ĐỀ KIỂM TRA <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math">Khối 12 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#K12/12C1B1.html">Giữa HK1</a></li>
+                                    <li><a href="#math-thcs"> Cuối HK1</a></li>
+                                    <li><a href="#K12/12C1B1.html">Giữa HK2</a></li>
+                                    <li><a href="#math-thcs"> Cuối HK2</a></li>
+                               </ul>
+                            </li>
+                            <li>
+                                <a href="#physics">Khối 11 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#K12/12C1B1.html">Giữa HK1</a></li>
+                                    <li><a href="#math-thcs"> Cuối HK1</a></li>
+                                    <li><a href="#K12/12C1B1.html">Giữa HK2</a></li>
+                                    <li><a href="#math-thcs"> Cuối HK2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#physics">Khối 10 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#K12/12C1B1.html">Giữa HK1</a></li>
+                                    <li><a href="#math-thcs"> Cuối HK1</a></li>
+                                    <li><a href="#K12/12C1B1.html">Giữa HK2</a></li>
+                                    <li><a href="#math-thcs"> Cuối HK2</a></li>
+                                </ul>
+                            </li>                         
+                        </ul>
+                    </li>
+
+                    <li><a href="#exercises"> ÔN THPT</a></li>
+                    <li><a href="#blog">ÔN ĐGNL </a></li>
+                    <li><a href="#contact" class="register-btn">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <!-- Slider -->
     <div class="slider">
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-        <div class="slide-content">
-            <h2>Sớm Bước Thành Công</h2>
-            <p>Đăng ký trước 15/8, nhận ưu đãi học phí lên đến 20%!</p>
-            <a href="#" onclick="openPopup(); return false;" class="register-btn" style="display: inline-block; margin-top: 15px;">
-                    Đăng ký ngay
-                </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://minhtamedu.com" target="_blank" class="share-btn">Chia sẻ</a>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="slide-content">
+                <h2>Khóa học toán online  cùng EduCode</h2>
+                <p>Nắm vững toán học, chuẩn bị cho tương lai.</p>
+                <a href="#courses" class="register-btn" style="display: inline-block; margin-top: 15px;">Đăng ký ngay</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://educode.com" target="_blank" class="share-btn">Chia sẻ</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="slide-content">
+                <h2>Rèn luyện tư duy toán học</h2>
+                <p>Khóa học giúp bạn tự học hiệu quả, yêu thích toán học.</p>
+                <a href="#courses" class="register-btn" style="display: inline-block; margin-top: 15px;">Đăng ký ngay</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://educode.com" target="_blank" class="share-btn">Chia sẻ</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="slide-content">
+                <h2>Khóa luyện toán ĐGNL</h2>
+                <p>Khởi đầu sớm, kết quả cao!</p>
+                <a href="#courses" onclick="openPopup(); return false;" class="register-btn" style="display: inline-block; margin-top: 15px;">Đăng ký ngay</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://educode.com" target="_blank" class="share-btn">Chia sẻ</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+            <div class="slide-content">
+                <h2>Học nhóm, giảm học phí</h2>
+                <p>Nhóm từ 5 học viên, tiết kiệm tới 15% học phí!</p>
+                <a href="#courses" onclick="openPopup(); return false;" class="register-btn" style="display: inline-block; margin-top: 15px;">Đăng ký ngay</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://educode.com" target="_blank" class="share-btn">Chia sẻ</a>
+            </div>
         </div>
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-        <div class="slide-content">
-            <h2>Rủ Bạn, Nhận Quà</h2>
-            <p>Giới thiệu bạn bè,nhận ngay ưu đãi!</p>
-            <a href="#" onclick="openPopup(); return false;" class="register-btn" style="display: inline-block; margin-top: 15px;">
-                    Đăng ký ngay
-                </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://minhtamedu.com" target="_blank" class="share-btn">Chia sẻ</a>
-        </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-        <div class="slide-content">
-            <h2>Khóa Học Vươn Tầm</h2>
-            <p>Đăng ký khóa học mới, giảm 10% học phí!</p>
-            <a href="#" onclick="openPopup(); return false;" class="register-btn" style="display: inline-block; margin-top: 15px;">
-                    Đăng ký ngay
-                </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://minhtamedu.com" target="_blank" class="share-btn">Chia sẻ</a>
-        </div>
-    </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-        <div class="slide-content">
-            <h2>Cùng Nhóm, Cùng Sáng</h2>
-            <p>Nhóm trên 5 học sinh, giảm tới 15% học phí cho cả nhóm!</p>
-            <a href="#" onclick="openPopup(); return false;" class="register-btn" style="display: inline-block; margin-top: 15px;">
-                    Đăng ký ngay
-                </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://minhtamedu.com" target="_blank" class="share-btn">Chia sẻ</a>
-        </div>
-    </div>
-</div>
 
-
-    <!-- Main Content -->
+    <!-- Blog EduCode -->
     <div class="container">
         <div class="section-title">
-            <h2>Tin tức & Sự kiện</h2>
+            <h2>Blog EduCode</h2>
         </div>
         <div class="news-grid">
-           <div class="news-item">
-            <div class="news-img">
-            <a href="#"> <!-- Thêm thẻ a -->
-            <img src="img/minhtam.png" alt="Tin tức 1">
-            </a>
-            </div>
-            <div class="news-content">
-            <div class="news-date">15/06/2025</div>
-                <h3>
-            <a href="gioithieu.html">THÔNG TIN CHÍNH VỀ TRUNG TÂM</a> <!-- Thêm a vào tiêu đề -->
-            </h3>
-            <p>Minh Tâm Dù mới thành lập nhưng chúng tôi tự hào quy tụ những giáo viên giỏi với bề dày kinh nghiệm ...</p>
-          </div>
-        </div>
-         <div class="news-item">
-            <div class="news-img">
-            <a href="#"> <!-- Thêm thẻ a -->
-            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Tin tức 1">
-            </a>
-            </div>
-            <div class="news-content">
-            <div class="news-date">15/06/2025</div>
-                <h3>
-            <a href="giơithieu.html">HÀNH TRÌNH KHỞI NGUYÊN</a> <!-- Thêm a vào tiêu đề -->
-            </h3>
-            <p>Minh Tâm được thành lập tháng 08/2025 với tầm nhìn trở thành điểm đến giáo dục uy tín ...</p>
-          </div>
-          </div>
-            
             <div class="news-item">
                 <div class="news-img">
-                 <a href="#">   <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Tin tức 2">
-                </a>
+                    <a href="#courses"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Tin tức 1"></a>
                 </div>
                 <div class="news-content">
-                    <div class="news-date">10/07/2025</div>
-                    <h3>
-                        <a href="giơithieu.html">TRIẾT LÝ GIÁO DỤC </a> <!-- Thêm a vào tiêu đề -->
-                    </h3>
-                    <p>Thành công bắt đầu từ nền tảng vững chắc...</p>
+                    <div class="news-date">5/08/2025</div>
+                    <h3><a href="#courses">5 Bí quyết học toán hiệu quả</a></h3>
+                    <p>Học toán dễ dàng hơn với Educode.</p>
                 </div>
             </div>
-            
             <div class="news-item">
                 <div class="news-img">
-                 <a href="#"> <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Tin tức 3">
-                </a>
+                    <a href="#coming-soon"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Tin tức 2"></a>
                 </div>
                 <div class="news-content">
-                    <div class="news-date">05/07/2025</div>
-                    <h3>
-                    <a href="giơithieu.html">LỘ TRÌNH PHÁT TRIỂN</a> <!-- Thêm a vào tiêu đề -->
-                    </h3>
-                    <p>Chúng tôi tiên phong với mô hình giáo dục 3T...</p>
+                    <div class="news-date">10/08/2025</div>
+                    <h3><a href="#coming-soon">Toán học: Nền tảng cho AI</a></h3>
+                    <p>Khám phá cách toán học dẫn bạn đến với trí tuệ nhân tạo.</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-img">
+                    <a href="#contact"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Tin tức 3"></a>
+                </div>
+                <div class="news-content">
+                    <div class="news-date">08/05/2025</div>
+                    <h3><a href="#contact">Khóa học lý, hóa sắp ra mắt</a></h3>
+                    <p>EduCode chuẩn bị ra mắt các khóa học mới. Theo dõi để nhận thông tin sớm!</p>
                 </div>
             </div>
         </div>
@@ -167,107 +311,95 @@
     <div class="features">
         <div class="container">
             <div class="section-title">
-                <h2>Tại sao chọn Minh Tâm?</h2>
+                <h2>Học cùng EduCode </h2>
             </div>
-            
             <div class="features-grid">
                 <div class="feature-item">
                     <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Giáo viên chất lượng</h3>
-                    <p>Đội ngũ giáo viên giỏi, kinh nghiệm, tận tâm từ các trường trên địa bàn</p>
+                    <h3>Học cùng Giáo viên  tận tâm</h3>
+                    <p>Phương pháp cá nhân hóa- lấy học sinh làm trung tâm.</p>
                 </div>
-                
-                <div class="feature-item">
-                    <i class="fas fa-users"></i>
-                    <h3>Lớp học sĩ số nhỏ</h3>
-                    <p>Mỗi lớp chỉ 10-15 học sinh để đảm bảo chất lượng</p>
-                </div>
-                
                 <div class="feature-item">
                     <i class="fas fa-book-open"></i>
-                    <h3>Giáo trình riêng</h3>
-                    <p>Biên soạn phù hợp với năng lực từng học sinh</p>
+                    <h3>Khóa học chất lượng</h3>
+                    <p>Giáo trình thiết kế riêng, phù hợp với mọi trình độ.</p>
                 </div>
-                
+                <div class="feature-item">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Tự rèn luyện online tiện lợi</h3>
+                    <p>Truy cập khóa học mọi lúc, mọi nơi, trên mọi thiết bị.</p>
+                </div>
                 <div class="feature-item">
                     <i class="fas fa-chart-line"></i>
-                    <h3>Cam kết tiến bộ</h3>
-                    <p>95% học sinh cải thiện điểm số sau 3 tháng</p>
+                    <h3>Với triết lý giáo dục</h3>
+                    <p>Giáo dục là hành trình khơi dậy và phát triển những năng lực độc đáo bên trong mỗi học sinh.</p>
                 </div>
             </div>
         </div>
     </div>
 
+ 
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
-                <h3>Về chúng tôi</h3>
-                <p>Minh Tâm được thành lập tháng 08/2025 với tầm nhìn trở thành điểm đến giáo dục uy tín tại Thạnh Phú. Tiếp nối truyền thống nhiều năm kinh nghiệm trong ngành giáo dục của đội ngũ sáng lập, chúng tôi đã hoàn thiện những bước cuối cùng để chính thức khai trương vào tháng 8/2025.</p>
+                <h3>Về Educode</h3>
+                 <p>EduCode là nền tảng học online đang trên hành trình xây dựng, với kỳ vọng mang đến các khóa học toán chất lượng cao. Chúng tôi cam kết giúp bạn nắm vững kiến thức và chuẩn bị cho tương lai với các khóa học lý, hóa, tin học và AI sắp ra mắt.</p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
                     <a href="#"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
-            
+                          
+                      
             <div class="footer-col">
                 <h3>Liên hệ</h3>
                 <div class="contact-info">
-                    <p>
-                        <i class="fas fa-map-marker-alt"></i> 
-                        <a href="https://maps.app.goo.gl/QguRnECfmfQGVM769" 
-                         target="_blank" 
-                         class="map-link">
-                        khu phố 3, xã Thạnh Phú, tỉnh Vĩnh Long
-                     </a>
-                    </p>
-                    <p><i class="fas fa-phone"></i> 0977899749-0918300170-0915870280</p>
-                    <p><i class="fas fa-envelope"></i> minhtamedu.thanhphu@gmail.com</p>
-                    <p><i class="fas fa-clock"></i> Thứ 2-CN: 7h30 - 20h30</p>
+                    <p><i class="fas fa-phone"></i> 0878042368</p>
+                    <p><i class="fas fa-envelope"></i> nguyenthanhbinh_thpt_tts@bentre.edu.vn</p>
                 </div>
             </div>
             
             <div class="footer-col">
                 <h3>Liên kết nhanh</h3>
                 <ul>
-                    <li><a href="#">Lịch khai giảng</a></li>
-                    <li><a href="#">Bảng giá học phí</a></li>
-                    <li><a href="#">Đội ngũ giáo viên</a></li>
-                    <li><a href="#">Thành tích học sinh</a></li>
-                    <li><a href="#">Câu hỏi thường gặp</a></li>
+                    <li><a href="#Mẫu soạnde.html">Khóa học toán</a></li>
+                    <li><a href="#K12/12C1B1.html">Tài liệu & Đề ôn luyện</a></li>
+                    <li><a href="#coming-soon">Sắp ra mắt: Lý, Hóa, AI</a></li>
+                    <li><a href="#blog">Blog EduCode</a></li>
                 </ul>
             </div>
-        </div>
+            </div>
         
         <div class="copyright">
-            <p>&copy; 2025 Cơ sở dạy thêm Minh Tâm. All Rights Reserved.</p>
+            <p>© 2025 EduCode – Thạc sĩ Nguyễn Thanh Bình. All Rights Reserved.</p>
         </div>
     </footer>
-<!-- Biểu tượng zalo -->
-<!-- Nút Zalo chính thức -->
-<div class="official-zalo-btn" id="zaloBtn">
-    <img src="https://img.icons8.com/color/48/000000/zalo.png" alt="Zalo"> <!-- Logo Zalo chính thức -->
-</div>
 
-<!-- Menu chức năng -->
-<div class="zalo-actions" id="zaloActions">
-    <a href="https://zalo.me/0907424450" class="zalo-action" target="_blank">
-        <img src="https://img.icons8.com/color/24/000000/zalo.png" alt="Chat Zalo">
-        Nhắn tin Zalo
-    </a>
-    <a href="tel:0918300170" class="zalo-action">
-        <img src="https://img.icons8.com/color/24/000000/phone.png" alt="Gọi điện">
-        Gọi điện thoại
-    </a>
-    <a href="https://zalo.me/0907424450?call" class="zalo-action" target="_blank">
-        <img src="https://img.icons8.com/color/24/000000/video-call.png" alt="Video call">
-        Gọi video Zalo
-    </a>
-</div>
+        <!-- Nút Zalo chính thức -->
+        <div class="official-zalo-btn" id="zaloBtn">
+            <img src="https://img.icons8.com/color/48/000000/zalo.png" alt="Zalo"> <!-- Logo Zalo chính thức -->
+        </div>
+        <!-- Menu chức năng -->
+        <div class="zalo-actions" id="zaloActions">
+            <a href="https://zalo.me/0878042368" class="zalo-action" target="_blank">
+                <img src="https://img.icons8.com/color/24/000000/zalo.png" alt="Chat Zalo">
+                Nhắn tin Zalo
+            </a>
+            <a href="tel:0822351447" class="zalo-action">
+                <img src="https://img.icons8.com/color/24/000000/phone.png" alt="Gọi điện">
+                Gọi điện thoại
+            </a>
+            <a href="https://zalo.me/0878042368?call" class="zalo-action" target="_blank">
+                <img src="https://img.icons8.com/color/24/000000/video-call.png" alt="Video call">
+                Gọi video Zalo
+            </a>
+        </div>
 
 
-<!-- Biểu tượng chatbox -->
+    <!-- Biểu tượng chatbox -->
     <div class="chat-icon" id="chatIcon">
         <i class="fas fa-comment-dots"></i>
     </div>
@@ -275,12 +407,12 @@
     <!-- Khung chat -->
     <div class="chat-box" id="chatBox">
         <div class="chat-header">
-            <h3>Trợ lý ảo Minh Tâm</h3>
+            <h3>Trợ lý Educode</h3>
             <button class="close-chat" id="closeChat">×</button>
         </div>
         <div class="chat-content">
             <!-- Nội dung chat sẽ được thêm vào đây -->
-            <iframe src="https://MathTBinh-trolyminhminhtam.hf.space" style="width:100%; height:100%; border:none;"></iframe>
+            <iframe src="" style="width:100%; height:100%; border:none;"></iframe>
         </div>
     </div>
 
@@ -289,9 +421,9 @@
 
     <script>
         // Tự động mở khung chat sau 3 giây
-        setTimeout(function() {
-            document.getElementById('chatBox').classList.add('show');
-        }, 3000);
+        //setTimeout(function() {
+          //  document.getElementById('chatBox').classList.add('show');
+       // }, 3000);
         
         // Đóng khung chat khi click nút đóng
         document.getElementById('closeChat').addEventListener('click', function() {
@@ -306,149 +438,148 @@
     </script>
 
 <!-- ✅ Popup Form -->
- <a href="#" id="openPopup" class="register-btn"></a>
-<div id="popupForm" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-  <div style="background: white; width: 90%; max-width: 600px; margin: 60px auto; padding: 30px; border-radius: 10px; position: relative; overflow-y: auto; max-height: 80vh;">
-    <button onclick="closePopup()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
-    <h2 style="color:#c62828">Đăng ký tư vấn - học</h2>
+        <a href="#" id="openPopup" class="register-btn"></a>
+        <div id="popupForm" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="background: white; width: 90%; max-width: 600px; margin: 60px auto; padding: 30px; border-radius: 10px; position: relative; overflow-y: auto; max-height: 80vh;">
+            <button onclick="closePopup()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+            <h2 style="color:#c62828">Đăng ký tư vấn - học</h2>
 
-    <form id="popupRegisterForm">
-      <label>Họ tên học sinh</label>
-      <input type="text" name="name" required style="width:100%;padding:10px;margin-bottom:10px">
+                <form id="popupRegisterForm">
+                <label>Họ tên học sinh</label>
+                <input type="text" name="name" required style="width:100%;padding:10px;margin-bottom:10px">
 
-      <label>Số điện thoại</label>
-      <input type="tel" name="phone" required style="width:100%;padding:10px;margin-bottom:10px">
+                <label>Số điện thoại</label>
+                <input type="tel" name="phone" required style="width:100%;padding:10px;margin-bottom:10px">
 
-      <label>Lớp</label>
-      <input type="text" name="grade" required style="width:100%;padding:10px;margin-bottom:10px" placeholder="VD: 6, 10, 12...">
+                <label>Lớp</label>
+                <input type="text" name="grade" required style="width:100%;padding:10px;margin-bottom:10px" placeholder="VD: 6, 10, 12...">
 
-      <label>Môn</label>
-      <input type="text" name="subject" required style="width:100%;padding:10px;margin-bottom:10px" placeholder="Toán, Lý, Hóa...">
+                <label>Môn</label>
+                <input type="text" name="subject" required style="width:100%;padding:10px;margin-bottom:10px" placeholder="Toán, Lý, Hóa...">
 
-      <button type="submit" style="background-color:#c62828;color:white;padding:12px 20px;border:none;border-radius:5px;cursor:pointer;width:100%">Gửi thông tin</button>
-    </form>
-  </div>
-</div>
+                <button type="submit" style="background-color:#c62828;color:white;padding:12px 20px;border:none;border-radius:5px;cursor:pointer;width:100%">Gửi thông tin</button>
+                </form>
+            </div>
+            </div>
 
 <!-- ✅ JavaScript -->
-<script>
-function openPopup() {
-  document.getElementById('popupForm').style.display = 'block';
-}
-function closePopup() {
-  document.getElementById('popupForm').style.display = 'none';
-}
-document.getElementById('openPopup').addEventListener('click', openPopup);
+            <script>
+            function openPopup() {
+            document.getElementById('popupForm').style.display = 'block';
+            }
+            function closePopup() {
+            document.getElementById('popupForm').style.display = 'none';
+            }
+            document.getElementById('openPopup').addEventListener('click', openPopup);
 
-// ✅ Gửi dữ liệu form
-document.getElementById("popupRegisterForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = {
-    name: form.name.value,
-    phone: form.phone.value,
-    grade: form.grade.value,
-    subject: form.subject.value
-  };
+            // ✅ Gửi dữ liệu form
+            document.getElementById("popupRegisterForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+                name: form.name.value,
+                phone: form.phone.value,
+                grade: form.grade.value,
+                subject: form.subject.value
+            };
 
-  // 1. Gửi đến Google Sheets
-  const googleSheetsPromise = fetch("https://script.google.com/macros/s/AKfycbzGM6PQT2rxPym-P9I8XlqTL4Yp3MhVPMKVYH1EfnMEFmS3jrR1j3qjHtQGU0gl3egv/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
+            // 1. Gửi đến Google Sheets
+            const googleSheetsPromise = fetch("https://script.google.com/macros/s/AKfycbzGM6PQT2rxPym-P9I8XlqTL4Yp3MhVPMKVYH1EfnMEFmS3jrR1j3qjHtQGU0gl3egv/exec", {
+                method: "POST",
+                body: JSON.stringify(data)
+            });
 
-  // 2. Gửi đến Telegram
-  const telegramPromise = fetch(`https://api.telegram.org/bot8240637801:AAExl0vkqP4fXXE_D2seiLrKJxCAb3C5FnE/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: '-4832541970',
-      text: `🎯 *THÔNG TIN ĐĂNG KÝ MỚI*\n\n├ Họ tên: ${data.name}\n├ Điện thoại: [${data.phone}](tel:${data.phone})\n├ Lớp: ${data.grade}\n└ Môn học: ${data.subject}`,
-      parse_mode: 'Markdown'
-    })
-  });
+            // 2. Gửi đến Telegram
+            const telegramPromise = fetch(`https://api.telegram.org/bot8240637801:AAExl0vkqP4fXXE_D2seiLrKJxCAb3C5FnE/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                chat_id: '-4832541970',
+                text: `🎯 *THÔNG TIN ĐĂNG KÝ MỚI*\n\n├ Họ tên: ${data.name}\n├ Điện thoại: [${data.phone}](tel:${data.phone})\n├ Lớp: ${data.grade}\n└ Môn học: ${data.subject}`,
+                parse_mode: 'Markdown'
+                })
+            });
 
-  // Xử lý kết quả
-  Promise.all([googleSheetsPromise, telegramPromise])
-    .then(() => {
-      alert("✅ Đăng ký thành công! Trung tâm sẽ liên hệ sớm.");
-      form.reset();
-      closePopup();
-    })
-    .catch(err => {
-      alert("❌ Gửi thất bại. Vui lòng thử lại.");
-    });
-});
-</script>
+            // Xử lý kết quả
+            Promise.all([googleSheetsPromise, telegramPromise])
+                .then(() => {
+                alert("✅ Đăng ký thành công! Trung tâm sẽ liên hệ sớm.");
+                form.reset();
+                closePopup();
+                })
+                .catch(err => {
+                alert("❌ Gửi thất bại. Vui lòng thử lại.");
+                });
+            });
+            </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
-
-
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        // Khởi tạo slider
-        $(document).ready(function(){
-            $('.slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 3000,
-                prevArrow: '<button type="button" class="slick-prev">❮</button>',
-                nextArrow: '<button type="button" class="slick-next">❯</button>'
-            });
+            $(document).ready(function(){
+                // Slider (nếu có .slider trong trang)
+                if ($('.slider').length) {
+                    $('.slider').slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 500,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        prevArrow: '<button type="button" class="slick-prev">❮</button>',
+                        nextArrow: '<button type="button" class="slick-next">❯</button>'
+                    });
+                }
 
-            // Toggle hamburger menu
-            $('.hamburger-btn').click(function(){
-                $(this).toggleClass('active');
-                $('#mainNav').toggleClass('active');
-            });
-
-            $('.main-menu > li > a').click(function(e){
-              if ($(window).width() <= 768) {
-            var $submenu = $(this).siblings('.submenu');
-             if ($submenu.length) {
-            e.preventDefault();
-            $submenu.toggleClass('active');
-            $(this).find('.dropdown-icon').toggleClass('active');
-            }
-             }
-            });
-            $('.submenu > li > a').click(function(e){
-            if ($(window).width() <= 768) {
-             var $nestedSubmenu = $(this).siblings('.nested-sub-menu');
-            if ($nestedSubmenu.length) {
-            e.preventDefault();
-            $nestedSubmenu.toggleClass('active');
-            $(this).find('.nested-dropdown-icon').toggleClass('active');
-            }
-            }
-            });
-
-            
+        // Toggle hamburger menu
+        $('.hamburger-btn').click(function(){
+            $(this).toggleClass('active');
+            $('#mainNav').toggleClass('active');
         });
 
-       // Xử lý click zalo
-document.getElementById('zaloBtn').addEventListener('click', function(e) {
-    e.stopPropagation();
-    document.getElementById('zaloActions').classList.toggle('show');
-});
+        // Submenu
+        $('.main-menu > li > a').click(function(e){
+            if ($(window).width() <= 768) {
+                var $submenu = $(this).siblings('.submenu');
+                if ($submenu.length) {
+                    e.preventDefault();
+                    $submenu.toggleClass('active');
+                    $(this).find('.dropdown-icon').toggleClass('active');
+                }
+            }
+        });
 
-// Đóng popup khi click ra ngoài
-document.addEventListener('click', function() {
-    document.getElementById('zaloActions').classList.remove('show');
-});
+        $('.submenu > li > a').click(function(e){
+            if ($(window).width() <= 768) {
+                var $nestedSubmenu = $(this).siblings('.nested-sub-menu');
+                if ($nestedSubmenu.length) {
+                    e.preventDefault();
+                    $nestedSubmenu.toggleClass('active');
+                    $(this).find('.nested-dropdown-icon').toggleClass('active');
+                }
+            }
+        });
+    });
 
-// Ngăn đóng popup khi click vào menu
-document.getElementById('zaloActions').addEventListener('click', function(e) {
-    e.stopPropagation();
-});
-    </script>
+        // Zalo (chỉ chạy nếu có phần tử)
+        var zaloBtn = document.getElementById('zaloBtn');
+        var zaloActions = document.getElementById('zaloActions');
+
+        if (zaloBtn && zaloActions) {
+            zaloBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                zaloActions.classList.toggle('show');
+            });
+            document.addEventListener('click', function() {
+                zaloActions.classList.remove('show');
+            });
+            zaloActions.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+</script>
 
 </body>
 </html>
