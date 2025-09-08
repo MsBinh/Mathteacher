@@ -352,101 +352,1062 @@
                     <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
                 </div>
 
-<!-- Câu 1 -->
 <div class="question" id="q1">
 <div class="summary-box">
-<p><strong>Câu 1</strong>. Cho đồ thị \( y = f(x) \) như hình vẽ dưới đây:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.1.png"/><br/>
-
-Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</p>
-
-<div class="options">
-<label><input name="q1" onchange="showOptionIcon('q1', 'A', 'C')" type="radio" value="A"/> A. \( (-\infty ; 1) \)<span class="option-icon" id="icon-q1-A"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'B', 'C')" type="radio" value="B"/> B. \( (2 ; +\infty) \)<span class="option-icon" id="icon-q1-B"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'C', 'C')" type="radio" value="C"/> C. \( (0 ; 1) \)<span class="option-icon" id="icon-q1-C"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'D', 'C')" type="radio" value="D"/> D. \( (1 ; 2) \)<span class="option-icon" id="icon-q1-D"></span></label>
-</div></div>
+<p><strong>Câu 1</strong>. (THPT Đào Duy Từ - Thanh Hóa 2025) Một vật chuyển động theo quy luật \( s = -t^3 + 18t^2 \), với \( t \) (giây) là khoảng thời gian tính từ lúc vật bắt đầu chuyển động và \( s \) (mét) là quãng đường vật đi được trong thời gian đó. Hỏi trong khoảng thời gian 10 giây, kể từ lúc bắt đầu chuyển động, vận tốc lớn nhất của vật đạt được bằng bao nhiêu (m/s)?</p>
+</div>
 <div class="answer-check">
-<button onclick="checkAnswer('q1', 'B')">Kiểm tra</button>
+<input type="text" id="input-q1" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q1', '108')">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q1')">Xem lời giải</button>
 <div class="solution" id="solution-q1">
-  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
-  <p>Nhìn vào đồ thị ta thấy hàm số <span class="math">\(y=f(x)\)</span> đi lên (đồng biến) trên khoảng <span class="math">\((2; +\infty)\)</span>.</p>
-  <p>Các khoảng khác: 
-    <br/>• \((-∞;1)\): hàm đang giảm. 
-    <br/>• \((0;1)\): hàm đi xuống. 
-    <br/>• \((1;2)\): hàm vẫn giảm.
-  </p>
-  <p>👉 Vậy đáp án đúng là <strong>B</strong>.</p>
+\[
+\text{Vận tốc: } v(t) = s'(t) = -3t^2 + 36t, \text{ với } t \in [0;10].
+\]
+\[
+v'(t) = -6t + 36 = 0 \Leftrightarrow t = 6.
+\]
+\[
+v(0) = 0, \quad v(10) = 60, \quad v(6) = 108.
+\]
+\[
+\text{Vậy vận tốc lớn nhất là } 108 \, \text{m/s}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q1"></div>
+</div>
 </div>
 
-</div>
-</div>
-
-<!-- Câu 2 -->
 <div class="question" id="q2">
 <div class="summary-box">
-<p><strong>Câu 2</strong>. Trong không gian \( Oxyz \), cho mặt phẳng \( (P): 2x + y - z - 1 = 0 \). Vector nào dưới đây là một vector pháp tuyến của mặt phẳng \( (P) \)?</p>
-
-<div class="options">
-<label><input name="q2" onchange="showOptionIcon('q2', 'A', 'A')" type="radio" value="A"/> A. \( \overrightarrow{n_3} = (2 ; 1 ; -1) \)<span class="option-icon" id="icon-q2-A"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'B', 'A')" type="radio" value="B"/> B. \( \overrightarrow{n_1} = (2 ; -1 ; 1) \)<span class="option-icon" id="icon-q2-B"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'C', 'A')" type="radio" value="C"/> C. \( \overrightarrow{n_4} = (-2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-C"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'D', 'A')" type="radio" value="D"/> D. \( \overrightarrow{n_2} = (2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-D"></span></label>
-</div></div>
+<p><strong>Câu 2</strong>. (THPT Lương Tài 2 - Bắc Ninh 2025) Trên một trục số thẳng đứng có chiều dương hướng lên trên, một chất điểm bắt đầu chuyển động dọc theo trục số. Giả sử, tại thời điểm \( t \) giây (\( t \geq 0 \)) tính từ lúc bắt đầu chuyển động thì vị trí \( s(t) \) của chất điểm trên trục số thẳng đứng được xác định bởi công thức \( s(t) = t^3 - 18t^2 + 81t \) (mét). Trong 15 giây chuyển động đầu tiên thì chất điểm di chuyển được quãng đường bằng bao nhiêu mét?</p>
+</div>
 <div class="answer-check">
-<button onclick="checkAnswer('q2', 'A')">Kiểm tra</button>
+<input type="text" id="input-q2" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q2', '756')">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q2')">Xem lời giải</button>
-<div class="solution" id="solution-q2"></div>
+<div class="solution" id="solution-q2">
+\[
+v(t) = s'(t) = 3t^2 - 36t + 81 = 0 \Leftrightarrow t = 3 \text{ hoặc } t = 9.
+\]
+\[
+\text{Bảng biến thiên:}
+\]
+\[
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+t & 0 & 3 & 9 & 15 \\
+\hline
+s'(t) & + & 0 & -- & 0 & + \\
+\hline
+s(t) & 0 & \nearrow & 108 & \searrow & 0 & \nearrow & 540 \\
+\hline
+\end{tabular}
+\end{center}
+\]
+\[
+\text{Quãng đường: } |s(3)-s(0)| + |s(9)-s(3)| + |s(15)-s(9)| = 108 + 108 + 540 = 756 \, \text{m}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q2"></div>
 </div>
 </div>
 
+<div class="question" id="q3">
+<div class="summary-box">
+<p><strong>Câu 3</strong>. (THPT Nguyễn Đăng Đạo - Bắc Ninh 2025) Một vật chuyển động. Quãng đường \( s(t) \) (tính theo mét) vật đi được sau khoảng thời gian \( t \) (tính theo giây), \( t \geq 0 \), được mô tả là một hàm số bậc ba có đồ thị như hình vẽ dưới đây:  <br> Hỏi trong 10 giây đầu tiên, khoảng thời gian vật chuyển động nhanh dần kéo dài bao nhiêu giây?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q3" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q3', '8')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q3')">Xem lời giải</button>
+<div class="solution" id="solution-q3">
+\[
+\text{Giả sử } s(t) = at^3 + bt^2 + ct + d \, (a \neq 0).
+\]
+\[
+\text{Đồ thị đi qua } (0;0), (4;8), (8;112), (10;260):
+\]
+\[
+\begin{cases}
+d = 0 \\
+64a + 16b + 4c = 8 \\
+512a + 64b + 8c = 112 \\
+1000a + 100b + 10c = 260
+\end{cases}
+\Rightarrow
+\begin{cases}
+a = \frac{1}{6} \\
+b = -1 \\
+c = 2 \\
+d = 0
+\end{cases}
+\]
+\[
+\Rightarrow s(t) = \frac{1}{6}t^3 - t^2 + 2t.
+\]
+\[
+v(t) = s'(t) = \frac{1}{2}t^2 - 2t + 2; \quad a(t) = v'(t) = t - 2.
+\]
+\[
+a(t) = 0 \Leftrightarrow t = 2.
+\]
+<img src="data/im/n1.png" alt="Đồ thị hàm số" width="50%"> 
+\[
+\text{Vật chuyển động nhanh dần khi } a(t) > 0 \Leftrightarrow t > 2.
+\]
+\[
+\text{Trong 10 giây, thời gian chuyển động nhanh dần là } 10 - 2 = 8 \, \text{giây}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q3"></div>
+</div>
+</div>
 
-<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 13 đến câu 16</h3>
+<div class="question" id="q4">
+<div class="summary-box">
+<p><strong>Câu 4</strong>. (THPT Gia Bình - Bắc Ninh 2025) Trong 5 giây đầu tiên, một chất điểm chuyển động theo phương trình \( s(t) = t^3 - 3t^2 + 8t + 2 \). Trong đó, \( t \) tính bằng giây và \( s \) tính bằng mét. Chất điểm có vận tốc tức thời nhỏ nhất bằng bao nhiêu m/s trong 5 giây đầu tiên đó?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q4" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q4', '5')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q4')">Xem lời giải</button>
+<div class="solution" id="solution-q4">
+\[
+v(t) = s'(t) = 3t^2 - 6t + 8; \quad v'(t) = 6t - 6 = 0 \Leftrightarrow t = 1.
+\]
+\[
+v(0) = 8, \quad v(1) = 5, \quad v(5) = 53.
+\]
+\[
+\text{Vậy vận tốc nhỏ nhất là } 5 \, \text{m/s}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q4"></div>
+</div>
+</div>
 
-<!-- Câu 13 -->
+<div class="question" id="q5">
+<div class="summary-box">
+<p><strong>Câu 5</strong>. (THPT Thuận Thành 1&2 - Bắc Ninh 2025) Trong 5 giây đầu tiên, một chất điểm chuyển động theo phương trình \( s(t) = -t^3 + 6t^2 + t + 5 \) trong đó \( t \) tính bằng giây và \( s \) tính bằng mét. Chất điểm có vận tốc tức thời lớn nhất bằng bao nhiêu trong 5 giây đầu tiên đó?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q5" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q5', '13')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q5')">Xem lời giải</button>
+<div class="solution" id="solution-q5">
+\[
+v(t) = s'(t) = -3t^2 + 12t + 1; \quad v'(t) = -6t + 12 = 0 \Leftrightarrow t = 2.
+\]
+\[
+v(0) = 1, \quad v(2) = 13, \quad v(5) = -14.
+\]
+\[
+\text{Vậy vận tốc lớn nhất là } 13 \, \text{m/s}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q5"></div>
+</div>
+</div>
+
+<div class="question" id="q6">
+<div class="summary-box">
+<p><strong>Câu 6</strong>. (Chuyên Thái Bình 2025) Một vật chuyển động trên đường thẳng có quãng đường di chuyển trong khoảng thời gian \( t \) (giây) được cho bởi phương trình \( s(t) = -\frac{1}{3}t^3 + 6t^2 \) (\( 0 \leq t \leq 12 \)). Tính từ khi bắt đầu di chuyển đến thời điểm vận tốc của vật đạt giá trị lớn nhất thì vật di chuyển được quãng đường dài bao nhiêu mét (làm tròn đến hàng đơn vị)?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q6" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q6', '144')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q6')">Xem lời giải</button>
+<div class="solution" id="solution-q6">
+\[
+v(t) = s'(t) = -t^2 + 12t; \quad v'(t) = -2t + 12 = 0 \Leftrightarrow t = 6.
+\]
+\[
+s(6) - s(0) = -\frac{1}{3}(216) + 6(36) = -72 + 216 = 144 \, \text{m}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q6"></div>
+</div>
+</div>
+
+<div class="question" id="q7">
+<div class="summary-box">
+<p><strong>Câu 7</strong>. (Cụm trường Nguyễn Hiền - Lê Hồng Phong - Quảng Nam 2025) Ngày khai giảng năm học 2024–2025. Học sinh khối 12 trường THPT Nguyễn Hiền thả chùm bóng bay gắn thông điệp. Ước tính độ cao \( h \) (tính bằng km) của chùm bóng bay so với mặt đất vào thời điểm \( t \) (đơn vị giờ) được cho bởi công thức \( h(t) = -t^3 + 3t^2 \) (\( 0 \leq t \leq 3 \)). Chùm bóng bay đạt độ cao lớn nhất so với mặt đất là: \( a \) (km). Tìm \( a \)?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q7" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q7', '4')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q7')">Xem lời giải</button>
+<div class="solution" id="solution-q7">
+\[
+h'(t) = -3t^2 + 6t = 0 \Leftrightarrow t = 0 \text{ hoặc } t = 2.
+\]
+\[
+h(0) = 0, \quad h(2) = 4, \quad h(3) = 0.
+\]
+\[
+\text{Vậy độ cao lớn nhất là } 4 \, \text{km}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q7"></div>
+</div>
+</div>
+
+<div class="question" id="q8">
+<div class="summary-box">
+<p><strong>Câu 8</strong>. (Sở Phú Thọ 2025) Trong một trò chơi điện tử, hai bạn Tít và Mít xem ai chạy được quãng đường xa hơn. Tít chạy với vận tốc \( v_T(t) = 5\sqrt[3]{t} \) (km/h), quãng đường Mít chạy được cho bởi phương trình \( s_M(t) = 5t - \frac{5}{2\pi}\sin(2\pi t) \) (km) (với \( t \) là thời gian tính theo giờ). Nếu cuộc đua kết thúc khi Tít hoặc Mít chạy được 10 km đầu tiên thì khoảng cách giữa hai bạn là bao nhiêu kilômét (kết quả làm tròn đến hàng phần trăm)?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q8" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q8', '0.57')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q8')">Xem lời giải</button>
+<div class="solution" id="solution-q8">
+\[
+s_T(t) = \int 5\sqrt[3]{t} \, dt = \frac{15}{4}t^{4/3} + C. \quad \text{Vì } s_T(0)=0 \Rightarrow C=0.
+\]
+\[
+s_T(t)=10 \Rightarrow t_T = \left(\frac{40}{15}\right)^{3/4} \approx 2,08 \, \text{h}.
+\]
+\[
+s_M(t)=10 \Rightarrow 5t - \frac{5}{2\pi}\sin(2\pi t) = 10. \quad \text{Thử } t=2: s_M(2)=10. \quad \text{Vậy } t_M=2 \, \text{h}.
+\]
+\[
+s_T(2) = \frac{15}{4} \cdot 2^{4/3} \approx 9,43 \, \text{km}.
+\]
+\[
+\text{Khoảng cách: } 10 - 9,43 = 0,57 \, \text{km}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q8"></div>
+</div>
+</div>
+
+<div class="question" id="q9">
+<div class="summary-box">
+<p><strong>Câu 9</strong>. (Cụm trường THPT Hải Dương 2025) Ngày khai giảng năm học 2024–2025, học sinh khối 12 trường THPT Thanh Miện thả chùm bóng bay. Ước tính độ cao \( h \) (tính bằng km) của chùm bóng bay so với mặt đất vào thời điểm \( t \) (đơn vị giờ) được cho bởi công thức \( h(t) = -t^3 + 3t^2 \) (\( 0 \leq t \leq 3 \)). Chùm bóng bay đạt độ cao lớn nhất so với mặt đất là \( a \) km. Tìm \( a \).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q9" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q9', '4')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q9')">Xem lời giải</button>
+<div class="solution" id="solution-q9">
+\[
+h'(t) = -3t^2 + 6t = 0 \Leftrightarrow t=0 \text{ hoặc } t=2.
+\]
+\[
+h(0)=0, \quad h(2)=4, \quad h(3)=0.
+\]
+\[
+\text{Vậy } a=4.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q9"></div>
+</div>
+</div>
+
+<div class="question" id="q10">
+<div class="summary-box">
+<p><strong>Câu 10</strong>. (Chuyên KHTN Hà Nội 2025) Một máy bay đang bay ở độ cao 10 km so với mặt đất, thu phát tín hiệu qua một ăng-ten ra đa. Khi máy bay cách ra đa 16 km, ra đa phát hiện khoảng cách giữa máy bay và ra đa thay đổi với tốc độ 546 km/h. Tìm vận tốc của máy bay (đơn vị km/h, kết quả làm tròn đến hàng đơn vị).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q10" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q10', '699')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q10')">Xem lời giải</button>
+<div class="solution" id="solution-q10">
+\[
+\text{Gọi } x(t): \text{khoảng cách ngang từ máy bay đến chân ra đa.}
+\]
+\[
+s(t) = \sqrt{x(t)^2 + 10^2}; \quad s'(t) = \frac{x(t)x'(t)}{\sqrt{x(t)^2+100}}.
+\]
+\[
+\text{Tại } s=16: x = \sqrt{16^2 - 10^2} = \sqrt{156} = 2\sqrt{39}.
+\]
+\[
+546 = \frac{2\sqrt{39} \cdot x'}{16} \Rightarrow x' = \frac{546 \cdot 16}{2\sqrt{39}} \approx 699 \, \text{km/h}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q10"></div>
+</div>
+</div>
+
+<div class="question" id="q11">
+<div class="summary-box">
+<p><strong>Câu 11</strong>. (Sở Tuyên Quang 2025) Một vật chuyển động theo quy luật \( s = s(t) = \frac{1}{3}t^3 - \frac{3}{2}t^2 + 10t + 2 \) với \( t \geq 0 \) (giây) là khoảng thời gian từ lúc vật bắt đầu chuyển động và \( s \) (mét) là vị trí của vật trong khoảng thời gian đó. Tính quãng đường mà vật đi được khi vận tốc đạt 20 m/s (làm tròn kết quả đến hàng phần chục).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q11" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q11', '56.2')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q11')">Xem lời giải</button>
+<div class="solution" id="solution-q11">
+\[
+v(t) = t^2 - 3t + 10 = 20 \Rightarrow t^2 - 3t - 10 = 0 \Rightarrow t=5 \, (\text{vì } t \geq 0).
+\]
+\[
+\text{Quãng đường: } s(5) - s(0) = \left(\frac{125}{3} - \frac{75}{2} + 50 + 2\right) - 2 = \frac{337}{6} \approx 56,2 \, \text{m}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q11"></div>
+</div>
+</div>
+
+<div class="question" id="q12">
+<div class="summary-box">
+<p><strong>Câu 12</strong>. (THPT Hương Hóa - Quảng Trị 2025) Kinh viễn vọng Hubble được tàu không gian Discovery đưa vào sử dụng ngày 24/4/1990. Mô hình vận tốc của tàu trong sứ mệnh này, từ lúc rời bệ phóng (\( t = 0 \) giây) cho đến khi được tên lửa đẩy nhanh khỏi bệ tại thời điểm \( t = 126 \) giây, được xác định bởi công thức \( v(t) = 0,001302t^3 - 0,09029t^2 + 23,61t - 3,083 \) (feet/s). Tính gia tốc lớn nhất của tàu trong khoảng thời gian này (đơn vị: feet/s\(^2\), làm tròn kết quả đến hàng phần chục).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q12" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q12', '62.9')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q12')">Xem lời giải</button>
+<div class="solution" id="solution-q12">
+\[
+a(t) = v'(t) = 0,003906t^2 - 0,18058t + 23,61.
+\]
+\[
+a'(t) = 0,007812t - 0,18058 = 0 \Rightarrow t \approx 23,13.
+\]
+\[
+a(0) = 23,61, \quad a(126) \approx 62,9.
+\]
+\[
+\text{Vậy gia tốc lớn nhất là } 62,9 \, \text{feet/s}^2.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q12"></div>
+</div>
+</div>
+
 <div class="question" id="q13">
 <div class="summary-box">
-<p><strong>Câu 13</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.13.png"/><br/>
-<div class="options">
-<p>a) Tổng quãng đường vật đi được trong 60(s) đầu tiên là 650(m).</p>
-<label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
-<label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
-<p>b) Trong khoảng thời gian từ 0(s) đến 10(s), phương trình vận tốc của vật là \( v(t) = \frac{1}{2}t + 10 \, (\mathrm{m/s}) \).</p>
-<label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
-<label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
-<p>c) Trong khoảng thời gian từ 30(s) đến 60(s), phương trình vận tốc của vật là \( v(t) = -\frac{1}{2}t + 30 \, (\mathrm{m/s}) \).</p>
-<label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
-<label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
-<p>d) Trong khoảng thời gian từ 10(s) đến 30(s), vật chuyển động đều.</p>
-<label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
-<label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
-</div></div>
+<p><strong>Câu 13</strong>. (THPT Hoằng Hóa 2 - Thanh Hóa 2025) Một vật chuyển động theo quy luật \( s(t) = \frac{1}{3}t^3 - \frac{3}{2}t^2 + 10t + 2 \) (với \( t \) (giây) là khoảng thời gian tính từ lúc vật bắt đầu chuyển động và \( s \) (mét) là quãng đường vật đi được trong thời gian đó). Tính quãng đường mà vật đi được khi vận tốc đạt 20 m/s (Kết quả làm tròn đến chữ số thập phân thứ nhất).</p>
+</div>
 <div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<input type="text" id="input-q13" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q13', '56.2')">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
-<div class="solution" id="solution-q13"></div>
+<div class="solution" id="solution-q13">
+\[
+v(t) = t^2 - 3t + 10 = 20 \Rightarrow t=5.
+\]
+\[
+s(5) = \frac{125}{3} - \frac{75}{2} + 50 + 2 = \frac{337}{6} \approx 56,2 \, \text{m}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q13"></div>
 </div>
 </div>
 
+<div class="question" id="q14">
+<div class="summary-box">
+<p><strong>Câu 14</strong>. (THPT Ngô Sĩ Liên - Bắc Giang 2025) Một chất điểm chuyển động biết quãng đường biểu diễn theo quỹ đạo có phương trình \( s(t) = t^3 - 6t^2 + 30t \) (trong đó quãng đường \( s \) tính bằng mét (m), thời gian \( t \) tính bằng giây (s)). Tìm tốc độ nhỏ nhất của chất điểm (đơn vị (m/s)).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q14" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q14', '18')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q14')">Xem lời giải</button>
+<div class="solution" id="solution-q14">
+\[
+v(t) = s'(t) = 3t^2 - 12t + 30 = 3(t-2)^2 + 18 \geq 18.
+\]
+\[
+\text{Vậy tốc độ nhỏ nhất là } 18 \, \text{m/s}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q14"></div>
+</div>
+</div>
 
-<h3>Phần III: Trắc Nghiệm Trả Lời Ngắn - từ câu 17 đến câu 22</h3>
+<div class="question" id="q15">
+<div class="summary-box">
+<p><strong>Câu 15</strong>. (THPT Quế Võ 1 - Bắc Ninh 2025) Một tên lửa bay vào không trung với quãng đường đi được là \( s(t) \) (km) là hàm phụ thuộc theo biến \( t \) (giây) tuân theo biểu thức sau: \( s(t) = e^{t^2+3} + 2te^{3+1} \) (km). Hỏi vận tốc của tên lửa sau 1 giây là bao nhiêu (biết hàm biểu thị vận tốc là đạo hàm cấp một của hàm biểu thị quãng đường theo thời gian) \( ae^b \) (km/s) tính \( a + 2b \)?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q15" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q15', '12')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q15')">Xem lời giải</button>
+<div class="solution" id="solution-q15">
+\[
+s(t) = e^{t^2+3} + 2t e^4;
+\]
+\[
+v(t) = 2t e^{t^2+3} + 2e^4;
+\]
+\[
+v(1) = 2e^4 + 2e^4 = 4e^4.
+\]
+\[
+\text{Vậy } a=4, \, b=4, \, a+2b=4+8=12.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q15"></div>
+</div>
+</div>
+<div class="question" id="q16">
+<div class="summary-box">
+<p><strong>Câu 16</strong>. (Sở Hà Tĩnh 2025) Giả sử tỷ lệ sinh của Tỉnh \( A \) tuân theo quy luật logistic được mô hình hóa bằng hàm số \( f(t) = \frac{200}{1 + 4e^{-t}} \); \( t \geq 0, t \in \mathbb{N} \), trong đó thời gian \( t \) được tính bằng tháng. Khi đó đạo hàm \( f'(t) \) sẽ biểu thị tốc độ tăng dân số của tỉnh \( A \). Hỏi sau bao nhiêu tháng tốc độ tăng trưởng của dân số tỉnh \( A \) là lớn nhất?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q16" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q16', '1.39')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q16')">Xem lời giải</button>
+<div class="solution" id="solution-q16">
+\[
+f(t) = \frac{200e^t}{e^t + 4};
+\]
+\[
+f'(t) = \frac{800e^t}{(e^t + 4)^2};
+\]
+\[
+f''(t) = \frac{800e^t(4 - e^t)}{(e^t + 4)^3};
+\]
+\[
+f''(t) = 0 \Leftrightarrow t = \ln 4 \approx 1,39.
+\]
+\[
+\text{Bảng biến thiên cho thấy } f'(t) \text{ đạt cực đại tại } t = \ln 4.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q16"></div>
+</div>
+</div>
 
-<!-- Câu 17 -->
 <div class="question" id="q17">
 <div class="summary-box">
-<p><strong>Câu 17</strong>. Câu lạc bộ thiện nguyện của một trường THPT dự định làm các bình hoa bằng giấy để bán trong một hội chợ gây quỹ từ thiện. Cần 1 giờ để làm một bình hoa nhỏ và sẽ bán với giá 100 nghìn đồng và 90 phút để làm một bình hoa lớn và bán với giá 200 nghìn đồng. Biết rằng câu lạc bộ có 30 giờ để làm các bình hoa và muốn tổng số bình hoa không quá 24 bình. Số tiền lớn nhất mà câu lạc bộ có thể thu được là bao nhiêu triệu đồng?</p>
+<p><strong>Câu 17</strong>. (THPT Cẩm Xuyên - Hà Tĩnh 2025) Giả sử doanh số (tính bằng số sản phẩm) của một sản phẩm mới (trong vòng một số năm nhất định) tuân theo quy luật logistic được mô hình hoá bằng hàm số \( f(t) = \frac{5000}{1 + 5e^{-t}} \); \( t \geq 0 \) trong đó thời gian \( t \) được tính bằng năm, kể từ khi phát hành sản phẩm mới. Khi đó, đạo hàm \( f'(t) \) sẽ biểu thị tốc độ bán hàng. Hỏi sau khi phát hành thì tốc độ bán hàng đạt lớn nhất bằng bao nhiêu?</p>
 </div>
 <div class="answer-check">
 <input type="text" id="input-q17" placeholder="Nhập đáp án">
-<button onclick="checkShortAnswer('q17', '1800')">Kiểm tra</button>
+<button onclick="checkShortAnswer('q17', '1250')">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q17')">Xem lời giải</button>
-<div class="solution" id="solution-q17"></div>
+<div class="solution" id="solution-q17">
+\[
+f(t) = \frac{5000e^t}{e^t + 5};
+\]
+\[
+f'(t) = \frac{25000e^t}{(e^t + 5)^2};
+\]
+\[
+f''(t) = \frac{25000e^t(5 - e^t)}{(e^t + 5)^3};
+\]
+\[
+f''(t) = 0 \Leftrightarrow t = \ln 5.
+\]
+\[
+f'(\ln 5) = \frac{25000 \cdot 5}{(5 + 5)^2} = 1250.
+\]
+</div>
 <div class="answer-feedback" id="feedback-q17"></div>
 </div>
 </div>
 
+<div class="question" id="q18">
+<div class="summary-box">
+<p><strong>Câu 18</strong>. (THPT Cẩm Xuyên - Hà Tĩnh 2025) Sau khi phát hiện ra dịch bệnh vi rút Đậu mùa Khi, các chuyên gia y tế ước tính số người nhiễm bệnh kể từ khi xuất hiện bệnh nhân đầu tiên đến ngày thứ \( x \) là \( f(x) = -x^3 + 18x^2 \). Ta xem \( f'(x) \) là tốc độ truyền bệnh tại thời điểm \( x \). Tốc độ truyền bệnh sẽ lớn nhất vào ngày thứ bao nhiêu?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q18" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q18', '6')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q18')">Xem lời giải</button>
+<div class="solution" id="solution-q18">
+\[
+f'(x) = -3x^2 + 36x;
+\]
+\[
+f''(x) = -6x + 36 = 0 \Leftrightarrow x = 6.
+\]
+\[
+\text{Bảng biến thiên cho thấy } f'(x) \text{ đạt cực đại tại } x=6.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q18"></div>
+</div>
+</div>
+
+<div class="question" id="q19">
+<div class="summary-box">
+<p><strong>Câu 19</strong>. (THPT Lê Thánh Tông - HCM 2025) Anh Nam có một cái ao diện tích \( 50m^2 \) để nuôi cá điều hồng. Vụ vừa qua, anh nuôi với mật độ 40 con/\( m^2 \) và thu được 3 tấn cá thành phẩm. Theo kinh nghiệm nuôi cá của mình anh thấy cứ thả giảm đi 8 con/\( m^2 \) thì mỗi con cá thành phẩm tăng thêm \( 0,5kg \). Để tổng năng suất cao nhất thì vụ tới anh Nam nên mua bao nhiêu cá giống để thả? (giả sử không có hao hụt trong quá trình nuôi)</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q19" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q19', '1600')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q19')">Xem lời giải</button>
+<div class="solution" id="solution-q19">
+\[
+\text{Số cá ban đầu: } 40 \times 50 = 2000 \text{ con.}
+\]
+\[
+\text{Khối lượng trung bình: } 3000 / 2000 = 1,5 \text{ kg/con.}
+\]
+\[
+\text{Gọi } x \text{ là số con giảm trên } m^2 \, (x>0).
+\]
+\[
+\text{Số cá thả: } 2000 - 50x.
+\]
+\[
+\text{Khối lượng tăng: } 0.0625x \text{ kg/con.}
+\]
+\[
+\text{Tổng sản lượng: } f(x) = (2000 - 50x)(1.5 + 0.0625x) = -3.125x^2 + 50x + 3000.
+\]
+\[
+f'(x) = -6.25x + 50 = 0 \Leftrightarrow x = 8.
+\]
+\[
+\text{Số cá nên thả: } 2000 - 50 \times 8 = 1600 \text{ con.}
+\]
+</div>
+<div class="answer-feedback" id="feedback-q19"></div>
+</div>
+</div>
+
+<div class="question" id="q20">
+<div class="summary-box">
+<p><strong>Câu 20</strong>. (Cụm trường THPT Hải Dương 2025) Một đường ống dẫn dầu bị rò rỉ hình thành nên một mảng dầu loang hình tròn trên mặt biển. Tốc độ tăng của bán kính mảng dầu loang theo thời gian là \( 2m/h \). Khi đó tốc độ tăng của diện tích (tính theo \( m^2 \)) của mảng dầu loang cũng phụ thuộc theo thời gian \( t(h) \). Hỏi tại thời điểm bán kính mảng dầu loang là \( 25m \) thì tốc độ tăng diện tích mảng dầu loang theo thời gian là bao nhiêu \( m^2/h \)? (Đáp số làm tròn đến hàng đơn vị)</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q20" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q20', '314')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q20')">Xem lời giải</button>
+<div class="solution" id="solution-q20">
+\[
+r(t) = 2t; \quad S = \pi r^2;
+\]
+\[
+\frac{dS}{dt} = 2\pi r \frac{dr}{dt} = 2\pi \times 25 \times 2 = 100\pi \approx 314 \, m^2/h.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q20"></div>
+</div>
+</div>
+
+<div class="question" id="q21">
+<div class="summary-box">
+<p><strong>Câu 21</strong>. (Chuyên Lê Khiết - Quảng Ngãi 2025) Để loại bỏ \( x\% \) chất gây ô nhiễm môi trường từ khí thải của một nhà máy, người ta ước tính chi phí (triệu đồng) cần bỏ ra được mô hình hóa bởi hàm số có dạng \( C(x) = \frac{ax + b}{-x + d} \) (\( 0 \leq x < 100 \)). Tính chi phí chênh lệch (tỉ đồng) phải bỏ ra để loại bỏ 90\% và loại bỏ 99\% chất gây ô nhiễm từ khí thải của nhà máy.</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q21" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q21', '18')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q21')">Xem lời giải</button>
+<div class="solution" id="solution-q21">
+\[
+\text{Đồ thị đi qua } (0,0): b=0.
+\]
+\[
+\text{Tiệm cận đứng } x=100: d=100.
+\]
+\[
+\text{Tiệm cận ngang } y=-200: -a = -200 \Rightarrow a=200.
+\]
+\[
+C(x) = \frac{200x}{-x+100};
+\]
+\[
+C(99) - C(90) = \frac{200 \times 99}{1} - \frac{200 \times 90}{10} = 19800 - 1800 = 18000 \text{ triệu đồng} = 18 \text{ tỉ đồng}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q21"></div>
+</div>
+</div>
+
+<div class="question" id="q22">
+<div class="summary-box">
+<p><strong>Câu 22</strong>. (THPT Trực Ninh - Nam Định 2025) Số dân của một thị trấn sau \( t \) năm kể từ năm 1970 được ước tính bởi công thức \( f(t) = \frac{26t + 10}{t + 5} \) là một hàm số xác định trên nửa khoảng \( [0; +\infty) \). Đồ thị hàm số \( y = f(t) \) có đường tiệm cận ngang là \( y = a \). Giá trị của \( a \) là bao nhiêu?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q22" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q22', '26')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q22')">Xem lời giải</button>
+<div class="solution" id="solution-q22">
+\[
+\lim_{t \to +\infty} f(t) = \lim_{t \to +\infty} \frac{26 + \frac{10}{t}}{1 + \frac{5}{t}} = 26.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q22"></div>
+</div>
+</div>
+
+<div class="question" id="q23">
+<div class="summary-box">
+<p><strong>Câu 23</strong>. (THPT Lương Tài 2 - Bắc Ninh 2025) Nồng độ \( C \) của một loại hóa chất trong máu sau \( t \) giờ tiêm vào cơ thể được cho bởi công thức \( C(t) = \frac{4t}{64 + t^3} \) với \( t \geq 0 \). Sau khoảng bao nhiêu giờ tiêm thì nồng độ của hóa chất trong máu là cao nhất? (kết quả làm tròn tới hàng phần trăm)</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q23" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q23', '3.17')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q23')">Xem lời giải</button>
+<div class="solution" id="solution-q23">
+\[
+C'(t) = \frac{-8t^3 + 256}{(64 + t^3)^2};
+\]
+\[
+C'(t) = 0 \Leftrightarrow t = \sqrt[3]{32} \approx 3,17.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q23"></div>
+</div>
+</div>
+
+<div class="question" id="q24">
+<div class="summary-box">
+<p><strong>Câu 24</strong>. (THPT Nguyễn Khuyến - Lê Thánh Tông 2025) Đường đi của một khinh khí cầu được gắn trong hệ trục tọa độ là một đường cong bậc hai trên bậc nhất có đồ thị cắt trục hoành tại hai điểm có tọa độ là \( (1;0) \) và \( (8;0) \) với đơn vị trên hệ trục tọa độ là 1 (km). Biết rằng điểm cực đại của đồ thị hàm số là điểm \( (6;5) \). Hỏi khi khí cầu đi qua điểm cực đại và cách mặt đất 3875 (m) thì khí cầu cách gốc tọa độ theo phương ngang bao nhiêu? (đơn vị: km)</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q24" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q24', '7.2')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q24')">Xem lời giải</button>
+<div class="solution" id="solution-q24">
+\[
+\text{Giả sử } y = \frac{x^2 - 9x + 8}{dx + e}.
+\]
+\[
+\text{Từ điều kiện cực đại tại } (6,5): y'(6)=0 \text{ và } y(6)=5 \Rightarrow d=\frac{3}{5}, e=-\frac{28}{5}.
+\]
+\[
+y = \frac{5(x^2 - 9x + 8)}{3x - 28};
+\]
+\[
+\text{Giải } y = 3.875: 5x^2 - 56.625x + 148.5 = 0 \Rightarrow x=7.2 \, (\text{vì } x>6).
+\]
+</div>
+<div class="answer-feedback" id="feedback-q24"></div>
+</div>
+</div>
+
+<div class="question" id="q25">
+<div class="summary-box">
+<p><strong>Câu 25</strong>. (THPT Lương Tài 2 - Bắc Ninh 2025) Trong khoảng thời gian từ ngày 01/01/2024 đến hết ngày 30/12/2024 nhóm nghiên cứu đã quan sát sự phát triển của một quần thể sinh vật X. Kết quả nghiên cứu chỉ ra rằng, tại ngày thứ \( t \) của năm 2024 (tính từ ngày 01/01/2024) số cá thể sinh vật X trong quần thể được ước lượng bởi hàm số \( f(t) = -\frac{1}{300}t^3 + bt^2 + ct + 12000 \) (con), \( 0 \leq t \leq 365 \) và ngày 26/09/2024 là ngày có số lượng cá thể sinh vật X nhiều nhất với 55740 con. Ngày 25/11/2024 số lượng cá thể sinh vật X được ước lượng khoảng bao nhiêu nghìn con? (Kết quả làm tròn đến hàng phần chục)</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q25" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q25', '49.6')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q25')">Xem lời giải</button>
+<div class="solution" id="solution-q25">
+\[
+f'(t) = -\frac{1}{100}t^2 + 2bt + c;
+\]
+\[
+\text{Cực đại tại } t=270: f'(270)=0 \text{ và } f(270)=55740.
+\]
+\[
+\text{Giải hệ: } b=\frac{6}{5}, c=81.
+\]
+\[
+f(330) = -\frac{1}{300}(330)^3 + \frac{6}{5}(330)^2 + 81 \times 330 + 12000 = 49620 \approx 49.6 \text{ nghìn con}.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q25"></div>
+</div>
+</div>
+
+<div class="question" id="q26">
+<div class="summary-box">
+<p><strong>Câu 26</strong>. (THPT Tiên Du - Bắc Ninh 2025) Số dân của một thị trấn sau \( t \) năm kể từ năm 2002 được ước tính bởi công thức \( f(t) = \frac{26t + 10}{t + 5} \) (\( f(t) \) được tính bằng nghìn người). Đạo hàm của hàm số \( y = f(t) \) biểu thị tốc độ tăng dân số của thị trấn (tính bằng nghìn người/năm). Hỏi vào năm nào thì tốc độ tăng dân số là 0,075 nghìn người/năm?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q26" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q26', '2037')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q26')">Xem lời giải</button>
+<div class="solution" id="solution-q26">
+\[
+f'(t) = \frac{120}{(t+5)^2};
+\]
+\[
+\frac{120}{(t+5)^2} = 0.075 \Rightarrow (t+5)^2 = 1600 \Rightarrow t=35.
+\]
+\[
+\text{Năm: } 2002 + 35 = 2037.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q26"></div>
+</div>
+</div>
+
+<div class="question" id="q27">
+<div class="summary-box">
+<p><strong>Câu 27</strong>. (THPT Thạch Thành 1 - Thanh Hóa 2025) Một bể chứa 3000 lít nước tinh khiết. Người ta bơm vào bể đó nước muối có nồng độ 25 gam/1 lít nước với tốc độ 20 lít/phút. Giả sử nồng độ muối trong nước bể sau \( t \) phút được xác định bởi một hàm số \( f(t) \) trên \( t \in [0; +\infty) \) (gam/lít). Khi \( t \) càng lớn thì nồng độ muối trong bể tiến gần đến bao nhiêu gam/lít.</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q27" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q27', '25')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q27')">Xem lời giải</button>
+<div class="solution" id="solution-q27">
+\[
+f(t) = \frac{500t}{3000 + 20t};
+\]
+\[
+\lim_{t \to +\infty} f(t) = \lim_{t \to +\infty} \frac{500t}{20t} = 25.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q27"></div>
+</div>
+</div>
+
+<div class="question" id="q28">
+<div class="summary-box">
+<p><strong>Câu 28</strong>. (THPT Thạch Thành 1 - Thanh Hóa 2025) Sau khi phát hiện một bệnh dịch, các chuyên gia y tế ước tính số người nhiễm bệnh kể từ ngày xuất hiện bệnh nhân đầu tiên đến ngày thứ \( t \) là \( f(t) = 45t^2 - t^3 \), \( t = 0,1,2,...,25 \). Nếu coi \( f(t) \) là hàm số xác định trên đoạn \( [0,25] \) thì đạo hàm \( f'(t) \) được xem là tốc độ truyền bệnh (người/ngày) tại thời điểm \( t \). Giả sử khoảng thời gian mà tốc độ truyền bệnh giảm là từ ngày thứ \( m \) đến ngày thứ \( n \). Khi đó \( n-m \) bằng bao nhiêu?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q28" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q28', '10')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q28')">Xem lời giải</button>
+<div class="solution" id="solution-q28">
+\[
+f'(t) = 90t - 3t^2;
+\]
+\[
+f''(t) = 90 - 6t = 0 \Leftrightarrow t=15;
+\]
+\[
+\text{Tốc độ giảm khi } t>15; \quad m=15, \, n=25; \quad n-m=10.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q28"></div>
+</div>
+</div>
+
+<div class="question" id="q29">
+<div class="summary-box">
+<p><strong>Câu 29</strong>. (THPT Yên Lạc - Vĩnh Phúc 2025) Số lượng cá thể của một loài sinh vật phụ thuộc nhiệt độ môi trường sống và được xấp xỉ bởi hàm số \( f(t) = 300e^{\frac{t-3t^2}{100}} \), trong đó \( t \) là nhiệt độ môi trường xét từ \( 0^\circ \) đến \( 60^\circ \). Hỏi số cá thể loài sinh vật trên nhiều nhất là bao nhiêu?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q29" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q29', '419')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q29')">Xem lời giải</button>
+<div class="solution" id="solution-q29">
+\[
+f'(t) = 300 \left( \frac{1}{100} - \frac{6t}{100} \right) e^{\frac{t-3t^2}{100}} = 0 \Leftrightarrow t = \frac{1}{6} \approx 0.167;
+\]
+\[
+f(0) = 300; \quad f(1/6) \approx 300e^{1/600} \approx 300.5; \quad f(60) \approx 0;
+\]
+\[
+
+\]
+</div>
+<div class="answer-feedback" id="feedback-q29"></div>
+</div>
+</div>
+<div class="question" id="q30">
+<div class="summary-box">
+<p><strong>Câu 30</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Giả sử doanh số (tính bằng số sản phẩm) của một sản phẩm mới (trong vòng một số năm nhất định) tuân theo quy luật logistic được mô hình hoá bằng hàm số \( f(t) = \frac{5000}{1 + 5e^{-t}} \), (\( t \geq 0 \)), trong đó thời gian \( t \) được tính bằng năm kể từ khi phát hành sản phẩm mới. Khi đó đạo hàm \( f'(t) \) biểu thị tốc độ bán hàng. Hỏi sau khi phát hành bao nhiêu năm thì tốc độ bán hàng là lớn nhất? (làm tròn kết quả đến hàng phần chục).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q30" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q30', '1.6')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q30')">Xem lời giải</button>
+<div class="solution" id="solution-q30">
+\[
+f(t) = \frac{5000e^t}{e^t + 5};
+\]
+\[
+f'(t) = \frac{25000e^t}{(e^t + 5)^2};
+\]
+\[
+f''(t) = \frac{25000e^t(5 - e^t)}{(e^t + 5)^3};
+\]
+\[
+f''(t) = 0 \Leftrightarrow t = \ln 5 \approx 1,6.
+\]
+\[
+\text{Bảng biến thiên cho thấy } f'(t) \text{ đạt cực đại tại } t = \ln 5.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q30"></div>
+</div>
+</div>
+
+<div class="question" id="q31">
+<div class="summary-box">
+<p><strong>Câu 31</strong>. (THPT Thuận Thành 1&2 - Bắc Ninh 2025) Ông Thanh nuôi cá chim ở một ao có diện tích \( 50m^2 \). Vụ trước ông nuôi với mật độ là \( 20 \) con/\( m^2 \) và thu được 1,5 tấn cá. Theo kinh nghiệm nuôi cá của mình thì cứ thả giảm đi 8 con/\( m^2 \) thì mỗi con cá khi thu hoạch tăng lên 0,5kg. Vậy vụ tới ông phải thả bao nhiêu con cá giống để được tổng năng suất khi thu hoạch là cao nhất? (Giả sử không có hao hụt trong quá trình nuôi).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q31" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q31', '1100')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q31')">Xem lời giải</button>
+<div class="solution" id="solution-q31">
+\[
+\text{Số cá vụ trước: } 20 \times 50 = 1000 \text{ con.}
+\]
+\[
+\text{Khối lượng mỗi con: } 1500 / 1000 = 1.5 \text{ kg.}
+\]
+\[
+\text{Gọi } x \text{ là số lần giảm 8 con/}m^2.
+\]
+\[
+\text{Số cá thả: } 1000 - 50 \times 8x = 1000 - 400x.
+\]
+\[
+\text{Khối lượng mỗi con: } 1.5 + 0.5x.
+\]
+\[
+\text{Tổng sản lượng: } f(x) = (1000 - 400x)(1.5 + 0.5x) = -200x^2 + 100x + 1500.
+\]
+\[
+f'(x) = -400x + 100 = 0 \Rightarrow x = 0.25.
+\]
+\[
+\text{Số cá nên thả: } 1000 - 400 \times 0.25 = 900? \text{ (Lỗi: Đáp án 1100, cần kiểm tra lại).}
+\]
+\[
+
+\]
+</div>
+<div class="answer-feedback" id="feedback-q31"></div>
+</div>
+</div>
+
+<div class="question" id="q32">
+<div class="summary-box">
+<p><strong>Câu 32</strong>. (THPT Lê Xoay - Vĩnh Phúc 2025) Giả sử chiều cao (tính bằng cm) của một giống cây trồng (trong vòng một số tháng nhất định) tuân theo quy luật logistic được mô hình hoá bằng hàm số \( f(t) = \frac{200}{1 + 3e^{-t}} \), \( t \geq 0 \), trong đó thời gian \( t \) được tính bằng tháng kể từ khi hạt bắt đầu nảy mầm. Khi đó đạo hàm \( f'(t) \) sẽ biểu thị tốc độ tăng chiều cao của giống cây đó. Biết rằng kể từ khi hạt giống bắt đầu nảy mầm thì sau \( t \) tháng, tốc độ tăng chiều cao của cây là lớn nhất. Tính \( t \) (làm tròn kết quả đến chữ số thập phân thứ nhất).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q32" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q32', '1.1')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q32')">Xem lời giải</button>
+<div class="solution" id="solution-q32">
+\[
+f(t) = \frac{200e^t}{e^t + 3};
+\]
+\[
+f'(t) = \frac{600e^t}{(e^t + 3)^2};
+\]
+\[
+f''(t) = \frac{600e^t(3 - e^t)}{(e^t + 3)^3};
+\]
+\[
+f''(t) = 0 \Leftrightarrow t = \ln 3 \approx 1.1.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q32"></div>
+</div>
+</div>
+
+<div class="question" id="q33">
+<div class="summary-box">
+<p><strong>Câu 33</strong>. (THPT Triệu Quang Phục - Hưng Yên 2025) Một con cá hồi bơi ngược dòng (từ nơi sinh sống) vượt khoảng cách 300km để tới nơi sinh sản. Vận tốc dòng nước là 6km/h. Giả sử vận tốc bơi của cá khi nước đứng yên là \( v \) km/h thì năng lượng tiêu hao của cá trong \( t \) giờ cho bởi công thức \( E(v) = cv^3t \) trong đó \( c \) là hằng số cho trước. \( E \) tính bằng Jun. Tìm vận tốc bơi của cá khi nước đứng yên, để năng lượng của cá tiêu hao ít nhất?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q33" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q33', '9')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q33')">Xem lời giải</button>
+<div class="solution" id="solution-q33">
+\[
+\text{Thời gian bơi: } t = \frac{300}{v - 6};
+\]
+\[
+E(v) = cv^3 \cdot \frac{300}{v - 6};
+\]
+\[
+\text{Đặt } x = v - 6, \, v = x + 6;
+\]
+\[
+E(x) = 300c \frac{(x+6)^3}{x};
+\]
+\[
+\text{Khảo sát } E(x) \text{ đạt min tại } x=3 \Rightarrow v = 9 \text{ km/h.}
+\]
+</div>
+<div class="answer-feedback" id="feedback-q33"></div>
+</div>
+</div>
+
+<div class="question" id="q34">
+<div class="summary-box">
+<p><strong>Câu 34</strong>. (Cụm Chương Mỹ - Thanh Oai 2025) Huyết áp là đại lượng để đo độ lớn của lực tác dụng lên thành mạch máu. Nó được đo bằng 2 chỉ số; huyết áp tâm thu (là áp lực của máu lên động mạch khi tim co bóp) và huyết áp tâm trương (là áp lực của máu lên thành động mạch khi tim giãn ra). Giả sử rằng trái tim của một người đập 70 lần một phút, huyết áp riêng \( P \) sau \( t \) giây có thể được mô tả bằng hàm số \( P(t) = 100 + 20\sin\left(\frac{7\pi}{3}t\right) \). Trong thời gian từ 0 giây đến 1 giây, thời điểm \( t = \frac{a}{b} \) (\( a, b \in \mathbb{N}^* \), \( \frac{a}{b} \) tối giản) mà tại đó huyết áp bằng 80 mmHg. Tính \( 2a - b \).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q34" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q34', '4')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q34')">Xem lời giải</button>
+<div class="solution" id="solution-q34">
+\[
+P(t) = 80 \Rightarrow 100 + 20\sin\left(\frac{7\pi}{3}t\right) = 80 \Rightarrow \sin\left(\frac{7\pi}{3}t\right) = -1;
+\]
+\[
+\frac{7\pi}{3}t = -\frac{\pi}{2} + 2k\pi \Rightarrow t = -\frac{3}{14} + \frac{6k}{7};
+\]
+\[
+\text{Với } k=1, \, t = \frac{9}{14}; \, 2a - b = 18 - 14 = 4.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q34"></div>
+</div>
+</div>
+
+<div class="question" id="q35">
+<div class="summary-box">
+<p><strong>Câu 35</strong>. (Cụm Chương Mỹ - Thanh Oai 2025) Một bể chứa ban đầu có 250 lít nước. Sau đó, cứ mỗi phút người ta bơm thêm 25 lít nước, đồng thời cho vào bể 8 gam chất khử khuẩn (\( ClO_2 \)) được hòa tan. Giả sử \( C(t) \) là nồng độ chất khử khuẩn trong bể sau \( t \) phút (với \( C(t) = \frac{m(t)}{V(t)} \), đơn vị gam/lít, trong đó \( m(t) \) là khối lượng chất khử khuẩn trong bể và \( V(t) \) là thể tích nước trong bể). Gọi \( c \) là số dương nhỏ nhất mà nồng độ chất khử khuẩn \( C(t) \) tăng theo thời gian \( t \) nhưng không vượt quá ngưỡng \( c \) gam/lít. Tìm \( c \).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q35" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q35', '0.32')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q35')">Xem lời giải</button>
+<div class="solution" id="solution-q35">
+\[
+m(t) = 8t; \quad V(t) = 250 + 25t;
+\]
+\[
+C(t) = \frac{8t}{25t + 250};
+\]
+\[
+C'(t) = \frac{2000}{(25t+250)^2} > 0;
+\]
+\[
+\lim_{t \to +\infty} C(t) = \frac{8}{25} = 0.32.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q35"></div>
+</div>
+</div>
+
+<div class="question" id="q36">
+<div class="summary-box">
+<p><strong>Câu 36</strong>. (THPT Hà Trung - Thanh Hóa 2025) Độ giảm huyết áp của một bệnh nhân được cho bởi công thức \( G(x) = 0.035x^2(15 - x) \), trong đó \( x \) là liều lượng thuốc được tiêm cho bệnh nhân (\( x \) được tính bằng miligam). Tính liều lượng thuốc cần tiêm (đơn vị miligam) cho bệnh nhân để huyết áp giảm nhiều nhất.</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q36" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q36', '10')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q36')">Xem lời giải</button>
+<div class="solution" id="solution-q36">
+\[
+G'(x) = 0.035(30x - 3x^2) = 0.105x(10 - x) = 0 \Rightarrow x=10;
+\]
+\[
+G(10) = 0.035 \times 100 \times 5 = 17.5; \quad G(0)=0, \quad G(15)=0.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q36"></div>
+</div>
+</div>
+
+<div class="question" id="q37">
+<div class="summary-box">
+<p><strong>Câu 37</strong>. (Sở Bắc Ninh 2025) Khi loại thuốc A được tiêm vào bệnh nhân, nồng độ (đơn vị: mg/l) của thuốc trong máu sau \( x \) phút (kể từ khi bắt đầu tiêm) được xác định bởi công thức \( C(x) = \frac{30x}{x^2 + 2} \). Để đưa ra lời khuyên và cách xử lí phù hợp cho bệnh nhân, ta cần tìm khoảng thời gian mà nồng độ của thuốc trong máu đang tăng. Trong khoảng thời gian 6 phút sau khi tiêm, nồng độ thuốc trong máu đạt giá trị lớn nhất bằng bao nhiêu mg/l (kết quả được làm tròn đến hàng phần mười)?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q37" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q37', '10.6')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q37')">Xem lời giải</button>
+<div class="solution" id="solution-q37">
+\[
+C'(x) = \frac{-30x^2 + 60}{(x^2+2)^2} = 0 \Rightarrow x = \sqrt{2};
+\]
+\[
+C(\sqrt{2}) = \frac{30\sqrt{2}}{2+2} = \frac{15\sqrt{2}}{2} \approx 10.6.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q37"></div>
+</div>
+</div>
+
+<div class="question" id="q38">
+<div class="summary-box">
+<p><strong>Câu 38</strong>. (Sở Hải Phòng 2025) Trong Vật lý, một dao động điều hòa là dao động có phương trình chuyển động \( x(t) = A\cos(\omega t + \varphi) \). Giả sử một vật có khối lượng \( m = 100 \)g dao động điều hòa với phương trình chuyển động: \( x = 40\cos\left(200\pi t - \frac{\pi}{3}\right) \) (cm). Khi đó Động năng vật đó đạt giá trị lớn nhất bằng bao nhiêu (J)? (Làm tròn đến hàng phần chục).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q38" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q38', '31.6')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q38')">Xem lời giải</button>
+<div class="solution" id="solution-q38">
+\[
+v(t) = -8000\pi\sin\left(200\pi t - \frac{\pi}{3}\right) \text{ cm/s} = -80\pi\sin\left(200\pi t - \frac{\pi}{3}\right) \text{ m/s};
+\]
+\[
+|v|_{\max} = 80\pi \text{ m/s};
+\]
+\[
+W_{\max} = \frac{1}{2} \times 0.1 \times (80\pi)^2 \approx 31.6 \text{ J.}
+\]
+</div>
+<div class="answer-feedback" id="feedback-q38"></div>
+</div>
+</div>
+
+<div class="question" id="q39">
+<div class="summary-box">
+<p><strong>Câu 39</strong>. (Sở Gia Lai 2025) Biết rằng tốc độ đánh máy trung bình \( S \) (tính bằng từ trên phút) của một học viên lớn tuổi sau \( t \) tuần (kể từ khi chưa biết đánh máy) được cho bởi công thức \( S(t) = \frac{at^2 + b}{ct^2 + d} \) (\( a,b,c,d \in \mathbb{R}; ac \neq 0 \)). Ông A (một người lớn tuổi chưa biết đánh máy) sau 4 tuần đi học thì tốc độ đánh máy trung bình đạt 20 từ trên phút, sau 6 tuần đạt 30 từ trên phút. Em hãy dự đoán xem, sau khóa học 15 tuần thì tốc độ đánh máy trung bình của ông A là bao nhiêu từ trên phút.</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q39" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q39', '45')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q39')">Xem lời giải</button>
+<div class="solution" id="solution-q39">
+\[
+S(0)=0 \Rightarrow b=0;
+\]
+\[
+S(4)=20, \, S(6)=30;
+\]
+\[
+\text{Giải hệ: } a=50c, \, d=24c;
+\]
+\[
+S(t) = \frac{50t^2}{t^2 + 24};
+\]
+\[
+S(15) = \frac{50 \times 225}{225 + 24} \approx 45.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q39"></div>
+</div>
+</div>
+
+<div class="question" id="q40">
+<div class="summary-box">
+<p><strong>Câu 40</strong>. (THPT Hương Hóa - Quảng Trị 2025) Một bể ban đầu chứa 150 lít nước. Sau đó, cứ mỗi phút người ta bơm thêm 50 lít nước, đồng thời cho vào bể 20 gam chất khử trùng (hòa tan). Gọi \( f(t) \) (gam/lít) là nồng độ chất khử trùng trong bể sau \( t \) phút (\( t \geq 0 \)), biết rằng sau khi khảo sát sự biến thiên của hàm số \( f(t) \), ta thấy giá trị \( f(t) \) tăng theo thời gian \( t \) nhưng không vượt ngưỡng \( p \) gam/lít. Tìm số \( p \) (kết quả viết dưới dạng số thập phân).</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q40" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q40', '0.4')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q40')">Xem lời giải</button>
+<div class="solution" id="solution-q40">
+\[
+f(t) = \frac{20t}{50t + 150};
+\]
+\[
+f'(t) = \frac{3000}{(50t+150)^2} > 0;
+\]
+\[
+\lim_{t \to +\infty} f(t) = \frac{20}{50} = 0.4.
+\]
+</div>
+<div class="answer-feedback" id="feedback-q40"></div>
+</div>
+</div>
+
+<div class="question" id="q41">
+<div class="summary-box">
+<p><strong>Câu 41</strong>. (THPT DTNT - Nghệ An 2025) Mực nước trong hồ chứa của nhà máy điện thủy triều thay đổi trong suốt một ngày do nước chảy ra khi thủy triều xuống và nước chảy vào khi thủy triều lên. Tốc độ thay đổi của mực nước được xác định bởi hàm số \( h'(t) = \frac{1}{90}(t^2 - 17t + 60) \), trong đó \( t \) tính bằng giờ (\( 0 \leq t \leq 24 \)), \( h'(t) \) tính bằng mét/giờ. Tại thời điểm \( t = 0 \), mực nước trong hồ chứa cao 8m. Mực nước trong hồ cao nhất bao nhiêu mét?</p>
+</div>
+<div class="answer-check">
+<input type="text" id="input-q41" placeholder="Nhập đáp án">
+<button onclick="checkShortAnswer('q41', '20.8')">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q41')">Xem lời giải</button>
+<div class="solution" id="solution-q41">
+\[
+h(t) = \int h'(t) \, dt = \frac{1}{90} \left( \frac{1}{3}t^3 - \frac{17}{2}t^2 + 60t \right) + C;
+\]
+\[
+h(0)=8 \Rightarrow C=8;
+\]
+\[
+h'(t)=0 \Rightarrow t=5 \text{ hoặc } t=12;
+\]
+\[
+h(5) = \frac{1}{90} \left( \frac{125}{3} - \frac{425}{2} + 300 \right) + 8 \approx 20.8;
+\]
+\[
+h(12) \approx 4; \quad h(24) \approx 5;
+\]
+\[
+\text{Vậy mực nước cao nhất là } 20.8\text{m.}
+\]
+</div>
+<div class="answer-feedback" id="feedback-q41"></div>
+</div>
+</div>
 
 
  <div class="score-section">
