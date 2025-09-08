@@ -647,6 +647,34 @@ Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</
           tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
           chtml: { linebreaks: { automatic: true } }
       };
+
+       $('.hamburger-btn').click(function(){
+            $(this).toggleClass('active');
+            $('#mainNav').toggleClass('active');
+        });
+
+        // Submenu
+        $('.main-menu > li > a').click(function(e){
+            if ($(window).width() <= 768) {
+                var $submenu = $(this).siblings('.submenu');
+                if ($submenu.length) {
+                    e.preventDefault();
+                    $submenu.toggleClass('active');
+                    $(this).find('.dropdown-icon').toggleClass('active');
+                }
+            }
+        });
+
+        $('.submenu > li > a').click(function(e){
+            if ($(window).width() <= 768) {
+                var $nestedSubmenu = $(this).siblings('.nested-sub-menu');
+                if ($nestedSubmenu.length) {
+                    e.preventDefault();
+                    $nestedSubmenu.toggleClass('active');
+                    $(this).find('.nested-dropdown-icon').toggleClass('active');
+                }
+            }
+        });
       </script>
 
 
