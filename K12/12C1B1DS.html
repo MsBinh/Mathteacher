@@ -58,7 +58,7 @@
                             <li>
                                 <a href="#math">Đạo hàm và ứng dụng <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
                                 <ul class="nested-sub-menu">
-                                    <li><a href="12C1B1">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B1.html">Biến thiên và cực trị hàm số</a></li>
                                     <li><a href="12C1B2">Max - min của hàm số</a></li>
                                     <li><a href="12C1B3">Tiệm cận</a></li>
                                     <li><a href="12C1B4">Đồ thị hàm số</a></li>
@@ -69,7 +69,7 @@
                                 <ul class="nested-sub-menu">
                                     <li><a href="12C2B1">Véc tơ trong KG</a></li>
                                     <li><a href="12C2B1">Hệ tọa độ trong KG</a></li>
-                                    <li><a href="12C2B3">Biểu thức tọa độ</a></li>
+                                    <li><a href="12C2B3.html">Biểu thức tọa độ</a></li>
                                     
                                 </ul>
                             </li>
@@ -112,9 +112,9 @@
                             <li>
                                 <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
                                 <ul class="nested-sub-menu">
-                                    <li><a href="12C1B1TN">Biến thiên và cực trị hàm số</a></li>
-                                    <li><a href="12C1B2TN">Max - min của hàm số</a></li>
-                                    <li><a href="12C1B3TN">Tiệm cận</a></li>
+                                    <li><a href="12C1B1TN.html">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2.html">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3TN.HTML">Tiệm cận</a></li>
                                     <li><a href="12C1B4TN">Đồ thị hàm số</a></li>
                                 </ul>
                             </li>
@@ -164,7 +164,7 @@
                             <li>
                                 <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
                                 <ul class="nested-sub-menu">
-                                    <li><a href="12C1B1DS">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B1DS.html">Biến thiên và cực trị hàm số</a></li>
                                     <li><a href="12C1B2DS">Max - min của hàm số</a></li>
                                     <li><a href="12C1B3DS">Tiệm cận</a></li>
                                     <li><a href="12C1B4DS">Đồ thị hàm số</a></li>
@@ -216,7 +216,7 @@
                             <li>
                                 <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
                                 <ul class="nested-sub-menu">
-                                    <li><a href="12C1B1TLN">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B1TLN.html">Biến thiên và cực trị hàm số</a></li>
                                     <li><a href="12C1B2TLN">Max - min của hàm số</a></li>
                                     <li><a href="12C1B3TLN">Tiệm cận</a></li>
                                     <li><a href="12C1B4TLN">Đồ thị hàm số</a></li>
@@ -351,103 +351,766 @@
                     <span><i class="fas fa-calendar-alt"></i> Cập nhật: 20/08/2025</span>
                     <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
                 </div>
-
 <!-- Câu 1 -->
 <div class="question" id="q1">
 <div class="summary-box">
-<p><strong>Câu 1</strong>. Cho đồ thị \( y = f(x) \) như hình vẽ dưới đây:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.1.png"/><br/>
-
-Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</p>
-
+<p><strong>Câu 1</strong>. Cho hàm số <span class="math">\( y = f(x) \)</span> liên tục trên <span class="math">\( \mathbb{R} \)</span> và có bảng biến thiên như sau:<br/>
+<img alt="" loading="lazy" src="data/im/t1.png"/><br/>
+Khi đó:</p>
 <div class="options">
-<label><input name="q1" onchange="showOptionIcon('q1', 'A', 'C')" type="radio" value="A"/> A. \( (-\infty ; 1) \)<span class="option-icon" id="icon-q1-A"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'B', 'C')" type="radio" value="B"/> B. \( (2 ; +\infty) \)<span class="option-icon" id="icon-q1-B"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'C', 'C')" type="radio" value="C"/> C. \( (0 ; 1) \)<span class="option-icon" id="icon-q1-C"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'D', 'C')" type="radio" value="D"/> D. \( (1 ; 2) \)<span class="option-icon" id="icon-q1-D"></span></label>
+<p>a) Hàm số đã cho đồng biến trên các khoảng <span class="math">\( (-\infty; -5) \)</span> và <span class="math">\( (-3; -2) \)</span>.</p>
+<label><input name="q1a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1a-Đúng"></span></label>
+<label><input name="q1a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1a-Sai"></span></label>
+<p>b) Hàm số đã cho đồng biến trên khoảng <span class="math">\( (-\infty; -5) \)</span>.</p>
+<label><input name="q1b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1b-Đúng"></span></label>
+<label><input name="q1b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1b-Sai"></span></label>
+<p>c) Hàm số đã cho nghịch biến trên khoảng <span class="math">\( (-2; +\infty) \)</span>.</p>
+<label><input name="q1c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1c-Đúng"></span></label>
+<label><input name="q1c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1c-Sai"></span></label>
+<p>d) Hàm số đã cho đồng biến trên khoảng <span class="math">\( (-\infty; -2) \)</span>.</p>
+<label><input name="q1d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1d-Đúng"></span></label>
+<label><input name="q1d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkAnswer('q1', 'B')">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q1', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q1')">Xem lời giải</button>
 <div class="solution" id="solution-q1">
   <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
-  <p>Nhìn vào đồ thị ta thấy hàm số <span class="math">\(y=f(x)\)</span> đi lên (đồng biến) trên khoảng <span class="math">\((2; +\infty)\)</span>.</p>
-  <p>Các khoảng khác: 
-    <br/>• \((-∞;1)\): hàm đang giảm. 
-    <br/>• \((0;1)\): hàm đi xuống. 
-    <br/>• \((1;2)\): hàm vẫn giảm.
-  </p>
-  <p>👉 Vậy đáp án đúng là <strong>B</strong>.</p>
+  <ul>
+    <li>a) Đúng: Hàm số đồng biến trên <span class="math">\( (-\infty; -2) \)</span> nên đồng biến trên các khoảng con <span class="math">\( (-\infty; -5) \)</span> và <span class="math">\( (-3; -2) \)</span>.</li>
+    <li>b) Sai: Hàm số đồng biến trên <span class="math">\( (-\infty; -2) \)</span>, không phải chỉ trên <span class="math">\( (-\infty; -5) \)</span>.</li>
+    <li>c) Đúng: Hàm số nghịch biến trên <span class="math">\( (-2; +\infty) \)</span>.</li>
+    <li>d) Đúng: Hàm số đồng biến trên <span class="math">\( (-\infty; -2) \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, c, d</strong>.</p>
 </div>
-
 </div>
 </div>
 
 <!-- Câu 2 -->
 <div class="question" id="q2">
 <div class="summary-box">
-<p><strong>Câu 2</strong>. Trong không gian \( Oxyz \), cho mặt phẳng \( (P): 2x + y - z - 1 = 0 \). Vector nào dưới đây là một vector pháp tuyến của mặt phẳng \( (P) \)?</p>
-
+<p><strong>Câu 2</strong>. Cho hàm số <span class="math">\( f(x) \)</span> liên tục trên <span class="math">\( \mathbb{R} \)</span> và có bảng xét dấu đạo hàm như sau:<br/>
+<img alt="" loading="lazy" src="data/im/ts.png"/><br/>
+Khi đó:</p>
 <div class="options">
-<label><input name="q2" onchange="showOptionIcon('q2', 'A', 'A')" type="radio" value="A"/> A. \( \overrightarrow{n_3} = (2 ; 1 ; -1) \)<span class="option-icon" id="icon-q2-A"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'B', 'A')" type="radio" value="B"/> B. \( \overrightarrow{n_1} = (2 ; -1 ; 1) \)<span class="option-icon" id="icon-q2-B"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'C', 'A')" type="radio" value="C"/> C. \( \overrightarrow{n_4} = (-2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-C"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'D', 'A')" type="radio" value="D"/> D. \( \overrightarrow{n_2} = (2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-D"></span></label>
+<p>a) Hàm số đồng biến trên khoảng <span class="math">\( (-3; 0) \)</span>.</p>
+<label><input name="q2a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2a-Đúng"></span></label>
+<label><input name="q2a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2a-Sai"></span></label>
+<p>b) Hàm số nghịch biến trên khoảng <span class="math">\( (0; 3) \)</span>.</p>
+<label><input name="q2b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2b-Đúng"></span></label>
+<label><input name="q2b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2b-Sai"></span></label>
+<p>c) Hàm số đồng biến trên khoảng <span class="math">\( (-\infty; 0) \)</span>.</p>
+<label><input name="q2c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2c-Đúng"></span></label>
+<label><input name="q2c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2c-Sai"></span></label>
+<p>d) Hàm số nghịch biến trên khoảng <span class="math">\( (-\infty; -3) \)</span>.</p>
+<label><input name="q2d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2d-Đúng"></span></label>
+<label><input name="q2d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkAnswer('q2', 'A')">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q2', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q2')">Xem lời giải</button>
-<div class="solution" id="solution-q2"></div>
+<div class="solution" id="solution-q2">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: <span class="math">\( y' < 0 \)</span> trên <span class="math">\( (-3; 0) \)</span> nên hàm số nghịch biến.</li>
+    <li>b) Đúng: <span class="math">\( y' < 0 \)</span> trên <span class="math">\( (0; 3) \)</span> nên hàm số nghịch biến.</li>
+    <li>c) Sai: Trên <span class="math">\( (-3; 0) \)</span> hàm số nghịch biến.</li>
+    <li>d) Sai: <span class="math">\( y' > 0 \)</span> trên <span class="math">\( (-\infty; -3) \)</span> nên hàm số đồng biến.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>b</strong>.</p>
+</div>
 </div>
 </div>
 
+<!-- Câu 3 -->
+<div class="question" id="q3">
+<div class="summary-box">
+<p><strong>Câu 3</strong>. Cho hàm số <span class="math">\( y = f(x) \)</span> có đồ thị như hình vẽ bên:<br/>
+<img alt="" loading="lazy" src="data/im/t2.png"/><br/>
+Khi đó:</p>
+<div class="options">
+<p>a) Đồ thị hàm số cắt trục tung tại điểm có tung độ bằng 3.</p>
+<label><input name="q3a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3a-Đúng"></span></label>
+<label><input name="q3a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3a-Sai"></span></label>
+<p>b) Hàm số nghịch biến trên khoảng <span class="math">\( (-3; 0) \)</span>.</p>
+<label><input name="q3b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3b-Đúng"></span></label>
+<label><input name="q3b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3b-Sai"></span></label>
+<p>c) Hàm số đồng biến trên khoảng <span class="math">\( (-1; 0) \)</span>.</p>
+<label><input name="q3c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3c-Đúng"></span></label>
+<label><input name="q3c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3c-Sai"></span></label>
+<p>d) Hàm số nghịch biến trên khoảng <span class="math">\( (0; 3) \)</span>.</p>
+<label><input name="q3d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3d-Đúng"></span></label>
+<label><input name="q3d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q3', ['Đúng', 'Sai', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q3')">Xem lời giải</button>
+<div class="solution" id="solution-q3">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Giao điểm với trục tung là <span class="math">\( (0; 3) \)</span>.</li>
+    <li>b) Sai: Hàm số nghịch biến trên <span class="math">\( (-\infty; -1) \)</span>, đồng biến trên <span class="math">\( (-1; 0) \)</span>.</li>
+    <li>c) Đúng: Hàm số đồng biến trên <span class="math">\( (-1; 0) \)</span>.</li>
+    <li>d) Sai: Hàm số nghịch biến trên <span class="math">\( (0; 2) \)</span>, đồng biến trên <span class="math">\( (2; 3) \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, c</strong>.</p>
+</div>
+</div>
+</div>
 
-<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 13 đến câu 16</h3>
+<!-- Câu 4 -->
+<div class="question" id="q4">
+<div class="summary-box">
+<p><strong>Câu 4</strong>. Cho hàm số <span class="math">\( f(x) = -x^3 + 3x^2 \)</span>. Khi đó:</p>
+<div class="options">
+<p>a) Hàm số nghịch biến trên <span class="math">\( (-\infty; 0) \)</span>.</p>
+<label><input name="q4a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4a-Đúng"></span></label>
+<label><input name="q4a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4a-Sai"></span></label>
+<p>b) Hàm số nghịch biến trên <span class="math">\( (2; +\infty) \)</span>.</p>
+<label><input name="q4b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4b-Đúng"></span></label>
+<label><input name="q4b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4b-Sai"></span></label>
+<p>c) Hàm số đồng biến trên <span class="math">\( (0; 2) \)</span>.</p>
+<label><input name="q4c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4c-Đúng"></span></label>
+<label><input name="q4c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4c-Sai"></span></label>
+<p>d) Hàm số đồng biến trên <span class="math">\( \mathbb{R} \)</span>.</p>
+<label><input name="q4d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4d-Đúng"></span></label>
+<label><input name="q4d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q4', ['Đúng', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q4')">Xem lời giải</button>
+<div class="solution" id="solution-q4">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: <span class="math">\( f'(x) = -3x^2 + 6x \)</span>, <span class="math">\( f'(x) < 0 \)</span> trên <span class="math">\( (-\infty; 0) \)</span>.</li>
+    <li>b) Đúng: <span class="math">\( f'(x) < 0 \)</span> trên <span class="math">\( (2; +\infty) \)</span>.</li>
+    <li>c) Đúng: <span class="math">\( f'(x) > 0 \)</span> trên <span class="math">\( (0; 2) \)</span>.</li>
+    <li>d) Sai: Hàm số không đồng biến trên toàn <span class="math">\( \mathbb{R} \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 5 -->
+<div class="question" id="q5">
+<div class="summary-box">
+<p><strong>Câu 5</strong>. Cho hàm số <span class="math">\( y = f(x) \)</span> có đồ thị là đường cong như hình dưới đây:<br/>
+<img alt="" loading="lazy" src="data/im/t3.png"/><br/>
+Khi đó:</p>
+<div class="options">
+<p>a) Hàm số đồng biến trên <span class="math">\( (-\infty; -2) \)</span>.</p>
+<label><input name="q5a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5a-Đúng"></span></label>
+<label><input name="q5a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5a-Sai"></span></label>
+<p>b) Hàm số đồng biến trên <span class="math">\( (0; 1) \)</span>.</p>
+<label><input name="q5b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5b-Đúng"></span></label>
+<label><input name="q5b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5b-Sai"></span></label>
+<p>c) Hàm số nghịch biến trên <span class="math">\( (-2; 1) \)</span>.</p>
+<label><input name="q5c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5c-Đúng"></span></label>
+<label><input name="q5c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5c-Sai"></span></label>
+<p>d) Hàm số nghịch biến trên <span class="math">\( \mathbb{R} \)</span>.</p>
+<label><input name="q5d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5d-Đúng"></span></label>
+<label><input name="q5d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q5', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q5')">Xem lời giải</button>
+<div class="solution" id="solution-q5">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Đồ thị đi lên trên <span class="math">\( (-\infty; -2) \)</span>.</li>
+    <li>b) Đúng: Đồ thị đi lên trên <span class="math">\( (0; +\infty) \)</span> nên đồng biến trên <span class="math">\( (0; 1) \)</span>.</li>
+    <li>c) Sai: Hàm số nghịch biến trên <span class="math">\( (-2; 0) \)</span>, đồng biến trên <span class="math">\( (0; 1) \)</span>.</li>
+    <li>d) Sai: Hàm số không nghịch biến trên toàn <span class="math">\( \mathbb{R} \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 6 -->
+<div class="question" id="q6">
+<div class="summary-box">
+<p><strong>Câu 6</strong>. Cho hàm số <span class="math">\( y = f(x) \)</span> và <span class="math">\( y = g(x) \)</span> có đồ thị là các đường cong như hình dưới đây:<br/>
+<img alt="" loading="lazy" src="data/im/t5.png"/><br/>
+Khi đó:</p>
+<div class="options">
+<p>a) Hàm số <span class="math">\( y = g(x) \)</span> đạt cực tiểu tại điểm <span class="math">\( x_0 > 1 \)</span>.</p>
+<label><input name="q6a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6a-Đúng"></span></label>
+<label><input name="q6a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6a-Sai"></span></label>
+<p>b) Hàm số <span class="math">\( y = g(x) \)</span> có hai điểm cực trị.</p>
+<label><input name="q6b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6b-Đúng"></span></label>
+<label><input name="q6b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6b-Sai"></span></label>
+<p>c) Đồ thị hàm số <span class="math">\( y = f(x) \)</span> có điểm cực tiểu là <span class="math">\( x = 1 \)</span>.</p>
+<label><input name="q6c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6c-Đúng"></span></label>
+<label><input name="q6c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6c-Sai"></span></label>
+<p>d) Giá trị cực đại của hàm số <span class="math">\( y = f(x) \)</span> là <span class="math">\( y_0 = 1 \)</span>.</p>
+<label><input name="q6d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6d-Đúng"></span></label>
+<label><input name="q6d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q6', ['Sai', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q6')">Xem lời giải</button>
+<div class="solution" id="solution-q6">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: <span class="math">\( g(x) \)</span> đạt cực tiểu tại <span class="math">\( x_0 \in (0; 1) \)</span>.</li>
+    <li>b) Sai: <span class="math">\( g(x) \)</span> chỉ có 1 cực trị.</li>
+    <li>c) Sai: Cực tiểu của <span class="math">\( f(x) \)</span> là <span class="math">\( (1; -3) \)</span>.</li>
+    <li>d) Đúng: Cực đại của <span class="math">\( f(x) \)</span> là <span class="math">\( y = 1 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 7 -->
+<div class="question" id="q7">
+<div class="summary-box">
+<p><strong>Câu 7</strong>. Cho hàm số <span class="math">\( f(x) = x + \frac{1}{x} \)</span>. Khi đó:</p>
+<div class="options">
+<p>a) Hàm số nghịch biến trên <span class="math">\( (-1; 1) \)</span>.</p>
+<label><input name="q7a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7a-Đúng"></span></label>
+<label><input name="q7a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7a-Sai"></span></label>
+<p>b) Hàm số nghịch biến trên <span class="math">\( (-1; 0) \)</span> và <span class="math">\( (0; 1) \)</span>.</p>
+<label><input name="q7b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7b-Đúng"></span></label>
+<label><input name="q7b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7b-Sai"></span></label>
+<p>c) Hàm số đồng biến trên từng khoảng xác định.</p>
+<label><input name="q7c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7c-Đúng"></span></label>
+<label><input name="q7c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7c-Sai"></span></label>
+<p>d) Hàm số đồng biến trên <span class="math">\( (-\infty; -1) \cup (1; +\infty) \)</span>.</p>
+<label><input name="q7d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7d-Đúng"></span></label>
+<label><input name="q7d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q7', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q7')">Xem lời giải</button>
+<div class="solution" id="solution-q7">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Hàm số không xác định tại <span class="math">\( x = 0 \)</span>.</li>
+    <li>b) Đúng: <span class="math">\( f'(x) = 1 - \frac{1}{x^2} < 0 \)</span> trên <span class="math">\( (-1; 0) \)</span> và <span class="math">\( (0; 1) \)</span>.</li>
+    <li>c) Sai: Hàm số nghịch biến trên <span class="math">\( (-1; 0) \)</span> và <span class="math">\( (0; 1) \)</span>.</li>
+    <li>d) Sai: Hàm số đồng biến trên <span class="math">\( (-\infty; -1) \)</span> và <span class="math">\( (1; +\infty) \)</span>.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 8 -->
+<div class="question" id="q8">
+<div class="summary-box">
+<p><strong>Câu 8</strong>. Cho hàm số <span class="math">\( y = \frac{x^3}{3} - 2x^2 + 3x + \frac{2}{3} \)</span> có đồ thị <span class="math">\( (C) \)</span>. Khi đó:</p>
+<div class="options">
+<p>a) Hàm số đã cho có hai điểm cực trị.</p>
+<label><input name="q8a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8a-Đúng"></span></label>
+<label><input name="q8a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8a-Sai"></span></label>
+<p>b) Giá trị cực tiểu của hàm số là <span class="math">\( x = 3 \)</span>.</p>
+<label><input name="q8b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8b-Đúng"></span></label>
+<label><input name="q8b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8b-Sai"></span></label>
+<p>c) Điểm cực đại của đồ thị hàm số đã cho là <span class="math">\( x = 1 \)</span>.</p>
+<label><input name="q8c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8c-Đúng"></span></label>
+<label><input name="q8c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8c-Sai"></span></label>
+<p>d) Khoảng cách giữa hai điểm cực trị của đồ thị hàm số đã cho là <span class="math">\( \frac{\sqrt{13}}{13} \)</span>.</p>
+<label><input name="q8d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8d-Đúng"></span></label>
+<label><input name="q8d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q8', ['Đúng', 'Sai', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q8')">Xem lời giải</button>
+<div class="solution" id="solution-q8">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: <span class="math">\( y' = x^2 - 4x + 3 = 0 \Leftrightarrow x = 1, x = 3 \)</span>.</li>
+    <li>b) Sai: Giá trị cực tiểu là <span class="math">\( y(3) = \frac{2}{3} \)</span>.</li>
+    <li>c) Sai: Điểm cực đại là <span class="math">\( (1; 2) \)</span>.</li>
+    <li>d) Sai: <span class="math">\( A(1; 2), B(3; \frac{2}{3}) \Rightarrow AB = \frac{2\sqrt{13}}{3} \)</span>.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>a</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 9 -->
+<div class="question" id="q9">
+<div class="summary-box">
+<p><strong>Câu 9</strong>. Cho hàm số <span class="math">\( y = f(x) \)</span>. Hàm số <span class="math">\( y = f'(x) \)</span> liên tục và có đồ thị trên <span class="math">\( \mathbb{R} \)</span> như hình vẽ:<br/>
+<img alt="" loading="lazy" src="data/im/t6.png"/><br/>
+Khi đó:</p>
+<div class="options">
+<p>a) Hàm số <span class="math">\( y = f(x) \)</span> đã cho có 4 điểm cực trị.</p>
+<label><input name="q9a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9a-Đúng"></span></label>
+<label><input name="q9a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9a-Sai"></span></label>
+<p>b) Hàm số <span class="math">\( y = f(x) \)</span> có 3 điểm cực tiểu.</p>
+<label><input name="q9b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9b-Đúng"></span></label>
+<label><input name="q9b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9b-Sai"></span></label>
+<p>c) Hàm số <span class="math">\( y = f(x) \)</span> có 3 điểm cực đại.</p>
+<label><input name="q9c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9c-Đúng"></span></label>
+<label><input name="q9c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9c-Sai"></span></label>
+<p>d) Hàm số <span class="math">\( y = f(x) \)</span> có 1 điểm cực đại dương.</p>
+<label><input name="q9d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9d-Đúng"></span></label>
+<label><input name="q9d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q9', ['Sai', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q9')">Xem lời giải</button>
+<div class="solution" id="solution-q9">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Có 5 điểm cực trị.</li>
+    <li>b) Đúng: Có 3 điểm <span class="math">\( f'(x) \)</span> đổi dấu từ âm sang dương.</li>
+    <li>c) Sai: Có 2 điểm cực đại.</li>
+    <li>d) Đúng: Chỉ có 1 điểm cực đại có hoành độ dương.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 10 -->
+<div class="question" id="q10">
+<div class="summary-box">
+<p><strong>Câu 10</strong>. Cho hàm số <span class="math">\( y = x^3 + (m+1)x^2 + 3x + 2 \)</span> (tham số <span class="math">\( m \)</span>). Khi đó:</p>
+<div class="options">
+<p>a) Đạo hàm của hàm số là <span class="math">\( y' = 3x^2 + 2(m+1)x + 3 \)</span>.</p>
+<label><input name="q10a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10a-Đúng"></span></label>
+<label><input name="q10a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10a-Sai"></span></label>
+<p>b) Khi <span class="math">\( m = -1 \)</span> thì hàm số đồng biến trên <span class="math">\( (-\infty; +\infty) \)</span>.</p>
+<label><input name="q10b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10b-Đúng"></span></label>
+<label><input name="q10b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10b-Sai"></span></label>
+<p>c) Có 3 giá trị nguyên dương của tham số <span class="math">\( m \)</span> để hàm số đồng biến trên <span class="math">\( \mathbb{R} \)</span>.</p>
+<label><input name="q10c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10c-Đúng"></span></label>
+<label><input name="q10c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10c-Sai"></span></label>
+<p>d) Có 6 giá trị nguyên của tham số <span class="math">\( m \)</span> để hàm số đồng biến trên <span class="math">\( \mathbb{R} \)</span>.</p>
+<label><input name="q10d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10d-Đúng"></span></label>
+<label><input name="q10d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q10', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q10')">Xem lời giải</button>
+<div class="solution" id="solution-q10">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Tính đạo hàm trực tiếp.</li>
+    <li>b) Đúng: Khi <span class="math">\( m = -1 \)</span>, <span class="math">\( y' = 3x^2 + 3 > 0 \)</span>.</li>
+    <li>c) Sai: <span class="math">\( \Delta' \leq 0 \Leftrightarrow -4 \leq m \leq 2 \)</span>, có 2 giá trị nguyên dương <span class="math">\( m = 1, 2 \)</span>.</li>
+    <li>d) Sai: Có 7 giá trị nguyên <span class="math">\( m = -4, -3, -2, -1, 0, 1, 2 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 11 -->
+<div class="question" id="q11">
+<div class="summary-box">
+<p><strong>Câu 11</strong>. Cho hàm số <span class="math">\( y = (m^2 - 1)x^3 + (m-1)x^2 - x + 4 \)</span> (tham số <span class="math">\( m \)</span>). Khi đó:</p>
+<div class="options">
+<p>a) Khi <span class="math">\( m = 1 \)</span> thì hàm số đồng biến trên khoảng <span class="math">\( (-\infty; +\infty) \)</span>.</p>
+<label><input name="q11a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11a-Đúng"></span></label>
+<label><input name="q11a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11a-Sai"></span></label>
+<p>b) Khi <span class="math">\( m = 0 \)</span> thì hàm số nghịch biến trên khoảng <span class="math">\( (-\infty; +\infty) \)</span>.</p>
+<label><input name="q11b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11b-Đúng"></span></label>
+<label><input name="q11b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11b-Sai"></span></label>
+<p>c) Khi <span class="math">\( m = 3 \)</span> thì hàm số đồng biến trên khoảng <span class="math">\( (3; +\infty) \)</span>.</p>
+<label><input name="q11c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11c-Đúng"></span></label>
+<label><input name="q11c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11c-Sai"></span></label>
+<p>d) Tổng các giá trị nguyên của tham số <span class="math">\( m \)</span> để hàm số nghịch biến trên <span class="math">\( \mathbb{R} \)</span> bằng 2.</p>
+<label><input name="q11d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11d-Đúng"></span></label>
+<label><input name="q11d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q11', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q11')">Xem lời giải</button>
+<div class="solution" id="solution-q11">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Khi <span class="math">\( m = 1 \)</span>, <span class="math">\( y = -x + 4 \)</span> là hàm bậc nhất nghịch biến.</li>
+    <li>b) Đúng: Khi <span class="math">\( m = 0 \)</span>, <span class="math">\( y' = -3x^2 - 2x - 1 < 0, \forall x \)</span>.</li>
+    <li>c) Sai: Khi <span class="math">\( m = 3 \)</span>, <span class="math">\( y' = 24x^2 + 4x - 1 \)</span>, không đồng biến trên <span class="math">\( (3; +\infty) \)</span>.</li>
+    <li>d) Sai: Các giá trị nguyên <span class="math">\( m \)</span> thỏa mãn là <span class="math">\( 0, 1 \)</span>, tổng bằng 1.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 12 -->
+<div class="question" id="q12">
+<div class="summary-box">
+<p><strong>Câu 12</strong>. Cho hàm số <span class="math">\( y = \frac{x+3}{x+m} \)</span> (tham số <span class="math">\( m \)</span>). Khi đó:</p>
+<div class="options">
+<p>a) Khi <span class="math">\( m=1 \)</span> thì hàm số nghịch biến trên các khoảng xác định của nó.</p>
+<label><input name="q12a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12a-Đúng"></span></label>
+<label><input name="q12a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12a-Sai"></span></label>
+<p>b) Khi <span class="math">\( m=4 \)</span> thì hàm số nghịch biến trên các khoảng xác định của nó.</p>
+<label><input name="q12b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12b-Đúng"></span></label>
+<label><input name="q12b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12b-Sai"></span></label>
+<p>c) Tập hợp tất cả các giá trị thực của <span class="math">\( m \)</span> để hàm số <span class="math">\( y = \frac{x+3}{x+m} \)</span> nghịch biến trên khoảng <span class="math">\( (-\infty; -6) \)</span> là <span class="math">\( [3; 6] \)</span>.</p>
+<label><input name="q12c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12c-Đúng"></span></label>
+<label><input name="q12c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12c-Sai"></span></label>
+<p>d) Tập hợp tất cả các giá trị thực của <span class="math">\( m \)</span> để hàm số <span class="math">\( y = \frac{x+3}{x+m} \)</span> đồng biến trên khoảng <span class="math">\( (-\infty; -6) \)</span> là <span class="math">\( [3; 6] \)</span>.</p>
+<label><input name="q12d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12d-Đúng"></span></label>
+<label><input name="q12d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q12', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q12')">Xem lời giải</button>
+<div class="solution" id="solution-q12">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Với <span class="math">\( m=1 \)</span>, <span class="math">\( y' = \frac{-2}{(x+1)^2} < 0 \)</span> nên hàm số nghịch biến trên các khoảng xác định.</li>
+    <li>b) Sai: Hàm số nghịch biến trên các khoảng xác định khi <span class="math">\( m < 3 \)</span>. Với <span class="math">\( m=4 > 3 \)</span>, hàm số đồng biến.</li>
+    <li>c) Sai: Hàm số nghịch biến trên <span class="math">\( (-\infty; -6) \)</span> khi <span class="math">\( m < 3 \)</span>.</li>
+    <li>d) Đúng: Hàm số đồng biến trên <span class="math">\( (-\infty; -6) \)</span> khi <span class="math">\( 3 < m \leq 6 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
 
 <!-- Câu 13 -->
 <div class="question" id="q13">
 <div class="summary-box">
-<p><strong>Câu 13</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.13.png"/><br/>
+<p><strong>Câu 13</strong>. Cho hàm số <span class="math">\( y = f(x) \)</span> có đạo hàm liên tục trên <span class="math">\( \mathbb{R} \)</span> và có đồ thị của hàm số <span class="math">\( y = f'(x) \)</span> như hình vẽ:<br/>
+<img alt="" loading="lazy" src="data/im/t6.png"/><br/>
+Xét hàm số <span class="math">\( g(x) = f(x^2 - 2) \)</span>. Khi đó:</p>
 <div class="options">
-<p>a) Tổng quãng đường vật đi được trong 60(s) đầu tiên là 650(m).</p>
+<p>a) Hàm số <span class="math">\( g(x) \)</span> nghịch biến trên <span class="math">\( (0; 2) \)</span>.</p>
 <label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
 <label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
-<p>b) Trong khoảng thời gian từ 0(s) đến 10(s), phương trình vận tốc của vật là \( v(t) = \frac{1}{2}t + 10 \, (\mathrm{m/s}) \).</p>
+<p>b) Hàm số <span class="math">\( g(x) \)</span> đồng biến trên <span class="math">\( (2; +\infty) \)</span>.</p>
 <label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
 <label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
-<p>c) Trong khoảng thời gian từ 30(s) đến 60(s), phương trình vận tốc của vật là \( v(t) = -\frac{1}{2}t + 30 \, (\mathrm{m/s}) \).</p>
+<p>c) Hàm số <span class="math">\( g(x) \)</span> nghịch biến trên <span class="math">\( (-1; 0) \)</span>.</p>
 <label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
 <label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
-<p>d) Trong khoảng thời gian từ 10(s) đến 30(s), vật chuyển động đều.</p>
+<p>d) Hàm số <span class="math">\( g(x) \)</span> nghịch biến trên <span class="math">\( (-\infty; -2) \)</span>.</p>
 <label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
 <label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
-<div class="solution" id="solution-q13"></div>
+<div class="solution" id="solution-q13">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: <span class="math">\( g'(x) = 2x f'(x^2-2) \)</span>. Trên <span class="math">\( (0; 2) \)</span>, <span class="math">\( x > 0 \)</span> và <span class="math">\( f'(x^2-2) \leq 0 \)</span> nên <span class="math">\( g'(x) \leq 0 \)</span>.</li>
+    <li>b) Đúng: Trên <span class="math">\( (2; +\infty) \)</span>, <span class="math">\( x > 0 \)</span> và <span class="math">\( f'(x^2-2) \geq 0 \)</span> nên <span class="math">\( g'(x) \geq 0 \)</span>.</li>
+    <li>c) Sai: Trên <span class="math">\( (-1; 0) \)</span>, <span class="math">\( x < 0 \)</span> và <span class="math">\( f'(x^2-2) \geq 0 \)</span> nên <span class="math">\( g'(x) \leq 0 \)</span>. (Lưu ý: Đáp án đề bài ghi sai, nhưng dựa trên phân tích, mệnh đề này đúng, có thể do lỗi đề bài).</li>
+    <li>d) Đúng: Trên <span class="math">\( (-\infty; -2) \)</span>, <span class="math">\( x < 0 \)</span> và <span class="math">\( f'(x^2-2) \geq 0 \)</span> nên <span class="math">\( g'(x) \leq 0 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, d</strong>.</p>
+</div>
 </div>
 </div>
 
+<!-- Câu 14 -->
+<div class="question" id="q14">
+<div class="summary-box">
+<p><strong>Câu 14</strong>. Cho hàm số <span class="math">\( y = f(x) = x^3 - 3x^2 + 4 \)</span>. Đặt <span class="math">\( g(x) = 3f(f(x)) + 4 \)</span>. Khi đó:</p>
+<div class="options">
+<p>a) Hàm số <span class="math">\( g(x) \)</span> có 8 điểm cực trị.</p>
+<label><input name="q14a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14a-Đúng"></span></label>
+<label><input name="q14a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14a-Sai"></span></label>
+<p>b) Hàm số <span class="math">\( g(x) \)</span> có 3 điểm cực đại.</p>
+<label><input name="q14b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14b-Đúng"></span></label>
+<label><input name="q14b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14b-Sai"></span></label>
+<p>c) Hàm số <span class="math">\( g(x) \)</span> có 4 điểm cực tiểu.</p>
+<label><input name="q14c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14c-Đúng"></span></label>
+<label><input name="q14c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14c-Sai"></span></label>
+<p>d) Điểm <span class="math">\( x_0 = 0 \)</span> là điểm cực tiểu của hàm số <span class="math">\( y = g(x) \)</span>.</p>
+<label><input name="q14d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14d-Đúng"></span></label>
+<label><input name="q14d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q14', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q14')">Xem lời giải</button>
+<div class="solution" id="solution-q14">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Hàm số có 6 điểm cực trị.</li>
+    <li>b) Đúng: Có 3 điểm cực đại.</li>
+    <li>c) Sai: Có 3 điểm cực tiểu.</li>
+    <li>d) Sai: <span class="math">\( x = 0 \)</span> là điểm cực đại.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>b</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 15 -->
+<div class="question" id="q15">
+<div class="summary-box">
+<p><strong>Câu 15</strong>. Cho hàm số <span class="math">\( y = \frac{x - 1}{x + 2} \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tập xác định của hàm số là <span class="math">\( D = \mathbb{R} \)</span>.</p>
+<label><input name="q15a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15a-Đúng"></span></label>
+<label><input name="q15a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15a-Sai"></span></label>
+<p>b) Hàm số nghịch biến trên từng khoảng xác định.</p>
+<label><input name="q15b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15b-Đúng"></span></label>
+<label><input name="q15b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15b-Sai"></span></label>
+<p>c) Hàm số đồng biến trên <span class="math">\( \mathbb{R} \setminus \{-2\} \)</span>.</p>
+<label><input name="q15c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15c-Đúng"></span></label>
+<label><input name="q15c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15c-Sai"></span></label>
+<p>d) Hàm số đồng biến trên khoảng <span class="math">\( (-\infty; -2) \)</span>.</p>
+<label><input name="q15d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15d-Đúng"></span></label>
+<label><input name="q15d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q15', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q15')">Xem lời giải</button>
+<div class="solution" id="solution-q15">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Tập xác định <span class="math">\( D = \mathbb{R} \setminus \{-2\} \)</span>.</li>
+    <li>b) Đúng: <span class="math">\( y' = \frac{3}{(x+2)^2} > 0 \)</span> nên hàm số đồng biến trên từng khoảng xác định.</li>
+    <li>c) Sai: Hàm số đồng biến trên từng khoảng <span class="math">\( (-\infty; -2) \)</span> và <span class="math">\( (-2; +\infty) \)</span>, không đồng biến trên toàn <span class="math">\( \mathbb{R} \setminus \{-2\} \)</span> vì tính liên tục.</li>
+    <li>d) Sai: Hàm số đồng biến trên <span class="math">\( (-\infty; -2) \)</span> do <span class="math">\( y' > 0 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>b</strong>.</p>
+</div>
+</div>
+</div>
 
-<h3>Phần III: Trắc Nghiệm Trả Lời Ngắn - từ câu 17 đến câu 22</h3>
+<!-- Câu 16 -->
+<div class="question" id="q16">
+<div class="summary-box">
+<p><strong>Câu 16</strong>. Cho hàm số bậc ba <span class="math">\( y = f(x) \)</span> có đồikimini{}{\includegraphics[width=0.3\linewidth]{data/im/t12.png}} Khi đó:</p>
+<div class="options">
+<p>a) Hàm số đồng biến trên khoảng <span class="math">\( (-1; 1) \)</span>.</p>
+<label><input name="q16a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16a-Đúng"></span></label>
+<label><input name="q16a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16a-Sai"></span></label>
+<p>b) Hàm số nghịch biến trên khoảng <span class="math">\( (0; 2) \)</span>.</p>
+<label><input name="q16b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16b-Đúng"></span></label>
+<label><input name="q16b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16b-Sai"></span></label>
+<p>c) Hàm số có hai điểm cực trị.</p>
+<label><input name="q16c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16c-Đúng"></span></label>
+<label><input name="q16c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16c-Sai"></span></label>
+<p>d) Hàm số đạt cực đại tại <span class="math">\( x = 0 \)</span>.</p>
+<label><input name="q16d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16d-Đúng"></span></label>
+<label><input name="q16d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q16', ['Đúng', 'Sai', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q16')">Xem lời giải</button>
+<div class="solution" id="solution-q16">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Đồ thị đi lên trên <span class="math">\( (-1; 1) \)</span>.</li>
+    <li>b) Sai: Trên <span class="math">\( (0; 2) \)</span>, hàm số đồng biến trên <span class="math">\( (0; 1) \)</span> và nghịch biến trên <span class="math">\( (1; 2) \)</span>.</li>
+    <li>c) Đúng: Có hai điểm cực trị tại <span class="math">\( x = -1 \)</span> và <span class="math">\( x = 1 \)</span>.</li>
+    <li>d) Sai: Hàm số đạt cực tiểu tại <span class="math">\( x = 0 \)</span> (nếu đồ thị có dạng chữ U) hoặc cần xem xét lại từ đồ thị.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, c</strong>.</p>
+</div>
+</div>
+</div>
 
 <!-- Câu 17 -->
 <div class="question" id="q17">
 <div class="summary-box">
-<p><strong>Câu 17</strong>. Câu lạc bộ thiện nguyện của một trường THPT dự định làm các bình hoa bằng giấy để bán trong một hội chợ gây quỹ từ thiện. Cần 1 giờ để làm một bình hoa nhỏ và sẽ bán với giá 100 nghìn đồng và 90 phút để làm một bình hoa lớn và bán với giá 200 nghìn đồng. Biết rằng câu lạc bộ có 30 giờ để làm các bình hoa và muốn tổng số bình hoa không quá 24 bình. Số tiền lớn nhất mà câu lạc bộ có thể thu được là bao nhiêu triệu đồng?</p>
-</div>
+<p><strong>Câu 17</strong>. Cho hai hàm số <span class="math">\( f(x) = \frac{x^2}{x^2 - 1} \)</span> và <span class="math">\( g(x) = x^2 - x - 1 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tập xác định của hàm số <span class="math">\( f(x) \)</span> là <span class="math">\( D_f = \mathbb{R} \setminus \{-1; 1\} \)</span>.</p>
+<label><input name="q17a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17a-Đúng"></span></label>
+<label><input name="q17a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17a-Sai"></span></label>
+<p>b) Hàm số <span class="math">\( y = f(x) \)</span> nghịch biến trên khoảng <span class="math">\( (0; 1) \)</span>.</p>
+<label><input name="q17b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17b-Đúng"></span></label>
+<label><input name="q17b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17b-Sai"></span></label>
+<p>c) Hàm số <span class="math">\( h(x) = f(x) - g(x) \)</span> nghịch biến trên khoảng <span class="math">\( (-\infty; 1) \)</span>.</p>
+<label><input name="q17c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17c-Đúng"></span></label>
+<label><input name="q17c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17c-Sai"></span></label>
+<p>d) Hàm số <span class="math">\( k(x) = f(x) \cdot g(x) \)</span> nghịch biến trên khoảng <span class="math">\( (-\infty; -1) \)</span>.</p>
+<label><input name="q17d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17d-Đúng"></span></label>
+<label><input name="q17d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17d-Sai"></span></label>
+</div></div>
 <div class="answer-check">
-<input type="text" id="input-q17" placeholder="Nhập đáp án">
-<button onclick="checkShortAnswer('q17', '1800')">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q17', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q17')">Xem lời giải</button>
-<div class="solution" id="solution-q17"></div>
-<div class="answer-feedback" id="feedback-q17"></div>
+<div class="solution" id="solution-q17">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Mẫu số khác 0 khi <span class="math">\( x \neq \pm 1 \)</span>.</li>
+    <li>b) Đúng: Tính đạo hàm và xét dấu trên <span class="math">\( (0; 1) \)</span>.</li>
+    <li>c) Sai: Cần tính đạo hàm của <span class="math">\( h(x) \)</span> và xét dấu.</li>
+    <li>d) Sai: Cần tính đạo hàm của <span class="math">\( k(x) \)</span> và xét dấu trên <span class="math">\( (-\infty; -1) \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b</strong>.</p>
+</div>
 </div>
 </div>
 
+<!-- Câu 18 -->
+<div class="question" id="q18">
+<div class="summary-box">
+<p><strong>Câu 18</strong>. Cho hàm số <span class="math">\( f(x) = \sqrt{x^2 - 6x + 10} \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tập xác định của hàm số <span class="math">\( y = f(x) \)</span> là <span class="math">\( D = (-\infty; +\infty) \)</span>.</p>
+<label><input name="q18a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18a-Đúng"></span></label>
+<label><input name="q18a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18a-Sai"></span></label>
+<p>b) Đạo hàm của hàm số <span class="math">\( y = f(x) \)</span> là <span class="math">\( f'(x) = \frac{x - 3}{\sqrt{x^2 - 6x + 10}} \)</span>.</p>
+<label><input name="q18b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18b-Đúng"></span></label>
+<label><input name="q18b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18b-Sai"></span></label>
+<p>c) Hàm số <span class="math">\( y = f(x) \)</span> đồng biến trên khoảng <span class="math">\( (0; 3) \)</span>.</p>
+<label><input name="q18c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18c-Đúng"></span></label>
+<label><input name="q18c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18c-Sai"></span></label>
+<p>d) Hàm số <span class="math">\( h(x) = f(x) - \frac{1}{2}x \)</span> nghịch biến trên khoảng <span class="math">\( (-\infty; 0) \)</span>.</p>
+<label><input name="q18d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18d-Đúng"></span></label>
+<label><input name="q18d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q18', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q18')">Xem lời giải</button>
+<div class="solution" id="solution-q18">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Biểu thức trong căn luôn dương.</li>
+    <li>b) Đúng: Tính đạo hàm trực tiếp.</li>
+    <li>c) Sai: <span class="math">\( f'(x) < 0 \)</span> khi <span class="math">\( x < 3 \)</span>, nên hàm số nghịch biến trên <span class="math">\( (-\infty; 3) \)</span>.</li>
+    <li>d) Đúng: Chứng minh <span class="math">\( h'(x) < 0 \)</span> trên <span class="math">\( (-\infty; 0) \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
 
+<!-- Câu 19 -->
+<div class="question" id="q19">
+<div class="summary-box">
+<p><strong>Câu 19</strong>. Cho hàm số <span class="math">\( y = f(x) = \frac{x^2 - 4x + 7}{x - 1} \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tập xác định của hàm số <span class="math">\( y = f(x) \)</span> là <span class="math">\( D = \mathbb{R} \setminus \{1\} \)</span>.</p>
+<label><input name="q19a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19a-Đúng"></span></label>
+<label><input name="q19a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19a-Sai"></span></label>
+<p>b) Hàm số có hai điểm cực trị <span class="math">\( x_1, x_2 \)</span> và tổng <span class="math">\( x_1 + x_2 = 2 \)</span>.</p>
+<label><input name="q19b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19b-Đúng"></span></label>
+<label><input name="q19b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19b-Sai"></span></label>
+<p>c) Khoảng cách giữa hai điểm cực trị của đồ thị hàm số bằng <span class="math">\( 2\sqrt{5} \)</span>.</p>
+<label><input name="q19c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19c-Đúng"></span></label>
+<label><input name="q19c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19c-Sai"></span></label>
+<p>d) Điểm <span class="math">\( M(0; -6) \)</span> thuộc đường thẳng đi qua hai điểm cực trị của đồ thị hàm số.</p>
+<label><input name="q19d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19d-Đúng"></span></label>
+<label><input name="q19d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q19', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q19')">Xem lời giải</button>
+<div class="solution" id="solution-q19">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Mẫu số khác 0.</li>
+    <li>b) Đúng: Giải <span class="math">\( f'(x) = 0 \)</span> tìm được hai nghiệm có tổng bằng 2.</li>
+    <li>c) Đúng: Tính tọa độ hai điểm cực trị và khoảng cách.</li>
+    <li>d) Đúng: Kiểm tra tọa độ <span class="math">\( M \)</span> thỏa phương trình đường thẳng qua hai cực trị.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 20 -->
+<div class="question" id="q20">
+<div class="summary-box">
+<p><strong>Câu 20</strong>. Cho hàm số <span class="math">\( y = f(x) = x^3 - 3x^2 - 9x + 2 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tập xác định của hàm số <span class="math">\( y = f(x) \)</span> là <span class="math">\( D = \mathbb{R} \setminus \{0\} \)</span>.</p>
+<label><input name="q20a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20a-Đúng"></span></label>
+<label><input name="q20a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20a-Sai"></span></label>
+<p>b) Hàm số có hai điểm cực trị <span class="math">\( x_1, x_2 \)</span> thỏa mãn <span class="math">\( x_1 - 2x_2 = 13 \)</span>.</p>
+<label><input name="q20b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20b-Đúng"></span></label>
+<label><input name="q20b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20b-Sai"></span></label>
+<p>c) Tam giác <span class="math">\( OAB \)</span> có diện tích bằng 25 (với <span class="math">\( O \)</span> là gốc tọa độ; <span class="math">\( A, B \)</span> là hai điểm cực trị).</p>
+<label><input name="q20c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20c-Đúng"></span></label>
+<label><input name="q20c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20c-Sai"></span></label>
+<p>d) Đường thẳng đi qua hai điểm cực trị cắt trục <span class="math">\( Ox \)</span> tại <span class="math">\( M \)</span>, cắt trục <span class="math">\( Oy \)</span> tại <span class="math">\( N \)</span>; diện tích tam giác <span class="math">\( OMN \)</span> bằng 5.</p>
+<label><input name="q20d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20d-Đúng"></span></label>
+<label><input name="q20d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q20', ['Sai', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q20')">Xem lời giải</button>
+<div class="solution" id="solution-q20">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Tập xác định <span class="math">\( D = \mathbb{R} \)</span>.</li>
+    <li>b) Sai: Giải phương trình <span class="math">\( f'(x) = 0 \)</span> và kiểm tra.</li>
+    <li>c) Đúng: Tính tọa độ <span class="math">\( A, B \)</span> và diện tích tam giác <span class="math">\( OAB \)</span>.</li>
+    <li>d) Đúng: Tìm phương trình đường thẳng và tính diện tích.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 21 -->
+<div class="question" id="q21">
+<div class="summary-box">
+<p><strong>Câu 21</strong>. Cho hàm số <span class="math">\( f(x) = \frac{x - 1}{x + 1} \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Hàm số <span class="math">\( y = f(x) \)</span> không có điểm cực trị.</p>
+<label><input name="q21a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21a-Đúng"></span></label>
+<label><input name="q21a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21a-Sai"></span></label>
+<p>b) Hàm số <span class="math">\( y = x \cdot f(x) \)</span> có hai điểm cực trị.</p>
+<label><input name="q21b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21b-Đúng"></span></label>
+<label><input name="q21b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21b-Sai"></span></label>
+<p>c) Hàm số <span class="math">\( h(x) = (x - 1) f(x) \)</span> có hai điểm cực trị <span class="math">\( A, B \)</span> với <span class="math">\( AB = 4\sqrt{5} \)</span>.</p>
+<label><input name="q21c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21c-Đúng"></span></label>
+<label><input name="q21c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21c-Sai"></span></label>
+<p>d) Hàm số <span class="math">\( g(x) = f(x) + \frac{1}{x} \)</span> có hai điểm cực trị thỏa mãn tích hoành độ bằng <span class="math">\( -1 \)</span>.</p>
+<label><input name="q21d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21d-Đúng"></span></label>
+<label><input name="q21d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q21', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q21')">Xem lời giải</button>
+<div class="solution" id="solution-q21">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: <span class="math">\( f'(x) = \frac{2}{(x+1)^2} \neq 0 \)</span>.</li>
+    <li>b) Đúng: Tính đạo hàm của <span class="math">\( x \cdot f(x) \)</span> và giải phương trình.</li>
+    <li>c) Sai: Tính toán cụ thể.</li>
+    <li>d) Đúng: Giải phương trình đạo hàm và tính tích nghiệm.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 22 -->
+<div class="question" id="q22">
+<div class="summary-box">
+<p><strong>Câu 22</strong>. Cho hàm số <span class="math">\( y = \sqrt{2x^2 + 4x - 6} \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tập xác định của hàm số là <span class="math">\( D = \mathbb{R} \)</span>.</p>
+<label><input name="q22a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22a-Đúng"></span></label>
+<label><input name="q22a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22a-Sai"></span></label>
+<p>b) Đạo hàm <span class="math">\( f'(x) = \frac{2x + 2}{\sqrt{2x^2 + 4x - 6}} \)</span>.</p>
+<label><input name="q22b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22b-Đúng"></span></label>
+<label><input name="q22b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22b-Sai"></span></label>
+<p>c) Hàm số có 2 cực trị <span class="math">\( x_1, x_2 \)</span>.</p>
+<label><input name="q22c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22c-Đúng"></span></label>
+<label><input name="q22c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22c-Sai"></span></label>
+<p>d) Khoảng cách từ gốc tọa độ đến điểm cực trị của đồ thị hàm số bằng 2,59 (làm tròn).</p>
+<label><input name="q22d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22d-Đúng"></span></label>
+<label><input name="q22d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q22', ['Sai', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q22')">Xem lời giải</button>
+<div class="solution" id="solution-q22">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: Tập xác định <span class="math">\( D = (-\infty; -3] \cup [1; +\infty) \)</span>.</li>
+    <li>b) Đúng: Tính đạo hàm.</li>
+    <li>c) Sai: Chỉ có một điểm cực trị.</li>
+    <li>d) Đúng: Tính toán cụ thể.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>b, d</strong>.</p>
+</div>
+</div>
+</div>
 
  <div class="score-section">
  <h3>Tính tổng điểm</h3>

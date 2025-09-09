@@ -402,31 +402,31 @@ Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</
 </div>
 
 
-<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 13 đến câu 16</h3>
+<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 1 đến câu 16</h3>
 
-<!-- Câu 13 -->
-<div class="question" id="q13">
+<!-- Câu 1 -->
+<div class="question" id="q1">
 <div class="summary-box">
-<p><strong>Câu 13</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.13.png"/><br/>
+<p><strong>Câu 1</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
+<img alt="" loading="lazy" src="data/anh2/3.1.png"/><br/>
 <div class="options">
 <p>a) Tổng quãng đường vật đi được trong 60(s) đầu tiên là 650(m).</p>
-<label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
-<label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
+<label><input name="q1a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1a-Đúng"></span></label>
+<label><input name="q1a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1a-Sai"></span></label>
 <p>b) Trong khoảng thời gian từ 0(s) đến 10(s), phương trình vận tốc của vật là \( v(t) = \frac{1}{2}t + 10 \, (\mathrm{m/s}) \).</p>
-<label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
-<label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
+<label><input name="q1b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1b-Đúng"></span></label>
+<label><input name="q1b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1b-Sai"></span></label>
 <p>c) Trong khoảng thời gian từ 30(s) đến 60(s), phương trình vận tốc của vật là \( v(t) = -\frac{1}{2}t + 30 \, (\mathrm{m/s}) \).</p>
-<label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
-<label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
+<label><input name="q1c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1c-Đúng"></span></label>
+<label><input name="q1c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1c-Sai"></span></label>
 <p>d) Trong khoảng thời gian từ 10(s) đến 30(s), vật chuyển động đều.</p>
-<label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
-<label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
+<label><input name="q1d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1d-Đúng"></span></label>
+<label><input name="q1d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
-<button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
-<div class="solution" id="solution-q13"></div>
+<button onclick="checkTrueFalseAnswer('q1', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q1')">Xem lời giải</button>
+<div class="solution" id="solution-q1"></div>
 </div>
 </div>
 
@@ -640,7 +640,7 @@ Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</
             if (isScoreCalculated) return;
             const correctAnswers = {
               q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A', q6: 'B', q7: 'A', q8: 'B', q9: 'D', q10: 'A', q11: 'C', q12: 'B',
-              q13: ['Đúng','Đúng','Đúng','Đúng'],
+              q1: ['Đúng','Đúng','Đúng','Đúng'],
               q14: ['Đúng','Sai','Đúng','Sai'],
               q15: ['Sai','Đúng','Đúng','Sai'],
               q16: ['Sai','Sai','Đúng','Sai'],
@@ -657,8 +657,8 @@ Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</
               studentAns[name] = sel ? sel.value.trim() : '';
             }
 
-            // Câu 13-16 (mỗi câu 4 mệnh đề)
-            for (let i = 13; i <= 16; i++) {
+            // Câu 1-16 (mỗi câu 4 mệnh đề)
+            for (let i = 1; i <= 16; i++) {
               const arr = [];
               ['a','b','c','d'].forEach((letter) => {
                 const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
@@ -682,7 +682,7 @@ Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</
 
               if (i <= 12) {
                 if (u && u === c) totalScore += 0.25;
-              } else if (i >= 13 && i <= 16) {
+              } else if (i >= 1 && i <= 16) {
                 if (Array.isArray(u) && Array.isArray(c)) {
                   let correctCount = 0;
                   for (let j = 0; j < c.length; j++) if (u[j] === c[j]) correctCount++;
