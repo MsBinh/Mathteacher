@@ -352,101 +352,1713 @@
                     <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
                 </div>
 
+
 <!-- Câu 1 -->
 <div class="question" id="q1">
 <div class="summary-box">
-<p><strong>Câu 1</strong>. Cho đồ thị \( y = f(x) \) như hình vẽ dưới đây:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.1.png"/><br/>
-
-Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</p>
-
+<p><strong>Câu 1 (THPT Văn Giang - Hưng Yên 2025)</strong>. Một chất điểm chuyển động theo phương trình <span class="math">\( s(t) = t^3 - 3t^2 + 8t + 1 \)</span>, trong đó <span class="math">\( t \)</span> tính bằng giây và <span class="math">\( s(t) \)</span> tính bằng mét. Xét các mệnh đề sau:</p>
 <div class="options">
-<label><input name="q1" onchange="showOptionIcon('q1', 'A', 'C')" type="radio" value="A"/> A. \( (-\infty ; 1) \)<span class="option-icon" id="icon-q1-A"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'B', 'C')" type="radio" value="B"/> B. \( (2 ; +\infty) \)<span class="option-icon" id="icon-q1-B"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'C', 'C')" type="radio" value="C"/> C. \( (0 ; 1) \)<span class="option-icon" id="icon-q1-C"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'D', 'C')" type="radio" value="D"/> D. \( (1 ; 2) \)<span class="option-icon" id="icon-q1-D"></span></label>
+<p>a) Vận tốc của chất điểm tại thời điểm <span class="math">\( t = 3 \)</span>(s) bằng 8 m/s.</p>
+<label><input name="q1a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1a-Đúng"></span></label>
+<label><input name="q1a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1a-Sai"></span></label>
+<p>b) Tại thời điểm mà chất điểm di chuyển được 13 m, vận tốc khi đó bằng 8 m/s.</p>
+<label><input name="q1b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1b-Đúng"></span></label>
+<label><input name="q1b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1b-Sai"></span></label>
+<p>c) Vận tốc nhỏ nhất của chất điểm là 5 m/s.</p>
+<label><input name="q1c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1c-Đúng"></span></label>
+<label><input name="q1c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1c-Sai"></span></label>
+<p>d) Gia tốc tại thời điểm đạt vận tốc nhỏ nhất bằng 2 m/s².</p>
+<label><input name="q1d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q1d-Đúng"></span></label>
+<label><input name="q1d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q1d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkAnswer('q1', 'B')">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q1', ['Sai', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q1')">Xem lời giải</button>
 <div class="solution" id="solution-q1">
   <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
-  <p>Nhìn vào đồ thị ta thấy hàm số <span class="math">\(y=f(x)\)</span> đi lên (đồng biến) trên khoảng <span class="math">\((2; +\infty)\)</span>.</p>
-  <p>Các khoảng khác: 
-    <br/>• \((-∞;1)\): hàm đang giảm. 
-    <br/>• \((0;1)\): hàm đi xuống. 
-    <br/>• \((1;2)\): hàm vẫn giảm.
-  </p>
-  <p>👉 Vậy đáp án đúng là <strong>B</strong>.</p>
+  <ul>
+    <li>a) Sai: <span class="math">\( v(t) = s'(t) = 3t^2 - 6t + 8 \Rightarrow v(3) = 3 \cdot 9 - 6 \cdot 3 + 8 = 17 \)</span> m/s.</li>
+    <li>b) Đúng: <span class="math">\( s(t) = 13 \Leftrightarrow t^3 - 3t^2 + 8t + 1 = 13 \Rightarrow t = 2 \)</span>. <span class="math">\( v(2) = 3 \cdot 4 - 6 \cdot 2 + 8 = 8 \)</span> m/s.</li>
+    <li>c) Đúng: <span class="math">\( v(t) = 3(t-1)^2 + 5 \geq 5 \)</span>. Vận tốc nhỏ nhất là 5 m/s tại <span class="math">\( t = 1 \)</span>.</li>
+    <li>d) Sai: <span class="math">\( a(t) = v'(t) = 6t - 6 \Rightarrow a(1) = 0 \)</span> m/s².</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>b, c</strong>.</p>
 </div>
-
 </div>
 </div>
 
 <!-- Câu 2 -->
 <div class="question" id="q2">
 <div class="summary-box">
-<p><strong>Câu 2</strong>. Trong không gian \( Oxyz \), cho mặt phẳng \( (P): 2x + y - z - 1 = 0 \). Vector nào dưới đây là một vector pháp tuyến của mặt phẳng \( (P) \)?</p>
-
+<p><strong>Câu 2 (THPT Tiên Du - Bắc Ninh 2025)</strong>. Người ta bơm xăng vào bình xăng của một xe ô tô. Biết rằng thể tích <span class="math">\( V \)</span> (tính theo lít) của lượng xăng trong bình xăng được tính theo thời gian bơm xăng <span class="math">\( t \)</span> (phút) được cho bởi công thức: <span class="math">\( V(t) = 300(t^2 - t^3) + 4,5 \)</span> với <span class="math">\( 0 \leq t \leq 0,5 \)</span>. Gọi <span class="math">\( V'(t) \)</span> là tốc độ tăng thể tích tại thời điểm <span class="math">\( t \)</span> với <span class="math">\( 0 \leq t \leq 0,5 \)</span>. Biết 1 lít xăng có giá là 21.000 đồng. Xét các mệnh đề sau:</p>
 <div class="options">
-<label><input name="q2" onchange="showOptionIcon('q2', 'A', 'A')" type="radio" value="A"/> A. \( \overrightarrow{n_3} = (2 ; 1 ; -1) \)<span class="option-icon" id="icon-q2-A"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'B', 'A')" type="radio" value="B"/> B. \( \overrightarrow{n_1} = (2 ; -1 ; 1) \)<span class="option-icon" id="icon-q2-B"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'C', 'A')" type="radio" value="C"/> C. \( \overrightarrow{n_4} = (-2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-C"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'D', 'A')" type="radio" value="D"/> D. \( \overrightarrow{n_2} = (2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-D"></span></label>
+<p>a) Lượng xăng ban đầu trong bình là 1,5 lít.</p>
+<label><input name="q2a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2a-Đúng"></span></label>
+<label><input name="q2a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2a-Sai"></span></label>
+<p>b) Sau khi bơm 30 giây thì bình xăng đầy. Số tiền người mua phải trả là 787.500 đồng.</p>
+<label><input name="q2b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2b-Đúng"></span></label>
+<label><input name="q2b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2b-Sai"></span></label>
+<p>c) Khi xăng chảy vào bình xăng thì tốc độ tăng thể tích là lớn nhất vào thời điểm ở giây thứ 21.</p>
+<label><input name="q2c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2c-Đúng"></span></label>
+<label><input name="q2c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2c-Sai"></span></label>
+<p>d) Phương trình <span class="math">\( V'(t) = 0 \)</span> có hai nghiệm phân biệt trên đoạn <span class="math">\( \left[0; \frac{1}{2}\right] \)</span>.</p>
+<label><input name="q2d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q2d-Đúng"></span></label>
+<label><input name="q2d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q2d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkAnswer('q2', 'A')">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q2', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q2')">Xem lời giải</button>
-<div class="solution" id="solution-q2"></div>
+<div class="solution" id="solution-q2">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: <span class="math">\( V(0) = 4,5 \)</span> lít.</li>
+    <li>b) Đúng: <span class="math">\( t = 0,5 \)</span> phút = 30 giây. <span class="math">\( V(0,5) = 300(0,25 - 0,125) + 4,5 = 42 \)</span> lít. Lượng xăng bơm vào: <span class="math">\( 42 - 4,5 = 37,5 \)</span> lít. Số tiền: <span class="math">\( 37,5 \times 21.000 = 787.500 \)</span> đồng.</li>
+    <li>c) Sai: <span class="math">\( V'(t) = 300(2t - 3t^2) \)</span>. <span class="math">\( V''(t) = 300(2 - 6t) = 0 \Rightarrow t = \frac{1}{3} \)</span> phút = 20 giây. Tốc độ lớn nhất tại <span class="math">\( t = 20 \)</span> giây.</li>
+    <li>d) Sai: <span class="math">\( V'(t) = 0 \Leftrightarrow t = 0 \)</span> hoặc <span class="math">\( t = \frac{2}{3} \notin [0; 0,5] \)</span>. Chỉ có một nghiệm <span class="math">\( t = 0 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy đáp án đúng là <strong>b</strong>.</p>
+</div>
 </div>
 </div>
 
+<!-- Câu 3 -->
+<div class="question" id="q3">
+<div class="summary-box">
+<p><strong>Câu 3 (THPT Thạch Thành 1 - Thanh Hóa 2025)</strong>. Bác Lâm muốn gò một cái thùng bằng tôn dạng hình hộp chữ nhật không nắp có đáy là hình vuông và đựng đầy được 32 lít nước. Gọi độ dài cạnh đáy của thùng là <span class="math">\( x \)</span> (dm), chiều cao của thùng là <span class="math">\( h \)</span> (dm). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Thể tích của thùng là <span class="math">\( V = x^2 h \)</span> (dm³).</p>
+<label><input name="q3a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3a-Đúng"></span></label>
+<label><input name="q3a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3a-Sai"></span></label>
+<p>b) Tổng diện tích xung quanh và diện tích đáy của thùng là: <span class="math">\( S = 4xh + x^2 \)</span> (dm²).</p>
+<label><input name="q3b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3b-Đúng"></span></label>
+<label><input name="q3b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3b-Sai"></span></label>
+<p>c) Đạo hàm của hàm số <span class="math">\( S(x) = \frac{128}{x} + x^2 \)</span> là <span class="math">\( S'(x) = \frac{128}{x} + 2x \)</span>.</p>
+<label><input name="q3c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3c-Đúng"></span></label>
+<label><input name="q3c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3c-Sai"></span></label>
+<p>d) Để làm được cái thùng mà tốn ít nguyên liệu nhất thì độ dài cạnh đáy của thùng là 4 dm.</p>
+<label><input name="q3d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q3d-Đúng"></span></label>
+<label><input name="q3d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q3d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q3', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q3')">Xem lời giải</button>
+<div class="solution" id="solution-q3">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: Công thức thể tích.</li>
+    <li>b) Đúng: Diện tích cần tính.</li>
+    <li>c) Sai: <span class="math">\( S'(x) = -\frac{128}{x^2} + 2x \)</span>.</li>
+    <li>d) Đúng: <span class="math">\( S'(x) = 0 \Leftrightarrow x = 4 \)</span>. Bảng biến thiên cho thấy <span class="math">\( S \)</span> min tại <span class="math">\( x = 4 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
 
-<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 13 đến câu 16</h3>
+<!-- Câu 4 -->
+<div class="question" id="q4">
+<div class="summary-box">
+<p><strong>Câu 4 (THPT Thạch Thành 1 - Thanh Hóa 2025)</strong>. Kính viễn vọng không gian Hubble được đưa vào vũ trụ ngày 24/4/1990 bằng tàu con thoi Discovery. Vận tốc của tàu con thoi trong sứ mệnh này, từ lúc cắt cánh tại thời điểm <span class="math">\( t = 0 \)</span>(s) cho đến khi tên lửa đẩy được phóng đi tại thời điểm <span class="math">\( t = 126 \)</span>(s), cho bởi hàm số: <span class="math">\( v(t) = 0,001302t^3 - 0,09029t^2 + 23,61t - 3,083 \)</span> (v được tính bằng feet/s, 1 feet = 0,3048 m). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Vận tốc của tàu con thoi luôn tăng trong khoảng thời gian từ lúc cắt cánh đến khi tên lửa đẩy được phóng đi.</p>
+<label><input name="q4a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4a-Đúng"></span></label>
+<label><input name="q4a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4a-Sai"></span></label>
+<p>b) Gia tốc lớn nhất mà tàu con thoi có thể đạt được trong lúc thực hiện sứ mệnh trên (làm tròn đến hàng phần trăm) là 62,87 feet/s².</p>
+<label><input name="q4b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4b-Đúng"></span></label>
+<label><input name="q4b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4b-Sai"></span></label>
+<p>c) Gia tốc của tàu con thoi tăng trong khoảng thời gian từ lúc cắt cánh đến thời điểm <span class="math">\( t = 23 \)</span>(s).</p>
+<label><input name="q4c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4c-Đúng"></span></label>
+<label><input name="q4c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4c-Sai"></span></label>
+<p>d) Gia tốc của tàu con thoi tăng trong khoảng thời gian từ <span class="math">\( t = 21,5 \)</span>(s) đến <span class="math">\( t = 126 \)</span>(s).</p>
+<label><input name="q4d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q4d-Đúng"></span></label>
+<label><input name="q4d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q4d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q4', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q4')">Xem lời giải</button>
+<div class="solution" id="solution-q4">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: <span class="math">\( v'(t) > 0 \)</span> trên <span class="math">\( (0; 126) \)</span>.</li>
+    <li>b) Đúng: <span class="math">\( a(t) = v'(t) \)</span>. Tìm max của <span class="math">\( a(t) \)</span> trên [0;126] được 62,87 tại <span class="math">\( t = 126 \)</span>.</li>
+    <li>c) Sai: <span class="math">\( a'(t) < 0 \)</span> trên <span class="math">\( (0; 23) \)</span> nên gia tốc giảm.</li>
+    <li>d) Sai: <span class="math">\( a(t) \)</span> không đơn điệu tăng trên <span class="math">\( (21,5; 126) \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 5 -->
+<div class="question" id="q5">
+<div class="summary-box">
+<p><strong>Câu 5 (THPT Yên Lạc - Vĩnh Phúc 2025)</strong>. Số giờ có ánh sáng mặt trời của một thành phố ven biển A trong ngày thứ <span class="math">\( t \)</span> của một năm không nhuận được cho bởi hàm số: <span class="math">\( d(t) = 3\sin\left[\frac{\pi}{180}(t-70)\right] + 10 \)</span> với <span class="math">\( t \in \mathbb{Z} \)</span> và <span class="math">\( 0 < t \leq 365 \)</span>. Cánh đồng muối B (thuộc địa phận của thành phố A) có thể hoạt động nếu trong ngày nắng nhiều hơn 10 giờ. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Ngày có nhiều giờ ánh sáng nhất là 13 giờ.</p>
+<label><input name="q5a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5a-Đúng"></span></label>
+<label><input name="q5a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5a-Sai"></span></label>
+<p>b) Số giờ có ánh sáng giảm liên tục trong tháng 7.</p>
+<label><input name="q5b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5b-Đúng"></span></label>
+<label><input name="q5b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5b-Sai"></span></label>
+<p>c) Cánh đồng muối B có thể hoạt động 213 ngày mỗi năm.</p>
+<label><input name="q5c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5c-Đúng"></span></label>
+<label><input name="q5c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5c-Sai"></span></label>
+<p>d) Ngày thứ 70 trong năm, thành phố có 10 giờ có ánh sáng.</p>
+<label><input name="q5d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q5d-Đúng"></span></label>
+<label><input name="q5d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q5d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q5', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q5')">Xem lời giải</button>
+<div class="solution" id="solution-q5">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Đúng: <span class="math">\( d(t)_{\text{max}} = 13 \)</span> khi <span class="math">\( t = 160 \)</span>.</li>
+    <li>b) Đúng: Tháng 7 từ ngày 182 đến 212, hàm số nghịch biến.</li>
+    <li>c) Sai: <span class="math">\( d(t) > 10 \Leftrightarrow 70 < t < 250 \)</span>. Số ngày: <span class="math">\( 250 - 70 - 1 = 179 \)</span> ngày.</li>
+    <li>d) Đúng: <span class="math">\( d(70) = 10 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 6 -->
+<div class="question" id="q6">
+<div class="summary-box">
+<p><strong>Câu 6 (THPT Chuyên Vĩnh Phúc 2025)</strong>. Theo báo cáo của một cơ sở sản xuất nước tinh khiết, nếu mỗi ngày cơ sở này sản xuất <span class="math">\( x \)</span> (m³) nước tinh khiết thì phải chi phí các khoản sau: 3 triệu đồng chi phí cố định; 0,15 triệu đồng cho mỗi mét khối sản phẩm; <span class="math">\( 0,0003x^2 \)</span> chi phí bảo dưỡng máy móc. Biết công suất tối đa mỗi ngày của cơ sở này là 200 m³. Gọi <span class="math">\( C(x) \)</span> là chi phí sản xuất <span class="math">\( x \)</span> (m³) sản phẩm mỗi ngày và <span class="math">\( c(x) \)</span> là chi phí trung bình mỗi mét khối sản phẩm. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Chi phí sản xuất 100 m³ nước tinh khiết là 20 triệu đồng.</p>
+<label><input name="q6a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6a-Đúng"></span></label>
+<label><input name="q6a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6a-Sai"></span></label>
+<p>b) <span class="math">\( c(x) = 0,0003x + 0,15 + \frac{3}{x} \)</span>.</p>
+<label><input name="q6b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6b-Đúng"></span></label>
+<label><input name="q6b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6b-Sai"></span></label>
+<p>c) Chi phí trung bình mỗi mét khối sản phẩm thấp nhất khi sản lượng nước tinh khiết trong ngày là 100 m³.</p>
+<label><input name="q6c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6c-Đúng"></span></label>
+<label><input name="q6c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6c-Sai"></span></label>
+<p>d) <span class="math">\( C(x) = 0,0003x^2 + 0,15x + 5 \)</span>.</p>
+<label><input name="q6d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q6d-Đúng"></span></label>
+<label><input name="q6d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q6d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q6', ['Sai', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q6')">Xem lời giải</button>
+<div class="solution" id="solution-q6">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: <span class="math">\( C(100) = 3 + 0,15 \cdot 100 + 0,0003 \cdot 10000 = 21 \)</span> triệu.</li>
+    <li>b) Đúng: <span class="math">\( c(x) = \frac{C(x)}{x} = \frac{3}{x} + 0,15 + 0,0003x \)</span>.</li>
+    <li>c) Đúng: <span class="math">\( c'(x) = -\frac{3}{x^2} + 0,0003 = 0 \Rightarrow x = 100 \)</span>.</li>
+    <li>d) Sai: <span class="math">\( C(x) = 3 + 0,15x + 0,0003x^2 \)</span>.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 7 -->
+<div class="question" id="q7">
+<div class="summary-box">
+<p><strong>Câu 7 (Sở Ninh Bình 2025)</strong>. Một hạt chuyển động trên một đường thẳng có gắn một trục tọa độ với gốc tọa độ là vị trí hạt bắt đầu chuyển động. Tọa độ của hạt trên trục tại thời điểm <span class="math">\( t \)</span> (đơn vị: giây) kể từ khi xuất phát được cho bởi công thức <span class="math">\( x(t) = 2t - 3\ln(t+1) \)</span> (đơn vị: mét), <span class="math">\( t \geq 0 \)</span>. Hàm số <span class="math">\( v(t) = x'(t) \)</span> (đơn vị: mét/giây), biểu thị vận tốc chuyển động của hạt. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Quãng đường mà hạt đi được trong 3 giây đầu tiên là 1,84 m (làm tròn kết quả đến hàng phần trăm).</p>
+<label><input name="q7a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7a-Đúng"></span></label>
+<label><input name="q7a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7a-Sai"></span></label>
+<p>b) Hạt đứng yên tại thời điểm <span class="math">\( t = 0,5 \)</span> s.</p>
+<label><input name="q7b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7b-Đúng"></span></label>
+<label><input name="q7b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7b-Sai"></span></label>
+<p>c) <span class="math">\( v(t) = 2 - \frac{3}{t+1} \)</span>.</p>
+<label><input name="q7c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7c-Đúng"></span></label>
+<label><input name="q7c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7c-Sai"></span></label>
+<p>d) Vận tốc ban đầu của hạt là 1 m/s.</p>
+<label><input name="q7d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q7d-Đúng"></span></label>
+<label><input name="q7d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q7d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q7', ['Sai', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q7')">Xem lời giải</button>
+<div class="solution" id="solution-q7">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <ul>
+    <li>a) Sai: <span class="math">\( x(3) = 6 - 3\ln 4 \approx 1,84 \)</span>, nhưng do đổi chiều chuyển động tại <span class="math">\( t = 0,5 \)</span>, quãng đường thực tế lớn hơn.</li>
+    <li>b) Đúng: <span class="math">\( v(t) = 0 \Leftrightarrow t = 0,5 \)</span>.</li>
+    <li>c) Đúng: Đạo hàm của <span class="math">\( x(t) \)</span>.</li>
+    <li>d) Sai: <span class="math">\( v(0) = 2 - 3 = -1 \)</span> m/s.</li>
+  </ul>
+  <p>👉 Vậy các đáp án đúng là <strong>b, c</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 8 -->
+<div class="question" id="q8">
+<div class="summary-box">
+<p><strong>Câu 8 (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025)</strong>. Một tàu đổ bộ tiếp cận Mặt Trăng theo cách tiếp cận thẳng đứng và đốt cháy các tên lửa hãm ở độ cao 250 km so với bề mặt của Mặt Trăng. Trong khoảng 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao <span class="math">\( h \)</span> của con tàu so với bề mặt của Mặt Trăng được tính (gần đúng) bởi hàm <span class="math">\( h(t) = -0,01t^3 + 1,1t^2 - 30t + 250 \)</span> trong đó <span class="math">\( t \)</span> là thời gian tính bằng giây và <span class="math">\( h \)</span> là độ cao tính bằng kilomet. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao lớn nhất mà con tàu đạt được là 250 (km).</p>
+<label><input name="q8a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8a-Đúng"></span></label>
+<label><input name="q8a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8a-Sai"></span></label>
+<p>b) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao con tàu đạt được khi vận tốc của con tàu lớn nhất là <span class="math">\( 139,37 \)</span> (km).</p>
+<label><input name="q8b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8b-Đúng"></span></label>
+<label><input name="q8b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8b-Sai"></span></label>
+<p>c) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, vận tốc lớn nhất của con tàu là <span class="math">\( v \approx 10,33 \)</span> (km/s).</p>
+<label><input name="q8c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8c-Đúng"></span></label>
+<label><input name="q8c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8c-Sai"></span></label>
+<p>d) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao thấp nhất mà con tàu đạt được tại thời điểm <span class="math">\( t \approx 25 \)</span>(s).</p>
+<label><input name="q8d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q8d-Đúng"></span></label>
+<label><input name="q8d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q8d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q8', ['Đúng', 'Sai', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q8')">Xem lời giải</button>
+<div class="solution" id="solution-q8">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Ta có <span class="math">\( h(t) = -0,01t^3 + 1,1t^2 - 30t + 250 \Rightarrow h'(t) = -0,03t^2 + 2,2t - 30 \)</span>.</p>
+  <p><span class="math">\( h'(t) = 0 \Rightarrow t_1 = \frac{110 + 10\sqrt{31}}{3}, t_2 = \frac{110 - 10\sqrt{31}}{3} \)</span>.</p>
+  <p>Độ cao lớn nhất: <span class="math">\( h(0) = 250 \)</span> (km). Mệnh đề a) Đúng.</p>
+  <p>Vận tốc: <span class="math">\( v(t) = h'(t) \)</span>. Đỉnh tại <span class="math">\( t = \frac{110}{3} \approx 36,67 \)</span>, <span class="math">\( h\left(\frac{110}{3}\right) \approx 135,93 \)</span> (km). Mệnh đề b) Sai.</p>
+  <p>Vận tốc lớn nhất: <span class="math">\( v\left(\frac{110}{3}\right) \approx 10,33 \)</span> (km/s). Mệnh đề c) Đúng.</p>
+  <p>Độ cao thấp nhất tại <span class="math">\( t_2 \approx 18,11 \)</span> (s). Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 9 -->
+<div class="question" id="q9">
+<div class="summary-box">
+<p><strong>Câu 9 (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025)</strong>. Một nhà sản xuất bán trung bình 1500 ti vi mỗi tuần với giá 15 triệu đồng/chiếc. Nếu giảm giá 600 nghìn đồng, số lượng bán ra tăng thêm 120 ti vi/tuần. Gọi <span class="math">\( p \)</span> (triệu đồng) là giá, <span class="math">\( x \)</span> là số ti vi. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Nếu chi phí tuần là <span class="math">\( C(x) = 12000 - \frac{7}{2}x \)</span> (triệu đồng), giá bán 9,5 triệu đồng cho lợi nhuận lớn nhất.</p>
+<label><input name="q9a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9a-Đúng"></span></label>
+<label><input name="q9a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9a-Sai"></span></label>
+<p>b) Giảm giá 3,5 triệu đồng thì doanh thu lớn nhất.</p>
+<label><input name="q9b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9b-Đúng"></span></label>
+<label><input name="q9b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9b-Sai"></span></label>
+<p>c) Doanh thu: <span class="math">\( f(p) = -200p^2 + 450p \)</span> (triệu đồng).</p>
+<label><input name="q9c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9c-Đúng"></span></label>
+<label><input name="q9c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9c-Sai"></span></label>
+<p>d) Hàm cầu: <span class="math">\( P = -\frac{1}{200}x + \frac{45}{2} \)</span> (triệu đồng).</p>
+<label><input name="q9d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q9d-Đúng"></span></label>
+<label><input name="q9d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q9d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q9', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q9')">Xem lời giải</button>
+<div class="solution" id="solution-q9">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Hàm cầu: <span class="math">\( p(x) = -\frac{1}{200}x + \frac{45}{2} \)</span>. Mệnh đề d) Đúng.</p>
+  <p>Doanh thu: <span class="math">\( f(p) = -200p^2 + 4500p \)</span>. Mệnh đề c) Sai.</p>
+  <p>Đỉnh doanh thu: <span class="math">\( p = 11,25 \)</span>, giảm <span class="math">\( 3,75 \)</span> triệu đồng. Mệnh đề b) Sai.</p>
+  <p>Lợi nhuận: <span class="math">\( P(x) = -\frac{1}{200}x^2 + 26x - 12000 \)</span>. Đỉnh tại <span class="math">\( x = 2600 \)</span>, giá <span class="math">\( p = 9,5 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 10 -->
+<div class="question" id="q10">
+<div class="summary-box">
+<p><strong>Câu 10 (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025)</strong>. Nồng độ thuốc <span class="math">\( C(t) \)</span> (mg/cm<sup>3</sup>) trong máu bệnh nhân: <span class="math">\( C(t) = \frac{0,05t}{t^2 + t + 1} \)</span>, <span class="math">\( t \)</span> là thời gian (giờ). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Có thời điểm nồng độ đạt <span class="math">\( 0,02 \)</span> mg/cm<sup>3</sup>.</p>
+<label><input name="q10a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10a-Đúng"></span></label>
+<label><input name="q10a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10a-Sai"></span></label>
+<p>b) Nồng độ lớn nhất tại 1 giờ sau khi tiêm.</p>
+<label><input name="q10b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10b-Đúng"></span></label>
+<label><input name="q10b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10b-Sai"></span></label>
+<p>c) Đạo hàm: <span class="math">\( C'(t) = \frac{1 - t^2}{20(t^2 + t + 1)^2} \)</span>, <span class="math">\( t \ge 0 \)</span>.</p>
+<label><input name="q10c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10c-Đúng"></span></label>
+<label><input name="q10c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10c-Sai"></span></label>
+<p>d) Nồng độ giảm dần theo thời gian.</p>
+<label><input name="q10d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q10d-Đúng"></span></label>
+<label><input name="q10d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q10d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q10', ['Sai', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q10')">Xem lời giải</button>
+<div class="solution" id="solution-q10">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Đạo hàm: <span class="math">\( C'(t) = \frac{1 - t^2}{20(t^2 + t + 1)^2} \)</span>. Mệnh đề c) Đúng.</p>
+  <p><span class="math">\( C'(t) = 0 \Rightarrow t = 1 \)</span>, nồng độ lớn nhất tại <span class="math">\( t = 1 \)</span>. Mệnh đề b) Đúng.</p>
+  <p><span class="math">\( C(1) = \frac{1}{60} \approx 0,0167 < 0,02 \)</span>. Mệnh đề a) Sai.</p>
+  <p>Nồng độ tăng đến <span class="math">\( t = 1 \)</span> rồi giảm. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 11 -->
+<div class="question" id="q11">
+<div class="summary-box">
+<p><strong>Câu 11 (THPT Lý Thường Kiệt - Hà Nội 2025)</strong>. Anh B chế tạo bể cá hình hộp chữ nhật không nắp, thể tích <span class="math">\( 0,096 \)</span> m<sup>3</sup>, chiều cao <span class="math">\( h = 0,6 \)</span> m, chiều rộng <span class="math">\( x \)</span>, chiều dài <span class="math">\( y \)</span>. Kính mặt bên giá 70.000 đồng/m<sup>2</sup>, đáy giá 100.000 đồng/m<sup>2</sup>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Chi phí mặt xung quanh: <span class="math">\( C_{xq} = 84000\left(x + \frac{0,16}{x}\right) \)</span>.</p>
+<label><input name="q11a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11a-Đúng"></span></label>
+<label><input name="q11a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11a-Sai"></span></label>
+<p>b) <span class="math">\( y = \frac{0,16}{x} \)</span>.</p>
+<label><input name="q11b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11b-Đúng"></span></label>
+<label><input name="q11b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11b-Sai"></span></label>
+<p>c) Chi phí đáy: 11200 đồng.</p>
+<label><input name="q11c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11c-Đúng"></span></label>
+<label><input name="q11c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11c-Sai"></span></label>
+<p>d) Chi phí thấp nhất: 100000 đồng.</p>
+<label><input name="q11d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q11d-Đúng"></span></label>
+<label><input name="q11d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q11d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q11', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q11')">Xem lời giải</button>
+<div class="solution" id="solution-q11">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Thể tích: <span class="math">\( xy \cdot 0,6 = 0,096 \Rightarrow y = \frac{0,16}{x} \)</span>. Mệnh đề b) Đúng.</p>
+  <p>Chi phí đáy: <span class="math">\( 100000 \cdot 0,16 = 16000 \)</span> đồng. Mệnh đề c) Sai.</p>
+  <p>Chi phí xung quanh: <span class="math">\( C_{xq} = 84000\left(x + \frac{0,16}{x}\right) \)</span>. Mệnh đề a) Đúng.</p>
+  <p>Chi phí tổng: <span class="math">\( C = 84000\left(x + \frac{0,16}{x}\right) + 16000 \)</span>. Min tại <span class="math">\( x = 0,4 \)</span>, <span class="math">\( C = 83200 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 12 -->
+<div class="question" id="q12">
+<div class="summary-box">
+<p><strong>Câu 12 (THPT Lê Lợi - Thanh Hóa 2025)</strong>. Người ta bơm xăng vào bình, thể tích <span class="math">\( V(t) = 300(t^2 - t^3) + 4,5 \)</span> (lít), <span class="math">\( t \in [0; 0,5] \)</span> (phút). <span class="math">\( V'(t) \)</span> là tốc độ tăng thể tích. Giá 1 lít xăng: 21.000 đồng. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Lượng xăng ban đầu: <span class="math">\( 1,5 \)</span> lít.</p>
+<label><input name="q12a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12a-Đúng"></span></label>
+<label><input name="q12a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12a-Sai"></span></label>
+<p>b) Sau 30 giây, bình đầy, chi phí 787.500 đồng.</p>
+<label><input name="q12b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12b-Đúng"></span></label>
+<label><input name="q12b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12b-Sai"></span></label>
+<p>c) Tốc độ tăng thể tích lớn nhất tại giây thứ 21.</p>
+<label><input name="q12c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12c-Đúng"></span></label>
+<label><input name="q12c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12c-Sai"></span></label>
+<p>d) <span class="math">\( V'(t) = 0 \)</span> có hai nghiệm trên <span class="math">\( [0; \frac{1}{2}] \)</span>.</p>
+<label><input name="q12d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q12d-Đúng"></span></label>
+<label><input name="q12d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q12d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q12', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q12')">Xem lời giải</button>
+<div class="solution" id="solution-q12">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p><span class="math">\( V(0) = 4,5 \)</span> lít. Mệnh đề a) Sai.</p>
+  <p><span class="math">\( V(0,5) = 42 \)</span> lít, xăng bơm: <span class="math">\( 37,5 \)</span> lít, chi phí: <span class="math">\( 787500 \)</span> đồng. Mệnh đề b) Đúng.</p>
+  <p><span class="math">\( V'(t) = 300(2t - 3t^2) \)</span>, max tại <span class="math">\( t = \frac{1}{3} \approx 20 \)</span> giây. Mệnh đề c) Sai.</p>
+  <p><span class="math">\( V'(t) = 0 \Rightarrow t = 0, t = \frac{2}{3} \notin [0; 0,5] \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>b</strong>.</p>
+</div>
+</div>
+</div>
 
 <!-- Câu 13 -->
 <div class="question" id="q13">
 <div class="summary-box">
-<p><strong>Câu 13</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.13.png"/><br/>
+<p><strong>Câu 13 (Cụm trường THPT Hải Dương 2025)</strong>. Cho hàm số <span class="math">\( f(x) = 92 - 20\ln(x + 1) \)</span>. Xét các mệnh đề sau:</p>
 <div class="options">
-<p>a) Tổng quãng đường vật đi được trong 60(s) đầu tiên là 650(m).</p>
+<p>a) Tập xác định: <span class="math">\( D = (-1; +\infty) \)</span>.</p>
 <label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
 <label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
-<p>b) Trong khoảng thời gian từ 0(s) đến 10(s), phương trình vận tốc của vật là \( v(t) = \frac{1}{2}t + 10 \, (\mathrm{m/s}) \).</p>
+<p>b) Hàm số nghịch biến trên <span class="math">\( (-1; +\infty) \)</span>.</p>
 <label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
 <label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
-<p>c) Trong khoảng thời gian từ 30(s) đến 60(s), phương trình vận tốc của vật là \( v(t) = -\frac{1}{2}t + 30 \, (\mathrm{m/s}) \).</p>
+<p>c) Bất phương trình <span class="math">\( f(x) \ge 72 \)</span> có 3 nghiệm nguyên.</p>
 <label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
 <label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
-<p>d) Trong khoảng thời gian từ 10(s) đến 30(s), vật chuyển động đều.</p>
+<p>d) Phần trăm kiến thức còn nhớ 50% khi <span class="math">\( t = 7 \)</span> (làm tròn).</p>
 <label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
 <label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
 </div></div>
 <div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
-<div class="solution" id="solution-q13"></div>
+<div class="solution" id="solution-q13">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Tập xác định: <span class="math">\( x > -1 \)</span>. Mệnh đề a) Đúng.</p>
+  <p><span class="math">\( f'(x) = -\frac{20}{x + 1} < 0 \)</span>. Mệnh đề b) Đúng.</p>
+  <p><span class="math">\( f(x) \ge 72 \Rightarrow x \le e - 1 \approx 1,718 \)</span>, nghiệm nguyên: 0, 1. Mệnh đề c) Sai.</p>
+  <p><span class="math">\( f(t) = 50 \Rightarrow t \approx 7,2 \approx 7 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, d</strong>.</p>
+</div>
 </div>
 </div>
 
+<!-- Câu 14 -->
+<div class="question" id="q14">
+<div class="summary-box">
+<p><strong>Câu 14 (Cụm trường THPT Hải Dương 2025)</strong>. Bạn Giáp ở thuyền (A) cách bờ hồ (C) 300 m, cần đến B trên bờ, cách C 400 m. Tốc độ chèo thuyền: 50 m/phút, chạy bộ: 100 m/phút. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Thời gian chèo thẳng A → B: 10 phút.</p>
+<label><input name="q14a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14a-Đúng"></span></label>
+<label><input name="q14a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14a-Sai"></span></label>
+<p>b) Thời gian A → C → B: 10 phút.</p>
+<label><input name="q14b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14b-Đúng"></span></label>
+<label><input name="q14b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14b-Sai"></span></label>
+<p>c) Thời gian A → D (cách C <span class="math">\( x \)</span> m) → B: <span class="math">\( f(x) = \frac{1}{100} \left( \sqrt{x^2 + 90000} + 400 - x \right) \)</span> (phút).</p>
+<label><input name="q14c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14c-Đúng"></span></label>
+<label><input name="q14c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14c-Sai"></span></label>
+<p>d) Thời gian nhanh nhất: ~9,2 phút.</p>
+<label><input name="q14d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q14d-Đúng"></span></label>
+<label><input name="q14d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q14d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q14', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q14')">Xem lời giải</button>
+<div class="solution" id="solution-q14">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p><span class="math">\( AB = 500 \)</span> m, thời gian: <span class="math">\( \frac{500}{50} = 10 \)</span> phút. Mệnh đề a) Đúng.</p>
+  <p>Thời gian A → C → B: <span class="math">\( \frac{300}{50} + \frac{400}{100} = 10 \)</span> phút. Mệnh đề b) Đúng.</p>
+  <p>Thời gian A → D → B: <span class="math">\( f(x) = \frac{2\sqrt{x^2 + 90000} + 400 - x}{100} \)</span>. Mệnh đề c) Sai.</p>
+  <p>Min <span class="math">\( f(x) \)</span> tại <span class="math">\( x = 100\sqrt{3} \approx 173,2 \)</span>, <span class="math">\( f \approx 9,2 \)</span> phút. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 15 -->
+<div class="question" id="q15">
+<div class="summary-box">
+<p><strong>Câu 15 (THPT Kinh Môn - Hải Dương 2025)</strong>. Một công ty sản xuất 8000 quả bóng pickleball, mỗi máy sản xuất 30 quả/giờ, chi phí thiết lập máy 200 nghìn đồng/máy, chi phí giám sát 192 nghìn đồng/giờ. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Trong 1 giờ, cần 266 máy để sản xuất 8000 quả bóng.</p>
+<label><input name="q15a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15a-Đúng"></span></label>
+<label><input name="q15a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15a-Sai"></span></label>
+<p>b) Trong <span class="math">\( \frac{8}{3} \)</span> giờ, cần 100 máy để sản xuất 8000 quả bóng.</p>
+<label><input name="q15b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15b-Đúng"></span></label>
+<label><input name="q15b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15b-Sai"></span></label>
+<p>c) Chi phí hoạt động thấp nhất là 6,4 triệu đồng.</p>
+<label><input name="q15c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15c-Đúng"></span></label>
+<label><input name="q15c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15c-Sai"></span></label>
+<p>d) Chi phí thấp nhất đạt được với 16 máy.</p>
+<label><input name="q15d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q15d-Đúng"></span></label>
+<label><input name="q15d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q15d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q15', ['Sai', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q15')">Xem lời giải</button>
+<div class="solution" id="solution-q15">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Số máy trong 1 giờ: <span class="math">\( 8000 \div 30 \approx 267 \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) Trong <span class="math">\( \frac{8}{3} \)</span> giờ, mỗi máy sản xuất <span class="math">\( 30 \times \frac{8}{3} = 80 \)</span> quả, cần <span class="math">\( 8000 \div 80 = 100 \)</span> máy. Mệnh đề b) Đúng.</p>
+  <p>c, d) Tổng chi phí: <span class="math">\( T(x) = 200x + \frac{51200}{x} \)</span>. Đạo hàm: <span class="math">\( T'(x) = 200 - \frac{51200}{x^2} = 0 \Rightarrow x = 16 \)</span>. Chi phí thấp nhất: <span class="math">\( T(16) = 6400 \)</span> (nghìn đồng) = 6,4 triệu đồng. Mệnh đề c, d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, c, d</strong>.</p>
+</div>
+</div>
+</div>
 
-<h3>Phần III: Trắc Nghiệm Trả Lời Ngắn - từ câu 17 đến câu 22</h3>
+<!-- Câu 16 -->
+<div class="question" id="q16">
+<div class="summary-box">
+<p><strong>Câu 16 (HSG Vũng Tàu 2025)</strong>. Chi phí nhiên liệu của tàu gồm phần cố định 480 nghìn đồng/giờ và phần tỉ lệ với <span class="math">\( v^3 \)</span>. Khi <span class="math">\( v = 10 \)</span> km/h, phần thứ hai là 30 nghìn đồng/giờ. Gọi <span class="math">\( x \)</span> là vận tốc (km/h). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Chi phí nhiên liệu phần thứ nhất cho 1 km: <span class="math">\( \frac{480}{x} \)</span> (nghìn đồng).</p>
+<label><input name="q16a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16a-Đúng"></span></label>
+<label><input name="q16a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16a-Sai"></span></label>
+<p>b) Tổng chi phí nhiên liệu trong 1 giờ: <span class="math">\( C(x) = 480 + 0,03x^3 \)</span> (nghìn đồng).</p>
+<label><input name="q16b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16b-Đúng"></span></label>
+<label><input name="q16b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16b-Sai"></span></label>
+<p>c) Tổng chi phí nhiên liệu cho 1 km giảm khi <span class="math">\( x \in (0; 30) \)</span>.</p>
+<label><input name="q16c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16c-Đúng"></span></label>
+<label><input name="q16c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16c-Sai"></span></label>
+<p>d) Tổng chi phí nhiên liệu cho 1 km nhỏ nhất là 43 (nghìn đồng).</p>
+<label><input name="q16d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q16d-Đúng"></span></label>
+<label><input name="q16d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q16d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q16', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q16')">Xem lời giải</button>
+<div class="solution" id="solution-q16">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Thời gian chạy 1 km: <span class="math">\( \frac{1}{x} \)</span> giờ, chi phí: <span class="math">\( \frac{480}{x} \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Phần thứ hai: <span class="math">\( P_2 = 0,03x^3 \)</span>. Tổng chi phí: <span class="math">\( C(x) = 480 + 0,03x^3 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) Chi phí cho 1 km: <span class="math">\( C(x) = \frac{480}{x} + 0,03x^2 \)</span>. Đạo hàm: <span class="math">\( C'(x) = 0 \Rightarrow x = 20 \)</span>. Chi phí giảm trong <span class="math">\( (0; 20) \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Chi phí nhỏ nhất: <span class="math">\( C(20) = 36 \)</span> (nghìn đồng). Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
 
 <!-- Câu 17 -->
 <div class="question" id="q17">
 <div class="summary-box">
-<p><strong>Câu 17</strong>. Câu lạc bộ thiện nguyện của một trường THPT dự định làm các bình hoa bằng giấy để bán trong một hội chợ gây quỹ từ thiện. Cần 1 giờ để làm một bình hoa nhỏ và sẽ bán với giá 100 nghìn đồng và 90 phút để làm một bình hoa lớn và bán với giá 200 nghìn đồng. Biết rằng câu lạc bộ có 30 giờ để làm các bình hoa và muốn tổng số bình hoa không quá 24 bình. Số tiền lớn nhất mà câu lạc bộ có thể thu được là bao nhiêu triệu đồng?</p>
-</div>
+<p><strong>Câu 17 (THPT Lê Xoay - Vĩnh Phúc 2025)</strong>. Nhà máy A sản xuất sản phẩm cho B, tối đa 100 tấn/tháng. Giá bán: <span class="math">\( P(x) = 45 - 0,001x^2 \)</span> (triệu đồng/tấn). Chi phí: <span class="math">\( C(x) = 100 + 30x \)</span> (triệu đồng). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Lợi nhuận: <span class="math">\( H(x) = -0,001x^3 + 15x - 100 \)</span>.</p>
+<label><input name="q17a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17a-Đúng"></span></label>
+<label><input name="q17a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17a-Sai"></span></label>
+<p>b) Doanh thu bán 10 tấn: 600 triệu đồng.</p>
+<label><input name="q17b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17b-Đúng"></span></label>
+<label><input name="q17b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17b-Sai"></span></label>
+<p>c) Lợi nhuận lớn nhất khi bán <span class="math">\( 50\sqrt{2} \approx 70,7 \)</span> tấn.</p>
+<label><input name="q17c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17c-Đúng"></span></label>
+<label><input name="q17c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17c-Sai"></span></label>
+<p>d) Chi phí sản xuất 10 tấn: 400 triệu đồng.</p>
+<label><input name="q17d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q17d-Đúng"></span></label>
+<label><input name="q17d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q17d-Sai"></span></label>
+</div></div>
 <div class="answer-check">
-<input type="text" id="input-q17" placeholder="Nhập đáp án">
-<button onclick="checkShortAnswer('q17', '1800')">Kiểm tra</button>
+<button onclick="checkTrueFalseAnswer('q17', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
 <button class="solution-toggle" onclick="toggleSolution('solution-q17')">Xem lời giải</button>
-<div class="solution" id="solution-q17"></div>
-<div class="answer-feedback" id="feedback-q17"></div>
+<div class="solution" id="solution-q17">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Lợi nhuận: <span class="math">\( H(x) = (45x - 0,001x^3) - (100 + 30x) = -0,001x^3 + 15x - 100 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Doanh thu 10 tấn: <span class="math">\( R(10) = 449 \)</span> triệu đồng. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( H'(x) = 0 \Rightarrow x = 50\sqrt{2} \approx 70,7 \)</span>. Lợi nhuận lớn nhất. Mệnh đề c) Đúng.</p>
+  <p>d) Chi phí 10 tấn: <span class="math">\( C(10) = 400 \)</span> triệu đồng. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c, d</strong>.</p>
+</div>
 </div>
 </div>
 
+<!-- Câu 18 -->
+<div class="question" id="q18">
+<div class="summary-box">
+<p><strong>Câu 18 (Sở Hà Tĩnh 2025)</strong>. Nồng độ thuốc trong máu sau <span class="math">\( t \)</span> giờ: <span class="math">\( c(t) = \frac{t}{t^2 + 1} \)</span> (mg/l). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Sau 2 giờ, nồng độ: 0,4 mg/l.</p>
+<label><input name="q18a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18a-Đúng"></span></label>
+<label><input name="q18a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18a-Sai"></span></label>
+<p>b) Nồng độ vượt quá 0,5 mg/l.</p>
+<label><input name="q18b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18b-Đúng"></span></label>
+<label><input name="q18b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18b-Sai"></span></label>
+<p>c) Nồng độ cao nhất tại 1 giờ.</p>
+<label><input name="q18c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18c-Đúng"></span></label>
+<label><input name="q18c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18c-Sai"></span></label>
+<p>d) Nồng độ cao nhất: 0,5 mg/l.</p>
+<label><input name="q18d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q18d-Đúng"></span></label>
+<label><input name="q18d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q18d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q18', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q18')">Xem lời giải</button>
+<div class="solution" id="solution-q18">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Đạo hàm: <span class="math">\( c'(t) = \frac{1 - t^2}{(t^2 + 1)^2} \)</span>. <span class="math">\( c'(t) = 0 \Rightarrow t = 1 \)</span>. Mệnh đề c) Đúng.</p>
+  <p>Nồng độ cao nhất: <span class="math">\( c(1) = 0,5 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>a) <span class="math">\( c(2) = \frac{2}{5} = 0,4 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Nồng độ tối đa 0,5 mg/l, không vượt quá. Mệnh đề b) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 19 -->
+<div class="question" id="q19">
+<div class="summary-box">
+<p><strong>Câu 19 (Sở Hà Tĩnh 2025)</strong>. Hồ nước giới hạn bởi trục tọa độ và <span class="math">\( y = -0,1x^3 + 0,9x^2 - 1,5x + 5,6 \)</span>, đơn vị 100m. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Đường dạo ven hồ dọc trục Ox dài 600m.</p>
+<label><input name="q19a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19a-Đúng"></span></label>
+<label><input name="q19a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19a-Sai"></span></label>
+<p>b) Điểm cách gốc O 500m có khoảng cách thẳng đứng đến bờ hồ đối diện lớn nhất.</p>
+<label><input name="q19b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19b-Đúng"></span></label>
+<label><input name="q19b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19b-Sai"></span></label>
+<p>c) Khoảng cách nhỏ nhất thẳng đứng đến bờ hồ đối diện: 490m.</p>
+<label><input name="q19c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19c-Đúng"></span></label>
+<label><input name="q19c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19c-Sai"></span></label>
+<p>d) Bến thuyền tại <span class="math">\( M(a; b) \)</span>, <span class="math">\( a + 5b = 43 \)</span>.</p>
+<label><input name="q19d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q19d-Đúng"></span></label>
+<label><input name="q19d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q19d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q19', ['Sai', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q19')">Xem lời giải</button>
+<div class="solution" id="solution-q19">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Đường dạo: <span class="math">\( f(x) = 0 \Rightarrow x = 8 \)</span>, dài 800m. Mệnh đề a) Sai.</p>
+  <p>b) <span class="math">\( f'(x) = 0 \Rightarrow x = 5 \)</span>, <span class="math">\( f(5) = 8,1 \)</span> (810m). Mệnh đề b) Đúng.</p>
+  <p>c) Min <span class="math">\( f(x) \)</span> tại <span class="math">\( x = 1 \)</span>, <span class="math">\( f(1) = 4,9 \)</span> (490m). Mệnh đề c) Đúng.</p>
+  <p>d) Tiếp tuyến tại <span class="math">\( M(a; b) \)</span> song song <span class="math">\( y = -1,5x + 18 \)</span>, <span class="math">\( f'(a) = -1,5 \Rightarrow a = 6 \)</span>, <span class="math">\( b = 7,4 \)</span>, <span class="math">\( a + 5b = 43 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 20 -->
+<div class="question" id="q20">
+<div class="summary-box">
+<p><strong>Câu 20 (THPT Cẩm Xuyên - Hà Tĩnh 2025)</strong>. Chất điểm chuyển động theo <span class="math">\( s(t) = -t^3 + 9t^2 + 21t + 9 \)</span> (m), <span class="math">\( t \)</span> (giây). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Vận tốc: <span class="math">\( v(t) = -3t^2 + 18t + 21 \)</span>.</p>
+<label><input name="q20a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20a-Đúng"></span></label>
+<label><input name="q20a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20a-Sai"></span></label>
+<p>b) Vận tốc tại <span class="math">\( t = 2 \)</span>: 45 m/s.</p>
+<label><input name="q20b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20b-Đúng"></span></label>
+<label><input name="q20b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20b-Sai"></span></label>
+<p>c) Quãng đường đến khi dừng: 255 m.</p>
+<label><input name="q20c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20c-Đúng"></span></label>
+<label><input name="q20c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20c-Sai"></span></label>
+<p>d) Vận tốc lớn nhất tại <span class="math">\( t = 3 \)</span> s.</p>
+<label><input name="q20d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q20d-Đúng"></span></label>
+<label><input name="q20d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q20d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q20', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q20')">Xem lời giải</button>
+<div class="solution" id="solution-q20">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( v(t) = s'(t) = -3t^2 + 18t + 21 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( v(2) = 45 \)</span> m/s. Mệnh đề b) Đúng.</p>
+  <p>c) Dừng khi <span class="math">\( v(t) = 0 \Rightarrow t = 7 \)</span>, <span class="math">\( s(7) = 254 \)</span> m. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( v'(t) = 0 \Rightarrow t = 3 \)</span>, vận tốc max 48 m/s. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 21 -->
+<div class="question" id="q21">
+<div class="summary-box">
+<p><strong>Câu 21 (Sở Vĩnh Phúc 2025)</strong>. Cửa hàng bán cam giá 40000 đồng/kg, nhập 24000 đồng/kg, bán 100 kg/ngày. Giảm 1000 đồng/kg, bán thêm 10 kg. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Lợi nhuận giữ nguyên giá: 1500000 đồng/ngày.</p>
+<label><input name="q21a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21a-Đúng"></span></label>
+<label><input name="q21a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21a-Sai"></span></label>
+<p>b) Giá 35000 đồng/kg, bán 150 kg/ngày.</p>
+<label><input name="q21b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21b-Đúng"></span></label>
+<label><input name="q21b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21b-Sai"></span></label>
+<p>c) Giá 30000 đồng/kg, lợi nhuận 1300000 đồng/ngày.</p>
+<label><input name="q21c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21c-Đúng"></span></label>
+<label><input name="q21c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21c-Sai"></span></label>
+<p>d) Lợi nhuận tối đa: 1690000 đồng/ngày.</p>
+<label><input name="q21d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q21d-Đúng"></span></label>
+<label><input name="q21d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q21d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q21', ['Sai', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q21')">Xem lời giải</button>
+<div class="solution" id="solution-q21">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Lợi nhuận giá 40000 đồng/kg: <span class="math">\( 40000 \times 100 - 24000 \times 100 = 1600000 \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) Giá 35000 đồng/kg, bán: <span class="math">\( 100 + (40 - 35) \times 10 = 150 \)</span> kg. Mệnh đề b) Đúng.</p>
+  <p>c) Lợi nhuận giá 30000 đồng/kg: <span class="math">\( L(30) = 1200000 \)</span> đồng. Mệnh đề c) Sai.</p>
+  <p>d) Lợi nhuận: <span class="math">\( L(x) = -10x^2 + 740x - 12000 \)</span>. Max tại <span class="math">\( x = 37 \)</span>, <span class="math">\( L(37) = 1690000 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, d</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 22 -->
+<div class="question" id="q22">
+<div class="summary-box">
+<p><strong>Câu 22 (THPT Lê Thánh Tông - HCM 2025)</strong>. Lớp 12B5 có 40 học sinh, 60% xuất sắc, 40% giỏi. Trong số học sinh giỏi, 8 em đạt từ 9 điểm Toán trở lên; 75% học sinh từ 9 điểm trở lên là xuất sắc. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tỉ lệ học sinh có điểm Toán từ 9 trở lên là 80%.</p>
+<label><input name="q22a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22a-Đúng"></span></label>
+<label><input name="q22a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22a-Sai"></span></label>
+<p>b) Học sinh xuất sắc đều có điểm Toán từ 9 trở lên.</p>
+<label><input name="q22b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22b-Đúng"></span></label>
+<label><input name="q22b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22b-Sai"></span></label>
+<p>c) Học sinh có điểm Toán dưới 9 đều là học sinh giỏi.</p>
+<label><input name="q22c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22c-Đúng"></span></label>
+<label><input name="q22c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22c-Sai"></span></label>
+<p>d) Có 22 học sinh xuất sắc đạt trên 9 điểm Toán, biết tỉ lệ học sinh giỏi điểm trên 9 là 37,5% và 50% học sinh điểm 9 là xuất sắc.</p>
+<label><input name="q22d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q22d-Đúng"></span></label>
+<label><input name="q22d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q22d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q22', ['Đúng', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q22')">Xem lời giải</button>
+<div class="solution" id="solution-q22">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>Xuất sắc: <span class="math">\( 40 \times 0,6 = 24 \)</span>. Giỏi: <span class="math">\( 40 \times 0,4 = 16 \)</span>.</p>
+  <p>Giỏi từ 9 điểm: 8 em, dưới 9: <span class="math">\( 16 - 8 = 8 \)</span>.</p>
+  <p>a) Xuất sắc từ 9 điểm: <span class="math">\( x \)</span>. <span class="math">\( \frac{x}{x+8} = 0,75 \Rightarrow x = 24 \)</span>. Tỉ lệ: <span class="math">\( \frac{24+8}{40} = 80\% \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Xuất sắc từ 9 điểm: 24, tổng từ 9 điểm: 32. Mệnh đề b) Đúng.</p>
+  <p>c) Dưới 9 điểm: <span class="math">\( 40 - 32 = 8 \)</span>, đều là giỏi. Mệnh đề c) Đúng.</p>
+  <p>d) Giỏi từ 9: <span class="math">\( a + b = 8 \)</span>, <span class="math">\( \frac{b}{8} = 0,375 \Rightarrow b = 3, a = 5 \)</span>. Xuất sắc điểm 9: <span class="math">\( c = 12 \)</span>, trên 9: <span class="math">\( d = 12 \)</span>. Không phải 22. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 23 -->
+<div class="question" id="q23">
+<div class="summary-box">
+<p><strong>Câu 23 (Chuyên Hạ Long 2025)</strong>. Cơ sở sản xuất cung cấp 1000 sản phẩm A/tháng. Giá 100 nghìn đồng, 290 người mua; giảm 10 nghìn đồng, thêm 50 người mua. Gọi <span class="math">\( p \)</span> là giá (nghìn đồng), <span class="math">\( R(p) \)</span> là doanh thu (nghìn đồng). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Số sản phẩm bán ra: <span class="math">\( 790 - 5p \)</span>.</p>
+<label><input name="q23a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q23a-Đúng"></span></label>
+<label><input name="q23a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q23a-Sai"></span></label>
+<p>b) Doanh thu: <span class="math">\( R(p) = 1000 - 790p + 5p^2 \)</span>.</p>
+<label><input name="q23b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q23b-Đúng"></span></label>
+<label><input name="q23b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q23b-Sai"></span></label>
+<p>c) <span class="math">\( R'(p) = 0 \)</span> có nghiệm <span class="math">\( p = 79 \)</span>.</p>
+<label><input name="q23c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q23c-Đúng"></span></label>
+<label><input name="q23c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q23c-Sai"></span></label>
+<p>d) Doanh thu lớn nhất: 31.205.000 đồng.</p>
+<label><input name="q23d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q23d-Đúng"></span></label>
+<label><input name="q23d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q23d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q23', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q23')">Xem lời giải</button>
+<div class="solution" id="solution-q23">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Số sản phẩm: <span class="math">\( x = 790 - 5p \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Doanh thu: <span class="math">\( R(p) = (790 - 5p)p = -5p^2 + 790p \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( R'(p) = -10p + 790 = 0 \Rightarrow p = 79 \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( R(79) = 31205 \)</span> (nghìn đồng) = 31.205.000 đồng. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 24 -->
+<div class="question" id="q24">
+<div class="summary-box">
+<p><strong>Câu 24 (Chuyên Vinh 2025)</strong>. Tốc độ tăng trưởng chiều cao cây lúa: <span class="math">\( v(t) = -0,1t^3 + 1,1t^2 \)</span> (cm/tuần), <span class="math">\( h(t) \)</span> là chiều cao (cm) tại tuần <span class="math">\( t \ge 0 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( h(t) = -\frac{1}{40}t^4 + \frac{11}{30}t^3 + 20 \)</span>.</p>
+<label><input name="q24a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q24a-Đúng"></span></label>
+<label><input name="q24a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q24a-Sai"></span></label>
+<p>b) Giai đoạn tăng trưởng kéo dài 12 tuần.</p>
+<label><input name="q24b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q24b-Đúng"></span></label>
+<label><input name="q24b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q24b-Sai"></span></label>
+<p>c) Chiều cao tối đa: 150 cm.</p>
+<label><input name="q24c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q24c-Đúng"></span></label>
+<label><input name="q24c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q24c-Sai"></span></label>
+<p>d) Khi phát triển nhanh nhất, chiều cao lớn hơn 80 cm.</p>
+<label><input name="q24d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q24d-Đúng"></span></label>
+<label><input name="q24d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q24d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q24', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q24')">Xem lời giải</button>
+<div class="solution" id="solution-q24">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( h(t) = \int v(t) \, dt = -\frac{1}{40}t^4 + \frac{11}{30}t^3 + C \)</span>, <span class="math">\( h(0) = 20 \Rightarrow C = 20 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( v(t) = 0 \Rightarrow t = 11 \)</span>. Tăng trưởng: 11 tuần. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( h(11) \approx 142 \)</span> cm. Mệnh đề c) Sai.</p>
+  <p>d) Nhanh nhất: <span class="math">\( t = \frac{22}{3} \)</span>, <span class="math">\( h\left(\frac{22}{3}\right) \approx 92,3 > 80 \)</span> cm. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 25 -->
+<div class="question" id="q25">
+<div class="summary-box">
+<p><strong>Câu 25 (Cụm trường THPT Hải Dương 2025)</strong>. Ô tô vận tốc 80 km/h, phát hiện chướng ngại vật cách 55 m, phản ứng 1 giây, phanh với <span class="math">\( v(t) = -10t + 20 \)</span> (m/s). <span class="math">\( s(t) \)</span> là quãng đường từ lúc phanh. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( s(t) \)</span> là nguyên hàm của <span class="math">\( v(t) \)</span>.</p>
+<label><input name="q25a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q25a-Đúng"></span></label>
+<label><input name="q25a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q25a-Sai"></span></label>
+<p>b) <span class="math">\( s(t) = -5t^2 + 20t + 55 \)</span>.</p>
+<label><input name="q25b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q25b-Đúng"></span></label>
+<label><input name="q25b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q25b-Sai"></span></label>
+<p>c) Thời gian phanh đến dừng: 4 giây.</p>
+<label><input name="q25c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q25c-Đúng"></span></label>
+<label><input name="q25c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q25c-Sai"></span></label>
+<p>d) Khi dừng, cách chướng ngại vật hơn 12 m.</p>
+<label><input name="q25d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q25d-Đúng"></span></label>
+<label><input name="q25d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q25d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q25', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q25')">Xem lời giải</button>
+<div class="solution" id="solution-q25">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( s(t) = \int v(t) \, dt \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( s(t) = -5t^2 + 20t \)</span>, <span class="math">\( s(0) = 0 \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( v(t) = 0 \Rightarrow t = 2 \)</span> giây. Mệnh đề c) Sai.</p>
+  <p>d) Phản ứng: <span class="math">\( \frac{200}{9} \)</span> m. Phanh: <span class="math">\( s(2) = 20 \)</span> m. Tổng: <span class="math">\( 42,222 \)</span> m. Cách chướng ngại: <span class="math">\( 55 - 42,222 \approx 12,778 > 12 \)</span> m. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 26 -->
+<div class="question" id="q26">
+<div class="summary-box">
+<p><strong>Câu 26 (THPT Trần Nguyên Hãn - Hải Phòng 2025)</strong>. Chi <span class="math">\( x \)</span> triệu đồng quảng cáo, số sản phẩm bán: <span class="math">\( S(x) = -2x^3 + 27x^2 + 216x + 150 \)</span>, <span class="math">\( x \in [0;15] \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( S'(x) = -6x^2 + 54x + 216 \)</span>.</p>
+<label><input name="q26a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q26a-Đúng"></span></label>
+<label><input name="q26a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q26a-Sai"></span></label>
+<p>b) Chi 11-12 triệu đồng, số sản phẩm tối đa 3131.</p>
+<label><input name="q26b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q26b-Đúng"></span></label>
+<label><input name="q26b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q26b-Sai"></span></label>
+<p>c) Không chi quảng cáo, bán 150 sản phẩm.</p>
+<label><input name="q26c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q26c-Đúng"></span></label>
+<label><input name="q26c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q26c-Sai"></span></label>
+<p>d) Chi 11-12 triệu đồng, số sản phẩm tăng.</p>
+<label><input name="q26d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q26d-Đúng"></span></label>
+<label><input name="q26d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q26d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q26', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q26')">Xem lời giải</button>
+<div class="solution" id="solution-q26">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( S'(x) = -6x^2 + 54x + 216 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( S(11) = 3131 \)</span>, <span class="math">\( S(12) = 3174 \)</span>. Tối đa 3174. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( S(0) = 150 \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( S'(x) \ge 0 \)</span> trong <span class="math">\( [11;12] \)</span>. Số sản phẩm tăng. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 27 -->
+<div class="question" id="q27">
+<div class="summary-box">
+<p><strong>Câu 27 (Sở Vĩnh Phúc 2025)</strong>. Chiều cao cây cà chua: <span class="math">\( h(t) = 40\log_3 (2t+1) + 12 \)</span> (cm), <span class="math">\( 0 \le t \le 18 \)</span>. Đường kính trái: <span class="math">\( d(t) = 3^{\frac{2t-17}{t-8}} - 3 \)</span> (cm), <span class="math">\( 9 \le t \le 18 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tốc độ tăng trưởng tuần 7: ~4,85 cm/tuần.</p>
+<label><input name="q27a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q27a-Đúng"></span></label>
+<label><input name="q27a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q27a-Sai"></span></label>
+<p>b) Tuần 4, chiều cao: 92 cm.</p>
+<label><input name="q27b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q27b-Đúng"></span></label>
+<label><input name="q27b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q27b-Sai"></span></label>
+<p>c) Chiều cao liên tục tăng trong 18 tuần.</p>
+<label><input name="q27c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q27c-Đúng"></span></label>
+<label><input name="q27c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q27c-Sai"></span></label>
+<p>d) Sau 4 tuần kết trái, đường kính trái > 12 cm.</p>
+<label><input name="q27d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q27d-Đúng"></span></label>
+<label><input name="q27d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q27d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q27', ['Đúng', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q27')">Xem lời giải</button>
+<div class="solution" id="solution-q27">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( h'(t) = \frac{80}{(2t+1)\ln 3} \)</span>, <span class="math">\( h'(7) \approx 4,85 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( h(4) = 92 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( h'(t) > 0 \)</span>. Chiều cao tăng. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( d(13) \approx 4,22 < 12 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 28 -->
+<div class="question" id="q28">
+<div class="summary-box">
+<p><strong>Câu 28 (Cụm trường Hưng Yên 2025)</strong>. Cơ sở bán 34000 khăn/tháng, giá 50000 đồng, vốn 32000 đồng. Tăng 1000 đồng, bán ít hơn 500 khăn. <span class="math">\( x \)</span> (nghìn đồng) là số tiền tăng giá. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Doanh thu ban đầu: 1.700.000.000 đồng.</p>
+<label><input name="q28a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q28a-Đúng"></span></label>
+<label><input name="q28a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q28a-Sai"></span></label>
+<p>b) Số khăn sau tăng giá: <span class="math">\( 34000 - 5x \)</span>.</p>
+<label><input name="q28b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q28b-Đúng"></span></label>
+<label><input name="q28b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q28b-Sai"></span></label>
+<p>c) Lợi nhuận tối đa, lãi 41 nghìn đồng/khăn.</p>
+<label><input name="q28c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q28c-Đúng"></span></label>
+<label><input name="q28c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q28c-Sai"></span></label>
+<p>d) Lợi nhuận tối đa, số khăn giảm 12500.</p>
+<label><input name="q28d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q28d-Đúng"></span></label>
+<label><input name="q28d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q28d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q28', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q28')">Xem lời giải</button>
+<div class="solution" id="solution-q28">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Doanh thu: <span class="math">\( 34000 \times 50000 = 1.700.000.000 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Số khăn: <span class="math">\( 34000 - 500x \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) Lợi nhuận: <span class="math">\( L(x) = -500x^2 + 25000x + 612000 \)</span>. Max tại <span class="math">\( x = 25 \)</span>, lãi 43 nghìn đồng/khăn. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( x = 25 \Rightarrow 500 \times 25 = 12500 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 29 -->
+<div class="question" id="q29">
+<div class="summary-box">
+<p><strong>Câu 29 (Sở Thừa Thiên Huế 2025)</strong>. Mảnh đất vuông ABCD, cạnh AB=12m. Hồ bơi hình thang cong EFIG, lối đi HB. Đường cong EFIG là đồ thị hàm bậc ba <span class="math">\( y = f(x) \)</span>, F là cực tiểu, I là cực đại. CH = DE = GB = 3m, F cách AD 2m, I cách AD 6m. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Phương trình đường thẳng HB: <span class="math">\( y = -4x + 48 \)</span>.</p>
+<label><input name="q29a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q29a-Đúng"></span></label>
+<label><input name="q29a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q29a-Sai"></span></label>
+<p>b) Tồn tại <span class="math">\( a \in \mathbb{R} \)</span> sao cho <span class="math">\( f'(x) = a(x+2)(x+6) \)</span>.</p>
+<label><input name="q29b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q29b-Đúng"></span></label>
+<label><input name="q29b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q29b-Sai"></span></label>
+<p>c) Tiếp tuyến tại <span class="math">\( x = 7 \)</span> song song với HB.</p>
+<label><input name="q29c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q29c-Đúng"></span></label>
+<label><input name="q29c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q29c-Sai"></span></label>
+<p>d) Khoảng cách ngắn nhất từ điểm trên EFIG đến HB: 2,56m.</p>
+<label><input name="q29d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q29d-Đúng"></span></label>
+<label><input name="q29d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q29d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q29', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q29')">Xem lời giải</button>
+<div class="solution" id="solution-q29">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) HB qua B(12;0), H(9;12): <span class="math">\( y = -4x + 48 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( f'(x) = a(x-2)(x-6) \)</span>, không phải <span class="math">\( (x+2)(x+6) \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( f(x) = -\frac{1}{9}x^3 + \frac{4}{3}x^2 - 4x + 9 \)</span>, <span class="math">\( f'(7) = -\frac{5}{3} \neq -4 \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Tiếp tuyến song song HB tại <span class="math">\( x = 8 \)</span>, khoảng cách: <span class="math">\( \frac{95}{9\sqrt{17}} \approx 2,56 \)</span>m. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 30 -->
+<div class="question" id="q30">
+<div class="summary-box">
+<p><strong>Câu 30 (Chuyên Hoàng Văn Thụ - Hòa Bình 2025)</strong>. Vận tốc con lắc: <span class="math">\( v_1(t) = 2\cos\left(t-\frac{\pi}{3}\right) \)</span>, <span class="math">\( v_2(t) = 4\cos\left(\frac{t}{3}+\frac{\pi}{6}\right) \)</span> (cm/s). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Vận tốc ban đầu con lắc 1: 1 cm/s.</p>
+<label><input name="q30a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q30a-Đúng"></span></label>
+<label><input name="q30a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q30a-Sai"></span></label>
+<p>b) Vận tốc lớn nhất con lắc 2: 4 cm/s.</p>
+<label><input name="q30b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q30b-Đúng"></span></label>
+<label><input name="q30b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q30b-Sai"></span></label>
+<p>c) Tại <span class="math">\( t = \frac{\pi}{4} \)</span>, <span class="math">\( v_2 \)</span> gấp đôi <span class="math">\( v_1 \)</span>.</p>
+<label><input name="q30c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q30c-Đúng"></span></label>
+<label><input name="q30c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q30c-Sai"></span></label>
+<p>d) Trong 10s đầu, con lắc 1 đạt vận tốc lớn nhất 2 lần.</p>
+<label><input name="q30d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q30d-Đúng"></span></label>
+<label><input name="q30d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q30d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q30', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q30')">Xem lời giải</button>
+<div class="solution" id="solution-q30">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( v_1(0) = 2\cos\left(-\frac{\pi}{3}\right) = 1 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( v_2(t) = 4\cos\left(\frac{t}{3}+\frac{\pi}{6}\right) \)</span>, max = 4. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( v_1\left(\frac{\pi}{4}\right) \approx 1,9315 \)</span>, <span class="math">\( v_2\left(\frac{\pi}{4}\right) \approx 2,828 \)</span>. Không gấp đôi. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( v_1(t) = 2 \)</span> tại <span class="math">\( t = \frac{\pi}{3}, \frac{7\pi}{3} \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 31 -->
+<div class="question" id="q31">
+<div class="summary-box">
+<p><strong>Câu 31 (THPT Sào Nam - Quảng Nam 2025)</strong>. Chất điểm M chuyển động: <span class="math">\( S(t) = t^3 - 3t^2 - 1 \)</span> (m), <span class="math">\( t \ge 0 \)</span> (s). OM là khoảng cách từ M đến O. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tại <span class="math">\( t = 0 \)</span>, OM = 1m.</p>
+<label><input name="q31a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q31a-Đúng"></span></label>
+<label><input name="q31a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q31a-Sai"></span></label>
+<p>b) Vận tốc: <span class="math">\( v = 3t^2 - 6t + 1 \)</span> (m/s).</p>
+<label><input name="q31b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q31b-Đúng"></span></label>
+<label><input name="q31b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q31b-Sai"></span></label>
+<p>c) Trong 2s đầu, chất điểm chuyển động sang trái.</p>
+<label><input name="q31c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q31c-Đúng"></span></label>
+<label><input name="q31c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q31c-Sai"></span></label>
+<p>d) Tại <span class="math">\( t = 3 \)</span>, OM max = 5m.</p>
+<label><input name="q31d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q31d-Đúng"></span></label>
+<label><input name="q31d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q31d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q31', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q31')">Xem lời giải</button>
+<div class="solution" id="solution-q31">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( S(0) = -1 \)</span>, <span class="math">\( OM = |S(0)| = 1 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( v(t) = S'(t) = 3t^2 - 6t \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( v(t) < 0 \)</span> trong <span class="math">\( (0;2) \)</span>. Sang trái. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( OM = |S(t)| \)</span>, max = 5 tại <span class="math">\( t = 2 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 32 -->
+<div class="question" id="q32">
+<div class="summary-box">
+<p><strong>Câu 32 (Sở Ninh Bình 2025)</strong>. Cột đèn cao <span class="math">\( h \)</span> (m), chiếu sáng vòng xuyến bán kính 12m. Cường độ ánh sáng <span class="math">\( I \)</span> tỉ lệ thuận với <span class="math">\( \cos \theta \)</span>, tỉ lệ nghịch với <span class="math">\( d^2 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( f'(h) = k \frac{-2h^2 + 144}{(h^2+144)^{\frac{5}{2}}} \)</span>.</p>
+<label><input name="q32a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q32a-Đúng"></span></label>
+<label><input name="q32a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q32a-Sai"></span></label>
+<p>b) <span class="math">\( I \)</span> max khi <span class="math">\( h = 6\sqrt{2} \)</span> m.</p>
+<label><input name="q32b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q32b-Đúng"></span></label>
+<label><input name="q32b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q32b-Sai"></span></label>
+<p>c) <span class="math">\( \cos \theta = \frac{12}{\sqrt{h^2+144}} \)</span>.</p>
+<label><input name="q32c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q32c-Đúng"></span></label>
+<label><input name="q32c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q32c-Sai"></span></label>
+<p>d) <span class="math">\( I = k \frac{\cos \theta}{d^2} \)</span>.</p>
+<label><input name="q32d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q32d-Đúng"></span></label>
+<label><input name="q32d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q32d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q32', ['Sai', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q32')">Xem lời giải</button>
+<div class="solution" id="solution-q32">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( f(h) = k \frac{h}{(h^2+144)^{\frac{3}{2}}} \)</span>, <span class="math">\( f'(h) = k \frac{144 - 2h^2}{(h^2+144)^{\frac{5}{2}}} \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) <span class="math">\( f'(h) = 0 \Rightarrow h = 6\sqrt{2} \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( \cos \theta = \frac{h}{\sqrt{h^2+144}} \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( I = k \frac{\cos \theta}{d^2} \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 33 -->
+<div class="question" id="q33">
+<div class="summary-box">
+<p><strong>Câu 33 (Sở Thái Nguyên 2025)</strong>. Số người nhiễm bệnh: <span class="math">\( f(t) = 45t^2 - t^3 \)</span>, <span class="math">\( t \ge 0 \)</span>. <span class="math">\( f'(t) \)</span> là tốc độ truyền bệnh (người/ngày). Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tốc độ truyền: <span class="math">\( f'(t) = 90t - 3t^2 \)</span>.</p>
+<label><input name="q33a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q33a-Đúng"></span></label>
+<label><input name="q33a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q33a-Sai"></span></label>
+<p>b) Số người nhiễm đến ngày 13: 4752.</p>
+<label><input name="q33b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q33b-Đúng"></span></label>
+<label><input name="q33b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q33b-Sai"></span></label>
+<p>c) Ngày 45, không còn người nhiễm.</p>
+<label><input name="q33c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q33c-Đúng"></span></label>
+<label><input name="q33c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q33c-Sai"></span></label>
+<p>d) Trong 35 ngày đầu, số người nhiễm luôn tăng.</p>
+<label><input name="q33d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q33d-Đúng"></span></label>
+<label><input name="q33d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q33d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q33', ['Đúng', 'Sai', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q33')">Xem lời giải</button>
+<div class="solution" id="solution-q33">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( f'(t) = 90t - 3t^2 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( f(13) = 5408 \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( f(45) = 0 \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( f'(t) > 0 \)</span> trong <span class="math">\( (0;30) \)</span>, giảm sau. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 34 -->
+<div class="question" id="q34">
+<div class="summary-box">
+<p><strong>Câu 34 (Sở Quảng Bình 2025)</strong>. Sợi dây 6cm, cắt thành hai đoạn: một uốn thành đường tròn, một thành hình vuông. <span class="math">\( x \)</span> (cm) là độ dài đoạn tròn. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Bán kính tròn: <span class="math">\( r = \frac{x}{\pi} \)</span>.</p>
+<label><input name="q34a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q34a-Đúng"></span></label>
+<label><input name="q34a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q34a-Sai"></span></label>
+<p>b) Diện tích vuông: <span class="math">\( \left(\frac{6-x}{4}\right)^2 \)</span>.</p>
+<label><input name="q34b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q34b-Đúng"></span></label>
+<label><input name="q34b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q34b-Sai"></span></label>
+<p>c) Tổng diện tích: <span class="math">\( \frac{(4+\pi)x^2 - 12\pi x + 36\pi}{16\pi} \)</span>.</p>
+<label><input name="q34c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q34c-Đúng"></span></label>
+<label><input name="q34c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q34c-Sai"></span></label>
+<p>d) Tổng diện tích min khi <span class="math">\( x = \frac{6\pi}{4+\pi} \)</span>.</p>
+<label><input name="q34d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q34d-Đúng"></span></label>
+<label><input name="q34d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q34d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q34', ['Sai', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q34')">Xem lời giải</button>
+<div class="solution" id="solution-q34">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( r = \frac{x}{2\pi} \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) Cạnh vuông: <span class="math">\( \frac{6-x}{4} \)</span>, diện tích: <span class="math">\( \left(\frac{6-x}{4}\right)^2 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) Tổng diện tích: <span class="math">\( \frac{(4+\pi)x^2 - 12\pi x + 36\pi}{16\pi} \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( S'(x) = 0 \Rightarrow x = \frac{6\pi}{4+\pi} \)</span>. Min. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 35 -->
+<div class="question" id="q35">
+<div class="summary-box">
+<p><strong>Câu 35 (Sở Bạc Liêu 2025)</strong>. Hàm số <span class="math">\( y = f(x) = ax^3 + bx^2 + cx + d \)</span>, đồ thị qua (0;0). Lợi nhuận dệt vải lụa: <span class="math">\( L(x) = 200x - (f(x) - 20x + 500) \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Hệ số <span class="math">\( d > 0 \)</span>.</p>
+<label><input name="q35a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q35a-Đúng"></span></label>
+<label><input name="q35a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q35a-Sai"></span></label>
+<p>b) Hệ số <span class="math">\( a > 0 \)</span>.</p>
+<label><input name="q35b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q35b-Đúng"></span></label>
+<label><input name="q35b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q35b-Sai"></span></label>
+<p>c) Đồ thị qua E(0;2).</p>
+<label><input name="q35c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q35c-Đúng"></span></label>
+<label><input name="q35c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q35c-Sai"></span></label>
+<p>d) Lợi nhuận tối đa: 1100 nghìn đồng.</p>
+<label><input name="q35d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q35d-Đúng"></span></label>
+<label><input name="q35d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q35d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q35', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q35')">Xem lời giải</button>
+<div class="solution" id="solution-q35">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( f(0) = d = 0 \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) <span class="math">\( a > 0 \)</span> (đồ thị tăng khi <span class="math">\( x \to +\infty \)</span>). Mệnh đề b) Đúng.</p>
+  <p>c) Đồ thị qua (0;0), không phải (0;2). Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( f(x) = x^3 - 3x^2 \)</span>, <span class="math">\( L(x) = -x^3 + 3x^2 + 220x - 500 \)</span>. Max <span class="math">\( \approx 1004,1 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>b</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 36 -->
+<div class="question" id="q36">
+<div class="summary-box">
+<p><strong>Câu 36 (THPT Lê Thánh Tông - Nguyễn Khuyến 2025)</strong>. Số giờ ánh sáng mặt trời tại thành phố A (vĩ độ 40° Bắc) ngày thứ <span class="math">\( t \)</span>: <span class="math">\( d(t) = 3\sin \left(\frac{\pi}{182}(t-80)\right) + 12 \)</span>, <span class="math">\( t \in \mathbb{N}, 0 < t \le 365 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Ngày thứ 80 có 10 giờ ánh sáng mặt trời.</p>
+<label><input name="q36a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q36a-Đúng"></span></label>
+<label><input name="q36a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q36a-Sai"></span></label>
+<p>b) Đạo hàm: <span class="math">\( d'(t) = \frac{3\pi}{182}\cos \left(\frac{\pi}{182}(t-80)\right) \)</span>.</p>
+<label><input name="q36b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q36b-Đúng"></span></label>
+<label><input name="q36b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q36b-Sai"></span></label>
+<p>c) Nghiệm <span class="math">\( d'(t) = 0 \)</span> trên <span class="math">\( [1;171] \)</span>: <span class="math">\( t = 171 \)</span>.</p>
+<label><input name="q36c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q36c-Đúng"></span></label>
+<label><input name="q36c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q36c-Sai"></span></label>
+<p>d) Ngày thứ 160 có số giờ ánh sáng lớn nhất.</p>
+<label><input name="q36d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q36d-Đúng"></span></label>
+<label><input name="q36d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q36d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q36', ['Sai', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q36')">Xem lời giải</button>
+<div class="solution" id="solution-q36">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( d(80) = 3\sin(0) + 12 = 12 \)</span>. Không phải 10 giờ. Mệnh đề a) Sai.</p>
+  <p>b) <span class="math">\( d'(t) = 3 \cdot \cos\left(\frac{\pi}{182}(t-80)\right) \cdot \frac{\pi}{182} = \frac{3\pi}{182}\cos\left(\frac{\pi}{182}(t-80)\right) \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( d'(t) = 0 \Rightarrow t = 171 \)</span> trong <span class="math">\( [1;171] \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) Max tại <span class="math">\( t = 171 \)</span>, không phải 160. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 37 -->
+<div class="question" id="q37">
+<div class="summary-box">
+<p><strong>Câu 37 (Chuyên Phan Bội Châu - Hà Tĩnh 2025)</strong>. Cây đậu Hà Lan cao 3cm, tốc độ tăng trưởng: <span class="math">\( h'(t) = -0,02t^3 + 0,3t^2 \)</span> (cm/tuần). <span class="math">\( h(t) \)</span> là chiều cao (cm) tại tuần <span class="math">\( t \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( h(t) = -0,005t^4 + 0,1t^3 \)</span>.</p>
+<label><input name="q37a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q37a-Đúng"></span></label>
+<label><input name="q37a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q37a-Sai"></span></label>
+<p>b) Giai đoạn tăng trưởng kéo dài 15 tuần.</p>
+<label><input name="q37b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q37b-Đúng"></span></label>
+<label><input name="q37b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q37b-Sai"></span></label>
+<p>c) Chiều cao tối đa: 88cm.</p>
+<label><input name="q37c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q37c-Đúng"></span></label>
+<label><input name="q37c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q37c-Sai"></span></label>
+<p>d) Khi phát triển nhanh nhất, chiều cao: 53cm.</p>
+<label><input name="q37d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q37d-Đúng"></span></label>
+<label><input name="q37d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q37d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q37', ['Sai', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q37')">Xem lời giải</button>
+<div class="solution" id="solution-q37">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( h(t) = -0,005t^4 + 0,1t^3 + 3 \)</span>. Thiếu +3. Mệnh đề a) Sai.</p>
+  <p>b) <span class="math">\( h'(t) = 0 \Rightarrow t = 15 \)</span>. Tăng trưởng 15 tuần. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( h(15) \approx 87,38 \)</span> cm. Không phải 88cm. Mệnh đề c) Sai.</p>
+  <p>d) Nhanh nhất tại <span class="math">\( t = 10 \)</span>, <span class="math">\( h(10) = 53 \)</span> cm. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 38 -->
+<div class="question" id="q38">
+<div class="summary-box">
+<p><strong>Câu 38 (Sở Hòa Bình 2025)</strong>. Cây cà chua cao 5cm, tốc độ tăng trưởng: <span class="math">\( v(t) = -0,1t^3 + t^2 \)</span> (cm/tuần). <span class="math">\( h(t) \)</span> là chiều cao (cm) tuần <span class="math">\( t \ge 0 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( h(t) = -\frac{1}{40}t^4 + \frac{1}{3}t^3 + 5 \)</span>.</p>
+<label><input name="q38a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q38a-Đúng"></span></label>
+<label><input name="q38a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q38a-Sai"></span></label>
+<p>b) Giai đoạn tăng trưởng kéo dài 10 tuần.</p>
+<label><input name="q38b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q38b-Đúng"></span></label>
+<label><input name="q38b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q38b-Sai"></span></label>
+<p>c) Tuần thứ 6, chiều cao > 40cm.</p>
+<label><input name="q38c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q38c-Đúng"></span></label>
+<label><input name="q38c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q38c-Sai"></span></label>
+<p>d) Chiều cao tối đa ≤ 90cm.</p>
+<label><input name="q38d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q38d-Đúng"></span></label>
+<label><input name="q38d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q38d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q38', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q38')">Xem lời giải</button>
+<div class="solution" id="solution-q38">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( h(t) = \int v(t) \, dt = -\frac{1}{40}t^4 + \frac{1}{3}t^3 + 5 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( v(t) > 0 \)</span> khi <span class="math">\( t < 10 \)</span>. Tăng trưởng 10 tuần. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( h(6) \approx 44,6 > 40 \)</span> cm. Mệnh đề c) Đúng.</p>
+  <p>d) Max <span class="math">\( h(10) \approx 88,33 < 90 \)</span> cm. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 39 -->
+<div class="question" id="q39">
+<div class="summary-box">
+<p><strong>Câu 39 (Sở Phú Thọ 2025)</strong>. Cây cà chua cao 5cm, tốc độ tăng trưởng: <span class="math">\( v(t) = -0,1t^3 + t^2 \)</span> (cm/tuần). <span class="math">\( h(t) \)</span> là chiều cao (cm) tuần <span class="math">\( t \ge 0 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) <span class="math">\( h'(t) = v(t) \)</span>.</p>
+<label><input name="q39a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q39a-Đúng"></span></label>
+<label><input name="q39a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q39a-Sai"></span></label>
+<p>b) <span class="math">\( h(t) = -\frac{1}{40}t^4 + \frac{1}{3}t^3 + 5 \)</span>.</p>
+<label><input name="q39b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q39b-Đúng"></span></label>
+<label><input name="q39b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q39b-Sai"></span></label>
+<p>c) Giai đoạn tăng trưởng kéo dài 9 tuần.</p>
+<label><input name="q39c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q39c-Đúng"></span></label>
+<label><input name="q39c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q39c-Sai"></span></label>
+<p>d) Chiều cao tối đa: 88,3cm (làm tròn).</p>
+<label><input name="q39d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q39d-Đúng"></span></label>
+<label><input name="q39d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q39d-Đúng"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q39', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q39')">Xem lời giải</button>
+<div class="solution" id="solution-q39">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( h'(t) = v(t) \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( h(t) = -\frac{1}{40}t^4 + \frac{1}{3}t^3 + 5 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( v(t) > 0 \)</span> khi <span class="math">\( t < 10 \)</span>. Tăng trưởng 10 tuần. Mệnh đề c) Sai.</p>
+  <p>d) Max <span class="math">\( h(10) \approx 88,33 \approx 88,3 \)</span> cm. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 40 -->
+<div class="question" id="q40">
+<div class="summary-box">
+<p><strong>Câu 40 (Sở Lào Cai 2025)</strong>. Nồng độ thuốc A: <span class="math">\( C(x) = \frac{30x}{x^2+2} \)</span> (mg/l) sau <span class="math">\( x \)</span> phút. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Sau 1 phút, nồng độ: 10 mg/l.</p>
+<label><input name="q40a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q40a-Đúng"></span></label>
+<label><input name="q40a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q40a-Sai"></span></label>
+<p>b) Đạo hàm: <span class="math">\( C'(x) = \frac{60-30x^2}{(x^2+2)^2} \)</span>.</p>
+<label><input name="q40b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q40b-Đúng"></span></label>
+<label><input name="q40b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q40b-Sai"></span></label>
+<p>c) Sau 1 phút, nồng độ giảm dần.</p>
+<label><input name="q40c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q40c-Đúng"></span></label>
+<label><input name="q40c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q40c-Sai"></span></label>
+<p>d) Nồng độ max tại 2 phút.</p>
+<label><input name="q40d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q40d-Đúng"></span></label>
+<label><input name="q40d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q40d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q40', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q40')">Xem lời giải</button>
+<div class="solution" id="solution-q40">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( C(1) = \frac{30}{1^2+2} = 10 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( C'(x) = \frac{60-30x^2}{(x^2+2)^2} \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( C'(x) > 0 \)</span> khi <span class="math">\( x < \sqrt{2} \)</span>. Tăng đến <span class="math">\( x = \sqrt{2} \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Max tại <span class="math">\( x = \sqrt{2} \approx 1,414 \neq 2 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 41 -->
+<div class="question" id="q41">
+<div class="summary-box">
+<p><strong>Câu 41 (Sở Quảng Nam 2025)</strong>. Bể nước hình hộp chữ nhật, không nắp, chiều dài gấp 3 lần chiều rộng, thể tích 1152 dm³. Chi phí: 400000 đồng/m². <span class="math">\( x \)</span> (dm) là chiều rộng. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Chiều cao: <span class="math">\( \frac{384}{x^2} \)</span> dm.</p>
+<label><input name="q41a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q41a-Đúng"></span></label>
+<label><input name="q41a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q41a-Sai"></span></label>
+<p>b) Diện tích xung quanh: <span class="math">\( \frac{3072}{x} \)</span> dm².</p>
+<label><input name="q41b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q41b-Đúng"></span></label>
+<label><input name="q41b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q41b-Sai"></span></label>
+<p>c) Tổng diện tích: <span class="math">\( \frac{3072}{x} + 3x^2 \)</span> dm².</p>
+<label><input name="q41c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q41c-Đúng"></span></label>
+<label><input name="q41c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q41c-Sai"></span></label>
+<p>d) Chi phí thấp nhất: 3072000 đồng.</p>
+<label><input name="q41d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q41d-Đúng"></span></label>
+<label><input name="q41d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q41d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q41', ['Đúng', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q41')">Xem lời giải</button>
+<div class="solution" id="solution-q41">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( h = \frac{1152}{3x^2} = \frac{384}{x^2} \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( S_{xq} = 8x \cdot \frac{384}{x^2} = \frac{3072}{x} \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( S(x) = \frac{3072}{x} + 3x^2 \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) Min <span class="math">\( S(8) = 576 \)</span> dm², chi phí: <span class="math">\( 576 \times 400000 = 2.304.000 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 42 -->
+<div class="question" id="q42">
+<div class="summary-box">
+<p><strong>Câu 42 (Sở Bạc Liêu 2025)</strong>. Hàm số <span class="math">\( y = f(x) = ax^3 + bx^2 + cx + d \)</span>, đồ thị qua (0;0). Lợi nhuận dệt vải: <span class="math">\( L(x) = 200x - (f(x) - 20x + 500) \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Hệ số <span class="math">\( d > 0 \)</span>.</p>
+<label><input name="q42a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q42a-Đúng"></span></label>
+<label><input name="q42a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q42a-Sai"></span></label>
+<p>b) Hệ số <span class="math">\( a > 0 \)</span>.</p>
+<label><input name="q42b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q42b-Đúng"></span></label>
+<label><input name="q42b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q42b-Sai"></span></label>
+<p>c) Đồ thị qua E(0;2).</p>
+<label><input name="q42c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q42c-Đúng"></span></label>
+<label><input name="q42c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q42c-Sai"></span></label>
+<p>d) Lợi nhuận tối đa: 1100 nghìn đồng.</p>
+<label><input name="q42d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q42d-Đúng"></span></label>
+<label><input name="q42d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q42d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q42', ['Sai', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q42')">Xem lời giải</button>
+<div class="solution" id="solution-q42">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( f(0) = d = 0 \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) <span class="math">\( a > 0 \)</span> (đồ thị tăng khi <span class="math">\( x \to +\infty \)</span>). Mệnh đề b) Đúng.</p>
+  <p>c) Đồ thị qua (0;0), không phải (0;2). Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( f(x) = x^3 - 3x^2 \)</span>, <span class="math">\( L(x) = -x^3 + 3x^2 + 220x - 500 \)</span>. Max <span class="math">\( \approx 1004,1 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>b</strong>.</p>
+</div>
+</div>
+</div>
+<!-- Câu 43 -->
+<div class="question" id="q43">
+<div class="summary-box">
+<p><strong>Câu 43 (Liên Trường Nghệ An 2025)</strong>. Đèn lồng hình chóp tứ giác đều S.ABCD, đáy vuông cạnh <span class="math">\( x \)</span> dm, dây đồng 24dm cắt thành 3 đoạn: 1 đáy, 2 gấp khúc ASC, BSD. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Cạnh bên: <span class="math">\( 6-x \)</span> dm.</p>
+<label><input name="q43a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q43a-Đúng"></span></label>
+<label><input name="q43a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q43a-Sai"></span></label>
+<p>b) Khi <span class="math">\( x = 2 \)</span>, đường cao: <span class="math">\( \sqrt{14} \)</span> dm.</p>
+<label><input name="q43b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q43b-Đúng"></span></label>
+<label><input name="q43b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q43b-Sai"></span></label>
+<p>c) Khi các cạnh bằng nhau, diện tích giấy màu: <span class="math">\( 9(1+\sqrt{3}) \)</span> dm².</p>
+<label><input name="q43c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q43c-Đúng"></span></label>
+<label><input name="q43c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q43c-Sai"></span></label>
+<p>d) Thể tích max khi <span class="math">\( x = 2,79 \)</span> dm.</p>
+<label><input name="q43d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q43d-Đúng"></span></label>
+<label><input name="q43d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q43d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q43', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q43')">Xem lời giải</button>
+<div class="solution" id="solution-q43">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( 4x + 4SA = 24 \Rightarrow SA = 6-x \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( x = 2 \Rightarrow SA = 4 \), \( SO = \sqrt{4^2 - (\sqrt{2})^2} = \sqrt{14} \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( x = SA = 3 \), \( S = 9 + 4 \cdot \frac{9\sqrt{3}}{4} = 9(1+\sqrt{3}) \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) <span class="math">\( V = \frac{1}{6}x^2 \sqrt{72-24x+x^2} \)</span>, max tại <span class="math">\( x \approx 2,79 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 44 -->
+<div class="question" id="q44">
+<div class="summary-box">
+<p><strong>Câu 44 (THPT Tư Nghĩa 1 - Quảng Ngãi 2025)</strong>. Tấm nhôm vuông cạnh 30cm, gập thành lăng trụ khuyết. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Thể tích: <span class="math">\( V = 30S \)</span>, <span class="math">\( S \)</span> là diện tích tam giác AEG.</p>
+<label><input name="q44a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q44a-Đúng"></span></label>
+<label><input name="q44a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q44a-Sai"></span></label>
+<p>b) Thể tích max khi <span class="math">\( x = 10 \)</span> cm.</p>
+<label><input name="q44b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q44b-Đúng"></span></label>
+<label><input name="q44b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q44b-Sai"></span></label>
+<p>c) Diện tích AEG: <span class="math">\( \sqrt{30x-225} \cdot (30-2x) \)</span>.</p>
+<label><input name="q44c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q44c-Đúng"></span></label>
+<label><input name="q44c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q44c-Sai"></span></label>
+<p>d) Thể tích max: 1250 cm³.</p>
+<label><input name="q44d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q44d-Đúng"></span></label>
+<label><input name="q44d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q44d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q44', ['Đúng', 'Đúng', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q44')">Xem lời giải</button>
+<div class="solution" id="solution-q44">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( V = 30 \cdot S_{AEG} \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( V = 30(15-x)\sqrt{30x-225} \)</span>, max tại <span class="math">\( x = 10 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( S_{AEG} = (15-x)\sqrt{30x-225} \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( V(10) = 750\sqrt{3} \approx 1299 \neq 1250 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 45 -->
+<div class="question" id="q45">
+<div class="summary-box">
+<p><strong>Câu 45 (Sở Vũng Tàu 2025)</strong>. Hồ tròn bán kính 1km, chèo thuyền từ A đến C, xe từ C đến B. <span class="math">\( x \)</span> radian là góc CAB. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Khi <span class="math">\( x = 0 \)</span>, thời gian A đến B: 20 phút.</p>
+<label><input name="q45a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q45a-Đúng"></span></label>
+<label><input name="q45a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q45a-Sai"></span></label>
+<p>b) Quãng đường xe: <span class="math">\( 1000x \)</span> m.</p>
+<label><input name="q45b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q45b-Đúng"></span></label>
+<label><input name="q45b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q45b-Sai"></span></label>
+<p>c) Thời gian A đến B: <span class="math">\( 20\cos x + 5x \)</span> phút.</p>
+<label><input name="q45c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q45c-Đúng"></span></label>
+<label><input name="q45c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q45c-Sai"></span></label>
+<p>d) Thời gian A đến B < 22,5 phút.</p>
+<label><input name="q45d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q45d-Đúng"></span></label>
+<label><input name="q45d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q45d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q45', ['Đúng', 'Sai', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q45')">Xem lời giải</button>
+<div class="solution" id="solution-q45">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( x = 0 \Rightarrow AB = 2000 \text{m} \), \( t = \frac{2000}{100} = 20 \)</span> phút. Mệnh đề a) Đúng.</p>
+  <p>b) Cung <span class="math">\( CB = 2000x \)</span> m. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( T(x) = 20\cos x + 10x \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Max <span class="math">\( T(\frac{\pi}{6}) \approx 22,55 > 22,5 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 46 -->
+<div class="question" id="q46">
+<div class="summary-box">
+<p><strong>Câu 46 (THPT Quế Võ 1 - Bắc Ninh 2025)</strong>. Hộp chữ nhật không nắp, thể tích 32 đvtt, đáy vuông cạnh <span class="math">\( x \)</span>, cao <span class="math">\( h \)</span>, mạ vàng. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Thể tích: <span class="math">\( V = x^2h \)</span>.</p>
+<label><input name="q46a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q46a-Đúng"></span></label>
+<label><input name="q46a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q46a-Sai"></span></label>
+<p>b) Diện tích ngoài: <span class="math">\( S = 2x^2 + 4xh \)</span>.</p>
+<label><input name="q46b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q46b-Đúng"></span></label>
+<label><input name="q46b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q46b-Sai"></span></label>
+<p>c) Diện tích mạ vàng: <span class="math">\( S_{MV} = 2x^2 + 4xh \)</span>.</p>
+<label><input name="q46c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q46c-Đúng"></span></label>
+<label><input name="q46c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q46c-Sai"></span></label>
+<p>d) Khi <span class="math">\( x > 4 \)</span>, lượng vàng tăng.</p>
+<label><input name="q46d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q46d-Đúng"></span></label>
+<label><input name="q46d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q46d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q46', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q46')">Xem lời giải</button>
+<div class="solution" id="solution-q46">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( V = x^2h \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( S = x^2 + 4xh \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( S_{MV} = 2(x^2 + 4xh) \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( S_{MV} = 2x^2 + \frac{256}{x} \)</span>, tăng khi <span class="math">\( x > 4 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 47 -->
+<div class="question" id="q47">
+<div class="summary-box">
+<p><strong>Câu 47 (Cụm Chương Mỹ - Thanh Oai 2025)</strong>. Hai cột cao 16m, 24m, cách nhau 30m, dây từ cọc C đến đỉnh. <span class="math">\( x \)</span> m là khoảng cách từ cột 16m đến cọc. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Khoảng cách cột 24m đến cọc: <span class="math">\( 30-x \)</span> m.</p>
+<label><input name="q47a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q47a-Đúng"></span></label>
+<label><input name="q47a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q47a-Sai"></span></label>
+<p>b) <span class="math">\( CN = \sqrt{(30-x)^2 + 24^2} \)</span> m.</p>
+<label><input name="q47b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q47b-Đúng"></span></label>
+<label><input name="q47b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q47b-Sai"></span></label>
+<p>c) <span class="math">\( CM = \sqrt{x^2 + 16^2} \)</span> m.</p>
+<label><input name="q47c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q47c-Đúng"></span></label>
+<label><input name="q47c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q47c-Sai"></span></label>
+<p>d) Tổng chiều dài dây ngắn nhất: 51 m.</p>
+<label><input name="q47d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q47d-Đúng"></span></label>
+<label><input name="q47d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q47d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q47', ['Đúng', 'Đúng', 'Đúng', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q47')">Xem lời giải</button>
+<div class="solution" id="solution-q47">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( CB = 30-x \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( CN = \sqrt{(30-x)^2 + 24^2} \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( CM = \sqrt{x^2 + 16^2} \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) Min <span class="math">\( L(12) = 50 \neq 51 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, c</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 48 -->
+<div class="question" id="q48">
+<div class="summary-box">
+<p><strong>Câu 48 (Cụm Chuyên Môn Đăk Lak 2025)</strong>. Hạt chuyển động: <span class="math">\( y = t^3 - 12t + 3 \)</span> m, <span class="math">\( t \ge 0 \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Chuyển động lên khi <span class="math">\( t > 2 \)</span>, xuống khi <span class="math">\( t < 2 \)</span>.</p>
+<label><input name="q48a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q48a-Đúng"></span></label>
+<label><input name="q48a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q48a-Sai"></span></label>
+<p>b) Quãng đường từ <span class="math">\( 0 < t < 3 \)</span>: 9 m.</p>
+<label><input name="q48b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q48b-Đúng"></span></label>
+<label><input name="q48b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q48b-Sai"></span></label>
+<p>c) Vận tốc: <span class="math">\( v(t) = 3t^2 - 12 \)</span>, gia tốc: <span class="math">\( a(t) = 6t \)</span>.</p>
+<label><input name="q48c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q48c-Đúng"></span></label>
+<label><input name="q48c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q48c-Sai"></span></label>
+<p>d) Tăng tốc khi <span class="math">\( t > 2 \)</span>, giảm tốc khi <span class="math">\( 0 < t < 2 \)</span>.</p>
+<label><input name="q48d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q48d-Đúng"></span></label>
+<label><input name="q48d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q48d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q48', ['Đúng', 'Sai', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q48')">Xem lời giải</button>
+<div class="solution" id="solution-q48">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( v(t) > 0 \Rightarrow t > 2 \)</span>, <span class="math">\( v(t) < 0 \Rightarrow 0 \le t < 2 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) Quãng đường: <span class="math">\( 16 + 7 = 23 \neq 9 \)</span> m. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( v(t) = 3t^2 - 12 \), \( a(t) = 6t \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) Tăng tốc: <span class="math">\( t > 2 \)</span>, giảm tốc: <span class="math">\( 0 < t < 2 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 49 -->
+<div class="question" id="q49">
+<div class="summary-box">
+<p><strong>Câu 49 (Sở Hậu Giang 2025)</strong>. Hộp không nắp từ nhôm vuông cạnh 240cm, cắt 4 góc vuông cạnh <span class="math">\( x \)</span> cm. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Thể tích: <span class="math">\( V = x(240-2x)^2 \)</span>.</p>
+<label><input name="q49a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q49a-Đúng"></span></label>
+<label><input name="q49a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q49a-Sai"></span></label>
+<p>b) Khi <span class="math">\( x = 20 \)</span>, thể tích: 8 m³.</p>
+<label><input name="q49b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q49b-Đúng"></span></label>
+<label><input name="q49b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q49b-Sai"></span></label>
+<p>c) Thể tích max khi <span class="math">\( x = 60 \)</span> cm.</p>
+<label><input name="q49c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q49c-Đúng"></span></label>
+<label><input name="q49c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q49c-Sai"></span></label>
+<p>d) Thể tích max: 1024 dm³.</p>
+<label><input name="q49d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q49d-Đúng"></span></label>
+<label><input name="q49d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q49d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q49', ['Đúng', 'Sai', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q49')">Xem lời giải</button>
+<div class="solution" id="solution-q49">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( V = x(240-2x)^2 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( V(20) = 0,8 \neq 8 \)</span> m³. Mệnh đề b) Sai.</p>
+  <p>c) Max tại <span class="math">\( x = 40 \neq 60 \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) <span class="math">\( V(40) = 1024 \)</span> dm³. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 50 -->
+<div class="question" id="q50">
+<div class="summary-box">
+<p><strong>Câu 50 (Cụm chuyên môn Đak Lak 2025)</strong>. Vật phóng lên, độ cao: <span class="math">\( h(t) = 5 + 39,2t - 4,9t^2 \)</span> m. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Vận tốc sau 3s: 4,6 m/s.</p>
+<label><input name="q50a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q50a-Đúng"></span></label>
+<label><input name="q50a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q50a-Sai"></span></label>
+<p>b) Thời gian trên 10m > 7s.</p>
+<label><input name="q50b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q50b-Đúng"></span></label>
+<label><input name="q50b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q50b-Sai"></span></label>
+<p>c) Vận tốc chạm đất: <span class="math">\( \approx -40,43 \)</span> m/s.</p>
+<label><input name="q50c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q50c-Đúng"></span></label>
+<label><input name="q50c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q50c-Sai"></span></label>
+<p>d) Độ cao max: 83,4m tại <span class="math">\( t = 4 \)</span> s.</p>
+<label><input name="q50d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q50d-Đúng"></span></label>
+<label><input name="q50d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q50d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q50', ['Sai', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q50')">Xem lời giải</button>
+<div class="solution" id="solution-q50">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( v(3) = 9,8 \neq 4,6 \)</span>. Mệnh đề a) Sai.</p>
+  <p>b) Thời gian trên 10m: <span class="math">\( 7,74 > 7 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( v(8,125) \approx -40,43 \)</span>. Mệnh đề c) Đúng.</p>
+  <p>d) Max <span class="math">\( h(4) = 83,4 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>b, c, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 51 -->
+<div class="question" id="q51">
+<div class="summary-box">
+<p><strong>Câu 51 (Sở Nghệ An 2025)</strong>. Nồng độ CO2: <span class="math">\( f(t) = 400 + \frac{2000t}{t^2+5} \)</span> ppm. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Tại <span class="math">\( t = 0 \)</span>, nồng độ: 400 ppm.</p>
+<label><input name="q51a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q51a-Đúng"></span></label>
+<label><input name="q51a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q51a-Sai"></span></label>
+<p>b) <span class="math">\( f'(t) = \frac{-2000t^2-10000}{(t^2+5)^2} \)</span>.</p>
+<label><input name="q51b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q51b-Đúng"></span></label>
+<label><input name="q51b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q51b-Sai"></span></label>
+<p>c) Nghiệm <span class="math">\( f'(t) = 0 \)</span>: <span class="math">\( t = 2 \)</span>.</p>
+<label><input name="q51c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q51c-Đúng"></span></label>
+<label><input name="q51c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q51c-Sai"></span></label>
+<p>d) Nồng độ max: 947 ppm.</p>
+<label><input name="q51d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q51d-Đúng"></span></label>
+<label><input name="q51d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q51d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q51', ['Đúng', 'Sai', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q51')">Xem lời giải</button>
+<div class="solution" id="solution-q51">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( f(0) = 400 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( f'(t) = \frac{-2000t^2+10000}{(t^2+5)^2} \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( f'(t) = 0 \Rightarrow t = \sqrt{5} \neq 2 \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Max <span class="math">\( f(\sqrt{5}) \approx 847 \neq 947 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 52 -->
+<div class="question" id="q52">
+<div class="summary-box">
+<p><strong>Câu 52 (Sở Thái Bình 2025)</strong>. Nhà máy A sản xuất, giá bán: <span class="math">\( P(x) = 45 - 0,001x^2 \)</span>, chi phí: <span class="math">\( C(x) = 100 + 30x \)</span>. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Lợi nhuận: <span class="math">\( H(x) = -0,001x^3 + 15x - 100 \)</span>.</p>
+<label><input name="q52a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q52a-Đúng"></span></label>
+<label><input name="q52a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q52a-Sai"></span></label>
+<p>b) Chi phí 10 tấn: 400 triệu đồng.</p>
+<label><input name="q52b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q52b-Đúng"></span></label>
+<label><input name="q52b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q52b-Sai"></span></label>
+<p>c) Doanh thu 10 tấn: 600 triệu đồng.</p>
+<label><input name="q52c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q52c-Đúng"></span></label>
+<label><input name="q52c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q52c-Sai"></span></label>
+<p>d) Lợi nhuận max tại <span class="math">\( x \approx 70,7 \)</span> tấn.</p>
+<label><input name="q52d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q52d-Đúng"></span></label>
+<label><input name="q52d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q52d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q52', ['Đúng', 'Đúng', 'Sai', 'Đúng'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q52')">Xem lời giải</button>
+<div class="solution" id="solution-q52">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) <span class="math">\( H(x) = -0,001x^3 + 15x - 100 \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( C(10) = 400 \)</span>. Mệnh đề b) Đúng.</p>
+  <p>c) <span class="math">\( R(10) = 449 \neq 600 \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Max tại <span class="math">\( x = 50\sqrt{2} \approx 70,7 \)</span>. Mệnh đề d) Đúng.</p>
+  <p>👉 Các đáp án đúng: <strong>a, b, d</strong>.</p>
+</div>
+</div>
+</div>
+
+<!-- Câu 53 -->
+<div class="question" id="q53">
+<div class="summary-box">
+<p><strong>Câu 53 (Sở Bắc Ninh 2025)</strong>. Nhịp tim: <span class="math">\( P(t) = \frac{300}{\sqrt{2}}\frac{\sqrt{t^2+2t+25}}{t+25} \)</span> nhịp/phút, ngưỡng 175. Xét các mệnh đề sau:</p>
+<div class="options">
+<p>a) Nhịp tim ≤ <span class="math">\( 150\sqrt{2} \)</span>.</p>
+<label><input name="q53a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q53a-Đúng"></span></label>
+<label><input name="q53a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q53a-Sai"></span></label>
+<p>b) Trong 2 phút đầu, nhịp tim trong ngưỡng.</p>
+<label><input name="q53b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q53b-Đúng"></span></label>
+<label><input name="q53b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q53b-Sai"></span></label>
+<p>c) <span class="math">\( P'(t) = -\frac{3450\sqrt{2}t}{(t+25)^2\sqrt{t^2+4t+50}} \)</span>.</p>
+<label><input name="q53c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q53c-Đúng"></span></label>
+<label><input name="q53c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q53c-Sai"></span></label>
+<p>d) Tốc độ thay đổi tại 1,5 phút = 2,63 lần tại 0,5 phút.</p>
+<label><input name="q53d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q53d-Đúng"></span></label>
+<label><input name="q53d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q53d-Sai"></span></label>
+</div></div>
+<div class="answer-check">
+<button onclick="checkTrueFalseAnswer('q53', ['Đúng', 'Sai', 'Sai', 'Sai'])">Kiểm tra</button>
+<button class="solution-toggle" onclick="toggleSolution('solution-q53')">Xem lời giải</button>
+<div class="solution" id="solution-q53">
+  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
+  <p>a) Max <span class="math">\( P(0) = 150\sqrt{2} \)</span>. Mệnh đề a) Đúng.</p>
+  <p>b) <span class="math">\( P(0) \approx 212,1 > 175 \)</span>. Mệnh đề b) Sai.</p>
+  <p>c) <span class="math">\( P'(t) = 150\sqrt{2} \cdot \frac{24t}{(t+25)^2\sqrt{(t+1)^2+24}} \)</span>. Mệnh đề c) Sai.</p>
+  <p>d) Tỷ lệ <span class="math">\( \approx 0,154 \neq 2,63 \)</span>. Mệnh đề d) Sai.</p>
+  <p>👉 Các đáp án đúng: <strong>a</strong>.</p>
+</div>
+</div>
+</div>
 
 
  <div class="score-section">
@@ -647,6 +2259,34 @@ Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</
           tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
           chtml: { linebreaks: { automatic: true } }
       };
+
+       $('.hamburger-btn').click(function(){
+            $(this).toggleClass('active');
+            $('#mainNav').toggleClass('active');
+        });
+
+        // Submenu
+        $('.main-menu > li > a').click(function(e){
+            if ($(window).width() <= 768) {
+                var $submenu = $(this).siblings('.submenu');
+                if ($submenu.length) {
+                    e.preventDefault();
+                    $submenu.toggleClass('active');
+                    $(this).find('.dropdown-icon').toggleClass('active');
+                }
+            }
+        });
+
+        $('.submenu > li > a').click(function(e){
+            if ($(window).width() <= 768) {
+                var $nestedSubmenu = $(this).siblings('.nested-sub-menu');
+                if ($nestedSubmenu.length) {
+                    e.preventDefault();
+                    $nestedSubmenu.toggleClass('active');
+                    $(this).find('.nested-dropdown-icon').toggleClass('active');
+                }
+            }
+        });
       </script>
 
 
