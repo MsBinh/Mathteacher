@@ -3,16 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên đề: Ứng dụng đạo hàm - Đơn điệu & Cực trị</title>
+    <title>Chuyên đề: VÉC TƠ -HỆ TỌA ĐỘ TRONG KHÔNG GIAN</title>
     
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- MathJax for LaTeX Rendering -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                processEscapes: true
+            },
+            chtml: {
+                linebreaks: { automatic: true }
+            }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="styles4.css">
-     
+    
+    
+
 </head>
 <body>
     <!-- Header -->
@@ -1314,6 +1328,7 @@
         </div>
     </footer>
 
+
     
     <style>
         /* CSS cho thanh điều hướng tài liệu */
@@ -1463,9 +1478,7 @@
         });
     </script>
     
-    <!-- Đảm bảo MathJax được load đúng cách -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
 
     
     <script>
@@ -1585,6 +1598,364 @@
             });
         });  
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Kiểm tra tồn tại các phần tử DOM
+            const canvas = document.getElementById('drawCanvas');
+            const toolbar = document.getElementById('drawToolbar');
+            const toggleBtn = document.getElementById('toggle-draw');
+            const undoBtn = document.getElementById('undo-canvas');
+            const clearBtn = document.getElementById('clear-canvas');
+            const saveBtn = document.getElementById('save-canvas');
+            const exitBtn = document.getElementById('exit-draw');
+            const colorPicker = document.getElementById('colorPicker');
+            const toolSelect = document.getElementById('tool');
+            const widthPicker = document.getElementById('draw-width');
+
+            if (!canvas || !toolbar || !toggleBtn || !undoBtn || !clearBtn || !saveBtn || !exitBtn || !colorPicker || !toolSelect || !widthPicker) {
+                console.error('Một hoặc nhiều phần tử DOM không tìm thấy. Kiểm tra ID trong HTML.');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            let lineWidth = parseInt(widthPicker.value) || 2;
+            let isDrawing = false;
+            let isDrawMode = false;
+            let startX = 0, startY = 0;
+            let currentTool = toolSelect.value || 'pen';
+            let imageBeforeShape;
+            const history = []; // Lưu lịch sử vẽ
+            const maxHistory = 50; // Giới hạn lịch sử để tránh tràn bộ nhớ
+
+            // Resize canvas
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                if (history.length > 0) {
+                    ctx.putImageData(history[history.length - 1], 0, 0); // Vẽ lại từ lịch sử
+                }
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Toggle vẽ mode với animation
+            function toggleDrawMode() {
+                isDrawMode = !isDrawMode;
+                canvas.style.display = isDrawMode ? 'block' : 'none';
+                toolbar.style.transition = 'opacity 0.3s, transform 0.3s';
+                toolbar.style.opacity = isDrawMode ? '1' : '0';
+                toolbar.style.transform = isDrawMode ? 'translateY(0)' : 'translateY(20px)';
+                toolbar.style.display = isDrawMode ? 'flex' : 'none';
+                toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
+            }
+
+            toggleBtn.addEventListener('click', toggleDrawMode);
+            exitBtn.addEventListener('click', toggleDrawMode);
+
+            // Chọn công cụ
+            toolSelect.addEventListener('change', () => {
+                currentTool = toolSelect.value;
+            });
+
+            // Cập nhật màu và độ dày
+            colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
+            widthPicker.addEventListener('input', () => {
+                lineWidth = parseInt(widthPicker.value) || 2;
+            });
+
+            // Undo
+            undoBtn.addEventListener('click', () => {
+                history.pop(); // Xóa bước cuối
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (history.length > 0) {
+                    ctx.putImageData(history[history.length - 1], 0, 0);
+                }
+            });
+
+            // Xóa canvas
+            clearBtn.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                history.length = 0; // Xóa lịch sử
+            });
+
+            // Lưu canvas
+            saveBtn.addEventListener('click', () => {
+                try {
+                    const link = document.createElement('a');
+                    link.download = 'ban_ve.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } catch (error) {
+                    console.error('Lỗi khi lưu canvas:', error);
+                }
+            });
+
+            // Lấy vị trí chuột/cảm ứng
+            function getPos(e) {
+                if (e.touches && e.touches.length > 0) {
+                    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+                return { x: e.clientX, y: e.clientY };
+            }
+
+            // Bắt đầu vẽ
+            function startDraw(e) {
+                if (!isDrawMode) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                isDrawing = true;
+                startX = pos.x;
+                startY = pos.y;
+                if (currentTool !== 'pen') {
+                    imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                }
+            }
+
+            // Vẽ
+            function drawMove(e) {
+                if (!isDrawing || !isDrawMode) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                ctx.strokeStyle = colorPicker.value;
+                ctx.lineWidth = lineWidth;
+                ctx.lineCap = 'round';
+
+                if (currentTool === 'pen') {
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                } else {
+                    ctx.putImageData(imageBeforeShape, 0, 0);
+                    if (currentTool === 'line') {
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(pos.x, pos.y);
+                        ctx.stroke();
+                    } else if (currentTool === 'rect') {
+                        ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                    } else if (currentTool === 'circle') {
+                        const radius = Math.hypot(pos.x - startX, pos.y - startY);
+                        ctx.beginPath();
+                        ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                        ctx.stroke();
+                    } else if (currentTool === 'cube') {
+                        let size = Math.min(Math.abs(pos.x - startX), Math.abs(pos.y - startY));
+                        ctx.strokeRect(startX, startY, size, size);
+                        ctx.strokeRect(startX + 10, startY - 10, size, size);
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(startX + 10, startY - 10);
+                        ctx.moveTo(startX + size, startY);
+                        ctx.lineTo(startX + size + 10, startY - 10);
+                        ctx.moveTo(startX, startY + size);
+                        ctx.lineTo(startX + 10, startY + size - 10);
+                        ctx.moveTo(startX + size, startY + size);
+                        ctx.lineTo(startX + size + 10, startY + size - 10);
+                        ctx.stroke();
+                    } else if (currentTool === 'cone') {
+                        let radius = Math.abs(pos.x - startX);
+                        ctx.beginPath();
+                        ctx.ellipse(startX, startY + 40, radius, 10, 0, 0, Math.PI * 2);
+                        ctx.moveTo(startX - radius, startY + 40);
+                        ctx.lineTo(startX, startY - 40);
+                        ctx.lineTo(startX + radius, startY + 40);
+                        ctx.stroke();
+                    } else if (currentTool === 'cylinder') {
+                        let r = Math.abs(pos.x - startX);
+                        ctx.beginPath();
+                        ctx.ellipse(startX, startY, r, 10, 0, 0, Math.PI * 2);
+                        ctx.moveTo(startX - r, startY);
+                        ctx.lineTo(startX - r, startY + 100);
+                        ctx.moveTo(startX + r, startY);
+                        ctx.lineTo(startX + r, startY + 100);
+                        ctx.ellipse(startX, startY + 100, r, 10, 0, 0, Math.PI);
+                        ctx.stroke();
+                    } else if (currentTool === 'pyramid') {
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(startX + 60, startY);
+                        ctx.lineTo(startX + 30, startY + 60);
+                        ctx.closePath();
+                        ctx.moveTo(startX + 30, startY + 60);
+                        ctx.lineTo(startX + 30, startY - 40);
+                        ctx.stroke();
+                    } else if (currentTool === 'sphere') {
+                        let r = Math.abs(pos.x - startX);
+                        ctx.beginPath();
+                        ctx.arc(startX, startY, r, 0, Math.PI * 2);
+                        ctx.ellipse(startX, startY, r, r / 2, 0, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Kết thúc vẽ
+            function endDraw() {
+                if (!isDrawMode) return;
+                isDrawing = false;
+                if (history.length >= maxHistory) history.shift(); // Giới hạn lịch sử
+                history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); // Lưu vào lịch sử
+            }
+
+            // Thêm sự kiện
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', drawMove);
+            canvas.addEventListener('mouseup', endDraw);
+            canvas.addEventListener('touchstart', startDraw, { passive: false });
+            canvas.addEventListener('touchmove', drawMove, { passive: false });
+            canvas.addEventListener('touchend', endDraw);
+        });
+        </script>
+
+            
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none'; // Dự phòng
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+});
+</script>
+
+
+<!-- Floating button để toggle vẽ -->
+<button class="floating-button" id="toggle-draw" aria-label="Bật/tắt chế độ vẽ">🖊️ Vẽ</button>
+<!-- Canvas cho vẽ -->
+<canvas id="drawCanvas"></canvas>
+
+<!-- Toolbar công cụ vẽ -->
+<div class="toolbar" id="drawToolbar" role="toolbar" aria-label="Thanh công cụ vẽ">
+    <div class="drawing-tools">
+        <select id="tool" title="Chọn công cụ" aria-label="Chọn công cụ vẽ">
+            <option value="pen">✏️ Bút</option>
+            <option value="line">📏 Đường</option>
+            <option value="rect">⬛ Chữ nhật</option>
+            <option value="circle">⚪ Tròn</option>
+            <option value="cube">📦 Hộp</option>
+            <option value="cone">🔺 Nón</option>
+            <option value="cylinder">⬤ Trụ</option>
+            <option value="pyramid">🔻 Chóp</option>
+            <option value="sphere">⚽ Cầu</option>
+        </select>
+        <button title="Undo" id="undo-canvas">↩️</button>
+        <button title="Xóa" id="clear-canvas">🧹</button>
+        <button title="Lưu" id="save-canvas">💾</button>
+        <button title="Thoát" id="exit-draw">❌</button>
+    </div>
+    <input type="color" id="colorPicker" value="#000000" title="Chọn màu" aria-label="Chọn màu vẽ">
+    <input type="range" id="draw-width" min="1" max="20" value="2" title="Độ dày nét vẽ" aria-label="Độ dày nét vẽ">
+</div>
+>
+<!-- Nút toggle bảng xanh -->
+<button class="blackboard-toggle" id="toggle-blackboard" aria-label="Bật/tắt bảng xanh">📋</button>
+<!-- Bảng xanh -->
+<div id="blackboard" class="blackboard" role="region" aria-label="Bảng xanh">
+    <button id="close-blackboard" aria-label="Đóng bảng xanh">❌</button>
+</div>
+
+
+<script>
+// Script bảng xanh
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+    let isDraggingBoard = false;
+    let dragStartX = 0, dragStartY = 0;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none';
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+
+    blackboard.addEventListener('mousedown', (e) => {
+        if (e.target === closeBlackboard) return;
+        isDraggingBoard = true;
+        dragStartX = e.clientX - blackboard.offsetLeft;
+        dragStartY = e.clientY - blackboard.offsetTop;
+        console.log('Start dragging blackboard');
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDraggingBoard) {
+            blackboard.style.left = `${e.clientX - dragStartX}px`;
+            blackboard.style.top = `${e.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDraggingBoard = false;
+    });
+
+    blackboard.addEventListener('touchstart', (e) => {
+        if (e.target === closeBlackboard) return;
+        const touch = e.touches[0];
+        isDraggingBoard = true;
+        dragStartX = touch.clientX - blackboard.offsetLeft;
+        dragStartY = touch.clientY - blackboard.offsetTop;
+        console.log('Start touch dragging blackboard');
+        e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isDraggingBoard) {
+            const touch = e.touches[0];
+            blackboard.style.left = `${touch.clientX - dragStartX}px`;
+            blackboard.style.top = `${touch.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+        isDraggingBoard = false;
+    });
+});
+</script>
+
 
 </body>
 </html>

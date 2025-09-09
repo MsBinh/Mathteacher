@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề: VÉC TƠ -HỆ TỌA ĐỘ TRONG KHÔNG GIAN</title>
+    
+    <!-- Font Awesome for Icons -->
+    <!-- MathJax for LaTeX Rendering -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                processEscapes: true
+            },
+            chtml: {
+                linebreaks: { automatic: true }
+            }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+
+</head>
+<body>
+    <!-- Floating button để toggle vẽ -->
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+           
+            <div class="logo">
+                <img src="logo3.jpg" alt="Logo EduCode" class="logo-img">
+                <div class="logo-text">
+                    <h1>EDUCODE</h1>
+                    <p>Chinh phục tri thức, dẫn đầu tương lai</p>
+                </div>
+            </div>
+
+            <button class="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul class="main-menu">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li>
+                        <a href="#courses">Chuyên đề 12 <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math">Đạo hàm và ứng dụng <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3">Tiệm cận</a></li>
+                                    <li><a href="12C1B4">Đồ thị hàm số</a></li>
+                                      </ul>
+                            </li>
+                            <li>
+                                <a href="#math">Véc tơ và hệ tọa độ KG <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B2">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3">Biểu thức tọa độ</a></li>
+                                    
+                                      </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> Thống kê <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1">Bài 1</a></li>
+                                    <li><a href="12C3B2">Bài 2</a></li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Trắc nghiệm <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Đúng- sai <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">TL ngắn<i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Toán thực tế<i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
+                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
+                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                <li><a href="#" class="login-btn" id="login-button">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar điều hướng tài liệu -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">DANH MỤC TÀI LIỆU</div>
+                <ul class="document-nav" id="documentNav">
+                    <!-- Các mục tài liệu sẽ được thêm bằng JavaScript -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">BÀI TẬP RÈN LUYỆN</div>
+                <ul class="article-list">
+                    <li><a href="12C2B3TN.html" data-doc="toan12-chuong1">Trắc nghiệm</a></li>
+                    <li><a href="12C2B3DS.html" data-doc="ly12-chuong2">Đúng sai</a></li>
+                    <li><a href="12C2B3TLN.html" data-doc="hoa12-chuong3">Trả lời ngắn</a></li>
+                    <li><a href="12C2B3TL.html" data-doc="hoa12-chuong3">Toán thực tế</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+<!-- Nội dung soạn bài -->
+    
+   
+    <main class="main-content">
+    <div id="documentViewer">
+        <h1 class="article-title">CHUYÊN ĐỀ: BIỂU THỨC TỌA ĐỘ CỦA CÁC PHÉP TOÁN</h1>
+        <p class="doc-subtitle">Môn Toán - Lớp 12</p>
+        <div class="doc-meta">
+            <span><i class="fas fa-book"></i> 5 dạng bài</span>
+            <span><i class="fas fa-lightbulb"></i> 20 ví dụ</span>
+            <span><i class="fas fa-pencil-alt"></i> 0 bài tập</span>
+            <span><i class="fas fa-calendar-alt"></i> Cập nhật: 20/08/2025</span>
+            <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
+        </div>
+
+        <!-- Knowledge Summary Section -->
+        <section class="doc-section">
+            <h2 class="article-subtitle"><i class="fas fa-book-open"></i> TÓM TẮT KIẾN THỨC</h2>
+
+            <!-- Coordinate Expressions of Vector Operations -->
+            <h3>I. Biểu thức tọa độ của tổng, hiệu hai vectơ và tích của một số với một vectơ</h3>
+            <div class="definition-box">
+                <div class="definition-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="definition-content">
+                    <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                    <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{a}=(a_1;a_2;a_3)\) và \(\vec{b}=(b_1;b_2;b_3)\) và số \(k\). Khi đó:</p>
+                    <ul>
+                        <li>\(\vec{a} + \vec{b} = (a_1+b_1; a_2+b_2; a_3+b_3)\)</li>
+                        <li>\(\vec{a} - \vec{b} = (a_1-b_1; a_2-b_2; a_3-b_3)\)</li>
+                        <li>\(k\vec{a} = (ka_1; ka_2; ka_3)\)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div class="note-content">
+                    <h3><i class="fas fa-sticky-note"></i> Nhận xét</h3>
+                    <p>Hai vectơ \(\vec{a}, \vec{b}\) với \(\vec{b} \neq \vec{0}\) cùng phương \(\Leftrightarrow \vec{a} = k.\vec{b} \Leftrightarrow \begin{cases} a_1=k.b_1 \\ a_2=k.b_2 \\ a_3=k.b_3 \end{cases}\)</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div class="note-content">
+                    <h3><i class="fas fa-sticky-note"></i> Chú ý</h3>
+                    <p>Từ nay, các bài tập liên quan đến tọa độ đều được xét trong không gian \(Oxyz\).</p>
+                </div>
+            </div>
+
+            <!-- Scalar Product -->
+            <h3>II. Biểu thức tọa độ của tích vô hướng</h3>
+            <div class="definition-box">
+                <div class="definition-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="definition-content">
+                    <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                    <p>Tích vô hướng của hai vectơ \(\vec{a}=(a_1;a_2;a_3)\) và \(\vec{b}=(b_1;b_2;b_3)\) được xác định bởi công thức:</p>
+                    <p>\[\vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3.\]</p>
+                </div>
+            </div>
+
+            <!-- Applications -->
+            <h3>III. Vận dụng</h3>
+            <div class="note-box">
+                <div class="note-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div class="note-content">
+                    <h3><i class="fas fa-sticky-note"></i> Tọa độ điểm đầu cuối</h3>
+                    <p>Trong không gian \(Oxyz\), cho hai điểm \(A(x_A;y_A;z_A), B(x_B;y_B;z_B)\). Ta có:</p>
+                    <p>\[\overrightarrow{AB} = (x_B-x_A; y_B-y_A; z_B-z_A).\]</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div class="note-content">
+                    <h3><i class="fas fa-sticky-note"></i> Tọa độ trung điểm đoạn thẳng</h3>
+                    <p>Trong không gian \(Oxyz\), cho hai điểm \(A(x_A;y_A;z_A), B(x_B;y_B;z_B)\). Tọa độ trung điểm \(M\) của đoạn thẳng \(AB\) là:</p>
+                    <p>\[M\left(\frac{x_A+x_B}{2}; \frac{y_A+y_B}{2}; \frac{z_A+z_B}{2}\right).\]</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div class="note-content">
+                    <h3><i class="fas fa-sticky-note"></i> Tọa độ trọng tâm tam giác</h3>
+                    <p>Trong không gian \(Oxyz\), cho \(\Delta ABC\) có \(A(x_A;y_A;z_A), B(x_B;y_B;z_B)\) và \(C(x_C;y_C;z_C)\). Tọa độ trọng tâm \(G\) của \(\Delta ABC\) là:</p>
+                    <p>\[G\left(\frac{x_A+x_B+x_C}{3}; \frac{y_A+y_B+y_C}{3}; \frac{z_A+z_B+z_C}{3}\right).\]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Types Section -->
+        <section class="doc-section">
+            <h2 class="article-subtitle"><i class="fas fa-tasks"></i> CÁC DẠNG TOÁN VÀ PHƯƠNG PHÁP GIẢI</h2>
+
+            <!-- Problem Type 1 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">1</div>
+                    <h3>Dạng 1: Tọa độ tổng hiệu vectơ</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <p>Trong không gian \(Oxyz\), hai vectơ \(\vec{a}=(a_1;a_2;a_3)\) và \(\vec{b}=(b_1;b_2;b_3)\) và số thực \(k\).</p>
+                        <ul>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(\vec{a}+\vec{b} = (a_1+b_1; a_2+b_2; a_3+b_3)\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(\vec{a}-\vec{b} = (a_1-b_1; a_2-b_2; a_3-b_3)\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(k\vec{a} = (ka_1; ka_2; ka_3)\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(\vec{a}\) và \(\vec{b}\) cùng phương \(\Leftrightarrow \begin{cases} a_1=kb_1 \\ a_2=kb_2 \\ a_3=kb_3 \end{cases}\)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 1 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 1: Tính toán tổng, hiệu và tích với số</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{a}=(2;-1;5)\) và \(\vec{b}=(0;-2;-4)\). Tìm tọa độ của các vectơ sau: \(\vec{a}+\vec{b}, \vec{a}-\vec{b}, 5\vec{a}, 2\vec{a}-\frac{1}{2}\vec{b}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có:</p>
+                        <p>\(\vec{a}+\vec{b}=(2+0; (-1)+(-2); 5+(-4)) = (2;-3;1)\).</p>
+                        <p>\(\vec{a}-\vec{b}=(2-0; (-1)-(-2); 5-(-4)) = (2;1;9)\).</p>
+                        <p>\(5\vec{a}=(5 \cdot 2; 5 \cdot (-1); 5 \cdot 5) = (10;-5;25)\).</p>
+                        <p>\(2\vec{a}=(4;-2;10)\), \(\frac{1}{2}\vec{b}=(0;-1;-2)\). Do đó: \(2\vec{a}-\frac{1}{2}\vec{b}=(4-0; -2-(-1); 10-(-2))=(4;-1;12)\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 2 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 2: Chứng minh tam giác</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba điểm \(A(-1;-3;-2), B(2;3;4)\) và \(C(3;5;7)\). Chứng minh rằng ba điểm \(A,B,C\) tạo thành tam giác.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \(\overrightarrow{AB}=(2-(-1);3-(-3);4-(-2))=(3;6;6); \overrightarrow{AC}=(3-(-1);5-(-3);7-(-2))=(4;8;9)\).</p>
+                        <p>Vì \(\frac{3}{4} = \frac{6}{8} \neq \frac{6}{9}\) nên \(\overrightarrow{AB}\) và \(\overrightarrow{AC}\) không cùng phương.</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Vậy ba điểm \(A,B,C\) tạo thành tam giác.</p>
+                    </div>
+                </div>
+
+                <!-- Example 3 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 3: Tọa độ vectơ thỏa điều kiện</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba điểm \(A(3;2;1), B(1;-1;2)\) và \(C(1;2;-1)\). Tìm tọa độ vectơ \(\vec{u}\) thỏa \(\vec{u}=\overrightarrow{BC}-3\overrightarrow{AO}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \(\overrightarrow{BC}=(1-1;2-(-1);-1-2)=(0;3;-3), \overrightarrow{AO}=(-3;-2;-1)\).</p>
+                        <p>Do đó: \(\vec{u}=\overrightarrow{BC}-3\overrightarrow{AO}=(0-3 \cdot (-3); 3-3 \cdot (-2); -3-3 \cdot (-1))=(9;9;0)\).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 2 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">2</div>
+                    <h3>Dạng 2: Tọa độ điểm - vectơ thỏa điều kiện</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ul>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Tích vô hướng của hai vectơ: \(\vec{a}.\vec{b} = a_1b_1 + a_2b_2 + a_3b_3\).</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(\vec{a}\) và \(\vec{b}\) vuông góc \(\Leftrightarrow \vec{a}.\vec{b}=0 \Leftrightarrow a_1b_1+a_2b_2+a_3b_3=0\).</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(I\) là trung điểm \(AB: I\left(\frac{x_A+x_B}{2}; \frac{y_A+y_B}{2}; \frac{z_A+z_B}{2}\right) \rightarrow \overrightarrow{IA}+\overrightarrow{IB}=\vec{0} \Rightarrow \forall M: \overrightarrow{MA}+\overrightarrow{MB}=2\overrightarrow{MI}\).</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(G\) là trọng tâm \(\Delta ABC: G\left(\frac{x_A+x_B+x_C}{3}; \frac{y_A+y_B+y_C}{3}; \frac{z_A+z_B+z_C}{3}\right) \rightarrow \overrightarrow{GA}+\overrightarrow{GB}+\overrightarrow{GC}=\vec{0} \Rightarrow \forall M: \overrightarrow{MA}+\overrightarrow{MB}+\overrightarrow{MC}=3\overrightarrow{MG}\).</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(G\) là trọng tâm chóp \(ABCD: G\left(\frac{x_A+x_B+x_C+x_D}{4}; \frac{y_A+y_B+y_C+y_D}{4}; \frac{z_A+z_B+z_C+z_D}{4}\right) \rightarrow \overrightarrow{GA}+\overrightarrow{GB}+\overrightarrow{GC}+\overrightarrow{GD}=\vec{0} \Rightarrow \forall M: \overrightarrow{MA}+\overrightarrow{MB}+\overrightarrow{MC}+\overrightarrow{MD}=4\overrightarrow{MG}\).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 4 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 4: Tọa độ điểm thỏa điều kiện</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba điểm \(A(1;2;-1), B(2;-1;3)\) và \(C(-3;5;1)\). Tìm tọa độ điểm \(D\) sao cho \(\overrightarrow{AB}=2\overrightarrow{DC}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Gọi \(D(x;y;z)\) là điểm cần tìm.</p>
+                        <p>Ta có: \(\overrightarrow{AB}=(2-1;-1-2;3-(-1))=(1;-3;4), \overrightarrow{DC}=(-3-x;5-y;1-z)\).</p>
+                        <p>\(\overrightarrow{AB}=2\overrightarrow{DC} \Leftrightarrow \begin{cases} 1=2(-3-x) \\ -3=2(5-y) \\ 4=2(1-z) \end{cases} \Leftrightarrow \begin{cases} x = -\frac{7}{2} \\ y = \frac{13}{2} \\ z=-1 \end{cases}\).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Vậy \(D\left(-\frac{7}{2};\frac{13}{2};-1\right)\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 5 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 5: Trung điểm của đoạn thẳng</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho bốn điểm \(A(2;0;0), B(0;2;0), C(0;0;2)\) và \(D(2;2;2)\). Gọi \(M,N\) lần lượt là trung điểm \(AB\) và \(CD\). Xác định tọa độ trung điểm \(I\) của \(MN\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \(M\) là trung điểm \(AB \Rightarrow M\left(\frac{2+0}{2};\frac{0+2}{2};\frac{0+0}{2}\right) \Rightarrow M(1;1;0)\).</p>
+                        <p>Và \(N\) là trung điểm \(CD \Rightarrow N\left(\frac{0+2}{2};\frac{0+2}{2};\frac{2+2}{2}\right) \Rightarrow N(1;1;2)\).</p>
+                        <p>Vậy \(I\) là trung điểm \(MN \Rightarrow I\left(\frac{1+1}{2};\frac{1+1}{2};\frac{0+2}{2}\right) \Rightarrow I(1;1;1)\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 6 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 6: Chân đường cao tam giác</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai điểm \(A(1;2;-1)\) và \(B(0;-2;3)\). Tìm tọa độ chân đường cao kẻ từ đỉnh \(O\) của tam giác \(OAB\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Gọi \(K(x;y;z)\) là điểm cần tìm.</p>
+                        <p>Ta có: \(\overrightarrow{AK}=(x-1;y-2;z+1), \overrightarrow{AB}=(0-1;-2-2;3-(-1))=(-1;-4;4)\).</p>
+                        <p>Vì \(A,K,B\) thẳng hàng nên \(\overrightarrow{AK}=k\overrightarrow{AB} \Leftrightarrow \begin{cases} x-1=k \cdot (-1) \\ y-2=k \cdot (-4) \\ z+1=k \cdot 4 \end{cases} \Leftrightarrow \begin{cases} x=-k+1 \\ y=-4k+2 \\ z=4k-1 \end{cases}\).</p>
+                        <p>\(\Rightarrow K(-k+1;-4k+2;4k-1) \Rightarrow \overrightarrow{OK}=(-k+1;-4k+2;4k-1)\).</p>
+                        <p>Vì \(OK \perp AB\) nên \(\overrightarrow{OK} \cdot \overrightarrow{AB}=0 \Leftrightarrow (-k+1) \cdot (-1)+(-4k+2) \cdot (-4)+(4k-1) \cdot 4=0 \Leftrightarrow k=\frac{13}{33}\).</p>
+                        <p>Vậy \(K\left(\frac{20}{33};\frac{14}{33};\frac{19}{33}\right)\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 7 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 7: Tọa độ trọng tâm tam giác</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho \(\Delta ABC\) biết \(A(2;4;-3)\) có trọng tâm \(G(2;1;0)\). Khi đó xác định tọa độ \(\overrightarrow{AB}+\overrightarrow{AC}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Gọi \(M\) là trung điểm đoạn \(BC\), \(G\) là trọng tâm \(\Delta ABC\).</p>
+                        <p>Ta có \(\overrightarrow{AB}+\overrightarrow{AC}=2\overrightarrow{AM}\) (quy tắc hình bình hành).</p>
+                        <p>Và \(\overrightarrow{AM}=\frac{3}{2}\overrightarrow{AG}\).</p>
+                        <p>Do đó \(\overrightarrow{AB}+\overrightarrow{AC}=2\overrightarrow{AM}=2 \cdot \frac{3}{2}\overrightarrow{AG}=3\overrightarrow{AG}=3(2-2;1-4;0-(-3))=(0;-9;9)\).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 3 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">3</div>
+                    <h3>Dạng 3: Độ dài vectơ</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ul>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> \(\overrightarrow{AB}=(x_B-x_A; y_B-y_A; z_B-z_A) \rightarrow AB = |\overrightarrow{AB}| = \sqrt{(x_B-x_A)^2+(y_B-y_A)^2+(z_B-z_A)^2}\).</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Độ dài vectơ \(\vec{a}\): \(|\vec{a}| = \sqrt{(a_1)^2+(a_2)^2+(a_3)^2} \rightarrow |\vec{a}|^2=\vec{a}^2=(a_1)^2+(a_2)^2+(a_3)^2\).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 8 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 8: Tính độ dài đoạn thẳng</h3>
+                        <span class="tag">Dạng 3</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho \(A(1;2;-1)\) và \(B(0;3;1)\). Tính độ dài đoạn thẳng \(AB\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \(\overrightarrow{AB}=(0-1;3-2;1-(-1))=(-1;1;2) \Rightarrow AB = \sqrt{(-1)^2+1^2+2^2}=\sqrt{6}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 9 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 9: Tính chu vi tam giác</h3>
+                        <span class="tag">Dạng 3</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho tam giác \(ABC\) biết \(A(1;0;-2), B(2;1;-1), C(1;-2;2)\). Tìm chu vi của \(\Delta ABC\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Theo công thức tính độ dài ta được:</p>
+                        <p>\(AB = \sqrt{(2-1)^2+(1-0)^2+(-1+2)^2}=\sqrt{3}\);</p>
+                        <p>\(BC = \sqrt{(1-2)^2+(-2-1)^2+(2-(-1))^2}=\sqrt{19}\);</p>
+                        <p>\(AC = \sqrt{(1-1)^2+(-2-0)^2+(2-(-2))^2}=\sqrt{20}=2\sqrt{5}\).</p>
+                        <p>Chu vi của \(\Delta ABC: \sqrt{3}+\sqrt{19}+2\sqrt{5}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 10 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 10: Tính diện tích tam giác</h3>
+                        <span class="tag">Dạng 3</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho \(A(1;2;-1), B(0;3;1); C(3;2;0)\). Tính diện tích \(\Delta ABC\) (nếu có).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \(\overrightarrow{AB}=(0-1;3-2;1-(-1))=(-1;1;2)\) và \(\overrightarrow{AC}=(3-1;2-2;0-(-1))=(2;0;1)\) không cùng phương nên ba điểm \(A;B;C\) lập thành tam giác.</p>
+                        <p>Và \(\overrightarrow{AB} \cdot \overrightarrow{AC}=(-1) \cdot 2+1 \cdot 0+2 \cdot 1=0 \Rightarrow \overrightarrow{AB} \perp \overrightarrow{AC}\) nên \(\Delta ABC\) vuông tại \(A\).</p>
+                        <p>Mặt khác \(AB=\sqrt{(-1)^2+1^2+2^2}=\sqrt{6}\) và \(AC=\sqrt{2^2+0^2+1^2}=\sqrt{5}\).</p>
+                        <p>Vậy diện tích tam giác \(ABC\) là \(S = \frac{1}{2}AB \cdot AC=\frac{1}{2}\sqrt{6} \cdot \sqrt{5}=\frac{\sqrt{30}}{2}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 11 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 11: Tìm điểm trên đoạn thẳng</h3>
+                        <span class="tag">Dạng 3</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba điểm \(A(2;0;0), B(0;3;1), C(-3;6;4)\). Tìm điểm \(M\) thuộc đoạn \(BC\) sao cho \(MC=2MB\). Tìm độ dài đoạn \(AM\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Giả sử \(M(a;b;c) \Rightarrow \overrightarrow{BM}=(a-0;b-3;c-1)\) và \(\overrightarrow{BC}=(-3-0;6-3;4-1)=(-3;3;3)\).</p>
+                        <p>Điểm \(M \in BC: MC=2MB \Rightarrow \overrightarrow{BM}=\frac{1}{3}\overrightarrow{BC} \Leftrightarrow \begin{cases} a = \frac{1}{3} \cdot (-3) \\ b-3=\frac{1}{3} \cdot 3 \\ c-1=\frac{1}{3} \cdot 3 \end{cases} \Leftrightarrow \begin{cases} a=-1 \\ b=4 \\ c=2 \end{cases} \Rightarrow M(-1;4;2)\).</p>
+                        <p>Vậy \(AM = \sqrt{(-1-2)^2+(4-0)^2+(2-0)^2} = \sqrt{9+16+4}=\sqrt{29}\).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 4 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">4</div>
+                    <h3>Dạng 4: Sự cùng phương của hai vectơ</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <p>Xét hai vectơ \(\vec{a}=(a_1;a_2;a_3)\) và \(\vec{b}=(b_1;b_2;b_3)\) ta có:</p>
+                        <ul>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Hai vectơ bằng nhau: \(\vec{a}=\vec{b} \Leftrightarrow \begin{cases} a_1=b_1 \\ a_2=b_2 \\ a_3=b_3 \end{cases}\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Vectơ \(\vec{a}\) cùng phương vectơ \(\vec{b}: \vec{a}=k \cdot \vec{b} \Leftrightarrow \begin{cases} a_1=k \cdot b_1 \\ a_2=k \cdot b_2 \\ a_3=k \cdot b_3 \end{cases}\)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 12 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 12: Kiểm tra sự cùng phương</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho các vectơ \(\vec{a}=(4;1;-2); \vec{b}=(1;-2;-1); \vec{c}=(8;2;-4); \vec{d}=(-4;-1;2)\). Vectơ \(\vec{a}=(4;1;-2)\) cùng phương với vectơ nào đã cho?</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Xét \(\vec{a}=(4;1;-2), \vec{b}=(1;-2;-1) \Rightarrow \frac{4}{1} \neq \frac{1}{-2} \neq \frac{-2}{-1}\) nên \(\vec{a}\) không cùng phương \(\vec{b}\).</p>
+                        <p>Xét \(\vec{a}=(4;1;-2), \vec{c}=(8;2;-4) \Rightarrow \frac{4}{8} = \frac{1}{2} = \frac{-2}{-4}\) nên \(\vec{a}\) cùng phương \(\vec{c}\).</p>
+                        <p>Xét \(\vec{a}=(4;1;-2), \vec{d}=(-4;-1;2) \Rightarrow \frac{4}{-4} = \frac{1}{-1} = \frac{-2}{2}\) nên \(\vec{a}\) cùng phương \(\vec{d}\).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Vectơ \(\vec{a}\) cùng phương với vectơ \(\vec{c}\) và \(\vec{d}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 13 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 13: Tìm tham số để cùng phương</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{a}=(1;1;5)\) và \(\vec{b}=(m+1;2n;10)\). Tìm \(m,n\) để hai vectơ \(\vec{a}\) và \(\vec{b}\) cùng phương.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Để hai vectơ \(\vec{a}\) và \(\vec{b}\) cùng phương khi và chỉ khi \(\begin{cases} a_1=k b_1 \\ a_2=k b_2 \\ a_3=k b_3 \end{cases} \Leftrightarrow \begin{cases} 1=k(m+1) \\ 1=k(2n) \\ 5=k \cdot 10 \end{cases} \Leftrightarrow \begin{cases} k=\frac{1}{2} \\ 1=\frac{1}{2}(m+1) \\ 1=\frac{1}{2}(2n) \end{cases} \Leftrightarrow \begin{cases} m=1 \\ n=1 \end{cases}\).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Vậy \(m=1; n=1\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 14 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 14: Điểm thẳng hàng</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba điểm \(A(2;-1;5), B(5;-5;7), M(x;y;1)\). Với giá trị nào của \(x,y\) thì \(A,B,M\) thẳng hàng.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \(\overrightarrow{AB}=(5-2;-5-(-1);7-5)=(3;-4;2), \overrightarrow{AM}=(x-2;y+1;1-5)=(x-2;y+1;-4)\).</p>
+                        <p>\(A,B,M\) thẳng hàng \(\Leftrightarrow \overrightarrow{AB}, \overrightarrow{AM}\) cùng phương \(\Leftrightarrow \frac{x-2}{3}=\frac{y+1}{-4}=\frac{-4}{2} \Leftrightarrow \begin{cases} x=-4 \\ y=7 \end{cases}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 15 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 15: Tỉ số trên đường thẳng</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai điểm \(A(-2;3;1)\) và \(B(5;6;2)\). Đường thẳng \(AB\) cắt mặt phẳng \((Oxz)\) tại điểm \(M\). Tính tỉ số \(\frac{AM}{BM}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>\(M \in (Oxz) \Rightarrow M(x;0;z); \overrightarrow{AB}=(5-(-2);6-3;2-1)=(7;3;1) \Rightarrow AB=\sqrt{59}; \overrightarrow{AM}=(x+2;0-3;z-1)=(x+2;-3;z-1)\).</p>
+                        <p>\(A,B,M\) thẳng hàng \(\Rightarrow \overrightarrow{AM}=k \cdot \overrightarrow{AB} \Leftrightarrow \begin{cases} x+2=7k \\ -3=3k \\ z-1=k \end{cases} \Leftrightarrow \begin{cases} k=-1 \\ x=-9 \\ z=0 \end{cases} \Rightarrow M(-9;0;0)\).</p>
+                        <p>\(\overrightarrow{BM}=(-9-5;0-6;0-2)=(-14;-6;-2), \overrightarrow{AM}=(-9-(-2);0-3;0-1)=(-7;-3;-1) \Rightarrow AM=\sqrt{59}, BM=2\sqrt{59} \Rightarrow \frac{AM}{BM}=\frac{1}{2}\).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 5 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">5</div>
+                    <h3>Dạng 5: Tích vô hướng và ứng dụng</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <p>Xét hai vectơ \(\vec{a}=(a_1;a_2;a_3)\) và \(\vec{b}=(b_1;b_2;b_3)\) ta có:</p>
+                        <ul>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Tích vô hướng hai vectơ: \(\begin{cases} \vec{a} \cdot \vec{b}=a_1 \cdot b_1+a_2 \cdot b_2+a_3 \cdot b_3 \\ \vec{a} \cdot \vec{b}=|\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a};\vec{b}) \end{cases}\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Góc giữa 2 vectơ: \(\cos(\vec{a};\vec{b})=\frac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|} = \frac{a_1b_1+a_2b_2+a_3b_3}{\sqrt{a_1^2+a_2^2+a_3^2} \cdot \sqrt{b_1^2+b_2^2+b_3^2}}\)</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> <strong>Chú ý:</strong> Khi \(\vec{a} \cdot \vec{b}>0\) thì \(\cos(\vec{a};\vec{b})>0 \Rightarrow (\vec{a};\vec{b})\) là góc nhọn.<br> Khi \(\vec{a} \cdot \vec{b}<0\) thì \(\cos(\vec{a};\vec{b})<0 \Rightarrow (\vec{a};\vec{b})\) là góc tù.</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> Vectơ \(\vec{a}\) vuông góc vectơ \(\vec{b}: \vec{a} \perp \vec{b} \Leftrightarrow \vec{a} \cdot \vec{b}=0 \Leftrightarrow a_1b_1+a_2b_2+a_3b_3=0\).</li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> <strong>Bài toán liên quan giữa độ dài và tích vô hướng:</strong><br>Cho hai vectơ \(\vec{u}\) và \(\vec{v}\) có \(|\vec{u}|=m; |\vec{v}|=n\) và tạo với nhau một góc \(\alpha\). Tính \(|\vec{u}+\vec{v}|\) hoặc \(|\vec{u}-\vec{v}|\) hoặc tùy vào yêu cầu bài toán.</li>
+                            <li><strong>Hướng giải quyết:</strong>
+                                <ul>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 1:</strong> Biến đổi \((|\vec{u}+\vec{v}|)^2 = (\vec{u}+\vec{v})^2 = \vec{u}^2+2\vec{u} \cdot \vec{v}+\vec{v}^2\)</li>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 2:</strong> Áp dụng: \(\begin{cases} \vec{u}^2=|\vec{u}|^2 \\ \vec{a} \cdot \vec{b}=|\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a};\vec{b}) \end{cases}\)<br>Để biến đổi: \(\vec{u}^2+2\vec{u} \cdot \vec{v}+\vec{v}^2=|\vec{u}|^2+2|\vec{u}| \cdot |\vec{v}| \cdot \cos(\vec{u};\vec{v})+|\vec{v}|^2\)</li>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 3:</strong> Lắp các dữ kiện giả thiết vào công thức \(\Rightarrow |\vec{u}+\vec{v}|=?\)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 16 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 16: Tính cosin góc giữa hai vectơ</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho \(\vec{a}=(-3;4;0), \vec{b}=(5;0;12)\). Tính cosin của góc giữa \(\vec{a};\vec{b}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \(\cos(\vec{a};\vec{b})=\frac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|}=\frac{(-3) \cdot 5+4 \cdot 0+0 \cdot 12}{\sqrt{(-3)^2+4^2+0^2} \cdot \sqrt{5^2+0^2+12^2}}=-\frac{3}{13}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 17 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 17: Cosin góc trong tam giác</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho \(A(-1;-2;3), B(0;3;1), C(4;2;2)\). Cosin của \(\widehat{BAC}\) bằng</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \(\cos\widehat{BAC}=\cos(\overrightarrow{AB},\overrightarrow{AC})=\frac{\overrightarrow{AB} \cdot \overrightarrow{AC}}{|\overrightarrow{AB}| \cdot |\overrightarrow{AC}|}\) mà: \(\overrightarrow{AB}=(0-(-1);3-(-2);1-3)=(1;5;-2), \overrightarrow{AC}=(4-(-1);2-(-2);2-3)=(5;4;-1)\).</p>
+                        <p>\(\cos(\overrightarrow{AB},\overrightarrow{AC})=\frac{1 \cdot 5+5 \cdot 4+(-2) \cdot (-1)}{\sqrt{1^2+5^2+(-2)^2} \cdot \sqrt{5^2+4^2+(-1)^2}}=\frac{27}{\sqrt{30} \cdot \sqrt{42}}=\frac{9}{2\sqrt{35}}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 18 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 18: Tìm tham số để vuông góc</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{a}=(2;1;-2), \vec{b}=(0;-\sqrt{2};\sqrt{2})\). Tìm tất cả giá trị của \(m\) để hai vectơ \(\vec{u}=2\vec{a}+3m\vec{b}\) và \(\vec{v}=m\vec{a}-\vec{b}\) vuông góc với nhau.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \(\begin{cases} \vec{u}=2\vec{a}+3m\vec{b}=(4;2-3m\sqrt{2};-4+3m\sqrt{2}) \\ \vec{v}=m\vec{a}-\vec{b}=(2m;m+\sqrt{2};-2m-\sqrt{2}) \end{cases}\).</p>
+                        <p>Khi đó: \(\vec{u} \cdot \vec{v}=0 \Leftrightarrow 4 \cdot 2m+(2-3m\sqrt{2}) \cdot (m+\sqrt{2})+(-4+3m\sqrt{2}) \cdot (-2m-\sqrt{2})=0\).</p>
+                        <p>\(\Leftrightarrow 9m^2\sqrt{2}-6m-6\sqrt{2}=0 \Leftrightarrow m = \frac{\pm\sqrt{26}+\sqrt{2}}{6}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 19 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 19: Góc giữa hai vectơ</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho vectơ \(\vec{u}=(1;1;-2), \vec{v}=(1;0;m)\). Tìm \(m\) để góc giữa hai vectơ \(\vec{u},\vec{v}\) bằng \(45^\circ\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \(\cos(\vec{u},\vec{v})=\cos 45^\circ \Leftrightarrow \frac{\vec{u} \cdot \vec{v}}{|\vec{u}| \cdot |\vec{v}|}=\frac{1}{\sqrt{2}} \Leftrightarrow \frac{1 \cdot 1+1 \cdot 0+(-2) \cdot m}{\sqrt{1^2+1^2+(-2)^2} \cdot \sqrt{1^2+0^2+m^2}}=\frac{1}{\sqrt{2}}\).</p>
+                        <p>\(\Leftrightarrow \frac{1-2m}{\sqrt{6} \cdot \sqrt{1+m^2}}=\frac{1}{\sqrt{2}} \Leftrightarrow 1-2m=\sqrt{3+3m^2} \Leftrightarrow \begin{cases} 1-2m \ge 0 \\ (1-2m)^2=3+3m^2 \end{cases}\).</p>
+                        <p>\(\Leftrightarrow \begin{cases} m \le \frac{1}{2} \\ m^2-4m-2=0 \end{cases} \Leftrightarrow \begin{cases} m \le \frac{1}{2} \\ m=2 \pm \sqrt{6} \end{cases} \Leftrightarrow m=2-\sqrt{6}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 20 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 20: Tính độ dài tổng vectơ</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{u}\) và \(\vec{v}\) tạo với nhau một góc \(120^\circ\) và \(|\vec{u}|=2, |\vec{v}|=5\). Tính \(|\vec{u}+\vec{v}|\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \(|\vec{u}+\vec{v}|^2 = (\vec{u}+\vec{v})^2 = \vec{u}^2+2\vec{u} \cdot \vec{v}+\vec{v}^2 = |\vec{u}|^2+2|\vec{u}| \cdot |\vec{v}| \cdot \cos(\vec{u};\vec{v})+|\vec{v}|^2 = 2^2+2 \cdot 2 \cdot 5 \cdot (-\frac{1}{2})+5^2=19\).</p>
+                        <p>Suy ra \(|\vec{u}+\vec{v}|=\sqrt{19}\).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 6 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">6</div>
+                    <h3>Dạng 6: Tâm tỷ cự</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ul>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> <strong>Bài toán cực trị độ dài vectơ:</strong><br>Cho \(n\) điểm \(A_1;A_2;...;A_n\) và các hệ số \(k_1;k_2;...;k_n\) sao cho \(k=k_1+k_2+...+k_n \neq 0\) và đường thẳng \(d\) hoặc mặt phẳng \((P)\). Tìm điểm \(M\) trên đường thẳng \(d\) hoặc mặt phẳng \((P)\), sao cho \(|k_1\overrightarrow{MA_1}+k_2\overrightarrow{MA_2}+...+k_n\overrightarrow{MA_n}|\) nhỏ nhất.</li>
+                            <li><strong>Hướng giải quyết:</strong>
+                                <ul>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 1:</strong> Gọi \(I\) là điểm thỏa mãn \(k_1\overrightarrow{IA_1}+k_2\overrightarrow{IA_2}+...+k_n\overrightarrow{IA_n}=\vec{0}\).</li>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 2:</strong> Áp dụng quy tắc ba điểm biến đổi: \(|k_1\overrightarrow{MA_1}+...+k_n\overrightarrow{MA_n}|=|(k_1+...+k_n)\overrightarrow{MI}|=|k||\overrightarrow{MI}|\).</li>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 3:</strong> Tìm độ dài nhỏ nhất của các vectơ đã cho xảy ra khi \(M\) xảy ra ở vị trí nào?</li>
+                                </ul>
+                            </li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> <strong>Bài toán cực trị độ dài bình phương vectơ:</strong><br>Cho đa giác \(A_1A_2...A_n\) và các hệ số \(k_1;k_2;...;k_n\) sao cho \(k=k_1+...+k_n>0\). Tìm điểm \(M\) trên đường thẳng \(d\) hoặc mặt phẳng \((P)\), sao cho tổng \(S=k_1MA_1^2+...+k_nMA_n^2\) đạt giá trị nhỏ nhất.</li>
+                            <li><strong>Hướng giải quyết:</strong>
+                                <ul>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 1:</strong> Gọi \(I\) là điểm thỏa mãn \(k_1\overrightarrow{IA_1}+k_2\overrightarrow{IA_2}+...+k_n\overrightarrow{IA_n}=\vec{0}\).</li>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 2:</strong> Thấy rằng \(MA_i^2 = \overrightarrow{MA_i}^2=(\overrightarrow{MI}+\overrightarrow{IA_i})^2=MI^2+2\overrightarrow{MI} \cdot \overrightarrow{IA_i}+IA_i^2\).<br>Áp dụng quy tắc ba điểm biến đổi: \(S=k_1MA_1^2+...+k_nMA_n^2 = k_1(MI^2+2\overrightarrow{MI} \cdot \overrightarrow{IA_1}+IA_1^2)+...+k_n(MI^2+2\overrightarrow{MI} \cdot \overrightarrow{IA_n}+IA_n^2)\)<br>\(= (k_1+...+k_n)MI^2 + (k_1IA_1^2+...+k_nIA_n^2)+2\overrightarrow{MI}(k_1\overrightarrow{IA_1}+...+k_n\overrightarrow{IA_n})\)<br>\(= (k_1+...+k_n)MI^2 + (k_1IA_1^2+...+k_nIA_n^2)\).</li>
+                                    <li><i class="fas fa-arrow-right" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 3:</strong> Do \(k>0\), để \(S=k_1MA_1^2+...+k_nMA_n^2\) đạt giá trị nhỏ nhất thì ta xác định vị trí điểm \(M\) cần tìm.</li>
+                                </ul>
+                            </li>
+                            <li><i class="fas fa-check" style="color: #28a745; margin-right: 8px;"></i> <strong>Chú ý:</strong> Cho đa giác \(A_1A_2...A_n\) và các hệ số \(k_1;k_2;...;k_n\) sao cho \(k=k_1+...+k_n<0\). Tìm điểm \(M\) trên \(d\) hoặc \((P)\), sao cho tổng \(S=k_1MA_1^2+...+k_nMA_n^2\) đạt giá trị lớn nhất. Ta cũng thực hiện tương tự.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 21 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 21: Tâm tỷ cự tứ diện</h3>
+                        <span class="tag">Dạng 6</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho bốn điểm \(A(2;-3;7), B(0;4;1), C(3;0;5)\) và \(D(3;3;3)\). Gọi \(M\) là điểm nằm trên mặt phẳng \((Oyz)\) sao cho biểu thức \(|\overrightarrow{MA}+\overrightarrow{MB}+\overrightarrow{MC}+\overrightarrow{MD}|\) đạt giá trị nhỏ nhất. Khi đó xác định tọa độ điểm \(M\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \(\overrightarrow{AB}=(0-2;4-(-3);1-7)=(-2;7;-6), \overrightarrow{AC}=(3-2;0-(-3);5-7)=(1;3;-2), \overrightarrow{AD}=(3-2;3-(-3);3-7)=(1;6;-4)\) nên \([\overrightarrow{AB},\overrightarrow{AC}] \cdot \overrightarrow{AD}=-4 \neq 0\).</p>
+                        <p>Suy ra \(\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD}\) không đồng phẳng.</p>
+                        <p>Gọi \(G\) là trọng tâm tứ diện \(ABCD\). Khi đó \(G\left(\frac{2+0+3+3}{4};\frac{-3+4+0+3}{4};\frac{7+1+5+3}{4}\right)=(2;1;4)\).</p>
+                        <p>Ta có \(|\overrightarrow{MA}+\overrightarrow{MB}+\overrightarrow{MC}+\overrightarrow{MD}|=|4\overrightarrow{MG}|=4MG\).</p>
+                        <p>Do đó \(|\overrightarrow{MA}+\overrightarrow{MB}+\overrightarrow{MC}+\overrightarrow{MD}|\) nhỏ nhất khi và chỉ khi \(MG\) ngắn nhất.</p>
+                        <p>Vậy \(M\) là hình chiếu vuông góc của \(G\) lên mặt phẳng \((Oyz)\) nên \(M(0;1;4)\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 22 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 22: Cực trị độ dài bình phương</h3>
+                        <span class="tag">Dạng 6</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho \(\overrightarrow{OA}=\vec{i}+\vec{j}-3\vec{k}, B(2;2;1)\). Tìm tọa độ điểm \(M\) thuộc trục tung sao cho \(MA^2+MB^2\) nhỏ nhất.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p><strong>Cách 1:</strong></p>
+                        <p>Do \(M \in Oy\), nên \(M(0;y;0)\).</p>
+                        <p>Ta có \(A(1;1;-3)\).</p>
+                        <p>Tính \(MA^2+MB^2 = (0-1)^2+(y-1)^2+(0-(-3))^2 + (0-2)^2+(y-2)^2+(0-1)^2 = 2y^2-6y+20=f(y)\).</p>
+                        <p>Do đó \(f(y)\) nhỏ nhất khi và chỉ khi \(y = -\frac{-6}{2 \cdot 2} = \frac{3}{2}\). Vậy \(M(0;\frac{3}{2};0)\).</p>
+                        <p><strong>Cách 2:</strong></p>
+                        <p>Ta có \(A(1;1;-3)\). Gọi \(I\) là trung điểm của \(AB\). Suy ra \(I\left(\frac{1+2}{2};\frac{1+2}{2};\frac{-3+1}{2}\right)=(\frac{3}{2};\frac{3}{2};-1)\).</p>
+                        <p>Khi đó \(MA^2+MB^2 = (\overrightarrow{MI}+\overrightarrow{IA})^2+(\overrightarrow{MI}+\overrightarrow{IB})^2 = 2MI^2+IA^2+IB^2+2\overrightarrow{MI}(\overrightarrow{IA}+\overrightarrow{IB}) = 2MI^2+2IA^2\).</p>
+                        <p>Do đó \(MA^2+MB^2\) đạt giá trị nhỏ nhất \(\Leftrightarrow MI\) có độ dài ngắn nhất \(\Leftrightarrow M\) là hình chiếu vuông góc của \(I\) trên trục tung.</p>
+                        <p>Vậy \(M(0;\frac{3}{2};0)\).</p>
+                    </div>
+                </div>
+
+            <!-- Additional Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA THÊM</h2>
+
+                <!-- Example 23 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 23: Tính toán vectơ</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{a} = (2; 1; 5)\) và \(\vec{b} = (2; 2; 1)\). Tìm tọa độ của mỗi vectơ sau:</p>
+                        <p>a) \(\vec{a} - \vec{b}\); b) \(3\vec{a} + 2\vec{b}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>a) Vì \(\vec{a} = (2; 1; 5)\) và \(\vec{b} = (2; 2; 1)\) nên \(\vec{a} - \vec{b} = (2-2; 1-2; 5-1) = (0; -1; 4)\).</p>
+                        <p>b) Ta có \(3\vec{a} = (3 \cdot 2; 3 \cdot 1; 3 \cdot 5) = (6; 3; 15)\) và \(2\vec{b} = (2 \cdot 2; 2 \cdot 2; 2 \cdot 1) = (4; 4; 2)\).</p>
+                        <p>Do đó \(3\vec{a} + 2\vec{b} = (6+4; 3+4; 15+2) = (10; 7; 17)\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 24 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 24: Tìm vectơ cùng phương</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba vectơ \(\vec{p} = (3; -2; 1), \vec{q} = (6; -4; 2), \vec{r} = (2; 1; -3)\).</p>
+                        <p>a) Tìm tọa độ của vectơ \(\vec{c} = 2\vec{p} - 3\vec{q} + \vec{r}\).</p>
+                        <p>b) Tìm hai vectơ cùng phương trong các vectơ đã cho.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>a) Ta có: \(2\vec{p} = (6; -4; 2), -3\vec{q} = (-18; 12; -6), \vec{r} = (2; 1; -3)\).</p>
+                        <p>Suy ra \(\vec{c} = 2\vec{p} - 3\vec{q} + \vec{r} = (6+(-18)+2; -4+12+1; 2+(-6)+(-3)) = (-10; 9; -7)\).</p>
+                        <p>b) Ta có \(2\vec{p} = (6; -4; 2) = \vec{q}\), suy ra hai vectơ \(\vec{p}, \vec{q}\) cùng phương.</p>
+                        <p>Do \(\frac{3}{2} \neq \frac{-2}{1}\) nên \(\vec{p}, \vec{r}\) không cùng phương. Tương tự, hai vectơ \(\vec{q}, \vec{r}\) không cùng phương.</p>
+                    </div>
+                </div>
+
+                <!-- Example 25 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 25: Tính toán vectơ</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Cho \(\vec{a} = (-2; 3; 2), \vec{b} = (2; 1; -1), \vec{c} = (1; 2; 3)\). Tính tọa độ của mỗi vectơ sau:</p>
+                        <p>a) \(3\vec{a}\); b) \(2\vec{a} - \vec{b}\); c) \(\vec{a} + 2\vec{b} - \frac{3}{2}\vec{c}\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>a) Ta có: \(3\vec{a} = (3 \cdot (-2); 3 \cdot 3; 3 \cdot 2) = (-6; 9; 6)\).</p>
+                        <p>b) Ta có \(2\vec{a} = (-4; 6; 4)\) và \(\vec{b} = (2; 1; -1)\). Do đó, \(2\vec{a} - \vec{b} = (-4-2; 6-1; 4-(-1)) = (-6; 5; 5)\).</p>
+                        <p>c) Do \(\vec{a} = (-2; 3; 2)\) và \(2\vec{b} = (4; 2; -2)\) nên \(\vec{a} + 2\vec{b} = (2; 5; 0)\). Ngoài ra, vì \(-\frac{3}{2}\vec{c} = (-\frac{3}{2}; -3; -\frac{9}{2})\) nên \(\vec{a} + 2\vec{b} - \frac{3}{2}\vec{c} = (2-\frac{3}{2}; 5-3; 0-\frac{9}{2}) = (\frac{1}{2}; 2; -\frac{9}{2})\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 26 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 26: Trung điểm và trọng tâm</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian \(Oxyz\), cho ba điểm \(A(1; 2; 3), B(3; 2; 1)\) và \(C(2; -1; 5)\). Tìm tọa độ trung điểm \(M\) của đoạn thẳng \(AB\) và tọa độ trọng tâm \(G\) của tam giác \(ABC\).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <ul>
+                            <li>Vì \(M\) là trung điểm của đoạn thẳng \(AB\) nên tọa độ của điểm \(M\) là \(\left(\frac{1+3}{2};\frac{2+2}{2};\frac{3+1}{2}\right)\), suy ra \(M(2; 2; 2)\).</li>
+                            <li>Vì \(G\) là trọng tâm của tam giác \(ABC\) nên tọa độ của điểm \(G\) là \(\left(\frac{1+3+2}{3};\frac{2+2+(-1)}{3};\frac{3+1+5}{3}\right)\), suy ra \(G(2; 1; 3)\).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <!-- Example 27 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 27: Trung điểm và trọng tâm tam giác</h3>
+                    <span class="tag">Dạng 2</span>
+                </div>
+                <div class="example-question">
+                    <p>Cho tam giác \(ABC\) có \(A(-2; 1; 0), B(0; 2; 5), C(5; 0; 2)\). Tìm tọa độ trung điểm \(M\) của đoạn thẳng \(AB\) và trọng tâm \(G\) của tam giác \(ABC\).</p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <ul>
+                        <li>Do \(M(x_M; y_M; z_M)\) là trung điểm đoạn thẳng \(AB\) nên \(x_M = \frac{-2+0}{2}=-1; y_M = \frac{1+2}{2}=\frac{3}{2}; z_M=\frac{0+5}{2}=\frac{5}{2}\). Vậy \(M(-1; \frac{3}{2}; \frac{5}{2})\).</li>
+                        <li>Do \(G(x_G; y_G; z_G)\) là trọng tâm tam giác \(ABC\) nên \(x_G = \frac{-2+0+5}{3}=1; y_G = \frac{1+2+0}{3}=1; z_G = \frac{0+5+2}{3}=\frac{7}{3}\). Vậy \(G(1; 1; \frac{7}{3})\).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Example 28 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 28: Trung điểm và trọng tâm tam giác</h3>
+                    <span class="tag">Dạng 2</span>
+                </div>
+                <div class="example-question">
+                    <p>Cho tam giác \(ABC\) có \(A(1; -1; 1), B(0; 1; 2), C(1; 0; 1)\). Tìm tọa độ:</p>
+                    <p>a) Trung điểm \(M\) của \(AB\); b) Trọng tâm \(G\) của tam giác \(ABC\).</p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <p>a) Tọa độ trung điểm \(M\) của đoạn thẳng \(AB\) là \(M\left(\frac{1+0}{2}; \frac{-1+1}{2}; \frac{1+2}{2}\right) = M\left(\frac{1}{2}; 0; \frac{3}{2}\right)\).</p>
+                    <p>b) Tọa độ trọng tâm \(G\) của tam giác \(ABC\) là \(G\left(\frac{1+0+1}{3}; \frac{-1+1+0}{3}; \frac{1+2+1}{3}\right) = G\left(\frac{2}{3}; 0; \frac{4}{3}\right)\).</p>
+                </div>
+            </div>
+
+            <!-- Example 29 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 29: Tích vô hướng và độ dài vectơ</h3>
+                    <span class="tag">Dạng 5</span>
+                </div>
+                <div class="example-question">
+                    <p>Trong không gian \(Oxyz\), cho hai vectơ \(\vec{a} = (1; 4; 2)\) và \(\vec{b} = (-4; 1; 0)\).</p>
+                    <p>a) Tính \(\vec{a} \cdot \vec{b}\) và cho biết hai vectơ \(\vec{a}\) và \(\vec{b}\) có vuông góc với nhau hay không.</p>
+                    <p>b) Tính độ dài của vectơ \(\vec{a}\).</p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <p>a) Ta có: \(\vec{a} \cdot \vec{b} = 1 \cdot (-4) + 4 \cdot 1 + 2 \cdot 0 = -4 + 4 + 0 = 0\). Do đó, hai vectơ \(\vec{a}\) và \(\vec{b}\) vuông góc với nhau.</p>
+                    <p>b) Độ dài của vectơ \(\vec{a}\) là \(|\vec{a}| = \sqrt{1^2 + 4^2 + 2^2} = \sqrt{1 + 16 + 4} = \sqrt{21}\).</p>
+                </div>
+            </div>
+
+            <!-- Example 30 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 30: Tọa độ và độ dài trong hình chóp</h3>
+                    <span class="tag">Dạng 3</span>
+                </div>
+                <div class="example-question">
+                    <p>Cho hình chóp \(S.ABCD\) có đáy \(ABCD\) là hình chữ nhật và \(SA\) vuông góc với mặt phẳng \((ABCD)\). Giả sử \(SA=2, AB=3, AD=4\). Xét hệ tọa độ \(Oxyz\) với \(O\) trùng \(A\) và các tia \(Ox, Oy, Oz\) lần lượt trùng với các tia \(AB, AD, AS\).</p>
+                    <p>a) Xác định tọa độ của các điểm \(S, A, B, C, D\).</p>
+                    <p>b) Tính \(BD\) và \(SC\).</p>
+                    <p>c) Tính góc \((\overrightarrow{BD}, \overrightarrow{SC})\).</p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <p>a) Vì \(A\) trùng gốc tọa độ nên \(A(0;0;0)\). Vì \(B\) thuộc tia \(Ox\) và \(AB=3\) nên \(B(3;0;0)\). Vì \(D\) thuộc tia \(Oy\) và \(AD=4\) nên \(D(0;4;0)\). Vì \(S\) thuộc tia \(Oz\) và \(AS=2\) nên \(S(0;0;2)\). Vì hình chiếu của \(C\) lên các trục \(Ox, Oy, Oz\) lần lượt là \(B, D, A\) nên \(C(3;4;0)\).</p>
+                    <p>b) Ta có \(\overrightarrow{BD} = (0-3; 4-0; 0-0) = (-3; 4; 0)\), suy ra \(BD = |\overrightarrow{BD}| = \sqrt{(-3)^2 + 4^2 + 0^2} = \sqrt{25} = 5\).</p>
+                    <p>Ta có \(\overrightarrow{SC} = (3-0; 4-0; 0-2) = (3; 4; -2)\), suy ra \(SC = |\overrightarrow{SC}| = \sqrt{3^2 + 4^2 + (-2)^2} = \sqrt{9 + 16 + 4} = \sqrt{29}\).</p>
+                    <p>c) Ta có \(\cos(\overrightarrow{BD}, \overrightarrow{SC}) = \frac{\overrightarrow{BD} \cdot \overrightarrow{SC}}{|\overrightarrow{BD}| \cdot |\overrightarrow{SC}|} = \frac{(-3) \cdot 3 + 4 \cdot 4 + 0 \cdot (-2)}{5 \cdot \sqrt{29}} = \frac{-9 + 16 + 0}{5 \sqrt{29}} = \frac{7}{5 \sqrt{29}}\).</p>
+                    <p>Suy ra \((\overrightarrow{BD}, \overrightarrow{SC}) \approx \arccos\left(\frac{7}{5 \sqrt{29}}\right) \approx 74.9^\circ\).</p>
+                </div>
+            </div>
+
+            <!-- Example 31 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 31: Tích vô hướng và kiểm tra vuông góc</h3>
+                    <span class="tag">Dạng 5</span>
+                </div>
+                <div class="example-question">
+                    <p>Cho ba vectơ \(\vec{a}=(3; 0; 1), \vec{b}=(1; -1; -2), \vec{c}=(2; 1; -1)\).</p>
+                    <p>a) Tính \(\vec{a} \cdot \vec{b}, \vec{b} \cdot \vec{c}\).</p>
+                    <p>b) Tính \(|\vec{a}|, |\vec{b}|, \cos(\vec{a}, \vec{b})\).</p>
+                    <p>c) Cho \(\vec{d}=(1; 7; -3)\). Chứng minh \(\vec{d} \perp \vec{a}\).</p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <p>a) Ta có: \(\vec{a} \cdot \vec{b} = 3 \cdot 1 + 0 \cdot (-1) + 1 \cdot (-2) = 3 + 0 - 2 = 1\).</p>
+                    <p>\(\vec{b} \cdot \vec{c} = 1 \cdot 2 + (-1) \cdot 1 + (-2) \cdot (-1) = 2 - 1 + 2 = 3\).</p>
+                    <p>b) Ta có: \(|\vec{a}| = \sqrt{3^2 + 0^2 + 1^2} = \sqrt{9 + 0 + 1} = \sqrt{10}\).</p>
+                    <p>\(|\vec{b}| = \sqrt{1^2 + (-1)^2 + (-2)^2} = \sqrt{1 + 1 + 4} = \sqrt{6}\).</p>
+                    <p>\(\cos(\vec{a}, \vec{b}) = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}| |\vec{b}|} = \frac{1}{\sqrt{10} \cdot \sqrt{6}} = \frac{\sqrt{15}}{30}\).</p>
+                    <p>c) Ta có \(\vec{d} \cdot \vec{a} = 1 \cdot 3 + 7 \cdot 0 + (-3) \cdot 1 = 3 + 0 - 3 = 0\), suy ra \(\vec{d} \perp \vec{a}\).</p>
+                </div>
+            </div>
+
+            <!-- Practical Applications Section -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">6</div>
+                    <h3>Dạng 6: Ứng dụng thực tế</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <p>Áp dụng các công thức về tọa độ, vectơ, độ dài, và tích vô hướng để giải quyết các bài toán thực tế liên quan đến chuyển động, khoảng cách, hoặc vị trí trong không gian.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 32 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 32: Tọa độ máy bay</h3>
+                        <span class="tag">Dạng 6</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong không gian với một hệ trục tọa độ cho trước (đơn vị đo lấy theo kilômét), ra đa phát hiện một chiếc máy bay di chuyển với vận tốc và hướng không đổi từ điểm \(A(800; 500; 7)\) đến điểm \(B(940; 550; 8)\) trong 10 phút. Nếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì tọa độ của máy bay sau 5 phút tiếp theo là gì?</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <ul>
+                            <li>Gọi \(C(x; y; z)\) là vị trí của máy bay sau 5 phút tiếp theo. Vì hướng của máy bay không đổi nên \(\overrightarrow{AB}\) và \(\overrightarrow{BC}\) cùng hướng.</li>
+                            <li>Do vận tốc của máy bay không đổi và thời gian bay từ \(A\) đến \(B\) gấp đôi thời gian bay từ \(B\) đến \(C\) nên \(AB = 2BC\).</li>
+                            <li>Do đó \(\overrightarrow{BC} = \frac{1}{2}\overrightarrow{AB} = \left(\frac{940-800}{2}; \frac{550-500}{2}; \frac{8-7}{2}\right) = (70; 25; 0.5)\).</li>
+                            <li>Mặt khác, \(\overrightarrow{BC} = (x-940; y-550; z-8)\) nên \(\begin{cases} x-940=70 \\ y-550=25 \\ z-8=0.5 \end{cases}\).</li>
+                            <li>Từ đó \(\begin{cases} x=1010 \\ y=575 \\ z=8.5 \end{cases}\) và vì vậy \(C(1010; 575; 8.5)\).</li>
+                            <li class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Vậy tọa độ của máy bay sau 5 phút tiếp theo là \((1010; 575; 8.5)\).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Example 33 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 33: Khoảng cách giữa hai khinh khí cầu</h3>
+                        <span class="tag">Dạng 6</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Hai chiếc khinh khí cầu bay lên từ cùng một địa điểm. Chiếc thứ nhất nằm cách điểm xuất phát 2 km về phía nam và 1 km về phía đông, đồng thời cách mặt đất 0,5 km. Chiếc thứ hai nằm cách điểm xuất phát 1 km về phía bắc và 1,5 km về phía tây, đồng thời cách mặt đất 0,8 km.</p>
+                        <p>Chọn hệ trục tọa độ \(Oxyz\) với gốc \(O\) đặt tại điểm xuất phát của hai khinh khí cầu, mặt phẳng \((Oxy)\) trùng với mặt đất với trục \(Ox\) hướng về phía nam, trục \(Oy\) hướng về phía đông và trục \(Oz\) hướng thẳng đứng lên trời, đơn vị đo lấy theo kilômét.</p>
+                        <p>a) Tìm tọa độ của mỗi chiếc khinh khí cầu đối với hệ tọa độ đã chọn.</p>
+                        <p>b) Xác định khoảng cách giữa hai khinh khí cầu (làm tròn kết quả đến chữ số thập phân thứ hai).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>a) Chiếc khinh khí cầu thứ nhất có tọa độ là \((2; 1; 0.5)\) (2 km nam, 1 km đông, 0.5 km cao).</p>
+                        <p>Chiếc khinh khí cầu thứ hai có tọa độ là \((-1; -1.5; 0.8)\) (1 km bắc, 1.5 km tây, 0.8 km cao).</p>
+                        <p>b) Khoảng cách giữa hai chiếc khinh khí cầu là:</p>
+                        <p>\(\sqrt{(-1-2)^2 + (-1.5-1)^2 + (0.8-0.5)^2} = \sqrt{(-3)^2 + (-2.5)^2 + (0.3)^2} = \sqrt{9 + 6.25 + 0.09} = \sqrt{15.34} \approx 3.92 \, \text{km}\).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Khoảng cách giữa hai khinh khí cầu là khoảng \(3.92 \, \text{km}\).</p>
+                    </div>
+                </div>
+
+                <!-- Example 34 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 34: So sánh khoảng cách khinh khí cầu</h3>
+                        <span class="tag">Dạng 6</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Trong Ví dụ 33, khinh khí cầu thứ nhất hay thứ hai ở xa điểm xuất phát hơn? Giải thích vì sao.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <ul>
+                            <li>Theo Ví dụ 33, khinh khí cầu thứ nhất có tọa độ là \(A(2; 1; 0.5)\), khinh khí cầu thứ hai có tọa độ là \(B(-1; -1.5; 0.8)\).</li>
+                            <li>Ta có: \(OA = \sqrt{2^2 + 1^2 + 0.5^2} = \sqrt{4 + 1 + 0.25} = \sqrt{5.25} = \frac{\sqrt{21}}{2} \, \text{km}\).</li>
+                            <li>\(OB = \sqrt{(-1)^2 + (-1.5)^2 + 0.8^2} = \sqrt{1 + 2.25 + 0.64} = \sqrt{3.89} = \frac{\sqrt{389}}{10} \, \text{km}\).</li>
+                            <li>Vì \(\sqrt{5.25} \approx 2.29 > \sqrt{3.89} \approx 1.97\), nên \(OA > OB\).</li>
+                            <li class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Khinh khí cầu thứ nhất ở xa điểm xuất phát hơn vì \(OA > OB\).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </section>
+            
+                
+                <!-- Tools Section -->
+                <section class="doc-section">
+                    <h2 class="article-subtitle"><i class="fas fa-tools"></i> CÔNG CỤ HỖ TRỢ</h2>
+                    
+                    <div class="tools-grid">
+                        <button class="btn tool-btn">
+                            <i class="fas fa-calculator"></i>
+                            <span>Máy tính khoa học</span>
+                        </button>
+                        
+                        <button class="btn tool-btn">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Công cụ vẽ đồ thị</span>
+                        </button>
+                    </div>
+                </section>
+                
+                <div class="download-bar">
+                    <div class="download-info">
+                        <i class="fas fa-file-pdf"></i>
+                        <strong>Tài liệu đầy đủ có hình ảnh và công thức</strong>
+                    </div>
+                    <a href="#" class="btn"><i class="fas fa-download mr-2"></i> Tải PDF</a>
+                </div>
+            </div>
+    </main>
+    </div>
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Về Educode</h3>
+                 <p>EduCode là nền tảng học online đang trên hình trình xây dưng, với kỳ vọng mang đến các khóa học toán chất lượng cao. Chúng tôi cam kết giúp bạn nắm vững kiến thức và chuẩn bị cho tương lai với các khóa học lý, hóa, tin học và AI sắp ra mắt.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+                          
+                      
+            <div class="footer-col">
+                <h3>Liên hệ</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> 0878042368</p>
+                    <p><i class="fas fa-envelope"></i> nguyenthanhbinh_thpt_tts@bentre.edu.vn</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="https://meet.google.com/osh-vjqs-vdg">Học online </a></li>
+                    <li><a href="#K12/12C1B1.html">Tài liệu & Đề ôn luyện</a></li>
+                    <li><a href="#coming-soon">Sắp ra mắt: Lý, Hóa, AI</a></li>
+                    <li><a href="#blog">Blog EduCode</a></li>
+                </ul>
+            </div>
+            </div>
+        
+        <div class="copyright">
+            <p>© 2025 EduCode – Thạc sĩ Nguyễn Thanh Bình. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    
+    <style>
+        /* CSS cho thanh điều hướng tài liệu */
+        .document-nav {
+            list-style: none;
+        }
+        
+        .document-nav li {
+            margin-bottom: 5px;
+        }
+        
+        .document-nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .document-nav a:hover,
+        .document-nav a.active {
+            background: #f0f0f0;
+            border-left: 3px solid #c8102e;
+            color: #c8102e;
+        }
+        
+        .document-nav .submenu {
+            padding-left: 20px;
+            display: none;
+        }
+        
+        .document-nav .active .submenu {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .document-nav .submenu {
+                padding-left: 15px;
+            }
+        }
+    </style>
+
+    <script>
+        // Dữ liệu tài liệu mẫu (tập trung vào Toán 12)
+        const documentData = {
+            "toan12": {
+                "title": "Tóm tắt kiến thức",
+                "docs": {
+                    "toan12-chuong1": "Định nghĩa",
+                    "toan12-chuong2": "Định lí",
+                    "toan12-chuong3": "Chú ý- Ghi nhớ"
+                }
+            },
+            "ly12": {
+                "title": "Hệ thống các dạng toán",
+                "docs": {
+                    "ly12-chuong3": "Dạng toán..",
+                    "ly12-chuong1": "Phương pháp giải",
+                    "ly12-chuong2": "Ví dụ minh họa"
+                    
+                }
+            },
+            "hoa12": {
+                "title": "Bài tập vận dụng",
+                "docs": {
+                    "hoa12-chuong1": "Trắc nghiệm",
+                    "hoa12-chuong2": "Đúng sai",
+                    "hoa12-chuong3": "Trả lời ngắn",
+                    "hoa12-chuong3": "Đề ôn tập cuối bài"
+                }
+            }
+        };
+
+        // Tạo menu điều hướng tài liệu
+        function initDocumentNav() {
+            const navContainer = document.getElementById('documentNav');
+            
+            for (const [key, category] of Object.entries(documentData)) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="#" class="category-link" data-category="${key}">
+                        ${category.title} <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu" id="submenu-${key}"></ul>
+                `;
+                navContainer.appendChild(li);
+                
+                // Thêm tài liệu con
+                const submenu = document.getElementById(`submenu-${key}`);
+                for (const [docId, docTitle] of Object.entries(category.docs)) {
+                    const subLi = document.createElement('li');
+                    subLi.innerHTML = `<a href="#" data-doc="${docId}">${docTitle}</a>`;
+                    submenu.appendChild(subLi);
+                }
+            }
+            
+            // Xử lý click category
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-chevron-up');
+                    this.querySelector('i').classList.toggle('fa-chevron-down');
+                });
+            });
+            
+            // Xử lý click tài liệu
+            document.querySelectorAll('[data-doc]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const docId = this.getAttribute('data-doc');
+                    
+                    // Đánh dấu active
+                    document.querySelectorAll('[data-doc]').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Cập nhật URL (không reload trang)
+                    history.pushState(null, null, `?doc=${docId}`);
+                });
+            });
+        }
+        
+        // Khởi tạo khi trang tải xong
+        document.addEventListener('DOMContentLoaded', function() {
+            initDocumentNav();
+            
+            // Mở rộng danh mục chứa tài liệu hiện tại (nếu có)
+            const urlParams = new URLSearchParams(window.location.search);
+            const docParam = urlParams.get('doc');
+            if (docParam) {
+                const category = docParam.split('-')[0];
+                const categoryElement = document.querySelector(`[data-category="${category}"]`);
+                if (categoryElement) {
+                    categoryElement.click(); // Mở rộng danh mục
+                }
+                
+                // Đánh dấu active cho tài liệu
+                const docElement = document.querySelector(`[data-doc="${docParam}"]`);
+                if (docElement) {
+                    docElement.click();
+                }
+            }
+        });
+    </script>
+    
+    
+
+    
+    <script>
+    // Xử lý menu mobile
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+        });
+    });
+</script>
+
+    
+
+    <script>
+        // Hàm kiểm tra trắc nghiệm nhiều lựa chọn
+        function checkMultipleChoice(questionId, correctOption) {
+            // Ẩn tất cả icon trước khi kiểm tra
+            document.querySelectorAll(`#${questionId} .option-icon`).forEach(icon => {
+                icon.innerHTML = '';
+            });
+            
+            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+            if (!selectedOption) {
+                alert("Vui lòng chọn đáp án!");
+                return;
+            }
+            
+            const selectedValue = selectedOption.value;
+            const isCorrect = selectedValue === correctOption;
+            
+            // Hiển thị icon đúng/sai
+            const iconSpan = document.getElementById(`icon-${questionId}-${selectedValue}`);
+            if (iconSpan) {
+                iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+            }
+            
+            // Nếu đúng, hiển thị icon cho đáp án đúng (trường hợp chọn sai)
+            if (!isCorrect) {
+                const correctIconSpan = document.getElementById(`icon-${questionId}-${correctOption}`);
+                if (correctIconSpan) {
+                    correctIconSpan.innerHTML = '✅';
+                }
+            }
+        }
+        
+        // Hàm kiểm tra trắc nghiệm đúng/sai
+        function checkTrueFalse(questionId, correctAnswers) {
+            const parts = ['a', 'b', 'c', 'd'];
+            let allAnswered = true;
+            
+            parts.forEach((part, index) => {
+                const selectedOption = document.querySelector(`input[name="${questionId}${part}"]:checked`);
+                if (!selectedOption) {
+                    allAnswered = false;
+                    return;
+                }
+                
+                const userAnswer = selectedOption.value;
+                const isCorrect = userAnswer === correctAnswers[index];
+                
+                // Hiển thị biểu tượng đúng/sai
+                const iconSpan = document.getElementById(`icon-${questionId}${part}`);
+                if (iconSpan) {
+                    iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+                }
+            });
+            
+            if (!allAnswered) {
+                alert("Vui lòng trả lời tất cả các mệnh đề!");
+                return;
+            }
+        }
+        
+        // Hàm kiểm tra câu trả lời ngắn
+        function checkShortAnswer(inputId, correctAnswer) {
+            const inputElement = document.getElementById(inputId);
+            const userAnswer = inputElement.value.trim();
+            if (!userAnswer) {
+                alert("Vui lòng nhập đáp án!");
+                return;
+            }
+            
+            // Cho phép đáp án có nhiều cách viết
+            const normalizedUserAnswer = userAnswer.replace(/\s+/g, '');
+            const normalizedCorrectAnswer = correctAnswer.replace(/\s+/g, '');
+            
+            const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
+            
+            // Hiển thị biểu tượng đúng/sai
+            const iconSpan = document.getElementById(`icon-${inputId}`);
+            if (iconSpan) {
+                iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+            }
+        }
+        
+        // Hàm hiển thị/ẩn lời giải
+        function toggleSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            if (solution) {
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+         // Toggle solution visibility
+        document.querySelectorAll('.solution-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const solution = this.nextElementSibling;
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+                
+                if (solution.style.display === 'block') {
+                    this.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>Ẩn lời giải';
+                } else {
+                    this.innerHTML = '<i class="fas fa-eye mr-2"></i>Xem lời giải';
+                }
+            });
+        });  
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Kiểm tra tồn tại các phần tử DOM
+            const canvas = document.getElementById('drawCanvas');
+            const toolbar = document.getElementById('drawToolbar');
+            const toggleBtn = document.getElementById('toggle-draw');
+            const undoBtn = document.getElementById('undo-canvas');
+            const clearBtn = document.getElementById('clear-canvas');
+            const saveBtn = document.getElementById('save-canvas');
+            const exitBtn = document.getElementById('exit-draw');
+            const colorPicker = document.getElementById('colorPicker');
+            const toolSelect = document.getElementById('tool');
+            const widthPicker = document.getElementById('draw-width');
+
+            if (!canvas || !toolbar || !toggleBtn || !undoBtn || !clearBtn || !saveBtn || !exitBtn || !colorPicker || !toolSelect || !widthPicker) {
+                console.error('Một hoặc nhiều phần tử DOM không tìm thấy. Kiểm tra ID trong HTML.');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            let lineWidth = parseInt(widthPicker.value) || 2;
+            let isDrawing = false;
+            let isDrawMode = false;
+            let startX = 0, startY = 0;
+            let currentTool = toolSelect.value || 'pen';
+            let imageBeforeShape;
+            const history = []; // Lưu lịch sử vẽ
+            const maxHistory = 50; // Giới hạn lịch sử để tránh tràn bộ nhớ
+
+            // Resize canvas
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                if (history.length > 0) {
+                    ctx.putImageData(history[history.length - 1], 0, 0); // Vẽ lại từ lịch sử
+                }
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Toggle vẽ mode với animation
+            function toggleDrawMode() {
+                isDrawMode = !isDrawMode;
+                canvas.style.display = isDrawMode ? 'block' : 'none';
+                toolbar.style.transition = 'opacity 0.3s, transform 0.3s';
+                toolbar.style.opacity = isDrawMode ? '1' : '0';
+                toolbar.style.transform = isDrawMode ? 'translateY(0)' : 'translateY(20px)';
+                toolbar.style.display = isDrawMode ? 'flex' : 'none';
+                toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
+            }
+
+            toggleBtn.addEventListener('click', toggleDrawMode);
+            exitBtn.addEventListener('click', toggleDrawMode);
+
+            // Chọn công cụ
+            toolSelect.addEventListener('change', () => {
+                currentTool = toolSelect.value;
+            });
+
+            // Cập nhật màu và độ dày
+            colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
+            widthPicker.addEventListener('input', () => {
+                lineWidth = parseInt(widthPicker.value) || 2;
+            });
+
+            // Undo
+            undoBtn.addEventListener('click', () => {
+                history.pop(); // Xóa bước cuối
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (history.length > 0) {
+                    ctx.putImageData(history[history.length - 1], 0, 0);
+                }
+            });
+
+            // Xóa canvas
+            clearBtn.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                history.length = 0; // Xóa lịch sử
+            });
+
+            // Lưu canvas
+            saveBtn.addEventListener('click', () => {
+                try {
+                    const link = document.createElement('a');
+                    link.download = 'ban_ve.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } catch (error) {
+                    console.error('Lỗi khi lưu canvas:', error);
+                }
+            });
+
+            // Lấy vị trí chuột/cảm ứng
+            function getPos(e) {
+                if (e.touches && e.touches.length > 0) {
+                    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+                return { x: e.clientX, y: e.clientY };
+            }
+
+            // Bắt đầu vẽ
+            function startDraw(e) {
+                if (!isDrawMode) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                isDrawing = true;
+                startX = pos.x;
+                startY = pos.y;
+                if (currentTool !== 'pen') {
+                    imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                }
+            }
+
+            // Vẽ
+            function drawMove(e) {
+                if (!isDrawing || !isDrawMode) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                ctx.strokeStyle = colorPicker.value;
+                ctx.lineWidth = lineWidth;
+                ctx.lineCap = 'round';
+
+                if (currentTool === 'pen') {
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                } else {
+                    ctx.putImageData(imageBeforeShape, 0, 0);
+                    if (currentTool === 'line') {
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(pos.x, pos.y);
+                        ctx.stroke();
+                    } else if (currentTool === 'rect') {
+                        ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                    } else if (currentTool === 'circle') {
+                        const radius = Math.hypot(pos.x - startX, pos.y - startY);
+                        ctx.beginPath();
+                        ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                        ctx.stroke();
+                    } else if (currentTool === 'cube') {
+                        let size = Math.min(Math.abs(pos.x - startX), Math.abs(pos.y - startY));
+                        ctx.strokeRect(startX, startY, size, size);
+                        ctx.strokeRect(startX + 10, startY - 10, size, size);
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(startX + 10, startY - 10);
+                        ctx.moveTo(startX + size, startY);
+                        ctx.lineTo(startX + size + 10, startY - 10);
+                        ctx.moveTo(startX, startY + size);
+                        ctx.lineTo(startX + 10, startY + size - 10);
+                        ctx.moveTo(startX + size, startY + size);
+                        ctx.lineTo(startX + size + 10, startY + size - 10);
+                        ctx.stroke();
+                    } else if (currentTool === 'cone') {
+                        let radius = Math.abs(pos.x - startX);
+                        ctx.beginPath();
+                        ctx.ellipse(startX, startY + 40, radius, 10, 0, 0, Math.PI * 2);
+                        ctx.moveTo(startX - radius, startY + 40);
+                        ctx.lineTo(startX, startY - 40);
+                        ctx.lineTo(startX + radius, startY + 40);
+                        ctx.stroke();
+                    } else if (currentTool === 'cylinder') {
+                        let r = Math.abs(pos.x - startX);
+                        ctx.beginPath();
+                        ctx.ellipse(startX, startY, r, 10, 0, 0, Math.PI * 2);
+                        ctx.moveTo(startX - r, startY);
+                        ctx.lineTo(startX - r, startY + 100);
+                        ctx.moveTo(startX + r, startY);
+                        ctx.lineTo(startX + r, startY + 100);
+                        ctx.ellipse(startX, startY + 100, r, 10, 0, 0, Math.PI);
+                        ctx.stroke();
+                    } else if (currentTool === 'pyramid') {
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(startX + 60, startY);
+                        ctx.lineTo(startX + 30, startY + 60);
+                        ctx.closePath();
+                        ctx.moveTo(startX + 30, startY + 60);
+                        ctx.lineTo(startX + 30, startY - 40);
+                        ctx.stroke();
+                    } else if (currentTool === 'sphere') {
+                        let r = Math.abs(pos.x - startX);
+                        ctx.beginPath();
+                        ctx.arc(startX, startY, r, 0, Math.PI * 2);
+                        ctx.ellipse(startX, startY, r, r / 2, 0, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Kết thúc vẽ
+            function endDraw() {
+                if (!isDrawMode) return;
+                isDrawing = false;
+                if (history.length >= maxHistory) history.shift(); // Giới hạn lịch sử
+                history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); // Lưu vào lịch sử
+            }
+
+            // Thêm sự kiện
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', drawMove);
+            canvas.addEventListener('mouseup', endDraw);
+            canvas.addEventListener('touchstart', startDraw, { passive: false });
+            canvas.addEventListener('touchmove', drawMove, { passive: false });
+            canvas.addEventListener('touchend', endDraw);
+        });
+        </script>
+
+            
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none'; // Dự phòng
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+});
+</script>
+
+
+<!-- Floating button để toggle vẽ -->
+<button class="floating-button" id="toggle-draw" aria-label="Bật/tắt chế độ vẽ">🖊️ Vẽ</button>
+<!-- Canvas cho vẽ -->
+<canvas id="drawCanvas"></canvas>
+
+<!-- Toolbar công cụ vẽ -->
+<div class="toolbar" id="drawToolbar" role="toolbar" aria-label="Thanh công cụ vẽ">
+    <div class="drawing-tools">
+        <select id="tool" title="Chọn công cụ" aria-label="Chọn công cụ vẽ">
+            <option value="pen">✏️ Bút</option>
+            <option value="line">📏 Đường</option>
+            <option value="rect">⬛ Chữ nhật</option>
+            <option value="circle">⚪ Tròn</option>
+            <option value="cube">📦 Hộp</option>
+            <option value="cone">🔺 Nón</option>
+            <option value="cylinder">⬤ Trụ</option>
+            <option value="pyramid">🔻 Chóp</option>
+            <option value="sphere">⚽ Cầu</option>
+        </select>
+        <button title="Undo" id="undo-canvas">↩️</button>
+        <button title="Xóa" id="clear-canvas">🧹</button>
+        <button title="Lưu" id="save-canvas">💾</button>
+        <button title="Thoát" id="exit-draw">❌</button>
+    </div>
+    <input type="color" id="colorPicker" value="#000000" title="Chọn màu" aria-label="Chọn màu vẽ">
+    <input type="range" id="draw-width" min="1" max="20" value="2" title="Độ dày nét vẽ" aria-label="Độ dày nét vẽ">
+</div>
+>
+<!-- Nút toggle bảng xanh -->
+<button class="blackboard-toggle" id="toggle-blackboard" aria-label="Bật/tắt bảng xanh">📋</button>
+<!-- Bảng xanh -->
+<div id="blackboard" class="blackboard" role="region" aria-label="Bảng xanh">
+    <button id="close-blackboard" aria-label="Đóng bảng xanh">❌</button>
+</div>
+
+
+<script>
+// Script bảng xanh
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+    let isDraggingBoard = false;
+    let dragStartX = 0, dragStartY = 0;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none';
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+
+    blackboard.addEventListener('mousedown', (e) => {
+        if (e.target === closeBlackboard) return;
+        isDraggingBoard = true;
+        dragStartX = e.clientX - blackboard.offsetLeft;
+        dragStartY = e.clientY - blackboard.offsetTop;
+        console.log('Start dragging blackboard');
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDraggingBoard) {
+            blackboard.style.left = `${e.clientX - dragStartX}px`;
+            blackboard.style.top = `${e.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDraggingBoard = false;
+    });
+
+    blackboard.addEventListener('touchstart', (e) => {
+        if (e.target === closeBlackboard) return;
+        const touch = e.touches[0];
+        isDraggingBoard = true;
+        dragStartX = touch.clientX - blackboard.offsetLeft;
+        dragStartY = touch.clientY - blackboard.offsetTop;
+        console.log('Start touch dragging blackboard');
+        e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isDraggingBoard) {
+            const touch = e.touches[0];
+            blackboard.style.left = `${touch.clientX - dragStartX}px`;
+            blackboard.style.top = `${touch.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+        isDraggingBoard = false;
+    });
+});
+</script>
+
+
+</body>
+</html>
