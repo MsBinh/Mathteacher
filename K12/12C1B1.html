@@ -7,7 +7,7 @@
     
     <!-- Font Awesome for Icons -->
     <!-- MathJax for LaTeX Rendering -->
-        <link rel="stylesheet" href="styles4.css">
+        <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script>
         MathJax = {
@@ -40,7 +40,7 @@
                     <p>Chinh phục tri thức, dẫn đầu tương lai</p>
                 </div>
             </div>
-
+            <button id="fullscreen-btn">⛶ </button>
             <button class="hamburger-btn">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -1955,7 +1955,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+<script>
+                const btn = document.getElementById("fullscreen-btn");
+                const content = document.getElementById("content");
 
+                btn.addEventListener("click", async () => {
+                if (!document.fullscreenElement) {
+                    // Vào fullscreen
+                    await document.documentElement.requestFullscreen();
+                    document.body.classList.add("fullscreen-mode");
+                    btn.textContent = "⛶";
+                } else {
+                    // Thoát fullscreen
+                    await document.exitFullscreen();
+                    document.body.classList.remove("fullscreen-mode");
+                    btn.textContent = "⛶ ";
+                }
+             });
+
+             </script>
 
 </body>
 </html>

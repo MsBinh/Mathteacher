@@ -269,33 +269,48 @@ window._firebaseSaveAttempt = async function(testId, answersObject, score, stude
   const codeForm = document.getElementById('code-login-form');
   if (!codeForm) return;
   codeForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const code = document.getElementById('login-code')?.value?.trim() || '';
-    const nameInput = document.getElementById('student-name');
-    const name = nameInput ? nameInput.value.trim() : '';
+  e.preventDefault();
+  const code = document.getElementById('login-code')?.value?.trim() || '';
+  const nameInput = document.getElementById('student-name');
+  const name = nameInput ? nameInput.value.trim() : '';
 
-    try {
-      const codesRef = collection(db, "codes");
-      const q = query(codesRef, where("code", "==", code));
-      const snap = await getDocs(q);
+  try {
+    const codesRef = collection(db, "codes");
+    const q = query(codesRef, where("code", "==", code));
+    const snap = await getDocs(q);
 
-      if (!snap.empty) {
-        const data = snap.docs[0].data();
-        const studentNameFromDB = data.name || name || 'Học sinh';
-        localStorage.setItem('studentName', studentNameFromDB);
-        localStorage.setItem('studentCode', code);
-        window.allowShowSolution = true;
-        document.getElementById('auth-status') && (document.getElementById('auth-status').textContent = '✅ Đăng nhập thành công');
-        document.getElementById('login-modal')?.classList.add('hidden');
-      } else {
-        document.getElementById('auth-status') && (document.getElementById('auth-status').textContent = '❌ Mã không hợp lệ');
-        document.getElementById('login-modal')?.classList.remove('hidden');
+    if (!snap.empty) {
+      const codeDoc = snap.docs[0];
+      const data = codeDoc.data();
+
+      // Kiểm tra nếu mã đang active -> chặn đăng nhập thiết bị khác
+      if (data.active === true) {
+        document.getElementById('auth-status').textContent = '⚠️ Mã này đang được sử dụng trên thiết bị khác';
+        return;
       }
-    } catch(err){
-      console.error(err);
-      document.getElementById('auth-status') && (document.getElementById('auth-status').textContent = '❌ Lỗi đăng nhập: ' + err.message);
+
+      // Đánh dấu mã đang sử dụng
+      await updateDoc(doc(db, "codes", codeDoc.id), {
+        active: true,
+        lastLogin: serverTimestamp()
+      });
+
+      // Lưu thông tin vào localStorage
+      localStorage.setItem('studentName', data.name || name || 'Học sinh');
+      localStorage.setItem('studentCode', code);
+      localStorage.setItem('studentCodeDocId', codeDoc.id); // lưu docId để hủy khi thoát
+
+      window.allowShowSolution = true;
+      document.getElementById('auth-status').textContent = '✅ Đăng nhập thành công';
+      document.getElementById('login-modal')?.classList.add('hidden');
+    } else {
+      document.getElementById('auth-status').textContent = '❌ Mã không hợp lệ';
     }
-  });
+  } catch(err){
+    console.error(err);
+    document.getElementById('auth-status').textContent = '❌ Lỗi đăng nhập: ' + err.message;
+  }
+});
 
   // login-button toggle
   document.getElementById('login-button')?.addEventListener('click', (e) => {
@@ -536,4 +551,37 @@ window.showVideoSolution = showVideoSolution;
 window.toggleSolution = toggleSolution;
 // saveAttempt is already attached to window above
 
+window.addEventListener("beforeunload", async () => {
+  const docId = localStorage.getItem("studentCodeDocId");
+  if (docId) {
+    try {
+      const { getFirestore, doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js");
+      const db = getFirestore();
+      await updateDoc(doc(db, "codes", docId), { active: false });
+    } catch (err) {
+      console.warn("Không thể cập nhật trạng thái khi thoát:", err);
+    }
+  }
+  localStorage.removeItem("studentCode");
+  localStorage.removeItem("studentName");
+  localStorage.removeItem("studentCodeDocId");
+});
+
+
+const btn = document.getElementById("fullscreen-btn");
+                const content = document.getElementById("content");
+
+                btn.addEventListener("click", async () => {
+                if (!document.fullscreenElement) {
+                    // Vào fullscreen
+                    await document.documentElement.requestFullscreen();
+                    document.body.classList.add("fullscreen-mode");
+                    btn.textContent = "⛶";
+                } else {
+                    // Thoát fullscreen
+                    await document.exitFullscreen();
+                    document.body.classList.remove("fullscreen-mode");
+                    btn.textContent = "⛶ ";
+                }
+             });
 /* End of de.js */
