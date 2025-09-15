@@ -349,266 +349,286 @@ window._firebaseSaveAttempt = async function(testId, answersObject, score, stude
    Canvas vẽ & toolbar
    ------------------------ */
 
-        document.addEventListener('DOMContentLoaded', ()=>{
-            const canvas = document.getElementById('drawCanvas');
-            const toolbar = document.getElementById('drawToolbar');
-            const toggleBtn = document.getElementById('toggle-draw');
-            const undoBtn = document.getElementById('undo-canvas');
-            const clearBtn = document.getElementById('clear-canvas');
-            const saveBtn = document.getElementById('save-canvas');
-            const exitBtn = document.getElementById('exit-draw');
-            const colorPicker = document.getElementById('colorPicker');
-            const colorPreview = document.getElementById('colorPreview');
-            const toolSelect = document.getElementById('tool');
-            const widthPicker = document.getElementById('draw-width');
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('drawCanvas');
+        const toolbar = document.getElementById('drawToolbar');
+        const toggleBtn = document.getElementById('toggle-draw');
+        const undoBtn = document.getElementById('undo-canvas');
+        const clearBtn = document.getElementById('clear-canvas');
+        const saveBtn = document.getElementById('save-canvas');
+        const exitBtn = document.getElementById('exit-draw');
+        const colorPicker = document.getElementById('colorPicker');
+        const toolSelect = document.getElementById('tool');
+        const widthPicker = document.getElementById('draw-width');
 
-            if (!canvas || !toolbar || !toggleBtn) {
-                console.error("Không tìm thấy các phần tử cần thiết");
-                return;
+        if (!canvas || !toolbar || !toggleBtn || !undoBtn || !clearBtn || !saveBtn || !exitBtn || !colorPicker || !toolSelect || !widthPicker) {
+            console.error('Một hoặc nhiều phần tử DOM không tìm thấy. Kiểm tra ID trong HTML.');
+            return;
+        }
+
+        const ctx = canvas.getContext('2d');
+        let lineWidth = parseInt(widthPicker.value) || 2;
+        let isDrawing = false;
+        let isDrawMode = false;
+        let startX = 0, startY = 0;
+        let currentTool = toolSelect.value || 'pen';
+        let imageBeforeShape;
+        const history = [];
+        const maxHistory = 50;
+
+        // Lưu trữ các điểm vẽ gần nhất để làm mượt nét vẽ
+        let lastPoint = null;
+
+        // --- Cải thiện 1: Lấy vị trí chuột/cảm ứng chính xác hơn ---
+        function getCanvasPos(e) {
+            const rect = canvas.getBoundingClientRect(); // Lấy kích thước và vị trí của canvas
+            let clientX, clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
             }
 
-            const ctx = canvas.getContext('2d');
-            let lineWidth = parseInt(widthPicker.value) || 5;
-            let isDrawing = false;
-            let isDrawMode = false;
-            let startX = 0, startY = 0;
-            let currentTool = toolSelect.value;
-            let imageBeforeShape = null;
-            const history = [];
-            const maxHistory = 50;
-            let points = []; // Mảng lưu các điểm để làm mượt
-            let lastX = 0, lastY = 0; // Lưu vị trí cuối cùng
-            let requestId = null; // ID cho requestAnimationFrame
+            // Tính toán vị trí tương đối so với canvas
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
 
-            // Thiết lập màu sắc ban đầu
-            ctx.strokeStyle = colorPicker.value;
-            colorPreview.style.backgroundColor = colorPicker.value;
+        // Resize canvas
+        function resizeCanvas() {
+            // Lưu nội dung hiện tại của canvas trước khi thay đổi kích thước
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            tempCtx.drawImage(canvas, 0, 0);
 
-            // Hàm lấy tọa độ tương đối với canvas
-            function getCanvasPos(e) {
-                const rect = canvas.getBoundingClientRect();
-                let x, y;
-                
-                if (e.touches && e.touches.length) {
-                    x = e.touches[0].clientX - rect.left;
-                    y = e.touches[0].clientY - rect.top;
-                } else {
-                    x = e.clientX - rect.left;
-                    y = e.clientY - rect.top;
-                }
-                
-                // Scale tọa độ cho phù hợp với kích thước thực của canvas
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
-                
-                return {
-                    x: x * scaleX,
-                    y: y * scaleY
-                };
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Vẽ lại nội dung đã lưu
+            ctx.drawImage(tempCanvas, 0, 0);
+            
+            // Cập nhật lịch sử nếu cần thiết (ví dụ: nếu bạn muốn scale lịch sử)
+            // Hiện tại, chỉ vẽ lại nội dung cuối cùng, lịch sử sẽ bị mất tỷ lệ nếu màn hình thay đổi nhiều.
+            // Để xử lý tốt hơn, bạn cần lưu trữ các lệnh vẽ hoặc vector thay vì ImageData.
+            if (history.length > 0) {
+                // Nếu muốn giữ nguyên hình ảnh sau resize, bạn có thể redraw từ lịch sử
+                // Nhưng với ImageData, nó sẽ không scale tốt nếu tỷ lệ khung hình thay đổi.
+                // ctx.putImageData(history[history.length - 1], 0, 0); 
             }
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-            function resizeCanvas() { 
-                // Lưu hình ảnh hiện tại
-                let currentImage = null;
-                if (ctx) {
-                    currentImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                }
-                
-                // Thiết lập kích thước canvas
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                
-                // Khôi phục hình ảnh nếu có
-                if (currentImage) {
-                    ctx.putImageData(currentImage, 0, 0);
-                }
-                
-                // Thiết lập style cho canvas
-                ctx.lineJoin = 'round';
-                ctx.lineCap = 'round';
-                ctx.lineWidth = lineWidth;
+        function toggleDrawMode() {
+            isDrawMode = !isDrawMode;
+            if (isDrawMode) {
+                canvas.style.display = 'block';
+                toolbar.style.display = 'flex'; // Hiển thị trước khi animation để tránh giật
+                setTimeout(() => { // Dùng setTimeout để đảm bảo display đã được cập nhật
+                    toolbar.style.opacity = '1';
+                    toolbar.style.transform = 'translateY(0)';
+                }, 0);
+            } else {
+                toolbar.style.opacity = '0';
+                toolbar.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    toolbar.style.display = 'none';
+                    canvas.style.display = 'none';
+                }, 300); // Phù hợp với thời gian transition
             }
-            
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+            toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
+        }
 
-            function setDrawMode(on){
-                isDrawMode = !!on;
-                canvas.style.display = isDrawMode ? 'block' : 'none';
-                toolbar.style.display = isDrawMode ? 'flex' : 'none';
-                toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
-                
-                // Nếu đang vẽ, hủy animation frame
-                if (!isDrawMode && requestId) {
-                    cancelAnimationFrame(requestId);
-                    requestId = null;
-                }
+        toggleBtn.addEventListener('click', toggleDrawMode);
+        exitBtn.addEventListener('click', toggleDrawMode);
+
+        toolSelect.addEventListener('change', () => {
+            currentTool = toolSelect.value;
+        });
+
+        colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
+        widthPicker.addEventListener('input', () => {
+            lineWidth = parseInt(widthPicker.value) || 2;
+        });
+
+        undoBtn.addEventListener('click', () => {
+            history.pop();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (history.length > 0) {
+                ctx.putImageData(history[history.length - 1], 0, 0);
             }
+        });
 
-            toggleBtn.addEventListener('click', ()=> setDrawMode(!isDrawMode));
-            exitBtn.addEventListener('click', ()=> setDrawMode(false));
-            toolSelect.addEventListener('change', ()=> {
-                currentTool = toolSelect.value;
-            });
-            
-            colorPicker.addEventListener('input', ()=> {
-                ctx.strokeStyle = colorPicker.value;
-                colorPreview.style.backgroundColor = colorPicker.value;
-            });
-            
-            widthPicker.addEventListener('input', ()=> {
-                lineWidth = parseInt(widthPicker.value) || 5;
-                ctx.lineWidth = lineWidth;
-            });
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            history.length = 0;
+        });
 
-            undoBtn.addEventListener('click', ()=>{
-                if (history.length > 0) {
-                    history.pop();
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    if (history.length > 0) {
-                        ctx.putImageData(history[history.length-1], 0, 0);
-                    }
-                }
-            });
-            
-            clearBtn.addEventListener('click', ()=>{ 
-                ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                history.length = 0; 
-            });
-            
-            saveBtn.addEventListener('click', ()=>{ 
-                try { 
-                    const a = document.createElement('a'); 
-                    a.download = 'ban_ve.png'; 
-                    a.href = canvas.toDataURL('image/png'); 
-                    a.click(); 
-                } catch(e) {
-                    console.error("Lỗi khi lưu hình ảnh:", e);
-                } 
-            });
+        saveBtn.addEventListener('click', () => {
+            try {
+                const link = document.createElement('a');
+                link.download = 'ban_ve.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                console.error('Lỗi khi lưu canvas:', error);
+                alert('Không thể lưu ảnh. Có thể trình duyệt của bạn không hỗ trợ hoặc canvas quá lớn.');
+            }
+        });
 
-            // Hàm vẽ đường với làm mượt
-            function drawSmoothLine(x1, y1, x2, y2) {
+        function startDraw(e) {
+            if (!isDrawMode) return;
+            e.preventDefault(); // Ngăn hành động mặc định của trình duyệt
+            const pos = getCanvasPos(e); // Lấy vị trí chính xác trên canvas
+            isDrawing = true;
+            startX = pos.x;
+            startY = pos.y;
+            lastPoint = pos; // Khởi tạo điểm cuối cùng
+
+            if (currentTool !== 'pen') {
+                imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            } else {
                 ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
-                ctx.stroke();
+                ctx.moveTo(startX, startY);
             }
+        }
 
-            function startDraw(e){
-                if (!isDrawMode) return;
-                
-                // Ngăn các hành vi mặc định để tránh cuộn trang
-                e.preventDefault();
-                
-                const pos = getCanvasPos(e);
-                isDrawing = true;
-                startX = pos.x;
-                startY = pos.y;
-                lastX = startX;
-                lastY = startY;
-                points = [{x: startX, y: startY}];
-                
-                if (currentTool !== 'pen') {
-                    // Lưu hình ảnh trước khi vẽ hình dạng
-                    imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        function drawMove(e) {
+            if (!isDrawing || !isDrawMode) return;
+            e.preventDefault(); // Ngăn hành động mặc định của trình duyệt
+            const pos = getCanvasPos(e); // Lấy vị trí chính xác trên canvas
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round'; // Cải thiện 2: Làm mượt các góc nối
+
+            if (currentTool === 'pen') {
+                // Cải thiện 3: Làm mượt nét vẽ bằng cách vẽ đường cong
+                if (lastPoint) {
+                    // Sử dụng quadraticCurveTo để tạo đường cong mượt
+                    ctx.quadraticCurveTo(lastPoint.x, lastPoint.y, pos.x, pos.y);
                 } else {
+                    ctx.moveTo(pos.x, pos.y);
+                }
+                ctx.stroke();
+                lastPoint = pos; // Cập nhật điểm cuối cùng
+            } else {
+                ctx.putImageData(imageBeforeShape, 0, 0);
+                if (currentTool === 'line') {
                     ctx.beginPath();
                     ctx.moveTo(startX, startY);
-                }
-            }
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                } else if (currentTool === 'rect') {
+                    ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                } else if (currentTool === 'circle') {
+                    const radius = Math.hypot(pos.x - startX, pos.y - startY);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                } else if (currentTool === 'cube') {
+                    let size = Math.min(Math.abs(pos.x - startX), Math.abs(pos.y - startY));
+                    let xOffset = (pos.x - startX > 0) ? 0 : -size;
+                    let yOffset = (pos.y - startY > 0) ? 0 : -size;
 
-            function drawMove(e){
-                if (!isDrawing || !isDrawMode) return;
-                
-                // Ngăn các hành vi mặc định để tránh cuộn trang
-                e.preventDefault();
-                
-                const pos = getCanvasPos(e);
-                const currentX = pos.x;
-                const currentY = pos.y;
-                
-                // Sử dụng requestAnimationFrame để làm mượt
-                if (requestId) {
-                    cancelAnimationFrame(requestId);
-                }
-                
-                requestId = requestAnimationFrame(() => {
-                    if (currentTool === 'pen'){
-                        // Làm mượt đường vẽ bằng cách lưu các điểm và vẽ đường giữa chúng
-                        points.push({x: currentX, y: currentY});
-                        
-                        // Giới hạn số lượng điểm để tối ưu hiệu suất
-                        if (points.length > 5) {
-                            points.shift();
-                        }
-                        
-                        // Vẽ đường giữa các điểm
-                        for (let i = 1; i < points.length; i++) {
-                            drawSmoothLine(points[i-1].x, points[i-1].y, points[i].x, points[i].y);
-                        }
-                    } else {
-                        // Khôi phục hình ảnh trước đó
-                        ctx.putImageData(imageBeforeShape, 0, 0);
-                        
-                        if (currentTool === 'line'){
-                            ctx.beginPath();
-                            ctx.moveTo(startX, startY);
-                            ctx.lineTo(currentX, currentY);
-                            ctx.stroke();
-                        } else if (currentTool === 'rect'){
-                            ctx.strokeRect(startX, startY, currentX - startX, currentY - startY);
-                        } else if (currentTool === 'circle'){
-                            const radius = Math.sqrt(Math.pow(currentX - startX, 2) + Math.pow(currentY - startY, 2));
-                            ctx.beginPath();
-                            ctx.arc(startX, startY, radius, 0, Math.PI * 2);
-                            ctx.stroke();
-                        }
-                    }
+                    // Điều chỉnh để cube vẽ đúng hướng
+                    let actualStartX = startX + xOffset;
+                    let actualStartY = startY + yOffset;
                     
-                    lastX = currentX;
-                    lastY = currentY;
-                });
+                    ctx.strokeRect(actualStartX, actualStartY, size, size);
+                    ctx.strokeRect(actualStartX + size / 4, actualStartY - size / 4, size, size); // Thay 10 bằng size / 4 để scale theo kích thước
+                    ctx.beginPath();
+                    ctx.moveTo(actualStartX, actualStartY);
+                    ctx.lineTo(actualStartX + size / 4, actualStartY - size / 4);
+                    ctx.moveTo(actualStartX + size, actualStartY);
+                    ctx.lineTo(actualStartX + size + size / 4, actualStartY - size / 4);
+                    ctx.moveTo(actualStartX, actualStartY + size);
+                    ctx.lineTo(actualStartX + size / 4, actualStartY + size - size / 4);
+                    ctx.moveTo(actualStartX + size, actualStartY + size);
+                    ctx.lineTo(actualStartX + size + size / 4, actualStartY + size - size / 4);
+                    ctx.stroke();
+                } else if (currentTool === 'cone') {
+                    let radius = Math.abs(pos.x - startX);
+                    let height = Math.abs(pos.y - startY);
+                    ctx.beginPath();
+                    ctx.ellipse(startX, startY + height, radius, radius / 4, 0, 0, Math.PI * 2); // Đế elip
+                    ctx.moveTo(startX - radius, startY + height);
+                    ctx.lineTo(startX, startY); // Đỉnh nón
+                    ctx.lineTo(startX + radius, startY + height);
+                    ctx.stroke();
+                } else if (currentTool === 'cylinder') {
+                    let r = Math.abs(pos.x - startX);
+                    let h = Math.abs(pos.y - startY);
+                    ctx.beginPath();
+                    ctx.ellipse(startX, startY, r, r / 4, 0, 0, Math.PI * 2); // Nắp trên
+                    ctx.moveTo(startX - r, startY);
+                    ctx.lineTo(startX - r, startY + h);
+                    ctx.moveTo(startX + r, startY);
+                    ctx.lineTo(startX + r, startY + h);
+                    ctx.ellipse(startX, startY + h, r, r / 4, 0, 0, Math.PI); // Đáy dưới (chỉ vẽ phần nhìn thấy)
+                    ctx.stroke();
+                } else if (currentTool === 'pyramid') {
+                    let baseSize = Math.abs(pos.x - startX);
+                    let pyramidHeight = Math.abs(pos.y - startY);
+                    
+                    ctx.beginPath();
+                    // Vẽ đáy (hình vuông hoặc hình chữ nhật)
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX + baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX + baseSize / 2, startY + pyramidHeight + baseSize / 4); // Tạo độ sâu
+                    ctx.lineTo(startX - baseSize / 2, startY + pyramidHeight + baseSize / 4);
+                    ctx.closePath();
+
+                    // Vẽ các cạnh nối tới đỉnh
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX, startY); // Đỉnh
+                    ctx.moveTo(startX + baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX, startY);
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight + baseSize / 4); // Cạnh sau bên trái
+                    ctx.lineTo(startX, startY);
+                    ctx.moveTo(startX + baseSize / 2, startY + pyramidHeight + baseSize / 4); // Cạnh sau bên phải
+                    ctx.lineTo(startX, startY);
+                    ctx.stroke();
+                } else if (currentTool === 'sphere') {
+                    let r = Math.hypot(pos.x - startX, pos.y - startY);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, r, 0, Math.PI * 2); // Đường tròn lớn
+                    ctx.ellipse(startX, startY, r, r / 2, 0, 0, Math.PI * 2); // Đường tròn nhỏ (tạo ảo giác 3D)
+                    ctx.stroke();
+                }
             }
+        }
 
-            function endDraw(){
-                if (!isDrawMode) return;
-                
-                isDrawing = false;
-                
-                // Hủy animation frame nếu có
-                if (requestId) {
-                    cancelAnimationFrame(requestId);
-                    requestId = null;
-                }
-                
-                // Lưu vào lịch sử
-                if (history.length >= maxHistory) {
-                    history.shift();
-                }
-                
-                try { 
-                    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); 
-                } catch(e) {
-                    console.error("Lỗi khi lưu lịch sử:", e);
-                }
+        function endDraw() {
+            if (!isDrawMode) return;
+            isDrawing = false;
+            lastPoint = null; // Reset điểm cuối cùng khi kết thúc vẽ
+            if (history.length >= maxHistory) history.shift();
+            history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            // Cải thiện 4: Vẽ lại nét bút cuối cùng nếu nó chưa hoàn chỉnh
+            if (currentTool === 'pen' && ctx.strokeStyle !== 'transparent') { // Kiểm tra nếu bút không trong suốt
+                 // Nét bút sẽ được hoàn thành trong drawMove nhờ quadraticCurveTo
             }
+        }
 
-            // Thêm sự kiện cho chuột
-            canvas.addEventListener('mousedown', startDraw);
-            canvas.addEventListener('mousemove', drawMove);
-            canvas.addEventListener('mouseup', endDraw);
-            canvas.addEventListener('mouseout', endDraw);
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', drawMove);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseleave', endDraw); // Thêm sự kiện mouseleave
 
-            // Thêm sự kiện cho cảm ứng
-            canvas.addEventListener('touchstart', startDraw, { passive: false });
-            canvas.addEventListener('touchmove', drawMove, { passive: false });
-            canvas.addEventListener('touchend', endDraw, { passive: false });
-            
-            // Ẩn canvas và toolbar ban đầu
-            setDrawMode(false);
-        });
-   
+        canvas.addEventListener('touchstart', startDraw, { passive: false });
+        canvas.addEventListener('touchmove', drawMove, { passive: false });
+        canvas.addEventListener('touchend', endDraw);
+        canvas.addEventListener('touchcancel', endDraw); // Thêm sự kiện touchcancel
+    });
+
 
 /* ------------------------
    Blackboard (mở/đóng & drag)
