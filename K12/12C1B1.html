@@ -1602,246 +1602,308 @@
     
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('drawCanvas');
-    const toolbar = document.getElementById('drawToolbar');
-    const toggleBtn = document.getElementById('toggle-draw');
-    const undoBtn = document.getElementById('undo-canvas');
-    const clearBtn = document.getElementById('clear-canvas');
-    const saveBtn = document.getElementById('save-canvas');
-    const exitBtn = document.getElementById('exit-draw');
-    const colorPicker = document.getElementById('colorPicker');
-    const toolSelect = document.getElementById('tool');
-    const widthPicker = document.getElementById('draw-width');
+  // DOM
+  const canvas = document.getElementById('drawCanvas');
+  const toolbar = document.getElementById('drawToolbar');
+  const toggleBtn = document.getElementById('toggleDraw');
+  const clearBtn = document.getElementById('clearBtn');
+  const saveBtn = document.getElementById('saveBtn');
+  const exitBtn = document.getElementById('exitBtn');
+  const colorPicker = document.getElementById('colorPicker');
+  const toolSelect = document.getElementById('tool');
+  const widthPicker = document.getElementById('draw-width');
 
-    const ctx = canvas.getContext('2d');
-    let lineWidth = parseInt(widthPicker.value) || 2;
-    let isDrawing = false;
-    let isDrawMode = false;
-    let startNorm = null;
-    let lastNorm = null;
-    let currentTool = toolSelect.value || 'pen';
-    let imageBeforeShape;
-    const history = [];
-    const maxHistory = 50;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
 
-    // ===== Normalize helpers =====
-    function toNormalized(pos) {
-        return { x: pos.x / canvas.width, y: pos.y / canvas.height };
+  // state
+  let isDrawMode = false;
+  let isDrawing = false;
+  let currentTool = toolSelect?.value || 'pen';
+  let startNorm = null;
+  let lastNorm = null;
+  let snapshotImg = null;      // image for shape preview
+  let snapshotData = null;     // dataURL
+  const history = [];
+  const maxHistory = 50;
+
+  // make sure pointer events for stylus work and browser doesn't scroll
+  canvas.style.touchAction = 'none';
+
+  // ===== Resize: CSS size = window.innerWidth/Height, buffer = css * DPR =====
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const cssW = window.innerWidth;
+    const cssH = window.innerHeight;
+
+    // preserve current drawing as dataURL
+    let backup = null;
+    try { backup = canvas.toDataURL(); } catch (err) { backup = null; }
+
+    // set internal buffer to device pixels, and CSS to logical pixels
+    canvas.width = Math.max(1, Math.floor(cssW * dpr));
+    canvas.height = Math.max(1, Math.floor(cssH * dpr));
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+
+    // set transform so that drawing coordinates are in CSS pixels
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // restore image if any
+    if (backup) {
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, cssW, cssH);
+        ctx.drawImage(img, 0, 0, cssW, cssH);
+      };
+      img.src = backup;
+    } else {
+      ctx.clearRect(0, 0, cssW, cssH);
     }
-    function fromNormalized(norm) {
-        return { x: norm.x * canvas.width, y: norm.y * canvas.height };
+  }
+  // init + on resize
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // ===== Coordinates helpers (CSS pixels) - giống logic cũ nhưng an toàn với DPR =====
+  function getPosCSS(e) {
+    const rect = canvas.getBoundingClientRect(); // CSS box
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      w: rect.width,
+      h: rect.height
+    };
+  }
+
+  function toNormalized(posCSS) {
+    return { x: posCSS.x / posCSS.w, y: posCSS.y / posCSS.h };
+  }
+
+  function fromNormalized(norm) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: norm.x * rect.width, y: norm.y * rect.height };
+  }
+
+  // ===== UI bindings (keep your toolbar behavior) =====
+  function toggleDrawMode() {
+    isDrawMode = !isDrawMode;
+    if (isDrawMode) {
+      canvas.style.display = 'block';
+      toolbar.style.display = 'flex';
+      // ensure canvas sizes correct when opening
+      resizeCanvas();
+    } else {
+      canvas.style.display = 'none';
+      toolbar.style.display = 'none';
     }
+    if (toggleBtn) toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
+  }
+  if (toggleBtn) toggleBtn.addEventListener('click', toggleDrawMode);
+  if (exitBtn) exitBtn.addEventListener('click', toggleDrawMode);
+  if (toolSelect) toolSelect.addEventListener('change', () => currentTool = toolSelect.value);
+  if (colorPicker) colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
+  if (widthPicker) widthPicker.addEventListener('input', () => {/* width read on each stroke */});
 
-    // ===== Resize full màn hình =====
-    function resizeCanvas() {
-        const temp = document.createElement('canvas');
-        temp.width = canvas.width;
-        temp.height = canvas.height;
-        temp.getContext('2d').drawImage(canvas, 0, 0);
+  // undo/clear/save using dataURL snapshots (robust with DPR)
+  function pushHistory() {
+    try {
+      if (history.length >= maxHistory) history.shift();
+      history.push(canvas.toDataURL());
+    } catch (err) { /* ignore */ }
+  }
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    const rect = canvas.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    history.length = 0;
+  });
+  if (saveBtn) saveBtn.addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.download = 'ban_ve.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        ctx.drawImage(temp, 0, 0);
+  // undo button (if exists)
+  const undoBtn = document.getElementById('undo-canvas');
+  if (undoBtn) undoBtn.addEventListener('click', () => {
+    if (history.length === 0) {
+      const rect = canvas.getBoundingClientRect(); ctx.clearRect(0,0,rect.width, rect.height); return;
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    history.pop(); // remove current
+    const last = history[history.length - 1];
+    const rect = canvas.getBoundingClientRect();
+    if (!last) { ctx.clearRect(0,0,rect.width, rect.height); return; }
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0,0,rect.width, rect.height);
+      ctx.drawImage(img, 0, 0, rect.width, rect.height);
+    };
+    img.src = last;
+  });
 
-    // ===== Lấy tọa độ tuyệt đối (giống code cũ) =====
-    function getCanvasPos(e) {
-        let clientX, clientY;
-        if (e.touches && e.touches.length > 0) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        } else {
-            clientX = e.clientX;
-            clientY = e.clientY;
-        }
-        return { x: clientX, y: clientY };
+  // ===== smoothing helper (quadratic midpoint) =====
+  function penMoveSmooth(lastP, currP) {
+    // lastP and currP are in CSS pixels
+    const midX = (lastP.x + currP.x) / 2;
+    const midY = (lastP.y + currP.y) / 2;
+    ctx.quadraticCurveTo(lastP.x, lastP.y, midX, midY);
+    ctx.stroke();
+  }
+
+  // ===== pointer event handlers (unified for mouse/finger/pen) =====
+  function onPointerDown(e) {
+    if (!isDrawMode) return;
+    // only left-button mouse
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    canvas.setPointerCapture?.(e.pointerId);
+    e.preventDefault();
+
+    const pos = getPosCSS(e);
+    const norm = toNormalized(pos);
+
+    isDrawing = true;
+    startNorm = norm;
+    lastNorm = norm;
+
+    ctx.strokeStyle = colorPicker.value;
+    ctx.lineWidth = parseInt(widthPicker.value || 2);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (currentTool !== 'pen') {
+      // snapshot as image for preview
+      try {
+        snapshotData = canvas.toDataURL();
+        snapshotImg = new Image();
+        snapshotImg.src = snapshotData;
+      } catch (err) {
+        snapshotImg = null;
+        snapshotData = null;
+      }
+    } else {
+      const p = fromNormalized(norm);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
     }
+  }
 
-    // ===== Toggle chế độ vẽ =====
-    function toggleDrawMode() {
-        isDrawMode = !isDrawMode;
-        if (isDrawMode) {
-            canvas.style.display = 'block';
-            toolbar.style.display = 'flex';
-        } else {
-            toolbar.style.display = 'none';
-            canvas.style.display = 'none';
-        }
-        toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
-    }
-    toggleBtn.addEventListener('click', toggleDrawMode);
-    exitBtn.addEventListener('click', toggleDrawMode);
+  function onPointerMove(e) {
+    if (!isDrawing || !isDrawMode) return;
+    e.preventDefault();
+    const pos = getPosCSS(e);
+    const norm = toNormalized(pos);
+    const start = fromNormalized(startNorm);
+    const curr = fromNormalized(norm);
 
-    // ===== Event config =====
-    toolSelect.addEventListener('change', () => currentTool = toolSelect.value);
-    colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
-    widthPicker.addEventListener('input', () => lineWidth = parseInt(widthPicker.value) || 2);
-
-    undoBtn.addEventListener('click', () => {
-        history.pop();
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (history.length > 0) {
-            ctx.putImageData(history[history.length - 1], 0, 0);
-        }
-    });
-    clearBtn.addEventListener('click', () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        history.length = 0;
-    });
-    saveBtn.addEventListener('click', () => {
-        const link = document.createElement('a');
-        link.download = 'ban_ve.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-    });
-
-    // ===== Tool helpers (các hình 2D/3D) =====
-    function drawCube(start, curr) {
-        const w = curr.x - start.x;
-        const h = curr.y - start.y;
-        const d = Math.min(w, h) / 2;
-        ctx.strokeRect(start.x, start.y, w, h);
-        ctx.strokeRect(start.x + d, start.y - d, w, h);
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y); ctx.lineTo(start.x + d, start.y - d);
-        ctx.moveTo(start.x + w, start.y); ctx.lineTo(start.x + w + d, start.y - d);
-        ctx.moveTo(start.x, start.y + h); ctx.lineTo(start.x + d, start.y + h - d);
-        ctx.moveTo(start.x + w, start.y + h); ctx.lineTo(start.x + w + d, start.y + h - d);
-        ctx.stroke();
-    }
-    function drawCone(start, curr) {
-        const r = Math.abs(curr.x - start.x) / 2;
-        const cx = (start.x + curr.x) / 2;
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y);
-        ctx.lineTo(curr.x, start.y);
-        ctx.lineTo(cx, curr.y);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.ellipse(cx, start.y, r, r / 3, 0, 0, 2 * Math.PI);
-        ctx.stroke();
-    }
-    function drawCylinder(start, curr) {
-        const r = Math.abs(curr.x - start.x) / 2;
-        const cx = (start.x + curr.x) / 2;
-        ctx.beginPath();
-        ctx.ellipse(cx, start.y, r, r / 3, 0, 0, 2 * Math.PI); ctx.stroke();
-        ctx.beginPath();
-        ctx.ellipse(cx, curr.y, r, r / 3, 0, 0, 2 * Math.PI); ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y); ctx.lineTo(start.x, curr.y);
-        ctx.moveTo(curr.x, start.y); ctx.lineTo(curr.x, curr.y);
-        ctx.stroke();
-    }
-    function drawPyramid(start, curr) {
-        const cx = (start.x + curr.x) / 2;
-        ctx.beginPath();
-        ctx.moveTo(cx, start.y);
-        ctx.lineTo(start.x, curr.y);
-        ctx.lineTo(curr.x, curr.y);
-        ctx.closePath();
-        ctx.stroke();
-    }
-    function drawSphere(start, curr) {
-        const r = Math.hypot(curr.x - start.x, curr.y - start.y) / 2;
-        const cx = (start.x + curr.x) / 2;
-        const cy = (start.y + curr.y) / 2;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, r, r / 2, 0, 0, 2 * Math.PI); ctx.stroke();
-    }
-
-    // ===== Vẽ =====
-    function startDraw(e) {
-        if (!isDrawMode) return;
-        e.preventDefault();
-        const pos = getCanvasPos(e);
-        startNorm = toNormalized(pos);
-        lastNorm = startNorm;
-        isDrawing = true;
-
-        ctx.strokeStyle = colorPicker.value;
-        ctx.lineWidth = lineWidth;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-
-        if (currentTool !== 'pen') {
-            imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        } else {
-            const { x, y } = fromNormalized(startNorm);
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
-    }
-
-    function drawMove(e) {
-        if (!isDrawing || !isDrawMode) return;
-        e.preventDefault();
-        const pos = getCanvasPos(e);
-        const norm = toNormalized(pos);
-
-        const start = fromNormalized(startNorm);
-        const curr = fromNormalized(norm);
-
-        if (currentTool === 'pen') {
-            const cp = fromNormalized(norm);
-            if (lastNorm) {
-                const lp = fromNormalized(lastNorm);
-                const midX = (lp.x + cp.x) / 2;
-                const midY = (lp.y + cp.y) / 2;
-                ctx.quadraticCurveTo(lp.x, lp.y, midX, midY);
-                ctx.stroke();
-            } else {
-                ctx.moveTo(cp.x, cp.y);
-            }
-            lastNorm = norm;
-        } else {
-            ctx.putImageData(imageBeforeShape, 0, 0);
-            if (currentTool === 'line') {
-                ctx.beginPath(); ctx.moveTo(start.x, start.y);
-                ctx.lineTo(curr.x, curr.y); ctx.stroke();
-            } else if (currentTool === 'rect') {
-                ctx.strokeRect(start.x, start.y, curr.x - start.x, curr.y - start.y);
-            } else if (currentTool === 'circle') {
-                const r = Math.hypot(curr.x - start.x, curr.y - start.y);
-                ctx.beginPath(); ctx.arc(start.x, start.y, r, 0, Math.PI * 2); ctx.stroke();
-            } else if (currentTool === 'cube') {
-                drawCube(start, curr);
-            } else if (currentTool === 'cone') {
-                drawCone(start, curr);
-            } else if (currentTool === 'cylinder') {
-                drawCylinder(start, curr);
-            } else if (currentTool === 'pyramid') {
-                drawPyramid(start, curr);
-            } else if (currentTool === 'sphere') {
-                drawSphere(start, curr);
-            }
-        }
+    // pen: smooth quadratic midpoint (control = last point, end = midpoint)
+    if (currentTool === 'pen') {
+      const cp = curr;
+      const lp = fromNormalized(lastNorm);
+      // if first move after down, ensure we have a move from initial point
+      if (lp) {
+        penMoveSmooth(lp, cp);
+      } else {
+        ctx.moveTo(cp.x, cp.y);
+      }
+      lastNorm = norm;
+      return;
     }
 
-    function endDraw() {
-        if (!isDrawMode) return;
-        isDrawing = false;
-        lastNorm = null;
-        if (history.length >= maxHistory) history.shift();
-        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    // shapes preview: draw snapshot background then shape
+    const rect = canvas.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    if (snapshotImg && snapshotImg.complete) {
+      ctx.drawImage(snapshotImg, 0, 0, rect.width, rect.height);
     }
 
-    // ===== Bind events =====
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mousemove', drawMove);
-    canvas.addEventListener('mouseup', endDraw);
-    canvas.addEventListener('mouseleave', endDraw);
+    // draw current shape
+    ctx.beginPath();
+    if (currentTool === 'line') {
+      ctx.moveTo(start.x, start.y);
+      ctx.lineTo(curr.x, curr.y);
+      ctx.stroke();
+    } else if (currentTool === 'rect') {
+      ctx.strokeRect(start.x, start.y, curr.x - start.x, curr.y - start.y);
+    } else if (currentTool === 'circle') {
+      const r = Math.hypot(curr.x - start.x, curr.y - start.y);
+      ctx.beginPath();
+      ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (currentTool === 'cube') {
+      // cube-like preview
+      const w = curr.x - start.x;
+      const h = curr.y - start.y;
+      const d = Math.min(Math.abs(w), Math.abs(h)) / 2;
+      const signX = w >= 0 ? 1 : -1;
+      const signY = h >= 0 ? 1 : -1;
+      const actualStartX = start.x + (signX < 0 ? -Math.abs(w) : 0);
+      const actualStartY = start.y + (signY < 0 ? -Math.abs(h) : 0);
+      const size = Math.min(Math.abs(w), Math.abs(h));
+      ctx.strokeRect(actualStartX, actualStartY, size, size);
+      ctx.strokeRect(actualStartX + size/4, actualStartY - size/4, size, size);
+      ctx.beginPath();
+      ctx.moveTo(actualStartX, actualStartY); ctx.lineTo(actualStartX + size/4, actualStartY - size/4);
+      ctx.moveTo(actualStartX + size, actualStartY); ctx.lineTo(actualStartX + size + size/4, actualStartY - size/4);
+      ctx.moveTo(actualStartX, actualStartY + size); ctx.lineTo(actualStartX + size/4, actualStartY + size - size/4);
+      ctx.moveTo(actualStartX + size, actualStartY + size); ctx.lineTo(actualStartX + size + size/4, actualStartY + size - size/4);
+      ctx.stroke();
+    } else if (currentTool === 'cone') {
+      const cx = (start.x + curr.x) / 2;
+      const r = Math.abs(curr.x - start.x) / 2;
+      const height = Math.abs(curr.y - start.y);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+      ctx.lineTo(curr.x, start.y);
+      ctx.lineTo(cx, start.y + (curr.y - start.y));
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(cx, start.y, r, r/3, 0, 0, 2 * Math.PI); ctx.stroke();
+    } else if (currentTool === 'cylinder') {
+      const cx = (start.x + curr.x) / 2;
+      const r = Math.abs(curr.x - start.x) / 2;
+      const h = Math.abs(curr.y - start.y);
+      ctx.beginPath();
+      ctx.ellipse(cx, start.y, r, r/3, 0, 0, 2*Math.PI); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y); ctx.lineTo(start.x, start.y + h);
+      ctx.moveTo(curr.x, start.y); ctx.lineTo(curr.x, start.y + h); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx, start.y + h, r, r/3, 0, 0, Math.PI); ctx.stroke();
+    } else if (currentTool === 'pyramid') {
+      const cx = (start.x + curr.x) / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, start.y);
+      ctx.lineTo(start.x, curr.y);
+      ctx.lineTo(curr.x, curr.y);
+      ctx.closePath(); ctx.stroke();
+    } else if (currentTool === 'sphere') {
+      const cx = (start.x + curr.x) / 2;
+      const cy = (start.y + curr.y) / 2;
+      const r = Math.hypot(curr.x - start.x, curr.y - start.y) / 2;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx, cy, r, r/2, 0, 0, 2*Math.PI); ctx.stroke();
+    }
+  }
 
-    canvas.addEventListener('touchstart', startDraw, { passive: false });
-    canvas.addEventListener('touchmove', drawMove, { passive: false });
-    canvas.addEventListener('touchend', endDraw);
-    canvas.addEventListener('touchcancel', endDraw);
+  function onPointerUp(e) {
+    if (!isDrawing) return;
+    canvas.releasePointerCapture?.(e.pointerId);
+    isDrawing = false;
+    lastNorm = null;
+    // push snapshot for undo
+    try { pushHistory(); } catch (err) {}
+  }
+
+  // bind pointer events (unified)
+  canvas.addEventListener('pointerdown', onPointerDown);
+  canvas.addEventListener('pointermove', onPointerMove);
+  canvas.addEventListener('pointerup', onPointerUp);
+  canvas.addEventListener('pointercancel', onPointerUp);
+
+  // initial push of blank canvas for undo base
+  try { pushHistory(); } catch (err) {}
+
 });
 </script>
 
