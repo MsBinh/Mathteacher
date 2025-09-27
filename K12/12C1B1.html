@@ -1622,8 +1622,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let imageBeforeShape;
     const history = [];
     const maxHistory = 50;
+    let lastNorm = null;
 
-    let lastNorm = null; // điểm cuối normalize
+    // Ngăn scroll/zoom khi vẽ cảm ứng
+    canvas.style.touchAction = "none";
 
     // ===== Normalize =====
     function toNormalized(pos) {
@@ -1648,11 +1650,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // ===== Lấy toạ độ =====
+    // ===== Lấy toạ độ pointer =====
     function getScreenPos(e) {
-        if (e.touches && e.touches.length > 0) {
-            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        }
         return { x: e.clientX, y: e.clientY };
     }
 
@@ -1694,7 +1693,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.click();
     });
 
-    // ===== Tool helpers (cube, cone, cylinder, pyramid, sphere) =====
+    // ===== Tool helpers =====
     function drawCube(start, curr) {
         const w = curr.x - start.x;
         const h = curr.y - start.y;
@@ -1828,14 +1827,11 @@ document.addEventListener('DOMContentLoaded', () => {
         history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     }
 
-    // ===== Bind events =====
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mousemove', drawMove);
-    canvas.addEventListener('mouseup', endDraw);
-    canvas.addEventListener('mouseleave', endDraw);
-    canvas.addEventListener('touchstart', startDraw, { passive: false });
-    canvas.addEventListener('touchmove', drawMove, { passive: false });
-    canvas.addEventListener('touchend', endDraw);
+    // ===== Bind Pointer Events =====
+    canvas.addEventListener('pointerdown', startDraw);
+    canvas.addEventListener('pointermove', drawMove);
+    canvas.addEventListener('pointerup', endDraw);
+    canvas.addEventListener('pointercancel', endDraw);
 });
 </script>
 
