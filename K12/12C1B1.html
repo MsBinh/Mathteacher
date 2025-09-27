@@ -1605,14 +1605,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // DOM
   const canvas = document.getElementById('drawCanvas');
   const toolbar = document.getElementById('drawToolbar');
-  const toggleBtn = document.getElementById('toggleDraw');
-  const clearBtn = document.getElementById('clearBtn');
-  const saveBtn = document.getElementById('saveBtn');
-  const exitBtn = document.getElementById('exitBtn');
+  const toggleBtn = document.getElementById('toggle-draw');
+    const clearBtn = document.getElementById('clear-canvas');
+    const saveBtn = document.getElementById('save-canvas');
+    const exitBtn = document.getElementById('exit-draw');
   const colorPicker = document.getElementById('colorPicker');
   const toolSelect = document.getElementById('tool');
   const widthPicker = document.getElementById('draw-width');
 
+  
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
