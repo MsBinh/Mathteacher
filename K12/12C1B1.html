@@ -1618,16 +1618,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDrawing = false;
     let isDrawMode = false;
     let startNorm = null;
+    let lastNorm = null;
     let currentTool = toolSelect.value || 'pen';
     let imageBeforeShape;
     const history = [];
     const maxHistory = 50;
-    let lastNorm = null;
 
-    // Ngăn scroll/zoom khi vẽ cảm ứng
-    canvas.style.touchAction = "none";
-
-    // ===== Normalize =====
+    // ===== Normalize helpers =====
     function toNormalized(pos) {
         return { x: pos.x / canvas.width, y: pos.y / canvas.height };
     }
@@ -1650,9 +1647,17 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // ===== Lấy toạ độ pointer =====
-    function getScreenPos(e) {
-        return { x: e.clientX, y: e.clientY };
+    // ===== Lấy tọa độ tuyệt đối (giống code cũ) =====
+    function getCanvasPos(e) {
+        let clientX, clientY;
+        if (e.touches && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        return { x: clientX, y: clientY };
     }
 
     // ===== Toggle chế độ vẽ =====
@@ -1693,7 +1698,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.click();
     });
 
-    // ===== Tool helpers =====
+    // ===== Tool helpers (các hình 2D/3D) =====
     function drawCube(start, curr) {
         const w = curr.x - start.x;
         const h = curr.y - start.y;
@@ -1755,7 +1760,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startDraw(e) {
         if (!isDrawMode) return;
         e.preventDefault();
-        const pos = getScreenPos(e);
+        const pos = getCanvasPos(e);
         startNorm = toNormalized(pos);
         lastNorm = startNorm;
         isDrawing = true;
@@ -1777,7 +1782,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawMove(e) {
         if (!isDrawing || !isDrawMode) return;
         e.preventDefault();
-        const pos = getScreenPos(e);
+        const pos = getCanvasPos(e);
         const norm = toNormalized(pos);
 
         const start = fromNormalized(startNorm);
@@ -1827,11 +1832,16 @@ document.addEventListener('DOMContentLoaded', () => {
         history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     }
 
-    // ===== Bind Pointer Events =====
-    canvas.addEventListener('pointerdown', startDraw);
-    canvas.addEventListener('pointermove', drawMove);
-    canvas.addEventListener('pointerup', endDraw);
-    canvas.addEventListener('pointercancel', endDraw);
+    // ===== Bind events =====
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', drawMove);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseleave', endDraw);
+
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', drawMove, { passive: false });
+    canvas.addEventListener('touchend', endDraw);
+    canvas.addEventListener('touchcancel', endDraw);
 });
 </script>
 
