@@ -1623,9 +1623,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const history = [];
     const maxHistory = 50;
 
-    let lastNorm = null; // Điểm cuối cùng normalize
+    let lastNorm = null; // điểm cuối normalize
 
-    // ====== Normalize ======
+    // ===== Normalize =====
     function toNormalized(pos) {
         return { x: pos.x / canvas.width, y: pos.y / canvas.height };
     }
@@ -1633,7 +1633,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x: norm.x * canvas.width, y: norm.y * canvas.height };
     }
 
-    // ====== Resize full màn hình ======
+    // ===== Resize full màn hình =====
     function resizeCanvas() {
         const temp = document.createElement('canvas');
         temp.width = canvas.width;
@@ -1648,7 +1648,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // ====== Lấy toạ độ ======
+    // ===== Lấy toạ độ =====
     function getScreenPos(e) {
         if (e.touches && e.touches.length > 0) {
             return { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -1656,7 +1656,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x: e.clientX, y: e.clientY };
     }
 
-    // ====== Toggle chế độ vẽ ======
+    // ===== Toggle chế độ vẽ =====
     function toggleDrawMode() {
         isDrawMode = !isDrawMode;
         if (isDrawMode) {
@@ -1671,7 +1671,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBtn.addEventListener('click', toggleDrawMode);
     exitBtn.addEventListener('click', toggleDrawMode);
 
-    // ====== Event config ======
+    // ===== Event config =====
     toolSelect.addEventListener('change', () => currentTool = toolSelect.value);
     colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
     widthPicker.addEventListener('input', () => lineWidth = parseInt(widthPicker.value) || 2);
@@ -1694,7 +1694,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.click();
     });
 
-    // ====== Các hàm vẽ shape ======
+    // ===== Tool helpers (cube, cone, cylinder, pyramid, sphere) =====
     function drawCube(start, curr) {
         const w = curr.x - start.x;
         const h = curr.y - start.y;
@@ -1752,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.ellipse(cx, cy, r, r / 2, 0, 0, 2 * Math.PI); ctx.stroke();
     }
 
-    // ====== Vẽ ======
+    // ===== Vẽ =====
     function startDraw(e) {
         if (!isDrawMode) return;
         e.preventDefault();
@@ -1761,30 +1761,40 @@ document.addEventListener('DOMContentLoaded', () => {
         lastNorm = startNorm;
         isDrawing = true;
 
+        ctx.strokeStyle = colorPicker.value;
+        ctx.lineWidth = lineWidth;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
         if (currentTool !== 'pen') {
             imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
         } else {
             const { x, y } = fromNormalized(startNorm);
-            ctx.beginPath(); ctx.moveTo(x, y);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
         }
     }
+
     function drawMove(e) {
         if (!isDrawing || !isDrawMode) return;
         e.preventDefault();
         const pos = getScreenPos(e);
         const norm = toNormalized(pos);
-        ctx.strokeStyle = colorPicker.value;
-        ctx.lineWidth = lineWidth;
-        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 
         const start = fromNormalized(startNorm);
         const curr = fromNormalized(norm);
 
         if (currentTool === 'pen') {
-            const lp = fromNormalized(lastNorm);
             const cp = fromNormalized(norm);
-            ctx.quadraticCurveTo(lp.x, lp.y, cp.x, cp.y);
-            ctx.stroke();
+            if (lastNorm) {
+                const lp = fromNormalized(lastNorm);
+                const midX = (lp.x + cp.x) / 2;
+                const midY = (lp.y + cp.y) / 2;
+                ctx.quadraticCurveTo(lp.x, lp.y, midX, midY);
+                ctx.stroke();
+            } else {
+                ctx.moveTo(cp.x, cp.y);
+            }
             lastNorm = norm;
         } else {
             ctx.putImageData(imageBeforeShape, 0, 0);
@@ -1809,6 +1819,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
     function endDraw() {
         if (!isDrawMode) return;
         isDrawing = false;
@@ -1817,7 +1828,7 @@ document.addEventListener('DOMContentLoaded', () => {
         history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     }
 
-    // ====== Bind events ======
+    // ===== Bind events =====
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mousemove', drawMove);
     canvas.addEventListener('mouseup', endDraw);
