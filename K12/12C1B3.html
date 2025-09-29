@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề: ỨNG DỤNG CỦA ĐẠO HÀM</title>
+    
+    <!-- Font Awesome for Icons -->
+    <!-- MathJax for LaTeX Rendering -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                processEscapes: true
+            },
+            chtml: {
+                linebreaks: { automatic: true }
+            }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+           
+            <div class="logo">
+                <img src="logo3.jpg" alt="Logo EduCode" class="logo-img">
+                <div class="logo-text">
+                    <h1>EDUCODE</h1>
+                    <p>Chinh phục tri thức, dẫn đầu tương lai</p>
+                </div>
+            </div>
+            <button id="fullscreen-btn">⛶ </button>
+            <button class="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul class="main-menu">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                 <li>
+                        <a href="#courses">Chuyên đề 12 <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math">Đạo hàm và ứng dụng <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1.html">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2.html">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3">Tiệm cận</a></li>
+                                    <li><a href="12C1B4">Đồ thị hàm số</a></li>
+                                      </ul>
+                            </li>
+                            <li>
+                                <a href="#math">Véc tơ và hệ tọa độ KG <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3">Biểu thức tọa độ</a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> Thống kê <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1">Bài 1</a></li>
+                                    <li><a href="12C3B2">Bài 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#math">Nguyên hàm,tích phân <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1">Tích phân</a></li>
+                                    <li><a href="12C4B3">Ứng dụng </a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> PT trong KG <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1">Bài 1</a></li>
+                                    <li><a href="12C5B2">Bài 2</a></li>
+                                    <li><a href="12C5B2">Bài 3</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#chemistry"> Xác suất <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1">Bài 1</a></li>
+                                    <li><a href="12C6B2">Bài 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Trắc nghiệm <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1TN.html">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2TN">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3T">Tiệm cận</a></li>
+                                    <li><a href="12C1B4TN">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1TN">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1TN">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3TN">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1TN">Bài 1</a></li>
+                                    <li><a href="12C3B2TN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1TN">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1TN">Tích phân</a></li>
+                                    <li><a href="12C4B3TN">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1TN">Bài 1</a></li>
+                                    <li><a href="12C5B2TN">Bài 2</a></li>
+                                    <li><a href="12C5B2TN">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1TN">Bài 1</a></li>
+                                    <li><a href="12C6B2TN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Đúng sai <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1DS">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2DS">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3DS">Tiệm cận</a></li>
+                                    <li><a href="12C1B4DS">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1DS">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1DS">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3DS">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1DS">Bài 1</a></li>
+                                    <li><a href="12C3B1DS">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1DS">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1DS">Tích phân</a></li>
+                                    <li><a href="12C4B1DS">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1DS">Bài 1</a></li>
+                                    <li><a href="12C5B1DS">Bài 2</a></li>
+                                    <li><a href="12C5B1DS">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1DS">Bài 1</a></li>
+                                    <li><a href="12C5B1DS">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Trả lời ngắn <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1TLN">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2TLN">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3TLN">Tiệm cận</a></li>
+                                    <li><a href="12C1B4TLN">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1TLN">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1TLN">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3TLN">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1TLN">Bài 1</a></li>
+                                    <li><a href="12C3B2TLN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1TLN">Nguyên hàm</a></li>
+                                    <li><a href="12C4B1TLN">Tích phân</a></li>
+                                    <li><a href="12C4B3TLN">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1TLN">Bài 1</a></li>
+                                    <li><a href="12C5B2TLN">Bài 2</a></li>
+                                    <li><a href="12C5B2TLN">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1TLN">Bài 1</a></li>
+                                    <li><a href="12C6B2TLN">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                    <li>
+                        <a href="#resources">Toán thực tế <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C1B1TT.html">Biến thiên và cực trị hàm số</a></li>
+                                    <li><a href="12C1B2TT">Max - min của hàm số</a></li>
+                                    <li><a href="12C1B3TT">Tiệm cận</a></li>
+                                    <li><a href="12C1B4TT">Đồ thị hàm số</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C2B1TT">Véc tơ trong KG</a></li>
+                                    <li><a href="12C2B1TT">Hệ tọa độ trong KG</a></li>
+                                    <li><a href="12C2B3TT">Biểu thức tọa độ</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C3B1TT">Bài 1</a></li>
+                                    <li><a href="12C3B1TT">Bài 2</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C4B1TT">Nguyên hàm</a></li>
+                                    <li><a href="12C4B2TT">Tích phân</a></li>
+                                    <li><a href="12C4B3TT">Ứng dụng </a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C5B1TT">Bài 1</a></li>
+                                    <li><a href="12C5B2TT">Bài 2</a></li>
+                                    <li><a href="12C5B3TT">Bài 3</a></li>
+                                </ul>
+                            </li>
+                             <li>
+                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
+                                <ul class="nested-sub-menu">
+                                    <li><a href="12C6B1TT">Bài 1</a></li>
+                                    <li><a href="12C6B2TT">Bài 2</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                    </li>
+                   <li><a href="#" class="login-btn" id="login-button">Đăng nhập</a></li>   
+                    
+                    
+                  
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar điều hướng tài liệu -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">DANH MỤC TÀI LIỆU</div>
+                <ul class="document-nav" id="documentNav">
+                    <!-- Các mục tài liệu sẽ được thêm bằng JavaScript -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">BÀI TẬP RÈN LUYỆN</div>
+                <ul class="article-list">
+                    <li><a href="12C1B1TN.html" >Trắc nghiệm</a></li>
+                    <li><a href="12C1B1DS.html" >Đúng sai</a></li>
+                    <li><a href="12C1B1TLN.html" >Trả lời ngắn</a></li>
+                    <li><a href="12C1B1TT.html" >Thực tế</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+<!-- Nội dung soạn bài -->
+    <main class="main-content">
+    <div id="documentViewer">
+        <section class="doc-section">
+            <h2 class="article-subtitle"><i class="fas fa-book-open"></i> TÓM TẮT LÍ THUYẾT</h2>
+
+            <!-- ĐƯỜNG TIỆM CẬN ĐỨNG -->
+            <h3>ĐƯỜNG TIỆM CẬN ĐỨNG</h3>
+            <div class="definition-box">
+                <div class="definition-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="definition-content">
+                    <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                    <p>Đường thẳng <span class="math">\( x = x_0 \)</span> (<span class="math">\( x_0 \)</span> là hằng số) được gọi là một đường <strong>tiệm cận đứng</strong> (hay tiệm cận đứng) của đồ thị hàm số <span class="math">\( y = f(x) \)</span> nếu một trong bốn điều kiện sau được thỏa mãn:</p>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to x_0^+} f(x) = +\infty \)</span>;</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to x_0^+} f(x) = -\infty \)</span>;</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to x_0^-} f(x) = +\infty \)</span>;</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to x_0^-} f(x) = -\infty \)</span>.</li>
+                    </ul>
+                    <div class="image-container">
+                        <img src="data//im/71.png" alt="Hình minh họa tiệm cận đứng">
+                    </div>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Lưu ý</div>
+                </div>
+                <div class="note-content">
+                    <p>Mỗi đồ thị hàm số có thể không có tiệm cận đứng, cũng có thể có một hoặc nhiều tiệm cận đứng.</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Minh họa</div>
+                </div>
+                <div class="note-content">
+                    <p>Hình vẽ dưới đây biểu diễn đường tiệm cận đứng <span class="math">\( x=1 \)</span> của đồ thị hàm số <span class="math">\( y=\frac{2x-1}{x-1} \)</span>.</p>
+                    <div class="image-container">
+                        <img src="data//im/72.png" alt="Hình minh họa tiệm cận đứng của hàm số">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ĐƯỜNG TIỆM CẬN NGANG -->
+            <h3>ĐƯỜNG TIỆM CẬN NGANG</h3>
+            <div class="definition-box">
+                <div class="definition-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="definition-content">
+                    <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                    <p>Đường thẳng <span class="math">\( y = y_0 \)</span> (<span class="math">\( y_0 \)</span> là hằng số) được gọi là <strong>đường tiệm cận ngang</strong> (hay tiệm cận ngang) của đồ thị hàm số <span class="math">\( y=f(x) \)</span> nếu một trong hai điều kiện sau được thỏa mãn:</p>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to +\infty} f(x) = y_0 \)</span>;</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to -\infty} f(x) = y_0 \)</span>.</li>
+                    </ul>
+                    <div class="image-container">
+                        <img src="data//im/73.png" alt="Hình minh họa tiệm cận ngang">
+                    </div>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Lưu ý</div>
+                </div>
+                <div class="note-content">
+                    <p>Mỗi đồ thị hàm số có tối đa hai đường tiệm cận ngang.</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Nhận xét</div>
+                </div>
+                <div class="note-content">
+                    <p>Khi tìm tiệm cận ngang của một đồ thị hàm số dạng phân thức <span class="math">\( y=\frac{P(x)}{Q(x)} \)</span>, ta cần tính giới hạn hàm số khi <span class="math">\( x \)</span> dần về vô cùng, kết quả thu được sẽ rơi vào ba trường hợp sau:</p>
+                    <ul>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> <strong>Trường hợp 1:</strong> Nếu bậc <span class="math">\( P(x) \)</span> < bậc <span class="math">\( Q(x) \)</span> thì <span class="math">\( \lim_{x \to \pm\infty} y = \lim_{x \to \pm\infty} \frac{P(x)}{Q(x)} = 0 \)</span>. Tiệm cận ngang của đồ thị hàm số là đường thẳng <span class="math">\( y=0 \)</span> (trục Ox).</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> <strong>Trường hợp 2:</strong> Nếu bậc <span class="math">\( P(x) \)</span> = bậc <span class="math">\( Q(x) \)</span> thì <span class="math">\( \lim_{x \to \pm\infty} y = \lim_{x \to \pm\infty} \frac{P(x)}{Q(x)} = \frac{a}{b} \)</span>, trong đó a là hệ số của bậc cao nhất tử số, b là hệ số của bậc cao nhất mẫu số. Tiệm cận ngang của đồ thị hàm số là đường thẳng <span class="math">\( y = \frac{a}{b} \)</span>.</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> <strong>Trường hợp 3:</strong> Nếu bậc <span class="math">\( P(x) \)</span> > bậc <span class="math">\( Q(x) \)</span> thì <span class="math">\( \lim_{x \to \pm\infty} y = \lim_{x \to \pm\infty} \frac{P(x)}{Q(x)} = \infty \)</span> (tùy dấu <span class="math">\( +\infty \)</span> hay <span class="math">\( -\infty \)</span>). Đồ thị hàm số không có tiệm cận ngang.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Minh họa</div>
+                </div>
+                <div class="note-content">
+                    <p>Hình vẽ dưới đây biểu diễn đường tiệm cận ngang <span class="math">\( y=2 \)</span> của đồ thị hàm số <span class="math">\( y=\frac{2x-1}{x-1} \)</span>.</p>
+                    <div class="image-container">
+                        <img src="data//im/74.png" alt="Hình minh họa tiệm cận ngang của hàm số">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ĐƯỜNG TIỆM CẬN XIÊN -->
+            <h3>ĐƯỜNG TIỆM CẬN XIÊN</h3>
+            <div class="definition-box">
+                <div class="definition-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="definition-content">
+                    <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                    <p>Đường thẳng <span class="math">\( y=ax+b \)</span> (<span class="math">\( a \ne 0 \)</span>) được gọi là <strong>đường tiệm cận xiên</strong> (hay tiệm cận xiên) của đồ thị hàm số <span class="math">\( y=f(x) \)</span> nếu một trong hai điều kiện sau được thỏa mãn:</p>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to +\infty} [f(x)-(ax+b)] = 0 \)</span>;</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i><span class="math">\( \lim_{x \to -\infty} [f(x)-(ax+b)] = 0 \)</span>.</li>
+                    </ul>
+                    <div class="image-container">
+                        <img src="data//im/75.png" alt="Hình minh họa tiệm cận xiên">
+                    </div>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Nhận xét</div>
+                </div>
+                <div class="note-content">
+                    <p>Trong trường hợp tổng quát, ta có thể tìm phương trình đường tiệm cận xiên <span class="math">\( y=ax+b \)</span> của đồ thị hàm số <span class="math">\( y=f(x) \)</span> theo công thức sau:</p>
+                    <p><span class="math">\( a = \lim_{x \to +\infty} \frac{f(x)}{x} \)</span>, <span class="math">\( b = \lim_{x \to +\infty} [f(x)-ax] \)</span></p>
+                    <p>hoặc <span class="math">\( a = \lim_{x \to -\infty} \frac{f(x)}{x} \)</span>, <span class="math">\( b = \lim_{x \to -\infty} [f(x)-ax] \)</span>.</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Đặc biệt</div>
+                </div>
+                <div class="note-content">
+                    <p>Nếu <span class="math">\( a=0 \)</span> thì đồ thị hàm số không có tiệm cận xiên mà có tiệm cận ngang là <span class="math">\( y=b \)</span>.</p>
+                </div>
+            </div>
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Minh họa</div>
+                </div>
+                <div class="note-content">
+                    <p>Hình vẽ dưới đây biểu diễn đường tiệm cận xiên <span class="math">\( y=x-1 \)</span> của đồ thị hàm số <span class="math">\( y = \frac{x^2-x+1}{x} \)</span>.</p>
+                    <div class="image-container">
+                        <img src="data//im/76.png" alt="Hình minh họa tiệm cận xiên của hàm số">
+                    </div>
+                </div>
+            </div>
+            <div class="formula-box">
+                <div class="formula-header">
+                    <div class="formula-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="formula-title">MỘT SỐ GHI NHỚ</div>
+                </div>
+                <div class="formula-content">
+                    <ul>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Đồ thị hàm số <span class="math">\( y=\frac{ax+b}{cx+d} \)</span> có tiệm cận khi và chỉ khi <span class="math">\( \begin{cases} c \ne 0 \\ ad-bc \ne 0 \end{cases} \)</span>.</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nếu đồ thị hàm số <span class="math">\( y=\frac{ax+b}{cx+d} \)</span> có tiệm cận thì phương trình tiệm cận đứng là <span class="math">\( x=-\frac{d}{c} \)</span> và phương trình tiệm cận ngang là <span class="math">\( y=\frac{a}{c} \)</span>.</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nếu hàm số có dạng <span class="math">\( y=ax+b+\frac{c}{dx+e} \)</span> (<span class="math">\( acd \ne 0 \)</span>) thì đường thẳng <span class="math">\( y=ax+b \)</span> là tiệm cận xiên của đồ thị hàm số.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- VÍ DỤ MINH HỌA -->
+        <section class="doc-section">
+            <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+            <!-- Example 1 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 1: Tìm tiệm cận đứng</h3>
+                    <span class="tag">Tiệm cận đứng</span>
+                </div>
+                <div class="example-question">
+                    <p>Tìm tiệm cận đứng của các đồ thị hàm số sau:</p>
+                    <p>a) <span class="math">\( y=\frac{1}{x(x-1)} \)</span>;</p>
+                    <p>b) <span class="math">\( y=\frac{x+3}{\sqrt{x-2}} \)</span></p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <p>a) Tập xác định: <span class="math">\( D = \mathbb{R} \setminus \{0; 1\} \)</span>.</p>
+                    <p>Ta có: <span class="math">\( \lim_{x \to 0^+} y = -\infty \)</span> (tương tự: <span class="math">\( \lim_{x \to 0^-} y = +\infty \)</span>). Suy ra đường thẳng <span class="math">\( x=0 \)</span> là một tiệm cận đứng của đồ thị hàm số.</p>
+                    <p>Ta có: <span class="math">\( \lim_{x \to 1^+} y = +\infty \)</span> (tương tự: <span class="math">\( \lim_{x \to 1^-} y = -\infty \)</span>). Suy ra đường thẳng <span class="math">\( x=1 \)</span> là một tiệm cận đứng của đồ thị hàm số.</p>
+                    <p>b) Tập xác định: <span class="math">\( D = (2; +\infty) \)</span>.</p>
+                    <p>Ta có: <span class="math">\( \lim_{x \to 2^+} y = +\infty \)</span> nên <span class="math">\( x=2 \)</span> là một đường tiệm cận đứng của đồ thị hàm số.</p>
+                    <p><i>Lưu ý:</i> Khi tìm tiệm cận đứng của đồ thị hàm số, nếu giới hạn một bên của hàm số cho ta kết quả vô cùng (<span class="math">\( +\infty \)</span> hoặc <span class="math">\( -\infty \)</span>) thì ta không cần tính giới hạn bên còn lại mà vẫn kết luận về đường tiệm cận đứng của đồ thị hàm số.</p>
+                    <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đường tiệm cận đứng là <span class="math">\( x=0 \)</span> và <span class="math">\( x=1 \)</span> (đối với a); <span class="math">\( x=2 \)</span> (đối với b).</p>
+                </div>
+            </div>
+
+            <!-- Example 2 -->
+            <div class="example">
+                <div class="example-header">
+                    <h3>Ví dụ 2: Tìm tiệm cận đứng</h3>
+                    <span class="tag">Tiệm cận đứng</span>
+                </div>
+                <div class="example-question">
+                    <p>Tìm tiệm cận đứng của các đồ thị hàm số sau:</p>
+                    <p>a) <span class="math">\( y=\frac{x^2-4}{x^2-3x+2} \)</span>;</p>
+                    <p>b) <span class="math">\( y=\frac{\sqrt{2-x}}{x^2-2x-3} \)</span></p>
+                </div>
+                <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                <div class="solution">
+                    <h4>Lời giải:</h4>
+                    <p>a) Tập xác định: <span class="math">\( D = \mathbb{R} \setminus \{1; 2\} \)</span>.</p>
+                    <p>Vì <span class="math">\( y = \frac{(x+2)(x-2)}{(x-1)(x-2)} = \frac{x+2}{x-1} \)</span> và <span class="math">\( \lim_{x \to 1^+} y = +\infty \)</span> (tương tự: <span class="math">\( \lim_{x \to 1^-} y = -\infty \)</span>) nên đường thẳng <span class="math">\( x=1 \)</span> là một tiệm cận đứng của đồ thị hàm số.</p>
+                    <p>b) Hàm số xác định khi và chỉ khi <span class="math">\( \begin{cases} 2-x \ge 0 \\ x^2-2x-3 \ne 0 \end{cases} \Leftrightarrow \begin{cases} x \le 2 \\ x \ne -1 \end{cases} \)</span>.</p>
+                    <p>Vì <span class="math">\( \lim_{x \to -1^+} y = -\infty \)</span> (tương tự: <span class="math">\( \lim_{x \to -1^-} y = +\infty \)</span>) nên đường thẳng <span class="math">\( x=-1 \)</span> là một tiệm cận đứng của đồ thị hàm số.</p>
+                    <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đường tiệm cận đứng là <span class="math">\( x=1 \)</span> (đối với a); <span class="math">\( x=-1 \)</span> (đối với b).</p>
+                </div>
+            </div>
+        </section>
+        <!-- PHÂN DẠNG BÀI TẬP -->
+    <section class="doc-section">
+        <h2 class="article-subtitle"><i class="fas fa-clipboard-list"></i> PHÂN DẠNG BÀI TẬP</h2>
+
+        <!-- TÌM TIỆM CẬN CỦA ĐỒ THỊ HÀM PHÂN THỨC ĐẠI SỐ -->
+        <h3>TÌM TIỆM CẬN CỦA ĐỒ THỊ HÀM PHÂN THỨC ĐẠI SỐ</h3>
+        <div class="method-box">
+            <div class="method-header">
+                <div class="method-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="method-title">Phương pháp</div>
+            </div>
+            <div class="method-content">
+                <p><strong>Phương pháp tìm tiệm cận ngang:</strong></p>
+                <ul>
+                    <li><strong>Cách giải 1:</strong></li>
+                    <p>So sánh bậc tử và bậc mẫu của hàm phân thức hữu tỉ, ta làm như sau:</p>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Nếu bậc tử < bậc mẫu thì <span class="math">\( \lim_{x \to \pm\infty} y = 0 \)</span> nên đồ thị có tiệm cận ngang <span class="math">\( y=0 \)</span>.</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Nếu bậc tử = bậc mẫu thì <span class="math">\( \lim_{x \to \pm\infty} y = \frac{\text{Hệ số lũy thừa cao nhất của tử}}{\text{Hệ số lũy thừa cao nhất của mẫu}} = y_0 \)</span> nên đồ thị có đường tiệm cận ngang là <span class="math">\( y=y_0 \)</span>.</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Nếu bậc tử > bậc mẫu thì <span class="math">\( \lim_{x \to \pm\infty} y = \infty \)</span> nên đồ thị không có tiệm cận ngang.</li>
+                    </ul>
+                    <li><strong>Cách giải 2:</strong></li>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Tính các giới hạn hàm số tại âm, dương vô cực và kết luận về tiệm cận ngang của đồ thị hàm số.</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Có thể tham khảo thêm việc sử dụng máy tính cầm tay để tìm các <span class="math">\( \lim_{x \to \pm\infty} y \)</span> như sau: Nhập hàm số và máy và nhấn CALC <span class="math">\( \to 10^{10} \to = \)</span> (ứng với <span class="math">\( \lim_{x \to +\infty} y \)</span>) và nhấn tiếp CALC <span class="math">\( \to -10^{10} \to = \)</span> (ứng với <span class="math">\( \lim_{x \to -\infty} y \)</span>).</li>
+                    </ul>
+                </ul>
+                <p><strong>Phương pháp tìm tiệm cận đứng:</strong></p>
+                <ul class="styled-list">
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 1:</strong> Rút gọn phân thức đại số (nếu có thể).</li>
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 2:</strong> Tìm tiệm cận đứng của đồ thị bằng cách <strong>cho mẫu số bằng 0</strong> và tìm nghiệm (không cần thử lại).</li>
+                </ul>
+                <p><strong>Lưu ý:</strong></p>
+                <ul class="styled-list">
+                    <li><i class="fas fa-exclamation-circle" style="color: #f31212; margin-right: 8px;"></i> Đồ thị hàm số <span class="math">\( y=\frac{ax+b}{cx+d} \)</span> có tiệm cận khi và chỉ khi <span class="math">\( \begin{cases} c \ne 0 \\ ad-bc \ne 0 \end{cases} \)</span>.</li>
+                    <li><i class="fas fa-exclamation-circle" style="color: #f31212; margin-right: 8px;"></i> Khi hàm số <span class="math">\( y=\frac{ax+b}{cx+d} \)</span> đã thỏa mãn (*) thì đồ thị hàm số có <strong>tiệm cận ngang</strong> <span class="math">\( y=\frac{a}{c} \)</span> và <strong>tiệm cận đứng</strong> <span class="math">\( x=-\frac{d}{c} \)</span>. <strong>Tâm đối xứng</strong> của đồ thị là <span class="math">\( I(-\frac{d}{c}; \frac{a}{c}) \)</span>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 1: Tìm tiệm cận đứng và ngang</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Đồ thị hàm số <span class="math">\( y=\frac{1-3x}{x+2} \)</span> có các đường tiệm cận đứng và tiệm cận ngang lần lượt là:</p>
+                <p>A. <span class="math">\( x=-2 \)</span> và <span class="math">\( y=-3 \)</span>. &nbsp;&nbsp; B. <span class="math">\( x=-2 \)</span> và <span class="math">\( y=1 \)</span>. &nbsp;&nbsp; C. <span class="math">\( x=-2 \)</span> và <span class="math">\( y=3 \)</span>. &nbsp;&nbsp; D. <span class="math">\( x=2 \)</span> và <span class="math">\( y=1 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Tiệm cận đứng đồ thị hàm số: <span class="math">\( x = -\frac{d}{c} = \frac{-2}{1} = -2 \)</span>.</p>
+                <p>Tiệm cận ngang đồ thị hàm số: <span class="math">\( y = \frac{a}{c} = \frac{-3}{1} = -3 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án A.</p>
+            </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 2: Tìm tiệm cận và tính biểu thức</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{-3x+5}{-2x+1} \)</span> có đồ thị (C). Biết rằng (C) có các đường tiệm cận đứng là <span class="math">\( x=m \)</span> và tiệm cận ngang là <span class="math">\( y=n \)</span>. Tính biểu thức <span class="math">\( T=m^2+n^2 \)</span>.</p>
+                <p>A. <span class="math">\( \frac{13}{4} \)</span>. &nbsp;&nbsp; B. <span class="math">\( \frac{5}{4} \)</span>. &nbsp;&nbsp; C. <span class="math">\( \frac{17}{4} \)</span>. &nbsp;&nbsp; D. <span class="math">\( \frac{5}{2} \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Vậy tiệm cận đứng của đồ thị: <span class="math">\( x = -\frac{d}{c} = \frac{1}{2} \)</span>, tiệm cận ngang của đồ thị: <span class="math">\( y = \frac{a}{c} = \frac{3}{2} \)</span>.</p>
+                <p>Do đó <span class="math">\( T = m^2+n^2 = (\frac{1}{2})^2 + (\frac{3}{2})^2 = \frac{5}{2} \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D.</p>
+            </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 3: Số đường tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Số đường tiệm cận của đồ thị hàm số <span class="math">\( y=\frac{2x-1}{x^2-3x+2} \)</span> là</p>
+                <p>A. 2. &nbsp;&nbsp; B. 3. &nbsp;&nbsp; C. 1. &nbsp;&nbsp; D. 0.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Nhận xét:</strong></p>
+                <ul>
+                    <li>Hàm số phân thức trên đã được rút gọn (chuẩn thức) nên ta chỉ cần cho mẫu số bằng 0 để tìm các nghiệm <span class="math">\( x_i \)</span> (nếu có), các nghiệm này chính là các đường tiệm cận đứng của đồ thị.</li>
+                    <li>Mặt khác vì bậc tử (bậc I) bé hơn bậc mẫu (bậc II) nên đồ thị luôn có tiệm cận ngang <span class="math">\( y=0 \)</span>.</li>
+                </ul>
+                <p>Xét mẫu bằng 0, ta có: <span class="math">\( x^2-3x+2=0 \Leftrightarrow \begin{cases} x=1 \\ x=2 \end{cases} \)</span>. Tiệm cận đứng đồ thị: <span class="math">\( x=1, x=2 \)</span>.</p>
+                <p>Mặt khác: <span class="math">\( \lim_{x \to \pm\infty} y = \lim_{x \to \pm\infty} \frac{2x-1}{x^2-3x+2} = \lim_{x \to \pm\infty} \frac{x^2(\frac{2}{x}-\frac{1}{x^2})}{x^2(1-\frac{3}{x}+\frac{2}{x^2})} = \frac{0}{1} = 0 \)</span>. Tiệm cận ngang đồ thị: <span class="math">\( y=0 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án B (3 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 4: Chọn mệnh đề đúng</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{2x^2-x-6}{x^2-4} \)</span> (1). Chọn mệnh đề đúng trong các mệnh đề sau:</p>
+                <p>A. Đồ thị hàm số (1) có hai tiệm cận đứng và không có tiệm cận ngang.</p>
+                <p>B. Đồ thị hàm số (1) có hai tiệm cận đứng là <span class="math">\( x=2, x=-2 \)</span>.</p>
+                <p>C. Đồ thị hàm số (1) có tất cả ba tiệm cận.</p>
+                <p>D. Đồ thị hàm số (1) có một tiệm cận đứng và một tiệm cận ngang.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Nhận xét:</strong></p>
+                <ul>
+                    <li>Ta thấy nghiệm của mẫu <span class="math">\( \{\pm 2\} \)</span> và nghiệm của tử <span class="math">\( \{2; -\frac{3}{2}\} \)</span> có số 2 là phần tử chung nên hàm số đã cho chưa được chuẩn thức. Ta cần rút gọn trước khi tìm tiệm cận đứng.</li>
+                    <li>Bậc tử và bậc mẫu của phân thức là bằng nhau (cùng bậc II) nên tiệm cận ngang của đồ thị là <span class="math">\( y=\frac{2}{1}=2 \)</span>.</li>
+                </ul>
+                <p>Ta có: <span class="math">\( y = \frac{2x^2-x-6}{x^2-4} = \frac{(x-2)(2x+3)}{(x-2)(x+2)} = \frac{2x+3}{x+2} \)</span> nên đồ thị hàm số có tiệm cận đứng và tiệm cận ngang lần lượt là <span class="math">\( x=-2, y=2 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D.</p>
+            </div>
+        </div>
+
+        <!-- Example 5 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 5: Số tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Đồ thị hàm số <span class="math">\( y=\frac{x^2+2x-3}{(x+3)(x^3-x^2+x-1)} \)</span> có tất cả bao nhiêu tiệm cận đứng và ngang?</p>
+                <p>A. 2. &nbsp;&nbsp; B. 3. &nbsp;&nbsp; C. 4. &nbsp;&nbsp; D. 1.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Ta có: <span class="math">\( y=\frac{x^2+2x-3}{(x+3)(x^3-x^2+x-1)} = \frac{(x-1)(x+3)}{(x+3)(x-1)(x^2+1)} = \frac{1}{x^2+1} \)</span>.</p>
+                <p>Xét mẫu số bằng 0 thì <span class="math">\( x^2+1=0 \)</span> (vô nghiệm). Vậy đồ thị hàm số không có tiệm cận đứng.</p>
+                <p>Vì bậc tử bé hơn bậc mẫu nên <span class="math">\( \lim_{x \to \pm\infty} y = 0 \)</span>; suy ra tiệm cận ngang của đồ thị là <span class="math">\( y=0 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D (1 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- TÌM TIỆM CẬN CỦA ĐỒ THỊ HÀM SỐ CÓ CHỨA CĂN -->
+        <h3>TÌM TIỆM CẬN CỦA ĐỒ THỊ HÀM SỐ CÓ CHỨA CĂN</h3>
+        <div class="method-box">
+            <div class="method-header">
+                <div class="method-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="method-title">Phương pháp</div>
+            </div>
+            <div class="method-content">
+                <p><strong>Phương pháp tìm tiệm cận ngang:</strong></p>
+                <ul class="styled-list">
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Tính các giới hạn <span class="math">\( \lim_{x \to +\infty} y \)</span> và <span class="math">\( \lim_{x \to -\infty} y \)</span> để tìm tiệm cận ngang của đồ thị hàm số (nếu có).</li>
+                </ul>
+                <p><strong>Phương pháp tìm tiệm cận đứng:</strong></p>
+                <ul class="styled-list">
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 1:</strong> Cho mẫu bằng 0 và giải tìm nghiệm <span class="math">\( x_i \)</span> của mẫu (nếu có).</li>
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> <strong>Bước 2:</strong> Kiểm tra xem có nghiệm <span class="math">\( x_i \)</span> nào của mẫu có trùng với nghiệm tử hay không bằng cách thay lần lượt các nghiệm <span class="math">\( x_i \)</span> vào tử số xem tử có bằng 0 hay không.</li>
+                    <ul>
+                        <li><strong>Trường hợp 1:</strong> Không có nghiệm <span class="math">\( x_i \)</span> nào làm cho tử bằng 0.</li>
+                        <ul>
+                            <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nếu thay <span class="math">\( x_i \)</span> vào làm cho tử khác 0 thì kết luận <span class="math">\( x=x_i \)</span> là một đường tiệm cận đứng.</li>
+                            <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nếu thay <span class="math">\( x_i \)</span> vào mà tử xuất hiện MATH ERROR thì loại <span class="math">\( x=x_i \)</span>.</li>
+                        </ul>
+                        <li><strong>Trường hợp 2:</strong> Có một nghiệm <span class="math">\( x_i \)</span> nào đó làm cho tử bằng 0.</li>
+                        <ul>
+                            <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nhân lượng liên hợp cho phân thức hoặc áp dụng <span class="math">\( a-b = \frac{a^2-b^2}{a+b} \)</span>; <span class="math">\( a+b = \frac{a^2-b^2}{a-b} \)</span>.</li>
+                            <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Đưa thừa số vào căn theo công thức <span class="math">\( a\sqrt{b} = \begin{cases} \sqrt{a^2b} & \text{khi } a \ge 0 \\ -\sqrt{a^2b} & \text{khi } a < 0 \end{cases} \)</span>.</li>
+                            <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Kiểm tra lại phân thức sau khi rút gọn xem nghiệm nào trong số <span class="math">\( x_i \)</span> đã bị loại, các nghiệm còn lại của <span class="math">\( x_i \)</span> là các đường tiệm cận đứng của đồ thị.</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example 6 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 6: Tìm tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Tìm tất cả các đường tiệm cận của đồ thị hàm số <span class="math">\( y=\frac{x+3}{\sqrt{x^2+1}} \)</span>.</p>
+                <p>A. <span class="math">\( x=1 \)</span>. &nbsp;&nbsp; B. <span class="math">\( y=\pm 1 \)</span>. &nbsp;&nbsp; C. <span class="math">\( y=1 \)</span>. &nbsp;&nbsp; D. <span class="math">\( y=-1 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Cách giải 1: Phương pháp tự luận.</strong></p>
+                <p>Vì tập xác định của hàm số là <span class="math">\( \mathbb{R} \)</span> nên đồ thị hàm số không có tiệm cận đứng.</p>
+                <p>Ta có: <span class="math">\( \lim_{x \to +\infty} \frac{x+3}{\sqrt{x^2+1}} = \lim_{x \to +\infty} \frac{x(1+\frac{3}{x})}{|x|\sqrt{1+\frac{1}{x^2}}} = \lim_{x \to +\infty} \frac{1+\frac{3}{x}}{\sqrt{1+\frac{1}{x^2}}} = 1 \)</span>;</p>
+                <p><span class="math">\( \lim_{x \to -\infty} \frac{x+3}{\sqrt{x^2+1}} = \lim_{x \to -\infty} \frac{x(1+\frac{3}{x})}{|x|\sqrt{1+\frac{1}{x^2}}} = \lim_{x \to -\infty} \frac{1+\frac{3}{x}}{-\sqrt{1+\frac{1}{x^2}}} = -1 \)</span>.</p>
+                <p>Vậy đồ thị hàm số có hai đường tiệm cận ngang là <span class="math">\( y=\pm 1 \)</span>.</p>
+                <p><strong>Cách giải 2 (tham khảo thêm): Phương pháp trắc nghiệm.</strong></p>
+                <p>Nhập vào máy tính bỏ túi như sau: <span class="math">\( \frac{X+3}{\sqrt{X^2+1}} \)</span> CALC <span class="math">\( 10^{10} \)</span> (nghĩa là thay x bởi một số vô cùng lớn).</p>
+                <p>Kết quả hiển thị là [1], tức là <span class="math">\( \lim_{x \to +\infty} y = 1 \)</span>.</p>
+                <p>Tương tự, nhập: <span class="math">\( \frac{X+3}{\sqrt{X^2+1}} \)</span> CALC <span class="math">\( -10^{10} \)</span> (nghĩa là thay x bởi một số vô cùng bé).</p>
+                <p>Kết quả hiển thị -0.9999999998. Số này gần bằng -1. Ta hiểu <span class="math">\( \lim_{x \to -\infty} y = -1 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án B.</p>
+            </div>
+        </div>
+
+        <!-- Example 7 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 7: Tìm tiệm cận đứng</h3>
+                <span class="tag">Tiệm cận đứng</span>
+            </div>
+            <div class="example-question">
+                <p>Tìm tất cả các tiệm cận đứng của đồ thị hàm số <span class="math">\( y=\frac{2x-1-\sqrt{x^2+x+3}}{x^2-5x+6} \)</span>.</p>
+                <p>A. <span class="math">\( x=-3 \)</span> và <span class="math">\( x=-2 \)</span>. &nbsp;&nbsp; B. <span class="math">\( x=-3 \)</span>. &nbsp;&nbsp; C. <span class="math">\( x=3 \)</span> và <span class="math">\( x=2 \)</span>. &nbsp;&nbsp; D. <span class="math">\( x=3 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Nhận xét:</strong> Nghiệm của mẫu là <span class="math">\( x=2, x=3 \)</span>; trong đó <span class="math">\( x=2 \)</span> cùng là nghiệm của tử số (thay vào làm cho tử số bằng 0), vì vậy ta cần nhân lượng liên hợp trước khi tìm tiệm cận đứng của đồ thị.</p>
+                <p>Ta có: <span class="math">\( y = \frac{(2x-1)^2-(x^2+x+3)}{(x^2-5x+6)(2x-1+\sqrt{x^2+x+3})} = \frac{3x^2-5x-2}{(x-2)(x-3)(2x-1+\sqrt{x^2+x+3})} = \frac{(x-2)(3x+1)}{(x-2)(x-3)(2x-1+\sqrt{x^2+x+3})} = \frac{3x+1}{(x-3)(2x-1+\sqrt{x^2+x+3})} \)</span>.</p>
+                <p>Ta thấy trong hai nghiệm ban đầu <span class="math">\( x=2, x=3 \)</span> thì nghiệm <span class="math">\( x=2 \)</span> bị loại (đã bị rút gọn-không là tiệm cận đứng đồ thị), nên đồ thị chỉ còn tiệm cận đứng <span class="math">\( x=3 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D.</p>
+            </div>
+        </div>
+
+        <!-- Example 8 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 8: Tổng số tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Tổng số tiệm cận của đồ thị hàm số <span class="math">\( y=\frac{\sqrt{2x+1}-2}{x^2+x} \)</span> là</p>
+                <p>A. 3. &nbsp;&nbsp; B. 0. &nbsp;&nbsp; C. 1. &nbsp;&nbsp; D. 2.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Nhận xét:</strong> Trong hầu hết bài toán, ta nên tìm tiệm cận ngang của đồ thị trước tiệm cận đứng vì việc tìm tiệm cận ngang đơn giản hơn.</p>
+                <ul>
+                    <li><strong>Tìm tiệm cận ngang:</strong></li>
+                    <p>Bậc của tử là bậc của <span class="math">\( \sqrt{x} \)</span>, tức là bậc <span class="math">\( \frac{1}{2} \)</span>; bậc của mẫu là bậc 2. Vì bậc tử nhỏ hơn bậc mẫu và hàm số tồn tại giới hạn dương vô cực nên đồ thị luôn có tiệm cận ngang <span class="math">\( y=0 \)</span>.</p>
+                    <li><strong>Tìm tiệm cận đứng:</strong></li>
+                    <p>Xét mẫu bằng 0 <span class="math">\( \Rightarrow x^2+x=0 \Rightarrow \begin{cases} x=0 \\ x=-1 \end{cases} \)</span>.</p>
+                    <p><strong>Nhận xét:</strong> Không có nghiệm nào trùng nghiệm tử (thay vào tử để biết) nên ta không nhân lượng liên hợp.</p>
+                    <ul>
+                        <li>Thay <span class="math">\( x=0 \)</span> vào tử, ta có <span class="math">\( (\sqrt{2x+1}-2)|_{x=0} = -1 \ne 0 \)</span> nên <span class="math">\( x=0 \)</span> là tiệm cận đứng của đồ thị.</li>
+                        <li>Thay <span class="math">\( x=-1 \)</span> vào tử, ta được MATH ERROR nên <span class="math">\( x=-1 \)</span> không là tiệm cận đứng của đồ thị.</li>
+                    </ul>
+                </ul>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D (2 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- Example 9 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 9: Số đường tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Đồ thị hàm số <span class="math">\( y=\frac{5x+1-\sqrt{x+1}}{x^2-2x} \)</span> có tất cả bao nhiêu đường tiệm cận?</p>
+                <p>A. 0. &nbsp;&nbsp; B. 1. &nbsp;&nbsp; C. 2. &nbsp;&nbsp; D. 3.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Bậc tử là bậc 1 (bậc của 5x), bé hơn bậc mẫu (bậc 2) nên đồ thị hàm số có tiệm cận ngang <span class="math">\( y=0 \)</span>.</p>
+                <p>Vì nghiệm của mẫu là <span class="math">\( \{0;2\} \)</span> trong đó <span class="math">\( x=0 \)</span> cũng là nghiệm của tử nên ta cần nhân liên hợp cho hàm số. Ta được: <span class="math">\( y = \frac{(5x+1)^2-(x+1)}{(x^2-2x)(5x+1+\sqrt{x+1})} = \frac{25x^2+9x}{x(x-2)(5x+1+\sqrt{x+1})} = \frac{25x+9}{(x-2)(5x+1+\sqrt{x+1})} \)</span>.</p>
+                <p>Ta thấy chỉ còn <span class="math">\( x=2 \)</span> thỏa mãn là tiệm cận đứng của đồ thị hàm số.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án C (2 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- Example 10 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 10: Số đường tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Tìm số đường tiệm cận của đồ thị hàm số <span class="math">\( y=\frac{x-1}{4\sqrt{3x+1}-3x-5} \)</span>.</p>
+                <p>A. 2. &nbsp;&nbsp; B. 3. &nbsp;&nbsp; C. 1. &nbsp;&nbsp; D. 0.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Ta có: <span class="math">\( \lim_{x \to +\infty} \frac{x-1}{4\sqrt{3x+1}-3x-5} = \lim_{x \to +\infty} \frac{1-\frac{1}{x}}{4\sqrt{\frac{3}{x}+\frac{1}{x^2}}-3-\frac{5}{x}} = -\frac{1}{3} \)</span>; do đó <span class="math">\( y=-\frac{1}{3} \)</span> là tiệm cận ngang của đồ thị hàm số.</p>
+                <p>Xét mẫu bằng 0 thì <span class="math">\( 4\sqrt{3x+1}=3x+5 \Rightarrow \begin{cases} 3x+5 \ge 0 \\ 16(3x+1)=9x^2+30x+25 \end{cases} \Rightarrow x=1 \)</span> (trùng nghiệm tử).</p>
+                <p>Ta cần nhân liên hợp cho hàm số: <span class="math">\( y=\frac{(x-1)(4\sqrt{3x+1}+3x+5)}{16(3x+1)-(3x+5)^2} = \frac{(x-1)(4\sqrt{3x+1}+3x+5)}{-9x^2+18x-9} = \frac{4\sqrt{3x+1}+3x+5}{-9(x-1)} \)</span>.</p>
+                <p>Dễ thấy <span class="math">\( x=1 \)</span> là tiệm cận đứng duy nhất của đồ thị hàm số. Vậy đồ thị hàm số có 2 đường tiệm cận.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án A.</p>
+            </div>
+        </div>
+
+        <!-- TÌM TIỆM CẬN CỦA ĐỒ THỊ SỐ DỰA VÀO BẢNG BIẾN THIÊN -->
+        <h3>TÌM TIỆM CẬN CỦA ĐỒ THỊ SỐ DỰA VÀO BẢNG BIẾN THIÊN</h3>
+        <div class="method-box">
+            <div class="method-header">
+                <div class="method-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="method-title">Phương pháp</div>
+            </div>
+            <div class="method-content">
+                <ul class="styled-list">
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Theo bảng biến thiên, nếu có <span class="math">\( \begin{cases} x \to \text{hằng số} \\ y \to \infty \end{cases} \)</span> (*) thì đồ thị có tiệm cận đứng <span class="math">\( x=\text{hằng số} \)</span>.</li>
+                    <p>(<i>Lưu ý nếu giới hạn một bên tại <span class="math">\( x_0 \)</span> thỏa (*) thì ta không cần xét giới hạn bên còn lại</i>).</p>
+                    <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Theo bảng biến thiên, nếu có <span class="math">\( \begin{cases} x \to \infty \\ y \to \text{hằng số} \end{cases} \)</span> thì đồ thị có tiệm cận ngang <span class="math">\( y=\text{hằng số} \)</span>.</li>
+                    <p>(<i>Lưu ý khi tìm tiệm cận ngang của đồ thị, ta luôn xét đủ cả hai giới hạn khi x tiến về âm, dương vô cực</i>).</p>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example 11 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 11: Tổng số tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số có bảng biến thiên như hình sau</p>
+                <div class="image-container">
+                    <img src="data//im/77.png" alt="Bảng biến thiên">
+                </div>
+                <p>Tổng số đường tiệm cận ngang và tiệm cận đứng của đồ thị hàm số <span class="math">\( y=f(x) \)</span> là</p>
+                <p>A. 3. &nbsp;&nbsp; B. 2. &nbsp;&nbsp; C. 4. &nbsp;&nbsp; D. 1.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Ta có: <span class="math">\( \begin{cases} x \to -\infty \\ y \to -4 \end{cases} \)</span> và <span class="math">\( \begin{cases} x \to +\infty \\ y \to -1 \end{cases} \)</span> nên đồ thị có hai đường tiệm cận ngang <span class="math">\( y=-4; y=-1 \)</span>.</p>
+                <p><span class="math">\( \begin{cases} x \to -1^+ \\ y \to +\infty \end{cases} \)</span> nên đồ thị có tiệm cận đứng <span class="math">\( x=-1 \)</span> (lúc này không cần xét giới hạn khi <span class="math">\( x \to -1^- \)</span> nữa);</p>
+                <p><span class="math">\( \begin{cases} x \to 1^- \\ y \to -\infty \end{cases} \)</span> nên đồ thị có tiệm cận đứng <span class="math">\( x=1 \)</span> (lúc này không cần xét giới hạn khi <span class="math">\( x \to 1^+ \)</span> nữa). Do đó đồ thị hàm số có hai đường tiệm cận đứng <span class="math">\( x=1; x=-1 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án C (4 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- Example 12 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 12: Tổng số tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=f(x) \)</span> có bảng biến thiên như sau</p>
+                <div class="image-container">
+                    <img src="data//im/78.png" alt="Bảng biến thiên">
+                </div>
+                <p>Tổng số đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đã cho bằng</p>
+                <p>A. 2. &nbsp;&nbsp; B. 1. &nbsp;&nbsp; C. 0. &nbsp;&nbsp; D. 3.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Ta có: <span class="math">\( \begin{cases} x \to -\infty \\ y \to +\infty \end{cases} \)</span> (not) và <span class="math">\( \begin{cases} x \to +\infty \\ y \to 0 \end{cases} \)</span> nên đồ thị có một đường tiệm cận ngang <span class="math">\( y=0 \)</span>.</p>
+                <p>Mặt khác: <span class="math">\( \begin{cases} x \to -2^+ \\ y \to -\infty \end{cases} \)</span> và <span class="math">\( \begin{cases} x \to 0^- \\ y \to +\infty \end{cases} \)</span> nên <span class="math">\( x=-2; x=0 \)</span> là hai đường tiệm cận đứng của đồ thị.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D (3 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- Example 13 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 13: Tổng số tiệm cận</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=f(x) \)</span> xác định, liên tục trên <span class="math">\( \mathbb{R} \)</span> và có bảng biến thiên như hình bên dưới:</p>
+                <div class="image-container">
+                    <img src="data//im/79.png" alt="Bảng biến thiên">
+                </div>
+                <p>Tổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số <span class="math">\( y=\frac{1}{2f(x)-1} \)</span> là:</p>
+                <p>A. 4. &nbsp;&nbsp; B. 3. &nbsp;&nbsp; C. 1. &nbsp;&nbsp; D. 2.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Khi <span class="math">\( x \to +\infty \)</span> thì <span class="math">\( f(x) \to +\infty \)</span>; suy ra <span class="math">\( y=\frac{1}{2f(x)-1} \to 0 \)</span> (do mẫu tiến về vô cùng), hay <span class="math">\( \lim_{x \to +\infty} y=0 \)</span> nên đồ thị hàm số có tiệm cận ngang <span class="math">\( y=0 \)</span>.</p>
+                <p>Khi <span class="math">\( x \to -\infty \)</span> thì <span class="math">\( f(x) \to -\infty \)</span>; suy ra <span class="math">\( y=\frac{1}{2f(x)-1} \to 0 \)</span> (do mẫu tiến về vô cùng), hay <span class="math">\( \lim_{x \to -\infty} y=0 \)</span> (đã kết luận).</p>
+                <p>Xét mẫu bằng 0 thì <span class="math">\( 2f(x)-1=0 \Rightarrow f(x)=\frac{1}{2} \Rightarrow x=a \lor x=b \lor x=c \)</span> (a, b, c phân biệt).</p>
+                <p>Vậy đồ thị hàm số có ba đường tiệm cận đứng và một đường tiệm cận ngang.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án A (4 tiệm cận).</p>
+            </div>
+        </div>
+
+        <!-- TIỆM CẬN CỦA ĐỒ THỊ HÀM CÓ CHỨA THAM SỐ -->
+        <h3>TIỆM CẬN CỦA ĐỒ THỊ HÀM CÓ CHỨA THAM SỐ</h3>
+
+        <!-- Example 14 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 14: Tìm tham số m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{(m^2+m-3)x+m-3}{mx+1} \)</span> biết đồ thị hàm số này có tiệm cận ngang đi qua điểm A(2025;-1). Tìm tất cả tham số m nguyên thỏa mãn điều kiện trên.</p>
+                <p>A. <span class="math">\( m=1 \)</span>. &nbsp;&nbsp; B. <span class="math">\( \begin{cases} m=2 \\ m=3 \end{cases} \)</span>. &nbsp;&nbsp; C. <span class="math">\( \begin{cases} m=1 \\ m=-3 \end{cases} \)</span>. &nbsp;&nbsp; D. <span class="math">\( m=2 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Cần nhớ, điều kiện để đồ thị hàm số <span class="math">\( y=\frac{ax+b}{cx+d} \)</span> có tiệm cận là <span class="math">\( \begin{cases} c \ne 0 \\ ad \ne bc \end{cases} \)</span>.</p>
+                <p>Áp dụng vào hàm số trên, ta có điều kiện: <span class="math">\( \begin{cases} m \ne 0 \\ m^2+m-3 \ne m(m-3) \end{cases} \Leftrightarrow \begin{cases} m \ne 0 \\ 4m \ne 3 \end{cases} \Leftrightarrow \begin{cases} m \ne 0 \\ m \ne \frac{3}{4} \end{cases} \)</span>.</p>
+                <p>Phương trình tiệm cận ngang của đồ thị: <span class="math">\( y=\frac{a}{c}=\frac{m^2+m-3}{m} \)</span>. Đường thẳng này đi qua A(2025,-1) nên <span class="math">\( \frac{m^2+m-3}{m}=-1 \Leftrightarrow m^2+2m-3=0 \Leftrightarrow \begin{cases} m=1 \\ m=-3 \end{cases} \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án C.</p>
+            </div>
+        </div>
+
+        <!-- Example 15 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 15: Tìm giá trị m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Với giá trị nào của m thì đồ thị (C): <span class="math">\( y=\frac{mx-1}{2x+m} \)</span> có tiệm cận đứng qua điểm <span class="math">\( M(-1;\sqrt{2}) \)</span>?</p>
+                <p>A. <span class="math">\( m=0 \)</span>. &nbsp;&nbsp; B. <span class="math">\( m=2 \)</span>. &nbsp;&nbsp; C. <span class="math">\( m=\frac{1}{2} \)</span>. &nbsp;&nbsp; D. <span class="math">\( m=\frac{\sqrt{2}}{2} \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Đ đồ thị hàm số đã cho có tiệm cận khi và chỉ khi <span class="math">\( \begin{cases} c=2 \ne 0 \\ ad-bc=m^2+2 > 0 \end{cases} \)</span> (đúng <span class="math">\( \forall m \in \mathbb{R} \)</span>).</p>
+                <p>Tiệm cận đứng của đồ thị: <span class="math">\( x = -\frac{m}{2} \)</span>. Đường thẳng này qua <span class="math">\( M(-1;\sqrt{2}) \)</span> suy ra <span class="math">\( -\frac{m}{2}=-1 \Leftrightarrow m=2 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án B.</p>
+            </div>
+        </div>
+
+        <!-- Example 16 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 16: Tìm giá trị m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Tìm tất cả giá trị của m để đồ thị hàm số <span class="math">\( y=\frac{x-m}{mx-1} \)</span> không có tiệm cận đứng.</p>
+                <p>A. <span class="math">\( m=1 \)</span>. &nbsp;&nbsp; B. <span class="math">\( m=-1 \)</span>. &nbsp;&nbsp; C. <span class="math">\( m=\pm 1 \)</span>. &nbsp;&nbsp; D. <span class="math">\( m=0; m=\pm 1 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Xét <span class="math">\( m=0 \)</span>. Hàm số trở thành <span class="math">\( y=-x \)</span> nên đồ thị không có đường tiệm cận đứng.</p>
+                <p>Xét <span class="math">\( m \ne 0 \)</span>. Khi đó đồ thị hàm số không có đường tiệm cận đứng <span class="math">\( \Leftrightarrow ad-bc=0 \Leftrightarrow -1+m^2=0 \Leftrightarrow m=\pm 1 \)</span>.</p>
+                <p>Vậy giá trị của m cần tìm là <span class="math">\( m=0; m=\pm 1 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D.</p>
+            </div>
+        </div>
+
+        <!-- Example 17 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 17: Tìm giá trị m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{x-1}{x^2-mx-2} \)</span>. Giá trị của m để đồ thị hàm số có 2 đường tiệm cận đứng là:</p>
+                <p>A. <span class="math">\( m \ne -1 \)</span>. &nbsp;&nbsp; B. <span class="math">\( m=-1 \)</span>. &nbsp;&nbsp; C. <span class="math">\( m \in \mathbb{R} \)</span>. &nbsp;&nbsp; D. <span class="math">\( m \ne 1 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Để đồ thị hàm số <span class="math">\( y=\frac{x-1}{x^2-mx-2} \)</span> có 2 đường tiệm cận đứng thì <span class="math">\( g(x)=x^2-mx-2=0 \)</span> có hai nghiệm phân biệt khác 1 <span class="math">\( \Leftrightarrow \begin{cases} \Delta_g=m^2+8 > 0 \\ g(1)=1-m-2 \ne 0 \end{cases} \Leftrightarrow m \ne -1 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án A.</p>
+            </div>
+        </div>
+
+        <!-- Example 18 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 18: Tìm giá trị m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{mx-1}{x^2-3x} \)</span> (1). Tìm tất cả giá trị của m để đồ thị hàm số (1) có hai tiệm cận đứng.</p>
+                <p>A. <span class="math">\( m \in \mathbb{R} \)</span>. &nbsp;&nbsp; B. <span class="math">\( m \ne 3 \)</span>. &nbsp;&nbsp; C. <span class="math">\( m \ne \frac{1}{3} \)</span>. &nbsp;&nbsp; D. <span class="math">\( m=3 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Xét mẫu bằng 0 thì <span class="math">\( x^2-3x=0 \Rightarrow x=0 \lor x=3 \)</span>.</p>
+                <p>Để đồ thị hàm số <span class="math">\( y=\frac{mx-1}{x^2-3x} \)</span> có hai đường tiệm cận đứng thì phương trình: <span class="math">\( mx-1=0 \)</span> không nhận <span class="math">\( x=0 \)</span> và <span class="math">\( x=3 \)</span> là nghiệm <span class="math">\( \Leftrightarrow \begin{cases} m.0-1 \ne 0 \\ m.3-1 \ne 0 \end{cases} \Leftrightarrow m \ne \frac{1}{3} \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án C.</p>
+            </div>
+        </div>
+
+        <!-- Example 19 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 19: Số giá trị m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{x-2}{mx^2-2x+4} \)</span>. Có tất cả bao nhiêu giá trị của tham số m để đồ thị hàm số có đúng hai đường tiệm cận (tiệm cận đứng và tiệm cận ngang)?</p>
+                <p>A. 0. &nbsp;&nbsp; B. 2. &nbsp;&nbsp; C. 3. &nbsp;&nbsp; D. 1.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Với <span class="math">\( m=0 \)</span> thì hàm số trở thành <span class="math">\( y=\frac{x-2}{-2x+4}=-\frac{1}{2} \)</span> (không thỏa mãn).</p>
+                <p>Với <span class="math">\( m \ne 0 \)</span> thì <span class="math">\( \lim_{x \to \pm\infty} \frac{x-2}{mx^2-2x+4} = 0 \Rightarrow y=0 \)</span> là tiệm cận ngang của đồ thị hàm số.</p>
+                <p>Do đó ta cần tìm m để đồ thị hàm số có đúng một tiệm cận đứng. Khi đó <span class="math">\( mx^2-2x+4=0 \)</span> có nghiệm duy nhất hoặc <span class="math">\( mx^2-2x+4=0 \)</span> có hai nghiệm phân biệt trong đó có một nghiệm <span class="math">\( x=2 \)</span>.</p>
+                <ul>
+                    <li><span class="math">\( mx^2-2x+4=0 \)</span> có nghiệm duy nhất <span class="math">\( \Leftrightarrow \Delta'=0 \Leftrightarrow 1-4m=0 \Leftrightarrow m=\frac{1}{4} \)</span>.</li>
+                    <li><span class="math">\( mx^2-2x+4=0 \)</span> có hai nghiệm phân biệt trong đó có một nghiệm <span class="math">\( x=2 \)</span>.</li>
+                    <p><span class="math">\( \begin{cases} \Delta' > 0 \\ m.2^2-2.2+4=0 \end{cases} \Leftrightarrow \begin{cases} m < \frac{1}{4} \\ m=0 \end{cases} \Rightarrow m=0 \)</span>. Vậy có hai giá trị của m thỏa mãn đề bài.</p>
+                </ul>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án B.</p>
+            </div>
+        </div>
+
+        <!-- Example 20 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 20: Tìm tham số m</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Tìm tất cả tham số m để đồ thị hàm số <span class="math">\( y=\frac{x+1}{\sqrt{mx^2+1}} \)</span> có hai tiệm cận ngang.</p>
+                <p>A. Không có m thỏa mãn. &nbsp;&nbsp; B. <span class="math">\( m < 0 \)</span>. &nbsp;&nbsp; C. <span class="math">\( m=0 \)</span>. &nbsp;&nbsp; D. <span class="math">\( m>0 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Điều kiện xác định: <span class="math">\( mx^2+1 \ge 0 \)</span>. (*)</p>
+                <p>Nếu <span class="math">\( m=0 \)</span> thì hàm số trở thành <span class="math">\( y=x+1 \)</span>, đồ thị hàm này không có tiệm cận ngang.</p>
+                <p>Nếu <span class="math">\( m<0 \)</span> thì <span class="math"> 
+                <p>Nếu <span class="math">\( m<0 \)</span> thì <span class="math">\( \lim_{x \to \pm\infty} y \)</span> không tồn tại (do điều kiện (*) không được thỏa mãn).</p>
+                <p>Nếu <span class="math">\( m>0 \)</span> thì: <span class="math">\( \lim_{x \to +\infty} y = \lim_{x \to +\infty} \frac{x(1+\frac{1}{x})}{x\sqrt{m+\frac{1}{x^2}}} = \frac{1}{\sqrt{m}} \)</span>; <span class="math">\( \lim_{x \to -\infty} y = \lim_{x \to -\infty} \frac{x(1+\frac{1}{x})}{-x\sqrt{m+\frac{1}{x^2}}} = -\frac{1}{\sqrt{m}} \)</span>.</p>
+                <p>Điều này đồng nghĩa việc đồ thị hàm số có hai đường tiệm cận ngang là <span class="math">\( y=\pm\frac{1}{\sqrt{m}} \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D.</p>
+            </div>
+        </div>
+
+        <!-- TIỆM CẬN ĐỒ THỊ VÀ CÁC YẾU TỐ HÌNH HỌC -->
+        <h3>TIỆM CẬN ĐỒ THỊ VÀ CÁC YẾU TỐ HÌNH HỌC</h3>
+
+        <!-- Example 21 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 21: Tính khoảng cách và diện tích</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{2x^2-x}{x-1} \)</span> có đồ thị (C).</p>
+                <p>a) Tính khoảng cách từ M(2;1) đến đường tiệm cận đứng của đồ thị hàm số (C).</p>
+                <p>b) Đường tiệm cận xiên của đồ thị hàm số (C) cắt hai trục tọa độ lần lượt tại hai điểm A, B. Tính diện tích của tam giác OAB đó.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Đồ thị (C) có đường tiệm cận đứng: <span class="math">\( d_1: x-1=0 \)</span>.</p>
+                <p>Ta có: <span class="math">\( d(M, d_1) = \frac{|2-1|}{\sqrt{1^2}} = 1 \)</span>.</p>
+                <p>b) Ta có <span class="math">\( y = \frac{2x^2-x}{x-1} = 2x+1+\frac{1}{x-1} \)</span> và <span class="math">\( \lim_{x \to \pm\infty} [y-(2x+1)] = \lim_{x \to \pm\infty} \frac{1}{x-1} = 0 \)</span> nên đồ thị hàm số (C) có tiệm cận xiên là <span class="math">\( y=2x+1 \)</span> (<span class="math">\( d_2 \)</span>).</p>
+                <p>Tiệm cận xiên cắt Ox tại <span class="math">\( A(-\frac{1}{2};0) \)</span>, cắt trục Oy tại <span class="math">\( B(0;1) \)</span> nên <span class="math">\( S_{OAB} = \frac{1}{2}OA.OB = \frac{1}{2}|-\frac{1}{2}|.|1|=\frac{1}{4} \)</span>.</p>
+            </div>
+        </div>
+
+        <!-- Example 22 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 22: Số điểm thỏa mãn</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{2x+2}{2x-3} \)</span> có đồ thị (C). Có bao nhiêu điểm M thuộc (C) sao cho khoảng cách từ điểm M đến đường tiệm cận ngang bằng 10 lần khoảng cách từ điểm M đến đường tiệm cận đứng.</p>
+                <p>A. 1. &nbsp;&nbsp; B. 2. &nbsp;&nbsp; C. 3. &nbsp;&nbsp; D. 4.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Ta có các đường thẳng <span class="math">\( x=\frac{3}{2} \)</span> và <span class="math">\( y=1 \)</span> lần lượt là đường tiệm cận đứng và đường tiệm cận ngang của đồ thị hàm số.</p>
+                <p>Gọi <span class="math">\( M(x; \frac{2x+2}{2x-3}) \in (C) \)</span> với <span class="math">\( x \ne \frac{3}{2} \)</span>.</p>
+                <p>Khoảng cách từ điểm M đến đường tiệm cận đứng bằng <span class="math">\( |x-\frac{3}{2}|=\frac{|2x-3|}{2} \)</span>.</p>
+                <p>Khoảng cách từ điểm M đến đường tiệm cận ngang bằng <span class="math">\( |\frac{2x+2}{2x-3}-1|=\frac{5}{|2x-3|} \)</span>.</p>
+                <p>Khi đó: <span class="math">\( \frac{5}{|2x-3|}=10.\frac{|2x-3|}{2} \Leftrightarrow (2x-3)^2=1 \Leftrightarrow 4x^2-12x+8=0 \Leftrightarrow \begin{cases} x=2 \Rightarrow M(2;6) \\ x=1 \Rightarrow M(1;-4) \end{cases} \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án B (2 điểm).</p>
+            </div>
+        </div>
+
+        <!-- Example 23 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 23: Tìm giá trị a</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho đồ thị hai hàm số <span class="math">\( f(x)=\frac{x+1}{x-1} \)</span> và <span class="math">\( g(x)=\frac{ax+1}{x-2}, a \ne -\frac{1}{2} \)</span>. Tìm tất cả các giá trị thực dương của a để các tiệm cận của hai đồ thị hàm số tạo thành một hình chữ nhật có diện tích là 4.</p>
+                <p>A. <span class="math">\( a=2 \)</span>. &nbsp;&nbsp; B. <span class="math">\( a=4 \)</span>. &nbsp;&nbsp; C. <span class="math">\( a=3 \)</span>. &nbsp;&nbsp; D. <span class="math">\( a=5 \)</span>.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Đồ thị hàm số <span class="math">\( f(x)=\frac{x+1}{x-1} \)</span> có hai đường tiệm cận là <span class="math">\( x=1 \)</span> và <span class="math">\( y=1 \)</span>.</p>
+                <p>Đồ thị hàm số <span class="math">\( g(x)=\frac{ax+1}{x-2} \)</span> có hai đường tiệm cận là <span class="math">\( x=2 \)</span> và <span class="math">\( y=a \)</span>.</p>
+                <p>Hình chữ nhật được tạo thành từ bốn đường tiệm cận của hai đồ thị trên có hai kích thước lần lượt là 1 và <span class="math">\( |a-1| \)</span>. Theo giả thiết: <span class="math">\( |a-1|.1=4 \Leftrightarrow \begin{cases} a=5 \\ a=-3 \end{cases} \)</span>. Vì <span class="math">\( a>0 \)</span> nên chọn <span class="math">\( a=5 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án D.</p>
+            </div>
+        </div>
+
+        <!-- Example 24 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 24: Tìm tổng a+2b</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Cho hàm số <span class="math">\( y=\frac{2x-1}{x-1} \)</span> có đồ thị (C). Gọi M(a;b) là điểm thuộc đồ thị hàm số có hoành độ dương sao cho tổng khoảng cách từ M đến hai tiệm cận của (C) nhỏ nhất. Khi đó tổng a+2b bằng</p>
+                <p>A. 8. &nbsp;&nbsp; B. 5. &nbsp;&nbsp; C. 2. &nbsp;&nbsp; D. 7.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Hàm số <span class="math">\( y=\frac{2x-1}{x-1} \)</span> có đường tiệm cận ngang <span class="math">\( d_1: y=2 \)</span> và đường tiệm cận đứng <span class="math">\( d_2: x=1 \)</span>. Khi đó:</p>
+                <p><span class="math">\( d(M,d_1)=|b-2|=|\frac{2a-1}{a-1}-2|=\frac{1}{|a-1|} \)</span>; <span class="math">\( d(M,d_2)=|a-1| \)</span>.</p>
+                <p>Khi đó <span class="math">\( d(M,d_1)+d(M,d_2)=|a-1|+\frac{1}{|a-1|} \ge 2\sqrt{|a-1|.\frac{1}{|a-1|}}=2 \)</span> (bất đẳng thức Cau-chy).</p>
+                <p>Vậy tổng khoảng cách nhỏ nhất là 2 khi <span class="math">\( |a-1|=\frac{1}{|a-1|} \Leftrightarrow (a-1)^2=1 \Leftrightarrow a^2-2a=0 \Leftrightarrow \begin{cases} a=0 \\ a=2 \end{cases} \)</span>.</p>
+                <p>So điều kiện ta thấy <span class="math">\( a=2 \)</span> thỏa mãn. Suy ra <span class="math">\( b=\frac{2.2-1}{2-1}=3 \Rightarrow a+2b=8 \)</span>.</p>
+                <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Đáp án A.</p>
+            </div>
+        </div>
+
+        <!-- BÀI TOÁN THỰC TẾ VỀ TIỆM CẬN ĐỒ THỊ HÀM SỐ -->
+        <h3>BÀI TOÁN THỰC TẾ VỀ TIỆM CẬN ĐỒ THỊ HÀM SỐ</h3>
+
+        <!-- Example 25 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 25: Ứng dụng thực tế</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Số lượng sản phẩm X bán được của một công ty trong x tháng được cho bởi công thức <span class="math">\( T(x) = 150(6 - \frac{5}{x+2}) \)</span> trong đó <span class="math">\( x \ge 1 \)</span>.</p>
+                <p>a) Tìm tiệm cận ngang của đồ thị hàm số trên.</p>
+                <p>b) Nếu x đủ lớn thì số lượng sản phẩm X bán được của công ty trong x tháng là bao nhiêu?</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Ta có: <span class="math">\( \lim_{x \to +\infty} T(x) = 150 \lim_{x \to +\infty} (6-\frac{5}{x+2}) = 150 \cdot 6 = 900 \)</span>. Vậy đường thẳng <span class="math">\( y=900 \)</span> là tiệm cận ngang của đồ thị hàm số.</p>
+                <p>b) Nếu số tháng sản xuất (x) là đủ lớn thì số lượng sản phẩm X bán ra trong x tháng của công ty là 900 sản phẩm.</p>
+            </div>
+        </div>
+
+        <!-- Example 26 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 26: Ứng dụng trong vật lý</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Trong thuyết tương đối của Einstein, khối lượng của vật chuyển động với vận tốc v được cho bởi công thức <span class="math">\( m(v) = \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}} \)</span>, trong đó <span class="math">\( m_0 \)</span> là khối lượng của vật khi đứng yên, c là vận tốc ánh sáng, m(v) là hàm theo biến v.</p>
+                <p>a) Tìm đường tiệm cận của đồ thị hàm số đã cho.</p>
+                <p>b) Khi vận tốc của vật càng gần với vận tốc ánh sáng thì khối lượng của vật thay đổi thế nào?</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Ta có: <span class="math">\( \lim_{v \to c^-} m(v) = \lim_{v \to c^-} \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}} = +\infty \)</span> (vì <span class="math">\( \sqrt{1-\frac{v^2}{c^2}} \to 0 \)</span> và <span class="math">\( 1-\frac{v^2}{c^2}>0 \)</span> khi <span class="math">\( v<c \)</span>).</p>
+                <p>Do vậy đường thẳng <span class="math">\( v=c \)</span> là một tiệm cận đứng của đồ thị hàm số <span class="math">\( y=m(v) \)</span>.</p>
+                <p>b) Ta thấy khối lượng của vật sẽ vô cùng lớn (dần về vô cực) khi vận tốc của vật tiến dần về vận tốc ánh sáng.</p>
+            </div>
+        </div>
+
+        <!-- Example 27 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 27: Ứng dụng thực tế</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Để loại bỏ x% chất gây ô nhiễm không khí từ khí thải của một nhà máy, người ta ước tính chi phí cần bỏ ra là <span class="math">\( C(x) = \frac{300x}{100-x} \)</span> (triệu đồng), <span class="math">\( 0 \le x < 100 \)</span>.</p>
+                <p>Hãy cho biết:</p>
+                <p>a) Chi phí cần bỏ ra sẽ thay đổi như thế nào khi x tăng?</p>
+                <p>b) Có thể loại bỏ được 100% chất gây ô nhiễm không khí không? Vì sao?</p>
+                <div class="image-container">
+                    <img src="data//im/81.png" alt="Đồ thị hàm số">
+                </div>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Tập xác định: <span class="math">\( D=[0;100) \)</span>.</p>
+                <p>Xét hàm số <span class="math">\( y=C(x)=\frac{300x}{100-x}, 0 \le x < 100 \)</span>. Ta có: <span class="math">\( y' = \frac{30000}{(100-x)^2} > 0 \)</span>, với mọi <span class="math">\( x \in [0;100) \)</span>.</p>
+                <p>Do đó hàm số luôn đồng biến trên nửa khoảng <span class="math">\( [0;100) \)</span>.</p>
+                <p><span class="math">\( \lim_{x \to 100^-} C(x) = \lim_{x \to 100^-} \frac{300x}{100-x} = +\infty \)</span>, nên đồ thị hàm số có tiệm cận đứng là <span class="math">\( x=100 \)</span>.</p>
+                <p>a) Chi phí cần bỏ ra <span class="math">\( C(x) \)</span> sẽ luôn tăng khi x tăng.</p>
+                <p>b) Vì <span class="math">\( \lim_{x \to 100^-} C(x) = +\infty \)</span> (hàm số <span class="math">\( C(x) \)</span> không xác định khi <span class="math">\( x=100 \)</span>).</p>
+                <p>Nên nhà máy không thể loại bỏ 100% chất gây ô nhiễm không khí (dù bỏ ra chi phí là bao nhiêu đi chăng nữa).</p>
+            </div>
+        </div>
+
+        <!-- Example 28 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 28: Ứng dụng thực tế</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Số lượng sản phẩm bán được của một công ty trong x (tháng) được tính theo công thức <span class="math">\( S(x) = 200(5-\frac{9}{2+x}) \)</span>, trong đó <span class="math">\( x \ge 1 \)</span>.</p>
+                <p>a) Xem <span class="math">\( y=S(x) \)</span> là một hàm số xác định trên nửa khoảng <span class="math">\( [1;+\infty) \)</span>, hãy tìm tiệm cận ngang của đồ thị hàm số đó.</p>
+                <p>b) Nêu nhận xét về số lượng sản phẩm bán được của công ty đó trong x (tháng) khi x đủ lớn.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Ta có <span class="math">\( \lim_{x \to +\infty} y = \lim_{x \to +\infty} 200(5-\frac{9}{2+x}) = 1000 \)</span>.</p>
+                <p>Vậy đường thẳng <span class="math">\( y=1000 \)</span> là tiệm cận ngang của đồ thị hàm số đã cho.</p>
+                <p>b) Khi x đủ lớn thì số lượng sản phẩm bán được của công ty sẽ tiến gần đến 1000.</p>
+            </div>
+        </div>
+
+        <!-- Example 29 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 29: Ứng dụng thực tế</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Một bể chứa 5000 lít nước tinh khiết. Người ta bơm vào bể đó nước muối có nồng độ 30 gam muối cho mỗi lít nước với tốc độ 25 lít/phút.</p>
+                <p>a) Chứng tỏ nồng độ muối trong bể sau t phút (tính bằng tỉ số của khối lượng muối trong bể và thể tích nước trong bể, đơn vị: gam/lít) là <span class="math">\( f(t) = \frac{30t}{200+t} \)</span>.</p>
+                <p>b) Xem <span class="math">\( y=f(t) \)</span> là một hàm số xác định trên nửa khoảng <span class="math">\( [0;+\infty) \)</span>, hãy tìm tiệm cận ngang của đồ thị hàm số đó.</p>
+                <p>c) Nêu nhận xét về nồng độ muối trong bể sau thời gian t ngày càng lớn.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Sau t phút, ta có khối lượng muối trong bể là <span class="math">\( 25 \cdot 30t = 750t \)</span> (gam).</p>
+                <p>Thể tích của lượng nước trong bể là <span class="math">\( 5000+25t \)</span> (lít).</p>
+                <p>Vậy nồng độ muối sau t phút là <span class="math">\( f(t) = \frac{750t}{5000+25t} = \frac{30t}{200+t} \)</span> (gam/lít).</p>
+                <p>b) Ta có: <span class="math">\( \lim_{t \to +\infty} f(t) = \lim_{t \to +\infty} \frac{30t}{200+t} = \lim_{t \to +\infty} \frac{30}{\frac{200}{t}+1} = 30 \)</span>.</p>
+                <p>Vậy đường thẳng <span class="math">\( y=30 \)</span> là tiệm cận ngang của đồ thị hàm số <span class="math">\( f(t) \)</span>.</p>
+                <p>c) Ta có đồ thị hàm số <span class="math">\( y=f(t) \)</span> nhận đường thẳng <span class="math">\( y=30 \)</span> làm tiệm cận ngang, tức là khi t càng lớn thì nồng độ muối trong bể sẽ tiến gần đến mức 30 (gam/lít). Lúc đó, nồng độ muối trong bể sẽ gần như bằng nồng độ muối trong nước muối được bơm vào bể.</p>
+            </div>
+        </div>
+
+        <!-- Example 30 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 30: Tiệm cận xiên</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Một ống khói của nhà máy điện hạt nhân có mặt cắt là một hypebol (H) có phương trình chính tắc là <span class="math">\( \frac{x^2}{27^2}-\frac{y^2}{40^2}=1 \)</span>. Xét hai nhánh bên trên Ox của (H) là đồ thị (C) của hàm số <span class="math">\( y=\frac{40}{27}\sqrt{x^2-27^2} \)</span> (phần nét liền đậm). Chứng minh rằng đường thẳng <span class="math">\( y=\frac{40}{27}x \)</span> là một đường tiệm cận xiên của (C). Hãy chỉ ra thêm một đường tiệm cận xiên khác của (C).</p>
+                <div class="image-container">
+                    <img src="data//im/82.png" alt="Hình minh họa">
+                </div>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Xét <span class="math">\( \lim_{x \to +\infty} (\frac{40}{27}\sqrt{x^2-27^2} - \frac{40}{27}x) = \lim_{x \to +\infty} \frac{40}{27} \frac{(x^2-27^2)-x^2}{\sqrt{x^2-27^2}+x} = \lim_{x \to +\infty} \frac{40}{27} \frac{-27^2}{\sqrt{x^2-27^2}+x} = 0 \)</span>.</p>
+                <p>Vậy đường thẳng <span class="math">\( y=\frac{40}{27}x \)</span> là một đường tiệm cận xiên của (C).</p>
+                <p>Xét nhánh còn lại, ta có <span class="math">\( \lim_{x \to -\infty} (\frac{40}{27}\sqrt{x^2-27^2} - (-\frac{40}{27}x)) = \lim_{x \to -\infty} \frac{40}{27} (\sqrt{x^2-27^2} + x) = \lim_{x \to -\infty} \frac{40}{27} \frac{x^2-27^2-x^2}{\sqrt{x^2-27^2}-x} = \lim_{x \to -\infty} \frac{40}{27} \frac{-27^2}{\sqrt{x^2-27^2}-x} = 0 \)</span>.</p>
+                <p>Vậy đường thẳng <span class="math">\( y=-\frac{40}{27}x \)</span> là một đường tiệm cận xiên khác của (C).</p>
+            </div>
+        </div>
+
+        <!-- Example 31 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 31: Ứng dụng thực tế</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Tại một công ty sản xuất đồ chơi A, công ty phải chi 50000 USD để thiết lập dây chuyền sản xuất ban đầu. Sau đó, cứ sản xuất được một sản phẩm đồ chơi A, công ty phải trả 5 USD cho nguyên liệu thô và nhân công. Gọi x (<span class="math">\( x \ge 1 \)</span>) là số đồ chơi A mà công ty đã sản xuất và T(x) (đơn vị USD) là tổng số tiền bao gồm cả chi phí ban đầu mà công ty phải chi trả khi sản xuất x đồ chơi A. Người ta xác định chi phí trung bình cho mỗi sản phẩm đồ chơi A là <span class="math">\( M(x) = \frac{T(x)}{x} \)</span>.</p>
+                <div class="image-container">
+                    <img src="data//im/83.png" alt="Hình minh họa">
+                </div>
+                <p>a) Xem M(x) là hàm số theo x xác định trên nửa khoảng <span class="math">\( [1;+\infty) \)</span>, tìm tiệm cận ngang của đồ thị hàm số này.</p>
+                <p>b) Nêu nhận xét về chi phí trung bình cho mỗi sản phẩm đồ chơi A khi x đủ lớn.</p>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Tổng chi phí: <span class="math">\( T(x)=50000+5x \)</span>. Chi phí trung bình: <span class="math">\( M(x)=\frac{50000}{x}+5 \)</span>.</p>
+                <p>Khi <span class="math">\( x \to +\infty \)</span>, <span class="math">\( \frac{50000}{x} \to 0 \)</span> nên <span class="math">\( M(x) \to 5 \)</span>. Tiệm cận ngang: <span class="math">\( y=5 \)</span>.</p>
+                <p>b) Nhận xét khi x đủ lớn: Chi phí trung bình <span class="math">\( M(x) \)</span> tiến gần đến 5 USD, là chi phí biến đổi mỗi sản phẩm. Chi phí cố định ban đầu không ảnh hưởng đáng kể khi sản xuất quy mô lớn.</p>
+            </div>
+        </div>
+
+        <!-- Example 32 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 32: Tiệm cận xiên và ứng dụng</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Trong hình bên, đường viền bóng của đèn ngủ lên tường là đồ thị của hàm số <span class="math">\( y=55-\frac{1}{2}\sqrt{x^2+144} \)</span> với x và y tính bằng đơn vị centimet.</p>
+                <p>a) Chứng minh rằng <span class="math">\( y=55-\frac{1}{2}x \)</span> là một tiệm cận xiên của đồ thị hàm số này.</p>
+                <p>b) Nếu trong một ngày, một xưởng sản xuất được x kilôgam sản phẩm thì chi phí trung bình (tính bằng nghìn đồng) cho một sản phẩm được cho bởi công thức: <span class="math">\( C(x)=\frac{50x+2000}{x} \)</span>. Tìm các đường tiệm cận của hàm số <span class="math">\( C(x) \)</span>.</p>
+                <div class="image-container">
+                    <img src="data//im/84.png" alt="Hình minh họa">
+                </div>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>a) Để chứng minh <span class="math">\( y=55-\frac{1}{2}x \)</span> là tiệm cận xiên, ta xét <span class="math">\( \lim_{x \to +\infty} [(55-\frac{1}{2}\sqrt{x^2+144}) - (55-\frac{1}{2}x)] = \lim_{x \to +\infty} \frac{1}{2}(x-\sqrt{x^2+144}) = \lim_{x \to +\infty} \frac{1}{2}\frac{x^2-(x^2+144)}{x+\sqrt{x^2+144}} = \lim_{x \to +\infty} \frac{-72}{x+\sqrt{x^2+144}}=0 \)</span>.</p>
+                <p>Vậy <span class="math">\( y=55-\frac{1}{2}x \)</span> là đường tiệm cận xiên của đồ thị hàm số <span class="math">\( y=55-\frac{1}{2}\sqrt{x^2+144} \)</span>.</p>
+                <p>b) Tìm các đường tiệm cận của đồ thị hàm chi phí trung bình <span class="math">\( C(x) \)</span>.</p>
+                <ul>
+                    <li><span class="math">\( \lim_{x \to +\infty} C(x) = \lim_{x \to +\infty} (50+\frac{2000}{x}) = 50 \)</span>. Vậy <span class="math">\( y=50 \)</span> là tiệm cận ngang của <span class="math">\( C(x) \)</span>.</li>
+                    <li><span class="math">\( \lim_{x \to 0^+} C(x) = \lim_{x \to 0^+} (50+\frac{2000}{x}) = +\infty \)</span>. Vậy <span class="math">\( x=0 \)</span> (trục Oy) là tiệm cận đứng của <span class="math">\( C(x) \)</span>.</li>
+                    <li>Đồ thị hàm số <span class="math">\( C(x) \)</span> có tiệm cận ngang nên không có tiệm cận xiên.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example 33 -->
+        <div class="example">
+            <div class="example-header">
+                <h3>Ví dụ 33: Ứng dụng thực tế</h3>
+                <span class="tag">Tiệm cận</span>
+            </div>
+            <div class="example-question">
+                <p>Nồng độ oxygen trong hồ theo thời gian t cho bởi công thức <span class="math">\( y(t)=5-\frac{15t}{9t^2+1} \)</span> với y được tính theo mg/l và t được tính theo giờ, <span class="math">\( t \ge 0 \)</span>. Tìm các đường tiệm cận của đồ thị hàm số <span class="math">\( y(t) \)</span>. Từ đó, có nhận xét gì về nồng độ oxygen trong hồ khi thời gian t trở nên rất lớn?</p>
+                <div class="image-container">
+                    <img src="data//im/85.png" alt="Hình minh họa">
+                </div>
+            </div>
+            <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+            <div class="solution">
+                <h4>Lời giải:</h4>
+                <ul>
+                    <li>Ta có <span class="math">\( \lim_{t \to +\infty} y(t) = 5 \)</span> <span class="math">\( \Rightarrow y=5 \)</span> là tiệm cận ngang của đồ thị hàm số.</li>
+                    <li>Đồ thị không có tiệm cận đứng vì mẫu số <span class="math">\( 9t^2+1 \ne 0, \forall t \ge 0 \)</span>.</li>
+                </ul>
+                <p>Nhận xét: Khi t rất lớn, nồng độ oxygen tiến đến 5mg/l và ổn định.</p>
+            </div>
+        </div>
+    </section>
+    </div>
+
+</main>
+</div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Về Educode</h3>
+                 <p>EduCode là nền tảng học online đang trên hình trình xây dưng, với kỳ vọng mang đến các khóa học toán chất lượng cao. Chúng tôi cam kết giúp bạn nắm vững kiến thức và chuẩn bị cho tương lai với các khóa học lý, hóa, tin học và AI sắp ra mắt.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+                          
+                      
+            <div class="footer-col">
+                <h3>Liên hệ</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> 0878042368</p>
+                    <p><i class="fas fa-envelope"></i> nguyenthanhbinh_thpt_tts@bentre.edu.vn</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="https://meet.google.com/osh-vjqs-vdg">Học online </a></li>
+                    <li><a href="#K12/12C1B1.html">Tài liệu & Đề ôn luyện</a></li>
+                    <li><a href="#coming-soon">Sắp ra mắt: Lý, Hóa, AI</a></li>
+                    <li><a href="#blog">Blog EduCode</a></li>
+                </ul>
+            </div>
+            </div>
+        
+        <div class="copyright">
+            <p>© 2025 EduCode – Thạc sĩ Nguyễn Thanh Bình. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    
+    <style>
+        /* CSS cho thanh điều hướng tài liệu */
+        .document-nav {
+            list-style: none;
+        }
+        
+        .document-nav li {
+            margin-bottom: 5px;
+        }
+        
+        .document-nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .document-nav a:hover,
+        .document-nav a.active {
+            background: #f0f0f0;
+            border-left: 3px solid #c8102e;
+            color: #c8102e;
+        }
+        
+        .document-nav .submenu {
+            padding-left: 20px;
+            display: none;
+        }
+        
+        .document-nav .active .submenu {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .document-nav .submenu {
+                padding-left: 15px;
+            }
+        }
+    </style>
+
+    <script>
+        // Dữ liệu tài liệu mẫu (tập trung vào Toán 12)
+        const documentData = {
+            "toan12": {
+                "title": "Tóm tắt kiến thức",
+                "docs": {
+                    "toan12-chuong1": "Định nghĩa",
+                    "toan12-chuong2": "Định lí",
+                    "toan12-chuong3": "Chú ý- Ghi nhớ"
+                }
+            },
+            "ly12": {
+                "title": "Hệ thống các dạng toán",
+                "docs": {
+                    "ly12-chuong3": "Dạng toán..",
+                    "ly12-chuong1": "Phương pháp giải",
+                    "ly12-chuong2": "Ví dụ minh họa"
+                    
+                }
+            },
+            "hoa12": {
+                "title": "Bài tập vận dụng",
+                "docs": {
+                    "hoa12-chuong1": "Trắc nghiệm",
+                    "hoa12-chuong2": "Đúng sai",
+                    "hoa12-chuong3": "Trả lời ngắn",
+                    "hoa12-chuong3": "Đề ôn tập cuối bài"
+                }
+            }
+        };
+
+        // Tạo menu điều hướng tài liệu
+        function initDocumentNav() {
+            const navContainer = document.getElementById('documentNav');
+            
+            for (const [key, category] of Object.entries(documentData)) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="#" class="category-link" data-category="${key}">
+                        ${category.title} <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu" id="submenu-${key}"></ul>
+                `;
+                navContainer.appendChild(li);
+                
+                // Thêm tài liệu con
+                const submenu = document.getElementById(`submenu-${key}`);
+                for (const [docId, docTitle] of Object.entries(category.docs)) {
+                    const subLi = document.createElement('li');
+                    subLi.innerHTML = `<a href="#" data-doc="${docId}">${docTitle}</a>`;
+                    submenu.appendChild(subLi);
+                }
+            }
+            
+            // Xử lý click category
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-chevron-up');
+                    this.querySelector('i').classList.toggle('fa-chevron-down');
+                });
+            });
+            
+            // Xử lý click tài liệu
+            document.querySelectorAll('[data-doc]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const docId = this.getAttribute('data-doc');
+                    
+                    // Đánh dấu active
+                    document.querySelectorAll('[data-doc]').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Cập nhật URL (không reload trang)
+                    history.pushState(null, null, `?doc=${docId}`);
+                });
+            });
+        }
+        
+        // Khởi tạo khi trang tải xong
+        document.addEventListener('DOMContentLoaded', function() {
+            initDocumentNav();
+            
+            // Mở rộng danh mục chứa tài liệu hiện tại (nếu có)
+            const urlParams = new URLSearchParams(window.location.search);
+            const docParam = urlParams.get('doc');
+            if (docParam) {
+                const category = docParam.split('-')[0];
+                const categoryElement = document.querySelector(`[data-category="${category}"]`);
+                if (categoryElement) {
+                    categoryElement.click(); // Mở rộng danh mục
+                }
+                
+                // Đánh dấu active cho tài liệu
+                const docElement = document.querySelector(`[data-doc="${docParam}"]`);
+                if (docElement) {
+                    docElement.click();
+                }
+            }
+        });
+    </script>
+    
+    
+
+    
+    <script>
+    // Xử lý menu mobile
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+        });
+    });
+</script>
+
+    
+
+    <script>
+        // Hàm kiểm tra trắc nghiệm nhiều lựa chọn
+        function checkMultipleChoice(questionId, correctOption) {
+            // Ẩn tất cả icon trước khi kiểm tra
+            document.querySelectorAll(`#${questionId} .option-icon`).forEach(icon => {
+                icon.innerHTML = '';
+            });
+            
+            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+            if (!selectedOption) {
+                alert("Vui lòng chọn đáp án!");
+                return;
+            }
+            
+            const selectedValue = selectedOption.value;
+            const isCorrect = selectedValue === correctOption;
+            
+            // Hiển thị icon đúng/sai
+            const iconSpan = document.getElementById(`icon-${questionId}-${selectedValue}`);
+            if (iconSpan) {
+                iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+            }
+            
+            // Nếu đúng, hiển thị icon cho đáp án đúng (trường hợp chọn sai)
+            if (!isCorrect) {
+                const correctIconSpan = document.getElementById(`icon-${questionId}-${correctOption}`);
+                if (correctIconSpan) {
+                    correctIconSpan.innerHTML = '✅';
+                }
+            }
+        }
+        
+        // Hàm kiểm tra trắc nghiệm đúng/sai
+        function checkTrueFalse(questionId, correctAnswers) {
+            const parts = ['a', 'b', 'c', 'd'];
+            let allAnswered = true;
+            
+            parts.forEach((part, index) => {
+                const selectedOption = document.querySelector(`input[name="${questionId}${part}"]:checked`);
+                if (!selectedOption) {
+                    allAnswered = false;
+                    return;
+                }
+                
+                const userAnswer = selectedOption.value;
+                const isCorrect = userAnswer === correctAnswers[index];
+                
+                // Hiển thị biểu tượng đúng/sai
+                const iconSpan = document.getElementById(`icon-${questionId}${part}`);
+                if (iconSpan) {
+                    iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+                }
+            });
+            
+            if (!allAnswered) {
+                alert("Vui lòng trả lời tất cả các mệnh đề!");
+                return;
+            }
+        }
+        
+        // Hàm kiểm tra câu trả lời ngắn
+        function checkShortAnswer(inputId, correctAnswer) {
+            const inputElement = document.getElementById(inputId);
+            const userAnswer = inputElement.value.trim();
+            if (!userAnswer) {
+                alert("Vui lòng nhập đáp án!");
+                return;
+            }
+            
+            // Cho phép đáp án có nhiều cách viết
+            const normalizedUserAnswer = userAnswer.replace(/\s+/g, '');
+            const normalizedCorrectAnswer = correctAnswer.replace(/\s+/g, '');
+            
+            const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
+            
+            // Hiển thị biểu tượng đúng/sai
+            const iconSpan = document.getElementById(`icon-${inputId}`);
+            if (iconSpan) {
+                iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+            }
+        }
+        
+        // Hàm hiển thị/ẩn lời giải
+        function toggleSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            if (solution) {
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+         // Toggle solution visibility
+        document.querySelectorAll('.solution-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const solution = this.nextElementSibling;
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+                
+                if (solution.style.display === 'block') {
+                    this.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>Ẩn lời giải';
+                } else {
+                    this.innerHTML = '<i class="fas fa-eye mr-2"></i>Xem lời giải';
+                }
+            });
+        });  
+    </script>
+
+    
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('drawCanvas');
+        const toolbar = document.getElementById('drawToolbar');
+        const toggleBtn = document.getElementById('toggle-draw');
+        const undoBtn = document.getElementById('undo-canvas');
+        const clearBtn = document.getElementById('clear-canvas');
+        const saveBtn = document.getElementById('save-canvas');
+        const exitBtn = document.getElementById('exit-draw');
+        const colorPicker = document.getElementById('colorPicker');
+        const toolSelect = document.getElementById('tool');
+        const widthPicker = document.getElementById('draw-width');
+
+        if (!canvas || !toolbar || !toggleBtn || !undoBtn || !clearBtn || !saveBtn || !exitBtn || !colorPicker || !toolSelect || !widthPicker) {
+            console.error('Một hoặc nhiều phần tử DOM không tìm thấy. Kiểm tra ID trong HTML.');
+            return;
+        }
+
+        const ctx = canvas.getContext('2d');
+        let lineWidth = parseInt(widthPicker.value) || 2;
+        let isDrawing = false;
+        let isDrawMode = false;
+        let startX = 0, startY = 0;
+        let currentTool = toolSelect.value || 'pen';
+        let imageBeforeShape;
+        const history = [];
+        const maxHistory = 50;
+
+        // Lưu trữ các điểm vẽ gần nhất để làm mượt nét vẽ
+        let lastPoint = null;
+
+        // --- Cải thiện 1: Lấy vị trí chuột/cảm ứng chính xác hơn ---
+        function getCanvasPos(e) {
+            const rect = canvas.getBoundingClientRect(); // Lấy kích thước và vị trí của canvas
+            let clientX, clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            // Tính toán vị trí tương đối so với canvas
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        // Resize canvas
+        function resizeCanvas() {
+            // Lưu nội dung hiện tại của canvas trước khi thay đổi kích thước
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            tempCtx.drawImage(canvas, 0, 0);
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Vẽ lại nội dung đã lưu
+            ctx.drawImage(tempCanvas, 0, 0);
+            
+            // Cập nhật lịch sử nếu cần thiết (ví dụ: nếu bạn muốn scale lịch sử)
+            // Hiện tại, chỉ vẽ lại nội dung cuối cùng, lịch sử sẽ bị mất tỷ lệ nếu màn hình thay đổi nhiều.
+            // Để xử lý tốt hơn, bạn cần lưu trữ các lệnh vẽ hoặc vector thay vì ImageData.
+            if (history.length > 0) {
+                // Nếu muốn giữ nguyên hình ảnh sau resize, bạn có thể redraw từ lịch sử
+                // Nhưng với ImageData, nó sẽ không scale tốt nếu tỷ lệ khung hình thay đổi.
+                // ctx.putImageData(history[history.length - 1], 0, 0); 
+            }
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function toggleDrawMode() {
+            isDrawMode = !isDrawMode;
+            if (isDrawMode) {
+                canvas.style.display = 'block';
+                toolbar.style.display = 'flex'; // Hiển thị trước khi animation để tránh giật
+                setTimeout(() => { // Dùng setTimeout để đảm bảo display đã được cập nhật
+                    toolbar.style.opacity = '1';
+                    toolbar.style.transform = 'translateY(0)';
+                }, 0);
+            } else {
+                toolbar.style.opacity = '0';
+                toolbar.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    toolbar.style.display = 'none';
+                    canvas.style.display = 'none';
+                }, 300); // Phù hợp với thời gian transition
+            }
+            toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
+        }
+
+        toggleBtn.addEventListener('click', toggleDrawMode);
+        exitBtn.addEventListener('click', toggleDrawMode);
+
+        toolSelect.addEventListener('change', () => {
+            currentTool = toolSelect.value;
+        });
+
+        colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
+        widthPicker.addEventListener('input', () => {
+            lineWidth = parseInt(widthPicker.value) || 2;
+        });
+
+        undoBtn.addEventListener('click', () => {
+            history.pop();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (history.length > 0) {
+                ctx.putImageData(history[history.length - 1], 0, 0);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            history.length = 0;
+        });
+
+        saveBtn.addEventListener('click', () => {
+            try {
+                const link = document.createElement('a');
+                link.download = 'ban_ve.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                console.error('Lỗi khi lưu canvas:', error);
+                alert('Không thể lưu ảnh. Có thể trình duyệt của bạn không hỗ trợ hoặc canvas quá lớn.');
+            }
+        });
+
+        function startDraw(e) {
+            if (!isDrawMode) return;
+            e.preventDefault(); // Ngăn hành động mặc định của trình duyệt
+            const pos = getCanvasPos(e); // Lấy vị trí chính xác trên canvas
+            isDrawing = true;
+            startX = pos.x;
+            startY = pos.y;
+            lastPoint = pos; // Khởi tạo điểm cuối cùng
+
+            if (currentTool !== 'pen') {
+                imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+            }
+        }
+
+        function drawMove(e) {
+            if (!isDrawing || !isDrawMode) return;
+            e.preventDefault(); // Ngăn hành động mặc định của trình duyệt
+            const pos = getCanvasPos(e); // Lấy vị trí chính xác trên canvas
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round'; // Cải thiện 2: Làm mượt các góc nối
+
+            if (currentTool === 'pen') {
+                // Cải thiện 3: Làm mượt nét vẽ bằng cách vẽ đường cong
+                if (lastPoint) {
+                    // Sử dụng quadraticCurveTo để tạo đường cong mượt
+                    ctx.quadraticCurveTo(lastPoint.x, lastPoint.y, pos.x, pos.y);
+                } else {
+                    ctx.moveTo(pos.x, pos.y);
+                }
+                ctx.stroke();
+                lastPoint = pos; // Cập nhật điểm cuối cùng
+            } else {
+                ctx.putImageData(imageBeforeShape, 0, 0);
+                if (currentTool === 'line') {
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                } else if (currentTool === 'rect') {
+                    ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                } else if (currentTool === 'circle') {
+                    const radius = Math.hypot(pos.x - startX, pos.y - startY);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                } else if (currentTool === 'cube') {
+                    let size = Math.min(Math.abs(pos.x - startX), Math.abs(pos.y - startY));
+                    let xOffset = (pos.x - startX > 0) ? 0 : -size;
+                    let yOffset = (pos.y - startY > 0) ? 0 : -size;
+
+                    // Điều chỉnh để cube vẽ đúng hướng
+                    let actualStartX = startX + xOffset;
+                    let actualStartY = startY + yOffset;
+                    
+                    ctx.strokeRect(actualStartX, actualStartY, size, size);
+                    ctx.strokeRect(actualStartX + size / 4, actualStartY - size / 4, size, size); // Thay 10 bằng size / 4 để scale theo kích thước
+                    ctx.beginPath();
+                    ctx.moveTo(actualStartX, actualStartY);
+                    ctx.lineTo(actualStartX + size / 4, actualStartY - size / 4);
+                    ctx.moveTo(actualStartX + size, actualStartY);
+                    ctx.lineTo(actualStartX + size + size / 4, actualStartY - size / 4);
+                    ctx.moveTo(actualStartX, actualStartY + size);
+                    ctx.lineTo(actualStartX + size / 4, actualStartY + size - size / 4);
+                    ctx.moveTo(actualStartX + size, actualStartY + size);
+                    ctx.lineTo(actualStartX + size + size / 4, actualStartY + size - size / 4);
+                    ctx.stroke();
+                } else if (currentTool === 'cone') {
+                    let radius = Math.abs(pos.x - startX);
+                    let height = Math.abs(pos.y - startY);
+                    ctx.beginPath();
+                    ctx.ellipse(startX, startY + height, radius, radius / 4, 0, 0, Math.PI * 2); // Đế elip
+                    ctx.moveTo(startX - radius, startY + height);
+                    ctx.lineTo(startX, startY); // Đỉnh nón
+                    ctx.lineTo(startX + radius, startY + height);
+                    ctx.stroke();
+                } else if (currentTool === 'cylinder') {
+                    let r = Math.abs(pos.x - startX);
+                    let h = Math.abs(pos.y - startY);
+                    ctx.beginPath();
+                    ctx.ellipse(startX, startY, r, r / 4, 0, 0, Math.PI * 2); // Nắp trên
+                    ctx.moveTo(startX - r, startY);
+                    ctx.lineTo(startX - r, startY + h);
+                    ctx.moveTo(startX + r, startY);
+                    ctx.lineTo(startX + r, startY + h);
+                    ctx.ellipse(startX, startY + h, r, r / 4, 0, 0, Math.PI); // Đáy dưới (chỉ vẽ phần nhìn thấy)
+                    ctx.stroke();
+                } else if (currentTool === 'pyramid') {
+                    let baseSize = Math.abs(pos.x - startX);
+                    let pyramidHeight = Math.abs(pos.y - startY);
+                    
+                    ctx.beginPath();
+                    // Vẽ đáy (hình vuông hoặc hình chữ nhật)
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX + baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX + baseSize / 2, startY + pyramidHeight + baseSize / 4); // Tạo độ sâu
+                    ctx.lineTo(startX - baseSize / 2, startY + pyramidHeight + baseSize / 4);
+                    ctx.closePath();
+
+                    // Vẽ các cạnh nối tới đỉnh
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX, startY); // Đỉnh
+                    ctx.moveTo(startX + baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX, startY);
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight + baseSize / 4); // Cạnh sau bên trái
+                    ctx.lineTo(startX, startY);
+                    ctx.moveTo(startX + baseSize / 2, startY + pyramidHeight + baseSize / 4); // Cạnh sau bên phải
+                    ctx.lineTo(startX, startY);
+                    ctx.stroke();
+                } else if (currentTool === 'sphere') {
+                    let r = Math.hypot(pos.x - startX, pos.y - startY);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, r, 0, Math.PI * 2); // Đường tròn lớn
+                    ctx.ellipse(startX, startY, r, r / 2, 0, 0, Math.PI * 2); // Đường tròn nhỏ (tạo ảo giác 3D)
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function endDraw() {
+            if (!isDrawMode) return;
+            isDrawing = false;
+            lastPoint = null; // Reset điểm cuối cùng khi kết thúc vẽ
+            if (history.length >= maxHistory) history.shift();
+            history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            // Cải thiện 4: Vẽ lại nét bút cuối cùng nếu nó chưa hoàn chỉnh
+            if (currentTool === 'pen' && ctx.strokeStyle !== 'transparent') { // Kiểm tra nếu bút không trong suốt
+                 // Nét bút sẽ được hoàn thành trong drawMove nhờ quadraticCurveTo
+            }
+        }
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', drawMove);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseleave', endDraw); // Thêm sự kiện mouseleave
+
+        canvas.addEventListener('touchstart', startDraw, { passive: false });
+        canvas.addEventListener('touchmove', drawMove, { passive: false });
+        canvas.addEventListener('touchend', endDraw);
+        canvas.addEventListener('touchcancel', endDraw); // Thêm sự kiện touchcancel
+    });
+</script>
+
+            
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none'; // Dự phòng
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+});
+</script>
+
+
+<!-- Floating button để toggle vẽ -->
+<button class="floating-button" id="toggle-draw" aria-label="Bật/tắt chế độ vẽ">🖊️ Vẽ</button>
+<!-- Canvas cho vẽ -->
+<canvas id="drawCanvas"></canvas>
+
+<!-- Toolbar công cụ vẽ -->
+<div class="toolbar" id="drawToolbar" role="toolbar" aria-label="Thanh công cụ vẽ">
+    <div class="drawing-tools">
+        <select id="tool" title="Chọn công cụ" aria-label="Chọn công cụ vẽ">
+            <option value="pen">✏️ Bút</option>
+            <option value="line">📏 Đường</option>
+            <option value="rect">⬛ Chữ nhật</option>
+            <option value="circle">⚪ Tròn</option>
+            <option value="cube">📦 Hộp</option>
+            <option value="cone">🔺 Nón</option>
+            <option value="cylinder">⬤ Trụ</option>
+            <option value="pyramid">🔻 Chóp</option>
+            <option value="sphere">⚽ Cầu</option>
+        </select>
+        <button title="Undo" id="undo-canvas">↩️</button>
+        <button title="Xóa" id="clear-canvas">🧹</button>
+        <button title="Lưu" id="save-canvas">💾</button>
+        <button title="Thoát" id="exit-draw">❌</button>
+    </div>
+    <input type="color" id="colorPicker" value="#000000" title="Chọn màu" aria-label="Chọn màu vẽ">
+    <input type="range" id="draw-width" min="1" max="20" value="2" title="Độ dày nét vẽ" aria-label="Độ dày nét vẽ">
+</div>
+>
+<!-- Nút toggle bảng xanh -->
+<button class="blackboard-toggle" id="toggle-blackboard" aria-label="Bật/tắt bảng xanh">📋</button>
+<!-- Bảng xanh -->
+<div id="blackboard" class="blackboard" role="region" aria-label="Bảng xanh">
+    <button id="close-blackboard" aria-label="Đóng bảng xanh">❌</button>
+</div>
+
+
+<script>
+// Script bảng xanh
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+    let isDraggingBoard = false;
+    let dragStartX = 0, dragStartY = 0;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none';
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+
+    blackboard.addEventListener('mousedown', (e) => {
+        if (e.target === closeBlackboard) return;
+        isDraggingBoard = true;
+        dragStartX = e.clientX - blackboard.offsetLeft;
+        dragStartY = e.clientY - blackboard.offsetTop;
+        console.log('Start dragging blackboard');
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDraggingBoard) {
+            blackboard.style.left = `${e.clientX - dragStartX}px`;
+            blackboard.style.top = `${e.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDraggingBoard = false;
+    });
+
+    blackboard.addEventListener('touchstart', (e) => {
+        if (e.target === closeBlackboard) return;
+        const touch = e.touches[0];
+        isDraggingBoard = true;
+        dragStartX = touch.clientX - blackboard.offsetLeft;
+        dragStartY = touch.clientY - blackboard.offsetTop;
+        console.log('Start touch dragging blackboard');
+        e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isDraggingBoard) {
+            const touch = e.touches[0];
+            blackboard.style.left = `${touch.clientX - dragStartX}px`;
+            blackboard.style.top = `${touch.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+        isDraggingBoard = false;
+    });
+});
+</script>
+<script>
+                const btn = document.getElementById("fullscreen-btn");
+                const content = document.getElementById("content");
+
+                btn.addEventListener("click", async () => {
+                if (!document.fullscreenElement) {
+                    // Vào fullscreen
+                    await document.documentElement.requestFullscreen();
+                    document.body.classList.add("fullscreen-mode");
+                    btn.textContent = "⛶";
+                } else {
+                    // Thoát fullscreen
+                    await document.exitFullscreen();
+                    document.body.classList.remove("fullscreen-mode");
+                    btn.textContent = "⛶ ";
+                }
+             });
+
+             </script>
+
+</body>
+</html>
