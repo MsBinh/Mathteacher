@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Bảng giảng Toán - Demo đầy đủ (fix công thức dài)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+  /* ===== Nền bảng xanh ===== */
+  .reveal .backgrounds { background: #1e5631; }
+  .reveal section { 
+    color: #fffbe7; 
+    text-shadow: 1px 1px 2px #000; 
+    font-size: 26px;   /* toàn bộ nội dung lớn hơn */
+  }
+ 
+
+  /* ===== Box nội dung ===== */
+  .box {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow-x: auto;       /* Cho phép cuộn ngang khi công thức dài */
+    word-wrap: break-word;
+    max-width: none;        /* bỏ giới hạn mặc định */
+    width: 100%;
+    box-sizing: border-box; /* tránh xung đột padding */
+    
+  }
+
+  /* MathJax container */
+  mjx-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  /* Styles cho từng loại box */
+  .definition { border-left: 6px solid #3498db; background: rgba(236,245,255,0.15); }
+  .theorem    { border-left: 6px solid #27ae60; background: rgba(233,247,239,0.15); }
+  .note       { border-left: 6px solid #f39c12; background: rgba(254,245,231,0.15); font-style: italic;}
+  .remember   { border-left: 6px solid #e67e22; background: rgba(250,230,210,0.15); font-weight: bold;}
+  .dangt      { border-left: 6px solid #8e44ad; background: rgba(245,238,248,0.15); }
+  .method     { border-left: 6px solid #16a085; background: rgba(229,245,242,0.15); }
+  .example    { border-left: 6px solid #2c3e50; background: rgba(236,240,241,0.15); }
+
+  /* Ví dụ có lời giải dài: cho cuộn dọc */
+  .box.example, 
+  .box.solution {
+    background: rgba(255,255,255,0.15);
+    border-left: 6px solid #9333ea;
+    margin-top: 10px;
+    max-height: 60vh;   /* giới hạn chiều cao tối đa */
+    overflow-y: auto;   /* thanh cuộn dọc */
+    padding-right: 10px;
+    max-width: none;
+    width: 95%;
+  }
+
+  /* ===== Quiz / Trắc nghiệm ===== */
+  .question, .summary-box {
+    max-height: 85vh;   /* full slide nhưng có cuộn khi dài */
+    overflow-y: auto;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    width: 95%;
+    margin: auto;
+    box-sizing: border-box;
+  }
+
+  .options label {
+    display: block;
+    margin-bottom: 6px;
+    cursor: pointer;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+
+  .option-icon {
+    margin-left: 6px;
+  }
+
+  .answer-check button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #2563eb; 
+    color: white;
+    border: none;
+  }
+
+  /* Grid chia 2 cột hoặc 3 cột cho quiz */
+  .quiz-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .quiz-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: start;
+    border-left: 2px solid yellow;
+    border-right: 2px solid yellow;
+  }
+
+  /* ===== Canvas overlay (bảng vẽ) ===== */
+  #drawCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 10; pointer-events: none;
+  }
+
+  /* ===== Toolbar vẽ ===== */
+  #toolbar {
+    position: fixed; top: 50%; left: 5px; transform: translateY(-50%);
+    z-index: 20; display: flex; flex-direction: column;
+    background: rgba(0,0,0,0.4); padding: 4px; border-radius: 8px;
+  }
+  #toolbar button, #toolbar select {
+    margin: 3px 0; width: 36px; height: 36px; font-size: 14px;
+    text-align: center; cursor: pointer;
+    background: rgba(255,255,255,0.1); border: none; border-radius: 6px;
+    color: #fff;
+  }
+  #toolbar select { width: 42px; height: 28px; font-size: 12px; color: #000; }
+
+  /* Toggle nút menu */
+  #toggleMenu {
+    position: fixed; top: 10px; left: 10px; z-index: 21;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: none; background: #0008; color: #fff; font-size: 18px;
+    cursor: pointer;
+  }
+  /* Cho phép section chiếm toàn bộ slide */
+.reveal .slides section {
+  max-width: 100% !important;   /* 🚀 bỏ giới hạn 800px */
+  width: 100% !important;
+  height: auto;
+}
+
+/* Box câu hỏi full chiều rộng */
+.question, .summary-box {
+  width: 100% !important;   /* full ngang */
+  max-width: 100% !important;
+  font-size: 0.8em;         /* tăng font chữ cho rõ */
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+/* Hình ảnh trong câu hỏi: căn giữa và co giãn hợp lý */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;          /* khoảng cách giữa text và nút chọn */
+  margin-bottom: 8px;
+}
+
+.option-row span {
+  flex: 1;            /* text chiếm phần còn lại */
+  word-wrap: break-word;
+}
+.option-row label {
+  white-space: nowrap; /* không xuống dòng chữ Đúng/Sai */
+}
+/* thêm phần danh mục slide */
+/* Slide Navigation Menu */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 350px;
+    height: 100vh;
+    background: rgba(30, 86, 49, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    border-right: 2px solid #4CAF50;
+    overflow-y: auto;
+}
+
+.slide-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid #4CAF50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-header h3 {
+    margin: 0;
+    color: #fffbe7;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fffbe7;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.menu-content {
+    padding: 10px;
+}
+
+.slide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.slide-item {
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #fffbe7;
+    font-size: 14px;
+}
+
+.slide-item:hover {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: #4CAF50;
+    transform: translateX(5px);
+}
+
+.slide-item.active {
+    background: rgba(76, 175, 80, 0.5);
+    border-color: #4CAF50;
+    font-weight: bold;
+}
+
+.slide-item .slide-number {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+/* Nút mở menu */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    background: rgba(30, 86, 49, 0.9);
+    border: 2px solid #4CAF50;
+    color: #fffbe7;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: #4CAF50;
+    transform: scale(1.1);
+}
+
+/* Overlay khi menu mở */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 TOÁN THỰC TẾ BÀI 3 - TÀI LIỆU HỌC TẬP</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 DẠNG TRẮC NGHIỆM </h2>
+        <p> Từ câu 123 - câu 142</p>
+  </section>
+  <section>
+  <section>
+    <div class="question" id="q123">
+      <p><strong>Câu 123</strong>. Một chất điểm chuyển động theo quy luật $s(t) = 6t^2 - t^3$. Tính thời điểm t (giây) tại đó vận tốc v (m/s) của chuyển động đạt giá trị lớn nhất.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q123" value="A"/> A. $t=2$ (s) <span class="option-icon" id="icon-q123-A"></span></label>
+        <label><input type="radio" name="q123" value="B"/> B. $t=3$ (s) <span class="option-icon" id="icon-q123-B"></span></label>
+        <label><input type="radio" name="q123" value="C"/> C. $t=5$ (s) <span class="option-icon" id="icon-q123-C"></span></label>
+        <label><input type="radio" name="q123" value="D"/> D. $t=6$ (s) <span class="option-icon" id="icon-q123-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q123','A')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q124">
+      <p><strong>Câu 124</strong>. Một vật chuyển động theo quy luật $S=\frac{1}{4}t^4 - \frac{3}{2}t^2+2t-100$ với $t$ (giây) là khoảng thời gian kể từ lúc vật bắt đầu chuyển động, $S$ (mét) là quãng đường vật đi được trong khoảng thời gian đó. Hỏi vận tốc của vật đạt giá trị nhỏ nhất tại thời điểm $t$ bằng bao nhiêu?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q124" value="A"/> A. $t=1$ (s) <span class="option-icon" id="icon-q124-A"></span></label>
+        <label><input type="radio" name="q124" value="B"/> B. $t=16$ (s) <span class="option-icon" id="icon-q124-B"></span></label>
+        <label><input type="radio" name="q124" value="C"/> C. $t=5$ (s) <span class="option-icon" id="icon-q124-C"></span></label>
+        <label><input type="radio" name="q124" value="D"/> D. $t=3$ (s) <span class="option-icon" id="icon-q124-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q124','A')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q125">
+      <p><strong>Câu 125</strong>. Trong tất cả các hình chữ nhật có diện tích $S$, hình chữ nhật có chu vi nhỏ nhất bằng bao nhiêu?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q125" value="A"/> A. $\sqrt{S}$ <span class="option-icon" id="icon-q125-A"></span></label>
+        <label><input type="radio" name="q125" value="B"/> B. $2\sqrt{S}$ <span class="option-icon" id="icon-q125-B"></span></label>
+        <label><input type="radio" name="q125" value="C"/> C. $4\sqrt{S}$ <span class="option-icon" id="icon-q125-C"></span></label>
+        <label><input type="radio" name="q125" value="D"/> D. $6\sqrt{S}$ <span class="option-icon" id="icon-q125-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q125','C')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q126">
+      <p><strong>Câu 126</strong>. Một tấm kẽm hình vuông ABCD có cạnh bằng 30 (cm). Người ta gập tấm kẽm theo hai cạnh EF và GH cho đến khi AD và BC trùng nhau như hình vẽ dưới đây để được một hình lăng trụ khuyết hai đáy. Giá trị của x để thể tích khối lăng trụ lớn nhất là</p>
+      <img src="data/im/n29.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q126" value="A"/> A. $x = 5$ (cm) <span class="option-icon" id="icon-q126-A"></span></label>
+        <label><input type="radio" name="q126" value="B"/> B. $x = 9$ (cm) <span class="option-icon" id="icon-q126-B"></span></label>
+        <label><input type="radio" name="q126" value="C"/> C. $x = 8$ (cm) <span class="option-icon" id="icon-q126-C"></span></label>
+        <label><input type="radio" name="q126" value="D"/> D. $x = 10$ (cm) <span class="option-icon" id="icon-q126-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q126','D')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn D.
+      <br>
+      Gọi $p$ là nửa chu vi tam giác DHF.
+      Ta có: $DF = CH = x, FH = 30-2x \Rightarrow p = 15$.
+      Thể tích khối lăng trụ như hình vẽ là
+      $V = S_{\triangle DHF}.EF = 30\sqrt{15(15-x)(15-x)(15-30+2x)} = 30\sqrt{15(15-x)^2(2x-15)}$.
+      Xét hàm số $f(x) = (15-x)^2(2x-15), x \in (\frac{15}{2}; 15)$.
+      $f'(x) = -2(15-x)(2x-15) + 2(15-x)^2 = -2(15-x)(3x-30)$; $f'(x)=0 \Leftrightarrow \begin{cases} x=10 \\ x=15 \text{ (loại)} \end{cases}$.
+      Bảng biến thiên:
+      <table class="table-auto border-collapse border border-slate-400">
+      <thead>
+        <tr>
+          <th class="border border-slate-300 px-2 py-1">$x$</th>
+          <th class="border border-slate-300 px-2 py-1">$\frac{15}{2}$</th>
+          <th class="border border-slate-300 px-2 py-1"></th>
+          <th class="border border-slate-300 px-2 py-1">10</th>
+          <th class="border border-slate-300 px-2 py-1"></th>
+          <th class="border border-slate-300 px-2 py-1">15</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-slate-300 px-2 py-1">$f'(x)$</td>
+          <td class="border border-slate-300 px-2 py-1"></td>
+          <td class="border border-slate-300 px-2 py-1">+</td>
+          <td class="border border-slate-300 px-2 py-1">0</td>
+          <td class="border border-slate-300 px-2 py-1">--</td>
+          <td class="border border-slate-300 px-2 py-1"></td>
+        </tr>
+        <tr>
+          <td class="border border-slate-300 px-2 py-1">$f(x)$</td>
+          <td class="border border-slate-300 px-2 py-1">0</td>
+          <td class="border border-slate-300 px-2 py-1">$\nearrow$</td>
+          <td class="border border-slate-300 px-2 py-1">125</td>
+          <td class="border border-slate-300 px-2 py-1">$\searrow$</td>
+          <td class="border border-slate-300 px-2 py-1"></td>
+        </tr>
+      </tbody>
+      </table>
+      Dựa vào bảng biến thiên, ta thấy: $\max_{(\frac{15}{2};15)} f(x) = 125$ khi $x=10$.
+      Do đó thể tích khối lăng trụ như hình vẽ lớn nhất: $V_{\max} = 750\sqrt{3}$ (cm$^3$). Khi đó: $x=10$ (cm).
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q127">
+      <p><strong>Câu 127</strong>. Khi nuôi cá thí nghiệm trong hồ, một nhà sinh vật học thấy rằng: Nếu trên mỗi đơn vị diện tích mặt hồ có $n$ con cá thì trung bình mỗi con cá sau một vụ cân nặng $P(n) = 480-20n$ (gam). Hỏi phải thả bao nhiêu cá trên một đơn vị diện tích của mặt hồ để sau một vụ thu hoạch cá đạt được tổng khối lượng lớn nhất?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q127" value="A"/> A. $n=12$ <span class="option-icon" id="icon-q127-A"></span></label>
+        <label><input type="radio" name="q127" value="B"/> B. $n=6$ <span class="option-icon" id="icon-q127-B"></span></label>
+        <label><input type="radio" name="q127" value="C"/> C. $n=8$ <span class="option-icon" id="icon-q127-C"></span></label>
+        <label><input type="radio" name="q127" value="D"/> D. $n=24$ <span class="option-icon" id="icon-q127-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q127','A')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q128">
+      <p><strong>Câu 128</strong>. Độ giảm huyết áp của một bệnh nhân được cho bởi công thức $G(x) = 0,025x^2(30-x)$, trong đó $x$ là liều lượng thuốc được tiêm cho bệnh nhân ($x$ được tính bằng miligam). Tính liều lượng thuốc cần tiêm cho bệnh nhân để huyết áp giảm nhiều nhất và tính độ giảm đó.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q128" value="A"/> A. $x=30$ (mg) <span class="option-icon" id="icon-q128-A"></span></label>
+        <label><input type="radio" name="q128" value="B"/> B. $x=20$ (mg) <span class="option-icon" id="icon-q128-B"></span></label>
+        <label><input type="radio" name="q128" value="C"/> C. $x=10$ (mg) <span class="option-icon" id="icon-q128-C"></span></label>
+        <label><input type="radio" name="q128" value="D"/> D. $x=15$ (mg) <span class="option-icon" id="icon-q128-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q128','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q129">
+      <p><strong>Câu 129</strong>. Một loại thuốc được dùng cho một bệnh nhân và nồng độ thuốc trong máu của bệnh nhân được giám sát bởi bác sĩ. Biết rằng nồng độ thuốc trong máu của bệnh nhân sau khi tiêm vào cơ thể trong $t$ giờ được cho bởi công thức $c(t) = \frac{t}{t^2+1}$ (mg/L). Sau khi tiêm thuốc bao lâu thì nồng độ thuốc trong máu của bệnh nhân cao nhất?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q129" value="A"/> A. 4 giờ <span class="option-icon" id="icon-q129-A"></span></label>
+        <label><input type="radio" name="q129" value="B"/> B. 1 giờ <span class="option-icon" id="icon-q129-B"></span></label>
+        <label><input type="radio" name="q129" value="C"/> C. 3 giờ <span class="option-icon" id="icon-q129-C"></span></label>
+        <label><input type="radio" name="q129" value="D"/> D. 2 giờ <span class="option-icon" id="icon-q129-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q129','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q130">
+      <p><strong>Câu 130</strong>. Nhà máy A chuyên sản xuất một loại sản phẩm cung cấp cho nhà máy B. Hai nhà máy thoả thuận rằng: Hàng tháng nhà máy A cung cấp cho nhà máy B số lượng sản phẩm theo đơn đặt hàng của B (tối đa 100 tấn sản phẩm). Nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm là $P(x) = 45-0,001x^2$ (triệu đồng).
+Chi phí để A sản xuất x tấn sản phẩm trong một tháng bao gồm:
+<ul>
+    <li>Chi phí cố định: 100 triệu đồng.</li>
+    <li>Cho phí cho mỗi tấn sản phẩm làm ra: 30 triệu đồng.</li>
+</ul>
+Hỏi nhà máy A cần bán cho nhà máy B bao nhiêu tấn sản phẩm mỗi tháng để lợi nhuận thu được là lớn nhất? (Làm tròn kết quả đến hàng phần chục).</p>
+      <div class="options-row">
+        <label><input type="radio" name="q130" value="A"/> A. 73,9 <span class="option-icon" id="icon-q130-A"></span></label>
+        <label><input type="radio" name="q130" value="B"/> B. 72,3 <span class="option-icon" id="icon-q130-B"></span></label>
+        <label><input type="radio" name="q130" value="C"/> C. 70,7 <span class="option-icon" id="icon-q130-C"></span></label>
+        <label><input type="radio" name="q130" value="D"/> D. 71,6 <span class="option-icon" id="icon-q130-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q130','C')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn C.
+      <br>
+      Số tiền mà nhà máy A thu được từ việc bán x tấn sản phẩm ($0 \le x \le 100$) cho nhà máy B là: $R(x) = x.P(x) = x(45-0,001x^2) = 45x - 0,001x^3$ (triệu đồng).
+      Chi phí để A sản xuất x tấn sản phẩm trong một tháng là $C(x) = 100+30x$ (triệu đồng).
+      Lợi nhuận (triệu đồng) mà nhà máy A thu được là:
+      $P(x) = R(x)-C(x) = 45x-0,001x^3-(100+30x)=-0,001x^3+15x-100$.
+      Xét hàm số $P(x)=-0,001x^3+15x-100$ với ($0 \le x \le 100$) ta có:
+      $P'(x) = -0,003x^2+15; P'(x)=0 \Rightarrow x^2 = 5000 \Rightarrow x = 50\sqrt{2}$.
+      Ta có $P(0)=-100; P(50\sqrt{2}) = 500\sqrt{2}-100 \approx 607; P(100) = 400$.
+      Vậy nhà máy A thu được lợi nhuận lớn nhất khi bán khoảng $50\sqrt{2} \approx 70,7$ tấn sản phẩm cho nhà máy B mỗi tháng.
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q131">
+      <p><strong>Câu 131</strong>. Một con cá hồi bơi ngược dòng để vượt một khoảng cách là 300 km. Vận tốc dòng nước là 6 km/h. Nếu vận tốc của cá bơi khi nước đứng yên là $v$ (km/h) thì năng lượng tiêu hao của cá trong $t$ giờ được cho bởi công thức $E(v) = cv^3t$, trong đó $c$ là một hằng số, $E$ được tính bằng jun. Tìm vận tốc bơi của cá khi nước đứng yên để năng lượng tiêu hao là ít nhất.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q131" value="A"/> A. 6 (km/h) <span class="option-icon" id="icon-q131-A"></span></label>
+        <label><input type="radio" name="q131" value="B"/> B. 5 (km/h) <span class="option-icon" id="icon-q131-B"></span></label>
+        <label><input type="radio" name="q131" value="C"/> C. 9 (km/h) <span class="option-icon" id="icon-q131-C"></span></label>
+        <label><input type="radio" name="q131" value="D"/> D. 8 (km/h) <span class="option-icon" id="icon-q131-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q131','C')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn C.
+      <br>
+      Vận tốc cá bơi khi ngược dòng là $v-6$ (km/h). Thời gian cá bơi để vượt khoảng cách 300 km là $t = \frac{300}{v-6}$ (giờ).
+      Năng lượng tiêu hao của cá để vượt khoảng cách đó là $E(v) = cv^3\frac{300}{v-6} = 300c\frac{v^3}{v-6}$ (jun), $v>6$.
+      Ta có: $E'(v) = 300c\frac{(v^3)'(v-6)-v^3(v-6)'}{(v-6)^2} = 300c\frac{3v^2(v-6)-v^3}{(v-6)^2} = 300c\frac{3v^3-18v^2-v^3}{(v-6)^2}$;
+      $E'(v) = 0 \Leftrightarrow 2v^3-18v^2=0 \Leftrightarrow \begin{cases} v=9 \\ v=0 \text{ (loại)} \end{cases}$.
+      Bảng biến thiên:
+      <table class="table-auto border-collapse border border-slate-400">
+      <thead>
+        <tr>
+          <th class="border border-slate-300 px-2 py-1">$v$</th>
+          <th class="border border-slate-300 px-2 py-1">6</th>
+          <th class="border border-slate-300 px-2 py-1"></th>
+          <th class="border border-slate-300 px-2 py-1">9</th>
+          <th class="border border-slate-300 px-2 py-1"></th>
+          <th class="border border-slate-300 px-2 py-1">$+\infty$</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-slate-300 px-2 py-1">$E'(v)$</td>
+          <td class="border border-slate-300 px-2 py-1"></td>
+          <td class="border border-slate-300 px-2 py-1">-</td>
+          <td class="border border-slate-300 px-2 py-1">0</td>
+          <td class="border border-slate-300 px-2 py-1">+</td>
+          <td class="border border-slate-300 px-2 py-1"></td>
+        </tr>
+        <tr>
+          <td class="border border-slate-300 px-2 py-1">$E(v)$</td>
+          <td class="border border-slate-300 px-2 py-1">$+\infty$</td>
+          <td class="border border-slate-300 px-2 py-1">$\searrow$</td>
+          <td class="border border-slate-300 px-2 py-1">$72900c$</td>
+          <td class="border border-slate-300 px-2 py-1">$\nearrow$</td>
+          <td class="border border-slate-300 px-2 py-1">$+\infty$</td>
+        </tr>
+      </tbody>
+      </table>
+      Ta thấy, khi nước đứng yên, để ít tiêu hao năng lượng nhất, cá phải bơi với vận tốc là 9 (km/h).
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q132">
+      <p><strong>Câu 132</strong>. Cho một tấm nhôm hình chữ nhật có chiều dài bằng 10cm và chiều rộng bằng 8cm. Người ta cắt bỏ ở bốn góc của tấm nhôm đó bốn hình vuông bằng nhau, mỗi hình vuông có cạnh bằng $x(cm)$, rồi gập tấm nhôm lại (như hình vẽ) để được một cái hộp không nắp. Tìm $x$ để hộp nhận được có thể tích lớn nhất.</p>
+      <img src="data/im/nn30.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q132" value="A"/> A. $x = \frac{8-2\sqrt{21}}{3}$ <span class="option-icon" id="icon-q132-A"></span></label>
+        <label><input type="radio" name="q132" value="B"/> B. $x = \frac{10-2\sqrt{7}}{3}$ <span class="option-icon" id="icon-q132-B"></span></label>
+        <label><input type="radio" name="q132" value="C"/> C. $x = \frac{9+\sqrt{21}}{9}$ <span class="option-icon" id="icon-q132-C"></span></label>
+        <label><input type="radio" name="q132" value="D"/> D. $x = \frac{9-\sqrt{21}}{3}$ <span class="option-icon" id="icon-q132-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q132','D')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+    <!----Từ câu 133-->
+  <section>
+  <section>
+    <div class="question" id="q133">
+      <p><strong>Câu 133</strong>. Một người nông dân có 15.000.000 đồng muốn làm một cái hàng rào hình chữ E dọc theo một con sông (như hình vẽ) để làm một khu đất có hai phần chữ nhật để trồng rau. Đối với mặt hàng rào song song với bờ sông thì chi phí nguyên vật liệu là 60.000 đồng một mét, còn đối với ba mặt hàng rào song song nhau thì chi phí nguyên vật liệu là 50.000 đồng một mét. Tìm diện tích lớn nhất của đất rào thu được</p>
+      <img src="data//im/n30.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q133" value="A"/> A. $3125$ m$^2$ <span class="option-icon" id="icon-q133-A"></span></label>
+        <label><input type="radio" name="q133" value="B"/> B. $50$ m$^2$ <span class="option-icon" id="icon-q133-B"></span></label>
+        <label><input type="radio" name="q133" value="C"/> C. $1250$ m$^2$ <span class="option-icon" id="icon-q133-C"></span></label>
+        <label><input type="radio" name="q133" value="D"/> D. $6250$ m$^2$ <span class="option-icon" id="icon-q133-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q133','D')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn D.<br>
+<br>
+Gọi x là chiều dài một mặt hàng rào hình chữ E ($x>0$).<br>
+Gọi y là chiều dài mặt hàng rào hình chữ E song song với bờ sông ($y>0$).<br>
+Số tiền phải làm là: $x.3.50000 + y.60000 = 15.000.000 \Leftrightarrow y = \frac{500-5x}{2}$.<br>
+Diện tích đất: $S = x.y = x.\frac{500-5x}{2} = 250x - \frac{5}{2}x^2$.<br>
+Ta có: $S' = 250-5x$; $S'=0 \Leftrightarrow 250-5x \Leftrightarrow x=50$.<br>
+Bảng biến thiên:<br>
+<table><thead><tr><th>$x$</th><th>0</th><th></th><th>50</th><th></th><th>$+\infty$</th></tr></thead><tbody><tr><th>$S'$</th><td></td><td>+</td><td>0</td><td>--</td><td></td></tr><tr><th>$S$</th><td>0</td><td>$\nearrow$</td><td>6250</td><td>$\searrow$</td><td>$-\infty$</td></tr></tbody></table><br>
+Vậy: $\max_{(0;+\infty)} S = 6250$ (m$^2$) khi $x=50$.
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q134">
+      <p><strong>Câu 134</strong>. Từ một tấm bạt hình chữ nhật có kích thước $12m \times 6m$ như hình vẽ. Một nhóm học sinh trong quá trình đi dã ngoại đã gập đôi tấm bạt lại theo đoạn nối trung điểm 2 cạnh là chi rộng của tấm bạt sao cho 2 mép chiều dài của tấm bạt sát đất và cách nhau $x$ (m) (như hình vẽ). Tìm $x$ để khoảng không gian trong lều là lớn nhất.</p>
+      <img src="data//im/n31.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q134" value="A"/> A. $x=4$ <span class="option-icon" id="icon-q134-A"></span></label>
+        <label><input type="radio" name="q134" value="B"/> B. $x = 3\sqrt{3}$ <span class="option-icon" id="icon-q134-B"></span></label>
+        <label><input type="radio" name="q134" value="C"/> C. $x=3$ <span class="option-icon" id="icon-q134-C"></span></label>
+        <label><input type="radio" name="q134" value="D"/> D. $x = 3\sqrt{2}$ <span class="option-icon" id="icon-q134-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q134','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn B.<br>
+<br>
+Phần không gian trong lều được tính bởi công thức thể tích hình lăng trụ đứng.<br>
+Ta có: $V = h.S_{đáy} = 12.S_{ABC}$. Như vậy để thể tích lớn nhất khi diện tích tam giác đáy ABC là lớn nhất.<br>
+Trong tam giác đáy ABC, vẽ đường cao AH. Ta có $AH = \sqrt{9-\frac{x^2}{4}}$.<br>
+Do đó diện tích: $S_{\triangle ABC} = \frac{1}{2}x\sqrt{9-\frac{x^2}{4}} = \frac{1}{4}x\sqrt{36-x^2}$.<br>
+<b>Cách giải 1:</b><br>
+Xét hàm số $S(x) = \frac{1}{4}x\sqrt{36-x^2}$ với $x \in (0;6)$.<br>
+Ta có: $S'(x) = \frac{1}{4}(\sqrt{36-x^2} + x\frac{-2x}{2\sqrt{36-x^2}}) = \frac{1}{4}\frac{36-x^2-x^2}{\sqrt{36-x^2}}$.<br>
+$S'(x) = 0 \Leftrightarrow 36-2x^2 = 0 \Rightarrow x=3\sqrt{2}$.<br>
+Bảng biến thiên:<br>
+<table><thead><tr><th>$x$</th><th>0</th><th></th><th>$3\sqrt{2}$</th><th></th><th>6</th></tr></thead><tbody><tr><th>$S'(x)$</th><td></td><td>+</td><td>0</td><td>--</td><td></td></tr><tr><th>$S(x)$</th><td></td><td>$\nearrow$</td><td>$\frac{9}{2}$</td><td>$\searrow$</td><td></td></tr></tbody></table><br>
+Vậy với $x=3\sqrt{2}$ (m) thì thể tích lều là lớn nhất.<br>
+<b>Cách giải 2:</b><br>
+Theo bất đẳng thức quen thuộc là $ab \le \frac{a^2+b^2}{2}$, ta có:<br>
+$x\sqrt{36-x^2} \le \frac{x^2+36-x^2}{2} = 18 \Rightarrow S(x) = \frac{1}{4}x\sqrt{36-x^2} \le \frac{1}{4}.18 = \frac{9}{2}$.<br>
+Vậy diện tích tam giác đáy ABC lớn nhất bằng $\frac{9}{2}$, khi đó dấu "=" xảy ra<br>
+$\Leftrightarrow x = \sqrt{36-x^2} \Leftrightarrow \begin{cases} x \ge 0 \\ 36-x^2=x^2 \end{cases} \Leftrightarrow x=3\sqrt{2}$.
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q135">
+      <p><strong>Câu 135</strong>. Cho một tấm nhôm hình vuông cạnh 6 cm. Người ta muốn cắt một hình thang như hình vẽ trong đó $AH=x, AE=2, CG=y, CF=3$. Tìm tổng $x+y$ để diện tích hình thang EFGH đạt giá trị nhỏ nhất.</p>
+      <img src="data//im/n32.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q135" value="A"/> A. $x+y=7$ <span class="option-icon" id="icon-q135-A"></span></label>
+        <label><input type="radio" name="q135" value="B"/> B. $x+y=5$ <span class="option-icon" id="icon-q135-B"></span></label>
+        <label><input type="radio" name="q135" value="C"/> C. $x+y = \frac{7\sqrt{2}}{2}$ <span class="option-icon" id="icon-q135-C"></span></label>
+        <label><input type="radio" name="q135" value="D"/> D. $x+y=4\sqrt{2}$ <span class="option-icon" id="icon-q135-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q135','C')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn C.<br>
+<br>
+Ta có $S_{EFGH}$ nhỏ nhất $\Leftrightarrow S = S_{\triangle AEH} + S_{\triangle CGF} + S_{\triangle DGH}$ lớn nhất (do $S_{ABEF}$ không đổi).<br>
+Ta có: $S = \frac{1}{2}2x + \frac{1}{2}3y + \frac{1}{2}(6-x)(6-y) = -\frac{1}{2}xy-2x-\frac{3}{2}y+18$ (1)<br>
+Do EFGH là hình thang nên hai tam giác AEH, CGF đồng dạng, do đó:<br>
+$\frac{AE}{CG} = \frac{AH}{CF} \Leftrightarrow \frac{2}{y} = \frac{x}{3} \Leftrightarrow xy=6$ (2)<br>
+Từ (1) và (2) suy ra $S=21-2x-\frac{9}{x}$.<br>
+<b>Cách giải 1:</b><br>
+Xét hàm số $f(x) = 21-2x-\frac{9}{x}$ với $x \in (0;6)$. Ta có:<br>
+$f'(x) = -2+\frac{9}{x^2} = \frac{9-2x^2}{x^2}$; $f'(x)=0 \Leftrightarrow 9-2x^2=0 \Leftrightarrow x = \frac{3\sqrt{2}}{2}$.<br>
+Bảng biến thiên:<br>
+<table><thead><tr><th>$x$</th><th>0</th><th></th><th>$\frac{3\sqrt{2}}{2}$</th><th></th><th>6</th></tr></thead><tbody><tr><th>$f'(x)$</th><td></td><td>+</td><td>0</td><td>--</td><td></td></tr><tr><th>$f(x)$</th><td>$-\infty$</td><td>$\nearrow$</td><td>$21-6\sqrt{2}$</td><td>$\searrow$</td><td>$\frac{15}{2}$</td></tr></tbody></table><br>
+Vậy $S=f(x)$ đạt giá trị lớn nhất khi và chỉ khi $x=\frac{3\sqrt{2}}{2} \Rightarrow y = \frac{6}{x} = 2\sqrt{2}$. Do vậy $x+y = \frac{7\sqrt{2}}{2}$.<br>
+<b>Cách giải 2:</b><br>
+$S = 21-2x-\frac{9}{x} = 21-(2x+\frac{9}{x})$. Ta thấy S lớn nhất khi và chỉ khi $2x+\frac{9}{x}$ đạt giá trị nhỏ nhất.<br>
+Áp dụng bất đẳng thức Cô-si cho hai số dương: $2x+\frac{9}{x} \ge 2\sqrt{2x.\frac{9}{x}} = 6\sqrt{2}$. Dấu đẳng thức xảy ra<br>
+$\Leftrightarrow 2x = \frac{9}{x} \Leftrightarrow x^2 = \frac{9}{2} \Leftrightarrow x = \frac{3\sqrt{2}}{2}$. Từ đây ta có $y=2\sqrt{2} \Rightarrow x+y = \frac{7\sqrt{2}}{2}$.
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q136">
+      <p><strong>Câu 136</strong>. Một người đàn ông muốn chèo thuyền ở vị trí A tới điểm B về phía hạ lưu bờ đối diện, càng nhanh càng tốt, trên một bờ sông thẳng rộng 3 km (như hình vẽ). Anh có thể chèo thuyền của mình trực tiếp qua sông để đến C và sau đó chạy đến B, hay có thể chèo trực tiếp đến B, hoặc anh ta có thể chèo thuyền đến một điểm D giữa C và B và sau đó chạy đến B. Biết anh ấy có thể chèo thuyền 6 km/h, chạy 8 km/h và quãng đường BC = 8 km. Biết tốc độ của dòng nước là không đáng kể so với tốc độ chèo thuyền của người đàn ông. Tính khoảng thời gian ngắn nhất (đơn vị: giờ) để người đàn ông đến B.</p>
+      <img src="data//im/n33.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q136" value="A"/> A. $\frac{3}{2}$ <span class="option-icon" id="icon-q136-A"></span></label>
+        <label><input type="radio" name="q136" value="B"/> B. $\frac{9}{\sqrt{7}}$ <span class="option-icon" id="icon-q136-B"></span></label>
+        <label><input type="radio" name="q136" value="C"/> C. $\frac{\sqrt{73}}{6}$ <span class="option-icon" id="icon-q136-C"></span></label>
+        <label><input type="radio" name="q136" value="D"/> D. $1+\frac{\sqrt{7}}{8}$ <span class="option-icon" id="icon-q136-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q136','C')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q137">
+      <p><strong>Câu 137</strong>. Một ngọn hải đăng đặt ở vị trí A cách bờ biển một khoảng AB = 5 km. Trên bờ biển có một cái kho ở vị trí C cách B một khoảng là 7 km. Người canh hải đăng có thể chèo đò từ A đến vị trí M trên bờ biển với vận tốc 4km/h rồi đi bộ đến C với vận tốc 6 km/h. Vị trí của điểm M cách B một khoảng nhất với giá trị nào nhất để người đó đến kho nhanh nhất?</p>
+      <img src="data//im/n34.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q137" value="A"/> A. 3,0km <span class="option-icon" id="icon-q137-A"></span></label>
+        <label><input type="radio" name="q137" value="B"/> B. 7,0km <span class="option-icon" id="icon-q137-B"></span></label>
+        <label><input type="radio" name="q137" value="C"/> C. 4,5km <span class="option-icon" id="icon-q137-C"></span></label>
+        <label><input type="radio" name="q137" value="D"/> D. 2,1km <span class="option-icon" id="icon-q137-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q137','C')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q138">
+      <p><strong>Câu 138</strong>. Cho nửa đường tròn đường kính AB = 2 và hai điểm C, D thay đổi trên nửa đường tròn đó sao cho ABCD là hình thang. Diện tích lớn nhất của hình thang ABCD bằng</p>
+      
+      <div class="options-row">
+        <label><input type="radio" name="q138" value="A"/> A. $\frac{1}{2}$ <span class="option-icon" id="icon-q138-A"></span></label>
+        <label><input type="radio" name="q138" value="B"/> B. $\frac{3\sqrt{3}}{4}$ <span class="option-icon" id="icon-q138-B"></span></label>
+        <label><input type="radio" name="q138" value="C"/> C. 1 <span class="option-icon" id="icon-q138-C"></span></label>
+        <label><input type="radio" name="q138" value="D"/> D. $\frac{3\sqrt{3}}{2}$ <span class="option-icon" id="icon-q138-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q138','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q139">
+      <p><strong>Câu 139</strong>. Một sợi dây kim loại dài 60cm được cắt thành hai đoạn. Đoạn dây thứ nhất uốn thành hình vuông cạnh a, đoạn dây thứ hai uốn thành đường tròn bán kính r. Để tổng diện tích của hình vuông và hình tròn nhỏ nhất thì tỉ số $\frac{a}{r}$ bằng:</p>
+      <img src="data//im/n35.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q139" value="A"/> A. $\frac{a}{r}=1$ <span class="option-icon" id="icon-q139-A"></span></label>
+        <label><input type="radio" name="q139" value="B"/> B. $\frac{a}{r}=2$ <span class="option-icon" id="icon-q139-B"></span></label>
+        <label><input type="radio" name="q139" value="C"/> C. $\frac{a}{r}=3$ <span class="option-icon" id="icon-q139-C"></span></label>
+        <label><input type="radio" name="q139" value="D"/> D. $\frac{a}{r}=4$ <span class="option-icon" id="icon-q139-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q139','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn B.<br>
+<br>
+Gọi x (cm) là độ dài của đoạn dây cuộn thành hình tròn ($0<x<60$) $\Rightarrow$ Chiều dài đoạn còn lại là $60-x$ (cm).<br>
+Chu vi đường tròn $2\pi r = x \Rightarrow r = \frac{x}{2\pi} \rightarrow$ diện tích hình tròn $S_1 = \pi r^2 = \frac{x^2}{4\pi}$.<br>
+Diện tích hình vuông cạnh $a = \frac{60-x}{4}$ là $S_2 = \left(\frac{60-x}{4}\right)^2$.<br>
+Tổng diện tích hai hình: $S = S_1+S_2 = \frac{x^2}{4\pi} + \left(\frac{60-x}{4}\right)^2 = \frac{(4+\pi)x^2 - 120\pi x + 3600\pi}{16\pi}$.<br>
+Đạo hàm $S'=\frac{(4+\pi)x-60\pi}{8\pi}$; $S'=0 \Leftrightarrow x = \frac{60\pi}{4+\pi}$; $S'' = \frac{4+\pi}{8\pi} > 0$.<br>
+Suy ra hàm S chỉ có một điểm cực tiểu là $x=\frac{60\pi}{4+\pi}$.<br>
+Do đó S đạt giá trị nhỏ nhất tại $x=\frac{60\pi}{4+\pi}$. Với $x=\frac{60\pi}{4+\pi} \Rightarrow r = \frac{30}{4+\pi}$ và $a=\frac{60}{4+\pi} \Rightarrow \frac{a}{r}=2$.
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q140">
+      <p><strong>Câu 140</strong>. Một mảnh giấy hình chữ nhật có chiều dài 12cm và chiều rộng 6cm. Thực hiện thao tác gấp góc dưới bên phải sao cho đỉnh được gấp nằm trên cạnh chiều dài còn lại. Hỏi chiều dài L tối thiểu của nếp gấp là bao nhiêu?</p>
+      <img src="data//im/n36.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q140" value="A"/> A. $\min L = 6\sqrt{2}$ cm <span class="option-icon" id="icon-q140-A"></span></label>
+        <label><input type="radio" name="q140" value="B"/> B. $\min L = \frac{9\sqrt{3}}{2}$ cm <span class="option-icon" id="icon-q140-B"></span></label>
+        <label><input type="radio" name="q140" value="C"/> C. $\min L = \frac{7\sqrt{3}}{2}$ cm <span class="option-icon" id="icon-q140-C"></span></label>
+        <label><input type="radio" name="q140" value="D"/> D. $\min L = 9\sqrt{2}$ cm <span class="option-icon" id="icon-q140-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q140','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn B.<br>
+<br>
+Xét mô hình với các điểm A, B, E, F, G như hình vẽ.<br>
+Đặt $EB = x$ (cm) với $0 < x < 6 \Rightarrow AE = 6-x$. Do $\triangle EBG = \triangle EFG$ nên $EF=BE=x$.<br>
+Trong tam giác vuông AEF có $\cos \widehat{AEF} = \frac{6-x}{x} \Rightarrow \cos \widehat{BEF} = \frac{x-6}{x}$ (hai góc bù nhau).<br>
+Ta có $\widehat{BEF} = 2\widehat{BEG}$ nên $\cos \widehat{BEF} = \cos(2\widehat{BEG}) = 2\cos^2\widehat{BEG}-1 = \frac{x-6}{x}$<br>
+$\Rightarrow \cos\widehat{BEG} = \sqrt{\frac{x-3}{x}}$ (do $\widehat{BEG}$ là góc nhọn của tam giác nên $\cos\widehat{BEG}>0$).<br>
+Trong tam giác vuông BEG có $EG = \frac{BE}{\cos\widehat{BEG}} = \frac{x}{\sqrt{\frac{x-3}{x}}} = \frac{x\sqrt{x}}{\sqrt{x-3}} = \sqrt{\frac{x^3}{x-3}}$.<br>
+Xét hàm $f(x)=\frac{x^3}{x-3}$ với $x \in (0;6)$, ta có: $f'(x) = \frac{3x^2(x-3)-x^3}{(x-3)^2} = \frac{2x^3-9x^2}{(x-3)^2}$;<br>
+$f'(x)=0 \Leftrightarrow 2x^3-9x^2=0 \Leftrightarrow \begin{cases} x=0 \text{ (loại)} \\ x=\frac{9}{2} \end{cases}$.<br>
+Bảng biến thiên:<br>
+<table><thead><tr><th>$x$</th><th>0</th><th></th><th>$\frac{9}{2}$</th><th></th><th>6</th></tr></thead><tbody><tr><th>$f'(x)$</th><td></td><td>$-$</td><td>0</td><td>$+$</td><td></td></tr><tr><th>$f(x)$</th><td></td><td>$\searrow$</td><td>$\frac{243}{4}$</td><td>$\nearrow$</td><td>72</td></tr></tbody></table><br>
+Vậy $\min_{(0;6)}f(x)=\frac{243}{4}$ nên $EG=\sqrt{f(x)}$ đạt giá trị nhỏ nhất bằng $\frac{9\sqrt{3}}{2}$, khi đó $x=\frac{9}{2}$.
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q141">
+      <p><strong>Câu 141</strong>. Hình dáng phần đất liền của hai xã thuộc tỉnh Đồng Tháp được mô hình hóa bởi đồ thị hàm số $y=\frac{x^2+ax+b}{x-2}$; biết đồ thị có một điểm cực trị là (1; 1), với hệ trục tọa độ Oxy như hình vẽ, đơn vị trên mỗi trục là 10 mét. Để thuận tiện cho giao thông hai xã, lãnh đạo tỉnh đã phê duyệt dự án xây một chiếc cầu nối phần đất liền của hai xã này. Nhằm tiết kiệm chi phí cho công trình, người kỹ sư trưởng thiết kế có nhiệm vụ nghiên cứu để chọn được hai vị trí A, B trên phần đất liền hai xã sao cho độ dài chiếc cầu (đoạn AB) là ngắn nhất có thể. Hỏi độ dài ngắn nhất của chiếc cầu đó (tính theo đường chim bay) là bao nhiêu mét (làm tròn đến hàng phần chục)?</p>
+      <img src="data//im/n37.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q141" value="A"/> A. 41,1 <span class="option-icon" id="icon-q141-A"></span></label>
+        <label><input type="radio" name="q141" value="B"/> B. 43,9 <span class="option-icon" id="icon-q141-B"></span></label>
+        <label><input type="radio" name="q141" value="C"/> C. 38,4 <span class="option-icon" id="icon-q141-C"></span></label>
+        <label><input type="radio" name="q141" value="D"/> D. 42,7 <span class="option-icon" id="icon-q141-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q141','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Chọn B.<br>
+<br>
+Ta có $y' = \frac{x^2-4x-2a-b}{(x-2)^2}$. Vì (1; 1) là điểm cực trị của đồ thị hàm số nên $\begin{cases} y(1)=1 \\ y'(1)=0 \end{cases}$<br>
+$\Rightarrow \begin{cases} \frac{1+a+b}{1-2}=1 \\ 1^2-4.1-2a-b=0 \end{cases} \Rightarrow \begin{cases} a+b=-2 \\ 2a+b=-3 \end{cases} \Rightarrow \begin{cases} a=-1 \\ b=-1 \end{cases}$.<br>
+Hàm số trở thành $y = \frac{x^2-x-1}{x-2} = x+1+\frac{1}{x-2}, x \neq 2$.<br>
+Ta có: $y' = 1 - \frac{1}{(x-2)^2}$; $y'=0 \Rightarrow (x-2)^2-1=0 \Rightarrow \begin{cases} x=3 \\ x=1 \end{cases}$.<br>
+Gọi $A(2+a; 3+a+\frac{1}{a}), B(2-b; 3-b-\frac{1}{b})$ là hai điểm thuộc hai nhánh đồ thị với $a,b>0$.<br>
+Ta có:<br>
+$AB^2 = (a+b)^2+\left(a+b+\frac{1}{a}+\frac{1}{b}\right)^2 = (a+b)^2 + \left(a+b+\frac{a+b}{ab}\right)^2 = (a+b)^2\left[1+\left(1+\frac{1}{ab}\right)^2\right]$<br>
+$= (a+b)^2\left(2+\frac{2}{ab}+\frac{1}{a^2b^2}\right) \ge (2\sqrt{ab})^2\left(2+\frac{2}{ab}+\frac{1}{a^2b^2}\right) = 4ab\left(2+\frac{2}{ab}+\frac{1}{a^2b^2}\right)$<br>
+$= 8ab+8+\frac{4}{ab} \ge 2\sqrt{8ab.\frac{4}{ab}}+8 = 8+8\sqrt{2}$.<br>
+Độ dài ngắn nhất của cây cầu (theo đường chim bay) là $AB \times 10 = \sqrt{8+8\sqrt{2}} \times 10 \approx 43,9$ m.<br>
+Dấu "=" xảy ra khi và chỉ khi $a=b$ và $8ab=\frac{4}{ab} \Leftrightarrow a=b=\frac{1}{\sqrt[4]{2}}$.
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q142">
+      <p><strong>Câu 142</strong>. Một chiến sĩ đặc công đang nấp ở bờ sông, cần phải bơi qua bờ bên kia để tấn công mục tiêu. Có thể xem con sông này là thẳng và có độ rộng 100 m; vận tốc bơi của chiến sĩ bằng một phần ba vận tốc chạy bộ. Biết rằng mục tiêu tấn công cách chiến sĩ 1 km theo đường chim bay; hỏi chiến sĩ phải bơi bao nhiêu mét để đến được mục tiêu nhanh nhất (làm tròn kết quả đến hàng đơn vị)?</p>
+      <img src="data//im/n38.png" alt="image for question" class="my-3 max-w-md mx-auto">
+      <div class="options-row">
+        <label><input type="radio" name="q142" value="A"/> A. 105 <span class="option-icon" id="icon-q142-A"></span></label>
+        <label><input type="radio" name="q142" value="B"/> B. 106 <span class="option-icon" id="icon-q142-B"></span></label>
+        <label><input type="radio" name="q142" value="C"/> C. 107 <span class="option-icon" id="icon-q142-C"></span></label>
+        <label><input type="radio" name="q142" value="D"/> D. 108 <span class="option-icon" id="icon-q142-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q142','B')">Kiểm tra</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="box solution">
+      ✅ <b>Lời giải:</b><br>
+      Gọi C là hình chiếu vuông góc của A (vị trí chiến sĩ xuất phát) đối với bờ bên kia và D thuộc đoạn BC là vị trí mà chiến sĩ sẽ bơi đến trước khi chạy bộ tấn công mục tiêu tại A.<br>
+Ta chuẩn hóa bài toán như sau:<br>
+<ul><li>1 đơn vị độ dài = 100 m; khi đó $AC=1, AB=10$.</li><li>Vận tốc bơi trên sông của chiến sĩ là 1 (đơn vị vận tốc); vận tốc chạy của chiến sĩ là 3 (đơn vị vận tốc).</li></ul><br>
+Đặt $AD = x \in (1; 10) \Rightarrow CD = \sqrt{x^2-1}$; $BC = \sqrt{AB^2-AC^2} = 3\sqrt{11}$;<br>
+$BD = BC - CD = 3\sqrt{11}-\sqrt{x^2-1}$.<br>
+Tổng thời gian từ khi chiến sĩ xuất phát đến khi tiếp cận mục tiêu là:<br>
+$t = \frac{AD}{1} + \frac{BD}{3} = x + \frac{3\sqrt{11}-\sqrt{x^2-1}}{3} = \frac{1}{3}\sqrt{11}-\frac{1}{3}\sqrt{x^2-1}+x$.<br>
+Xét hàm $f(x)=\sqrt{11}-\frac{1}{3}\sqrt{x^2-1}+x$; $x \in (1;10)$; $f'(x)=1-\frac{1}{3}\frac{x}{\sqrt{x^2-1}}$;<br>
+$f'(x)=0 \Leftrightarrow 3\sqrt{x^2-1}=x \Rightarrow 9x^2-9=x^2 \Rightarrow x = \frac{3\sqrt{2}}{4} > 0$.<br>
+Bảng biến thiên:<br>
+<table><thead><tr><th>$x$</th><th>1</th><th></th><th>$\frac{3\sqrt{2}}{4}$</th><th></th><th>10</th></tr></thead><tbody><tr><th>$f'(x)$</th><td></td><td>$-$</td><td>0</td><td>$+$</td><td></td></tr><tr><th>$f(x)$</th><td></td><td>$\searrow$</td><td></td><td>$\nearrow$</td><td></td></tr></tbody></table><br>
+Chiến sĩ tiếp cận mục tiêu nhanh nhất khi $AD=x=\frac{3\sqrt{2}}{4}$. Do đó chiến sỹ phải bơi một đoạn $\frac{3\sqrt{2}}{4} \times 100 \approx 106$ m.
+    </div>
+  </section>
+</section>
+
+
+
+
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <button id="homeBtn" title="Trang chủ">🏠</button>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+  <!-- Script vẽ -->
+  <script>
+   
+    const canvas=document.getElementById("drawCanvas"),ctx=canvas.getContext("2d");
+    let drawing=false,mode="free",color="yellow",lineW=3,startX=0,startY=0;
+    let history=[]; // lưu snapshot để Undo
+    function disableDrawing() {
+      drawEnabled = false;
+      mode = null;
+      canvas.style.pointerEvents = "none";
+    }
+
+    function resizeCanvas(){
+      canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+      saveState();
+    }
+    resizeCanvas();window.addEventListener("resize",resizeCanvas);
+
+    function saveState(){history.push(canvas.toDataURL());}
+    function restoreState(){
+      if(history.length>1){history.pop();
+        let img=new Image();img.src=history[history.length-1];
+        img.onload=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0);}
+      }
+    }
+
+    function startDraw(e){startX=e.clientX;startY=e.clientY;if(mode==="free"){drawing=true;ctx.beginPath();ctx.moveTo(startX,startY);}}
+    function endDraw(e){
+      ctx.lineWidth=lineW;
+      if(mode==="line"||mode==="dashedLine"){
+        ctx.setLineDash(mode==="dashedLine"?[10,5]:[]);
+        ctx.strokeStyle=color;ctx.beginPath();ctx.moveTo(startX,startY);ctx.lineTo(e.clientX,e.clientY);ctx.stroke();ctx.setLineDash([]);
+      }
+      if(mode==="circle"||mode==="ellipse"){
+        const rx=Math.abs(e.clientX-startX),ry=Math.abs(e.clientY-startY);
+        ctx.strokeStyle=color;
+        if(mode==="circle"){const r=Math.sqrt(rx*rx+ry*ry);ctx.beginPath();ctx.arc(startX,startY,r,0,2*Math.PI);ctx.stroke();}
+        else{ctx.setLineDash([8,4]);ctx.beginPath();ctx.ellipse(startX,startY,rx,ry,0,0,2*Math.PI);ctx.stroke();ctx.setLineDash([]);}
+      }
+      drawing=false;saveState();
+    }
+    function draw(e){
+      if(!drawing||mode!=="free")return;
+      ctx.strokeStyle=color;ctx.lineWidth=lineW;ctx.lineCap="round";
+      ctx.lineTo(e.clientX,e.clientY);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(e.clientX,e.clientY);
+    }
+    canvas.addEventListener("mousedown",startDraw);canvas.addEventListener("mouseup",endDraw);canvas.addEventListener("mousemove",draw);
+
+    // Toolbar actions
+    document.getElementById("toggleDraw").onclick=()=>{mode="free";canvas.style.pointerEvents="auto";};
+    document.getElementById("lineBtn").onclick=()=>{mode="line";canvas.style.pointerEvents="auto";};
+    document.getElementById("dashedLineBtn").onclick=()=>{mode="dashedLine";canvas.style.pointerEvents="auto";};
+    document.getElementById("circleBtn").onclick=()=>{mode="circle";canvas.style.pointerEvents="auto";};
+    document.getElementById("ellipseBtn").onclick=()=>{mode="ellipse";canvas.style.pointerEvents="auto";};
+    document.getElementById("colorPicker").onchange=(e)=>color=e.target.value;
+    document.getElementById("lineWidthPicker").onchange=(e)=>lineW=parseInt(e.target.value);
+    document.getElementById("clearCanvas").onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);saveState();};
+    document.getElementById("undoBtn").onclick=()=>restoreState();
+    document.getElementById("fullscreen").onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
+    document.getElementById("homeBtn").onclick=()=>{window.location.href="index.html";};
+    document.getElementById("toggleMenu").onclick=()=>{
+      const tb=document.getElementById("toolbar");
+      tb.style.display=(tb.style.display==="none")?"flex":"none";
+    };
+
+    canvas.style.pointerEvents="none";
+    saveState();
+    document.getElementById("disableDraw").onclick = () => disableDrawing();
+
+    // Xử lý trắc nghiệm:
+          function showOptionIcon(qid, selected, correct) {
+          document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent="");
+          const icon = document.getElementById(`icon-${qid}-${selected}`);
+          if(icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+        }
+
+        function checkAnswer(qid, correct) {
+          const radios = document.querySelectorAll(`input[name="${qid}"]`);
+          let chosen = null;
+          radios.forEach(r => { if(r.checked) chosen=r.value; });
+          if(!chosen){alert("Hãy chọn một đáp án!"); return;}
+          showOptionIcon(qid, chosen, correct);
+        }
+              function checkAnswer(qid, correct) {
+          // Reset tất cả icon
+          document.querySelectorAll(`#${qid} .option-icon`).forEach(el => {
+            el.textContent = '';
+          });
+
+          // Lấy lựa chọn được chọn
+          let chosen = document.querySelector(`input[name="${qid}"]:checked`);
+          if (!chosen) return;
+
+          let chosenVal = chosen.value;
+          let iconId = `icon-${qid}-${chosenVal}`;
+
+          // Hiển thị icon đúng/sai
+          if (chosenVal === correct) {
+            document.getElementById(iconId).textContent = '✅';
+          } else {
+            document.getElementById(iconId).textContent = '❌';
+            document.getElementById(`icon-${qid}-${correct}`).textContent = '✅'; // đánh dấu đáp án đúng
+          }
+        }
+          </script>
+   <script>
+        function checkTrueFalseAnswer(questionId, correctAnswers) {
+          const container = document.getElementById(questionId);
+          if (!container) return;
+
+          const optionRows = container.querySelectorAll(".option-row");
+          let feedback = "";
+
+          optionRows.forEach((row, idx) => {
+            const radios = row.querySelectorAll("input[type='radio']");
+            let selected = null;
+            radios.forEach(r => { if (r.checked) selected = r.value; });
+
+            const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+            if (selected === null) {
+              feedback += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+            } else if (selected === correctAnswers[idx]) {
+              feedback += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+            } else {
+              feedback += `Mệnh đề ${letter}) ❌ Sai<br>`;
+            }
+          });
+
+          // Nếu chưa có khung kết quả thì tạo mới
+          let resultBox = container.querySelector(".answer-check .result");
+          if (!resultBox) {
+            resultBox = document.createElement("div");
+            resultBox.className = "result";
+            container.querySelector(".answer-check").appendChild(resultBox);
+          }
+          resultBox.innerHTML = feedback;
+        }
+        </script>
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+
+
+   
+</body>
+</html>
