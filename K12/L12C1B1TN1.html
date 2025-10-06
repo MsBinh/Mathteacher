@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <title>Bảng giảng Toán - Demo đầy đủ (fix công thức dài)</title>
+  <title>Bảng giảng Toán </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Reveal.js CSS -->
@@ -3544,157 +3544,153 @@ Xét tính đúng sai của các mệnh đề sau:</p>
 </script>
 
   <!-- Script vẽ -->
-  <!-- Script vẽ -->
-<script>
-  const canvas = document.getElementById("drawCanvas"),
-        ctx = canvas.getContext("2d");
-  let drawing = false, mode = "free", color = "yellow", lineW = 3;
-  let startX = 0, startY = 0;
-  let history = []; // Lưu snapshot để Undo
+ <script>
+  // Thêm hàm này vào script
+document.getElementById("toggleMenu").onclick = () => {
+  const tb = document.getElementById("toolbar");
+  if (tb.style.display === "none") {
+    tb.style.display = "flex";
+    tb.style.flexDirection = "column"; // <-- THÊM DÒNG NÀY
+  } else {
+    tb.style.display = "none";
+  }
+};
 
-  // ===== Resize & init =====
+// Gán sự kiện
+
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  let drawing = false, mode = "free", color = 'yellow', lineW = 3;
+  let startX = 0, startY = 0;
+  const history = [];
+
+  // fix lệch nét, chuẩn hóa DPI
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    saveState();
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const data = canvas.toDataURL();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const img = new Image();
+    img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
+    img.src = data;
   }
   resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener('resize', resizeCanvas);
+  canvas.style.touchAction = 'none';
 
-  function saveState() { history.push(canvas.toDataURL()); }
-  function restoreState() {
-    if (history.length > 1) {
-      history.pop();
-      let img = new Image();
-      img.src = history[history.length - 1];
-      img.onload = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
-      };
-    }
-  }
-
-  // ===== Vẽ tương thích chuột + bút + cảm ứng =====
+  // Lấy toạ độ đúng
   function getPos(e) {
     const rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
 
   function startDraw(e) {
+    if (!mode) return;
     const pos = getPos(e);
-    startX = pos.x; startY = pos.y;
-    if (mode === "free") {
-      drawing = true;
+    startX = pos.x;
+    startY = pos.y;
+    drawing = true;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineW;
+    ctx.lineCap = 'round';
+    if (mode === 'free') {
       ctx.beginPath();
       ctx.moveTo(startX, startY);
     }
   }
 
   function draw(e) {
-    if (!drawing || mode !== "free") return;
+    if (!drawing || !mode) return;
     const pos = getPos(e);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineW;
-    ctx.lineCap = "round";
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(pos.x, pos.y);
+    if (mode === 'free') {
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
   }
 
   function endDraw(e) {
+    if (!drawing) return;
+    drawing = false;
     const pos = getPos(e);
     ctx.lineWidth = lineW;
-    if (mode === "line" || mode === "dashedLine") {
-      ctx.setLineDash(mode === "dashedLine" ? [10,5] : []);
-      ctx.strokeStyle = color;
+    ctx.strokeStyle = color;
+    if (mode === 'line') {
       ctx.beginPath();
       ctx.moveTo(startX, startY);
       ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
-      ctx.setLineDash([]);
-    }
-    if (mode === "circle" || mode === "ellipse") {
-      const rx = Math.abs(pos.x - startX), ry = Math.abs(pos.y - startY);
-      ctx.strokeStyle = color;
-      if (mode === "circle") {
+    } else if (mode === 'circle' || mode === 'ellipse') {
+      const rx = Math.abs(pos.x - startX);
+      const ry = Math.abs(pos.y - startY);
+      ctx.beginPath();
+      if (mode === 'circle') {
         const r = Math.sqrt(rx * rx + ry * ry);
-        ctx.beginPath();
         ctx.arc(startX, startY, r, 0, 2 * Math.PI);
-        ctx.stroke();
       } else {
-        ctx.setLineDash([8, 4]);
-        ctx.beginPath();
         ctx.ellipse(startX, startY, rx, ry, 0, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.setLineDash([]);
       }
+      ctx.stroke();
     }
-    drawing = false;
-    saveState();
+    history.push(canvas.toDataURL());
   }
 
-  // ===== Event bindings (pointer events cho mọi thiết bị) =====
-  canvas.addEventListener("pointerdown", startDraw);
-  canvas.addEventListener("pointermove", draw);
-  canvas.addEventListener("pointerup", endDraw);
-  canvas.addEventListener("pointercancel", endDraw);
-  canvas.addEventListener("pointerleave", endDraw);
+  // Hỗ trợ bút / chuột / cảm ứng
+  canvas.addEventListener('pointerdown', startDraw);
+  canvas.addEventListener('pointermove', draw);
+  canvas.addEventListener('pointerup', endDraw);
+  canvas.addEventListener('pointercancel', endDraw);
 
-  // Ngăn cuộn / zoom khi đang vẽ trên tablet
-  canvas.addEventListener("touchstart", e => e.preventDefault());
-  canvas.addEventListener("touchmove", e => e.preventDefault());
+  // ===== Gắn các nút toolbar =====
+  const setBtn = (id, fn) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.onclick = fn;
+  };
 
-  // ===== Toolbar actions =====
-  function disableDrawing() {
-    mode = null;
-    canvas.style.pointerEvents = "none";
-  }
-
-  document.getElementById("toggleDraw").onclick = () => {
-    mode = "free";
-    canvas.style.pointerEvents = "auto";
-  };
-  document.getElementById("lineBtn").onclick = () => {
-    mode = "line";
-    canvas.style.pointerEvents = "auto";
-  };
-  document.getElementById("dashedLineBtn").onclick = () => {
-    mode = "dashedLine";
-    canvas.style.pointerEvents = "auto";
-  };
-  document.getElementById("circleBtn").onclick = () => {
-    mode = "circle";
-    canvas.style.pointerEvents = "auto";
-  };
-  document.getElementById("ellipseBtn").onclick = () => {
-    mode = "ellipse";
-    canvas.style.pointerEvents = "auto";
-  };
-  document.getElementById("colorPicker").onchange = e => color = e.target.value;
-  document.getElementById("lineWidthPicker").onchange = e => lineW = parseInt(e.target.value);
-  document.getElementById("clearCanvas").onclick = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    saveState();
-  };
-  document.getElementById("undoBtn").onclick = () => restoreState();
-  document.getElementById("disableDraw").onclick = () => disableDrawing();
+  setBtn('toggleDraw', () => {
+    // bật / tắt chế độ vẽ tự do
+    if (mode === 'free') {
+      mode = null;
+      canvas.style.pointerEvents = 'none';
+    } else {
+      mode = 'free';
+      canvas.style.pointerEvents = 'auto';
+    }
+  });
+  setBtn('lineBtn', () => { mode = 'line'; canvas.style.pointerEvents = 'auto'; });
+  setBtn('circleBtn', () => { mode = 'circle'; canvas.style.pointerEvents = 'auto'; });
+  setBtn('ellipseBtn', () => { mode = 'ellipse'; canvas.style.pointerEvents = 'auto'; });
+  setBtn('clearCanvas', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+  setBtn('undoBtn', () => {
+    if (history.length > 1) {
+      history.pop();
+      const img = new Image();
+      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      img.src = history[history.length - 1];
+    }
+  });
+  setBtn('disableDraw', () => { mode = null; canvas.style.pointerEvents = 'none'; });
+  const colorPicker = document.getElementById('colorPicker');
+  if (colorPicker) colorPicker.onchange = e => color = e.target.value;
+  const lineWPicker = document.getElementById('lineWidthPicker');
+  if (lineWPicker) lineWPicker.onchange = e => lineW = parseInt(e.target.value);
+});
+// Thêm vào cuối JS mới để đảm bảo toolbar layout
+// THÊM ĐOẠN NÀY VÀO code mới:
   document.getElementById("fullscreen").onclick = () => {
-    if (!document.fullscreenElement)
-      document.documentElement.requestFullscreen();
-    else
-      document.exitFullscreen();
-  };
-  document.getElementById("homeBtn").onclick = () => { window.location.href = "index.html"; };
-  document.getElementById("toggleMenu").onclick = () => {
-    const tb = document.getElementById("toolbar");
-    tb.style.display = (tb.style.display === "none") ? "flex" : "none";
-  };
-
-  canvas.style.pointerEvents = "none";
-  saveState();
-  document.getElementById("disableDraw").onclick = () => disableDrawing();
+  if (!document.fullscreenElement)
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log("Fullscreen error:", err);
+    });
+  else
+    document.exitFullscreen();
+};
 </script>
+
   <script>
    
     // Xử lý trắc nghiệm:
