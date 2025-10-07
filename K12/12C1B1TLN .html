@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+  /* ===== Nền bảng xanh ===== */
+  .reveal .backgrounds { background: #1e5631; }
+  .reveal section { 
+    color: #fffbe7; 
+    text-shadow: 1px 1px 2px #000; 
+    font-size: 26px;   /* toàn bộ nội dung lớn hơn */
+  }
+ 
+
+  /* ===== Box nội dung ===== */
+  .box {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow-x: auto;       /* Cho phép cuộn ngang khi công thức dài */
+    word-wrap: break-word;
+    max-width: none;        /* bỏ giới hạn mặc định */
+    width: 100%;
+    box-sizing: border-box; /* tránh xung đột padding */
+    
+  }
+
+  /* MathJax container */
+  mjx-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  /* Styles cho từng loại box */
+  .definition { border-left: 6px solid #3498db; background: rgba(236,245,255,0.15); }
+  .theorem    { border-left: 6px solid #27ae60; background: rgba(233,247,239,0.15); }
+  .note       { border-left: 6px solid #f39c12; background: rgba(254,245,231,0.15); font-style: italic;}
+  .remember   { border-left: 6px solid #e67e22; background: rgba(250,230,210,0.15); font-weight: bold;}
+  .dangt      { border-left: 6px solid #8e44ad; background: rgba(245,238,248,0.15); }
+  .method     { border-left: 6px solid #16a085; background: rgba(229,245,242,0.15); }
+  .example    { border-left: 6px solid #2c3e50; background: rgba(236,240,241,0.15); }
+
+  /* Ví dụ có lời giải dài: cho cuộn dọc */
+  .box.example, 
+  .box.solution {
+    background: rgba(255,255,255,0.15);
+    border-left: 6px solid #9333ea;
+    margin-top: 10px;
+    max-height: 60vh;   /* giới hạn chiều cao tối đa */
+    overflow-y: auto;   /* thanh cuộn dọc */
+    padding-right: 10px;
+    max-width: none;
+    width: 95%;
+  }
+
+  /* ===== Quiz / Trắc nghiệm ===== */
+  .question, .summary-box {
+    max-height: 85vh;   /* full slide nhưng có cuộn khi dài */
+    overflow-y: auto;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    width: 95%;
+    margin: auto;
+    box-sizing: border-box;
+  }
+
+  .options label {
+    display: block;
+    margin-bottom: 6px;
+    cursor: pointer;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+
+  .option-icon {
+    margin-left: 6px;
+  }
+
+  .answer-check button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #2563eb; 
+    color: white;
+    border: none;
+  }
+
+  /* Grid chia 2 cột hoặc 3 cột cho quiz */
+  .quiz-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .quiz-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: start;
+    border-left: 2px solid yellow;
+    border-right: 2px solid yellow;
+  }
+
+  /* ===== Canvas overlay (bảng vẽ) ===== */
+  #drawCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 10; pointer-events: none;
+  }
+
+  /* ===== Toolbar vẽ ===== */
+  #toolbar {
+    position: fixed; top: 50%; left: 5px; transform: translateY(-50%);
+    z-index: 20; display: flex; flex-direction: column;
+    background: rgba(0,0,0,0.4); padding: 4px; border-radius: 8px;
+  }
+  #toolbar button, #toolbar select {
+    margin: 3px 0; width: 36px; height: 36px; font-size: 14px;
+    text-align: center; cursor: pointer;
+    background: rgba(255,255,255,0.1); border: none; border-radius: 6px;
+    color: #fff;
+  }
+  #toolbar select { width: 42px; height: 28px; font-size: 12px; color: #000; }
+
+  /* Toggle nút menu */
+  #toggleMenu {
+    position: fixed; top: 10px; left: 10px; z-index: 21;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: none; background: #0008; color: #fff; font-size: 18px;
+    cursor: pointer;
+  }
+  /* Cho phép section chiếm toàn bộ slide */
+.reveal .slides section {
+  max-width: 100% !important;   /* 🚀 bỏ giới hạn 800px */
+  width: 100% !important;
+  height: auto;
+}
+
+/* Box câu hỏi full chiều rộng */
+.question, .summary-box {
+  width: 100% !important;   /* full ngang */
+  max-width: 100% !important;
+  font-size: 0.8em;         /* tăng font chữ cho rõ */
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+/* Hình ảnh trong câu hỏi: căn giữa và co giãn hợp lý */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;          /* khoảng cách giữa text và nút chọn */
+  margin-bottom: 8px;
+}
+
+.option-row span {
+  flex: 1;            /* text chiếm phần còn lại */
+  word-wrap: break-word;
+}
+.option-row label {
+  white-space: nowrap; /* không xuống dòng chữ Đúng/Sai */
+}
+/* thêm phần danh mục slide */
+/* Slide Navigation Menu */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 350px;
+    height: 100vh;
+    background: rgba(30, 86, 49, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    border-right: 2px solid #4CAF50;
+    overflow-y: auto;
+}
+
+.slide-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid #4CAF50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-header h3 {
+    margin: 0;
+    color: #fffbe7;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fffbe7;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.menu-content {
+    padding: 10px;
+}
+
+.slide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.slide-item {
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #fffbe7;
+    font-size: 14px;
+}
+
+.slide-item:hover {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: #4CAF50;
+    transform: translateX(5px);
+}
+
+.slide-item.active {
+    background: rgba(76, 175, 80, 0.5);
+    border-color: #4CAF50;
+    font-weight: bold;
+}
+
+.slide-item .slide-number {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+/* Nút mở menu */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    background: rgba(30, 86, 49, 0.9);
+    border: 2px solid #4CAF50;
+    color: #fffbe7;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: #4CAF50;
+    transform: scale(1.1);
+}
+
+/* Overlay khi menu mở */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 HTML TỪ  TÀI LIỆU HỌC TẬP</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI TẬP TRẢ LỜI NGẮN BÀI 1 </h2>
+       
+  </section>
+  <!-- PHẦN CÂU HỎI-->
+ <section>
+  <section>
+    <div class="question" id="q1">
+      <p><strong>Question 1</strong>. Biết đường thẳng đi qua hai điểm cực trị của đồ thị của hàm số $y=-x^3+3x^2+9x+1$ là $ax+by+4=0$. Tính $a+2b$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q1" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q1','6')">Check</button>
+        <span id="icon-q1"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q2">
+      <p><strong>Question 2</strong>. Biết đồ thị hàm số $y=ax^3+bx^2+cx+d$ có hai điểm cực trị $A(1;-7), B(2;-8)$. Tính $y(-1)$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q2" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q2','-35')">Check</button>
+        <span id="icon-q2"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q3">
+      <p><strong>Question 3</strong>. Cho hàm số $y=ax^3+bx^2+cx+2, (a;b;c \in \mathbb{R})$ có bảng xét dấu như sau:
+    <img src="data//im/figure-232.png">
+    Có bao nhiêu số dương trong các số $a;b;c$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q3" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q3','3')">Check</button>
+        <span id="icon-q3"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q4">
+      <p><strong>Question 4</strong>. Máng trượt của một cầu trượt cho trẻ em được uốn từ một tấm kim loại có bề rộng 80 cm, mặt cắt được mô tả ở Hình 2. Nhà thiết kế khuyến cáo, diện tích của mặt cắt càng lớn thì càng đảm bảo an toàn cho trẻ em.
+    <img src="data//im/s21.png">
+    Gọi S là diện tích mặt cắt. Với x đạt giá trị bằng bao nhiêu thì cầu trượt đảm bảo an toàn nhất cho trẻ em?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q4" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q4','20')">Check</button>
+        <span id="icon-q4"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q5">
+      <p><strong>Question 5</strong>. Giả sử doanh số (tính bằng số sản phẩm) của một sản phẩm mới (trong vòng một số năm nhất định) tuân theo quy luật logistic được mô hình hoá bằng hàm số $f(t)=\dfrac{5000}{1+5e^{-t}}, t \ge 0$ trong đó thời gian t được tính bằng năm, kể từ khi phát hành sản phẩm mới. Khi đó, đạo hàm $f'(t)$ là biểu thị tốc độ bán hàng. Hỏi sau khi phát hành bao nhiêu năm thì tốc độ bán hàng là lớn nhất? (quy tròn đến hàng phần trăm).</p>
+      <div class="answer-check">
+        <input type="text" id="input-q5" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q5','1,61')">Check</button>
+        <span id="icon-q5"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q6">
+      <p><strong>Question 6</strong>. Biết rằng tất cả các khoảng nghịch biến của hàm số $y=\dfrac{x^2+2x+2}{x+1}$ là hai khoảng $(a;b), (b;c)$ với $a<b<c$. Tính $T=a+b+c$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q6" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q6','-3')">Check</button>
+        <span id="icon-q6"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q7">
+      <p><strong>Question 7</strong>. Biết rằng đồ thị hàm số $y=x^4-2ax^2+b$ có một điểm cực trị là $(1;2)$. Tính khoảng cách giữa điểm cực đại và điểm cực tiểu của đồ thị hàm số đã cho (quy tròn đến hàng phần trăm).</p>
+      <div class="answer-check">
+        <input type="text" id="input-q7" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q7','1,41')">Check</button>
+        <span id="icon-q7"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q8">
+      <p><strong>Question 8</strong>. Biết rằng hai điểm cực trị của đồ thị hàm số $y=\dfrac{x^2+2x-3}{x^2+1}$ cùng với điểm $I(-\sqrt{5};-\sqrt{5})$ tạo thành một tam giác. Diện tích tam giác đó bằng (kết quả làm tròn đến hàng phần trăm)</p>
+      <div class="answer-check">
+        <input type="text" id="input-q8" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q8','6,71')">Check</button>
+        <span id="icon-q8"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q9">
+      <p><strong>Question 9</strong>. Xí nghiệp A sản xuất độc quyền một loại sản phẩm. Biết rằng hàm tổng chi phí sản xuất là $TC=x^3-77x^2+1000x+40000$ và hàm doanh thu là $TR=-2x^3+1312x$, với x là số sản phẩm. Lợi nhuận của xí nghiệp A được xác định bằng hàm số $f(x)=TR-TC$, cực đại lợi nhuận của xí nghiệp A khi đó đạt bao nhiêu sản phẩm?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q9" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q9','52')">Check</button>
+        <span id="icon-q9"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q10">
+      <p><strong>Question 10</strong>. Hàm số $y=\log_3(x^2-2x)$ nghịch biến trên khoảng $(-\infty;a)$ có độ dài lớn nhất. Khi đó a bằng?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q10" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q10','0')">Check</button>
+        <span id="icon-q10"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q11">
+      <p><strong>Question 11</strong>. Lát cắt ngang của một vùng đất ven biển được mô hình hoá thành một hàm số bậc ba $y=f(x)$ có đồ thị như hình vẽ (đơn vị độ dài trên các trục là km).
+    <img src="data//im/s22.png">
+    Biết khoảng cách hai bên chân đồi $OA=2$ km, độ rộng của hồ $AB=1$ km và ngọn đồi cao 528 m. Tìm độ sâu của hồ (tính bằng mét) tại điểm sâu nhất? (làm tròn đến hàng đơn vị).</p>
+      <div class="answer-check">
+        <input type="text" id="input-q11" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q11','158')">Check</button>
+        <span id="icon-q11"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q12">
+      <p><strong>Question 12</strong>. Tìm tất cả các khoảng nghịch biến của hàm số $y=\dfrac{x^2+2x+2}{x+1}$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q12" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q12','')">Check</button>
+        <span id="icon-q12"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q13">
+      <p><strong>Question 13</strong>. Hằng ngày mực nước của một con kênh lên xuống theo thủy triều. Độ sâu $h(m)$ của mực nước trong kênh tại thời điểm $t(h)$ ($0 \le t \le 24$) trong ngày được xác định bởi công thức $h=2\cos(\dfrac{\pi t}{12}+\dfrac{\pi}{3})+5$. Gọi $(a;b)$ là khoảng thời gian trong ngày mà độ sâu của mực nước trong kênh tăng dần. Tính giá trị của $a+b$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q13" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q13','')">Check</button>
+        <span id="icon-q13"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q14">
+      <p><strong>Question 14</strong>. Xí nghiệp A sản xuất độc quyền một loại sản phẩm. Biết rằng hàm tổng chi phí sản xuất là $TC=x^3-77x^2+1000x+40000$ và hàm doanh thu là $TR=-2x^3+1312x$, với x là số sản phẩm. Lợi nhuận của xí nghiệp A được xác định bằng hàm số $f(x)=TR-TC$, cực đại lợi nhuận của xí nghiệp A khi đó đạt bao nhiêu sản phẩm?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q14" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q14','x=52')">Check</button>
+        <span id="icon-q14"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q15">
+      <p><strong>Question 15</strong>. Khi loại thuốc A được tiêm vào bệnh nhân, nồng độ mg/l của thuốc trong máu sau x phút được xác định bởi công thức: $C(x)=\dfrac{30x}{x^2+2}$. (Calculus. Cengage Learning)
+    Để đưa ra những lời khuyên và cách xử lí phù hợp cho bệnh nhân, ta cần tìm khoảng thời gian mà nồng độ của thuốc trong máu đang tăng. Em hãy cho biết hàm nồng độ thuốc trong máu $C(x)$ đạt giá trị cực đại là bao nhiêu trong khoảng thời gian 6 phút sau khi tiêm?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q15" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q15','10,6 (mg/l)')">Check</button>
+        <span id="icon-q15"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q16">
+      <p><strong>Question 16</strong>. Một tấm bạt hình vuông cạnh 20m như hình vẽ dưới đây. Người ta dự tính cắt phần tô đậm của tấm bạt rồi gập và may lại, nhằm mục đích phủ lên tháp đèn trang trí để tránh hư hại tháp khi trời mưa.
+    <img src="data//im/s23.png">
+    Biết khối chóp hình thành sau khi gập và may lại cần thể tích lớn nhất thì mới phủ kín tháp đèn. Hỏi phần diện tích tấm bạt bị cắt là bao nhiêu để đảm bảo yêu cầu trên.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q16" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q16','')">Check</button>
+        <span id="icon-q16"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q17">
+      <p><strong>Question 17</strong>. Cho hàm số $y=f(x)$. Hàm số $y=f'(x)$ liên tục và có đồ thị trên $\mathbb{R}$ như hình vẽ
+    <img src="data//im/s9.png">
+    Giả sử hàm số $y=f(x)$ nghịch biến trên khoảng $(a;b)$. Trong khoảng $(a;b)$ có bao nhiêu giá trị nguyên nhỏ hơn 2024.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q17" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q17','3')">Check</button>
+        <span id="icon-q17"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q18">
+      <p><strong>Question 18</strong>. Cho hàm số $f'(x)=x(x^2-1)(x+1)^3$. Hàm số $y=f(x)$ có bao nhiêu điểm cực đại?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q18" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q18','1')">Check</button>
+        <span id="icon-q18"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q19">
+      <p><strong>Question 19</strong>. Cho hàm số $y=f(x)$ xác định và liên tục trên $\mathbb{R}$. Hàm số $y=f'(x)$ có bảng biến thiên như sau
+    <img src="data//im/s10.png">
+    Hàm số $y=f(x)$ có bao nhiêu điểm cực trị?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q19" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q19','2')">Check</button>
+        <span id="icon-q19"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q20">
+      <p><strong>Question 20</strong>. Có tất cả bao nhiêu giá trị nguyên của tham số $m$ để hàm số $y=x^3-3mx^2+3(2m-1)+1$ đồng biến trên $\mathbb{R}$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q20" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q20','1')">Check</button>
+        <span id="icon-q20"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q21">
+      <p><strong>Question 21</strong>. Có tất cả bao nhiêu giá trị nguyên của tham số $m$ để hàm số $y=\dfrac{m}{3}x^3-2mx^2+(3m+5)x$ đồng biến trên $\mathbb{R}$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q21" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q21','6')">Check</button>
+        <span id="icon-q21"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q22">
+      <p><strong>Question 22</strong>. Cho hàm số $y=\dfrac{mx-2m+3}{x+m}$ với $m$ là tham số. Gọi S là tập hợp tất cả các giá trị nguyên của $m$ để hàm số nghịch biến trên khoảng $(2;+\infty)$. Tìm số phần tử của S.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q22" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q22','3')">Check</button>
+        <span id="icon-q22"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q23">
+      <p><strong>Question 23</strong>. Có bao nhiêu giá trị nguyên của tham số m để hàm số $y=\dfrac{x+18}{x+4m}$ nghịch biến trên khoảng $(2;+\infty)$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q23" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q23','5')">Check</button>
+        <span id="icon-q23"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q24">
+      <p><strong>Question 24</strong>. Có bao nhiêu giá trị nguyên dương của tham số $m$ để hàm số $y=\dfrac{x^2}{2}-mx+\ln(x-1)$ đồng biến trên khoảng $(1;+\infty)$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q24" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q24','3')">Check</button>
+        <span id="icon-q24"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q25">
+      <p><strong>Question 25</strong>. Cho hàm số $f(x)=x^2-2x$. Đặt $g(x)=f(f(x))+1$. Giả sử hàm số $y=g(x)$ đồng biến trên khoảng $(a;b)$ với $a \in \mathbb{R}, b \in \mathbb{R}$. Tính $a+b\sqrt{2}$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q25" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q25','1')">Check</button>
+        <span id="icon-q25"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q26">
+      <p><strong>Question 26</strong>. Cho hàm số $y=f(x)$ xác định và liên tục trên $\mathbb{R}$. Hàm số $y=f'(x)$ có đồ thị như hình vẽ
+    <img src="data//im/s11.png">
+    Giả sử hàm số $g(x)=2f(x^2-3x)+5$ nghịch biến trên khoảng $(a;b)$ với $a \in \mathbb{Q}, b \in \mathbb{Q}$. Tính $2a+3b$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q26" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q26','9')">Check</button>
+        <span id="icon-q26"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q27">
+      <p><strong>Question 27</strong>. Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hoá bằng hàm số $N(t)=-t^3+12t^2, 0 \le t \le 12$, trong đó N là số người bị nhiễm bệnh (đơn vị là trăm người) và t là thời gian (tuần). Gọi $(a;b)$ là khoảng thời gian lâu nhất mà số người bị nhiễm bệnh tăng lên. Tính giá trị $P=2a^2-b^2$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q27" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q27','-64')">Check</button>
+        <span id="icon-q27"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q28">
+      <p><strong>Question 28</strong>. Gọi A, B là hai điểm cực trị của đồ thị hàm số $f(x)=e^{2x}-5e^x+2x+1$. Tính diện tích của tam giác OAB. Kết quả làm tròn đến hàng phần trăm.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q28" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q28','2,17')">Check</button>
+        <span id="icon-q28"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q29">
+      <p><strong>Question 29</strong>. Gọi A, B, C là ba điểm cực trị của đồ thị hàm số $f(x)=2\ln(x^2+1)-x^2-1$. Tính $P=AB^2+BC^2+CA^2$. Kết quả làm tròn đến hàng phần trăm.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q29" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q29','6,03')">Check</button>
+        <span id="icon-q29"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q30">
+      <p><strong>Question 30</strong>. Cho hàm số bậc ba $y=f(x)$ có đồ thị như hình bên
+    <img src="data//im/s12.png">
+    Tìm số điểm cực trị của hàm số $y=f(\ln(e^2+x^2)-1)$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q30" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q30','1')">Check</button>
+        <span id="icon-q30"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q31">
+      <p><strong>Question 31</strong>. Trong một thí nghiệm y học, người ta cấy 1000 vi khuẩn vào môi trường dinh dưỡng. bằng thực nghiệm, người ta xác định được số lượng vi khuẩn thay đổi theo thời gian bởi công thức: $N(t)=1000+\dfrac{100t}{100+t^2}$ (con), trong đó t là thời gian tính bằng giây. Hỏi thời gian bằng bao nhiêu để số lượng vi khuẩn đạt cực đại?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q31" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q31','10')">Check</button>
+        <span id="icon-q31"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q32">
+      <p><strong>Question 32</strong>. Giả sử tổng chi phí sản xuất x $(0 \le x \le 50)$ đơn vị sản phẩm A mỗi ngày tại một nhà máy được cho bởi công thức $C(x)=\dfrac{x^2}{4}+3x+400$ (nghìn đồng) và toàn bộ chúng được bán hết với giá $(900-6x)$ nghìn đồng một sản phẩm. Tìm mức sản lượng (đó là số lượng sản phẩm được sản xuất) để chi phí trung bình tính trên mỗi đơn vị sản phẩm là đạt cực tiểu.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q32" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q32','40')">Check</button>
+        <span id="icon-q32"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q33">
+      <p><strong>Question 33</strong>. Cho hàm số $y=x^3-3x^2+5$ có đồ thị (C). Tính độ dài đoạn thẳng nối hai điểm cực trị của đồ thị (C).</p>
+      <div class="answer-check">
+        <input type="text" id="input-q33" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q33','$2\sqrt{5}$')">Check</button>
+        <span id="icon-q33"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q34">
+      <p><strong>Question 34</strong>. Biết hàm số $y=ax^3+bx^2+cx+d$ có hai điểm cực trị là $(-1;18)$ và $(3;-16)$. Tính giá trị biểu thức $P=a+b+c+d$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q34" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q34','1')">Check</button>
+        <span id="icon-q34"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q35">
+      <p><strong>Question 35</strong>. Đồ thị của hàm số $y=x^3-3x^2-9x+1$ có hai điểm cực trị là A và B. Tính khoảng cách từ gốc toạ độ O đến đường thẳng AB.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q35" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q35','$\\dfrac{2}{\\sqrt{65}}$')">Check</button>
+        <span id="icon-q35"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q36">
+      <p><strong>Question 36</strong>. Biết đồ thị (C) của hàm số $y=\dfrac{x^2-4x+5}{x-1}$ có hai điểm cực trị. Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số (C) tạo với hai trục toạ độ một tam giác của diện tích S bằng bao nhiêu?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q36" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q36','4')">Check</button>
+        <span id="icon-q36"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q37">
+      <p><strong>Question 37</strong>. Gọi A,B,C là ba điểm cực trị của đồ thị hàm số $y=x^4-2x^2+4$. Bán kính đường tròn nội tiếp tam giác ABC bằng bao nhiêu?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q37" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q37','0.4')">Check</button>
+        <span id="icon-q37"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q38">
+      <p><strong>Question 38</strong>. Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu $f'(x)$ như sau.
+    <img src="data//im/s24.png">
+    Hàm số có bao nhiêu điểm cực trị?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q38" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q38','3')">Check</button>
+        <span id="icon-q38"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q39">
+      <p><strong>Question 39</strong>. Cho hàm số $y=ax^3+bx^2+cx+d$ đạt cực trị tại các điểm $x_1, x_2$ thỏa mãn $x_1 \in (-1;0), x_2 \in (1;2)$. Biết hàm số đồng biến trên khoảng $(x_1;x_2)$. Đồ thị hàm số cắt trục tung tại điểm có tung độ âm. Trong các số a,b và c có bao nhiêu số âm?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q39" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q39','1')">Check</button>
+        <span id="icon-q39"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q40">
+      <p><strong>Question 40</strong>. Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ có $f(-1)=0$ và có đồ thị hàm số $y=f'(x)$ như hình vẽ bên.
+    <img src="data//im/s1.png">
+    Xác định khoảng đồng biến của hàm số $y=|2f(x-1)-x^2|$.</p>
+      <div class="answer-check">
+        <input type="text" id="input-q40" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q40','$(0;3)$')">Check</button>
+        <span id="icon-q40"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q41">
+      <p><strong>Question 41</strong>. Cho hàm số $y=f(x)$ có đạo hàm liên tục trên $\mathbb{R}$. Biết hàm số $f'(x)$ có đồ thị như hình vẽ. Gọi S là tập hợp các giá trị nguyên của $m$ thuộc đoạn $[-5;5]$ để hàm số $g(x)=f(|x|+m)$ nghịch biến trên khoảng $(1;2)$. Hỏi S có bao nhiêu phần tử?
+    <img src="data//im/s2.png"></p>
+      <div class="answer-check">
+        <input type="text" id="input-q41" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q41','5')">Check</button>
+        <span id="icon-q41"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q42">
+      <p><strong>Question 42</strong>. Cho hàm số $f(x)=x^4+2x^2+1$. Có bao nhiêu giá trị nguyên của tham số $m \in [0;10]$ để hàm số $g(x)=f(3|x-m|+m^2)$ nghịch biến trên $(-\infty;1)$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q42" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q42','10')">Check</button>
+        <span id="icon-q42"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q43">
+      <p><strong>Question 43</strong>. Có bao nhiêu giá trị nguyên của tham số $m \in (-20;20)$ để hàm số: $y=|x^3-2mx+2m^2-1|$ đồng biến trên khoảng $(1;5)$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q43" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q43','21')">Check</button>
+        <span id="icon-q43"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q44">
+      <p><strong>Question 44</strong>. Cho hàm số $f(x)=\dfrac{1}{3}x^3+\dfrac{1}{2}(4m+5)x^2-(3m^2+5m)x+\dfrac{2}{3}$. Có bao nhiêu giá trị nguyên của tham số $m$ thuộc $[-10;10]$ để hàm số nghịch biến trên khoảng $(1;2)$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q44" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q44','1')">Check</button>
+        <span id="icon-q44"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q45">
+      <p><strong>Question 45</strong>. Cho hàm số $y=f(x)$ có đạo hàm liên tục trên $\mathbb{R}$. Biết hàm số $y=f'(x)$ có đồ thị như hình vẽ. Gọi S là tập hợp các giá trị nguyên $m \in [-5;5]$ để hàm số $g(x)=f(x+m)$ nghịch biến trên khoảng $(1;2)$. Hỏi S có bao nhiêu phần tử?
+    <img src="data//im/s3.png"></p>
+      <div class="answer-check">
+        <input type="text" id="input-q45" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q45','5')">Check</button>
+        <span id="icon-q45"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q46">
+      <p><strong>Question 46</strong>. Cho hàm số $y=f(x)$ có đạo hàm liên tục trên $\mathbb{R}$ và có đồ thị $y=f'(x)$ như hình vẽ. Đặt $g(x)=f(x-m)-\dfrac{1}{2}(x-m-1)^2+2019$, với $m$ là tham số thực. Gọi S là tập hợp các giá trị nguyên dương của $m$ để hàm số $y=g(x)$ đồng biến trên khoảng $(5;6)$. Tổng tất cả các phần tử trong S bằng
+    <img src="data//im/s4.png"></p>
+      <div class="answer-check">
+        <input type="text" id="input-q46" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q46','14')">Check</button>
+        <span id="icon-q46"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q47">
+      <p><strong>Question 47</strong>. Cho hàm số $y=ax^4+bx^3+cx^2+dx+e, a \ne 0$. Hàm số $y=f'(x)$ có đồ thị như hình vẽ
+    <img src="data//im/s5.png">
+    Gọi S là tập hợp tất cả các giá trị nguyên thuộc khoảng $(-6;6)$ của tham số $m$ để hàm số $g(x)=f(3-2x+m)+x^2-(m+3)x+2m^2$ nghịch biến trên $(0;1)$. Khi đó, tổng giá trị các phần tử của S là</p>
+      <div class="answer-check">
+        <input type="text" id="input-q47" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q47','9')">Check</button>
+        <span id="icon-q47"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q48">
+      <p><strong>Question 48</strong>. Cho hàm số $y=f(x)$ có đạo hàm liên tục trên $\mathbb{R}$ và có đồ thị $y=f'(x)$ như hình vẽ bên. Đặt $g(x)=f(x-m)-\dfrac{1}{2}(x-m-1)^2+2019$, với $m$ là tham số thực. Gọi S là tập hợp các giá trị nguyên dương của $m$ để hàm số $y=g(x)$ đồng biến trên khoảng $(5;6)$. Tổng tất cả các phần tử trong S bằng:
+    <img src="data//im/s6.png"></p>
+      <div class="answer-check">
+        <input type="text" id="input-q48" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q48','14')">Check</button>
+        <span id="icon-q48"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q49">
+      <p><strong>Question 49</strong>. Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x)=x^2(x-2)(x^2-6x+m)$ với mọi $x \in \mathbb{R}$. Có bao nhiêu số nguyên $m$ thuộc đoạn $[-2020;2020]$ để hàm số $g(x)=f(1-x)$ nghịch biến trên khoảng $(-\infty;-1)$?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q49" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q49','2012')">Check</button>
+        <span id="icon-q49"></span>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q50">
+      <p><strong>Question 50</strong>. Cho hàm số $f(x)$ xác định và liên tục trên $\mathbb{R}$. Hàm số $y=f'(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ.
+    <img src="data//im/s7.png">
+    Xét hàm số $g(x)=f(x-2m)+\dfrac{1}{2}(2m-x)^2+2020$, với $m$ là tham số thực. Gọi S là tập hợp các giá trị nguyên dương của $m$ để hàm số $y=g(x)$ nghịch biến trên khoảng $(3;4)$. Hỏi số phần tử của S bằng bao nhiêu?</p>
+      <div class="answer-check">
+        <input type="text" id="input-q50" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q50','2')">Check</button>
+        <span id="icon-q50"></span>
+      </div>
+    </div>
+  </section>
+</section> 
+
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* ==== TOOLBAR ==== */
+  #toolbar {
+    position: fixed;
+    top: 280px;             /* khoảng cách từ mép trên */
+    left: 10px;
+    display: none;
+    flex-wrap: wrap;       /* cho phép xuống dòng nếu hẹp */
+    gap: 4px;
+    background: rgba(2, 27, 125, 0.6);
+    border-radius: 8px;
+    padding: 5px;
+    z-index: 10001 !important;
+    backdrop-filter: blur(3px);
+  }
+
+  /* ==== CÁC NÚT VÀ COMBO ==== */
+  #toolbar button,
+  #toolbar select {
+    font-size: 14px;               /* nhỏ hơn trước */
+    color: white;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+
+  #toolbar select {
+    height: 26px;
+  }
+
+  #toolbar button:hover,
+  #toolbar select:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* ==== CÁC BIỂU TƯỢNG ==== */
+  #toolbar button {
+    line-height: 1;
+  }
+
+  /* Khi hiển thị trên máy tính bảng nhỏ → tự co */
+  @media (max-width: 768px) {
+    #toolbar {
+      top: 45px;
+      left: 6px;
+      gap: 3px;
+      padding: 4px;
+    }
+    #toolbar button, #toolbar select {
+      font-size: 14px;
+      padding: 1px 4px;
+    }
+  }
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <button id="homeBtn" title="Trang chủ">🏠</button>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+   
+    // Xử lý trắc nghiệm:
+          function showOptionIcon(qid, selected, correct) {
+          document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent="");
+          const icon = document.getElementById(`icon-${qid}-${selected}`);
+          if(icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+        }
+
+        function checkAnswer(qid, correct) {
+          const radios = document.querySelectorAll(`input[name="${qid}"]`);
+          let chosen = null;
+          radios.forEach(r => { if(r.checked) chosen=r.value; });
+          if(!chosen){alert("Hãy chọn một đáp án!"); return;}
+          showOptionIcon(qid, chosen, correct);
+        }
+              function checkAnswer(qid, correct) {
+          // Reset tất cả icon
+          document.querySelectorAll(`#${qid} .option-icon`).forEach(el => {
+            el.textContent = '';
+          });
+
+          // Lấy lựa chọn được chọn
+          let chosen = document.querySelector(`input[name="${qid}"]:checked`);
+          if (!chosen) return;
+
+          let chosenVal = chosen.value;
+          let iconId = `icon-${qid}-${chosenVal}`;
+
+          // Hiển thị icon đúng/sai
+          if (chosenVal === correct) {
+            document.getElementById(iconId).textContent = '✅';
+          } else {
+            document.getElementById(iconId).textContent = '❌';
+            document.getElementById(`icon-${qid}-${correct}`).textContent = '✅'; // đánh dấu đáp án đúng
+          }
+        }
+          </script>
+   <script>
+        function checkTrueFalseAnswer(questionId, correctAnswers) {
+          const container = document.getElementById(questionId);
+          if (!container) return;
+
+          const optionRows = container.querySelectorAll(".option-row");
+          let feedback = "";
+
+          optionRows.forEach((row, idx) => {
+            const radios = row.querySelectorAll("input[type='radio']");
+            let selected = null;
+            radios.forEach(r => { if (r.checked) selected = r.value; });
+
+            const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+            if (selected === null) {
+              feedback += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+            } else if (selected === correctAnswers[idx]) {
+              feedback += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+            } else {
+              feedback += `Mệnh đề ${letter}) ❌ Sai<br>`;
+            }
+          });
+
+          // Nếu chưa có khung kết quả thì tạo mới
+          let resultBox = container.querySelector(".answer-check .result");
+          if (!resultBox) {
+            resultBox = document.createElement("div");
+            resultBox.className = "result";
+            container.querySelector(".answer-check").appendChild(resultBox);
+          }
+          resultBox.innerHTML = feedback;
+        }
+        </script>
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+
+
+   
+</body>
+</html>

@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+  /* ===== Nền bảng xanh ===== */
+  .reveal .backgrounds { background: #1e5631; }
+  .reveal section { 
+    color: #fffbe7; 
+    text-shadow: 1px 1px 2px #000; 
+    font-size: 26px;   /* toàn bộ nội dung lớn hơn */
+  }
+ 
+
+  /* ===== Box nội dung ===== */
+  .box {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow-x: auto;       /* Cho phép cuộn ngang khi công thức dài */
+    word-wrap: break-word;
+    max-width: none;        /* bỏ giới hạn mặc định */
+    width: 100%;
+    box-sizing: border-box; /* tránh xung đột padding */
+    
+  }
+
+  /* MathJax container */
+  mjx-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  /* Styles cho từng loại box */
+  .definition { border-left: 6px solid #3498db; background: rgba(236,245,255,0.15); }
+  .theorem    { border-left: 6px solid #27ae60; background: rgba(233,247,239,0.15); }
+  .note       { border-left: 6px solid #f39c12; background: rgba(254,245,231,0.15); font-style: italic;}
+  .remember   { border-left: 6px solid #e67e22; background: rgba(250,230,210,0.15); font-weight: bold;}
+  .dangt      { border-left: 6px solid #8e44ad; background: rgba(245,238,248,0.15); }
+  .method     { border-left: 6px solid #16a085; background: rgba(229,245,242,0.15); }
+  .example    { border-left: 6px solid #2c3e50; background: rgba(236,240,241,0.15); }
+
+  /* Ví dụ có lời giải dài: cho cuộn dọc */
+  .box.example, 
+  .box.solution {
+    background: rgba(255,255,255,0.15);
+    border-left: 6px solid #9333ea;
+    margin-top: 10px;
+    max-height: 60vh;   /* giới hạn chiều cao tối đa */
+    overflow-y: auto;   /* thanh cuộn dọc */
+    padding-right: 10px;
+    max-width: none;
+    width: 95%;
+  }
+
+  /* ===== Quiz / Trắc nghiệm ===== */
+  .question, .summary-box {
+    max-height: 85vh;   /* full slide nhưng có cuộn khi dài */
+    overflow-y: auto;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    width: 95%;
+    margin: auto;
+    box-sizing: border-box;
+  }
+
+  .options label {
+    display: block;
+    margin-bottom: 6px;
+    cursor: pointer;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+
+  .option-icon {
+    margin-left: 6px;
+  }
+
+  .answer-check button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #2563eb; 
+    color: white;
+    border: none;
+  }
+
+  /* Grid chia 2 cột hoặc 3 cột cho quiz */
+  .quiz-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .quiz-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: start;
+    border-left: 2px solid yellow;
+    border-right: 2px solid yellow;
+  }
+
+  /* ===== Canvas overlay (bảng vẽ) ===== */
+  #drawCanvas {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 10; pointer-events: none;
+  }
+
+  /* ===== Toolbar vẽ ===== */
+  #toolbar {
+    position: fixed; top: 50%; left: 5px; transform: translateY(-50%);
+    z-index: 20; display: flex; flex-direction: column;
+    background: rgba(0,0,0,0.4); padding: 4px; border-radius: 8px;
+  }
+  #toolbar button, #toolbar select {
+    margin: 3px 0; width: 36px; height: 36px; font-size: 14px;
+    text-align: center; cursor: pointer;
+    background: rgba(255,255,255,0.1); border: none; border-radius: 6px;
+    color: #fff;
+  }
+  #toolbar select { width: 42px; height: 28px; font-size: 12px; color: #000; }
+
+  /* Toggle nút menu */
+  #toggleMenu {
+    position: fixed; top: 10px; left: 10px; z-index: 21;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: none; background: #0008; color: #fff; font-size: 18px;
+    cursor: pointer;
+  }
+  /* Cho phép section chiếm toàn bộ slide */
+.reveal .slides section {
+  max-width: 100% !important;   /* 🚀 bỏ giới hạn 800px */
+  width: 100% !important;
+  height: auto;
+}
+
+/* Box câu hỏi full chiều rộng */
+.question, .summary-box {
+  width: 100% !important;   /* full ngang */
+  max-width: 100% !important;
+  font-size: 0.8em;         /* tăng font chữ cho rõ */
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+/* Hình ảnh trong câu hỏi: căn giữa và co giãn hợp lý */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;          /* khoảng cách giữa text và nút chọn */
+  margin-bottom: 8px;
+}
+
+.option-row span {
+  flex: 1;            /* text chiếm phần còn lại */
+  word-wrap: break-word;
+}
+.option-row label {
+  white-space: nowrap; /* không xuống dòng chữ Đúng/Sai */
+}
+/* thêm phần danh mục slide */
+/* Slide Navigation Menu */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 350px;
+    height: 100vh;
+    background: rgba(30, 86, 49, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    border-right: 2px solid #4CAF50;
+    overflow-y: auto;
+}
+
+.slide-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid #4CAF50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-header h3 {
+    margin: 0;
+    color: #fffbe7;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fffbe7;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.menu-content {
+    padding: 10px;
+}
+
+.slide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.slide-item {
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #fffbe7;
+    font-size: 14px;
+}
+
+.slide-item:hover {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: #4CAF50;
+    transform: translateX(5px);
+}
+
+.slide-item.active {
+    background: rgba(76, 175, 80, 0.5);
+    border-color: #4CAF50;
+    font-weight: bold;
+}
+
+.slide-item .slide-number {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+/* Nút mở menu */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    background: rgba(30, 86, 49, 0.9);
+    border: 2px solid #4CAF50;
+    color: #fffbe7;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: #4CAF50;
+    transform: scale(1.1);
+}
+
+/* Overlay khi menu mở */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 HTML TỪ  TÀI LIỆU HỌC TẬP</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI TẬP TRẮC NGHIỆM </h2>
+       
+  </section>
+  <!-- PHẦN CÂU HỎI-->
+  
+
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* ==== TOOLBAR ==== */
+  #toolbar {
+    position: fixed;
+    top: 300px;             /* khoảng cách từ mép trên */
+    left: 10px;
+    display: none;
+    flex-wrap: wrap;       /* cho phép xuống dòng nếu hẹp */
+    gap: 4px;
+    background: rgba(2, 27, 125, 0.6);
+    border-radius: 8px;
+    padding: 5px;
+    z-index: 10001 !important;
+    backdrop-filter: blur(3px);
+  }
+
+  /* ==== CÁC NÚT VÀ COMBO ==== */
+  #toolbar button,
+  #toolbar select {
+    font-size: 14px;               /* nhỏ hơn trước */
+    color: white;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+
+  #toolbar select {
+    height: 26px;
+  }
+
+  #toolbar button:hover,
+  #toolbar select:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* ==== CÁC BIỂU TƯỢNG ==== */
+  #toolbar button {
+    line-height: 1;
+  }
+
+  /* Khi hiển thị trên máy tính bảng nhỏ → tự co */
+  @media (max-width: 768px) {
+    #toolbar {
+      top: 45px;
+      left: 6px;
+      gap: 3px;
+      padding: 4px;
+    }
+    #toolbar button, #toolbar select {
+      font-size: 14px;
+      padding: 1px 4px;
+    }
+  }
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <button id="homeBtn" title="Trang chủ">🏠</button>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+      const homeBtn = document.getElementById("homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
+      });
+    }
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+   
+    // Xử lý trắc nghiệm:
+          function showOptionIcon(qid, selected, correct) {
+          document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent="");
+          const icon = document.getElementById(`icon-${qid}-${selected}`);
+          if(icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+        }
+
+        function checkAnswer(qid, correct) {
+          const radios = document.querySelectorAll(`input[name="${qid}"]`);
+          let chosen = null;
+          radios.forEach(r => { if(r.checked) chosen=r.value; });
+          if(!chosen){alert("Hãy chọn một đáp án!"); return;}
+          showOptionIcon(qid, chosen, correct);
+        }
+              function checkAnswer(qid, correct) {
+          // Reset tất cả icon
+          document.querySelectorAll(`#${qid} .option-icon`).forEach(el => {
+            el.textContent = '';
+          });
+
+          // Lấy lựa chọn được chọn
+          let chosen = document.querySelector(`input[name="${qid}"]:checked`);
+          if (!chosen) return;
+
+          let chosenVal = chosen.value;
+          let iconId = `icon-${qid}-${chosenVal}`;
+
+          // Hiển thị icon đúng/sai
+          if (chosenVal === correct) {
+            document.getElementById(iconId).textContent = '✅';
+          } else {
+            document.getElementById(iconId).textContent = '❌';
+            document.getElementById(`icon-${qid}-${correct}`).textContent = '✅'; // đánh dấu đáp án đúng
+          }
+        }
+          </script>
+   <script>
+        function checkTrueFalseAnswer(questionId, correctAnswers) {
+          const container = document.getElementById(questionId);
+          if (!container) return;
+
+          const optionRows = container.querySelectorAll(".option-row");
+          let feedback = "";
+
+          optionRows.forEach((row, idx) => {
+            const radios = row.querySelectorAll("input[type='radio']");
+            let selected = null;
+            radios.forEach(r => { if (r.checked) selected = r.value; });
+
+            const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+            if (selected === null) {
+              feedback += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+            } else if (selected === correctAnswers[idx]) {
+              feedback += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+            } else {
+              feedback += `Mệnh đề ${letter}) ❌ Sai<br>`;
+            }
+          });
+
+          // Nếu chưa có khung kết quả thì tạo mới
+          let resultBox = container.querySelector(".answer-check .result");
+          if (!resultBox) {
+            resultBox = document.createElement("div");
+            resultBox.className = "result";
+            container.querySelector(".answer-check").appendChild(resultBox);
+          }
+          resultBox.innerHTML = feedback;
+        }
+        </script>
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+
+
+   
+</body>
+</html>
