@@ -3472,6 +3472,92 @@ Xét tính đúng sai của các mệnh đề sau:</p>
 <button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
   <!-- Canvas -->
   <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+  #drawCanvas {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998 !important;
+    pointer-events: auto !important;
+    touch-action: none;
+  }
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* ==== TOOLBAR ==== */
+  #toolbar {
+    position: fixed;
+    top: 280px;             /* khoảng cách từ mép trên */
+    left: 10px;
+    display: none;
+    flex-wrap: wrap;       /* cho phép xuống dòng nếu hẹp */
+    gap: 4px;
+    background: rgba(2, 27, 125, 0.6);
+    border-radius: 8px;
+    padding: 5px;
+    z-index: 10001 !important;
+    backdrop-filter: blur(3px);
+  }
+
+  /* ==== CÁC NÚT VÀ COMBO ==== */
+  #toolbar button,
+  #toolbar select {
+    font-size: 14px;               /* nhỏ hơn trước */
+    color: white;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+
+  #toolbar select {
+    height: 26px;
+  }
+
+  #toolbar button:hover,
+  #toolbar select:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* ==== CÁC BIỂU TƯỢNG ==== */
+  #toolbar button {
+    line-height: 1;
+  }
+
+  /* Khi hiển thị trên máy tính bảng nhỏ → tự co */
+  @media (max-width: 768px) {
+    #toolbar {
+      top: 45px;
+      left: 6px;
+      gap: 3px;
+      padding: 4px;
+    }
+    #toolbar button, #toolbar select {
+      font-size: 14px;
+      padding: 1px 4px;
+    }
+  }
+</style>
 
   <!-- Toggle menu -->
   <button id="toggleMenu">☰</button>
@@ -3544,152 +3630,244 @@ Xét tính đúng sai của các mệnh đề sau:</p>
 </script>
 
   <!-- Script vẽ -->
- <script>
-  // Thêm hàm này vào script
-document.getElementById("toggleMenu").onclick = () => {
-  const tb = document.getElementById("toolbar");
-  if (tb.style.display === "none") {
-    tb.style.display = "flex";
-    tb.style.flexDirection = "column"; // <-- THÊM DÒNG NÀY
-  } else {
-    tb.style.display = "none";
-  }
-};
+ <!-- ========== BẮT ĐẦU THAY THẾ SCRIPT VẼ (Thay thế toàn bộ script cũ) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Elements
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
 
-// Gán sự kiện
+  
 
-document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.getElementById('drawCanvas');
-  const ctx = canvas.getContext('2d');
-  let drawing = false, mode = "free", color = 'yellow', lineW = 3;
-  let startX = 0, startY = 0;
-  const history = [];
+  // Toolbar elements (exact IDs from your HTML)
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
 
-  // fix lệch nét, chuẩn hóa DPI
-  function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    const data = canvas.toDataURL();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const img = new Image();
-    img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
-    img.src = data;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-  canvas.style.touchAction = 'none';
+  // State
+  let drawing = false;
+  let drawEnabled = true;
+  let start = { x: 0, y: 0 };       // device-pixel coords
+  let current = { x: 0, y: 0 };     // device-pixel coords
+  let snapshot = null;              // ImageData (device pixels)
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";        // 'free' | 'line' | 'circle' | 'ellipse'
+  let rawLineDash = [];             // pattern in CSS px (will scale by dpr)
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
 
-  // Lấy toạ độ đúng
+  // --- Utility: map pointer event to canvas device-pixel coordinates ---
   function getPos(e) {
     const rect = canvas.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
   }
 
-  function startDraw(e) {
-    if (!mode) return;
-    const pos = getPos(e);
-    startX = pos.x;
-    startY = pos.y;
+  // --- Resize canvas to full viewport (device pixels) ---
+  function resizeCanvas() {
+    // Save current drawing as dataURL to restore after resize
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    // Work in device-pixel space (ctx identity)
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // restore content
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // draw into device-pixel coordinates
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // --- History (undo) using dataURL snapshots ---
+  function saveState() {
+    try {
+      if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+      undoStack.push(canvas.toDataURL("image/png"));
+      // clear redo on new action
+      redoStack.length = 0;
+    } catch (err) {
+      console.warn("saveState failed", err);
+    }
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    try {
+      redoStack.push(canvas.toDataURL("image/png"));
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+      img.src = undoStack.pop();
+    } catch (err) { console.warn(err); }
+  }
+
+  // --- Drawing helpers ---
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2; // CSS pixels
+    const lwDevice = Math.max(1, Math.round(lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)));
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    // set scaled dash pattern
+    if (rawLineDash && rawLineDash.length) {
+      ctx.setLineDash(rawLineDash.map(v => v * dpr));
+    } else {
+      ctx.setLineDash([]);
+    }
+  }
+
+  // --- Pointer handlers ---
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return;
+    // only primary button or pen contact
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    // capture pointer to keep receiving events
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
     drawing = true;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineW;
-    ctx.lineCap = 'round';
-    if (mode === 'free') {
-      ctx.beginPath();
-      ctx.moveTo(startX, startY);
-    }
-  }
+    const p = getPos(e);
+    start = { ...p };
+    current = { ...p };
 
-  function draw(e) {
-    if (!drawing || !mode) return;
-    const pos = getPos(e);
-    if (mode === 'free') {
-      ctx.lineTo(pos.x, pos.y);
+    if (currentShape === "free") {
+      // freehand: start path directly on canvas (no snapshot)
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      // shapes: snapshot current canvas to allow preview (device pixels)
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch (err) {
+        // fallback: use dataURL->Image if getImageData blocked (CORS)
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    const p = getPos(e);
+    current = { ...p };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-    }
-  }
+    } else {
+      // restore snapshot (if any) before drawing preview
+      if (snapshot) {
+        ctx.putImageData(snapshot, 0, 0);
+      } else {
+        // if snapshot not available, just clear and keep (best-effort)
+        // (we avoid toDataURL on every move for perf)
+      }
+      applyStrokeStyle(e);
 
-  function endDraw(e) {
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        // ellipse params are in device pixels
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
     if (!drawing) return;
     drawing = false;
-    const pos = getPos(e);
-    ctx.lineWidth = lineW;
-    ctx.strokeStyle = color;
-    if (mode === 'line') {
-      ctx.beginPath();
-      ctx.moveTo(startX, startY);
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-    } else if (mode === 'circle' || mode === 'ellipse') {
-      const rx = Math.abs(pos.x - startX);
-      const ry = Math.abs(pos.y - startY);
-      ctx.beginPath();
-      if (mode === 'circle') {
-        const r = Math.sqrt(rx * rx + ry * ry);
-        ctx.arc(startX, startY, r, 0, 2 * Math.PI);
-      } else {
-        ctx.ellipse(startX, startY, rx, ry, 0, 0, 2 * Math.PI);
-      }
-      ctx.stroke();
-    }
-    history.push(canvas.toDataURL());
+    try { canvas.releasePointerCapture && canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+    // For shapes, we already drew final preview onto canvas; for freehand too.
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // --- Toolbar button bindings (match your HTML IDs) ---
+  toggleDraw && toggleDraw.addEventListener("click", () => { currentShape = "free"; rawLineDash = []; });
+  lineBtn && lineBtn.addEventListener("click", () => { currentShape = "line"; rawLineDash = []; });
+  dashedLineBtn && dashedLineBtn.addEventListener("click", () => { currentShape = "line"; rawLineDash = [8, 6]; });
+  circleBtn && circleBtn.addEventListener("click", () => { currentShape = "circle"; rawLineDash = []; });
+  ellipseBtn && ellipseBtn.addEventListener("click", () => { currentShape = "ellipse"; rawLineDash = [6, 6]; });
+
+  disableDraw && disableDraw.addEventListener("click", () => {
+    drawEnabled = !drawEnabled;
+    disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+  });
+
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn && clearBtn.addEventListener("click", () => {
+    saveState();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  fullscreenBtn && fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+    else document.exitFullscreen();
+  });
+
+  // Toggle menu (☰)
+  toggleMenu && toggleMenu.addEventListener("click", () => {
+    if (!toolbar) return;
+    toolbar.style.display = (toolbar.style.display === "none" || toolbar.style.display === "") ? "flex" : "none";
+  });
+
+  // Initialize state
+  saveState();
+
+  // --- small helpers ---
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => { clearTimeout(t); t = setTimeout(()=>fn(...a), ms); };
   }
 
-  // Hỗ trợ bút / chuột / cảm ứng
-  canvas.addEventListener('pointerdown', startDraw);
-  canvas.addEventListener('pointermove', draw);
-  canvas.addEventListener('pointerup', endDraw);
-  canvas.addEventListener('pointercancel', endDraw);
+  // Prevent context menu on long press
+  canvas.addEventListener("contextmenu", (e) => { e.preventDefault(); });
 
-  // ===== Gắn các nút toolbar =====
-  const setBtn = (id, fn) => {
-    const btn = document.getElementById(id);
-    if (btn) btn.onclick = fn;
-  };
-
-  setBtn('toggleDraw', () => {
-    // bật / tắt chế độ vẽ tự do
-    if (mode === 'free') {
-      mode = null;
-      canvas.style.pointerEvents = 'none';
-    } else {
-      mode = 'free';
-      canvas.style.pointerEvents = 'auto';
-    }
-  });
-  setBtn('lineBtn', () => { mode = 'line'; canvas.style.pointerEvents = 'auto'; });
-  setBtn('circleBtn', () => { mode = 'circle'; canvas.style.pointerEvents = 'auto'; });
-  setBtn('ellipseBtn', () => { mode = 'ellipse'; canvas.style.pointerEvents = 'auto'; });
-  setBtn('clearCanvas', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
-  setBtn('undoBtn', () => {
-    if (history.length > 1) {
-      history.pop();
-      const img = new Image();
-      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      img.src = history[history.length - 1];
-    }
-  });
-  setBtn('disableDraw', () => { mode = null; canvas.style.pointerEvents = 'none'; });
-  const colorPicker = document.getElementById('colorPicker');
-  if (colorPicker) colorPicker.onchange = e => color = e.target.value;
-  const lineWPicker = document.getElementById('lineWidthPicker');
-  if (lineWPicker) lineWPicker.onchange = e => lineW = parseInt(e.target.value);
+  // Make sure color select values are valid CSS colors (fallback)
+  if (colorPicker && !colorPicker.value) colorPicker.value = "black";
 });
-// Thêm vào cuối JS mới để đảm bảo toolbar layout
-// THÊM ĐOẠN NÀY VÀO code mới:
-  document.getElementById("fullscreen").onclick = () => {
-  if (!document.fullscreenElement)
-    document.documentElement.requestFullscreen().catch(err => {
-      console.log("Fullscreen error:", err);
-    });
-  else
-    document.exitFullscreen();
-};
 </script>
+<!-- ========== KẾT THÚC THAY THẾ SCRIPT VẼ ========== -->
+
 
   <script>
    
