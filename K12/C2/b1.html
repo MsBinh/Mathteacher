@@ -1,0 +1,2365 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== KHUNG CÂU HỎI ===== */
+.question, .summary-box {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px 22px;
+  width: 96%;
+  max-height: 82vh;
+  overflow-y: auto;
+  margin: 12px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+   color: #03631e;
+   font-size: 22px;
+}
+
+/* Hình ảnh trong câu hỏi */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== TRẮC NGHIỆM ===== */
+.options-row, .option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.option-label, .option-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fdfdfd;
+  transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.option-label:hover, .option-row:hover {
+  background: #e8f1ff;
+  border-color: #0074d9;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #0074d9;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+/* ===== NÚT KIỂM TRA ===== */
+.answer-check {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.answer-check button, .check-btn {
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.answer-check button:hover {
+  background: #0059b2;
+  transform: translateY(-1px);
+}
+
+/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
+.answer-check input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* ===== MENU SLIDE ===== */
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #fefefe;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  border-right: 3px solid #0074d9;
+  overflow-y: auto;
+}
+
+.slide-menu.active {
+  left: 0;
+}
+
+.menu-header {
+  padding: 16px;
+  background: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+.slide-item {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9fafc;
+  cursor: pointer;
+  color: #111;
+  transition: 0.2s;
+}
+
+.slide-item:hover {
+  background: #e7f1ff;
+  border-color: #0074d9;
+}
+
+.slide-item.active {
+  background: #0074d9;
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
+
+/* ===== NÚT MỞ MENU ===== */
+.menu-toggle {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  z-index: 999;
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.menu-toggle:hover {
+  background: #0059b2;
+  transform: scale(1.1);
+}
+
+/* ===== TOOLBAR VẼ ===== */
+#drawCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#toolbar {
+  position: fixed;
+  top: 50%; left: 5px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#toolbar button, #toolbar select {
+  margin: 4px 0;
+  width: 38px; height: 38px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#toolbar button:hover {
+  background: #0074d9;
+  color: white;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 900;
+  padding: 10px 14px;
+  background: #0074d9;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.fullscreen-btn:hover {
+  background: #0056b3;
+}
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
+}
+
+/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
+.clock {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
+.reveal {
+  margin-top: 38px !important;
+}
+
+/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #1976d2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+}
+
+.definition-icon {
+  display: inline-block;
+  margin-right: 10px;
+  color: #1976d2;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin: 12px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 5px solid #ffa000;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 18px;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.solution-steps ol {
+  padding-left: 20px;
+}
+
+.solution-steps li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(232, 245, 232, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #388e3c;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 5px solid #303f9f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #303f9f;
+  padding-bottom: 10px;
+}
+
+.problem-number {
+  background: #303f9f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.problem-header h3 {
+  color: #303f9f;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #f57c00;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f57c00;
+  padding-bottom: 10px;
+}
+
+.example-header h3 {
+  color: #f57c00;
+  margin: 0;
+  font-weight: 700;
+}
+
+.tag {
+  background: #f57c00;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-question {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #f57c00;
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 5px solid #c2185b;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  display: none; /* Ẩn ban đầu, hiện khi click */
+}
+
+.solution h4 {
+  color: #c2185b;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c2185b;
+  padding-bottom: 8px;
+}
+
+.solution-conclusion {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #c2185b;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Nút xem lời giải */
+.btn.solution-toggle {
+  background: #0074d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 10px 0;
+}
+
+.btn.solution-toggle:hover {
+  background: #0059b2;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Hình ảnh */
+.image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề section */
+.doc-section {
+  margin: 30px 0;
+}
+
+.article-subtitle {
+  color: #004aad;
+  font-weight: 700;
+  border-bottom: 3px solid #004aad;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Công thức toán */
+.math {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .definition-box,
+  .note-box,
+  .problem-type,
+  .example,
+  .solution {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tag {
+    margin-top: 8px;
+  }
+  
+  .math {
+    font-size: 20px;
+  }
+}
+/* Cho phép cuộn slide dài */
+.reveal .slides section {
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+/* Không giới hạn chiều cao các box */
+.definition-box,
+.theorem-box,
+.method-box,
+.example,
+.note-box,
+.formula,
+.procedure {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Box lồng nhau thu nhỏ nhẹ */
+.box .box {
+  font-size: 0.9em;
+  padding: 0.8em;
+}
+
+</style>
+
+  <!-- ===== style chuyên đề  ===== -->
+
+
+
+
+</head>
+
+<body>
+    <!-- ===== Thanh tiêu đề cố định ===== -->
+<div class="topbar">
+  <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+  <div class="clock" id="clock">--:--:--</div>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 BÀI 2</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI GIẢNG LÝ THUYẾT </h2>
+  </section>
+<!--@@@@-->
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <ul>
+        <li>Vectơ là một đoạn thẳng có hướng. Các kí hiệu thường dùng về vectơ là $\vec{a}, \vec{b}, \vec{u}, \vec{AB}, \vec{MN}, \dots$</li>
+        <li>Một vectơ có <strong>điểm đầu</strong> là $A$, <strong>điểm cuối</strong> là $B$ có kí hiệu: $\vec{AB}$.</li>
+        <li><strong>Giá của vectơ</strong> là đường thẳng chứa vectơ đó.</li>
+        <li><strong>Độ dài của vectơ</strong> là khoảng cách giữa <strong>điểm đầu</strong> và <strong>điểm cuối</strong> của vectơ đó, thường được kí hiệu là: $|\vec{a}|, |\vec{b}|, |\vec{u}|, |\vec{AB}|, |\vec{MN}|, \dots$</li>
+        <li><strong>Vectơ-không</strong> là vectơ có điểm đầu và điểm cuối trùng nhau, kí hiệu: $\vec{0}$. Ta cũng hiểu rằng các vectơ $\vec{AA}, \vec{BB}, \vec{MM}, \dots$ là các vectơ-không. Mọi <strong>vectơ-không</strong> có độ dài bằng 0.</li>
+      </ul>
+      <center><img src="data//im/128.png" width="45%"></center>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <ul>
+        <li>Hai vectơ được gọi là <strong>cùng phương</strong> nếu giá của chúng song song hoặc trùng nhau.</li>
+        <li>Hai vectơ cùng phương thì chúng có thể <strong>cùng hướng</strong> hoặc <strong>ngược hướng</strong>.</li>
+        <li>Hai vectơ $\vec{a}, \vec{b}$ được gọi là <strong>bằng nhau</strong> nếu chúng cùng hướng và cùng độ dài. Kí hiệu: $\vec{a} = \vec{b}$.</li>
+        <li>Hai vectơ được gọi là <strong>đối nhau</strong> nếu chúng ngược hướng và cùng độ dài.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p><strong>Một số lưu ý:</strong></p>
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Vectơ $\vec{0}$ luôn cùng phương, cùng hướng với mọi vectơ.</li>
+        <li><i class="fas fa-square-root-alt"></i> Trong vật lí, một số đại lượng như vận tốc, gia tốc của vật, lực tác dụng lên vật v.v... thường được biểu thị bởi các vectơ.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section><h3>Tổng của hai vectơ</h3></section>
+
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p>Với ba điểm bất kì $A, B, C$, ta có: $\vec{AB} + \vec{BC} = \vec{AC}$</p>
+      <center><img src="data//im/129.png" width="45%"></center>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p>Nếu $ABCD$ là một hình bình hành thì ta có: $\vec{AB} + \vec{AD} = \vec{AC}$.</p>
+      <center><img src="data//im/130.png" width="45%"></center>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p>Cho hình hộp $ABCD.A'B'C'D'$, ta có: $\vec{AB} + \vec{AD} + \vec{AA'} = \vec{AC'}$.<br><strong>Chứng minh:</strong> Ta có: $\vec{AB} + \vec{AD} + \vec{AA'} = \vec{AC} + \vec{AA'} = \vec{AC'}$.<br>(Vì $ABCD$ và $AA'C'C$ là các hình bình hành).</p>
+      <center><img src="data//im/131.png" width="45%"></center>
+    </div>
+  </div>
+</section>
+<section>
+  <p><strong>Tính chất của tổng vectơ</strong></p>
+<ul>
+  <li><strong>Tính chất giao hoán:</strong> $\vec{a} + \vec{b} = \vec{b} + \vec{a}$.</li>
+  <li><strong>Tính chất kết hợp:</strong> $(\vec{a} + \vec{b}) + \vec{c} = \vec{a} + (\vec{b} + \vec{c})$.</li>
+  <li><strong>Tính chất của vectơ-không:</strong> $\vec{a} + \vec{0} = \vec{a}$.</li>
+</ul>
+</section>
+
+
+
+<section><h3>Hiệu hai vectơ</h3></section>
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <ul>
+        <li>Hai vectơ được gọi là đối nhau nếu chúng ngược hướng và cùng độ dài.</li>
+        <li>Vectơ đối của $\vec{a}$ được kí hiệu là $-\vec{a}$. Hai vectơ này có tổng bằng $\vec{0}$.</li>
+        <li>Với hai vectơ $\vec{a}, \vec{b}$ đối nhau, ta có: $\vec{a} + \vec{b} = \vec{0}$.</li>
+        <li>Vectơ đối của $\vec{0}$ là chính nó.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <ul>
+        <li><strong>Hiệu của hai vectơ</strong> $\vec{a}$ và $\vec{b}$ là tổng của $\vec{a}$ với vectơ đối của $\vec{b}$. Kí hiệu: $\vec{a} - \vec{b}$.</li>
+        <li>Ta có: $\vec{a} - \vec{b} = \vec{a} + (-\vec{b})$.</li>
+        <li>Phép lấy hiệu của hai vectơ gọi là <strong>phép trừ vectơ</strong>.</li>
+        <li>Với ba điểm bất kì $A, B, C$ ta có: $\vec{BC} = \vec{AC} - \vec{AB}$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section><h4>Tích của vectơ với một số</h4></section>
+
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <p>Cho số thực $k \ne 0$ và vectơ $\vec{a} \ne \vec{0}$. Tích của vectơ $\vec{a}$ với số $k$ là một vectơ, kí hiệu là $k\vec{a}$, được xác định như sau:</p>
+      <ul>
+        <li>Nếu $k > 0$ thì $k\vec{a}$ cùng hướng với $\vec{a}$; nếu $k < 0$ thì $k\vec{a}$ ngược hướng với $\vec{a}$.</li>
+        <li>Độ dài của vectơ $k\vec{a}$ bằng $|k|$ lần độ dài của vectơ $\vec{a}$, tức là $|k\vec{a}| = |k| \cdot |\vec{a}|$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p>Quy ước: $0 \cdot \vec{a} = \vec{0}$ và $k \cdot \vec{0} = \vec{0}$</p>
+    </div>
+  </div>
+</section>
+<section>
+  <p><strong>Tính chất tích của vectơ với một số</strong><br>Cho hai vectơ $\vec{a}, \vec{b}$ bất kì và hai số thực $h, k$, ta có:</p>
+<ul>
+  <li>$k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$;</li>
+  <li>$(h+k)\vec{a} = h\vec{a} + k\vec{a}$;</li>
+  <li>$h(k\vec{a}) = (hk)\vec{a}$;</li>
+  <li>$1 \cdot \vec{a} = \vec{a}$, $(-1)\vec{a} = -\vec{a}$.</li>
+</ul>
+</section>
+
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p>$k\vec{a} = \vec{0} \Leftrightarrow k=0$ hoặc $\vec{a} = \vec{0}$.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> $M$ là trung điểm của đoạn $AB$ khi và chỉ khi $\begin{cases} \vec{IA} + \vec{IB} = \vec{0} \\ \vec{MA} + \vec{MB} = 2\vec{MI} \end{cases}$, với $M$ tùy ý.</li>
+        <li><i class="fas fa-square-root-alt"></i> $G$ là trọng tâm tam giác $ABC$ khi và chỉ khi $\begin{cases} \vec{GA} + \vec{GB} + \vec{GC} = \vec{0} \\ \vec{MA} + \vec{MB} + \vec{MC} = 3\vec{MG} \end{cases}$, với $M$ tùy ý.</li>
+        <li><i class="fas fa-square-root-alt"></i> $G$ là trọng tâm tứ diện $ABCD$ khi và chỉ khi $\begin{cases} \vec{GA} + \vec{GB} + \vec{GC} + \vec{GD} = \vec{0} \\ \vec{MA} + \vec{MB} + \vec{MC} + \vec{MD} = 4\vec{MG} \end{cases}$, với $M$ tùy ý.</li>
+        <li><i class="fas fa-square-root-alt"></i> Nếu $O$ là tâm của hình chữ nhật $ABCD$ thì $\vec{SA} + \vec{SB} + \vec{SC} + \vec{SD} = 4\vec{SO}$.</li>
+      </ul>
+      <center><img src="data//im/132.png" width="45%"></center>
+    </div>
+  </div>
+</section>
+
+<section><h4>Tích vô hướng của hai vectơ</h4></section>
+
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <p>Cho hai vectơ $\vec{a}$ và $\vec{b}$ khác vectơ-không. Từ một điểm $O$ bất kỳ ta vẽ $\vec{OA} = \vec{a}$ và $\vec{OB} = \vec{b}$. Khi đó góc $\widehat{AOB}$ với số đo từ $0^\circ$ đến $180^\circ$ được gọi là <strong>góc giữa hai vectơ</strong> $\vec{a}$ và $\vec{b}$ và ký hiệu là $(\vec{a}, \vec{b})$.</p>
+      <center><img src="data//im/133.png" width="45%"></center>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <p>Cho hai vectơ $\vec{a}, \vec{b}$ đều khác $\vec{0}$. <strong>Tích vô hướng</strong> của hai véc tơ $\vec{a}, \vec{b}$ là một số, kí hiệu là $\vec{a} \cdot \vec{b}$, được xác định bởi công thức $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a}, \vec{b})$.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Khi một trong hai véc tơ $\vec{a}, \vec{b}$ bằng $\vec{0}$ thì ta quy ước $\vec{a} \cdot \vec{b} = 0$.</li>
+        <li><i class="fas fa-square-root-alt"></i> Với hai vectơ $\vec{a}, \vec{b}$, ta có: $\vec{a} \perp \vec{b} \Leftrightarrow \vec{a} \cdot \vec{b} = 0$.</li>
+        <li><i class="fas fa-square-root-alt"></i> Nếu hai vectơ $\vec{a}, \vec{b}$ cùng hướng thì $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}|$ (do $\cos(\vec{a}, \vec{b}) = \cos 0^\circ = 1$).</li>
+        <li><i class="fas fa-square-root-alt"></i> Nếu hai vectơ $\vec{a}, \vec{b}$ ngược hướng thì $\vec{a} \cdot \vec{b} = -|\vec{a}| \cdot |\vec{b}|$ (do $\cos(\vec{a}, \vec{b}) = \cos 180^\circ = -1$).</li>
+        <li><i class="fas fa-square-root-alt"></i> Khi $\vec{a} = \vec{b}$, tích vô hướng giữa chúng được kí hiệu $\vec{a}^2$ (ta gọi là <strong>bình phương vô hướng</strong> của $\vec{a}$). Ta có: $\vec{a}^2 = \vec{a} \cdot \vec{a} = |\vec{a}| \cdot |\vec{a}| \cdot \cos(\vec{a}, \vec{a}) = |\vec{a}|^2 \cdot \cos 0^\circ = |\vec{a}|^2$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <p>Với mọi vectơ $\vec{a}, \vec{b}, \vec{c}$ và mọi số thực $k$, ta có:</p>
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> $\vec{a} \cdot \vec{b} = \vec{b} \cdot \vec{a}$;</li>
+        <li><i class="fas fa-square-root-alt"></i> $\vec{a} \cdot (\vec{b} + \vec{c}) = \vec{a} \cdot \vec{b} + \vec{a} \cdot \vec{c}$;</li>
+        <li><i class="fas fa-square-root-alt"></i> $(k\vec{a}) \cdot \vec{b} = k(\vec{a} \cdot \vec{b}) = \vec{a} \cdot (k\vec{b})$;</li>
+        <li><i class="fas fa-square-root-alt"></i> $\vec{a}^2 \ge 0$; $\vec{a}^2 = 0 \Leftrightarrow \vec{a} = \vec{0}$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h3>Ứng dụng tích vô hướng hai vectơ</h3>
+<ul>
+  <li><strong>Tính độ dài đoạn thẳng:</strong> Với hai điểm $A, B$ phân biệt, ta có $\vec{AB}^2 = AB^2$, độ dài $AB$ được tính theo công thức $AB = \sqrt{\vec{AB}^2}$. Từ đây ta có:
+    <ul>
+      <li>$|\vec{a}+\vec{b}|^2 = |\vec{a}|^2 + |\vec{b}|^2 + 2\vec{a} \cdot \vec{b}$ và $|x\vec{a} + y\vec{b}|^2 = x^2|\vec{a}|^2 + y^2|\vec{b}|^2 + 2xy\vec{a} \cdot \vec{b}$;</li>
+      <li>$|\vec{a}+\vec{b}+\vec{c}|^2 = |\vec{a}|^2 + |\vec{b}|^2 + |\vec{c}|^2 + 2\vec{a} \cdot \vec{b} + 2\vec{a} \cdot \vec{c} + 2\vec{b} \cdot \vec{c}$ và<br>
+      $|x\vec{a} + y\vec{b} + z\vec{c}|^2 = x^2|\vec{a}|^2 + y^2|\vec{b}|^2 + z^2|\vec{c}|^2 + 2xy\vec{a} \cdot \vec{b} + 2xz\vec{a} \cdot \vec{c} + 2yz\vec{b} \cdot \vec{c}$.</li>
+    </ul>
+  </li>
+  <li><strong>Chứng minh hai đường thẳng vuông góc nhau:</strong> Cho hai vectơ bất kì $\vec{a}, \vec{b}$, ta có: $\vec{a} \perp \vec{b} \Leftrightarrow \vec{a} \cdot \vec{b} = 0$.</li>
+  <li><strong>Tính công khi lực tác động làm vật di chuyển:</strong> Trong vật lí, nếu có một lực $\vec{F}$ tác động lên vật tại điểm $O$ và làm cho vật đó di chuyển một quãng đường $s = OM$ thì công $A$ của lực $\vec{F}$ được tính theo công thức $A = \vec{F} \cdot \vec{OM} = |\vec{F}| \cdot |\vec{OM}| \cdot \cos\varphi$, trong đó $\varphi$ là góc giữa hai vectơ $\vec{F}$ và $\vec{OM}$, công $A$ tính theo đơn vị Jun (J).</li>
+</ul>
+<center><img src="data//im/134.png" width="45%"></center>
+<section><h4>Điều kiện đồng phẳng của ba vecto</h4>
+<ul>
+  <li>Ba vectơ được gọi là <strong>đồng phẳng</strong> nếu giá của chúng cùng song song với một mặt phẳng nào đó.</li>
+  <li>Ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng khi và chỉ khi tồn tại duy nhất cặp số thực $(m; n)$ để $\vec{c} = m\vec{a} + n\vec{b}$.</li>
+  <li>Bốn điểm $A, B, C, D$ đồng phẳng khi và chỉ khi ba vectơ $\vec{AB}, \vec{AC}, \vec{AD}$ đồng phẳng.</li>
+</ul>
+<center><img src="data//im/135.png" width="45%"></center>
+<p><strong>Điều kiện đặc biệt:</strong></p>
+<ul>
+  <li>$\vec{AB}, \vec{AC}, \vec{AD}$ đồng phẳng khi và chỉ khi $\vec{AB} = m\vec{AC} + n\vec{AD}$ với $m, n$ là số thực.</li>
+  <li>$\vec{AB}, \vec{AC}, \vec{AD}$ đồng phẳng khi và chỉ khi $\vec{MA} = x\vec{MB} + y\vec{MC} + z\vec{MD}$ với các số thực $x, y, z$ thỏa mãn $x+y+z=1$.</li>
+  <li>$\vec{AB}, \vec{AC}, \vec{AD}$ đồng phẳng khi và chỉ khi $x\vec{MA} + y\vec{MB} + z\vec{MC} + t\vec{MD} = \vec{0}$ với các số thực $x, y, z, t$ thỏa mãn $x+y+z+t=0$.</li>
+</ul></section>
+
+</section>
+
+<section><h4>Phân dạng bài tập</h4></section>
+
+
+<section>
+  <h2>📊 CHỨNG MINH CÁC HỆ THỨC VECTƠ, TÌM ĐIỂM VÀ TÍNH ĐỘ DÀI VECTƠ</h2>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Chứng minh các hệ thức vectơ, tìm điểm và tính độ dài vectơ</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho tứ diện $ABCD$ có $M, N$ lần lượt là trung điểm $AB, CD$; $I$ là trung điểm $MN$ và $G$ là trọng tâm tam giác $BCD$. Chứng minh rằng:</p>
+      <ol>
+        <li>$\vec{AC}+\vec{BD} = \vec{AD}+\vec{BC}$.<br>
+        <strong>Hướng dẫn giải</strong><br>
+        Ta có: $\vec{AC}+\vec{BD} = \vec{AD}+\vec{BC} \Leftrightarrow \vec{AC} + \vec{BD} - \vec{AD} - \vec{BC} = \vec{0}$<br>
+        $\Leftrightarrow (\vec{AC}-\vec{AD})+(\vec{BD}-\vec{BC})=\vec{0} \Leftrightarrow \vec{DC}+\vec{CD} = \vec{0}$<br>
+        $\Leftrightarrow \vec{DD} = \vec{0} \Leftrightarrow \vec{0} = \vec{0}$ (đpcm).</li>
+        <li>$\vec{AM} - \vec{AD} - \vec{NC} = \vec{NM}$.</li>
+        <li>$\vec{BM} + \vec{AC} + \vec{ND} = \vec{MN}$.</li>
+        <li>$\vec{MN} = \dfrac{1}{2}(\vec{AD}+\vec{BC})$.<br>
+        <strong>Hướng dẫn giải</strong><br>
+        $VT = \vec{MN} = \vec{AN} - \vec{AM} = \dfrac{1}{2}(\vec{AC}+\vec{AD}) - \dfrac{1}{2}\vec{AB}$ (tính chất trung điểm).<br>
+        $\Leftrightarrow VT = \dfrac{1}{2}(\vec{AC}-\vec{AB}) + \dfrac{1}{2}\vec{AD} = \dfrac{1}{2}(\vec{AD} + \vec{BC}) = VP$ (đpcm).</li>
+        <li>$\vec{IA}+\vec{IB}+\vec{IC}+ \vec{ID} = \vec{0}$.</li>
+        <li>$\vec{AG} = \dfrac{1}{3}(\vec{AB}+\vec{AC}+\vec{AD})$.<br>
+        Ta có: $\vec{AG} = \dfrac{1}{3}(\vec{AB}+\vec{AC}+\vec{AD}) \Leftrightarrow 3\vec{AG} = \vec{AB}+\vec{AC}+\vec{AD}$<br>
+        $\Leftrightarrow 3\vec{AG} = \vec{AG}+\vec{GB} + \vec{AG}+\vec{GC} + \vec{AG}+\vec{GD} \Leftrightarrow \vec{0} = \vec{GB}+\vec{GC}+\vec{GD}$ (*)<br>
+        (*) luôn đúng vì G là trọng tâm tam giác BCD nên hệ thức ban đầu được chứng minh.</li>
+        <li>$12\vec{IG} = \vec{AB}+\vec{AC}+\vec{AD}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Chứng minh các hệ thức vectơ, tìm điểm và tính độ dài vectơ</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình chóp $S.ABC$. Điểm $M$ thuộc cạnh $SA$ và $SM = \dfrac{2}{3}SA$.</p>
+      <ol>
+        <li>Viết hệ thức liên hệ giữa cặp vectơ $\vec{SA}$ và $\vec{SM}$, $\vec{MA}$ và $\vec{AS}$.</li>
+        <li>Tìm điểm $N$ sao cho $\vec{MN} = -\dfrac{2}{3}\vec{BA}$.</li>
+        <li>Chứng minh rằng $2.\vec{SA}-2.\vec{AC}+2.\vec{BC} = 3.\vec{SM}+3.\vec{NM}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Chứng minh các hệ thức vectơ, tìm điểm và tính độ dài vectơ</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình chóp $S.ABCD$. Gọi $I$ là trọng tâm của tam giác $ABC$ và $J$ là trọng tâm tam giác $ADC$. Chứng minh rằng $2\vec{SA}+\vec{SB}+2\vec{SC}+\vec{SD} = 3(\vec{SI}+\vec{SJ})$.</p>
+      <p>Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB=1, BC=2, DD'=3$. Tìm độ dài các vectơ</p>
+      <ol>
+        <li>$\vec{a} = \vec{AB}+\vec{AD}+\vec{AA'}$;<br>
+        <strong>Hướng dẫn giải</strong>
+        <ul>
+            <li>Ta có: $\vec{a} = \vec{AB}+\vec{AD}+\vec{AA'} = \vec{AC'}$ (quy tắc hình hộp).</li>
+            <li>Độ dài của vectơ $\vec{a}$ là: $|\vec{a}| = |\vec{AC'}| = AC' = \sqrt{AB^2 + BC^2 + CC'^2} = \sqrt{14}$.</li>
+        </ul>
+        </li>
+        <li>$\vec{b} = \vec{AC} - \vec{B'D'} + \vec{BD'} - \vec{BC}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Chứng minh các hệ thức vectơ, tìm điểm và tính độ dài vectơ</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình hộp $ABCD.A'B'C'D'$. Điểm $G$ là trọng tâm tam giác $AB'D'$.</p>
+      <ol>
+        <li>Biểu diễn vectơ $\vec{A'G}$ theo $\vec{A'C}$.</li>
+        <li>Tính độ dài của $\vec{A'G}$ trong trường hợp $ABCD.A'B'C'D'$ là hình hộp đứng có các cạnh $AB=5, AD=6, AA'=10$ và $\widehat{ABC}=120^\circ$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> a) $\vec{A'G} = \dfrac{1}{3}\vec{A'C}$; b) $|\vec{A'G}| = \dfrac{1}{3}\sqrt{191}$</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Hướng dẫn giải</strong></p>
+      <ol>
+        <li>Do G là trọng tâm tam giác $AB'D'$ nên ta có $\vec{A'G} = \dfrac{1}{3}(\vec{A'A}+\vec{A'B'}+\vec{A'D'})$.<br>
+        Mặt khác theo quy tắc hình hộp thì $\vec{A'A}+\vec{A'B'}+\vec{A'D'} = \vec{A'C}$. Suy ra $\vec{A'G} = \dfrac{1}{3}\vec{A'C}$.</li>
+        <li>Áp dụng định lý cô sin trong tam giác $ABC$, ta có:<br>
+        $AC^2 = BA^2 + BC^2 - 2.BA.BC.\cos \widehat{ABC} = 5^2 + 6^2 - 2.5.6.\cos 120^\circ = 91$.<br>
+        Khi $ABCD.A'B'C'D'$ là hình hộp đứng thì $A'AC$ là tam giác vuông tại $A$.<br>
+        Do đó $A'C^2 = A'A^2 + AC^2 = 100+91=191$. Vậy độ dài của $\vec{A'G}$ là $|\vec{A'G}| = \dfrac{1}{3}\sqrt{191}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Chứng minh các hệ thức vectơ, tìm điểm và tính độ dài vectơ</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình lập phương $ABCD.A'B'C'D'$ có độ dài mỗi cạnh bằng 1. Tính độ dài các vec tơ sau:</p>
+      <ol>
+        <li>$\vec{a} = \vec{BC} + \vec{AA'}$;</li>
+        <li>$\vec{b} = \vec{AD}+\vec{C'C}+\vec{C'A'}$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> a) $\sqrt{2}$; b) $\sqrt{2}$</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📊 GÓC GIỮA HAI VECTƠ, TÍCH VÔ HƯỚNG CỦA HAI VECTO</h2>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Góc giữa hai vectơ, tích vô hướng của hai vecto</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình lập phương $ABCD.A'B'C'D'$. Tính góc giữa hai vectơ:</p>
+      <ol>
+        <li>$(\vec{AD}, \vec{B'D'})$;<br>
+        <strong>Hướng dẫn giải</strong><br>
+        Ta có $\vec{AD} = \vec{BC} = \vec{B'C'}$, suy ra <br>
+        $(\vec{AD}, \vec{B'D'}) = (\vec{B'C'}, \vec{B'D'}) = \widehat{C'B'D'} = 45^\circ$ (do $A'B'C'D'$ là hình vuông).</li>
+        <li>$(\vec{AD}, \vec{B'C'})$;</li>
+        <li>$(\vec{A'C'}, \vec{BD})$;</li>
+        <li>$(\vec{AC}, \vec{B'C'})$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Góc giữa hai vectơ, tích vô hướng của hai vecto</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành có góc $\widehat{BCD}=135^\circ$ và mặt bên $SAB$ là tam giác đều. Tính góc giữa hai vectơ:</p>
+      <ol>
+        <li>$(\vec{AB}, \vec{BC})$;</li>
+        <li>$(\vec{DC}, \vec{BS})$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> a) $135^\circ$; b) $60^\circ$</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Góc giữa hai vectơ, tích vô hướng của hai vecto</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình chóp tứ giác đều $S.ABCD$ có độ dài tất cả các cạnh bằng $a$. Gọi $O$ là tâm của $ABCD$ và $M$ là trung điểm cạnh $SC$. Tính các tích vô hướng sau:</p>
+      <ol>
+        <li>$\vec{AD} \cdot \vec{BS}$;<br>
+        <strong>Hướng dẫn giải</strong><br>
+        Ta có: $ABCD$ là hình vuông cạnh $a$ và các tam giác $SAB, SBC, SCD, SDA$ là các tam giác đều cạnh $a$.<br>
+        Theo giả thiết ta có: $\vec{AD} = \vec{BC}$,<br>
+        Suy ra $(\vec{AD}, \vec{BS}) = (\vec{BC}, \vec{BS}) = \widehat{SBC} = 60^\circ$.<br>
+        Do đó $\vec{AD} \cdot \vec{BS} = |\vec{AD}| \cdot |\vec{BS}| \cdot \cos(\vec{AD}, \vec{BS}) \Leftrightarrow \vec{AD} \cdot \vec{BS} = a \cdot a \cdot \cos 60^\circ = \dfrac{a^2}{2}$.</li>
+        <li>$\vec{BS} \cdot \vec{BD}$;</li>
+        <li>$\vec{AS} \cdot \vec{SO}$;</li>
+        <li>$\vec{AS} \cdot \vec{DB}$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> b) $a^2$; c) $-\dfrac{a^2}{2}$; d) $0$</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Góc giữa hai vectơ, tích vô hướng của hai vecto</h2>
+    </div>
+    <div class="example-question">
+      <p>Trong không gian, cho hai vectơ $\vec{a}$ và $\vec{b}$ cùng có độ dài bằng 2. Biết rằng góc giữa hai vecto đó bằng $60^\circ$. Hãy tính:</p>
+      <ol>
+        <li>$\vec{a} \cdot \vec{b}$;</li>
+        <li>$(\vec{a}+2\vec{b}) \cdot (\vec{a}-3\vec{b})$;</li>
+        <li>$(\vec{a}+2\vec{b})^2$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> a) 2; b) -22; c) 28</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Góc giữa hai vectơ, tích vô hướng của hai vecto</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành, có cạnh $AB=a$ và mặt bên $SAB$ là tam giác vuông cân tại $S$. Gọi $M$ là trung điểm $AB$. Hãy tính:</p>
+      <ol>
+        <li>$\vec{SM} \cdot \vec{SB}$;<br>
+        <strong>Hướng dẫn giải</strong><br>
+        Xét tam giác $SAB$ vuông cân tại $S, SM \perp AB$ và $AB=a$ có: $SA = SB = \dfrac{a\sqrt{2}}{2}$ và $SM = \dfrac{AB}{2} = \dfrac{a}{2}$; $\widehat{BSM} = 45^\circ$.<br>
+        Do đó $\vec{SM} \cdot \vec{SB} = |\vec{SM}| \cdot |\vec{SB}| \cdot \cos(\vec{SM}, \vec{SB}) = \dfrac{a}{2} \cdot \dfrac{a\sqrt{2}}{2} \cdot \cos \widehat{BSM} = \dfrac{a^2\sqrt{2}}{4} \cdot \cos 45^\circ$.<br>
+        Vậy $\vec{SM} \cdot \vec{SB} = \dfrac{a^2}{4}$.</li>
+        <li>$\vec{CD} \cdot \vec{MS}$.</li>
+        <li>$\vec{DC} \cdot \vec{AS}$;</li>
+        <li>$\vec{DC} \cdot \vec{BS}$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> b) 0; c) $\dfrac{a^2}{2}$; d) $-\dfrac{a^2}{2}$</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Góc giữa hai vectơ, tích vô hướng của hai vecto</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho tứ diện $ABCD$ có $AB=2a, CD=2\sqrt{3}a$. Gọi $M, N$ lần lượt là trung điểm của $BC, AD$ và $MN = a\sqrt{7}$.</p>
+      <ol>
+        <li>Tính côsin góc tạo bởi hai vectơ $\vec{BA}$ và $\vec{MN}$.</li>
+        <li>Tính tích vô hướng $\vec{AB} \cdot \vec{DC}$.</li>
+      </ol>
+      <p><strong>Đáp số:</strong> a) $\cos(\vec{BA}, \vec{MN}) = \dfrac{5\sqrt{7}}{14}$; b) $\vec{AB} \cdot \vec{DC} = 6a^2$</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Hướng dẫn giải</strong></p>
+      <p>Không mất tính tổng quát, chọn $a=1$.</p>
+      <ol>
+        <li>Gọi $P$ là trung điểm $AC$, ta có $\vec{BA} = 2\vec{MP}$ và $\vec{NP} = \dfrac{1}{2}\vec{CD}$;<br>
+        Do đó $(\vec{BA}, \vec{MN}) = (\vec{MP}, \vec{MN}) = \widehat{NMP}$.<br>
+        Áp dụng định lí cô sin cho tam giác $NMP$, ta được<br>
+        $\cos \widehat{NMP} = \dfrac{MP^2 + MN^2 - NP^2}{2MN \cdot MP} = \dfrac{1^2 + (\sqrt{7})^2 - (\sqrt{3})^2}{2 \cdot 1 \cdot \sqrt{7}} = \dfrac{5\sqrt{7}}{14}$.<br>
+        Vậy côsin góc giữa hai vectơ $\vec{BA}$ và $\vec{MN}$ là $\cos(\vec{BA}, \vec{MN}) = \dfrac{5\sqrt{7}}{14}$.</li>
+        <li>Ta có $\vec{AB} \cdot \vec{DC} = \vec{AB} \cdot (-\vec{CD}) = -\vec{AB} \cdot \vec{CD}$.<br>
+        Mặt khác $\begin{cases} \vec{AB} = 2\vec{PM} \\ \vec{CD} = 2\vec{PN} \end{cases}$, do đó $(\vec{AB}, \vec{CD}) = (\vec{PM}, \vec{PN}) = \widehat{MPN}$.<br>
+        Áp dụng định lí cô sin cho tam giác $MPN$, ta được<br>
+        $\cos \widehat{MPN} = \dfrac{PM^2+PN^2-MN^2}{2.PM.PN} = \dfrac{1^2+(\sqrt{3})^2-(\sqrt{7})^2}{2.1.\sqrt{3}} = -\dfrac{\sqrt{3}}{2}$;<br>
+        $\vec{AB} \cdot \vec{CD} = |\vec{AB}| \cdot |\vec{CD}| \cdot \cos(\vec{AB}, \vec{CD}) = 2a \cdot 2a\sqrt{3} \cdot \cos \widehat{MPN} = -6a^2$.<br>
+        Vậy $\vec{AB} \cdot \vec{DC} = 6a^2$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📊 PHÂN TÍCH VECTƠ VÀ CHỨNG MINH CÁC TÍNH CHẤT SONG SONG, THẲNG HÀNG, ĐỒNG PHẲNG</h2>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Phân tích vectơ và chứng minh các tính chất song song, thẳng hàng, đồng phẳng</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho lăng trụ $ABC.A'B'C'$ có $O$ là tâm của hình bình hành $AA'B'B$ và $M$ là trung điểm $AB$. Đặt $\vec{AA'} = \vec{a}, \vec{AB} = \vec{b}, \vec{AC} = \vec{c}$. Phân tích các vectơ sau theo ba vectơ $\vec{a}, \vec{b}, \vec{c}$:</p>
+      <ol>
+        <li>$\vec{A'B}$ và $\vec{B'C}$;<br>
+        <strong>Hướng dẫn giải</strong><br>
+        Ta có: $\vec{A'B} = \vec{A'A} + \vec{AB} = -\vec{AA'} + \vec{b} = -\vec{a}+\vec{b}$;<br>
+        $\vec{B'C} = \vec{B'B} + \vec{BC} = \vec{A'A} + \vec{BA} + \vec{AC} = -\vec{AA'} - \vec{AB} + \vec{AC} = -\vec{a}-\vec{b}+\vec{c}$.</li>
+        <li>$\vec{AB'}$ và $\vec{AC'}$;</li>
+        <li>$\vec{BC'}$ và $\vec{A'M}$;</li>
+        <li>$\vec{OC'}$ và $\vec{CO}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Phân tích vectơ và chứng minh các tính chất song song, thẳng hàng, đồng phẳng</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình lăng trụ tam giác $ABC.A'B'C'$ có $\vec{AA'} = \vec{a}, \vec{AB} = \vec{b}, \vec{AC} = \vec{c}$. Chứng minh rằng $\vec{B'C'} = \vec{c}-\vec{a}-\vec{b}$; $\vec{BC'} = \vec{a}-\vec{b}+\vec{c}$.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Phân tích vectơ và chứng minh các tính chất song song, thẳng hàng, đồng phẳng</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hai hình bình hành $ABCD$ và $ABEF$ không cùng nằm trong mặt phẳng. Trên các đường chéo $AC$ và $BF$ lấy các điểm $M, N$ sao cho $MA = \dfrac{1}{2}MC, NF = 2NB$ (như hình vẽ).</p>
+      <ol>
+        <li>Biểu diễn các vectơ $\vec{MN}, \vec{DE}$ theo $\vec{AB}, \vec{AD}, \vec{AF}$.</li>
+        <li>Từ đó suy ra $MN // DE$.</li>
+      </ol>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Hướng dẫn giải</strong></p>
+      <ol>
+        <li>Ta có: $\vec{MN} = \vec{MA} + \vec{AN} = \dfrac{1}{3}\vec{AC} + \vec{AB} + \vec{BN} = \dfrac{1}{3}(\vec{AB}+\vec{AD})+\vec{AB}+\dfrac{1}{3}\vec{BF}$<br>
+        $= \dfrac{1}{3}\vec{AB}+\dfrac{1}{3}\vec{AD}+\vec{AB}+\dfrac{1}{3}(\vec{AF}-\vec{AB}) = \vec{AB}+\dfrac{1}{3}\vec{AD}+\dfrac{1}{3}\vec{AF}$ (1)<br>
+        Ta có: $\vec{DE} = \vec{DA} + \vec{AE} = -\vec{AD} + \vec{AF} + \vec{AB}$ (2) (quy tắc hình bình hành ABEF).</li>
+        <li>Từ (1) và (2) ta suy ra $\vec{DE} = 3\vec{MN}$. Do đó hai vectơ $\vec{DE}, \vec{MN}$ cùng phương và $D, E, M, N$ không thẳng hàng nên $MN // DE$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Phân tích vectơ và chứng minh các tính chất song song, thẳng hàng, đồng phẳng</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hình hộp $ABCD.EFGH$. Điểm $M$ là trọng tâm tam giác $AFH$.</p>
+      <ol>
+        <li>Chứng minh rằng ba điểm $E,M,C$ thẳng hàng.</li>
+        <li>Tính độ dài của $EM$ trong trường hợp $ABCD.EFGH$ là hình hộp đứng có các cạnh $AB=5, AD=6, AE=10$ và $\angle ABC = 120^\circ$.</li>
+      </ol>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Hướng dẫn giải</strong></p>
+      <ol>
+        <li>Để chứng minh $E,M,C$ thẳng hàng, ta sẽ chứng minh $\vec{EC} = k\vec{EM}$ với $k \in \mathbb{R}$.<br>
+        Do $M$ là trọng tâm của tam giác $AFH$ nên ta có: $\vec{EA}+\vec{EF}+\vec{EH}=3\vec{EM}$.<br>
+        Mặt khác, theo quy tắc hình hộp thì: $\vec{EA}+\vec{EF}+\vec{EH} = \vec{EC}$.<br>
+        Suy ra $\vec{EC} = 3\vec{EM}$. Vậy ba điểm $E,M,C$ thẳng hàng.</li>
+        <li>Áp dụng định lí cô sin trong tam giác $ABC$, ta có: $AC^2 = 5^2+6^2-2 \cdot 5 \cdot 6 \cdot \cos 120^\circ = 91$.<br>
+        Khi $ABCD.EFGH$ là hình hộp đứng thì $EAC$ là tam giác vuông tại $A$, do đó:<br>
+        $EC^2 = EA^2 + AC^2 = 100+91=191$.<br>
+        Suy ra: $EM = \dfrac{1}{3}\sqrt{191}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📊 BÀI TOÁN THỰC TẾ ỨNG DỤNG VECTƠ TRONG KHÔNG GIAN</h2>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Theo định luật II Newton: Gia tốc của một vật có cùng hướng với lực tác dụng lên vật. Độ lớn của gia tốc tỉ lệ thuận với độ lớn của lực và tỉ lệ nghịch với khối lượng của vật $\vec{F} = m\vec{a}$, trong đó $\vec{a}$ là vectơ gia tốc (m/s$^2$), $\vec{F}$ là vectơ lực (N) tác dụng lên vật, $m$ (kg) là khối lượng của vật. Muốn truyền cho quả bóng có khối lượng 0,5 kg một gia tốc 50 m/s$^2$ thì cần một lực đá có độ lớn là bao nhiêu?</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Ta có $\vec{F} = m\vec{a}$, suy ra $|\vec{F}| = m|\vec{a}| = 0,5 \cdot 50 = 25$ (N).</p>
+      <p>Vậy muốn truyền cho quả bóng khối lượng 0,5 kg một gia tốc 50 m/s$^2$ thì cần một lực đá có độ lớn là <strong>25 N</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Một em nhỏ cân nặng $m=25$ kg trượt trên cầu trượt dài 3,5 m. Biết rằng, cầu trượt có góc nghiêng so với phương nằm ngang là 30$^\circ$.</p>
+      <ol>
+        <li>Tính độ lớn của trọng lực $\vec{P} = m\vec{g}$ tác dụng lên em nhỏ, cho biết vectơ gia tốc rơi tự do $\vec{g}$ có độ lớn là $g = 9,8$ m/s$^2$.</li>
+        <li>Cho biết công $A$ (J) sinh bởi một lực $\vec{F}$ có độ dịch chuyển $\vec{d}$ được tính bởi công thức $A = \vec{F} \cdot \vec{d}$. Hãy tính công sinh bởi trọng lực $\vec{P}$ khi em nhỏ trượt hết chiều dài cầu trượt.</li>
+      </ol>
+      <center><img src="data//im/139.png" width="45%"></center>
+      <p><strong>Đáp số:</strong> a) 245 N; b) 428,75 J</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <ol>
+        <li>Độ lớn của trọng lực $\vec{P}$ là: $|\vec{P}| = mg = 25 \cdot 9,8 = 245$ (N).</li>
+        <li>Vectơ dịch chuyển $\vec{d}$ có độ dài 3,5 m và hướng theo cầu trượt. Trọng lực $\vec{P}$ có phương thẳng đứng. Góc giữa hai vectơ là $90^\circ - 30^\circ = 60^\circ$.<br>
+        Công sinh bởi trọng lực là: $A = \vec{P} \cdot \vec{d} = |\vec{P}| |\vec{d}| \cos(60^\circ) = 245 \cdot 3,5 \cdot \frac{1}{2} = 428,75$ (J).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Trọng lực $\vec{P}$ là lực hấp dẫn do Trái Đất tác dụng lên một vật, được tính bởi công thức $\vec{P}=m\vec{g}$, trong đó $m$ là khối lượng của vật (đơn vị: kg), $\vec{g}$ là vectơ gia tốc rơi tự do, có hướng đi xuống và có độ lớn $g=9,8$ m/s$^2$. Xác định hướng và độ lớn của trọng lực (đơn vị: N) tác dụng lên quả bóng có khối lượng 450 gam, kết quả được làm tròn đến hàng phần trăm.</p>
+      <p><strong>Đáp số:</strong> 4,41</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Trọng lực $\vec{P}$ có hướng thẳng đứng từ trên xuống.<br>
+      Đổi: 450 g = 0,45 kg.<br>
+      Độ lớn của trọng lực là: $|\vec{P}| = mg = 0,45 \cdot 9,8 = 4,41$ (N).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Nếu một vật có khối lượng $m$ (kg) thì lực hấp dẫn $\vec{P}$ của Trái Đất tác dụng lên vật được xác định theo công thức $\vec{P} = m\vec{g}$, trong đó $\vec{g}$ là gia tốc rơi tự do có độ lớn $g=9,8$m/s$^2$. Tính gần đúng độ lớn của lực hấp dẫn của Trái Đất tác dụng lên một quả táo có khối lượng 102 gam, làm tròn đến hàng đơn vị của N.</p>
+      <p><strong>Đáp số:</strong> 1 N</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Đổi: 102 g = 0,102 kg.<br>
+      Độ lớn của lực hấp dẫn là: $|\vec{P}| = mg = 0,102 \cdot 9,8 = 0,9996$ (N).<br>
+      Làm tròn đến hàng đơn vị, độ lớn của lực là 1 N.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho biết công $A$ (đơn vị: J) sinh bởi lực $\vec{F}$ tác dụng lên một vật được tính bằng công thức $A = \vec{F} \cdot \vec{d}$, trong đó $\vec{d}$ là vectơ biểu thị độ dịch chuyển của vật (đơn vị của $|\vec{d}|$ là m) khi chịu tác dụng của lực $\vec{F}$. Một chiếc xe có khối lượng 1,5 tấn đang đi xuống trên một đoạn đường dốc có góc nghiêng 5$^\circ$ so với phương ngang. Tính công sinh bởi trọng lực $\vec{P}$ khi xe đi hết đoạn đường dốc dài 30 m (làm tròn kết quả đến hàng đơn vị), biết rằng trọng lực $\vec{P}$ được xác định bởi công thức $\vec{P}=m\vec{g}$, với $m$ (đơn vị: kg) là khối lượng của vật và $\vec{g}$ là gia tốc rơi tự do có độ lớn $g=9,8$m/s$^2$; kết quả được làm tròn đến hàng phần chục của KJ.</p>
+      <center><img src="data//im/141.png" width="45%"></center>
+      <p><strong>Đáp số:</strong> 38,4</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Ta có 1,5 tấn = 1500 kg.<br>
+      Độ lớn của trọng lực tác dụng lên chiếc xe là: $|\vec{P}| = m|\vec{g}| = 1500 \cdot 9,8 = 14700$ (N).<br>
+      Vectơ $\vec{d}$ biểu thị độ dịch chuyển của xe có độ dài là $|\vec{d}| = 30$ m, và góc $(\vec{P}, \vec{d}) = 90^\circ - 5^\circ = 85^\circ$.<br>
+      Công sinh ra bởi trọng lực $\vec{P}$ khi xe đi hết đoạn đường dốc dài 30 m là:<br>
+      $A = \vec{P} \cdot \vec{d} = |\vec{P}| \cdot |\vec{d}| \cdot \cos 85^\circ = 14700 \cdot 30 \cdot \cos 85^\circ \approx 38436$ (J) $\approx 38,4$ (KJ).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Trong phòng thí nghiệm vật lý, một chất điểm đặt ở vị trí A của hình lập phương được tác động bởi ba lực $\vec{F}_1, \vec{F}_2, \vec{F}_3$ dọc theo hai cạnh và đường chéo lớn của hình lập phương đó (tham khảo hình vẽ). Biết độ lớn các lực trên hai cạnh bằng 2 N và 3 N, độ lớn lực dọc theo đường chéo lớn lập phương bằng 4 N. Tính độ lớn hợp lực $\vec{F}_1+\vec{F}_2+\vec{F}_3$ theo đơn vị N, làm tròn đến hàng phần trăm.</p>
+      <center><img src="data//im/142.png" width="45%"></center>
+      <p><strong>Đáp số:</strong> 7,22</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Ta có: $|\vec{F}_1+\vec{F}_2+\vec{F}_3|^2 = |\vec{F}_1|^2 + |\vec{F}_2|^2 + |\vec{F}_3|^2 + 2\vec{F}_1\cdot\vec{F}_2 + 2\vec{F}_1\cdot\vec{F}_3 + 2\vec{F}_2\cdot\vec{F}_3$; trong đó:</p>
+      <ul>
+        <li>$2\vec{F}_1 \cdot \vec{F}_2 = 0$ vì $\vec{F}_1 \perp \vec{F}_2$.</li>
+        <li>Góc giữa cạnh và đường chéo của hình lập phương có cosin bằng $\frac{1}{\sqrt{3}}$.</li>
+        <li>$2\vec{F}_1 \cdot \vec{F}_3 = 2|\vec{F}_1||\vec{F}_3|\cos(\vec{F}_1, \vec{F}_3) = 2 \cdot 2 \cdot 4 \cdot \frac{1}{\sqrt{3}} = \frac{16\sqrt{3}}{3}$.</li>
+        <li>$2\vec{F}_2 \cdot \vec{F}_3 = 2|\vec{F}_2||\vec{F}_3|\cos(\vec{F}_2, \vec{F}_3) = 2 \cdot 3 \cdot 4 \cdot \frac{1}{\sqrt{3}} = 8\sqrt{3}$.</li>
+      </ul>
+      <p>Do vậy $|\vec{F}_1+\vec{F}_2+\vec{F}_3|^2 = 4+9+16+\frac{16\sqrt{3}}{3}+8\sqrt{3} = \frac{87+40\sqrt{3}}{3}$.<br>
+      $\Rightarrow |\vec{F}_1+\vec{F}_2+\vec{F}_3| = \sqrt{\frac{87+40\sqrt{3}}{3}} \approx 7,22$ N.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Ba lực $\vec{F}_1, \vec{F}_2, \vec{F}_3$ cùng tác động vào một vật có phương đôi một vuông góc và có độ lớn lần lượt là 2 N; 3 N; 4 N. Tính độ lớn hợp lực của ba lực đã cho, làm tròn đến hàng phần chục của N.</p>
+      <p><strong>Đáp số:</strong> 5,4</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Do ba lực có phương đôi một vuông góc, độ lớn hợp lực $\vec{F} = \vec{F}_1 + \vec{F}_2 + \vec{F}_3$ được tính bằng công thức:<br>
+      $|\vec{F}| = \sqrt{|\vec{F}_1|^2 + |\vec{F}_2|^2 + |\vec{F}_3|^2} = \sqrt{2^2 + 3^2 + 4^2} = \sqrt{4+9+16} = \sqrt{29} \approx 5,4$ N.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Một chất điểm ở vị trí đỉnh A của hình lập phương $ABCD.A'B'C'D'$. Chất điểm chịu tác động bởi ba lực $\vec{a}, \vec{b}, \vec{c}$ lần lượt cùng hướng với $\vec{AD}, \vec{AB}$ và $\vec{AC'}$ như vẽ. Cường độ của các lực $\vec{a}, \vec{b}, \vec{c}$ tương ứng là 10 N, 10 N và 20 N. Tính cường độ hợp lực của $\vec{a}, \vec{b}$ và $\vec{c}$ theo đơn vị N (làm tròn kết quả đến hàng phần mười).</p>
+      <center><img src="data//im/143.png" width="45%"></center>
+      <p><strong>Đáp số:</strong> 32,6</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Chọn hệ trục tọa độ Oxyz với A là gốc tọa độ. Lực $\vec{a}$ theo trục Ox, $\vec{b}$ theo Oy, $\vec{c}$ theo đường chéo $\vec{AC'}$.<br>
+      $\vec{a} = (10, 0, 0)$; $\vec{b} = (0, 10, 0)$.<br>
+      Vectơ đơn vị của $\vec{AC'}$ là $(\frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}})$.<br>
+      $\vec{c} = 20 \cdot (\frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}})$.<br>
+      Hợp lực $\vec{R} = \vec{a}+\vec{b}+\vec{c} = (10+\frac{20}{\sqrt{3}}, 10+\frac{20}{\sqrt{3}}, \frac{20}{\sqrt{3}})$.<br>
+      $|\vec{R}| = \sqrt{(10+\frac{20}{\sqrt{3}})^2 + (10+\frac{20}{\sqrt{3}})^2 + (\frac{20}{\sqrt{3}})^2} \approx 32,6$ N.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Một chiếc đèn chùm treo có khối lượng $m=5$ kg được thiết kế với đĩa đèn được giữ bởi bốn đoạn xích $SA, SB, SC, SD$ sao cho $S.ABCD$ là hình chóp tứ giác đều có $\widehat{ASC}=60^\circ$ (Hình 21).</p>
+      <center><img src="data//im/144.png" width="45%"></center>
+      <ol>
+        <li>Sử dụng công thức $\vec{P}=m\vec{g}$, trong đó $\vec{g}$ là vectơ gia tốc rơi tự do có độ lớn $10$m/s$^2$, tìm độ lớn của trọng lực $\vec{P}$ tác động lên chiếc đèn chùm.</li>
+        <li>Tìm độ lớn của lực căng cho mỗi sợi xích.</li>
+      </ol>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <ol>
+        <li>Khối lượng $m=5$ kg, gia tốc $|\vec{g}| = 10$ m/s$^2$.<br>
+        Ta có $|\vec{P}| = 5 \cdot 10 = 50$ N.</li>
+        <li>Xét $\triangle SOA$ vuông tại $O$ có $\widehat{ASO} = \widehat{ASC}/2 = 30^\circ$.<br>
+        Giả sử $\vec{F}_1, \vec{F}_2, \vec{F}_3, \vec{F}_4$ là lực căng trên mỗi sợi dây $SA, SB, SC, SD$.<br>
+        Khi cân bằng, tổng các lực bằng $\vec{0}$. Hợp lực của các lực căng có phương thẳng đứng và độ lớn bằng $4|\vec{F}_1|\cos(30^\circ)$.<br>
+        $50 = 4|\vec{F}_1|\cos(30^\circ) = 4|\vec{F}_1|\frac{\sqrt{3}}{2} = 2\sqrt{3}|\vec{F}_1|$.<br>
+        $|\vec{F}_1| = \frac{25}{\sqrt{3}} \approx 14,4$ N.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Một chiếc đèn tròn được treo song song với mặt phẳng nằm ngang bởi ba sợi dây không dãn xuất phát từ điểm $O$ trên trần nhà và lần lượt buộc vào ba điểm $A, B, C$ trên đèn tròn sao cho các lực căng $\vec{F}_1, \vec{F}_2, \vec{F}_3$ lần lượt trên mỗi dây $OA, OB, OC$ đôi một vuông góc với nhau và $|\vec{F}_1|=|\vec{F}_2|=|\vec{F}_3|=15$ (N). Tính trọng lượng của chiếc đèn đó.</p>
+      <center><img src="data//im/145.png" width="45%"></center>
+      <p><strong>Đáp số:</strong> $15\sqrt{3}$</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Bài toán thực tế ứng dụng vectơ trong không gian</h2>
+    </div>
+    <div class="example-question">
+      <p>Một chiếc ô tô được đặt trên mặt đáy dưới của một khung sắt có dạng hình hộp chữ nhật với đáy trên là hình chữ nhật $ABCD$, mặt phẳng $(ABCD)$ song song với mặt phẳng nằm ngang. Khung sắt đó được buộc vào móc $E$ của chiếc cần cẩu sao cho các đoạn dây cáp $EA,EB,EC,ED$ có độ dài bằng nhau và cùng tạo với mặt phẳng $(ABCD)$ một góc bằng 60$^\circ$. Chiếc cần cẩu kéo khung sắt lên theo phương thẳng đứng.<br>
+      Tính trọng lượng của chiếc xe ô tô (làm tròn đến hàng đơn vị của N), biết rằng các lực căng $\vec{F}_1, \vec{F}_2, \vec{F}_3, \vec{F}_4$ đều có cường độ là 4700 N và trọng lượng của khung sắt là 3000 N.</p>
+      <center><img src="data//im/146.png" width="45%"></center>
+      <p><strong>Đáp số:</strong> 13281</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p></p>
+    </div>
+  </div>
+</section>
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 15px;
+    left: 40px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+ /* ==== TOOLBAR ==== */
+#toolbar {
+  position: fixed;
+  bottom: 8px;
+  left: 15px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
+  white-space: nowrap;
+  gap: 6px;
+  background: rgba(2, 27, 125, 0.6);
+  border-radius: 8px;
+  padding: 4px 6px;
+  z-index: 10001 !important;
+  backdrop-filter: blur(3px);
+  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
+}
+#toolbar::-webkit-scrollbar {
+  height: 4px;
+}
+#toolbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+}
+
+
+/* ==== CÁC NÚT VÀ COMBO ==== */
+#toolbar button,
+#toolbar select {
+  font-size: 12px;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#toolbar select {
+  height: 22px;
+}
+
+#toolbar button:hover,
+#toolbar select:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+/* ==== CÁC BIỂU TƯỢNG ==== */
+#toolbar button {
+  line-height: 1;
+}
+
+/* 📱 Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  #toolbar {
+    bottom: 6px;
+    left: 6px;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  #toolbar button,
+  #toolbar select {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+}
+
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <a href="../index.html" title="Trang chủ">
+  <button>🏠</button>
+     </a>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+      const homeBtn = document.getElementById("homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
+      });
+    }
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+  // Hàm phát âm thanh
+  function playSound(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  // =====================
+  // 1️⃣ TRẮC NGHIỆM 4 LỰA CHỌN
+  // =====================
+  function showOptionIcon(qid, selected, correct) {
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent = "");
+    const icon = document.getElementById(`icon-${qid}-${selected}`);
+    if (icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+  }
+
+  function checkAnswer(qid, correct) {
+    // Xóa icon cũ
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+    
+    // Lấy lựa chọn
+    const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+    if (!chosen) {
+      alert("Hãy chọn một đáp án!");
+      playSound("../audio/wrong.mp3");
+      return;
+    }
+
+    const chosenVal = chosen.value;
+    const iconId = `icon-${qid}-${chosenVal}`;
+
+    // Hiển thị đúng/sai + phát âm thanh
+    if (chosenVal === correct) {
+      document.getElementById(iconId).textContent = '✅';
+      playSound("../audio/correct.mp3");
+    } else {
+      document.getElementById(iconId).textContent = '❌';
+      document.getElementById(`icon-${qid}-${correct}`).textContent = '✅';
+      playSound("../audio/wrong.mp3");
+    }
+  }
+
+  // =====================
+  // 2️⃣ CÂU HỎI ĐÚNG / SAI
+  // =====================
+  
+</script>
+<script>
+function playSound(src){
+  try{
+    const a = new Audio(src);
+    a.volume = 0.9;
+    a.play().catch(()=>{/* muted or user gesture required */});
+  }catch(e){}
+}
+
+/**
+ * checkTrueFalseAnswer:
+ * - questionId: 'q1'
+ * - correctAnswers: either an Array like ['True','False','True','True'] OR a string '["True","False",...]'
+ */
+function checkTrueFalseAnswer(questionId, correctAnswers){
+  // normalize correctAnswers to array of strings
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      // fallback: try to split by comma (robust)
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      // add icon near selected radio (if option-icon exists)
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  // render feedback in .answer-check .result (create if missing)
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // play sound
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+}
+</script>
+<script>
+function checkShortAnswer(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  // So sánh không phân biệt khoảng trắng / chữ hoa
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    playSound("../audio/wrong.mp3");
+  }
+}
+</script>
+
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // chạy ngay khi tải trang
+</script>
+
+<script>
+// === AUTO FIX SLIDE STRUCTURE ===
+// Mục đích: Đưa mọi <img> (hoặc <center><img>...</center>) nằm ngoài <section> vào slide hợp lệ
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelector(".reveal .slides");
+  if (!slides) return;
+
+  // Tạo slide mới chứa node
+  const makeSlide = (node) => {
+    const sec = document.createElement("section");
+    sec.appendChild(node);
+    return sec;
+  };
+
+  // 1️⃣ Di chuyển ảnh hoặc center chưa nằm trong slide nào vào slide mới
+  const imgs = [...document.querySelectorAll(".reveal .slides img")];
+  imgs.forEach(img => {
+    // Kiểm tra có nằm trong slide hợp lệ không
+    let ancestor = img.closest(".reveal .slides > section");
+    if (!ancestor) {
+      // Nếu nằm trong <center>, di chuyển cả center
+      const wrap = img.closest("center") || img;
+      slides.appendChild(makeSlide(wrap));
+    }
+  });
+
+  // 2️⃣ Sửa các <section> bị lồng hoặc đóng sai
+  const badNested = [...slides.querySelectorAll("section section")];
+  badNested.forEach(sec => slides.appendChild(sec));
+
+  // 3️⃣ Xóa các section rỗng (chỉ chứa khoảng trắng)
+  [...slides.querySelectorAll("section")].forEach(sec => {
+    if (!sec.innerHTML.trim()) sec.remove();
+  });
+
+  console.log("✅ Slide structure fixed: images moved into valid slides.");
+});
+</script>
+
+   
+</body>
+</html>

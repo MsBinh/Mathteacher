@@ -1,0 +1,1458 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== KHUNG CÂU HỎI ===== */
+.question, .summary-box {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px 22px;
+  width: 96%;
+  max-height: 82vh;
+  overflow-y: auto;
+  margin: 12px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+   color: #03631e;
+   font-size: 22px;
+}
+
+/* Hình ảnh trong câu hỏi */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== TRẮC NGHIỆM ===== */
+.options-row, .option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.option-label, .option-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fdfdfd;
+  transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.option-label:hover, .option-row:hover {
+  background: #e8f1ff;
+  border-color: #0074d9;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #0074d9;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+/* ===== NÚT KIỂM TRA ===== */
+.answer-check {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.answer-check button, .check-btn {
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.answer-check button:hover {
+  background: #0059b2;
+  transform: translateY(-1px);
+}
+
+/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
+.answer-check input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* ===== MENU SLIDE ===== */
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #fefefe;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  border-right: 3px solid #0074d9;
+  overflow-y: auto;
+}
+
+.slide-menu.active {
+  left: 0;
+}
+
+.menu-header {
+  padding: 16px;
+  background: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+.slide-item {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9fafc;
+  cursor: pointer;
+  color: #111;
+  transition: 0.2s;
+}
+
+.slide-item:hover {
+  background: #e7f1ff;
+  border-color: #0074d9;
+}
+
+.slide-item.active {
+  background: #0074d9;
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
+
+/* ===== NÚT MỞ MENU ===== */
+.menu-toggle {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  z-index: 999;
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.menu-toggle:hover {
+  background: #0059b2;
+  transform: scale(1.1);
+}
+
+/* ===== TOOLBAR VẼ ===== */
+#drawCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#toolbar {
+  position: fixed;
+  top: 50%; left: 5px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#toolbar button, #toolbar select {
+  margin: 4px 0;
+  width: 38px; height: 38px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#toolbar button:hover {
+  background: #0074d9;
+  color: white;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 900;
+  padding: 10px 14px;
+  background: #0074d9;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.fullscreen-btn:hover {
+  background: #0056b3;
+}
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
+}
+
+/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
+.clock {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
+.reveal {
+  margin-top: 38px !important;
+}
+
+/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #1976d2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+}
+
+.definition-icon {
+  display: inline-block;
+  margin-right: 10px;
+  color: #1976d2;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin: 12px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 5px solid #ffa000;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 18px;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.solution-steps ol {
+  padding-left: 20px;
+}
+
+.solution-steps li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(232, 245, 232, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #388e3c;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 5px solid #303f9f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #303f9f;
+  padding-bottom: 10px;
+}
+
+.problem-number {
+  background: #303f9f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.problem-header h3 {
+  color: #303f9f;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #f57c00;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f57c00;
+  padding-bottom: 10px;
+}
+
+.example-header h3 {
+  color: #f57c00;
+  margin: 0;
+  font-weight: 700;
+}
+
+.tag {
+  background: #f57c00;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-question {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #f57c00;
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 5px solid #c2185b;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  display: none; /* Ẩn ban đầu, hiện khi click */
+}
+
+.solution h4 {
+  color: #c2185b;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c2185b;
+  padding-bottom: 8px;
+}
+
+.solution-conclusion {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #c2185b;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Nút xem lời giải */
+.btn.solution-toggle {
+  background: #0074d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 10px 0;
+}
+
+.btn.solution-toggle:hover {
+  background: #0059b2;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Hình ảnh */
+.image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề section */
+.doc-section {
+  margin: 30px 0;
+}
+
+.article-subtitle {
+  color: #004aad;
+  font-weight: 700;
+  border-bottom: 3px solid #004aad;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Công thức toán */
+.math {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .definition-box,
+  .note-box,
+  .problem-type,
+  .example,
+  .solution {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tag {
+    margin-top: 8px;
+  }
+  
+  .math {
+    font-size: 20px;
+  }
+}
+/* Cho phép cuộn slide dài */
+.reveal .slides section {
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+/* Không giới hạn chiều cao các box */
+.definition-box,
+.theorem-box,
+.method-box,
+.example,
+.note-box,
+.formula,
+.procedure {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Box lồng nhau thu nhỏ nhẹ */
+.box .box {
+  font-size: 0.9em;
+  padding: 0.8em;
+}
+
+</style>
+
+  <!-- ===== style chuyên đề  ===== -->
+
+
+
+
+</head>
+
+<body>
+    <!-- ===== Thanh tiêu đề cố định ===== -->
+<div class="topbar">
+  <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+  <div class="clock" id="clock">--:--:--</div>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 BÀI 3</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI TẬP TRẮC NGHIỆM ĐÚNG SAI </h2>
+  </section>
+<!--@@@@-->
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 15px;
+    left: 40px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+ /* ==== TOOLBAR ==== */
+#toolbar {
+  position: fixed;
+  bottom: 8px;
+  left: 15px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
+  white-space: nowrap;
+  gap: 6px;
+  background: rgba(2, 27, 125, 0.6);
+  border-radius: 8px;
+  padding: 4px 6px;
+  z-index: 10001 !important;
+  backdrop-filter: blur(3px);
+  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
+}
+#toolbar::-webkit-scrollbar {
+  height: 4px;
+}
+#toolbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+}
+
+
+/* ==== CÁC NÚT VÀ COMBO ==== */
+#toolbar button,
+#toolbar select {
+  font-size: 12px;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#toolbar select {
+  height: 22px;
+}
+
+#toolbar button:hover,
+#toolbar select:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+/* ==== CÁC BIỂU TƯỢNG ==== */
+#toolbar button {
+  line-height: 1;
+}
+
+/* 📱 Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  #toolbar {
+    bottom: 6px;
+    left: 6px;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  #toolbar button,
+  #toolbar select {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+}
+
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <a href="../index.html" title="Trang chủ">
+  <button>🏠</button>
+     </a>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+      const homeBtn = document.getElementById("homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
+      });
+    }
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+  // Hàm phát âm thanh
+  function playSound(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  // =====================
+  // 1️⃣ TRẮC NGHIỆM 4 LỰA CHỌN
+  // =====================
+  function showOptionIcon(qid, selected, correct) {
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent = "");
+    const icon = document.getElementById(`icon-${qid}-${selected}`);
+    if (icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+  }
+
+  function checkAnswer(qid, correct) {
+    // Xóa icon cũ
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+    
+    // Lấy lựa chọn
+    const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+    if (!chosen) {
+      alert("Hãy chọn một đáp án!");
+      playSound("../audio/wrong.mp3");
+      return;
+    }
+
+    const chosenVal = chosen.value;
+    const iconId = `icon-${qid}-${chosenVal}`;
+
+    // Hiển thị đúng/sai + phát âm thanh
+    if (chosenVal === correct) {
+      document.getElementById(iconId).textContent = '✅';
+      playSound("../audio/correct.mp3");
+    } else {
+      document.getElementById(iconId).textContent = '❌';
+      document.getElementById(`icon-${qid}-${correct}`).textContent = '✅';
+      playSound("../audio/wrong.mp3");
+    }
+  }
+
+  // =====================
+  // 2️⃣ CÂU HỎI ĐÚNG / SAI
+  // =====================
+  
+</script>
+<script>
+function playSound(src){
+  try{
+    const a = new Audio(src);
+    a.volume = 0.9;
+    a.play().catch(()=>{/* muted or user gesture required */});
+  }catch(e){}
+}
+
+/**
+ * checkTrueFalseAnswer:
+ * - questionId: 'q1'
+ * - correctAnswers: either an Array like ['True','False','True','True'] OR a string '["True","False",...]'
+ */
+function checkTrueFalseAnswer(questionId, correctAnswers){
+  // normalize correctAnswers to array of strings
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      // fallback: try to split by comma (robust)
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      // add icon near selected radio (if option-icon exists)
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  // render feedback in .answer-check .result (create if missing)
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // play sound
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+}
+</script>
+<script>
+function checkShortAnswer(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  // So sánh không phân biệt khoảng trắng / chữ hoa
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    playSound("../audio/wrong.mp3");
+  }
+}
+</script>
+
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // chạy ngay khi tải trang
+</script>
+
+<script>
+// === AUTO FIX SLIDE STRUCTURE ===
+// Mục đích: Đưa mọi <img> (hoặc <center><img>...</center>) nằm ngoài <section> vào slide hợp lệ
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelector(".reveal .slides");
+  if (!slides) return;
+
+  // Tạo slide mới chứa node
+  const makeSlide = (node) => {
+    const sec = document.createElement("section");
+    sec.appendChild(node);
+    return sec;
+  };
+
+  // 1️⃣ Di chuyển ảnh hoặc center chưa nằm trong slide nào vào slide mới
+  const imgs = [...document.querySelectorAll(".reveal .slides img")];
+  imgs.forEach(img => {
+    // Kiểm tra có nằm trong slide hợp lệ không
+    let ancestor = img.closest(".reveal .slides > section");
+    if (!ancestor) {
+      // Nếu nằm trong <center>, di chuyển cả center
+      const wrap = img.closest("center") || img;
+      slides.appendChild(makeSlide(wrap));
+    }
+  });
+
+  // 2️⃣ Sửa các <section> bị lồng hoặc đóng sai
+  const badNested = [...slides.querySelectorAll("section section")];
+  badNested.forEach(sec => slides.appendChild(sec));
+
+  // 3️⃣ Xóa các section rỗng (chỉ chứa khoảng trắng)
+  [...slides.querySelectorAll("section")].forEach(sec => {
+    if (!sec.innerHTML.trim()) sec.remove();
+  });
+
+  console.log("✅ Slide structure fixed: images moved into valid slides.");
+});
+</script>
+
+   
+</body>
+</html>

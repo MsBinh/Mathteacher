@@ -1,0 +1,2251 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== KHUNG CÂU HỎI ===== */
+.question, .summary-box {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px 22px;
+  width: 96%;
+  max-height: 82vh;
+  overflow-y: auto;
+  margin: 12px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+   color: #03631e;
+   font-size: 22px;
+}
+
+/* Hình ảnh trong câu hỏi */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== TRẮC NGHIỆM ===== */
+.options-row, .option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.option-label, .option-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fdfdfd;
+  transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.option-label:hover, .option-row:hover {
+  background: #e8f1ff;
+  border-color: #0074d9;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #0074d9;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+/* ===== NÚT KIỂM TRA ===== */
+.answer-check {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.answer-check button, .check-btn {
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.answer-check button:hover {
+  background: #0059b2;
+  transform: translateY(-1px);
+}
+
+/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
+.answer-check input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* ===== MENU SLIDE ===== */
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #fefefe;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  border-right: 3px solid #0074d9;
+  overflow-y: auto;
+}
+
+.slide-menu.active {
+  left: 0;
+}
+
+.menu-header {
+  padding: 16px;
+  background: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+.slide-item {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9fafc;
+  cursor: pointer;
+  color: #111;
+  transition: 0.2s;
+}
+
+.slide-item:hover {
+  background: #e7f1ff;
+  border-color: #0074d9;
+}
+
+.slide-item.active {
+  background: #0074d9;
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
+
+/* ===== NÚT MỞ MENU ===== */
+.menu-toggle {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  z-index: 999;
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.menu-toggle:hover {
+  background: #0059b2;
+  transform: scale(1.1);
+}
+
+/* ===== TOOLBAR VẼ ===== */
+#drawCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#toolbar {
+  position: fixed;
+  top: 50%; left: 5px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#toolbar button, #toolbar select {
+  margin: 4px 0;
+  width: 38px; height: 38px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#toolbar button:hover {
+  background: #0074d9;
+  color: white;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 900;
+  padding: 10px 14px;
+  background: #0074d9;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.fullscreen-btn:hover {
+  background: #0056b3;
+}
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
+}
+
+/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
+.clock {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
+.reveal {
+  margin-top: 38px !important;
+}
+
+/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #1976d2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+}
+
+.definition-icon {
+  display: inline-block;
+  margin-right: 10px;
+  color: #1976d2;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin: 12px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 5px solid #ffa000;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 18px;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.solution-steps ol {
+  padding-left: 20px;
+}
+
+.solution-steps li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(232, 245, 232, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #388e3c;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 5px solid #303f9f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #303f9f;
+  padding-bottom: 10px;
+}
+
+.problem-number {
+  background: #303f9f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.problem-header h3 {
+  color: #303f9f;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #f57c00;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f57c00;
+  padding-bottom: 10px;
+}
+
+.example-header h3 {
+  color: #f57c00;
+  margin: 0;
+  font-weight: 700;
+}
+
+.tag {
+  background: #f57c00;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-question {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #f57c00;
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 5px solid #c2185b;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  display: none; /* Ẩn ban đầu, hiện khi click */
+}
+
+.solution h4 {
+  color: #c2185b;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c2185b;
+  padding-bottom: 8px;
+}
+
+.solution-conclusion {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #c2185b;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Nút xem lời giải */
+.btn.solution-toggle {
+  background: #0074d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 10px 0;
+}
+
+.btn.solution-toggle:hover {
+  background: #0059b2;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Hình ảnh */
+.image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề section */
+.doc-section {
+  margin: 30px 0;
+}
+
+.article-subtitle {
+  color: #004aad;
+  font-weight: 700;
+  border-bottom: 3px solid #004aad;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Công thức toán */
+.math {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .definition-box,
+  .note-box,
+  .problem-type,
+  .example,
+  .solution {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tag {
+    margin-top: 8px;
+  }
+  
+  .math {
+    font-size: 20px;
+  }
+}
+</style>
+
+  <!-- ===== style chuyên đề  ===== -->
+
+
+
+
+</head>
+
+<body>
+    <!-- ===== Thanh tiêu đề cố định ===== -->
+<div class="topbar">
+  <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+  <div class="clock" id="clock">--:--:--</div>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 BÀI /h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+ <section>
+  <h2>📚 ĐỊNH NGHĨA</h2>
+  <div class="definition-box">
+    <div class="definition-content">
+      <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+      <p>Một hàm số $f(x)$ được gọi là chẵn nếu với mọi $x$ thuộc tập xác định $D$, ta có $-x \in D$ và $f(-x)=f(x)$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 PHƯƠNG PHÁP CHUNG ĐỂ KHẢO SÁT VÀ VẼ ĐỒ THỊ HÀM SỐ</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li><strong>Bước 1:</strong> Tìm tập xác định $D$ của hàm số.<br>
+        </li>
+        <li><strong>Bước 2:</strong> Sự biến thiên của hàm số.<br>
+          &bull; Tìm đạo hàm $y'$. Tìm các điểm mà đạo hàm bằng 0 hoặc không tồn tại.<br>
+          &bull; Tính các giới hạn và tìm tiệm cận (nếu có) của đồ thị hàm số.<br>
+          &bull; Lập bảng biến thiên của hàm số.<br>
+          &bull; Kết luận về các khoảng đơn điệu, các điểm cực trị của hàm số (nếu có).
+        </li>
+        <li><strong>Bước 3:</strong> Lập bảng giá trị và vẽ đồ thị hàm số.<br>
+          &bull; Vẽ các đường tiệm cận (nếu có) của đồ thị hàm số.<br>
+          &bull; Ta có thể tìm một số điểm đặc biệt thuộc đồ thị hàm số như giao điểm của đồ thị với trục hoành, trục tung (nếu việc tìm này đơn giản).
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 KHẢO SÁT VÀ VẼ ĐỒ THỊ MỘT SỐ HÀM SỐ THƯỜNG GẶP</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li><strong>Bước 1:</strong> Tập xác định: $D=\mathbb{R}$.</li>
+        <li><strong>Bước 2:</strong> Sự biến thiên.<br>
+          &bull; $y' = 3ax^2+2bx+c$; cho $y'=0$ và tìm nghiệm $x_1, x_2$ (nếu có).<br>
+          &bull; Tính các giới hạn tại vô cực của hàm số: $\lim_{x \to +\infty} y$ và $\lim_{x \to -\infty} y$.<br>
+          &bull; Lập bảng biến thiên của hàm số.<br>
+          &bull; Kết luận khoảng đồng biến, nghịch biến; các điểm cực trị của hàm số.
+        </li>
+        <li><strong>Bước 3:</strong> Vẽ đồ thị hàm số.<br>
+          &bull; Lập bảng giá trị, tìm một số điểm đặc biệt thuộc đồ thị trước khi vẽ hình.
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> <strong>Lưu ý:</strong> Đồ thị hàm số có tâm đối xứng là ($x_0; y_0$), trong đó $x_0$ là nghiệm của phương trình $y''=0$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> <strong>Nhận xét:</strong> Đồ thị hàm số bậc ba được minh họa như hình sau:<br>
+          <center><img src="data//im/104.png" width="40%"></center>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 HÀM SỐ PHÂN THỨC HỮU TỈ $Y=\FRAC{AX+B}{CX+D}$ ($C \NE 0, AD-BC \NE 0$)</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li><strong>Bước 1:</strong> Tập xác định: $D = \mathbb{R} \setminus \{-\frac{d}{c}\}$.</li>
+        <li><strong>Bước 2:</strong> Sự biến thiên.<br>
+          &bull; $y' = \frac{ad-bc}{(cx+d)^2}$; $y'$ chỉ mang một dấu nên hàm số luôn đồng biến (hoặc luôn nghịch biến) trên mỗi khoảng xác định của nó.<br>
+          &bull; Hàm số không có điểm cực trị.<br>
+          &bull; Tính các giới hạn: $\lim_{x \to (-\frac{d}{c})^+} y$, $\lim_{x \to (-\frac{d}{c})^-} y$ và $\lim_{x \to \pm\infty} y = \frac{a}{c}$. Kết luận về tiệm cận đứng $x=-\frac{d}{c}$ và tiệm cận ngang $y=\frac{a}{c}$ của đồ thị hàm số.<br>
+          &bull; Lập bảng biến thiên của hàm số.
+        </li>
+        <li><strong>Bước 3:</strong> Vẽ đồ thị hàm số.<br>
+          &bull; Vẽ đường tiệm cận đứng, tiệm cận ngang.<br>
+          &bull; Tìm các điểm đặc biệt thuộc đồ thị và vẽ đồ thị hàm số.
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Tâm đối xứng của đồ thị hàm số là giao điểm của hai đường tiệm cận: $I(-\frac{d}{c}; \frac{a}{c})$.</li>
+        <li><i class="fas fa-square-root-alt"></i> Trục đối xứng của đồ thị hàm số là hai đường phân giác góc tạo bởi tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đó.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số $y=\frac{ax+b}{cx+d}$ ($c \ne 0, ad-bc \ne 0$) được minh họa như hình sau:<br>
+          <center><img src="data//im/105.png" width="40%"></center>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 HÀM SỐ PHÂN THỨC HỮU TỈ $Y=\FRAC{AX^2+BX+C}{DX+E}$ ($A, D \NE 0$)</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li><strong>Bước 1:</strong> Tập xác định: $D=\mathbb{R} \setminus \{-\frac{e}{d}\}$.</li>
+        <li><strong>Bước 2:</strong> Sự biến thiên.<br>
+          &bull; $y' = \frac{adx^2+2aex+be-cd}{(dx+e)^2}$; cho $y'=0$ và tìm nghiệm $x_1, x_2$ (nếu có).<br>
+          &bull; Tính các giới hạn: $\lim_{x \to (-\frac{e}{d})^+} y$, $\lim_{x \to (-\frac{e}{d})^-} y$ và $\lim_{x \to \pm\infty} [f(x)-(\alpha x + \beta)]=0$. Kết luận về tiệm cận đứng $x=-\frac{e}{d}$ và tiệm xiên $y=\alpha x + \beta$ của đồ thị hàm số.<br>
+          &bull; Lập bảng biến thiên của hàm số và kết luận về các khoảng đơn điệu, cực trị của hàm số (nếu có).
+        </li>
+        <li><strong>Bước 3:</strong> Vẽ đồ thị hàm số.<br>
+          &bull; Vẽ đường tiệm cận đứng, tiệm cận xiên của đồ thị hàm số.<br>
+          &bull; Tìm các điểm đặc biệt thuộc đồ thị và vẽ đồ thị hàm số.
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> <strong>Lưu ý:</strong></li>
+        <li><i class="fas fa-square-root-alt"></i> Tâm đối xứng của đồ thị hàm số là giao điểm của hai đường tiệm cận đứng và tiệm cận xiên.</li>
+        <li><i class="fas fa-square-root-alt"></i> Trục đối xứng của đồ thị hàm số là hai đường phân giác góc tạo bởi tiệm cận đứng và tiệm cận xiên của đồ thị hàm số đó.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số $y=\frac{ax^2+bx+c}{dx+e}$ ($a, d \ne 0$) được minh họa như hình sau:<br>
+          <center><img src="data//im/106.png" width="40%"></center>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 NHẬN DIỆN ĐỒ THỊ HÀM BẬC 3</h2>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Hàm số bậc ba có dạng $y = ax^3 + bx^2 + cx + d$ với $a \ne 0$<br>
+          ☞ Đạo hàm: $y' = 3ax^2 + 2bx + c$ ; $y'' = 6ax + 2b$</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 XÁC ĐỊNH DẤU CỦA A</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Nhìn vào góc phải đồ thị, ta thấy đồ thị đi lên <strong>trên</strong>, tức là $\lim_{x \to +\infty} y = +\infty$, ta có $\boxed{a > 0}$.</li>
+        <li>Ngược lại nhánh phải đồ thị đi <strong>xuống dưới</strong>, tức là $\lim_{x \to +\infty} y = -\infty$, ta có $\boxed{a < 0}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/107.png" width="40%"></center>
+<section>
+  <h2>📊 XÁC ĐỊNH DẤU CỦA D</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Xét giao điểm của đồ thị hàm số với trục tung: $\begin{cases} x = 0 \\ y = d \end{cases}$.</li>
+        <li>Giao điểm của đồ thị với trục tung nằm <strong>trên gốc tọa độ</strong> $O \Rightarrow \boxed{d > 0}$.</li>
+        <li>Giao điểm của đồ thị với trục tung nằm <strong>dưới gốc tọa độ</strong> $O \Rightarrow \boxed{d < 0}$.</li>
+        <li>Giao điểm của đồ thị với trục tung <strong>trùng với gốc tọa độ</strong> $O \Rightarrow \boxed{d = 0}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/108.png" width="40%"></center>
+<section>
+  <h2>📊 XÁC ĐỊNH DẤU CỦA B</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Xét tọa độ điểm uốn (tâm đối xứng) của đồ thị hàm số là $I(x_I; y_I)$ với $x_I = -\dfrac{b}{3a}$.</li>
+        <li>Điểm uốn $I$ nằm <strong>bên phải trục tung</strong> $Oy \Rightarrow -\dfrac{b}{3a} > 0 \Rightarrow \dfrac{b}{a} < 0 \Rightarrow \boxed{ab < 0}$.</li>
+        <li>Điểm uốn $I$ nằm <strong>bên trái trục tung</strong> $Oy \Rightarrow -\dfrac{b}{3a} < 0 \Rightarrow \dfrac{b}{a} > 0 \Rightarrow \boxed{ab > 0}$.</li>
+        <li>Điểm uốn $I$ <strong>thuộc trục tung</strong> $Oy$ (tức là hai điểm cực trị cách đều trục tung) $\Rightarrow \boxed{b = 0}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/109.png" width="40%"></center>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Trong trường hợp đồ thị hàm số có hai điểm cực trị, ta có thể sử dụng <strong>định lí vi-ét</strong> để xét dấu của $b$ (sau khi biết dấu của a), ta có: $x_1 + x_2 = -\dfrac{B}{A} = -\dfrac{2b}{3a}$. Tùy vào tổng này âm, dương hoặc bằng 0 mà ta kết luận được dấu của b.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 XÁC ĐỊNH DẤU CỦA C</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Hai điểm cực trị nằm <strong>cùng phía</strong> với trục tung $Oy$: $x_1x_2 = \dfrac{c}{3a} > 0 \Rightarrow \boxed{ac > 0}$.</li>
+        <li>Hai điểm cực trị nằm <strong>khác phía</strong> với trục tung $Oy$: $x_1x_2 = \dfrac{c}{3a} < 0 \Rightarrow \boxed{ac < 0}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Ngoài các quy tắc xét dấu hệ số hàm bậc ba như trên, ta còn có thể đánh giá đồ thị hàm số theo hai trường hợp sau:</li>
+        <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số bậc ba có hai điểm cực trị $\Leftrightarrow \begin{cases} a \ne 0 \\ \Delta > 0 \end{cases}$.</li>
+        <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số bậc ba không có điểm cực trị $\Leftrightarrow \begin{cases} a \ne 0 \\ \Delta \le 0 \end{cases}$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/110.png" width="40%"></center>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Xác định dấu của c</h2>
+    </div>
+    <div class="example-question">
+      <p>Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình bên?</p>
+      <ol>
+        <li><strong>A.</strong> $y = x^3 - 3x$.</li>
+        <li><strong>B.</strong> $y = -x^3 + 3x$.</li>
+        <li><strong>C.</strong> $y = x^4 - 2x^2$.</li>
+        <li><strong>D.</strong> $y = -x^4 + 2x^2$.</li>
+      </ol>
+      <center><img src="data//im/111.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn A</strong></p>
+      <p>Dạng đồ thị này là của hàm số bậc ba nên loại C, D.<br>
+        Nhánh phải đồ thị đi lên, tức là $\lim_{x \to +\infty} y = +\infty$. Suy ra $a>0$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Xác định dấu của c</h2>
+    </div>
+    <div class="example-question">
+      <p>Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án A, B, C, D. Hỏi đó là hàm số nào?</p>
+      <ol>
+        <li><strong>A.</strong> $y = x^3 + 2x + 1$.</li>
+        <li><strong>B.</strong> $y = x^3 - 2x^2 + 1$.</li>
+        <li><strong>C.</strong> $y = x^3 - 2x + 1$.</li>
+        <li><strong>D.</strong> $y = -x^3 + 2x + 1$.</li>
+      </ol>
+      <center><img src="data//im/112.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn C</strong></p>
+      <p>Nhánh phải đồ thị đi lên nên $\lim_{x \to +\infty} y = +\infty$. Suy ra $a>0$. <strong>Loại D</strong><br>
+        Hàm số có hai điểm cực trị nên $y' = 0$ có hai nghiệm phân biệt, ta <strong>loại A</strong>.</p>
+      <p>Xét B: $y' = 3x^2 - 4x$; $y' = 0 \Rightarrow \begin{cases} x = 0 \\ x = \dfrac{4}{3} \end{cases}$ (loại). <strong>Loại B</strong></p>
+      <p>Xét C: $y' = 3x^2 - 2$; $y' = 0 \Rightarrow x = \pm \sqrt{\dfrac{2}{3}}$ (nhận).</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Xác định dấu của c</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hàm số $y = ax^3 + bx^2 + cx + d$ có đồ thị như hình vẽ bên. Mệnh đề nào dưới đây đúng?</p>
+      <ol>
+        <li><strong>A.</strong> $a < 0, b > 0, c > 0, d < 0$.</li>
+        <li><strong>B.</strong> $a < 0, b < 0, c > 0, d < 0$.</li>
+        <li><strong>C.</strong> $a > 0, b < 0, c < 0, d > 0$.</li>
+        <li><strong>D.</strong> $a < 0, b > 0, c < 0, d < 0$.</li>
+      </ol>
+      <center><img src="data//im/113.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn A</strong></p>
+      <p>Nhánh phải đồ thị đi xuống nên $\lim_{x \to +\infty} y = -\infty \Rightarrow \boxed{a < 0}$.<br>
+        Giao điểm của đồ thị với trục tung: $\begin{cases} x = 0 \\ y = d < 0 \end{cases}$ (do giao điểm này nằm dưới gốc tọa độ).</p>
+      <p>Ta có: $y' = 3ax^2 + 2bx + c \Rightarrow y'' = 6ax + 2b = 0 \Rightarrow x = -\dfrac{b}{3a} = x_I$ (hoành độ tâm đối xứng).</p>
+      <p>Vì tâm đối xứng đồ thị nằm bên phải trục Oy nên $x_I = -\dfrac{b}{3a} > 0 \Rightarrow \dfrac{b}{a} < 0 \Rightarrow \boxed{b > 0}$.</p>
+      <p>Hai điểm cực trị nằm hai phía Oy nên $x_1x_2 < 0 \Rightarrow \dfrac{c}{3a} < 0 \Rightarrow \dfrac{c}{a} < 0 \Rightarrow \boxed{c > 0}$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Xác định dấu của c</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho đường cong $(C): y = ax^3 + bx^2 + cx + d$ có đồ thị như hình bên. Khẳng định nào sau đây là đúng?</p>
+      <ol>
+        <li><strong>A.</strong> $a > 0, b < 0, c < 0, d < 0$.</li>
+        <li><strong>B.</strong> $a > 0, b > 0, c < 0, d > 0$.</li>
+        <li><strong>C.</strong> $a < 0, b > 0, c > 0, d < 0$.</li>
+        <li><strong>D.</strong> $a > 0, b > 0, c < 0, d < 0$.</li>
+      </ol>
+      <center><img src="data//im/114.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn D</strong></p>
+      <p>Vì nhánh phải đồ thị đi lên nên $\lim_{x \to +\infty} y = +\infty \Rightarrow \boxed{a > 0}$.</p>
+      <p>Giao điểm của đồ thị với trục tung: $\begin{cases} x = 0 \\ y = d < 0 \end{cases}$ (do giao điểm này nằm dưới gốc tọa độ).</p>
+      <p>Ta có: $y' = 3ax^2 + 2bx + c \Rightarrow y'' = 6ax + 2b = 0 \Rightarrow x = -\dfrac{b}{3a} = x_I$ (hoành độ tâm đối xứng).</p>
+      <p>Vì tâm đối xứng đồ thị nằm bên trái trục Oy nên $x_I = -\dfrac{b}{3a} < 0 \Rightarrow \dfrac{b}{a} > 0 \Rightarrow \boxed{b > 0}$.</p>
+      <p>Hai điểm cực trị nằm hai phía Oy nên $x_1x_2 < 0 \Rightarrow \dfrac{c}{3a} < 0 \Rightarrow \dfrac{c}{a} < 0 \Rightarrow \boxed{c < 0}$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 NHẬN DIỆN ĐỒ THỊ HÀM NHẤT BIẾN</h2>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Hàm số nhất biến có dạng $y = \dfrac{ax+b}{cx+d}$ với $c \ne 0, ad - bc \ne 0$</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 TIỆM CẬN ĐỨNG: $X = -\FRAC{D}{C}$</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Nếu tiệm cận đứng nằm <strong>bên phải</strong> Oy thì $-\dfrac{d}{c} > 0 \Rightarrow \dfrac{d}{c} < 0$.</li>
+        <li>Nếu tiệm cận đứng nằm <strong>bên trái</strong> Oy thì $-\dfrac{d}{c} < 0 \Rightarrow \dfrac{d}{c} > 0$.</li>
+        <li>Nếu tiệm cận đứng <strong>trùng với</strong> Oy thì $-\dfrac{d}{c} = 0 \Rightarrow d = 0$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/116.png" width="40%"></center>
+<section>
+  <h2>📊 TIỆM CẬN NGANG: $Y = \FRAC{A}{C}$</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Nếu tiệm cận ngang nằm <strong>phía trên</strong> trục Ox thì $\dfrac{a}{c} > 0$.</li>
+        <li>Nếu tiệm cận ngang nằm <strong>phía dưới</strong> trục Ox thì $\dfrac{a}{c} < 0$.</li>
+        <li>Nếu tiệm cận ngang <strong>trùng với</strong> trục Ox thì $a=0$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/117.png" width="40%"></center>
+<section>
+  <h2>📊 TÍNH ĐƠN ĐIỆU HÀM SỐ</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Đạo hàm $y' = \dfrac{ad-bc}{(cx+d)^2}$.</li>
+        <li>Nếu mỗi nhánh đồ thị hàm số đi <strong>lên</strong> thì $y' > 0, \forall x \ne -\dfrac{d}{c} \Rightarrow \boxed{ad-bc > 0}$.</li>
+        <li>Nếu mỗi nhánh đồ thị hàm số đi <strong>xuống</strong> thì $y' < 0, \forall x \ne -\dfrac{d}{c} \Rightarrow \boxed{ad-bc < 0}$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/118.png" width="40%"></center>
+<section>
+  <h2>📊 GIAO ĐIỂM CỦA ĐỒ THỊ HÀM SỐ VỚI TRỤC OX</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Giao điểm giữa đồ thị hàm số $y = \dfrac{ax+b}{cx+d}$ với trục Ox là điểm $M\left(-\dfrac{b}{a}; 0\right)$ với $a \ne 0$.</li>
+        <li>Nếu điểm M nằm <strong>bên phải gốc tọa độ O</strong> thì $-\dfrac{b}{a} > 0 \Rightarrow \dfrac{b}{a} < 0$.</li>
+        <li>Nếu điểm M nằm <strong>bên trái gốc tọa độ O</strong> thì $-\dfrac{b}{a} < 0 \Rightarrow \dfrac{b}{a} > 0$.</li>
+        <li>Nếu điểm M <strong>trùng với gốc tọa độ O</strong> thì $-\dfrac{b}{a} = 0 \Rightarrow b = 0$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/119.png" width="40%"></center>
+<section>
+  <h2>📊 GIAO ĐIỂM CỦA ĐỒ THỊ HÀM SỐ VỚI TRỤC OY</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Giao điểm giữa đồ thị hàm số $y = \dfrac{ax+b}{cx+d}$ với trục Oy là điểm $N\left(0; \dfrac{b}{d}\right)$ với $d \ne 0$</li>
+        <li>Nếu điểm N nằm <strong>phía trên gốc tọa độ O</strong> thì $\dfrac{b}{d} > 0$.</li>
+        <li>Nếu điểm N nằm <strong>phía dưới gốc tọa độ O</strong> thì $\dfrac{b}{d} < 0$.</li>
+        <li>Nếu điểm N <strong>trùng với gốc tọa độ O</strong> thì $\dfrac{b}{d} = 0 \Rightarrow b = 0$.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+    </div>
+    <div class="example-question">
+      <p>Đường cong trong hình vẽ bên là đồ thị hàm số nào dưới đây?</p>
+      <ol>
+        <li><strong>A.</strong> $y = x^3 - 3x - 1$.</li>
+        <li><strong>B.</strong> $y = \dfrac{2x-1}{x-1}$.</li>
+        <li><strong>C.</strong> $y = \dfrac{x+1}{x-1}$.</li>
+        <li><strong>D.</strong> $y = x^4 + x^2 + 1$.</li>
+      </ol>
+      <center><img src="data//im/120.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn C</strong></p>
+      <p>Đồ thị đã cho là của hàm số nhất biến (bậc một trên bậc một) nên ta <strong>loại A, D</strong>.<br>
+        Tiệm cận đứng của đồ thị là $x=1$, tiệm cận ngang của đồ thị là $y=1$. <strong>Loại B</strong>.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+    </div>
+    <div class="example-question">
+      <p>Hình vẽ bên là đồ thị của hàm số nào sau đây?</p>
+      <ol>
+        <li><strong>A.</strong> $y = \dfrac{2x+3}{x+1}$.</li>
+        <li><strong>B.</strong> $y = \dfrac{2x+1}{x-1}$.</li>
+        <li><strong>C.</strong> $y = \dfrac{2x-1}{x+1}$.</li>
+        <li><strong>D.</strong> $y = \dfrac{-2x+1}{x+1}$.</li>
+      </ol>
+      <center><img src="data//im/121.bmp" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn C</strong></p>
+      <p>Tiệm cận đứng của đồ thị là $x = -1$, tiệm cận ngang của đồ thị là $y=2$. <strong>Loại B, D</strong>.<br>
+        Ta thấy mỗi nhánh của đồ thị hàm số đã cho đi lên (từ trái sang phải) nên $y' > 0$.</p>
+      <p>Xét A: $y = \dfrac{2x+3}{x+1} \Rightarrow y' = \dfrac{-1}{(x+1)^2} < 0, \forall x \ne -1$ (loại).</p>
+      <p>Xét C: $y = \dfrac{2x-1}{x+1} \Rightarrow y' = \dfrac{3}{(x+1)^2} > 0, \forall x \ne -1$ (thỏa mãn).</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hàm số $y = \dfrac{ax+b}{cx+d}$ có đồ thị như trong hình bên dưới. Biết rằng $a$ là số thực dương, hỏi trong các số $b, c, d$ có tất cả bao nhiêu số dương?</p>
+      <ol>
+        <li><strong>A.</strong> 1.</li>
+        <li><strong>B.</strong> 2.</li>
+        <li><strong>C.</strong> 0.</li>
+        <li><strong>D.</strong> 3.</li>
+      </ol>
+      <center><img src="data//im/122.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn B</strong></p>
+      <p>Tiệm cận ngang của đồ thị nằm phía trên $Ox$ nên $y = \dfrac{a}{c} > 0$ mà $a>0 \Rightarrow c>0$.</p>
+      <p>Tiệm cận đứng của đồ thị nằm bên trái $Oy$ nên $x = -\dfrac{d}{c} < 0 \Rightarrow \dfrac{d}{c} > 0$ mà $c>0 \Rightarrow d>0$.</p>
+      <p>Giao điểm của đồ thị hàm số với $Oy$ là $\left(0; \dfrac{b}{d}\right)$ nằm dưới $O$ nên $\dfrac{b}{d} < 0$ mà $d>0 \Rightarrow b<0$.</p>
+      <p>Vậy $b < 0, c > 0, d > 0$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hàm số $y = \dfrac{ax-b}{x-1}$ có đồ thị như hình vẽ dưới đây: Khẳng định nào sau đây đúng?</p>
+      <ol>
+        <li><strong>A.</strong> $b < a < 0$.</li>
+        <li><strong>B.</strong> $a < b < 0$.</li>
+        <li><strong>C.</strong> $b > a$ và $a < 0$.</li>
+        <li><strong>D.</strong> $a < 0 < b$.</li>
+      </ol>
+      <center><img src="data//im/123.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn A</strong></p>
+      <p>Tiệm cận ngang của đồ thị hàm số là $y = \dfrac{a}{1} = -1 \Rightarrow a = -1$.<br>
+        Giao điểm của đồ thị hàm số với $Oy$ là $(0; b) = (0; -2) \Rightarrow b = -2$.<br>
+        Vậy $b < a < 0$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+    </div>
+    <div class="example-question">
+      <p>Cho hàm số $y = \dfrac{ax+b}{cx+d}$ có đồ thị như hình vẽ bên. Mệnh đề nào dưới đây đúng?</p>
+      <ol>
+        <li><strong>A.</strong> $ac > 0, bd > 0$.</li>
+        <li><strong>B.</strong> $ab < 0, cd < 0$.</li>
+        <li><strong>C.</strong> $bc > 0, ad < 0$.</li>
+        <li><strong>D.</strong> $bc < 0, ad > 0$.</li>
+      </ol>
+      <center><img src="data//im/124.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p><strong>Chọn C</strong></p>
+      <p>Tiệm cận đứng đồ thị nằm bên phải $Oy$ nên $-\dfrac{d}{c} > 0 \Rightarrow cd < 0$ (1).</p>
+      <p>Tiệm cận ngang của đồ thị nằm trên $Ox$ nên $\dfrac{a}{c} > 0 \Rightarrow ac > 0$ (2).</p>
+      <p>Lấy (1) chia (2) theo vế: $\dfrac{cd}{ac} < 0 \Rightarrow \dfrac{d}{a} < 0 \Rightarrow ad < 0$.</p>
+      <p>Giao điểm của đồ thị với $Oy$ là $\left(0; \dfrac{b}{d}\right)$ nằm dưới điểm $O$ nên $\dfrac{b}{d} < 0 \Rightarrow bd < 0$ (3).</p>
+      <p>Lấy (1) chia (3) theo vế: $\dfrac{cd}{bd} > 0 \Rightarrow \dfrac{c}{b} > 0 \Rightarrow bc > 0$.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>📊 NHẬN DIỆN ĐỒ THỊ HÀM PHÂN THỨC BẬC 2</h2>
+</section>
+<section>
+  <h2>📊 HÀM SỐ DẠNG $Y = \FRAC{AX^2+BX+C}{MX+N}$ VỚI $AM \NE 0$</h2>
+</section>
+<section>
+  <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+  <div class="method-box">
+    <div class="method-header">
+      <i class="fas fa-method"></i>
+      <div class="method-title">Phương Pháp Giải</div>
+    </div>
+    <div class="solution-steps">
+      <ol>
+        <li>Tập xác định: $D = \mathbb{R} \setminus \left\{-\dfrac{n}{m}\right\}$ và đạo hàm $y' = \dfrac{am \cdot x^2 + 2an \cdot x + bn - mc}{(mx+n)^2}$.</li>
+        <li>Hướng bên phải của đồ thị đi lên khi a, m cùng dấu và đi xuống khi a, m trái dấu.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<center><img src="data//im/127.png" width="40%"></center>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số $y = \dfrac{ax^2+bx+c}{mx+n}$ ($am \ne 0$)</li>
+        <li><i class="fas fa-square-root-alt"></i> Có <strong>tiệm cận đứng</strong> là đường thẳng $x = -\dfrac{n}{m}$ và <strong>tiệm cận xiên</strong> là đường thẳng $y = \dfrac{a}{m}x - \dfrac{an-bm}{m^2}$.</li>
+        <li><i class="fas fa-square-root-alt"></i> Nhận giao điểm của tiệm cận đứng và tiệm cận xiên làm <strong>tâm đối xứng</strong>, tâm đối xứng này cũng là <strong>trung điểm</strong> của đoạn thẳng nối 2 điểm cực trị của đồ thị (nếu có).</li>
+        <li><i class="fas fa-square-root-alt"></i> Nhận hai đường phân giác của các góc tạo bởi tiệm cận đứng và tiệm cận xiên làm <strong>trục đối xứng</strong>.</li>
+        <li><i class="fas fa-square-root-alt"></i> Đường thẳng đi qua hai điểm cực trị (nếu có) có phương trình<br>
+          $y = \dfrac{(ax^2+bx+c)'}{(mx+n)'} = \dfrac{2ax+b}{m}$.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Hàm số dạng $y = \dfrac{ax^2+bx+c}{mx+n}$ với $am \ne 0$</h2>
+    </div>
+    <div class="example-question">
+      <p>Bảng biến thiên bên dưới là của hàm số nào sau đây?</p>
+      <center><img src="data//im/125.png" width="40%"></center>
+      <ol>
+        <li><strong>A.</strong> $y = \dfrac{2x^2+x+15}{-x-1}$.</li>
+        <li><strong>B.</strong> $y = \dfrac{-x^2+x-18}{x+1}$.</li>
+        <li><strong>C.</strong> $y = \dfrac{x^2+5x-24}{x+1}$.</li>
+        <li><strong>D.</strong> $y = \dfrac{3x^2+3x+12}{-x-1}$.</li>
+      </ol>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>N/A</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Hàm số dạng $y = \dfrac{ax^2+bx+c}{mx+n}$ với $am \ne 0$</h2>
+    </div>
+    <div class="example-question">
+      <p>Câu 87. Đồ thị hình bên là của hàm số nào sau đây ?</p>
+      <ol>
+        <li><strong>A.</strong> $y = \dfrac{2x^2+3x+1}{x+1}$.</li>
+        <li><strong>B.</strong> $y = \dfrac{x^2+x+4}{x+1}$.</li>
+        <li><strong>C.</strong> $y = \dfrac{-x^2-3x+10}{x+1}$.</li>
+        <li><strong>D.</strong> $y = \dfrac{3x^2+5x-2}{x+1}$.</li>
+      </ol>
+      <center><img src="data//im/126.png" width="40%"></center>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>N/A</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>🎯 ĐỊNH LÝ</h2>
+  <div class="theorem-box">
+    <div class="theorem-content">
+      <h3><i class="fas fa-theorem"></i> Định Lý</h3>
+      <p>Nếu hàm số $y=f(x)$ là hàm số chẵn thì đồ thị của nó đối xứng qua trục tung $Oy$.</p>
+      <p>$$ f(-x) = f(x) $$</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>💡 VÍ DỤ MINH HỌA</h2>
+  <div class="example">
+    <div class="example-header">
+      <h2>Ví dụ về Hàm số dạng $y = \dfrac{ax^2+bx+c}{mx+n}$ với $am \ne 0$</h2>
+    </div>
+    <div class="example-question">
+      <p>Xét tính chẵn lẻ của hàm số $y = \cos(x) + x^2$.</p>
+    </div>
+    <button class="btn solution-toggle">Xem lời giải</button>
+    <div class="solution">
+      <h4>Lời giải:</h4>
+      <p>Tập xác định $D = \mathbb{R}$.<br>
+        Với mọi $x \in D$, ta có $-x \in D$.<br>
+        Ta có $f(-x) = \cos(-x) + (-x)^2 = \cos(x) + x^2 = f(x)$.<br>
+        Vậy hàm số đã cho là hàm số chẵn.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+  <div class="note-box">
+    <div class="note-header">
+      <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="note-title">Chú ý</div>
+    </div>
+    <div class="note-content">
+      <ul>
+        <li><i class="fas fa-square-root-alt"></i> Hàm số $y=\sin x$ là hàm lẻ.</li>
+        <li><i class="fas fa-square-root-alt"></i> Hàm số $y=\cos x$ là hàm chẵn.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 15px;
+    left: 40px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+ /* ==== TOOLBAR ==== */
+#toolbar {
+  position: fixed;
+  bottom: 8px;
+  left: 15px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
+  white-space: nowrap;
+  gap: 6px;
+  background: rgba(2, 27, 125, 0.6);
+  border-radius: 8px;
+  padding: 4px 6px;
+  z-index: 10001 !important;
+  backdrop-filter: blur(3px);
+  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
+}
+#toolbar::-webkit-scrollbar {
+  height: 4px;
+}
+#toolbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+}
+
+
+/* ==== CÁC NÚT VÀ COMBO ==== */
+#toolbar button,
+#toolbar select {
+  font-size: 12px;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#toolbar select {
+  height: 22px;
+}
+
+#toolbar button:hover,
+#toolbar select:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+/* ==== CÁC BIỂU TƯỢNG ==== */
+#toolbar button {
+  line-height: 1;
+}
+
+/* 📱 Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  #toolbar {
+    bottom: 6px;
+    left: 6px;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  #toolbar button,
+  #toolbar select {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+}
+
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <a href="../index.html" title="Trang chủ">
+  <button>🏠</button>
+     </a>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+      const homeBtn = document.getElementById("homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
+      });
+    }
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+  // Hàm phát âm thanh
+  function playSound(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  // =====================
+  // 1️⃣ TRẮC NGHIỆM 4 LỰA CHỌN
+  // =====================
+  function showOptionIcon(qid, selected, correct) {
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent = "");
+    const icon = document.getElementById(`icon-${qid}-${selected}`);
+    if (icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+  }
+
+  function checkAnswer(qid, correct) {
+    // Xóa icon cũ
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+    
+    // Lấy lựa chọn
+    const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+    if (!chosen) {
+      alert("Hãy chọn một đáp án!");
+      playSound("../audio/wrong.mp3");
+      return;
+    }
+
+    const chosenVal = chosen.value;
+    const iconId = `icon-${qid}-${chosenVal}`;
+
+    // Hiển thị đúng/sai + phát âm thanh
+    if (chosenVal === correct) {
+      document.getElementById(iconId).textContent = '✅';
+      playSound("../audio/correct.mp3");
+    } else {
+      document.getElementById(iconId).textContent = '❌';
+      document.getElementById(`icon-${qid}-${correct}`).textContent = '✅';
+      playSound("../audio/wrong.mp3");
+    }
+  }
+
+  // =====================
+  // 2️⃣ CÂU HỎI ĐÚNG / SAI
+  // =====================
+  
+</script>
+<script>
+function playSound(src){
+  try{
+    const a = new Audio(src);
+    a.volume = 0.9;
+    a.play().catch(()=>{/* muted or user gesture required */});
+  }catch(e){}
+}
+
+/**
+ * checkTrueFalseAnswer:
+ * - questionId: 'q1'
+ * - correctAnswers: either an Array like ['True','False','True','True'] OR a string '["True","False",...]'
+ */
+function checkTrueFalseAnswer(questionId, correctAnswers){
+  // normalize correctAnswers to array of strings
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      // fallback: try to split by comma (robust)
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      // add icon near selected radio (if option-icon exists)
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  // render feedback in .answer-check .result (create if missing)
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // play sound
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+}
+</script>
+<script>
+function checkShortAnswer(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  // So sánh không phân biệt khoảng trắng / chữ hoa
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    playSound("../audio/wrong.mp3");
+  }
+}
+</script>
+
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // chạy ngay khi tải trang
+</script>
+<script>
+// ✅ TỰ ĐỘNG CÂN BẰNG <section> – đưa ảnh nằm ngoài vào slide riêng
+document.addEventListener("DOMContentLoaded", () => {
+  const slidesContainer = document.querySelector(".reveal .slides");
+  if (!slidesContainer) return;
+
+  // Tìm tất cả ảnh không nằm trong section
+  const looseImages = [...document.querySelectorAll("body > img, .reveal > img, .reveal .slides > img")]
+    .filter(img => !img.closest("section"));
+
+  looseImages.forEach(img => {
+    const newSection = document.createElement("section");
+    newSection.classList.add("auto-img-slide");
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "image-container";
+    wrapper.appendChild(img.cloneNode(true));
+    newSection.appendChild(wrapper);
+
+    slidesContainer.appendChild(newSection);
+    img.remove();
+  });
+
+  // Nếu nội dung không nằm trong section (text lẻ, hr, div…), gói vào slide
+  const orphanNodes = [...slidesContainer.childNodes].filter(
+    node => node.nodeType === 1 && node.tagName !== "SECTION"
+  );
+  if (orphanNodes.length) {
+    const wrapSection = document.createElement("section");
+    orphanNodes.forEach(node => wrapSection.appendChild(node));
+    slidesContainer.appendChild(wrapSection);
+  }
+});
+</script>
+
+
+
+   
+</body>
+</html>
