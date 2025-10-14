@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LỚP TOÁN THẦY BÌNH </title>
+    
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- MathJax -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+            },
+            svg: { fontCache: 'global', linebreaks: { automatic: true } },
+            chtml: { linebreaks: { automatic: true } }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+/* RESET MẶC ĐỊNH */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */ 
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%) !important;
+}
+
+.reveal .slides {
+  width: 100% !important;
+  height: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  background: #ffffff;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto !important;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 200;
+  letter-spacing: 0.5px;
+  margin-bottom: 30px;
+}
+
+.reveal h1 { font-size: 2.0em; }
+.reveal h2 { font-size: 1.6em; }
+.reveal h3 { font-size: 1.2em; }
+
+/* ===== CUỘN CHO NỘI DUNG DÀI ===== */
+.reveal .slides section::-webkit-scrollbar {
+  width: 8px;
+}
+.reveal .slides section::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+.reveal .slides section::-webkit-scrollbar-thumb {
+  background: rgba(0, 74, 173, 0.6);
+  border-radius: 4px;
+}
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 6px solid #1976d2;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+  max-height: none;
+  overflow-y: auto;
+  overflow: visible;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #1976d2;
+  padding-bottom: 12px;
+  font-size: 1.8em;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.styled-list li {
+  margin: 15px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+  font-size: 1.1em;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 6px solid #ffa000;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(255, 160, 0, 0.2);
+  max-height: none;
+  overflow-y: auto;
+  overflow: visible;
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 15px;
+  font-size: 24px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 1.8em;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.note-content li {
+  margin: 12px 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  font-size: 1.1em;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 25px;
+  margin: 20px 0;
+  width: 90%;
+  height: auto;             /* ✅ Không giới hạn chiều cao */
+  max-height: none;         /* ✅ Bỏ giới hạn */
+   
+}
+
+.solution-steps ol { padding-left: 25px; }
+.solution-steps li {
+  margin: 15px 0;
+  padding: 12px;
+  background: rgba(232, 245, 232, 0.6);
+  border-radius: 6px;
+  border-left: 4px solid #388e3c;
+  font-size: 1.1em;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 6px solid #303f9f;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(48, 63, 159, 0.2);
+  max-height: none;
+  overflow-y: auto;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 6px solid #f57c00;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(245, 124, 0, 0.2);
+  width: 90%;
+  height: auto;             /* ✅ Không giới hạn chiều cao */
+  max-height: none;         /* ✅ Bỏ giới hạn */
+  overflow: visible;  
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 6px solid #c2185b;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  width: 90%;
+  height: auto;             /* ✅ Không giới hạn chiều cao */
+  max-height: none;         /* ✅ Bỏ giới hạn */
+  overflow: visible;  
+}
+
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  z-index: 2000;
+  border-bottom: 4px solid rgba(255,255,255,0.4);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 10px #fff, 0 0 20px #00b4d8; }
+  100% { text-shadow: 0 0 20px #fff, 0 0 30px #0074d9; }
+}
+
+/* ĐỒNG HỒ */
+.clock {
+  position: absolute;
+  right: 40px;
+  top: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6);
+}
+
+/* Dời phần trình chiếu xuống */
+.reveal {
+  margin-top: 50px !important;
+  height: calc(100vh - 50px) !important;
+  overflow-y: auto;
+}
+
+/* Cuộn mượt */
+.reveal .slides section,
+.definition-box,
+.note-box,
+.problem-type,
+.example,
+.solution {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+</style>
+
+</head>
+<body>
+    <!-- ===== Thanh tiêu đề cố định ===== -->
+    <div class="topbar">
+        <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+        <div class="clock" id="clock">--:--:--</div>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: TIÊU ĐỀ -->
+            <section>
+                <h1>📘 KHẢO SÁT VÀ VẼ ĐỒ THỊ HÀM SỐ</h1>
+                <h3>Môn Toán - Lớp 12</h3>
+                
+            </section>
+
+            <section>
+            <h2>📊 PHƯƠNG PHÁP CHUNG ĐỂ KHẢO SÁT VÀ VẼ ĐỒ THỊ HÀM SỐ</h2>
+            </section>
+            <section>
+           
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li><strong>Bước 1: Tìm tập xác định $D$ của hàm số.</strong><br></li>
+                    <li><strong>Bước 2: Sự biến thiên của hàm số.</strong>
+                    <ul>
+                        <li>Tìm đạo hàm $y'$. Tìm các điểm mà đạo hàm bằng 0 hoặc không tồn tại.</li>
+                        <li>Tính các giới hạn và tìm tiệm cận (nếu có) của đồ thị hàm số.</li>
+                        <li>Lập bảng biến thiên của hàm số.</li>
+                        <li>Kết luận về các khoảng đơn điệu, các điểm cực trị của hàm số (nếu có).</li>
+                    </ul>
+                    </li>
+                    <li><strong>Bước 3: Lập bảng giá trị và vẽ đồ thị hàm số.</strong>
+                    <ul>
+                        <li>Vẽ các đường tiệm cận (nếu có) của đồ thị hàm số.</li>
+                        <li>Ta có thể tìm một số điểm đặc biệt thuộc đồ thị hàm số như giao điểm của đồ thị với trục hoành, trục tung (nếu việc tìm này đơn giản).</li>
+                    </ul>
+                    </li>
+                </ol>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 KHẢO SÁT VÀ VẼ ĐỒ THỊ MỘT SỐ HÀM SỐ THƯỜNG GẶP</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li><strong>Bước 1:</strong> Tập xác định: $D=\mathbb{R}$.</li>
+                    <li><strong>Bước 2:</strong> Sự biến thiên.
+                    <ul>
+                        <li>$y' = 3ax^2+2bx+c$; cho $y'=0$ và tìm nghiệm $x_1, x_2$ (nếu có).</li>
+                        <li>Tính các giới hạn tại vô cực của hàm số: $\lim_{x \to +\infty} y$ và $\lim_{x \to -\infty} y$.</li>
+                        <li>Lập bảng biến thiên của hàm số.</li>
+                        <li>Kết luận khoảng đồng biến, nghịch biến; các điểm cực trị của hàm số (nếu có).</li>
+                    </ul>
+                    </li>
+                    <li><strong>Bước 3:</strong> Vẽ đồ thị hàm số.
+                    <ul>
+                        <li>Lập bảng giá trị, tìm một số điểm đặc biệt thuộc đồ thị trước khi vẽ hình.</li>
+                    </ul>
+                    </li>
+                </ol>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> <strong>Lưu ý:</strong> Đồ thị hàm số có tâm đối xứng là ($x_0; y_0$), trong đó $x_0$ là nghiệm của phương trình $y''=0$.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> <strong>Nhận xét:</strong> Đồ thị hàm số bậc ba được minh họa như hình sau:<br>
+                    <center><img src="data//im/104.png" width="40%"></center>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 HÀM SỐ PHÂN THỨC HỮU TỈ $Y=\frac{AX+B}{CX+D}$ ($C \NE 0, AD-BC \NE 0$)</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li><strong>Bước 1:</strong> Tập xác định: $D = \mathbb{R} \setminus \{-\frac{d}{c}\}$.</li>
+                    <li><strong>Bước 2:</strong> Sự biến thiên.
+                    <ul>
+                        <li>$y' = \frac{ad-bc}{(cx+d)^2}$; $y'$ chỉ mang một dấu nên hàm số luôn đồng biến (hoặc luôn nghịch biến) trên mỗi khoảng xác định của nó.</li>
+                        <li>Hàm số không có điểm cực trị.</li>
+                        <li>Tính các giới hạn: $\lim_{x \to (-\frac{d}{c})^+} y$, $\lim_{x \to (-\frac{d}{c})^-} y$ và $\lim_{x \to \pm\infty} y = \frac{a}{c}$. Kết luận về tiệm cận đứng $x=-\frac{d}{c}$ và tiệm cận ngang $y=\frac{a}{c}$ của đồ thị hàm số.</li>
+                        <li>Lập bảng biến thiên của hàm số.</li>
+                    </ul>
+                    </li>
+                    <li><strong>Bước 3:</strong> Vẽ đồ thị hàm số.
+                    <ul>
+                        <li>Vẽ đường tiệm cận đứng, tiệm cận ngang.</li>
+                        <li>Tìm các điểm đặc biệt thuộc đồ thị và vẽ đồ thị hàm số.</li>
+                    </ul>
+                    </li>
+                </ol>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Tâm đối xứng của đồ thị hàm số là giao điểm của hai đường tiệm cận: $I(-\frac{d}{c}; \frac{a}{c})$.</li>
+                    <li><i class="fas fa-square-root-alt"></i> Trục đối xứng của đồ thị hàm số là hai đường phân giác góc tạo bởi tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đó.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số $y=\frac{ax+b}{cx+d}$ ($c \ne 0, ad-bc \ne 0$) được minh họa như hình sau:<br>
+                    <center><img src="data//im/105.png" width="40%"></center>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 HÀM SỐ PHÂN THỨC HỮU TỈ $Y=\frac{AX^2+BX+C}{DX+E}$ ($A, D \NE 0$)</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li><strong>Bước 1:</strong> Tập xác định: $D=\mathbb{R} \setminus \{-\frac{e}{d}\}$.</li>
+                    <li><strong>Bước 2:</strong> Sự biến thiên.
+                    <ul>
+                        <li>$y' = \frac{adx^2+2aex+be-cd}{(dx+e)^2}$; cho $y'=0$ và tìm nghiệm $x_1, x_2$ (nếu có).</li>
+                        <li>Tính các giới hạn: $\lim_{x \to (-\frac{e}{d})^+} y$, $\lim_{x \to (-\frac{e}{d})^-} y$ và $\lim_{x \to \pm\infty} [f(x)-(\alpha x + \beta)]=0$. Kết luận về tiệm cận đứng $x=-\frac{e}{d}$ và tiệm xiên $y=\alpha x + \beta$ của đồ thị hàm số.</li>
+                        <li>Lập bảng biến thiên của hàm số và kết luận về các khoảng đơn điệu, cực trị của hàm số (nếu có).</li>
+                    </ul>
+                    </li>
+                    <li><strong>Bước 3:</strong> Vẽ đồ thị hàm số.
+                    <ul>
+                        <li>Vẽ đường tiệm cận đứng, tiệm cận xiên của đồ thị hàm số.</li>
+                        <li>Tìm các điểm đặc biệt thuộc đồ thị và vẽ đồ thị hàm số.</li>
+                    </ul>
+                    </li>
+                </ol>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> <strong>Lưu ý:</strong>
+                    <ul>
+                        <li>Tâm đối xứng của đồ thị hàm số là giao điểm của hai đường tiệm cận đứng và tiệm cận xiên.</li>
+                        <li>Trục đối xứng của đồ thị hàm số là hai đường phân giác góc tạo bởi tiệm cận đứng và tiệm cận xiên của đồ thị hàm số đó.</li>
+                    </ul>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số $y=\frac{ax^2+bx+c}{dx+e}$ ($a, d \ne 0$) được minh họa như hình sau:<br>
+                    <center><img src="data//im/106.png" width="40%"></center>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 NHẬN DIỆN ĐỒ THỊ HÀM BẬC 3</h2>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Hàm số bậc ba có dạng $y = ax^3 + bx^2 + cx + d$ với $a \ne 0$<br>
+                    ☞ Đạo hàm: $y' = 3ax^2 + 2bx + c$ ; $y'' = 6ax + 2b$</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 XÁC ĐỊNH DẤU CỦA A</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Nhìn vào góc phải đồ thị, ta thấy đồ thị đi lên <strong>trên</strong>, tức là $\lim_{x \to +\infty} y = +\infty$, ta có $\boxed{a > 0}$.</li>
+                    <li>Ngược lại nhánh phải đồ thị đi <strong>xuống dưới</strong>, tức là $\lim_{x \to +\infty} y = -\infty$, ta có $\boxed{a < 0}$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/107.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>📊 XÁC ĐỊNH DẤU CỦA D</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Xét giao điểm của đồ thị hàm số với trục tung: $\begin{cases} x = 0 \\ y = d \end{cases}$.</li>
+                    <li>Giao điểm của đồ thị với trục tung nằm <strong>trên gốc tọa độ</strong> $O \Rightarrow \boxed{d > 0}$.</li>
+                    <li>Giao điểm của đồ thị với trục tung nằm <strong>dưới gốc tọa độ</strong> $O \Rightarrow \boxed{d < 0}$.</li>
+                    <li>Giao điểm của đồ thị với trục tung <strong>trùng với gốc tọa độ</strong> $O \Rightarrow \boxed{d = 0}$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/108.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>📊 XÁC ĐỊNH DẤU CỦA B</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Xét tọa độ điểm uốn (tâm đối xứng) của đồ thị hàm số là $I(x_I; y_I)$ với $x_I = -\dfrac{b}{3a}$.</li>
+                    <li>Điểm uốn $I$ nằm <strong>bên phải trục tung</strong> $Oy \Rightarrow -\dfrac{b}{3a} > 0 \Rightarrow \dfrac{b}{a} < 0 \Rightarrow \boxed{ab < 0}$.</li>
+                    <li>Điểm uốn $I$ nằm <strong>bên trái trục tung</strong> $Oy \Rightarrow -\dfrac{b}{3a} < 0 \Rightarrow \dfrac{b}{a} > 0 \Rightarrow \boxed{ab > 0}$.</li>
+                    <li>Điểm uốn $I$ <strong>thuộc trục tung</strong> $Oy$ (tức là hai điểm cực trị cách đều trục tung) $\Rightarrow \boxed{b = 0}$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/109.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Trong trường hợp đồ thị hàm số có hai điểm cực trị, ta có thể sử dụng <strong>định lí vi-ét</strong> để xét dấu của $b$ (sau khi biết dấu của a), ta có: $x_1 + x_2 = -\dfrac{B}{A} = -\dfrac{2b}{3a}$. Tùy vào tổng này âm, dương hoặc bằng 0 mà ta kết luận được dấu của b.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 XÁC ĐỊNH DẤU CỦA C</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Hai điểm cực trị nằm <strong>cùng phía</strong> với trục tung $Oy$: $x_1x_2 = \dfrac{c}{3a} > 0 \Rightarrow \boxed{ac > 0}$.</li>
+                    <li>Hai điểm cực trị nằm <strong>khác phía</strong> với trục tung $Oy$: $x_1x_2 = \dfrac{c}{3a} < 0 \Rightarrow \boxed{ac < 0}$.</li>
+                </ol>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Ngoài các quy tắc xét dấu hệ số hàm bậc ba như trên, ta còn có thể đánh giá đồ thị hàm số theo hai trường hợp sau:
+                    <ul>
+                        <li>Đồ thị hàm số bậc ba có hai điểm cực trị $\Leftrightarrow \begin{cases} a \ne 0 \\ \Delta > 0 \end{cases}$.</li>
+                        <li>Đồ thị hàm số bậc ba không có điểm cực trị $\Leftrightarrow \begin{cases} a \ne 0 \\ \Delta \le 0 \end{cases}$.</li>
+                    </ul>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <center><img src="data//im/110.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Nhận diện đồ thị hàm bậc 3</h2>
+                </div>
+                <div class="example-question">
+                <p>Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình bên?</p>
+                <ol>
+                    <li>$A.$ $y = x^3 - 3x$.</li>
+                    <li>$B.$ $y = -x^3 + 3x$.</li>
+                    <li>$C.$ $y = x^4 - 2x^2$.</li>
+                    <li>$D.$ $y = -x^4 + 2x^2$.</li>
+                </ol>
+                <center><img src="data//im/111.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn A</strong></p>
+                <p>Dạng đồ thị này là của hàm số bậc ba nên loại C, D.<br>
+                    Nhánh phải đồ thị đi lên, tức là $\lim_{x \to +\infty} y = +\infty$. Suy ra $a>0$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Nhận diện đồ thị hàm bậc 3</h2>
+                </div>
+                <div class="example-question">
+                <p>Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án A, B, C, D. Hỏi đó là hàm số nào?</p>
+                <ol>
+                    <li>$A.$ $y = x^3 + 2x + 1$.</li>
+                    <li>$B.$ $y = x^3 - 2x^2 + 1$.</li>
+                    <li>$C.$ $y = x^3 - 2x + 1$.</li>
+                    <li>$D.$ $y = -x^3 + 2x + 1$.</li>
+                </ol>
+                <center><img src="data//im/112.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn C</strong></p>
+                <p>Nhánh phải đồ thị đi lên nên $\lim_{x \to +\infty} y = +\infty$. Suy ra $a>0$. <strong>Loại D</strong><br>
+                    Hàm số có hai điểm cực trị nên $y' = 0$ có hai nghiệm phân biệt, ta <strong>loại A</strong>.</p>
+                <p>Xét B: $y' = 3x^2 - 4x$; $y' = 0 \Rightarrow \begin{cases} x = 0 \\ x = \dfrac{4}{3} \end{cases}$ (loại). <strong>Loại B</strong></p>
+                <p>Xét C: $y' = 3x^2 - 2$; $y' = 0 \Rightarrow x = \pm \sqrt{\dfrac{2}{3}}$ (nhận).</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Nhận diện đồ thị hàm bậc 3</h2>
+                </div>
+                <div class="example-question">
+                <p>Cho hàm số $y = ax^3 + bx^2 + cx + d$ có đồ thị như hình vẽ bên. Mệnh đề nào dưới đây đúng?</p>
+                <ol>
+                    <li>$A.$ $a < 0, b > 0, c > 0, d < 0$.</li>
+                    <li>$B.$ $a < 0, b < 0, c > 0, d < 0$.</li>
+                    <li>$C.$ $a > 0, b < 0, c < 0, d > 0$.</li>
+                    <li>$D.$ $a < 0, b > 0, c < 0, d < 0$.</li>
+                </ol>
+                <center><img src="data//im/113.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn A</strong></p>
+                <p>Nhánh phải đồ thị đi xuống nên $\lim_{x \to +\infty} y = -\infty \Rightarrow \boxed{a < 0}$.<br>
+                    Giao điểm của đồ thị với trục tung: $\begin{cases} x = 0 \\ y = d < 0 \end{cases}$ (do giao điểm này nằm dưới gốc tọa độ).</p>
+                <p>Ta có: $y' = 3ax^2 + 2bx + c \Rightarrow y'' = 6ax + 2b = 0 \Rightarrow x = -\dfrac{b}{3a} = x_I$ (hoành độ tâm đối xứng).</p>
+                <p>Vì tâm đối xứng đồ thị nằm bên phải trục Oy nên $x_I = -\dfrac{b}{3a} > 0 \Rightarrow \dfrac{b}{a} < 0 \Rightarrow \boxed{b > 0}$.</p>
+                <p>Hai điểm cực trị nằm hai phía Oy nên $x_1x_2 < 0 \Rightarrow \dfrac{c}{3a} < 0 \Rightarrow \dfrac{c}{a} < 0 \Rightarrow \boxed{c > 0}$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Nhận diện đồ thị hàm bậc 3</h2>
+                </div>
+                <div class="example-question">
+                <p>Cho đường cong $(C): y = ax^3 + bx^2 + cx + d$ có đồ thị như hình bên. Khẳng định nào sau đây là đúng?</p>
+                <ol>
+                    <li>$A.$ $a > 0, b < 0, c < 0, d < 0$.</li>
+                    <li>$B.$ $a > 0, b > 0, c < 0, d > 0$.</li>
+                    <li>$C.$ $a < 0, b > 0, c > 0, d < 0$.</li>
+                    <li>$D.$ $a > 0, b > 0, c < 0, d < 0$.</li>
+                </ol>
+                <center><img src="data//im/114.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn D</strong></p>
+                <p>Vì nhánh phải đồ thị đi lên nên $\lim_{x \to +\infty} y = +\infty \Rightarrow \boxed{a > 0}$.</p>
+                <p>Giao điểm của đồ thị với trục tung: $\begin{cases} x = 0 \\ y = d < 0 \end{cases}$ (do giao điểm này nằm dưới gốc tọa độ).</p>
+                <p>Ta có: $y' = 3ax^2 + 2bx + c \Rightarrow y'' = 6ax + 2b = 0 \Rightarrow x = -\dfrac{b}{3a} = x_I$ (hoành độ tâm đối xứng).</p>
+                <p>Vì tâm đối xứng đồ thị nằm bên trái trục Oy nên $x_I = -\dfrac{b}{3a} < 0 \Rightarrow \dfrac{b}{a} > 0 \Rightarrow \boxed{b > 0}$.</p>
+                <p>Hai điểm cực trị nằm hai phía Oy nên $x_1x_2 < 0 \Rightarrow \dfrac{c}{3a} < 0 \Rightarrow \dfrac{c}{a} < 0 \Rightarrow \boxed{c < 0}$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 NHẬN DIỆN ĐỒ THỊ HÀM NHẤT BIẾN</h2>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Hàm số nhất biến có dạng $y = \dfrac{ax+b}{cx+d}$ với $c \ne 0, ad - bc \ne 0$<br>
+                    ☞ Đạo hàm: $y' = 3ax^2 + 2bx + c$ ; $y'' = 6ax + 2b$</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 TIỆM CẬN ĐỨNG: $X = -\dfrac{D}{C}$</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Nếu tiệm cận đứng nằm <strong>bên phải</strong> Oy thì $-\dfrac{d}{c} > 0 \Rightarrow \dfrac{d}{c} < 0$.</li>
+                    <li>Nếu tiệm cận đứng nằm <strong>bên trái</strong> Oy thì $-\dfrac{d}{c} < 0 \Rightarrow \dfrac{d}{c} > 0$.</li>
+                    <li>Nếu tiệm cận đứng <strong>trùng với</strong> Oy thì $-\dfrac{d}{c} = 0 \Rightarrow d = 0$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/116.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>📊 TIỆM CẬN NGANG: $Y = \dfrac{A}{C}$</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Nếu tiệm cận ngang nằm <strong>phía trên</strong> trục Ox thì $\dfrac{a}{c} > 0$.</li>
+                    <li>Nếu tiệm cận ngang nằm <strong>phía dưới</strong> trục Ox thì $\dfrac{a}{c} < 0$.</li>
+                    <li>Nếu tiệm cận ngang <strong>trùng với</strong> trục Ox thì $a=0$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/117.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>📊 TÍNH ĐƠN ĐIỆU HÀM SỐ</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Đạo hàm $y' = \dfrac{ad-bc}{(cx+d)^2}$.</li>
+                    <li>Nếu mỗi nhánh đồ thị hàm số đi <strong>lên</strong> thì $y' > 0, \forall x \ne -\dfrac{d}{c} \Rightarrow \boxed{ad-bc > 0}$.</li>
+                    <li>Nếu mỗi nhánh đồ thị hàm số đi <strong>xuống</strong> thì $y' < 0, \forall x \ne -\dfrac{d}{c} \Rightarrow \boxed{ad-bc < 0}$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/118.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>📊 GIAO ĐIỂM CỦA ĐỒ THỊ HÀM SỐ VỚI TRỤC OX</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Giao điểm giữa đồ thị hàm số $y = \dfrac{ax+b}{cx+d}$ với trục Ox là điểm $M\left(-\dfrac{b}{a}; 0\right)$ với $a \ne 0$.</li>
+                    <li>Nếu điểm M nằm <strong>bên phải gốc tọa độ O</strong> thì $-\dfrac{b}{a} > 0 \Rightarrow \dfrac{b}{a} < 0$.</li>
+                    <li>Nếu điểm M nằm <strong>bên trái gốc tọa độ O</strong> thì $-\dfrac{b}{a} < 0 \Rightarrow \dfrac{b}{a} > 0$.</li>
+                    <li>Nếu điểm M <strong>trùng với gốc tọa độ O</strong> thì $-\dfrac{b}{a} = 0 \Rightarrow b = 0$.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/119.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>📊 GIAO ĐIỂM CỦA ĐỒ THỊ HÀM SỐ VỚI TRỤC OY</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Giao điểm giữa đồ thị hàm số $y = \dfrac{ax+b}{cx+d}$ với trục Oy là điểm $N\left(0; \dfrac{b}{d}\right)$ với $d \ne 0$</li>
+                    <li>Nếu điểm N nằm <strong>phía trên gốc tọa độ O</strong> thì $\dfrac{b}{d} > 0$.</li>
+                    <li>Nếu điểm N nằm <strong>phía dưới gốc tọa độ O</strong> thì $\dfrac{b}{d} < 0$.</li>
+                    <li>Nếu điểm N <strong>trùng với gốc tọa độ O</strong> thì $\dfrac{b}{d} = 0 \Rightarrow b = 0$.</li>
+                </ol>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+                </div>
+                <div class="example-question">
+                <p>Đường cong trong hình vẽ bên là đồ thị hàm số nào dưới đây?</p>
+                <ol>
+                    <li>$A.$ $y = x^3 - 3x - 1$.</li>
+                    <li>$B.$ $y = \dfrac{2x-1}{x-1}$.</li>
+                    <li>$C.$ $y = \dfrac{x+1}{x-1}$.</li>
+                    <li>$D.$ $y = x^4 + x^2 + 1$.</li>
+                </ol>
+                <center><img src="data//im/120.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn C</strong></p>
+                <p>Đồ thị đã cho là của hàm số nhất biến (bậc một trên bậc một) nên ta <strong>loại A, D</strong>.<br>
+                    Tiệm cận đứng của đồ thị là $x=1$, tiệm cận ngang của đồ thị là $y=1$. <strong>Loại B</strong>.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+                </div>
+                <div class="example-question">
+                <p>Hình vẽ bên là đồ thị của hàm số nào sau đây?</p>
+                <ol>
+                    <li>$A.$ $y = \dfrac{2x+3}{x+1}$.</li>
+                    <li>$B.$ $y = \dfrac{2x+1}{x-1}$.</li>
+                    <li>$C.$ $y = \dfrac{2x-1}{x+1}$.</li>
+                    <li>$D.$ $y = \dfrac{-2x+1}{x+1}$.</li>
+                </ol>
+                <center><img src="data//im/121.bmp" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn C</strong></p>
+                <p>Tiệm cận đứng của đồ thị là $x = -1$, tiệm cận ngang của đồ thị là $y=2$. <strong>Loại B, D</strong>.<br>
+                    Ta thấy mỗi nhánh của đồ thị hàm số đã cho đi lên (từ trái sang phải) nên $y' > 0$.</p>
+                <p>Xét A: $y = \dfrac{2x+3}{x+1} \Rightarrow y' = \dfrac{-1}{(x+1)^2} < 0, \forall x \ne -1$ (loại).</p>
+                <p>Xét C: $y = \dfrac{2x-1}{x+1} \Rightarrow y' = \dfrac{3}{(x+1)^2} > 0, \forall x \ne -1$ (thỏa mãn).</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+                </div>
+                <div class="example-question">
+                <p>Cho hàm số $y = \dfrac{ax+b}{cx+d}$ có đồ thị như trong hình bên dưới. Biết rằng $a$ là số thực dương, hỏi trong các số $b, c, d$ có tất cả bao nhiêu số dương?</p>
+                <ol>
+                    <li>$A.$ 1.</li>
+                    <li>$B.$ 2.</li>
+                    <li>$C.$ 0.</li>
+                    <li>$D.$ 3.</li>
+                </ol>
+                <center><img src="data//im/122.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn B</strong></p>
+                <p>Tiệm cận ngang của đồ thị nằm phía trên $Ox$ nên $y = \dfrac{a}{c} > 0$ mà $a>0 \Rightarrow c>0$.</p>
+                <p>Tiệm cận đứng của đồ thị nằm bên trái $Oy$ nên $x = -\dfrac{d}{c} < 0 \Rightarrow \dfrac{d}{c} > 0$ mà $c>0 \Rightarrow d>0$.</p>
+                <p>Giao điểm của đồ thị hàm số với $Oy$ là $\left(0; \dfrac{b}{d}\right)$ nằm dưới $O$ nên $\dfrac{b}{d} < 0$ mà $d>0 \Rightarrow b<0$.</p>
+                <p>Vậy $b < 0, c > 0, d > 0$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+                </div>
+                <div class="example-question">
+                <p>Cho hàm số $y = \dfrac{ax-b}{x-1}$ có đồ thị như hình vẽ dưới đây: Khẳng định nào sau đây đúng?</p>
+                <ol>
+                    <li>$A.$ $b < a < 0$.</li>
+                    <li>$B.$ $a < b < 0$.</li>
+                    <li>$C.$ $b > a$ và $a < 0$.</li>
+                    <li>$D.$ $a < 0 < b$.</li>
+                </ol>
+                <center><img src="data//im/123.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn A</strong></p>
+                <p>Tiệm cận ngang của đồ thị hàm số là $y = \dfrac{a}{1} = -1 \Rightarrow a = -1$.<br>
+                    Giao điểm của đồ thị hàm số với $Oy$ là $(0; b) = (0; -2) \Rightarrow b = -2$.<br>
+                    Vậy $b < a < 0$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Giao điểm của đồ thị hàm số với trục Oy</h2>
+                </div>
+                <div class="example-question">
+                <p>Cho hàm số $y = \dfrac{ax+b}{cx+d}$ có đồ thị như hình vẽ bên. Mệnh đề nào dưới đây đúng?</p>
+                <ol>
+                    <li>$A.$ $ac > 0, bd > 0$.</li>
+                    <li>$B.$ $ab < 0, cd < 0$.</li>
+                    <li>$C.$ $bc > 0, ad < 0$.</li>
+                    <li>$D.$ $bc < 0, ad > 0$.</li>
+                </ol>
+                <center><img src="data//im/124.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p><strong>Chọn C</strong></p>
+                <p>Tiệm cận đứng đồ thị nằm bên phải $Oy$ nên $-\dfrac{d}{c} > 0 \Rightarrow cd < 0$ (1).</p>
+                <p>Tiệm cận ngang của đồ thị nằm trên $Ox$ nên $\dfrac{a}{c} > 0 \Rightarrow ac > 0$ (2).</p>
+                <p>Lấy (1) chia (2) theo vế: $\dfrac{cd}{ac} < 0 \Rightarrow \dfrac{d}{a} < 0 \Rightarrow ad < 0$.</p>
+                <p>Giao điểm của đồ thị với $Oy$ là $\left(0; \dfrac{b}{d}\right)$ nằm dưới điểm $O$ nên $\dfrac{b}{d} < 0 \Rightarrow bd < 0$ (3).</p>
+                <p>Lấy (1) chia (3) theo vế: $\dfrac{cd}{bd} > 0 \Rightarrow \dfrac{c}{b} > 0 \Rightarrow bc > 0$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📊 NHẬN DIỆN ĐỒ THỊ HÀM PHÂN THỨC BẬC 2</h2>
+            </section>
+            <section>
+            <h2>📊 HÀM SỐ DẠNG $Y = \dfrac{AX^2+BX+C}{MX+N}$ VỚI $AM \NE 0$</h2>
+            </section>
+            <section>
+            <h2>🔍 PHƯƠNG PHÁP GIẢI</h2>
+            <div class="method-box">
+                <div class="method-header">
+                <i class="fas fa-method"></i>
+                <div class="method-title">Phương Pháp Giải</div>
+                </div>
+                <div class="solution-steps">
+                <ol>
+                    <li>Tập xác định: $D = \mathbb{R} \setminus \left\{-\dfrac{n}{m}\right\}$ và đạo hàm $y' = \dfrac{am \cdot x^2 + 2an \cdot x + bn - mc}{(mx+n)^2}$.</li>
+                    <li>Hướng bên phải của đồ thị đi lên khi a, m cùng dấu và đi xuống khi a, m trái dấu.</li>
+                </ol>
+                </div>
+            </div>
+            <center><img src="data//im/127.png" width="40%"></center>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Đồ thị hàm số $y = \dfrac{ax^2+bx+c}{mx+n}$ ($am \ne 0$)
+                    <ul>
+                        <li>Có <strong>tiệm cận đứng</strong> là đường thẳng $x = -\dfrac{n}{m}$ và <strong>tiệm cận xiên</strong> là đường thẳng $y = \dfrac{a}{m}x - \dfrac{an-bm}{m^2}$.</li>
+                        <li>Nhận giao điểm của tiệm cận đứng và tiệm cận xiên làm <strong>tâm đối xứng</strong>, tâm đối xứng này cũng là <strong>trung điểm</strong> của đoạn thẳng nối 2 điểm cực trị của đồ thị (nếu có).</li>
+                        <li>Nhận hai đường phân giác của các góc tạo bởi tiệm cận đứng và tiệm cận xiên làm <strong>trục đối xứng</strong>.</li>
+                        <li>Đường thẳng đi qua hai điểm cực trị (nếu có) có phương trình
+                        $y = \dfrac{(ax^2+bx+c)'}{(mx+n)'} = \dfrac{2ax+b}{m}$.</li>
+                    </ul>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Hàm số dạng $y = \dfrac{ax^2+bx+c}{mx+n}$ với $am \ne 0$</h2>
+                </div>
+                <div class="example-question">
+                <p>Bảng biến thiên bên dưới là của hàm số nào sau đây?</p>
+                <center><img src="data//im/125.png" width="40%"></center>
+                <ol>
+                    <li>$A.$ $y = \dfrac{2x^2+x+15}{-x-1}$.</li>
+                    <li>$B.$ $y = \dfrac{-x^2+x-18}{x+1}$.</li>
+                    <li>$C.$ $y = \dfrac{x^2+5x-24}{x+1}$.</li>
+                    <li>$D.$ $y = \dfrac{3x^2+3x+12}{-x-1}$.</li>
+                </ol>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Chưa có lời giải.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Hàm số dạng $y = \dfrac{ax^2+bx+c}{mx+n}$ với $am \ne 0$</h2>
+                </div>
+                <div class="example-question">
+                <p>Câu 87. Đồ thị hình bên là của hàm số nào sau đây ?</p>
+                <ol>
+                    <li>$A.$ $y = \dfrac{2x^2+3x+1}{x+1}$.</li>
+                    <li>$B.$ $y = \dfrac{x^2+x+4}{x+1}$.</li>
+                    <li>$C.$ $y = \dfrac{-x^2-3x+10}{x+1}$.</li>
+                    <li>$D.$ $y = \dfrac{3x^2+5x-2}{x+1}$.</li>
+                </ol>
+                <center><img src="data//im/126.png" width="40%"></center>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Chưa có lời giải.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>📚 ĐỊNH NGHĨA</h2>
+            <div class="definition-box">
+                <div class="definition-content">
+                <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                <p>Một hàm số $f(x)$ được gọi là chẵn nếu với mọi $x$ thuộc tập xác định $D$, ta có $-x \in D$ và $f(-x)=f(x)$.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>🎯 ĐỊNH LÝ</h2>
+            <div class="theorem-box">
+                <div class="theorem-content">
+                <h3><i class="fas fa-theorem"></i> Định Lý</h3>
+                <p>Nếu hàm số $y=f(x)$ là hàm số chẵn thì đồ thị của nó đối xứng qua trục tung $Oy$.</p>
+                <p>$$ f(-x) = f(x) $$</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>💡 VÍ DỤ MINH HỌA</h2>
+            <div class="example">
+                <div class="example-header">
+                <h2>Ví dụ về Hàm số dạng $y = \dfrac{ax^2+bx+c}{mx+n}$ với $am \ne 0$</h2>
+                </div>
+                <div class="example-question">
+                <p>Xét tính chẵn lẻ của hàm số $y = \cos(x) + x^2$.</p>
+                </div>
+                <button class="btn solution-toggle">Xem lời giải</button>
+                <div class="solution">
+                <h4>Lời giải:</h4>
+                <p>Tập xác định $D = \mathbb{R}$.<br>
+                    Với mọi $x \in D$, ta có $-x \in D$.<br>
+                    Ta có $f(-x) = \cos(-x) + (-x)^2 = \cos(x) + x^2 = f(x)$.<br>
+                    Vậy hàm số đã cho là hàm số chẵn.</p>
+                </div>
+            </div>
+            </section>
+            <section>
+            <h2>⚠️ CHÚ Ý QUAN TRỌNG</h2>
+            <div class="note-box">
+                <div class="note-header">
+                <div class="note-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                <ul>
+                    <li><i class="fas fa-square-root-alt"></i> Hàm số $y=\sin x$ là hàm lẻ.</li>
+                    <li><i class="fas fa-square-root-alt"></i> Hàm số $y=\cos x$ là hàm chẵn.</li>
+                </ul>
+                </div>
+            </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+    <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+    <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+
+    <script>
+        // Khởi tạo Reveal.js với cấu hình full màn hình
+        Reveal.initialize({
+            width: "100%",
+            height: "100%",
+            margin: 0,
+            minScale: 0.1,
+            maxScale: 2.0,
+            hash: true,
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+            math: {
+                mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+                config: 'TeX-AMS_HTML-full',
+                tex2jax: {
+                    inlineMath: [['$','$'], ['\\(','\\)']],
+                    displayMath: [['$$','$$'], ['\\[','\\]']],
+                    balanceBraces: true,
+                    processEscapes: true,
+                    processRefs: true,
+                    processEnvironments: true,
+                    preview: 'TeX',
+                    skipTags: ['script','noscript','style','textarea','pre','code'],
+                    ignoreClass: 'tex2jax_ignore',
+                    processClass: 'tex2jax_process'
+                }
+            },
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            controls: true,
+            progress: true,
+            center: false, // Tắt center để full màn hình
+            slideNumber: 'c/t'
+        });
+
+        // Đồng hồ
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Xử lý nút xem lời giải
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.solution-toggle');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const solution = this.nextElementSibling;
+                    const isVisible = solution.style.display === 'block';
+                    
+                    if (isVisible) {
+                        solution.style.display = 'none';
+                        this.innerHTML = '<i class="fas fa-eye mr-2"></i>Xem lời giải';
+                    } else {
+                        solution.style.display = 'block';
+                        this.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>Ẩn lời giải';
+                        
+                        // Tự động cuộn đến lời giải
+                        setTimeout(() => {
+                            solution.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'nearest' 
+                            });
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Xử lý fragment cho Reveal.js
+            if (typeof Reveal !== 'undefined') {
+                Reveal.addEventListener('slidechanged', function() {
+                    // Ẩn tất cả lời giải khi chuyển slide
+                    document.querySelectorAll('.solution').forEach(solution => {
+                        solution.style.display = 'none';
+                    });
+                    // Reset text của nút
+                    document.querySelectorAll('.solution-toggle').forEach(button => {
+                        button.innerHTML = '<i class="fas fa-eye mr-2"></i>Xem lời giải';
+                    });
+                    
+                    // Cuộn lên đầu slide khi chuyển
+                    const currentSlide = Reveal.getCurrentSlide();
+                    if (currentSlide) {
+                        currentSlide.scrollTop = 0;
+                    }
+                });
+            }
+        });
+       
+    </script>
+</body>
+</html>

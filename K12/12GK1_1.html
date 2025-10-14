@@ -1,1076 +1,784 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TÀI LIỆU TOÁN HỌC</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Phép Cộng Phân Số Lớp 6</title>
 
-  <!-- Polyfill ES6 -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/simple.min.css" id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/monokai.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- MathJax -->
-  <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Tailwind CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- Slick Carousel -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
-  <!-- Font Awesome -->
-   <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="styles1.css">
-  
+    <style>
+        .reveal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 28px;
+        }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-transform: none; /* Keep Vietnamese characters */
+            letter-spacing: normal;
+        }
+        .reveal section img {
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border: 4px solid #f0f0f0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+        .game-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .game-button:hover {
+            background-color: #45a049;
+        }
+        .game-feedback {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .incorrect-answer {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .reveal .controls button {
+            color: #333; /* Darker controls */
+        }
+        .reveal .progress span {
+            background: #2a9fd6; /* Custom progress bar color */
+        }
+        .reveal .slides section .fragment.fade-in {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        }
+        .reveal .slides section .fragment.fade-in.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
-<!-- Canvas và thanh công cụ vẽ nổi -->
-<canvas id="drawCanvas" style="display: none;"></canvas>
-<div class="toolbar" id="drawToolbar" style="display: none;">
-  <select id="tool">
-    <option value="pen">✏️ Bút</option>
-    <option value="line">📏 Đường</option>
-    <option value="rect">⬛ Chữ nhật</option>
-    <option value="circle">⚪ Tròn</option>
-    <option value="cube">📦 Hộp</option>
-<option value="cone">🔺 Nón</option>
-<option value="cylinder">⬤ Trụ</option>
-<option value="pyramid">🔻 Chóp</option>
-<option value="sphere">⚽ Cầu</option>
-  </select>
-  
-<input type="range" id="draw-width" min="1" max="5" value="2" />
-  <input type="color" id="colorPicker" value="#6b21a8" />
-  <button id="clearBtn">🧹 Xoá</button>
-  <button id="saveBtn">💾 Lưu</button>
-  <button id="exitBtn">❌ Thoát</button>
-  
-</div>
-<button id="toggleDraw" class="floating-button">🖊️ Vẽ</button>
 <body>
-    <!-- Thay thế toàn bộ phần <header> hiện tại bằng code này -->
- <header>
-        <div class="header-container">
-             <div class="logo">
-            <img src="logo3.jpg" alt="" class="logo-img">
-            <div class="logo-text">
-                <h1>EDUCODE </h1>
-                <p>Chia sẻ & Truyền cảm hứng học toán</p>
-            </div>
-        </div>
-
-             <button class="hamburger-btn">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-
-            <nav id="mainNav">
-                <ul class="main-menu">
-                    <li><a href="../index.html">Trang chủ</a></li>
-                    <li>
-                        <a href="#courses">Chuyên đề 12 <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                        <ul class="submenu">
-                            <li>
-                                <a href="#math">Đạo hàm và ứng dụng <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="12C1B1">Biến thiên và cực trị hàm số</a></li>
-                                    <li><a href="12C1B2">Max - min của hàm số</a></li>
-                                    <li><a href="12C1B3">Tiệm cận</a></li>
-                                    <li><a href="12C1B4">Đồ thị hàm số</a></li>
-                                      </ul>
-                            </li>
-                            <li>
-                                <a href="#math">Véc tơ và hệ tọa độ KG <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="12C2B1">Véc tơ trong KG</a></li>
-                                    <li><a href="12C2B2">Hệ tọa độ trong KG</a></li>
-                                    <li><a href="12C2B3">Biểu thức tọa độ</a></li>
-                                    
-                                      </ul>
-                            </li>
-                            <li>
-                                <a href="#chemistry"> Thống kê <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="12C3B1">Bài 1</a></li>
-                                    <li><a href="12C3B2">Bài 2</a></li>
-                                </ul>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#resources">Trắc nghiệm <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                        <ul class="submenu">
-                            <li>
-                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                          </ul>
-                    </li>
-                    <li>
-                        <a href="#resources">Đúng- sai <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                        <ul class="submenu">
-                            <li>
-                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                          </ul>
-                    </li>
-                    <li>
-                        <a href="#resources">TL ngắn<i class="fas fa-chevron-down dropdown-icon"></i></a>
-                        <ul class="submenu">
-                            <li>
-                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                          </ul>
-                    </li>
-                    <li>
-                        <a href="#resources">Toán thực tế<i class="fas fa-chevron-down dropdown-icon"></i></a>
-                        <ul class="submenu">
-                            <li>
-                                <a href="#math-resources">Chương 1 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 2 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 3 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 4 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 5 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                             <li>
-                                <a href="#math-resources">Chương 6 <i class="fas fa-chevron-right nested-dropdown-icon"></i></a>
-                                <ul class="nested-sub-menu">
-                                    <li><a href="#math-tieu-hoc-resources">Bài 1</a></li>
-                                    <li><a href="#math-thcs-resources">Bài 2</a></li>
-                                    <li><a href="#math-thpt-resources">Bài 3</a></li>
-                                </ul>
-                            </li>
-                          </ul>
-                    </li>
-                   <li><a href="#" class="login-btn" id="login-button">Đăng nhập</a></li>
-                </ul>
-            </nav>
-        </div>
-    
-    
-    
-    
-      </header>
-
-
-  <!-- Modal Đăng Nhập -->
-  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-      <h2 class="text-xl font-bold mb-4 text-center">Đăng nhập bằng mã</h2>
-      <form id="code-login-form">
-        <input type="text" id="login-code" class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg" placeholder="Nhập mã thẻ (VD: ABC123DEF4)" required>
-        <div class="flex justify-center gap-4">
-          <button type="submit" class="px-6 py-2 bg-purple-800 text-white rounded-full hover:bg-purple-900">Đăng nhập</button>
-          <button type="button" id="close-modal" class="px-6 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600">Đóng</button>
-        </div>
-      </form>
-      <div id="auth-status" class="mt-4 text-center font-bold"></div>
-    </div>
-  </div>
-
-
-<main class="main-content">
-            <div id="documentViewer">
-                <h1 class="article-title">CHUYÊN ĐỀ: ỨNG DỤNG ĐẠO HÀM</h1>
-                <p class="doc-subtitle">Môn Toán - Lớp 12</p>
-                <div class="doc-meta">
-                    <span><i class="fas fa-book"></i> 7 dạng bài</span>
-                    <span><i class="fas fa-lightbulb"></i> 25 ví dụ</span>
-                    <span><i class="fas fa-pencil-alt"></i> 50 bài tập</span>
-                    <span><i class="fas fa-calendar-alt"></i> Cập nhật: 20/08/2025</span>
-                    <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
-                </div>
-
-<!-- Câu 1 -->
-<div class="question" id="q1">
-<div class="summary-box">
-<p><strong>Câu 1</strong>. Cho đồ thị \( y = f(x) \) như hình vẽ dưới đây:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.1.png"/><br/>
-
-Hàm số đã cho đồng biến trên khoảng nào trong các khoảng sau?</p>
-
-<div class="options">
-<label><input name="q1" onchange="showOptionIcon('q1', 'A', 'C')" type="radio" value="A"/> A. \( (-\infty ; 1) \)<span class="option-icon" id="icon-q1-A"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'B', 'C')" type="radio" value="B"/> B. \( (2 ; +\infty) \)<span class="option-icon" id="icon-q1-B"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'C', 'C')" type="radio" value="C"/> C. \( (0 ; 1) \)<span class="option-icon" id="icon-q1-C"></span></label>
-<label><input name="q1" onchange="showOptionIcon('q1', 'D', 'C')" type="radio" value="D"/> D. \( (1 ; 2) \)<span class="option-icon" id="icon-q1-D"></span></label>
-</div></div>
-<div class="answer-check">
-<button onclick="checkAnswer('q1', 'B')">Kiểm tra</button>
-<button class="solution-toggle" onclick="toggleSolution('solution-q1')">Xem lời giải</button>
-<div class="solution" id="solution-q1">
-  <h4 class="font-bold mb-2">Lời giải chi tiết:</h4>
-  <p>Nhìn vào đồ thị ta thấy hàm số <span class="math">\(y=f(x)\)</span> đi lên (đồng biến) trên khoảng <span class="math">\((2; +\infty)\)</span>.</p>
-  <p>Các khoảng khác: 
-    <br/>• \((-∞;1)\): hàm đang giảm. 
-    <br/>• \((0;1)\): hàm đi xuống. 
-    <br/>• \((1;2)\): hàm vẫn giảm.
-  </p>
-  <p>👉 Vậy đáp án đúng là <strong>B</strong>.</p>
-</div>
-
-</div>
-</div>
-
-<!-- Câu 2 -->
-<div class="question" id="q2">
-<div class="summary-box">
-<p><strong>Câu 2</strong>. Trong không gian \( Oxyz \), cho mặt phẳng \( (P): 2x + y - z - 1 = 0 \). Vector nào dưới đây là một vector pháp tuyến của mặt phẳng \( (P) \)?</p>
-
-<div class="options">
-<label><input name="q2" onchange="showOptionIcon('q2', 'A', 'A')" type="radio" value="A"/> A. \( \overrightarrow{n_3} = (2 ; 1 ; -1) \)<span class="option-icon" id="icon-q2-A"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'B', 'A')" type="radio" value="B"/> B. \( \overrightarrow{n_1} = (2 ; -1 ; 1) \)<span class="option-icon" id="icon-q2-B"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'C', 'A')" type="radio" value="C"/> C. \( \overrightarrow{n_4} = (-2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-C"></span></label>
-<label><input name="q2" onchange="showOptionIcon('q2', 'D', 'A')" type="radio" value="D"/> D. \( \overrightarrow{n_2} = (2 ; 1 ; 1) \)<span class="option-icon" id="icon-q2-D"></span></label>
-</div></div>
-<div class="answer-check">
-<button onclick="checkAnswer('q2', 'A')">Kiểm tra</button>
-<button class="solution-toggle" onclick="toggleSolution('solution-q2')">Xem lời giải</button>
-<div class="solution" id="solution-q2"></div>
-</div>
-</div>
-
-
-<h3>Phần II: Trắc Nghiệm Đúng/Sai - từ câu 13 đến câu 16</h3>
-
-<!-- Câu 13 -->
-<div class="question" id="q13">
-<div class="summary-box">
-<p><strong>Câu 13</strong>. Một vật chuyển động thẳng có đồ thị vận tốc - thời gian như hình bên:<br/>
-<img alt="" loading="lazy" src="data/anh2/3.13.png"/><br/>
-<div class="options">
-<p>a) Tổng quãng đường vật đi được trong 60(s) đầu tiên là 650(m).</p>
-<label><input name="q13a" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13a-Đúng"></span></label>
-<label><input name="q13a" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13a-Sai"></span></label>
-<p>b) Trong khoảng thời gian từ 0(s) đến 10(s), phương trình vận tốc của vật là \( v(t) = \frac{1}{2}t + 10 \, (\mathrm{m/s}) \).</p>
-<label><input name="q13b" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13b-Đúng"></span></label>
-<label><input name="q13b" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13b-Sai"></span></label>
-<p>c) Trong khoảng thời gian từ 30(s) đến 60(s), phương trình vận tốc của vật là \( v(t) = -\frac{1}{2}t + 30 \, (\mathrm{m/s}) \).</p>
-<label><input name="q13c" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13c-Đúng"></span></label>
-<label><input name="q13c" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13c-Sai"></span></label>
-<p>d) Trong khoảng thời gian từ 10(s) đến 30(s), vật chuyển động đều.</p>
-<label><input name="q13d" type="radio" value="Đúng"/> Đúng<span class="option-icon" id="icon-q13d-Đúng"></span></label>
-<label><input name="q13d" type="radio" value="Sai"/> Sai<span class="option-icon" id="icon-q13d-Sai"></span></label>
-</div></div>
-<div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q13', ['Đúng', 'Đúng', 'Đúng', 'Đúng'])">Kiểm tra</button>
-<button class="solution-toggle" onclick="toggleSolution('solution-q13')">Xem lời giải</button>
-<div class="solution" id="solution-q13"></div>
-</div>
-</div>
-
-
-<h3>Phần III: Trắc Nghiệm Trả Lời Ngắn - từ câu 17 đến câu 22</h3>
-
-<!-- Câu 17 -->
-<div class="question" id="q17">
-<div class="summary-box">
-<p><strong>Câu 17</strong>. Câu lạc bộ thiện nguyện của một trường THPT dự định làm các bình hoa bằng giấy để bán trong một hội chợ gây quỹ từ thiện. Cần 1 giờ để làm một bình hoa nhỏ và sẽ bán với giá 100 nghìn đồng và 90 phút để làm một bình hoa lớn và bán với giá 200 nghìn đồng. Biết rằng câu lạc bộ có 30 giờ để làm các bình hoa và muốn tổng số bình hoa không quá 24 bình. Số tiền lớn nhất mà câu lạc bộ có thể thu được là bao nhiêu triệu đồng?</p>
-</div>
-<div class="answer-check">
-<input type="text" id="input-q17" placeholder="Nhập đáp án">
-<button onclick="checkShortAnswer('q17', '1800')">Kiểm tra</button>
-<button class="solution-toggle" onclick="toggleSolution('solution-q17')">Xem lời giải</button>
-<div class="solution" id="solution-q17"></div>
-<div class="answer-feedback" id="feedback-q17"></div>
-</div>
-</div>
-
-
-
- <div class="score-section">
- <h3>Tính tổng điểm</h3>
-    <p>Nhập họ và tên:</p>
-    <input id="student-name" type="text" placeholder="Họ và tên"/>   
-<button onclick="calculateScore()">Tính điểm</button>
-<div id="score-result"></div>
-</div>
-
-<footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>Về Educode</h3>
-                 <p>EduCode là nền tảng học online đang trên hình trình xây dưng, với kỳ vọng mang đến các khóa học toán chất lượng cao. Chúng tôi cam kết giúp bạn nắm vững kiến thức và chuẩn bị cho tương lai với các khóa học lý, hóa, tin học và AI sắp ra mắt.</p>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-                          
-                      
-            <div class="footer-col">
-                <h3>Liên hệ</h3>
-                <div class="contact-info">
-                    <p><i class="fas fa-phone"></i> 0878042368</p>
-                    <p><i class="fas fa-envelope"></i> nguyenthanhbinh_thpt_tts@bentre.edu.vn</p>
-                </div>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Liên kết nhanh</h3>
-                <ul>
-                     <li><a href="https://meet.google.com/osh-vjqs-vdg">Học online </a></li>
-                    <li><a href="12C1B1.html">Tài liệu & Đề ôn luyện</a></li>
-                    <li><a href="#coming-soon">Sắp ra mắt: Lý, Hóa, AI</a></li>
-                    <li><a href="#blog">Blog EduCode</a></li>
-                </ul>
-            </div>
-            </div>
-        
-        <div class="copyright">
-            <p>© 2025 EduCode – Thạc sĩ Nguyễn Thanh Bình. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-  <script>
-    function showOptionIcon(questionId, selectedValue, correctAnswer) {
-      if (!checkedQuestions[questionId]) return;
-      ['A', 'B', 'C', 'D'].forEach(letter => {
-        const iconSpan = document.getElementById(`icon-${questionId}-${letter}`);
-        if (iconSpan) iconSpan.innerHTML = '';
-      });
-      const icon = selectedValue === correctAnswer ? '✅' : '❌';
-      const selectedSpan = document.getElementById(`icon-${questionId}-${selectedValue}`);
-      if (selectedSpan) selectedSpan.innerHTML = icon;
-    }
-
-    function showTFOptionIcon(name, selectedValue, correctValue, questionId) {
-      if (!checkedQuestions[questionId]) return;
-      const icon = selectedValue === correctValue ? '✅' : '❌';
-      const span = document.getElementById(`icon-${name}`);
-      if (span) span.innerHTML = icon;
-    }
-
-    
-    function lockQuestionInputs(questionId) {
-    const radios = document.querySelectorAll(`input[name="${questionId}"]`);
-    radios.forEach(input => input.disabled = true);
-}
-
-    function addSolutionLink(questionId, url) {
-      if (!checkedQuestions[questionId]) return;
-      const container = document.getElementById(`feedback-${questionId}`);
-      if (container && !container.querySelector("a")) {
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        link.style.marginLeft = "10px";
-        link.textContent = "Xem lời giải";
-        container.appendChild(link);
-      }
-    }
-
-    var studentAnswers = {};
-    var checkedQuestions = {};
-    var isScoreCalculated = false;
-
-    function checkAnswer(questionId, correctAnswer) {
-      if (checkedQuestions[questionId]) return;
-      const inputs = document.getElementsByName(questionId);
-      let selectedAnswer = null;
-      for (let input of inputs) {
-        if (input.checked) {
-          selectedAnswer = input.value;
-          break;
-        }
-      }
-      studentAnswers[questionId] = selectedAnswer;
-      checkedQuestions[questionId] = true;
-      lockQuestionInputs(questionId);
-      showOptionIcon(questionId, selectedAnswer, correctAnswer);
-      addSolutionLink(questionId, `giai/${questionId}.html`);
-    }
-
-    function checkTrueFalseAnswer(questionId, correctAnswers) {
-  for (let i = 0; i < correctAnswers.length; i++) {
-    const name = questionId + String.fromCharCode(97 + i);
-    const inputs = document.getElementsByName(name);
-    let selected = '';
-    for (const input of inputs) {
-      if (input.checked) {
-        selected = input.value;
-        break;
-      }
-    }
-
-    const iconId = `icon-${name}`;
-    let icon = document.getElementById(iconId);
-    if (!icon && inputs.length) {
-      icon = document.createElement('span');
-      icon.id = iconId;
-      icon.className = 'option-icon';
-      inputs[0].parentNode.appendChild(icon);
-    }
-    if (icon) {
-      icon.innerHTML = selected === correctAnswers[i] ? '✅' : '❌';
-    }
-  }
-}
-   function checkShortAnswer(questionId, correctAnswer) {
-      if (checkedQuestions[questionId]) return;
-      const input = document.getElementById('input-' + questionId);
-      const feedback = document.getElementById('feedback-' + questionId);
-
-      // Tự động tạo span hiển thị nếu chưa tồn tại
-      let icon = document.getElementById('icon-' + questionId);
-      if (!icon && input) {
-        icon = document.createElement('span');
-        icon.id = 'icon-' + questionId;
-        icon.className = 'option-icon';
-        icon.setAttribute('aria-label', 'Biểu tượng kiểm tra');
-        input.insertAdjacentElement('afterend', icon);
-      }
-
-      if (!input) {
-        feedback.innerHTML = 'Lỗi: Không tìm thấy input cho câu hỏi!';
-        feedback.className = 'answer-feedback incorrect';
-        return;
-      }
-
-      const value = input.value.trim();
-      if (value === '') {
-        feedback.innerHTML = 'Vui lòng nhập đáp án!';
-        feedback.className = 'answer-feedback incorrect';
-        if (icon) icon.innerHTML = '';
-        return;
-      }
-
-      if (!isNaN(correctAnswer)) {
-        const numeric = parseFloat(value);
-        if (isNaN(numeric)) {
-          feedback.innerHTML = 'Vui lòng nhập một số hợp lệ!';
-          feedback.className = 'answer-feedback incorrect';
-          if (icon) icon.innerHTML = '';
-          return;
-        }
-        const correct = parseFloat(correctAnswer);
-        if (Math.abs(numeric - correct) < 0.001) {
-          feedback.innerHTML = 'Đúng!';
-          feedback.className = 'answer-feedback correct';
-          studentAnswers[questionId] = numeric;
-          if (icon) icon.innerHTML = '✅';
-        } else {
-          feedback.innerHTML = 'Sai!';
-          feedback.className = 'answer-feedback incorrect';
-          studentAnswers[questionId] = numeric;
-          if (icon) icon.innerHTML = '❌';
-        }
-      } else {
-        if (value === correctAnswer) {
-          feedback.innerHTML = 'Đúng';
-            feedback.className = 'answer-feedback correct';
-          studentAnswers[questionId] = value;
-          if (icon) icon.innerHTML = '✅';
-        } else {
-          feedback.innerHTML = 'Sai!';
-          feedback.className = 'answer-feedback incorrect';
-          studentAnswers[questionId] = value;
-          if (icon) icon.innerHTML = '❌';
-        }
-      }
-}
-    
-function calculateScore() {
-  if (isScoreCalculated) return;
-
-  // --- các đáp án đúng (bạn giữ nguyên hoặc chỉnh) ---
-  const correctAnswers = {
-    q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'A', q6: 'B', q7: 'A', q8: 'B', q9: 'D', q10: 'A', q11: 'C', q12: 'B',
-    q13: ['Đúng','Đúng','Đúng','Đúng'],
-    q14: ['Đúng','Sai','Đúng','Sai'],
-    q15: ['Sai','Đúng','Đúng','Sai'],
-    q16: ['Sai','Sai','Đúng','Sai'],
-    q17: '1800', q18: '12.4', q19: '0.24', q20: '95', q21: '875', q22: '55.4'
-  };
-
-  // Gom đáp án học sinh
-  const studentAns = {};
-
-  // Câu 1-12
-  for (let i = 1; i <= 12; i++) {
-    const name = 'q' + i;
-    const sel = document.querySelector(`input[name="${name}"]:checked`);
-    studentAns[name] = sel ? sel.value.trim() : '';
-  }
-
-  // Câu 13-16 (mỗi câu 4 mệnh đề)
-  for (let i = 13; i <= 16; i++) {
-    const arr = [];
-    ['a','b','c','d'].forEach((letter) => {
-      const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
-      arr.push(sel ? sel.value.trim() : '');
-    });
-    studentAns['q' + i] = arr;
-  }
-
-  // Câu 17-22 (text)
-  for (let i = 17; i <= 22; i++) {
-    const el = document.getElementById('input-q' + i);
-    studentAns['q' + i] = el ? el.value.trim().replace(',', '.') : '';
-  }
-
-  // Tính điểm (giữ logic như bạn đã dùng)
-  let totalScore = 0;
-  for (let i = 1; i <= 22; i++) {
-    const key = 'q' + i;
-    const u = studentAns[key];
-    const c = correctAnswers[key];
-
-    if (i <= 12) {
-      if (u && u === c) totalScore += 0.25;
-    } else if (i >= 13 && i <= 16) {
-      if (Array.isArray(u) && Array.isArray(c)) {
-        let correctCount = 0;
-        for (let j = 0; j < c.length; j++) if (u[j] === c[j]) correctCount++;
-        if (correctCount === 1) totalScore += 0.1;
-        else if (correctCount === 2) totalScore += 0.25;
-        else if (correctCount === 3) totalScore += 0.5;
-        else if (correctCount === 4) totalScore += 1;
-      }
-    } else {
-      const userVal = parseFloat((u||'').toString().replace(',', '.'));
-      const corVal = parseFloat((c||'').toString().replace(',', '.'));
-      if (!isNaN(userVal) && !isNaN(corVal) && Math.abs(userVal - corVal) < 0.001) totalScore += 0.5;
-    }
-  }
-
-  // Hiển thị điểm
-  const scoreElement = document.getElementById("score-result");
-  scoreElement.textContent = `Tổng điểm của bạn: ${totalScore.toFixed(2)} / 10`;
-  scoreElement.className = (totalScore >= 5 ? 'correct' : 'incorrect');
-  isScoreCalculated = true;
-
-  // Lưu kết quả lên Firestore (gọi hàm module saveAttempt)
-  const studentName = document.getElementById('student-name') ? document.getElementById('student-name').value.trim() : '';
-  if (typeof saveAttempt === 'function') {
-    try {
-      saveAttempt('de2', studentAns, totalScore, studentName);
-    } catch (err) {
-      console.warn('Lưu kết quả thất bại (chưa đăng nhập?):', err);
-    }
-  }
-}
-  function showVideoSolution(url, qid) {
-    if (!allowShowSolution) {
-      alert("Lời giải đang bị khóa. Liên hệ giáo viên để mở.");
-      return;
-    }
-    window.open(url, '_blank');
-  }
-   </script>
-    <script src="recorder.js"></script>
+    <audio id="bgmusic" loop autoplay>
+        <source src="https://cdn.pixabay.com/audio/2023/07/04/audio_9b9148d5dd.mp3" type="audio/mpeg">
+    </audio>
     <script>
-              const canvas = document.getElementById("drawCanvas");
-              const ctx = canvas.getContext("2d");
-              const toggleBtn = document.getElementById("toggleDraw");
-              const toolbar = document.getElementById("drawToolbar");
-              const clearBtn = document.getElementById("clearBtn");
-              const saveBtn = document.getElementById("saveBtn");
-              const exitBtn = document.getElementById("exitBtn");
-              const colorPicker = document.getElementById("colorPicker");
-              const toolSelect = document.getElementById("tool");
-              const widthPicker = document.getElementById("draw-width");
-              let lineWidth = 2;
-
-                      widthPicker.oninput = () => {
-                        lineWidth = parseInt(widthPicker.value);
-                      };
-                      let isDrawing = false;
-                      let isDrawMode = false;
-                      let startX = 0, startY = 0;
-                      let currentTool = "pen";
-                      let imageBeforeShape;
-
-                      function resizeCanvas() {
-                        canvas.width = window.innerWidth;
-                        canvas.height = window.innerHeight;
-                      }
-                      resizeCanvas();
-                      window.addEventListener("resize", resizeCanvas);
-
-                      toggleBtn.onclick = () => {
-                        isDrawMode = true;
-                        canvas.style.display = "block";
-                        toolbar.style.display = "flex";
-                      };
-
-                      exitBtn.onclick = () => {
-                        isDrawMode = false;
-                        canvas.style.display = "none";
-                        toolbar.style.display = "none";
-                      };
-
-                      toolSelect.onchange = () => currentTool = toolSelect.value;
-                      clearBtn.onclick = () => {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                        // Ghi một ảnh rỗng lên Firebase để đồng bộ xoá cho mọi người
-                        if (typeof saveDrawingToFirebase === "function") {
-                          saveDrawingToFirebase(); // Lưu canvas trống
-                        }
-                      };
-
-                      saveBtn.onclick = () => {
-                        const link = document.createElement("a");
-                        link.download = "ban_ve.png";
-                        link.href = canvas.toDataURL();
-                        link.click();
-                      };
-
-                      function getPos(e) {
-                        if (e.touches && e.touches.length > 0) {
-                          return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-                        }
-                        return { x: e.clientX, y: e.clientY };
-                      }
-
-                      function startDraw(e) {
-                        if (!isDrawMode) return;
-                        e.preventDefault();
-                        const pos = getPos(e);
-                        isDrawing = true;
-                        startX = pos.x;
-                        startY = pos.y;
-                        if (currentTool !== "pen") {
-                          imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        } else {
-                          ctx.beginPath();
-                          ctx.moveTo(startX, startY);
-                        }
-                      }
-
-                      function drawMove(e) {
-                        if (!isDrawing || !isDrawMode) return;
-                        const pos = getPos(e);
-                        ctx.strokeStyle = colorPicker.value;
-                        ctx.lineWidth = lineWidth;
-                        ctx.lineCap = "round";
-
-                        if (currentTool === "pen") {
-                          ctx.lineTo(pos.x, pos.y);
-                          ctx.stroke();
-                        } else {
-                          ctx.putImageData(imageBeforeShape, 0, 0);
-                          if (currentTool === "line") {
-                            ctx.beginPath();
-                            ctx.moveTo(startX, startY);
-                            ctx.lineTo(pos.x, pos.y);
-                            ctx.stroke();
-                          } else if (currentTool === "rect") {
-                            ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
-                          } else if (currentTool === "circle") {
-                            const radius = Math.hypot(pos.x - startX, pos.y - startY);
-                            ctx.beginPath();
-                            ctx.arc(startX, startY, radius, 0, Math.PI * 2);
-                            ctx.stroke();
-                          }
-                          else if (currentTool === "cube") {
-                        // Vẽ hình lập phương 3D đơn giản
-                        let size = Math.min(Math.abs(pos.x - startX), Math.abs(pos.y - startY));
-                        ctx.strokeRect(startX, startY, size, size);
-                        ctx.strokeRect(startX + 10, startY - 10, size, size);
-                        ctx.beginPath();
-                        ctx.moveTo(startX, startY);
-                        ctx.lineTo(startX + 10, startY - 10);
-                        ctx.moveTo(startX + size, startY);
-                        ctx.lineTo(startX + size + 10, startY - 10);
-                        ctx.moveTo(startX, startY + size);
-                        ctx.lineTo(startX + 10, startY + size - 10);
-                        ctx.moveTo(startX + size, startY + size);
-                        ctx.lineTo(startX + size + 10, startY + size - 10);
-                        ctx.stroke();
-                      }
-                      else if (currentTool === "cone") {
-                        let radius = Math.abs(pos.x - startX);
-                        ctx.beginPath();
-                        ctx.ellipse(startX, startY + 40, radius, 10, 0, 0, Math.PI * 2);
-                        ctx.moveTo(startX - radius, startY + 40);
-                        ctx.lineTo(startX, startY - 40);
-                        ctx.lineTo(startX + radius, startY + 40);
-                        ctx.stroke();
-                      }
-                      else if (currentTool === "cylinder") {
-                        let r = Math.abs(pos.x - startX);
-                        ctx.beginPath();
-                        ctx.ellipse(startX, startY, r, 10, 0, 0, Math.PI * 2);
-                        ctx.moveTo(startX - r, startY);
-                        ctx.lineTo(startX - r, startY + 100);
-                        ctx.moveTo(startX + r, startY);
-                        ctx.lineTo(startX + r, startY + 100);
-                        ctx.ellipse(startX, startY + 100, r, 10, 0, 0, Math.PI);
-                        ctx.stroke();
-                      }
-                      else if (currentTool === "pyramid") {
-                        ctx.beginPath();
-                        ctx.moveTo(startX, startY);
-                        ctx.lineTo(startX + 60, startY);
-                        ctx.lineTo(startX + 30, startY + 60);
-                        ctx.closePath();
-                        ctx.moveTo(startX + 30, startY + 60);
-                        ctx.lineTo(startX + 30, startY - 40);
-                        ctx.stroke();
-                      }
-                      else if (currentTool === "sphere") {
-                        let r = Math.abs(pos.x - startX);
-                        ctx.beginPath();
-                        ctx.arc(startX, startY, r, 0, Math.PI * 2);
-                        ctx.moveTo(startX - r, startY);
-                        ctx.ellipse(startX, startY, r, r / 2, 0, 0, Math.PI * 2);
-                        ctx.stroke();
-                      }
-
-                        }
-                      }
-
-
-                      function endDraw() {
-                        if (!isDrawMode) return;
-                        isDrawing = false;
-
-                        // Sau khi vẽ xong, lưu lên Firebase
-                        if (typeof saveDrawingToFirebase === "function") {
-                          saveDrawingToFirebase();
-                        }
-                      }
-
-
-                      canvas.addEventListener("mousedown", startDraw);
-                      canvas.addEventListener("mousemove", drawMove);
-                      canvas.addEventListener("mouseup", endDraw);
-                      canvas.addEventListener("touchstart", startDraw, { passive: false });
-                      canvas.addEventListener("touchmove", drawMove, { passive: false });
-                      canvas.addEventListener("touchend", endDraw);
-  </script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-// --- Firebase config ---
-const firebaseConfig = {
-  apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
-  authDomain: "veonline-3bcbf.firebaseapp.com",
-  projectId: "veonline-3bcbf",
-  storageBucket: "veonline-3bcbf.appspot.com",
-  messagingSenderId: "83902304195",
-  appId: "1:83902304195:web:2f9ec1ee0c23d6e21bb776"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// ===== Toggle lời giải =====
-window.toggleSolution = function(solutionId) {
-  const solutionBox = document.getElementById(solutionId);
-  if (!solutionBox) return alert(`Không tìm thấy box lời giải với ID: ${solutionId}`);
-  const studentCode = localStorage.getItem("studentCode");
-  if (studentCode) solutionBox.classList.toggle('visible');
-  else document.getElementById('login-modal').classList.remove('hidden');
-};
-
-// ===== Form đăng nhập =====
-const codeForm = document.getElementById('code-login-form');
-if (codeForm) {
-  codeForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const code = document.getElementById('login-code')?.value?.trim() || '';
-    const nameInput = document.getElementById('student-name');
-    const name = nameInput ? nameInput.value.trim() : '';
-
-    console.log("🔹 Mã nhập:", code); // debug
-
-    try {
-      const codesRef = collection(db, "codes");
-      const q = query(codesRef, where("code", "==", code));
-      const querySnapshot = await getDocs(q);
-
-      console.log("🔹 Số document tìm được:", querySnapshot.size);
-
-      if (!querySnapshot.empty) {
-        // Lấy document đầu tiên
-        const docData = querySnapshot.docs[0].data();
-        const studentNameFromDB = docData.name || name;
-
-        localStorage.setItem("studentName", studentNameFromDB);
-        localStorage.setItem("studentCode", code);
-
-        document.getElementById('login-modal').classList.add('hidden');
-        document.getElementById('auth-status').textContent = '✅ Đăng nhập thành công';
-      } else {
-        document.getElementById('auth-status').textContent = '❌ Mã không hợp lệ';
-        document.getElementById('login-modal').classList.remove('hidden');
-      }
-
-    } catch (err) {
-      console.error(err);
-      document.getElementById('auth-status').textContent = '❌ Lỗi đăng nhập: ' + err.message;
-    }
-  });
-}
-
-// ===== Nút đăng nhập/đăng xuất =====
-document.getElementById('login-button').addEventListener('click', (e) => {
-  e.preventDefault();
-  const studentCode = localStorage.getItem("studentCode");
-  if (studentCode) {
-    localStorage.removeItem("studentName");
-    localStorage.removeItem("studentCode");
-    document.getElementById('auth-status').textContent = 'Đã đăng xuất';
-    document.querySelectorAll('.solution').forEach(el => el.classList.remove('visible'));
-  } else {
-    document.getElementById('login-modal').classList.remove('hidden');
-  }
-});
-
-// ===== Đóng modal =====
-document.getElementById('close-modal').addEventListener('click', () => {
-  document.getElementById('login-modal').classList.add('hidden');
-  document.getElementById('auth-status').textContent = '';
-  document.getElementById('login-code').value = '';
-});
-
-// ===== Lưu kết quả bài làm =====
-window.saveAttempt = async function(testId, answersObject, score) {
-  const studentName = localStorage.getItem("studentName") || null;
-  const studentCode = localStorage.getItem("studentCode") || null;
-  if (!studentCode) return alert('⚠️ Vui lòng nhập mã trước khi lưu kết quả!');
-
-  try {
-    await addDoc(collection(db, 'attempts'), {
-      name: studentName,
-      code: studentCode,
-      testId: testId || 'unknown',
-      answers: answersObject || {},
-      score: score,
-      createdAt: serverTimestamp()
-    });
-    console.log('✅ Đã lưu bài làm');
-  } catch (err) {
-    console.error('❌ Lưu bài làm thất bại:', err);
-  }
-};
-
-// ===== Check Answer (icon đúng/sai) =====
-window.checkAnswer = function(questionId, correctAnswer) {
-  const selected = document.querySelector(`input[name="${questionId}"]:checked`);
-  const resultIcons = document.querySelectorAll(`#${questionId} .option-icon`);
-  resultIcons.forEach(icon => icon.innerHTML = '');
-  if (selected) {
-    const icon = document.getElementById(`icon-${questionId}-${selected.value}`);
-    icon.innerHTML = selected.value === correctAnswer ? '✔️' : '❌';
-  }
-};
- // Toggle hamburger menu
-        $('.hamburger-btn').click(function(){
-            $(this).toggleClass('active');
-            $('#mainNav').toggleClass('active');
-        });
-
-        // Submenu
-        $('.main-menu > li > a').click(function(e){
-            if ($(window).width() <= 768) {
-                var $submenu = $(this).siblings('.submenu');
-                if ($submenu.length) {
-                    e.preventDefault();
-                    $submenu.toggleClass('active');
-                    $(this).find('.dropdown-icon').toggleClass('active');
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const bgMusic = document.getElementById('bgmusic');
+            bgMusic.volume = 0.1; // Set volume to 10%
+            // Attempt to play on user interaction
+            document.body.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
                 }
+            }, { once: true });
+        });
+    </script>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. Opening -->
+            <section data-background-color="#d1f4ff">
+                <h1 class="text-6xl font-bold text-blue-800">📘 Phép Cộng Phân Số</h1>
+                <h3 class="text-4xl text-blue-600 mt-4">Toán Học – Lớp 6</h3>
+                <p class="text-lg text-gray-700 mt-8">AI Lesson Builder • Nguyễn Thanh Bình</p>
+                <img src="https://picsum.photos/400/250?random=1" alt="Fraction visual" class="rounded-lg shadow-lg mt-8" style="width: 40%;">
+            </section>
+
+            <!-- 2. Learning Objectives -->
+            <section data-background-color="#e6f7ff">
+                <h2 class="text-5xl font-semibold text-teal-700 mb-8">🎯 Mục Tiêu Bài Học</h2>
+                <ul class="list-none text-left mx-auto max-w-2xl text-2xl leading-relaxed">
+                    <li class="mb-4"><span class="text-blue-500 text-3xl mr-3">📚</span> Hiểu khái niệm phân số và các thành phần của nó.</li>
+                    <li class="mb-4"><span class="text-green-500 text-3xl mr-3">✨</span> Thực hiện được phép cộng hai phân số cùng mẫu số.</li>
+                    <li class="mb-4"><span class="text-purple-500 text-3xl mr-3">💡</span> Vận dụng quy tắc quy đồng mẫu số để cộng các phân số khác mẫu số.</li>
+                    <li class="mb-4"><span class="text-red-500 text-3xl mr-3">✍️</span> Giải các bài toán thực tế liên quan đến cộng phân số.</li>
+                </ul>
+            </section>
+
+            <!-- 3. Warm-Up / Ice-breaker -->
+            <section data-background-color="#f0f8ff">
+                <h2 class="text-5xl font-semibold text-indigo-700 mb-8">🚀 Khởi Động Nhanh</h2>
+                <p class="text-3xl mb-8">Hãy tìm Mẫu số chung nhỏ nhất (MSCNN) của các cặp mẫu số sau:</p>
+                <div id="warmup-question" class="text-center">
+                    <p class="text-4xl font-bold mb-6">MSCNN của 4 và 6 là?</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="game-button bg-purple-600 hover:bg-purple-700" onclick="checkWarmup(8, this)">8</button>
+                        <button class="game-button bg-purple-600 hover:bg-purple-700" onclick="checkWarmup(12, this)">12</button>
+                        <button class="game-button bg-purple-600 hover:bg-purple-700" onclick="checkWarmup(24, this)">24</button>
+                        <button class="game-button bg-purple-600 hover:bg-purple-700" onclick="checkWarmup(10, this)">10</button>
+                    </div>
+                    <div id="warmup-feedback" class="game-feedback text-3xl mt-6"></div>
+                </div>
+                <script>
+                    function checkWarmup(answer, button) {
+                        const feedbackDiv = document.getElementById('warmup-feedback');
+                        if (answer === 12) {
+                            feedbackDiv.innerHTML = '<span class="correct-answer">🎉 Chính xác! 12 là MSCNN của 4 và 6.</span>';
+                            button.style.backgroundColor = '#28a745'; // Green
+                        } else {
+                            feedbackDiv.innerHTML = '<span class="incorrect-answer">🤔 Chưa chính xác. Hãy thử lại!</span>';
+                            button.style.backgroundColor = '#dc3545'; // Red
+                        }
+                        // Disable all buttons after selection
+                        Array.from(button.parentNode.children).forEach(btn => btn.disabled = true);
+                    }
+                </script>
+            </section>
+
+            <!-- 4. Theory Slides -->
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">💡 Phân Số Là Gì?</h2>
+                <p class="text-2xl mb-4">Phân số dùng để biểu diễn một phần của một tổng thể.</p>
+                <p class="text-2xl mb-6">Một phân số có dạng \( \frac{a}{b} \), trong đó:</p>
+                <ul class="list-disc list-inside text-left mx-auto max-w-lg text-2xl leading-relaxed">
+                    <li class="mb-2"><b>a</b> là <b>tử số</b> (số phần được chọn).</li>
+                    <li class="mb-2"><b>b</b> là <b>mẫu số</b> (tổng số phần bằng nhau của tổng thể), \( b \neq 0 \).</li>
+                </ul>
+                <center><img src="https://picsum.photos/400/300?random=2" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( \frac{3}{4} \) nghĩa là 3 phần của 4 phần bằng nhau.</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">↔️ Phân Số Bằng Nhau</h2>
+                <p class="text-2xl mb-4">Hai phân số được gọi là bằng nhau nếu chúng biểu diễn cùng một giá trị.</p>
+                <p class="text-2xl mb-6">Quy tắc:</p>
+                <p class="text-2xl leading-relaxed">Nếu \( \frac{a}{b} = \frac{c}{d} \) thì \( a \times d = b \times c \).</p>
+                <center><img src="https://picsum.photos/400/300?random=3" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( \frac{1}{2} = \frac{2}{4} \) vì \( 1 \times 4 = 2 \times 2 = 4 \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">⚖️ Quy Đồng Mẫu Số</h2>
+                <p class="text-2xl mb-4">Quy đồng mẫu số là biến đổi các phân số thành các phân số bằng chúng nhưng có chung một mẫu số.</p>
+                <p class="text-2xl mb-6"><b>Mục đích:</b> Để có thể so sánh, cộng, trừ các phân số khác mẫu số.</p>
+                <p class="text-2xl leading-relaxed"><b>Cách làm:</b> Tìm Mẫu số chung nhỏ nhất (MSCNN) của các mẫu số.</p>
+                <center><img src="https://picsum.photos/400/300?random=4" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: Để cộng \( \frac{1}{2} \) và \( \frac{1}{3} \), ta cần quy đồng mẫu số.</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">🔍 Tìm Mẫu Số Chung Nhỏ Nhất (MSCNN)</h2>
+                <p class="text-2xl mb-4">MSCNN của hai hay nhiều số là Bội chung nhỏ nhất (BCNN) của các mẫu số đó.</p>
+                <p class="text-2xl mb-6"><b>Các bước:</b></p>
+                <ol class="list-decimal list-inside text-left mx-auto max-w-xl text-2xl leading-relaxed">
+                    <li class="mb-2">Phân tích các mẫu số ra thừa số nguyên tố.</li>
+                    <li class="mb-2">Chọn các thừa số chung và riêng với số mũ lớn nhất.</li>
+                    <li class="mb-2">Nhân các thừa số đã chọn lại với nhau.</li>
+                </ol>
+                <center><img src="https://picsum.photos/400/300?random=5" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: MSCNN của 4 và 6 là BCNN(4, 6) = \( 2^2 \times 3 = 12 \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">➕ Cộng Hai Phân Số Cùng Mẫu Số</h2>
+                <p class="text-2xl mb-4">Đây là trường hợp đơn giản nhất!</p>
+                <p class="text-2xl mb-6"><b>Quy tắc:</b></p>
+                <ul class="list-disc list-inside text-left mx-auto max-w-xl text-2xl leading-relaxed">
+                    <li class="mb-2">Cộng các tử số với nhau.</li>
+                    <li class="mb-2">Giữ nguyên mẫu số.</li>
+                </ul>
+                <p class="text-3xl font-bold text-green-700 mt-6">\[ \frac{a}{m} + \frac{b}{m} = \frac{a+b}{m} \]</p>
+                <center><img src="https://picsum.photos/400/300?random=6" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( \frac{2}{7} + \frac{3}{7} = \frac{2+3}{7} = \frac{5}{7} \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">➕ Cộng Hai Phân Số Khác Mẫu Số (Bước 1: Quy Đồng)</h2>
+                <p class="text-2xl mb-4">Khi các phân số có mẫu số khác nhau, ta cần quy đồng mẫu số trước khi cộng.</p>
+                <p class="text-2xl mb-6"><b>Bước 1:</b> Tìm MSCNN của các mẫu số.</p>
+                <p class="text-2xl mb-6"><b>Bước 2:</b> Quy đồng mẫu số các phân số đã cho.</p>
+                <ul class="list-disc list-inside text-left mx-auto max-w-xl text-2xl leading-relaxed">
+                    <li class="mb-2">Chia MSCNN cho từng mẫu số để tìm thừa số phụ.</li>
+                    <li class="mb-2">Nhân cả tử và mẫu của mỗi phân số với thừa số phụ tương ứng.</li>
+                </ul>
+                <center><img src="https://picsum.photos/400/300?random=7" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: Với \( \frac{1}{2} \) và \( \frac{1}{3} \), MSCNN là 6. <br> \( \frac{1}{2} = \frac{1 \times 3}{2 \times 3} = \frac{3}{6} \); \( \frac{1}{3} = \frac{1 \times 2}{3 \times 2} = \frac{2}{6} \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">➕ Cộng Hai Phân Số Khác Mẫu Số (Bước 2: Cộng)</h2>
+                <p class="text-2xl mb-4">Sau khi đã quy đồng mẫu số, các phân số sẽ có cùng mẫu số.</p>
+                <p class="text-2xl mb-6"><b>Bước 3:</b> Cộng các phân số đã quy đồng theo quy tắc cộng phân số cùng mẫu.</p>
+                <p class="text-2xl mb-6"><b>Bước 4 (Nếu cần):</b> Rút gọn phân số kết quả về dạng tối giản.</p>
+                <p class="text-3xl font-bold text-green-700 mt-6">\[ \frac{a}{b} + \frac{c}{d} = \frac{a \times \text{TS1}}{b \times \text{TS1}} + \frac{c \times \text{TS2}}{d \times \text{TS2}} = \frac{A}{M} + \frac{B}{M} = \frac{A+B}{M} \]</p>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( \frac{1}{2} + \frac{1}{3} = \frac{3}{6} + \frac{2}{6} = \frac{3+2}{6} = \frac{5}{6} \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">➕ Cộng Hỗn Số</h2>
+                <p class="text-2xl mb-4">Hỗn số là sự kết hợp giữa số nguyên và phân số (ví dụ: \( 1\frac{1}{2} \)).</p>
+                <p class="text-2xl mb-6"><b>Cách 1:</b> Chuyển hỗn số thành phân số rồi thực hiện phép cộng.</p>
+                <p class="text-2xl mb-6"><b>Cách 2:</b> Cộng phần nguyên riêng, cộng phần phân số riêng. Nếu tổng các phân số lớn hơn 1, chuyển thành hỗn số và cộng vào phần nguyên.</p>
+                <center><img src="https://picsum.photos/400/300?random=8" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( 1\frac{1}{2} = \frac{1 \times 2 + 1}{2} = \frac{3}{2} \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">🔄 Tính Chất Giao Hoán</h2>
+                <p class="text-2xl mb-4">Khi đổi chỗ các phân số trong một tổng, tổng không thay đổi.</p>
+                <p class="text-3xl font-bold text-green-700 mt-6">\[ \frac{a}{b} + \frac{c}{d} = \frac{c}{d} + \frac{a}{b} \]</p>
+                <center><img src="https://picsum.photos/400/300?random=9" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( \frac{1}{4} + \frac{3}{4} = \frac{3}{4} + \frac{1}{4} = 1 \).</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">🔗 Tính Chất Kết Hợp</h2>
+                <p class="text-2xl mb-4">Khi cộng một tổng hai phân số với một phân số thứ ba, ta có thể cộng phân số thứ nhất với tổng của hai phân số còn lại.</p>
+                <p class="text-3xl font-bold text-green-700 mt-6">\[ \left( \frac{a}{b} + \frac{c}{d} \right) + \frac{e}{f} = \frac{a}{b} + \left( \frac{c}{d} + \frac{e}{f} \right) \]</p>
+                <center><img src="https://picsum.photos/400/300?random=10" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Giúp tính toán linh hoạt hơn!</p>
+            </section>
+
+            <section data-background-color="#f8fdfd">
+                <h2 class="text-5xl font-semibold text-blue-700 mb-6">Simplification - Rút Gọn Phân Số</h2>
+                <p class="text-2xl mb-4">Sau khi thực hiện phép cộng, ta cần rút gọn kết quả (nếu có thể) về phân số tối giản.</p>
+                <p class="text-2xl mb-6"><b>Phân số tối giản:</b> Phân số mà tử số và mẫu số không còn ước chung nào ngoài 1.</p>
+                <p class="text-2xl leading-relaxed"><b>Cách làm:</b> Chia cả tử và mẫu cho Ước chung lớn nhất (ƯCLN) của chúng.</p>
+                <center><img src="https://picsum.photos/400/300?random=11" width="45%" class="rounded-lg shadow-md"></center>
+                <p class="text-xl text-gray-600 mt-4">Ví dụ: \( \frac{6}{8} = \frac{6 \div 2}{8 \div 2} = \frac{3}{4} \).</p>
+            </section>
+
+            <!-- Mini Game 1 -->
+            <section data-background-color="#e0f7fa">
+                <h2 class="text-5xl font-semibold text-cyan-700 mb-8">🎮 Game: Nối Phân Số Tương Đương</h2>
+                <p class="text-2xl mb-6">Kéo và thả để nối các phân số ở cột trái với phân số tương đương hoặc đã quy đồng ở cột phải.</p>
+                <div class="flex justify-center space-x-12 mt-8">
+                    <div id="drag-items" class="flex flex-col space-y-4">
+                        <div draggable="true" data-value="1/2" class="draggable p-4 bg-blue-200 rounded-lg shadow cursor-grab text-2xl font-semibold">\( \frac{1}{2} \)</div>
+                        <div draggable="true" data-value="2/3" class="draggable p-4 bg-blue-200 rounded-lg shadow cursor-grab text-2xl font-semibold">\( \frac{2}{3} \)</div>
+                        <div draggable="true" data-value="3/4" class="draggable p-4 bg-blue-200 rounded-lg shadow cursor-grab text-2xl font-semibold">\( \frac{3}{4} \)</div>
+                    </div>
+                    <div id="drop-targets" class="flex flex-col space-y-4">
+                        <div data-target="2/4" class="droptarget p-4 bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg text-2xl font-semibold min-w-[120px] h-[64px] flex items-center justify-center"></div>
+                        <div data-target="4/6" class="droptarget p-4 bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg text-2xl font-semibold min-w-[120px] h-[64px] flex items-center justify-center"></div>
+                        <div data-target="6/8" class="droptarget p-4 bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg text-2xl font-semibold min-w-[120px] h-[64px] flex items-center justify-center"></div>
+                    </div>
+                </div>
+                <div id="game1-feedback" class="game-feedback text-center text-3xl mt-8"></div>
+
+                <script>
+                    const dragItems = document.querySelectorAll('.draggable');
+                    const dropTargets = document.querySelectorAll('.droptarget');
+                    let draggedItem = null;
+
+                    dragItems.forEach(item => {
+                        item.addEventListener('dragstart', (e) => {
+                            draggedItem = item;
+                            e.dataTransfer.setData('text/plain', item.dataset.value);
+                            setTimeout(() => { item.classList.add('opacity-50'); }, 0);
+                        });
+                        item.addEventListener('dragend', () => {
+                            draggedItem.classList.remove('opacity-50');
+                            draggedItem = null;
+                        });
+                    });
+
+                    dropTargets.forEach(target => {
+                        target.addEventListener('dragover', (e) => {
+                            e.preventDefault(); // Allow drop
+                            target.classList.add('border-blue-500');
+                        });
+                        target.addEventListener('dragleave', () => {
+                            target.classList.remove('border-blue-500');
+                        });
+                        target.addEventListener('drop', (e) => {
+                            e.preventDefault();
+                            target.classList.remove('border-blue-500');
+                            const data = e.dataTransfer.getData('text/plain');
+                            const targetValue = target.dataset.target;
+                            let isCorrect = false;
+
+                            if (data === '1/2' && targetValue === '2/4') isCorrect = true;
+                            else if (data === '2/3' && targetValue === '4/6') isCorrect = true;
+                            else if (data === '3/4' && targetValue === '6/8') isCorrect = true;
+
+                            const feedbackDiv = document.getElementById('game1-feedback');
+                            if (isCorrect) {
+                                target.innerHTML = draggedItem.innerHTML;
+                                target.classList.remove('bg-gray-100', 'border-dashed', 'border-gray-400');
+                                target.classList.add('bg-green-100', 'border-green-500', 'text-green-800');
+                                draggedItem.remove(); // Remove item from original position
+                                checkAllDrops();
+                            } else {
+                                feedbackDiv.innerHTML = '<span class="incorrect-answer">Sai rồi! Hãy thử lại.</span>';
+                            }
+                        });
+                    });
+
+                    function checkAllDrops() {
+                        const remainingDraggables = document.querySelectorAll('.draggable').length;
+                        if (remainingDraggables === 0) {
+                            document.getElementById('game1-feedback').innerHTML = '<span class="correct-answer">🎉 Hoàn thành! Bạn đã nối đúng tất cả!</span>';
+                        }
+                    }
+                </script>
+            </section>
+
+            <!-- 5. Examples & Guided Practice -->
+            <section>
+                <h2 class="text-5xl font-semibold text-orange-700 mb-6">📝 Ví Dụ & Luyện Tập Có Hướng Dẫn</h2>
+                <p class="text-2xl mb-4">Hãy cùng nhau giải quyết các bài tập sau để củng cố kiến thức!</p>
+                <center><img src="https://picsum.photos/400/300?random=12" width="45%" class="rounded-lg shadow-md"></center>
+            </section>
+
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 1: Cộng phân số cùng mẫu</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{3}{5} + \frac{1}{5} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 1: Nhận diện mẫu số</h4>
+                    <p class="text-2xl">Hai phân số này có cùng mẫu số là 5.</p>
+                </div>
+            </section>
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 1: Cộng phân số cùng mẫu (tiếp)</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{3}{5} + \frac{1}{5} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 2: Cộng tử số và giữ nguyên mẫu số</h4>
+                    <p class="text-3xl font-bold text-green-700">\[ \frac{3}{5} + \frac{1}{5} = \frac{3+1}{5} = \frac{4}{5} \]</p>
+                    <p class="text-2xl mt-4">Kết quả là \( \frac{4}{5} \), đây là phân số tối giản.</p>
+                </div>
+                <center><img src="https://picsum.photos/400/300?random=13" width="45%" class="rounded-lg shadow-md"></center>
+            </section>
+
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 2: Cộng phân số khác mẫu (dễ)</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{1}{3} + \frac{1}{6} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 1: Tìm MSCNN và quy đồng</h4>
+                    <p class="text-2xl">Mẫu số là 3 và 6. MSCNN(3, 6) = 6.</p>
+                    <p class="text-2xl">Quy đồng \( \frac{1}{3} \): \( \frac{1 \times 2}{3 \times 2} = \frac{2}{6} \). Phân số \( \frac{1}{6} \) giữ nguyên.</p>
+                </div>
+            </section>
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 2: Cộng phân số khác mẫu (tiếp)</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{1}{3} + \frac{1}{6} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 2: Cộng các phân số đã quy đồng</h4>
+                    <p class="text-3xl font-bold text-green-700">\[ \frac{1}{3} + \frac{1}{6} = \frac{2}{6} + \frac{1}{6} = \frac{2+1}{6} = \frac{3}{6} \]</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 3: Rút gọn kết quả</h4>
+                    <p class="text-3xl font-bold text-green-700">\[ \frac{3}{6} = \frac{3 \div 3}{6 \div 3} = \frac{1}{2} \]</p>
+                    <p class="text-2xl mt-4">Vậy, \( \frac{1}{3} + \frac{1}{6} = \frac{1}{2} \).</p>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 3: Cộng phân số khác mẫu (khó hơn)</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{2}{5} + \frac{1}{4} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 1: Tìm MSCNN</h4>
+                    <p class="text-2xl">Mẫu số là 5 và 4. MSCNN(5, 4) = 20.</p>
+                </div>
+            </section>
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 3: Cộng phân số khác mẫu (tiếp)</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{2}{5} + \frac{1}{4} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 2: Quy đồng mẫu số</h4>
+                    <p class="text-2xl">\( \frac{2}{5} = \frac{2 \times 4}{5 \times 4} = \frac{8}{20} \)</p>
+                    <p class="text-2xl">\( \frac{1}{4} = \frac{1 \times 5}{4 \times 5} = \frac{5}{20} \)</p>
+                </div>
+            </section>
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 3: Cộng phân số khác mẫu (tiếp)</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{2}{5} + \frac{1}{4} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 3: Cộng và rút gọn</h4>
+                    <p class="text-3xl font-bold text-green-700">\[ \frac{8}{20} + \frac{5}{20} = \frac{8+5}{20} = \frac{13}{20} \]</p>
+                    <p class="text-2xl mt-4">Phân số \( \frac{13}{20} \) là phân số tối giản.</p>
+                </div>
+                <center><img src="https://picsum.photos/400/300?random=14" width="45%" class="rounded-lg shadow-md"></center>
+            </section>
+
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 4: Cộng hỗn số</h3>
+                <p class="text-3xl mb-8">Tính: \( 1\frac{1}{2} + \frac{3}{4} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 1: Chuyển hỗn số thành phân số</h4>
+                    <p class="text-3xl font-bold">\[ 1\frac{1}{2} = \frac{1 \times 2 + 1}{2} = \frac{3}{2} \]</p>
+                </div>
+            </section>
+            <section>
+                <h3 class="text-4xl font-semibold text-orange-700 mb-6">Ví Dụ 4: Cộng hỗn số (tiếp)</h3>
+                <p class="text-3xl mb-8">Tính: \( 1\frac{1}{2} + \frac{3}{4} \)</p>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 2: Quy đồng và cộng</h4>
+                    <p class="text-2xl">Bài toán trở thành \( \frac{3}{2} + \frac{3}{4} \). MSCNN(2, 4) = 4.</p>
+                    <p class="text-2xl">Quy đồng \( \frac{3}{2} \): \( \frac{3 \times 2}{2 \times 2} = \frac{6}{4} \).</p>
+                    <p class="text-3xl font-bold text-green-700">\[ \frac{6}{4} + \frac{3}{4} = \frac{6+3}{4} = \frac{9}{4} \]</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4 class="text-3xl font-medium text-blue-600 mb-4">▶️ Bước 3: Chuyển về hỗn số (nếu cần)</h4>
+                    <p class="text-3xl font-bold">\[ \frac{9}{4} = 2\frac{1}{4} \]</p>
+                    <p class="text-2xl mt-4">Vậy, \( 1\frac{1}{2} + \frac{3}{4} = 2\frac{1}{4} \).</p>
+                </div>
+            </section>
+
+            <!-- Mini Game 2 -->
+            <section data-background-color="#ffebee">
+                <h2 class="text-5xl font-semibold text-red-700 mb-8">❓ Mini Quiz: Chọn Đáp Án Đúng</h2>
+                <div id="quiz2-question" class="text-center">
+                    <p class="text-4xl font-bold mb-6">Kết quả của phép tính \( \frac{2}{3} + \frac{1}{4} \) là gì?</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="game-button bg-red-500 hover:bg-red-600" onclick="checkQuiz2('5/7', this)">\( \frac{5}{7} \)</button>
+                        <button class="game-button bg-red-500 hover:bg-red-600" onclick="checkQuiz2('3/7', this)">\( \frac{3}{7} \)</button>
+                        <button class="game-button bg-red-500 hover:bg-red-600" onclick="checkQuiz2('11/12', this)">\( \frac{11}{12} \)</button>
+                        <button class="game-button bg-red-500 hover:bg-red-600" onclick="checkQuiz2('9/12', this)">\( \frac{9}{12} \)</button>
+                    </div>
+                    <div id="quiz2-feedback" class="game-feedback text-3xl mt-6"></div>
+                </div>
+                <script>
+                    function checkQuiz2(answer, button) {
+                        const feedbackDiv = document.getElementById('quiz2-feedback');
+                        // 2/3 + 1/4 = 8/12 + 3/12 = 11/12
+                        if (answer === '11/12') {
+                            feedbackDiv.innerHTML = '<span class="correct-answer">🎉 Chính xác! Bạn rất giỏi!</span>';
+                            button.style.backgroundColor = '#28a745'; // Green
+                        } else {
+                            feedbackDiv.innerHTML = '<span class="incorrect-answer">🤔 Sai rồi. Hãy tính lại thật kỹ nhé!</span>';
+                            button.style.backgroundColor = '#dc3545'; // Red
+                        }
+                        Array.from(button.parentNode.children).forEach(btn => btn.disabled = true);
+                    }
+                </script>
+            </section>
+
+            <!-- 8. Practice Zone -->
+            <section data-background-color="#f0fdf0">
+                <h2 class="text-5xl font-semibold text-green-700 mb-6">💪 Khu Vực Luyện Tập</h2>
+                <p class="text-2xl mb-4">Bây giờ là lúc tự mình thực hành!</p>
+                <p class="text-xl text-gray-600">Nhấn nút "Gợi ý" nếu bạn gặp khó khăn, hoặc "Đáp án" để kiểm tra.</p>
+                <center><img src="https://picsum.photos/400/300?random=15" width="45%" class="rounded-lg shadow-md"></center>
+            </section>
+
+            <section data-background-color="#f0fdf0">
+                <h3 class="text-4xl font-semibold text-green-700 mb-6">Bài Tập 1: Cộng cùng mẫu</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{5}{9} + \frac{2}{9} \)</p>
+                <div class="flex justify-center space-x-4">
+                    <button class="game-button bg-blue-500 hover:bg-blue-600" onclick="showHint('hint1', this)">Gợi ý</button>
+                    <button class="game-button bg-purple-500 hover:bg-purple-600" onclick="showAnswer('answer1', this)">Đáp án</button>
+                </div>
+                <div id="hint1" class="hidden text-xl mt-4 p-3 bg-blue-100 rounded text-blue-800 max-w-xl mx-auto">
+                    <p>Chỉ cần cộng tử số và giữ nguyên mẫu số thôi!</p>
+                </div>
+                <div id="answer1" class="hidden text-2xl mt-4 p-3 bg-purple-100 rounded text-purple-800 max-w-xl mx-auto">
+                    <p>\[ \frac{5}{9} + \frac{2}{9} = \frac{5+2}{9} = \frac{7}{9} \]</p>
+                </div>
+            </section>
+
+            <section data-background-color="#f0fdf0">
+                <h3 class="text-4xl font-semibold text-green-700 mb-6">Bài Tập 2: Cộng khác mẫu</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{1}{4} + \frac{3}{8} \)</p>
+                <div class="flex justify-center space-x-4">
+                    <button class="game-button bg-blue-500 hover:bg-blue-600" onclick="showHint('hint2', this)">Gợi ý</button>
+                    <button class="game-button bg-purple-500 hover:bg-purple-600" onclick="showAnswer('answer2', this)">Đáp án</button>
+                </div>
+                <div id="hint2" class="hidden text-xl mt-4 p-3 bg-blue-100 rounded text-blue-800 max-w-xl mx-auto">
+                    <p>MSCNN của 4 và 8 là 8. Hãy quy đồng \( \frac{1}{4} \).</p>
+                </div>
+                <div id="answer2" class="hidden text-2xl mt-4 p-3 bg-purple-100 rounded text-purple-800 max-w-xl mx-auto">
+                    <p>\[ \frac{1}{4} + \frac{3}{8} = \frac{1 \times 2}{4 \times 2} + \frac{3}{8} = \frac{2}{8} + \frac{3}{8} = \frac{5}{8} \]</p>
+                </div>
+            </section>
+
+            <!-- Mini Game 3 -->
+            <section data-background-color="#fff3e0">
+                <h2 class="text-5xl font-semibold text-orange-700 mb-8">✅ Đúng hay Sai?</h2>
+                <div id="true-false-game" class="text-center">
+                    <p class="text-4xl font-bold mb-6">Phép tính sau đây đúng hay sai?</p>
+                    <p class="text-5xl font-bold text-gray-800 mb-10">\( \frac{1}{5} + \frac{2}{10} = \frac{2}{5} \)</p>
+                    <div class="flex justify-center space-x-6">
+                        <button class="game-button bg-green-600 hover:bg-green-700" onclick="checkTrueFalse(true, this)">Đúng</button>
+                        <button class="game-button bg-red-600 hover:bg-red-700" onclick="checkTrueFalse(false, this)">Sai</button>
+                    </div>
+                    <div id="true-false-feedback" class="game-feedback text-3xl mt-6"></div>
+                </div>
+                <script>
+                    function checkTrueFalse(answer, button) {
+                        const feedbackDiv = document.getElementById('true-false-feedback');
+                        // 1/5 + 2/10 = 1/5 + 1/5 = 2/5. So it's true.
+                        if (answer === true) {
+                            feedbackDiv.innerHTML = '<span class="correct-answer">🎉 Chính xác! \( \frac{1}{5} + \frac{2}{10} = \frac{1}{5} + \frac{1}{5} = \frac{2}{5} \).</span>';
+                            button.style.backgroundColor = '#28a745';
+                        } else {
+                            feedbackDiv.innerHTML = '<span class="incorrect-answer">🤔 Sai rồi. \( \frac{2}{10} \) có thể rút gọn thành \( \frac{1}{5} \).</span>';
+                            button.style.backgroundColor = '#dc3545';
+                        }
+                        Array.from(button.parentNode.children).forEach(btn => btn.disabled = true);
+                    }
+                </script>
+            </section>
+
+            <section data-background-color="#f0fdf0">
+                <h3 class="text-4xl font-semibold text-green-700 mb-6">Bài Tập 3: Quy đồng và cộng</h3>
+                <p class="text-3xl mb-8">Tính: \( \frac{2}{3} + \frac{3}{5} \)</p>
+                <div class="flex justify-center space-x-4">
+                    <button class="game-button bg-blue-500 hover:bg-blue-600" onclick="showHint('hint3', this)">Gợi ý</button>
+                    <button class="game-button bg-purple-500 hover:bg-purple-600" onclick="showAnswer('answer3', this)">Đáp án</button>
+                </div>
+                <div id="hint3" class="hidden text-xl mt-4 p-3 bg-blue-100 rounded text-blue-800 max-w-xl mx-auto">
+                    <p>MSCNN của 3 và 5 là 15. Cần quy đồng cả hai phân số.</p>
+                </div>
+                <div id="answer3" class="hidden text-2xl mt-4 p-3 bg-purple-100 rounded text-purple-800 max-w-xl mx-auto">
+                    <p>\[ \frac{2}{3} + \frac{3}{5} = \frac{2 \times 5}{3 \times 5} + \frac{3 \times 3}{5 \times 3} = \frac{10}{15} + \frac{9}{15} = \frac{19}{15} \]</p>
+                </div>
+            </section>
+
+            <section data-background-color="#f0fdf0">
+                <h3 class="text-4xl font-semibold text-green-700 mb-6">Bài Tập 4: Cộng hỗn số</h3>
+                <p class="text-3xl mb-8">Tính: \( 2\frac{1}{3} + 1\frac{1}{6} \)</p>
+                <div class="flex justify-center space-x-4">
+                    <button class="game-button bg-blue-500 hover:bg-blue-600" onclick="showHint('hint4', this)">Gợi ý</button>
+                    <button class="game-button bg-purple-500 hover:bg-purple-600" onclick="showAnswer('answer4', this)">Đáp án</button>
+                </div>
+                <div id="hint4" class="hidden text-xl mt-4 p-3 bg-blue-100 rounded text-blue-800 max-w-xl mx-auto">
+                    <p>Chuyển cả hai hỗn số thành phân số rồi quy đồng và cộng.</p>
+                </div>
+                <div id="answer4" class="hidden text-2xl mt-4 p-3 bg-purple-100 rounded text-purple-800 max-w-xl mx-auto">
+                    <p>\[ 2\frac{1}{3} + 1\frac{1}{6} = \frac{7}{3} + \frac{7}{6} = \frac{14}{6} + \frac{7}{6} = \frac{21}{6} = \frac{7}{2} = 3\frac{1}{2} \]</p>
+                </div>
+            </section>
+
+            <section data-background-color="#f0fdf0">
+                <h3 class="text-4xl font-semibold text-green-700 mb-6">Bài Tập 5: Giải quyết vấn đề</h3>
+                <p class="text-3xl mb-8">Bạn An uống \( \frac{1}{3} \) lít sữa vào buổi sáng và \( \frac{1}{4} \) lít sữa vào buổi chiều. Hỏi cả ngày An đã uống bao nhiêu lít sữa?</p>
+                <div class="flex justify-center space-x-4">
+                    <button class="game-button bg-blue-500 hover:bg-blue-600" onclick="showHint('hint5', this)">Gợi ý</button>
+                    <button class="game-button bg-purple-500 hover:bg-purple-600" onclick="showAnswer('answer5', this)">Đáp án</button>
+                </div>
+                <div id="hint5" class="hidden text-xl mt-4 p-3 bg-blue-100 rounded text-blue-800 max-w-xl mx-auto">
+                    <p>Đây là phép cộng phân số khác mẫu. Hãy tìm MSCNN của 3 và 4.</p>
+                </div>
+                <div id="answer5" class="hidden text-2xl mt-4 p-3 bg-purple-100 rounded text-purple-800 max-w-xl mx-auto">
+                    <p>Cả ngày An uống: \( \frac{1}{3} + \frac{1}{4} = \frac{4}{12} + \frac{3}{12} = \frac{7}{12} \) lít sữa.</p>
+                    <p>Đáp số: \( \frac{7}{12} \) lít sữa.</p>
+                </div>
+            </section>
+
+            <script>
+                function showHint(id, button) {
+                    document.getElementById(id).classList.toggle('hidden');
+                    button.textContent = button.textContent === 'Gợi ý' ? 'Ẩn Gợi ý' : 'Gợi ý';
+                }
+                function showAnswer(id, button) {
+                    document.getElementById(id).classList.toggle('hidden');
+                    button.textContent = button.textContent === 'Đáp án' ? 'Ẩn Đáp án' : 'Đáp án';
+                }
+            </script>
+
+            <!-- 9. Review / Summary -->
+            <section data-background-color="#e0f2f7">
+                <h2 class="text-5xl font-semibold text-blue-800 mb-8">💡 Ôn Tập Nhanh</h2>
+                <h3 class="text-4xl font-medium text-blue-700 mb-4">Các bước cộng phân số:</h3>
+                <ol class="list-decimal list-inside text-left mx-auto max-w-3xl text-2xl leading-relaxed">
+                    <li class="mb-2"><b>Cùng mẫu số:</b> Cộng tử số, giữ nguyên mẫu số. <br> \[ \frac{a}{m} + \frac{b}{m} = \frac{a+b}{m} \]</li>
+                    <li class="mb-2"><b>Khác mẫu số:</b>
+                        <ol class="list-[lower-alpha] list-inside pl-6 mt-1">
+                            <li>Tìm Mẫu số chung nhỏ nhất (MSCNN).</li>
+                            <li>Quy đồng mẫu số các phân số.</li>
+                            <li>Cộng các phân số đã quy đồng (cùng mẫu số).</li>
+                            <li>Rút gọn kết quả về phân số tối giản (nếu có).</li>
+                        </ol>
+                        <br> \[ \frac{a}{b} + \frac{c}{d} = \frac{ad}{bd} + \frac{cb}{db} = \frac{ad+cb}{bd} \]
+                    </li>
+                    <li class="mb-2"><b>Cộng hỗn số:</b> Chuyển hỗn số thành phân số rồi thực hiện phép cộng như bình thường.</li>
+                </ol>
+                <center><img src="https://picsum.photos/400/250?random=16" width="45%" class="rounded-lg shadow-md mt-6"></center>
+            </section>
+
+            <!-- 10. Final Quiz -->
+            <section data-background-color="#f5eef8">
+                <h2 class="text-5xl font-semibold text-purple-700 mb-8">🏆 Bài Kiểm Tra Cuối Cùng</h2>
+                <p class="text-2xl mb-6">Hãy hoàn thành 10 câu hỏi trắc nghiệm sau để đánh giá kiến thức của bạn!</p>
+                <div id="final-quiz-container" class="text-left max-w-3xl mx-auto">
+                    <div id="quiz-question" class="text-3xl font-bold mb-6"></div>
+                    <div id="quiz-options" class="flex flex-col space-y-4"></div>
+                    <button id="next-question-btn" class="game-button bg-blue-600 hover:bg-blue-700 mt-8 hidden">Câu Tiếp Theo</button>
+                    <div id="quiz-feedback" class="game-feedback text-2xl mt-4"></div>
+                    <div id="quiz-score" class="text-4xl font-bold text-green-700 mt-8 hidden"></div>
+                </div>
+
+                <script>
+                    const quizQuestions = [
+                        {
+                            question: "1. Kết quả của \( \\frac{1}{8} + \\frac{3}{8} \) là:",
+                            options: ["\( \\frac{4}{16} \)", "\( \\frac{1}{2} \)", "\( \\frac{3}{8} \)", "\( \\frac{4}{8} \)"],
+                            answer: "\( \\frac{1}{2} \)"
+                        },
+                        {
+                            question: "2. Mẫu số chung nhỏ nhất (MSCNN) của 5 và 10 là:",
+                            options: ["5", "10", "15", "50"],
+                            answer: "10"
+                        },
+                        {
+                            question: "3. Kết quả của \( \\frac{1}{2} + \\frac{1}{5} \) là:",
+                            options: ["\( \\frac{2}{7} \)", "\( \\frac{3}{10} \)", "\( \\frac{7}{10} \)", "\( \\frac{5}{10} \)"],
+                            answer: "\( \\frac{7}{10} \)"
+                        },
+                        {
+                            question: "4. Phân số \( \\frac{6}{9} \) có thể rút gọn thành:",
+                            options: ["\( \\frac{2}{3} \)", "\( \\frac{1}{3} \)", "\( \\frac{3}{9} \)", "\( \\frac{6}{3} \)"],
+                            answer: "\( \\frac{2}{3} \)"
+                        },
+                        {
+                            question: "5. Kết quả của \( 1\\frac{1}{4} + \\frac{1}{2} \) là:",
+                            options: ["\( 1\\frac{3}{4} \)", "\( \\frac{7}{4} \)", "\( \\frac{3}{4} \)", "Tất cả đều đúng"],
+                            answer: "Tất cả đều đúng"
+                        },
+                        {
+                            question: "6. Điền số thích hợp vào chỗ trống: \( \\frac{2}{7} + \\frac{?}{7} = \\frac{5}{7} \)",
+                            options: ["1", "2", "3", "4"],
+                            answer: "3"
+                        },
+                        {
+                            question: "7. Phép cộng phân số nào sau đây yêu cầu quy đồng mẫu số:",
+                            options: ["\( \\frac{1}{3} + \\frac{2}{3} \)", "\( \\frac{4}{5} + \\frac{1}{5} \)", "\( \\frac{2}{7} + \\frac{1}{2} \)", "\( \\frac{5}{11} + \\frac{3}{11} \)"],
+                            answer: "\( \\frac{2}{7} + \\frac{1}{2} \)"
+                        },
+                        {
+                            question: "8. Tính: \( \\frac{3}{4} + \\frac{5}{12} \)",
+                            options: ["\( \\frac{8}{16} \)", "\( \\frac{2}{3} \)", "\( \\frac{14}{12} \)", "\( \\frac{7}{6} \)"],
+                            answer: "\( \\frac{7}{6} \)" // 9/12 + 5/12 = 14/12 = 7/6
+                        },
+                        {
+                            question: "9. Bạn Mai ăn \( \\frac{1}{4} \) cái bánh, bạn Lan ăn \( \\frac{1}{2} \) cái bánh. Cả hai bạn đã ăn bao nhiêu phần của cái bánh?",
+                            options: ["\( \\frac{2}{6} \)", "\( \\frac{3}{4} \)", "\( \\frac{1}{2} \)", "\( \\frac{2}{4} \)"],
+                            answer: "\( \\frac{3}{4} \)"
+                        },
+                        {
+                            question: "10. Tính chất giao hoán của phép cộng phân số là gì?",
+                            options: ["Chỉ có thể cộng 2 phân số một lúc", "Thay đổi vị trí các phân số không làm thay đổi tổng", "Phải tìm MSCNN trước khi cộng", "Kết quả luôn là phân số tối giản"],
+                            answer: "Thay đổi vị trí các phân số không làm thay đổi tổng"
+                        }
+                    ];
+
+                    let currentQuestionIndex = 0;
+                    let score = 0;
+                    let quizButtons = [];
+
+                    function loadQuestion() {
+                        const questionData = quizQuestions[currentQuestionIndex];
+                        document.getElementById('quiz-question').innerHTML = questionData.question;
+                        const optionsContainer = document.getElementById('quiz-options');
+                        optionsContainer.innerHTML = '';
+                        quizButtons = [];
+
+                        questionData.options.forEach(option => {
+                            const button = document.createElement('button');
+                            button.className = 'game-button bg-purple-600 hover:bg-purple-700 py-3 px-6 text-xl';
+                            button.innerHTML = option;
+                            button.onclick = () => selectAnswer(option, button);
+                            optionsContainer.appendChild(button);
+                            quizButtons.push(button);
+                        });
+
+                        document.getElementById('quiz-feedback').innerHTML = '';
+                        document.getElementById('next-question-btn').classList.add('hidden');
+                        document.getElementById('quiz-score').classList.add('hidden');
+                    }
+
+                    function selectAnswer(selectedOption, button) {
+                        const questionData = quizQuestions[currentQuestionIndex];
+                        const feedbackDiv = document.getElementById('quiz-feedback');
+
+                        quizButtons.forEach(btn => btn.disabled = true); // Disable all options
+
+                        if (selectedOption === questionData.answer) {
+                            score++;
+                            feedbackDiv.innerHTML = '<span class="correct-answer">Chính xác! 🎉</span>';
+                            button.style.backgroundColor = '#28a745';
+                        } else {
+                            feedbackDiv.innerHTML = '<span class="incorrect-answer">Chưa chính xác. Câu trả lời đúng là: ' + questionData.answer + ' 🤔</span>';
+                            button.style.backgroundColor = '#dc3545';
+                            // Highlight correct answer
+                            quizButtons.forEach(btn => {
+                                if (btn.innerHTML === questionData.answer) {
+                                    btn.style.backgroundColor = '#28a745';
+                                }
+                            });
+                        }
+                        document.getElementById('next-question-btn').classList.remove('hidden');
+                    }
+
+                    function nextQuestion() {
+                        currentQuestionIndex++;
+                        if (currentQuestionIndex < quizQuestions.length) {
+                            loadQuestion();
+                        } else {
+                            showFinalScore();
+                        }
+                    }
+
+                    function showFinalScore() {
+                        document.getElementById('final-quiz-container').innerHTML = ''; // Clear quiz elements
+                        const scoreDiv = document.getElementById('quiz-score');
+                        scoreDiv.classList.remove('hidden');
+                        scoreDiv.innerHTML = `Bạn đã hoàn thành bài kiểm tra! <br> Điểm của bạn là: ${score} / ${quizQuestions.length}`;
+                        scoreDiv.classList.add('text-center', 'mx-auto');
+                        document.getElementById('final-quiz-container').appendChild(scoreDiv);
+                    }
+
+                    document.addEventListener('DOMContentLoaded', () => {
+                        if (document.getElementById('final-quiz-container')) {
+                            loadQuestion();
+                            document.getElementById('next-question-btn').addEventListener('click', nextQuestion);
+                        }
+                    });
+                </script>
+            </section>
+
+            <!-- 11. Closing Slide -->
+            <section data-background-color="#d1f4ff">
+                <h2 class="text-5xl font-bold text-blue-800 mb-8">🎉 Chúc Mừng Hoàn Thành Bài Học!</h2>
+                <p class="text-3xl text-gray-700 mb-6">Bạn đã học rất tốt về phép cộng phân số!</p>
+                <center><img src="https://picsum.photos/400/250?random=17" alt="Success image" class="rounded-lg shadow-lg" style="width: 40%;"></center>
+                <h3 class="mt-8 text-3xl font-semibold text-teal-700">Nhúng vào website của bạn:</h3>
+                <pre class="text-sm bg-gray-100 p-4 rounded-lg mt-4 text-left mx-auto max-w-xl shadow-inner overflow-x-auto"><code>&lt;iframe src="lesson.html" width="100%" height="700" style="border:none;"&gt;&lt;/iframe&gt;</code></pre>
+                <p class="mt-8 text-2xl text-purple-700 font-bold">🎓 Học vui cùng AI Lesson Builder!</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/math/math.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            plugins: [ RevealNotes, RevealHighlight, RevealMath ],
+            math: {
+                mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML-full'
             }
         });
-
-        $('.submenu > li > a').click(function(e){
-            if ($(window).width() <= 768) {
-                var $nestedSubmenu = $(this).siblings('.nested-sub-menu');
-                if ($nestedSubmenu.length) {
-                    e.preventDefault();
-                    $nestedSubmenu.toggleClass('active');
-                    $(this).find('.nested-dropdown-icon').toggleClass('active');
-                }
-            }
-        });
-    
-</script>
-
-
-
-
-
+    </script>
 </body>
 </html>

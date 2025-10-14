@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Generated Lesson: Ước chung, ước chung lớn nhất toán 6 sách giáo khoa chân trời sáng tạo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css" id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/zenburn.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --r-main-font-size: 22px;
+            --r-background-color: #f8f9fa;
+            --r-main-color: #212529;
+            --r-heading-color: #1e88e5;
+            --brand-green: #4CAF50;
+            --brand-yellow-light: #FFF9C4;
+            --brand-blue-light: #E3F2FD;
+        }
+        .reveal { font-family: "Segoe UI", "Arial", sans-serif; }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; font-weight: 600; color: var(--r-heading-color); }
+        .reveal .controls { color: var(--brand-green); }
+        .reveal .progress { color: var(--brand-green); }
+        
+        /* Ensure content is never cut */
+        .slides section {
+            overflow-y: auto !important;
+            max-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .custom-block { padding: 1.5rem; margin: 1rem auto; border-left: 8px solid; border-radius: 12px; background-color: #ffffff; box-shadow: 0 6px 15px rgba(0,0,0,0.07); text-align: left; width: 95%; }
+        .note { border-color: #3b82f6; background-color: #eff6ff; }
+        .example { border-color: #f59e0b; background-color: #fffbeb; }
+        .definition { border-color: #8b5cf6; background-color: #f5f3ff; }
+        .quiz-container, .game { border-color: var(--brand-green); background-color: var(--brand-blue-light); }
+        .summary-box { border-color: #1e5631; background-color: var(--brand-yellow-light); }
+        
+        .interactive-btn { display: inline-block; padding: 0.8rem 1.6rem; margin: 0.5rem; border-radius: 25px; background-color: #fff; color: #333; border: 2px solid #ddd; cursor: pointer; transition: all 0.2s ease-in-out; font-weight: 500; }
+        .interactive-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .interactive-btn.selected { background-color: #60a5fa; color: white; border-color: #2563eb; }
+        .interactive-btn.correct { background-color: #22c55e; color: white; border-color: #166534; }
+        .interactive-btn.wrong { background-color: #ef4444; color: white; border-color: #991b1b; }
+        .feedback-message { margin-top: 1rem; font-weight: bold; font-size: 1.1em; }
+        .feedback-message.correct { color: #166534; }
+        .feedback-message.wrong { color: #991b1b; }
+
+        /* Drawing Canvas & Toolbar */
+        #drawing-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        #drawing-toolbar { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 1001; background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); padding: 8px; display: flex; gap: 8px; align-items: center; }
+        #drawing-toolbar.hidden { display: none; }
+        .tool-btn { width: 40px; height: 40px; border: 1px solid #ccc; background: #f9f9f9; border-radius: 8px; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s; }
+        .tool-btn:hover { background-color: #e9e9e9; }
+        .tool-btn.active { background: #d1e7ff; border-color: #3b82f6; }
+        #drawing-toolbar input[type="color"] { width: 40px; height: 40px; border: none; padding: 2px; background: none; border-radius: 8px; cursor: pointer; }
+        #drawing-toolbar input[type="range"] { width: 100px; }
+
+        /* Audio Control */
+        .audio-toolbar { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .audio-btn { background: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.15); border: 1px solid #eee; font-size: 24px; }
+        
+        /* Drag & Drop Game */
+        .drop-zone { border: 2px dashed #ccc; padding: 1rem; margin-top: 10px; min-height: 60px; transition: all 0.2s; border-radius: 12px; }
+        .drop-zone.over { background-color: #d1e7d8; transform: scale(1.03); }
+        .drop-zone.correct { background-color: #dcfce7; border-color: #22c55e; }
+        .drop-zone.wrong { background-color: #fee2e2; border-color: #ef4444; }
+        .draggable-item { cursor: grab; background-color: #f0f0f0; padding: 10px; border-radius: 8px; margin: 5px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop><source src="audio/bg_music.mp3" type="audio/mpeg"></audio>
+    <audio id="correct-sound" preload="auto"><source src="audio/correct.mp3" type="audio/mpeg"></audio>
+    <audio id="wrong-sound" preload="auto"><source src="audio/wrong.mp3" type="audio/mpeg"></audio>
+    
+    <canvas id="drawing-canvas"></canvas>
+    <div id="drawing-toolbar">
+        <button id="pen-tool" class="tool-btn active" title="Vẽ tự do">✏️</button>
+        <button id="line-tool" class="tool-btn" title="Vẽ đoạn thẳng">▬</button>
+        <button id="circle-tool" class="tool-btn" title="Vẽ hình tròn">⚪</button>
+        <button id="ellipse-tool" class="tool-btn" title="Vẽ hình elip">⬭</button>
+        <input type="color" id="color-picker" value="#FF0000" title="Chọn màu">
+        <input type="range" id="pen-size" min="1" max="20" value="5" title="Chọn kích thước">
+        <button id="undo-canvas" class="tool-btn" title="Hoàn tác">↩️</button>
+        <button id="clear-canvas" class="tool-btn" title="Xóa hết">🧹</button>
+        <button id="fullscreen-btn" class="tool-btn" title="Toàn màn hình">🖥️</button>
+        <button id="toggle-draw" class="tool-btn" title="Tắt/Bật vẽ">❌</button>
+    </div>
+
+    <div class="audio-toolbar"><div id="audio-control" class="audio-btn">🔇</div></div>
+
+    <div class="reveal"><div class="slides">
+      <!-- AI will generate slides here -->
+      <section>
+        <div class="flex flex-col items-center justify-center h-full text-center p-8">
+            <h1 class="text-6xl font-extrabold text-blue-700 mb-6">ƯỚC CHUNG VÀ ƯỚC CHUNG LỚN NHẤT</h1>
+            <h2 class="text-4xl text-gray-800 mb-4">Môn Toán - Lớp 6</h2>
+            <p class="text-2xl text-gray-600">Sách giáo khoa Chân trời sáng tạo</p>
+            <img src="https://picsum.photos/600/400?random=1" class="mx-auto rounded-lg shadow-md mt-8" alt="Toán học">
+            <p class="text-xl mt-6">Bài giảng được tạo bởi AI. Sử dụng các công cụ trên thanh vẽ để tương tác và ghi chú.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex flex-col items-center justify-center h-full text-center p-8">
+            <h2 class="text-5xl font-bold mb-8 text-blue-600">Mục tiêu bài học</h2>
+            <ul class="list-disc text-left text-3xl space-y-4 max-w-3xl">
+                <li><span class="font-semibold text-green-700">Hiểu rõ</span> định nghĩa ước chung và ước chung lớn nhất (ƯCLN).</li>
+                <li><span class="font-semibold text-green-700">Biết cách</span> tìm ước chung của hai hay nhiều số.</li>
+                <li><span class="font-semibold text-green-700">Thực hiện được</span> việc tìm ƯCLN của hai hay nhiều số bằng phương pháp phân tích ra thừa số nguyên tố.</li>
+                <li><span class="font-semibold text-green-700">Vận dụng</span> kiến thức về ƯCLN để giải quyết các bài toán thực tế.</li>
+                <li><span class="font-semibold text-green-700">Phát triển</span> tư duy logic và khả năng giải quyết vấn đề.</li>
+            </ul>
+            <img src="https://picsum.photos/400/300?random=2" class="mx-auto rounded-lg shadow-md mt-8" alt="Mục tiêu">
+        </div>
+      </section>
+
+      <section>
+        <div class="flex flex-col items-center justify-center h-full text-center p-8">
+            <h2 class="text-5xl font-bold mb-8 text-blue-600">Khởi động: Chia kẹo</h2>
+            <div class="custom-block example w-3/4 text-2xl">
+                <p class="mb-4">Bạn Lan có 12 cái kẹo, bạn Hoa có 18 cái kẹo.</p>
+                <p class="mb-4">Hai bạn muốn chia đều số kẹo của mình vào các túi nhỏ sao cho số kẹo trong mỗi túi là như nhau.</p>
+                <p class="font-bold">Hỏi số kẹo trong mỗi túi có thể là bao nhiêu?</p>
+            </div>
+            <img src="https://picsum.photos/450/300?random=3" class="mx-auto rounded-lg shadow-md mt-8" alt="Kẹo">
+            <p class="mt-6 text-2xl">Hãy suy nghĩ và ghi lại các khả năng có thể xảy ra!</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">1. Ước chung</h2>
+        <div class="custom-block definition w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-purple-700">Định nghĩa</h3>
+            <p class="mb-4">Một số được gọi là <span class="font-bold text-blue-600">ước chung</span> của hai hay nhiều số nếu nó là ước của tất cả các số đó.</p>
+            <p>Ví dụ: Ước của 6 là {1, 2, 3, 6}. Ước của 9 là {1, 3, 9}.</p>
+            <p>Số 1 và số 3 vừa là ước của 6, vừa là ước của 9. Vậy 1 và 3 là ước chung của 6 và 9.</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=4" class="mx-auto rounded-lg shadow-md mt-8" alt="Định nghĩa">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Tập hợp Ước chung</h2>
+        <div class="custom-block note w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-blue-700">Kí hiệu</h3>
+            <p class="mb-4">Tập hợp các ước chung của hai số a và b được kí hiệu là <span class="font-bold text-red-600">ƯC(a, b)</span>.</p>
+            <p>Tương tự, tập hợp các ước chung của nhiều số a, b, c,... được kí hiệu là <span class="font-bold text-red-600">ƯC(a, b, c,...)</span>.</p>
+            <p class="mt-4">Ví dụ: ƯC(6, 9) = {1, 3}.</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=5" class="mx-auto rounded-lg shadow-md mt-8" alt="Kí hiệu">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Cách tìm Ước chung</h2>
+        <div class="custom-block example w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-yellow-700">Các bước thực hiện</h3>
+            <ol class="list-decimal list-inside space-y-2">
+                <li><span class="font-bold">Bước 1:</span> Liệt kê tất cả các ước của số thứ nhất.</li>
+                <li><span class="font-bold">Bước 2:</span> Liệt kê tất cả các ước của số thứ hai.</li>
+                <li><span class="font-bold">Bước 3:</span> Tìm các số chung có mặt trong cả hai danh sách ước ở Bước 1 và Bước 2. Đó chính là các ước chung.</li>
+            </ol>
+        </div>
+        <p class="mt-8 text-2xl">Hãy áp dụng cách này để giải bài toán chia kẹo ở phần khởi động!</p>
+        <img src="https://picsum.photos/400/250?random=6" class="mx-auto rounded-lg shadow-md mt-8" alt="Cách tìm">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Ví dụ: Tìm ƯC(12, 18)</h2>
+        <div class="custom-block example w-3/4 text-2xl">
+            <p><span class="font-bold">Bước 1:</span> Tìm các ước của 12.</p>
+            <p class="ml-8">Ư(12) = {1, 2, 3, 4, 6, 12}</p>
+            <p><span class="font-bold">Bước 2:</span> Tìm các ước của 18.</p>
+            <p class="ml-8">Ư(18) = {1, 2, 3, 6, 9, 18}</p>
+            <p><span class="font-bold">Bước 3:</span> Các số chung có mặt trong cả Ư(12) và Ư(18) là:</p>
+            <p class="ml-8 text-red-600 font-bold">ƯC(12, 18) = {1, 2, 3, 6}</p>
+            <p class="mt-4">Vậy, số kẹo trong mỗi túi có thể là 1, 2, 3 hoặc 6 cái.</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=7" class="mx-auto rounded-lg shadow-md mt-8" alt="Ví dụ ƯC">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">2. Ước chung lớn nhất (ƯCLN)</h2>
+        <div class="custom-block definition w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-purple-700">Định nghĩa</h3>
+            <p class="mb-4">Ước chung lớn nhất của hai hay nhiều số là <span class="font-bold text-blue-600">số lớn nhất</span> trong tập hợp các ước chung của các số đó.</p>
+            <p class="mb-4">Kí hiệu: ƯCLN(a, b) hoặc ƯCLN(a, b, c,...).</p>
+            <p>Ví dụ: ƯC(12, 18) = {1, 2, 3, 6}. Số lớn nhất trong tập hợp này là 6.</p>
+            <p class="font-bold text-red-600">Vậy, ƯCLN(12, 18) = 6.</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=8" class="mx-auto rounded-lg shadow-md mt-8" alt="Định nghĩa ƯCLN">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Cách tìm ƯCLN bằng phân tích thừa số nguyên tố</h2>
+        <div class="custom-block note w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-blue-700">Phương pháp hiệu quả</h3>
+            <p class="mb-4">Để tìm ƯCLN của hai hay nhiều số lớn, việc liệt kê tất cả các ước sẽ rất phức tạp. Chúng ta sẽ sử dụng phương pháp phân tích ra thừa số nguyên tố.</p>
+            <ol class="list-decimal list-inside space-y-2">
+                <li><span class="font-bold">Bước 1:</span> Phân tích mỗi số ra thừa số nguyên tố.</li>
+                <li><span class="font-bold">Bước 2:</span> Chọn ra các thừa số nguyên tố <span class="font-bold text-red-600">chung</span>.</li>
+                <li><span class="font-bold">Bước 3:</span> Lập tích các thừa số đã chọn, mỗi thừa số lấy với số mũ <span class="font-bold text-red-600">nhỏ nhất</span> của nó. Tích đó là ƯCLN cần tìm.</li>
+            </ol>
+        </div>
+        <img src="https://picsum.photos/400/250?random=9" class="mx-auto rounded-lg shadow-md mt-8" alt="Phương pháp tìm ƯCLN">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Ví dụ: Tìm ƯCLN(24, 36)</h2>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8 p-4">
+            <div class="custom-block example w-full md:w-1/2 text-2xl">
+                <p><span class="font-bold">Bước 1:</span> Phân tích ra thừa số nguyên tố.</p>
+                <p class="ml-8">\(24 = 2^3 \cdot 3\)</p>
+                <p class="ml-8">\(36 = 2^2 \cdot 3^2\)</p>
+                <p><span class="font-bold">Bước 2:</span> Chọn các thừa số nguyên tố chung.</p>
+                <p class="ml-8">Các thừa số chung là <span class="font-bold text-red-600">2 và 3</span>.</p>
+            </div>
+            <div class="custom-block example w-full md:w-1/2 text-2xl">
+                <p><span class="font-bold">Bước 3:</span> Lập tích các thừa số chung với số mũ nhỏ nhất.</p>
+                <p class="ml-8">Với thừa số 2: số mũ nhỏ nhất là 2 (vì \(2^2\) và \(2^3\)).</p>
+                <p class="ml-8">Với thừa số 3: số mũ nhỏ nhất là 1 (vì \(3^1\) và \(3^2\)).</p>
+                <p class="ml-8 text-red-600 font-bold">ƯCLN(24, 36) = \(2^2 \cdot 3^1 = 4 \cdot 3 = 12\)</p>
+            </div>
+        </div>
+        <img src="https://picsum.photos/400/250?random=10" class="mx-auto rounded-lg shadow-md mt-8" alt="Ví dụ ƯCLN">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">3. Tính chất của ƯCLN</h2>
+        <div class="custom-block definition w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-purple-700">Tính chất 1</h3>
+            <p class="mb-4">Nếu các số đã cho không có thừa số nguyên tố chung thì ƯCLN của chúng bằng 1.</p>
+            <p class="ml-8 italic">Khi đó, ta nói các số đó <span class="font-bold text-red-600">nguyên tố cùng nhau</span>.</p>
+            <p>Ví dụ: \(ƯCLN(8, 15)\)</p>
+            <p class="ml-8">\(8 = 2^3\)</p>
+            <p class="ml-8">\(15 = 3 \cdot 5\)</p>
+            <p class="ml-8 font-bold text-red-600">Không có thừa số nguyên tố chung. Vậy ƯCLN(8, 15) = 1.</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=11" class="mx-auto rounded-lg shadow-md mt-8" alt="Tính chất 1">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Tính chất của ƯCLN</h2>
+        <div class="custom-block definition w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-purple-700">Tính chất 2</h3>
+            <p class="mb-4">Nếu \(a \vdots b\) (a chia hết cho b) thì \(ƯCLN(a, b) = b\).</p>
+            <p>Ví dụ: Tìm ƯCLN(12, 6)</p>
+            <p class="ml-8">Ta thấy 12 chia hết cho 6.</p>
+            <p class="ml-8 font-bold text-red-600">Vậy ƯCLN(12, 6) = 6.</p>
+            <p class="mt-4 italic">Kiểm tra lại:</p>
+            <p class="ml-8">\(12 = 2^2 \cdot 3\)</p>
+            <p class="ml-8">\(6 = 2 \cdot 3\)</p>
+            <p class="ml-8">ƯCLN(12, 6) = \(2^1 \cdot 3^1 = 6\).</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=12" class="mx-auto rounded-lg shadow-md mt-8" alt="Tính chất 2">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Mối quan hệ giữa ƯC và ƯCLN</h2>
+        <div class="custom-block note w-3/4 text-2xl">
+            <h3 class="text-3xl font-semibold mb-4 text-blue-700">Quan trọng!</h3>
+            <p class="mb-4">Tất cả các ước chung của hai hay nhiều số đều là <span class="font-bold text-red-600">ước của ƯCLN</span> của các số đó.</p>
+            <p>Điều này có nghĩa là, sau khi tìm được ƯCLN, ta có thể dễ dàng tìm được tất cả các ước chung bằng cách tìm các ước của ƯCLN đó.</p>
+            <p class="mt-4">Ví dụ: Chúng ta đã biết ƯCLN(12, 18) = 6.</p>
+            <p class="ml-8">Ước của 6 là {1, 2, 3, 6}.</p>
+            <p class="ml-8">Mà ƯC(12, 18) cũng là {1, 2, 3, 6}.</p>
+            <p class="ml-8 font-bold">Thật khớp!</p>
+        </div>
+        <img src="https://picsum.photos/400/250?random=13" class="mx-auto rounded-lg shadow-md mt-8" alt="Mối quan hệ">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Bài tập vận dụng</h2>
+        <section>
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Bài 1: Tìm ƯC(30, 45)</h3>
+            <div class="custom-block example w-3/4 text-2xl">
+                <p class="mb-4">Hãy nhớ lại cách tìm ước chung bằng cách liệt kê.</p>
+                <p><span class="font-bold">Ư(30) = </span> {1, 2, 3, 5, 6, 10, 15, 30}</p>
+                <p><span class="font-bold">Ư(45) = </span> {1, 3, 5, 9, 15, 45}</p>
+                <p class="mt-4 font-bold text-red-600">Vậy ƯC(30, 45) = {1, 3, 5, 15}</p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=14" class="mx-auto rounded-lg shadow-md mt-8" alt="Vận dụng ƯC">
+        </section>
+        <section>
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Bài 2: Tìm ƯCLN(60, 90)</h3>
+            <div class="custom-block example w-3/4 text-2xl">
+                <p class="mb-4">Hãy sử dụng phương pháp phân tích ra thừa số nguyên tố.</p>
+                <p class="ml-8">\(60 = 2^2 \cdot 3 \cdot 5\)</p>
+                <p class="ml-8">\(90 = 2 \cdot 3^2 \cdot 5\)</p>
+                <p class="ml-8">Các thừa số nguyên tố chung: 2, 3, 5.</p>
+                <p class="ml-8">Số mũ nhỏ nhất của 2 là 1 (\(2^1\)).</p>
+                <p class="ml-8">Số mũ nhỏ nhất của 3 là 1 (\(3^1\)).</p>
+                <p class="ml-8">Số mũ nhỏ nhất của 5 là 1 (\(5^1\)).</p>
+                <p class="mt-4 font-bold text-red-600">Vậy ƯCLN(60, 90) = \(2 \cdot 3 \cdot 5 = 30\).</p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=15" class="mx-auto rounded-lg shadow-md mt-8" alt="Vận dụng ƯCLN">
+        </section>
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Trò chơi 1: Trắc nghiệm</h2>
+        <section id="mc-game-1">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Câu 1: Tập hợp ước chung của 10 và 15 là gì?</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="A">A. {1, 2, 5}</button>
+                    <button class="interactive-btn" data-answer="B">B. {1, 5}</button>
+                    <button class="interactive-btn" data-answer="C">C. {1, 3, 5}</button>
+                    <button class="interactive-btn" data-answer="D">D. {5}</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('mc-game-1', 'B')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-mc-game-1"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=16" class="mx-auto rounded-lg shadow-md mt-8" alt="Trắc nghiệm 1">
+        </section>
+        <section id="mc-game-2">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Câu 2: ƯCLN(18, 24) bằng bao nhiêu?</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="A">A. 3</button>
+                    <button class="interactive-btn" data-answer="B">B. 6</button>
+                    <button class="interactive-btn" data-answer="C">C. 12</button>
+                    <button class="interactive-btn" data-answer="D">D. 24</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('mc-game-2', 'B')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-mc-game-2"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=17" class="mx-auto rounded-lg shadow-md mt-8" alt="Trắc nghiệm 2">
+        </section>
+        <section id="mc-game-3">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Câu 3: Cặp số nào sau đây là nguyên tố cùng nhau?</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="A">A. (10, 15)</button>
+                    <button class="interactive-btn" data-answer="B">B. (12, 18)</button>
+                    <button class="interactive-btn" data-answer="C">C. (7, 11)</button>
+                    <button class="interactive-btn" data-answer="D">D. (14, 21)</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('mc-game-3', 'C')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-mc-game-3"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=18" class="mx-auto rounded-lg shadow-md mt-8" alt="Trắc nghiệm 3">
+        </section>
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Trò chơi 2: Đúng hay Sai?</h2>
+        <section id="tf-game-1">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Phát biểu 1: "Mọi số tự nhiên đều có ước chung là 1."</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="true">Đúng</button>
+                    <button class="interactive-btn" data-answer="false">Sai</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('tf-game-1', 'true')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-tf-game-1"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=19" class="mx-auto rounded-lg shadow-md mt-8" alt="Đúng/Sai 1">
+        </section>
+        <section id="tf-game-2">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Phát biểu 2: "Nếu \(ƯCLN(a, b) = 1\) thì a và b là số nguyên tố."</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="true">Đúng</button>
+                    <button class="interactive-btn" data-answer="false">Sai</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('tf-game-2', 'false')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-tf-game-2"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=20" class="mx-auto rounded-lg shadow-md mt-8" alt="Đúng/Sai 2">
+        </section>
+        <section id="tf-game-3">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Phát biểu 3: "Ước chung lớn nhất của hai số luôn nhỏ hơn hoặc bằng số nhỏ nhất trong hai số đó."</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="true">Đúng</button>
+                    <button class="interactive-btn" data-answer="false">Sai</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('tf-game-3', 'true')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-tf-game-3"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=21" class="mx-auto rounded-lg shadow-md mt-8" alt="Đúng/Sai 3">
+        </section>
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Trò chơi 3: Kéo và Thả</h2>
+        <section id="dd-game-1">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Nối số với tập hợp ước của nó.</h3>
+            <div class="game custom-block w-3/4 text-2xl p-6" id="drag-drop-container-1">
+                <div class="flex justify-around mb-8 initial-positions">
+                    <div class="draggable-item" id="item1-1" data-match="Ư(8)">Ư(8) = {1, 2, 4, 8}</div>
+                    <div class="draggable-item" id="item1-2" data-match="Ư(12)">Ư(12) = {1, 2, 3, 4, 6, 12}</div>
+                    <div class="draggable-item" id="item1-3" data-match="Ư(7)">Ư(7) = {1, 7}</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="drop-zone flex items-center justify-center p-4 border-2 border-dashed border-gray-400 rounded-lg text-center" data-match="Ư(8)">
+                        <span class="text-gray-600">Kéo Ư(8) vào đây</span>
+                    </div>
+                    <div class="drop-zone flex items-center justify-center p-4 border-2 border-dashed border-gray-400 rounded-lg text-center" data-match="Ư(12)">
+                        <span class="text-gray-600">Kéo Ư(12) vào đây</span>
+                    </div>
+                    <div class="drop-zone flex items-center justify-center p-4 border-2 border-dashed border-gray-400 rounded-lg text-center" data-match="Ư(7)">
+                        <span class="text-gray-600">Kéo Ư(7) vào đây</span>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-8 space-x-4">
+                    <button class="interactive-btn bg-brand-green text-white border-brand-green" onclick="checkDragDrop('drag-drop-container-1')">Kiểm tra</button>
+                    <button class="interactive-btn bg-gray-500 text-white border-gray-500" onclick="resetDragDrop('drag-drop-container-1')">Làm lại</button>
+                </div>
+            </div>
+            <img src="https://picsum.photos/400/250?random=22" class="mx-auto rounded-lg shadow-md mt-8" alt="Kéo thả 1">
+        </section>
+        <section id="dd-game-2">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Nối cặp số với ƯCLN của chúng.</h3>
+            <div class="game custom-block w-3/4 text-2xl p-6" id="drag-drop-container-2">
+                <div class="flex justify-around mb-8 initial-positions">
+                    <div class="draggable-item" id="item2-1" data-match="1">ƯCLN(5, 7)</div>
+                    <div class="draggable-item" id="item2-2" data-match="10">ƯCLN(20, 30)</div>
+                    <div class="draggable-item" id="item2-3" data-match="15">ƯCLN(45, 60)</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="drop-zone flex items-center justify-center p-4 border-2 border-dashed border-gray-400 rounded-lg text-center" data-match="1">
+                        <span class="text-gray-600">1</span>
+                    </div>
+                    <div class="drop-zone flex items-center justify-center p-4 border-2 border-dashed border-gray-400 rounded-lg text-center" data-match="10">
+                        <span class="text-gray-600">10</span>
+                    </div>
+                    <div class="drop-zone flex items-center justify-center p-4 border-2 border-dashed border-gray-400 rounded-lg text-center" data-match="15">
+                        <span class="text-gray-600">15</span>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-8 space-x-4">
+                    <button class="interactive-btn bg-brand-green text-white border-brand-green" onclick="checkDragDrop('drag-drop-container-2')">Kiểm tra</button>
+                    <button class="interactive-btn bg-gray-500 text-white border-gray-500" onclick="resetDragDrop('drag-drop-container-2')">Làm lại</button>
+                </div>
+            </div>
+            <img src="https://picsum.photos/400/250?random=23" class="mx-auto rounded-lg shadow-md mt-8" alt="Kéo thả 2">
+        </section>
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Luyện tập: Bài toán thực tế</h2>
+        <section>
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Bài 1: Chia đội</h3>
+            <div class="custom-block example w-3/4 text-2xl">
+                <p class="mb-4">Một lớp học có 24 nam và 32 nữ. Cô giáo muốn chia lớp thành các nhóm sao cho số nam và số nữ ở mỗi nhóm đều bằng nhau.</p>
+                <p class="font-bold">Hỏi có thể chia được nhiều nhất bao nhiêu nhóm? Khi đó, mỗi nhóm có bao nhiêu nam, bao nhiêu nữ?</p>
+                <p class="mt-4 italic">Hãy sử dụng công cụ vẽ để trình bày lời giải của em!</p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=24" class="mx-auto rounded-lg shadow-md mt-8" alt="Chia đội">
+        </section>
+        <section>
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Lời giải Bài 1</h3>
+            <div class="custom-block note w-3/4 text-2xl">
+                <p class="mb-4">Để số nam và số nữ ở mỗi nhóm đều bằng nhau, số nhóm phải là ước chung của 24 và 32.</p>
+                <p>Để chia được nhiều nhất số nhóm, số nhóm phải là ƯCLN(24, 32).</p>
+                <p class="ml-8">Phân tích:</p>
+                <p class="ml-12">\(24 = 2^3 \cdot 3\)</p>
+                <p class="ml-12">\(32 = 2^5\)</p>
+                <p class="ml-8">ƯCLN(24, 32) = \(2^3 = 8\).</p>
+                <p class="mt-4 font-bold text-red-600">Vậy có thể chia được nhiều nhất 8 nhóm.</p>
+                <p class="mt-2">Mỗi nhóm có: \(24 \div 8 = 3\) (nam)</p>
+                <p class="mt-2">Mỗi nhóm có: \(32 \div 8 = 4\) (nữ)</p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=25" class="mx-auto rounded-lg shadow-md mt-8" alt="Lời giải">
+        </section>
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Tóm tắt bài học</h2>
+        <div class="summary-box custom-block w-3/4 text-2xl">
+            <ul class="list-disc list-inside space-y-3">
+                <li><span class="font-bold text-blue-700">Ước chung (ƯC):</span> Là số là ước của tất cả các số đã cho.</li>
+                <li><span class="font-bold text-blue-700">Ước chung lớn nhất (ƯCLN):</span> Là số lớn nhất trong tập hợp các ước chung.</li>
+                <li><span class="font-bold text-blue-700">Cách tìm ƯCLN:</span>
+                    <ol class="list-decimal list-inside ml-6">
+                        <li>Phân tích mỗi số ra thừa số nguyên tố.</li>
+                        <li>Chọn các thừa số nguyên tố chung.</li>
+                        <li>Lập tích các thừa số đã chọn, mỗi thừa số lấy với số mũ nhỏ nhất.</li>
+                    </ol>
+                </li>
+                <li><span class="font-bold text-blue-700">Mối quan hệ:</span> Tất cả các ước chung của các số đều là ước của ƯCLN của chúng.</li>
+                <li><span class="font-bold text-blue-700">Nguyên tố cùng nhau:</span> Hai số có ƯCLN bằng 1.</li>
+            </ul>
+        </div>
+        <img src="https://picsum.photos/400/250?random=26" class="mx-auto rounded-lg shadow-md mt-8" alt="Tóm tắt">
+      </section>
+
+      <section>
+        <h2 class="text-5xl font-bold mb-8 text-blue-600">Kiểm tra cuối bài</h2>
+        <section id="final-quiz-1">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Câu 1: ƯCLN(7, 14, 21) bằng bao nhiêu?</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="A">A. 7</button>
+                    <button class="interactive-btn" data-answer="B">B. 14</button>
+                    <button class="interactive-btn" data-answer="C">C. 21</button>
+                    <button class="interactive-btn" data-answer="D">D. 1</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('final-quiz-1', 'A')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-final-quiz-1"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=27" class="mx-auto rounded-lg shadow-md mt-8" alt="Quiz 1">
+        </section>
+        <section id="final-quiz-2">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Câu 2: "Nếu ƯCLN(a, b) = d thì a và b đều chia hết cho d." Phát biểu này Đúng hay Sai?</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="true">Đúng</button>
+                    <button class="interactive-btn" data-answer="false">Sai</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('final-quiz-2', 'true')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-final-quiz-2"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=28" class="mx-auto rounded-lg shadow-md mt-8" alt="Quiz 2">
+        </section>
+        <section id="final-quiz-3">
+            <h3 class="text-4xl font-semibold mb-6 text-green-700">Câu 3: Tìm số tự nhiên x lớn nhất sao cho \(120 \vdots x\) và \(144 \vdots x\).</h3>
+            <div class="quiz-container custom-block w-3/4 text-2xl flex flex-col items-center">
+                <div class="flex flex-wrap justify-center mb-6">
+                    <button class="interactive-btn" data-answer="A">A. 12</button>
+                    <button class="interactive-btn" data-answer="B">B. 24</button>
+                    <button class="interactive-btn" data-answer="C">C. 6</button>
+                    <button class="interactive-btn" data-answer="D">D. 36</button>
+                </div>
+                <button class="interactive-btn check-btn bg-brand-green text-white border-brand-green" onclick="checkMC('final-quiz-3', 'B')">Kiểm tra</button>
+                <p class="feedback-message" id="feedback-final-quiz-3"></p>
+            </div>
+            <img src="https://picsum.photos/400/250?random=29" class="mx-auto rounded-lg shadow-md mt-8" alt="Quiz 3">
+        </section>
+      </section>
+
+      <section>
+        <div class="flex flex-col items-center justify-center h-full text-center p-8">
+            <h2 class="text-6xl font-extrabold text-green-700 mb-6 animate-pulse">Chúc mừng!</h2>
+            <p class="text-3xl text-gray-800 mb-8">Các em đã hoàn thành bài học về Ước chung và Ước chung lớn nhất.</p>
+            <p class="text-2xl text-gray-700 mb-4">Hãy tiếp tục khám phá và áp dụng kiến thức này vào các bài toán khác nhé!</p>
+            <img src="https://picsum.photos/600/400?random=30" class="mx-auto rounded-lg shadow-md mt-8" alt="Cảm ơn">
+            <p class="text-xl mt-6">Cảm ơn các em đã chú ý lắng nghe!</p>
+        </div>
+      </section>
+    </div></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/math/math.min.js"></script>
+    <script>
+        // --- CORE INITIALIZATION ---
+        Reveal.initialize({
+            width: "100%", height: "100%", margin: 0, minScale: 0.1, maxScale: 2,
+            center: false, autoAnimate: true, transition: 'fade', hash: true,
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.MathJax3 ],
+            math: { mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js' }
+        });
+        Reveal.on('slidechanged', event => { 
+            if (window.MathJax) { MathJax.typesetPromise(); } 
+            // Re-initialize drag & drop on slide change if it's a D&D slide
+            if (event.currentSlide.id === 'dd-game-1' || event.currentSlide.id === 'dd-game-2') {
+                // A small timeout helps ensure elements are fully present before initialization.
+                setTimeout(() => {
+                    if (event.currentSlide.id === 'dd-game-1') initializeDragDrop('drag-drop-container-1');
+                    if (event.currentSlide.id === 'dd-game-2') initializeDragDrop('drag-drop-container-2');
+                }, 100);
+            }
+        });
+
+        // --- AUDIO & FULLSCREEN CONTROLS ---
+        const bgMusic = document.getElementById('bg-music'), correctSound = document.getElementById('correct-sound'), wrongSound = document.getElementById('wrong-sound');
+        const audioControl = document.getElementById('audio-control');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        let isMuted = true;
+        const allAudios = [bgMusic, correctSound, wrongSound];
+        bgMusic.volume = 0.15;
+        allAudios.forEach(a => a.muted = isMuted);
+        
+        audioControl.addEventListener('click', () => {
+            isMuted = !isMuted;
+            allAudios.forEach(a => a.muted = isMuted);
+            audioControl.textContent = isMuted ? '🔇' : '🔊';
+            if (!isMuted && bgMusic.paused) bgMusic.play().catch(e => console.error("Audio autoplay failed:", e));
+        });
+        document.body.addEventListener('click', () => { if (!isMuted && bgMusic.paused) bgMusic.play().catch(e => {}); }, { once: true });
+        
+        function playCorrect() { if (!isMuted) { correctSound.currentTime = 0; correctSound.play(); } }
+        function playWrong() { if (!isMuted) { wrongSound.currentTime = 0; wrongSound.play(); } }
+        
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => alert(`Fullscreen failed: ${err.message}`));
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // --- ADVANCED DRAWING CANVAS LOGIC ---
+        const canvas = document.getElementById('drawing-canvas');
+        const toolbar = document.getElementById('drawing-toolbar');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false, isPenEnabled = true, lastX = 0, lastY = 0, startX = 0, startY = 0, history = [];
+        let currentTool = 'pen';
+        
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+            ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+            redrawFromHistory();
+        }
+        function saveHistory() { history.push(canvas.toDataURL()); if (history.length > 30) history.shift(); }
+        function redrawFromHistory(index = -1) {
+            const img = new Image();
+            const src = index === -1 ? history[history.length - 1] : history[index];
+            if (!src) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+            img.src = src;
+            img.onload = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+            }
+        }
+        function undoLast() { if (history.length > 1) { history.pop(); redrawFromHistory(); } else { history = []; ctx.clearRect(0, 0, canvas.width, canvas.height); } }
+        
+        function getCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const evt = e.touches ? e.touches[0] : e;
+            return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+        }
+
+        function startDraw(e) {
+            if (!isPenEnabled || (e.buttons && e.buttons !== 1 && !e.touches)) return; // Only left-click or touch
+            isDrawing = true;
+            const { x, y } = getCoords(e);
+            [startX, startY] = [x, y];
+            [lastX, lastY] = [x, y];
+            ctx.strokeStyle = document.getElementById('color-picker').value;
+            ctx.lineWidth = document.getElementById('pen-size').value;
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.beginPath();
+            if (currentTool === 'pen') { // Start path for pen tool immediately
+                ctx.moveTo(lastX, lastY);
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing || !isPenEnabled) return;
+            e.preventDefault();
+            const { x, y } = getCoords(e);
+            if (currentTool === 'pen') {
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                [lastX, lastY] = [x, y];
+            } else {
+                // For shape tools, clear and redraw temporary shape
+                redrawFromHistory(history.length - 1); // Redraw previous state (before current shape drawing)
+                ctx.strokeStyle = document.getElementById('color-picker').value;
+                ctx.lineWidth = document.getElementById('pen-size').value;
+                ctx.beginPath();
+                switch (currentTool) {
+                    case 'line':
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(x, y);
+                        break;
+                    case 'circle':
+                        const radius = Math.sqrt(Math.pow(x - startX, 2) + Math.pow(y - startY, 2));
+                        ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+                        break;
+                    case 'ellipse':
+                        ctx.ellipse(startX + (x-startX)/2, startY + (y-startY)/2, Math.abs((x-startX)/2), Math.abs((y-startY)/2), 0, 0, 2 * Math.PI);
+                        break;
+                }
+                ctx.stroke();
+            }
+        }
+
+        function stopDraw(e) {
+            if (!isDrawing) return;
+            const { x, y } = getCoords(e);
+            if (currentTool !== 'pen') { // For shape tools, finalize the shape
+                redrawFromHistory(history.length - 1); // Clear temporary drawing
+                ctx.strokeStyle = document.getElementById('color-picker').value;
+                ctx.lineWidth = document.getElementById('pen-size').value;
+                ctx.beginPath();
+                switch (currentTool) {
+                    case 'line':
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(x, y);
+                        break;
+                    case 'circle':
+                        const radius = Math.sqrt(Math.pow(x - startX, 2) + Math.pow(y - startY, 2));
+                        ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+                        break;
+                    case 'ellipse':
+                        ctx.ellipse(startX + (x-startX)/2, startY + (y-startY)/2, Math.abs((x-startX)/2), Math.abs((y-startY)/2), 0, 0, 2 * Math.PI);
+                        break;
+                }
+                ctx.stroke();
+            }
+            isDrawing = false;
+            saveHistory();
+        }
+
+        // Toolbar Event Listeners
+        const toolBtns = toolbar.querySelectorAll('.tool-btn');
+        toolBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toolBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        document.getElementById('pen-tool').addEventListener('click', () => currentTool = 'pen');
+        document.getElementById('line-tool').addEventListener('click', () => currentTool = 'line');
+        document.getElementById('circle-tool').addEventListener('click', () => currentTool = 'circle');
+        document.getElementById('ellipse-tool').addEventListener('click', () => currentTool = 'ellipse');
+        document.getElementById('clear-canvas').addEventListener('click', () => { ctx.clearRect(0, 0, canvas.width, canvas.height); history = []; saveHistory(); });
+        document.getElementById('undo-canvas').addEventListener('click', undoLast);
+        document.getElementById('toggle-draw').addEventListener('click', (e) => {
+            isPenEnabled = !isPenEnabled;
+            canvas.style.pointerEvents = isPenEnabled ? 'auto' : 'none';
+            e.currentTarget.textContent = isPenEnabled ? '❌' : '✏️';
+             if (isPenEnabled) {
+                document.getElementById(currentTool + '-tool').classList.add('active');
+            } else {
+                toolBtns.forEach(b => b.classList.remove('active'));
+            }
+        });
+
+        window.addEventListener('load', () => { resizeCanvas(); saveHistory(); });
+        window.addEventListener('resize', resizeCanvas);
+        canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stopDraw);
+        canvas.addEventListener('touchstart', startDraw, { passive: false }); canvas.addEventListener('touchmove', draw, { passive: false }); canvas.addEventListener('touchend', stopDraw);
+        
+        // --- INTERACTIVE GAME HELPERS ---
+        function checkMC(gameId, correctAnswer) {
+            const container = document.getElementById(gameId);
+            const buttons = container.querySelectorAll('.interactive-btn:not(.check-btn)');
+            const feedback = container.querySelector('.feedback-message');
+            let selectedAnswer = null;
+
+            buttons.forEach(btn => {
+                if (btn.classList.contains('selected')) {
+                    selectedAnswer = btn.dataset.answer;
+                }
+                btn.disabled = true; // Disable all answer buttons
+            });
+
+            if (selectedAnswer === null) {
+                feedback.textContent = "Vui lòng chọn một đáp án!";
+                feedback.className = 'feedback-message wrong'; // Use wrong style for "no selection" feedback
+                buttons.forEach(btn => btn.disabled = false); // Re-enable if nothing selected
+                return;
+            }
+
+            if (selectedAnswer === correctAnswer) {
+                feedback.textContent = "✅ Chính xác!";
+                feedback.className = 'feedback-message correct';
+                buttons.forEach(btn => {
+                    if (btn.dataset.answer === correctAnswer) {
+                        btn.classList.add('correct');
+                    }
+                });
+                playCorrect();
+            } else {
+                feedback.textContent = "❌ Sai rồi!";
+                feedback.className = 'feedback-message wrong';
+                buttons.forEach(btn => {
+                    if (btn.dataset.answer === selectedAnswer) {
+                        btn.classList.add('wrong');
+                    }
+                    if (btn.dataset.answer === correctAnswer) {
+                        btn.classList.add('correct'); // Show correct answer
+                    }
+                });
+                playWrong();
+            }
+        }
+
+        // Add event listeners for MC buttons to toggle 'selected' class
+        document.querySelectorAll('.quiz-container').forEach(container => {
+            container.querySelectorAll('.interactive-btn:not(.check-btn)').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Only allow selection if buttons are not disabled (i.e., not already checked)
+                    if (!this.disabled) {
+                        container.querySelectorAll('.interactive-btn:not(.check-btn)').forEach(btn => btn.classList.remove('selected'));
+                        this.classList.add('selected');
+                    }
+                });
+            });
+        });
+
+        function initializeDragDrop(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const initialPositionsDiv = container.querySelector('.initial-positions');
+            const draggables = Array.from(container.querySelectorAll('.draggable-item'));
+            
+            // Move all draggables back to initialPositions and reset their styles
+            draggables.forEach(el => {
+                el.style.opacity = '1';
+                el.classList.remove('correct', 'wrong');
+                initialPositionsDiv.appendChild(el);
+            });
+
+            // Reset all drop zones to their placeholder state
+            container.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.classList.remove('correct', 'wrong', 'over');
+                zone.innerHTML = `<span class="text-gray-600">${zone.dataset.match}</span>`; 
+            });
+
+            // Re-attach drag event listeners (important if elements are moved in DOM)
+            draggables.forEach(el => {
+                el.setAttribute('draggable', 'true');
+                el.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', el.id); e.target.style.opacity = '0.5'; });
+                el.addEventListener('dragend', e => e.target.style.opacity = '1');
+            });
+            container.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+                zone.addEventListener('drop', e => {
+                    e.preventDefault(); zone.classList.remove('over');
+                    const id = e.dataTransfer.getData('text');
+                    const draggable = document.getElementById(id);
+                    if (draggable && (zone.children.length === 0 || (zone.children.length === 1 && zone.firstElementChild.tagName === 'SPAN'))) { 
+                        zone.innerHTML = ''; // Clear placeholder text or any previous content
+                        zone.appendChild(draggable);
+                    }
+                });
+            });
+        }
+
+        function checkDragDrop(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            let allCorrect = true;
+            container.querySelectorAll('.drop-zone').forEach(zone => {
+                const child = zone.firstElementChild;
+                zone.classList.remove('correct', 'wrong');
+                if (child && child.classList.contains('draggable-item') && child.dataset.match === zone.dataset.match) { 
+                    zone.classList.add('correct'); 
+                    child.classList.add('correct'); // Also mark the draggable item as correct
+                } 
+                else { 
+                    zone.classList.add('wrong'); 
+                    if (child && child.classList.contains('draggable-item')) {
+                        child.classList.add('wrong'); // Mark the draggable item as wrong
+                    }
+                    allCorrect = false; 
+                }
+            });
+            if (allCorrect) playCorrect(); else playWrong();
+            return allCorrect;
+        }
+
+        function resetDragDrop(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const initialPositions = container.querySelector('.initial-positions');
+            
+            container.querySelectorAll('.drop-zone').forEach(zone => {
+                const child = zone.firstElementChild;
+                if (child && child.classList.contains('draggable-item')) { // Ensure it's a draggable item
+                    initialPositions.appendChild(child);
+                }
+                zone.classList.remove('correct', 'wrong');
+                // Reset drop zone text content
+                zone.innerHTML = `<span class="text-gray-600">${zone.dataset.match}</span>`;
+            });
+            container.querySelectorAll('.draggable-item').forEach(item => {
+                item.classList.remove('correct', 'wrong'); // Clear any feedback on items too
+                item.style.opacity = '1';
+            });
+        }
+    </script>
+</body>
+</html>

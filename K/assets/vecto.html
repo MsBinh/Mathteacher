@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khái Niệm Vectơ</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- MathJax for rendering LaTeX math -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="lesson-container">
+
+        <!-- Background Music -->
+        <audio id="backgroundMusic" src="../assets/audio/bg_music.mp3" loop></audio>
+
+        <!-- Navigation and Control Buttons -->
+        <div class="controls">
+            <button id="prevSlide" class="nav-button">Trước</button>
+            <button id="nextSlide" class="nav-button">Tiếp</button>
+            <button id="toggleFullscreen" class="fullscreen-button">Toàn màn hình</button>
+            <button id="toggleMusic" class="music-button">Nhạc (Tắt)</button>
+            <span id="slideCounter" class="slide-counter">1 / X</span>
+        </div>
+
+        <!-- Slide 1: Title Slide -->
+        <div class="slide" id="slide1">
+            <h1 class="lesson-title">KHÁI NIỆM VECTƠ</h1>
+            <p class="lesson-subtitle">Khám phá thế giới của các đại lượng có hướng!</p>
+            <img src="../data/im/knvt-intro.png" alt="Giới thiệu về Vectơ" class="slide-image">
+            <p>Chào mừng các em đến với bài học thú vị về Vectơ!</p>
+            <button class="start-lesson-button" onclick="goToSlide(2)">Bắt đầu học!</button>
+        </div>
+
+        <!-- Slide 2: Mục lục -->
+        <div class="slide" id="slide2">
+            <h2>Mục lục</h2>
+            <ul>
+                <li>1. Kiến thức cơ bản về Vectơ</li>
+                <li>2. Dạng bài tập 1: Xác định vectơ, phương, hướng, độ dài</li>
+                <li>3. Dạng bài tập 2: Chứng minh hai vectơ bằng nhau</li>
+                <li>4. Dạng bài tập 3: Xác định điểm thoả đẳng thức vectơ</li>
+                <li>5. Dạng bài tập 4: Tổng hợp</li>
+                <li>6. Tổng kết & Trò chơi!</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: 1. Kiến thức cơ bản - Khái niệm Vectơ -->
+        <div class="slide" id="slide3">
+            <h2>1. Kiến thức cơ bản</h2>
+            <h3>1.1. Khái niệm Vectơ</h3>
+            <p>Cho đoạn thẳng AB. Nếu chọn điểm A làm điểm đầu, điểm B làm điểm cuối thì đoạn thẳng AB có hướng từ A đến B. Khi đó ta nói AB là một đoạn thẳng có hướng.</p>
+            <div class="definition">
+                <p><strong>Định nghĩa:</strong> Vectơ là một đoạn thẳng có hướng, nghĩa là, trong hai điểm mút của đoạn thẳng, đã chỉ rõ điểm đầu, điểm cuối.</p>
+            </div>
+            <img src="../data/im/knvt-1.png" alt="Khái niệm Vectơ" class="slide-image medium">
+        </div>
+
+        <!-- Slide 4: Kí hiệu và Độ dài Vectơ -->
+        <div class="slide" id="slide4">
+            <h3>Kí hiệu và Độ dài Vectơ</h3>
+            <p>Vectơ có điểm đầu A và điểm cuối B được kí hiệu là $\vec{AB}$, đọc là “vectơ AB”.</p>
+            <p>Vectơ còn được kí hiệu là $\vec{a}, \vec{b}, \vec{x}, \vec{y}, \dots$ khi không cần chỉ rõ điểm đầu và điểm cuối của nó.</p>
+            <p>Độ dài của vectơ là khoảng cách giữa điểm đầu và điểm cuối của vectơ đó.</p>
+            <div class="note">
+                <p><strong>Lưu ý:</strong> Độ dài của vectơ $\vec{AB}$ được kí hiệu là $|\vec{AB}|$, như vậy $|\vec{AB}| = AB$. Độ dài của vectơ $\vec{a}$ được kí hiệu là $|\vec{a}|$.</p>
+            </div>
+            <p>Vectơ có độ dài bằng 1 gọi là vectơ đơn vị.</p>
+        </div>
+
+        <!-- Slide 5: Quick Quiz 1 -->
+        <div class="slide" id="slide5">
+            <h3>Kiểm tra nhanh: Khái niệm Vectơ</h3>
+            <div class="quiz" data-quiz-id="quiz1">
+                <p><strong>Câu 1:</strong> Vectơ $\vec{MN}$ có điểm đầu là gì và điểm cuối là gì?</p>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, 'quiz1')">A. Điểm đầu N, điểm cuối M</button>
+                    <button onclick="checkAnswer(this, true, 'quiz1')">B. Điểm đầu M, điểm cuối N</button>
+                    <button onclick="checkAnswer(this, false, 'quiz1')">C. Cả hai đều đúng</button>
+                </div>
+                <p id="feedback_quiz1" class="feedback"></p>
+            </div>
+             <div class="quiz" data-quiz-id="quiz2">
+                <p><strong>Câu 2:</strong> Độ dài của vectơ $\vec{PQ}$ được kí hiệu là gì?</p>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, 'quiz2')">A. $PQ$</button>
+                    <button onclick="checkAnswer(this, false, 'quiz2')">B. $\vec{PQ}$</button>
+                    <button onclick="checkAnswer(this, true, 'quiz2')">C. $|\vec{PQ}|$</button>
+                </div>
+                <p id="feedback_quiz2" class="feedback"></p>
+            </div>
+            <button class="show-solution-button" onclick="completeQuiz('quiz1', 'quiz2')">Hoàn thành Quiz</button>
+            <p id="completion_quiz1" class="completion-message"></p>
+        </div>
+
+        <!-- Slide 6: 1.2. Hai vectơ cùng phương, cùng hướng -->
+        <div class="slide" id="slide6">
+            <h3>1.2. Hai vectơ cùng phương, cùng hướng</h3>
+            <div class="definition">
+                <p><strong>Định nghĩa:</strong></p>
+                <ul>
+                    <li>Giá của vectơ: Đường thẳng đi qua điểm đầu và điểm cuối của một vectơ được gọi là giá của vectơ đó.</li>
+                    <li>Vectơ cùng phương, vectơ cùng hướng: Hai vectơ được gọi là cùng phương nếu giá của chúng song song hoặc trùng nhau.</li>
+                </ul>
+            </div>
+            <p>Hai vectơ cùng phương thì chúng chỉ có thể cùng hướng hoặc ngược hướng.</p>
+            <img src="../data/im/knvt-2.png" alt="Vectơ cùng phương, cùng hướng" class="slide-image medium">
+        </div>
+
+        <!-- Slide 7: Nhận xét -->
+        <div class="slide" id="slide7">
+            <h3>Nhận xét quan trọng!</h3>
+            <p>Ba điểm phân biệt A, B, C thẳng hàng khi và chỉ khi hai vectơ $\vec{AB}$ và $\vec{AC}$ cùng phương.</p>
+            <div class="activity-area">
+                <h4>Thử vẽ:</h4>
+                <p>Sử dụng công cụ vẽ để minh họa 3 điểm A, B, C thẳng hàng và các vectơ $\vec{AB}, \vec{AC}$.</p>
+                <canvas id="drawingCanvas7" class="drawing-canvas"></canvas>
+                <div class="drawing-tools">
+                    <button onclick="clearCanvas('drawingCanvas7')">Xóa</button>
+                    <input type="color" id="colorPicker7" value="#FF0000">
+                    <input type="range" id="brushSize7" min="1" max="10" value="3">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: 1.3. Hai vectơ bằng nhau -->
+        <div class="slide" id="slide8">
+            <h3>1.3. Hai vectơ bằng nhau</h3>
+            <div class="definition">
+                <p><strong>Định nghĩa:</strong> Hai vectơ $\vec{a}$ và $\vec{b}$ được gọi là bằng nhau nếu chúng cùng hướng và có cùng độ dài.</p>
+                <p>Kí hiệu $\vec{a} = \vec{b}$.</p>
+            </div>
+            <div class="note">
+                <p><strong>Lưu ý:</strong></p>
+                <ul>
+                    <li>Hai vectơ $\vec{a}$ và $\vec{b}$ được gọi là đối nhau nếu chúng ngược hướng và có cùng độ dài.</li>
+                    <li>Khi cho trước vectơ $\vec{a}$ và điểm O, thì ta luôn tìm được một điểm A duy nhất sao cho $\vec{OA} = \vec{a}$.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: 1.4. Vectơ – không -->
+        <div class="slide" id="slide9">
+            <h3>1.4. Vectơ – không</h3>
+            <div class="definition">
+                <p><strong>Định nghĩa:</strong> Vectơ – không là vectơ có điểm đầu và điểm cuối trùng nhau, ta kí hiệu là $\vec{0}$.</p>
+            </div>
+            <p>Ta quy ước vectơ – không cùng phương, cùng hướng với mọi vectơ và có độ dài bằng 0.</p>
+            <p>Như vậy $\vec{0} = \vec{AA} = \vec{BB} = \dots$ và $\vec{MN} = \vec{0} \Leftrightarrow M = N$.</p>
+        </div>
+
+        <!-- Slide 10: Mini Game - Matching Pairs -->
+        <div class="slide" id="slide10">
+            <h3>Ghép cặp: Khái niệm Vectơ</h3>
+            <p>Kéo thả các định nghĩa vào ô đúng!</p>
+            <div class="matching-game" id="matchingGame1">
+                <div class="match-column left">
+                    <div class="draggable" data-value="def1">Đoạn thẳng có hướng</div>
+                    <div class="draggable" data-value="def2">Giá của vectơ</div>
+                    <div class="draggable" data-value="def3">Hai vectơ bằng nhau</div>
+                    <div class="draggable" data-value="def4">Vectơ-không</div>
+                </div>
+                <div class="match-column right">
+                    <div class="droppable" data-target="def1"><span>Vectơ</span></div>
+                    <div class="droppable" data-target="def2"><span>Đường thẳng đi qua điểm đầu và cuối</span></div>
+                    <div class="droppable" data-target="def3"><span>Cùng hướng và cùng độ dài</span></div>
+                    <div class="droppable" data-target="def4"><span>Điểm đầu và cuối trùng nhau</span></div>
+                </div>
+                <div class="game-buttons">
+                    <button onclick="checkMatchingGame('matchingGame1')">Kiểm tra</button>
+                    <button onclick="resetMatchingGame('matchingGame1')">Chơi lại</button>
+                </div>
+                <p id="matchingFeedback" class="feedback"></p>
+            </div>
+        </div>
+
+        <!-- Slide 11: 2. Các dạng bài tập - Dạng 1: Xác định Vectơ -->
+        <div class="slide" id="slide11">
+            <h2>2. Các dạng bài tập</h2>
+            <div class="activity-section">
+                <h3>Dạng 1: XÁC ĐỊNH MỘT VECTƠ; PHƯƠNG, HƯỚNG CỦA VECTƠ; ĐỘ DÀI CỦA VECTƠ</h3>
+                <div class="method-section">
+                    <h4>Phương pháp:</h4>
+                    <ul>
+                        <li>Xác định một vectơ và xác định sự cùng phương, cùng hướng của hai vectơ theo định nghĩa.</li>
+                        <li>Dựa vào các tình chất hình học của các hình đã cho biết để tính độ dài của một vectơ.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Ví dụ 1.1 -->
+        <div class="slide" id="slide12">
+            <div class="example">
+                <h4>Ví dụ 1.1:</h4>
+                <p>Với hai điểm phân biệt A, B có thể xác định được bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối được lấy từ hai điểm trên?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Hai vectơ $\vec{AB}$ và $\vec{BA}$.</p>
+                    <p>Hay không? Chỉ có 2 thôi!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Ví dụ 1.2 -->
+        <div class="slide" id="slide13">
+            <div class="example">
+                <h4>Ví dụ 1.2:</h4>
+                <p>Cho tam giác ABC, có thể xác định được bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối là các đỉnh A, B, C?</p>
+                <img src="../data/im/knvt-v2.png" alt="Tam giác ABC" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có 6 vectơ: $\vec{AB}, \vec{BA}, \vec{BC}, \vec{CB}, \vec{CA}, \vec{AC}$.</p>
+                    <p>Nhớ rằng thứ tự của điểm đầu và điểm cuối là quan trọng nhé!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Ví dụ 1.3 -->
+        <div class="slide" id="slide14">
+            <div class="example">
+                <h4>Ví dụ 1.3:</h4>
+                <p>Cho hình lục giác đều ABCDEF tâm O. Tìm số các vectơ khác vectơ - không, cùng phương với vectơ $\vec{OB}$ có điểm đầu và điểm cuối là các đỉnh của lục giác?</p>
+                <img src="../data/im/knvt-v3.png" alt="Lục giác đều" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Các vectơ cùng phương với vectơ $\vec{OB}$ là:</p>
+                    <p>$\vec{BE}, \vec{EB}, \vec{DC}, \vec{CD}, \vec{FA}, \vec{AF}$.</p>
+                    <p>Có 6 vectơ tất cả!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Ví dụ 1.4 -->
+        <div class="slide" id="slide15">
+            <div class="example">
+                <h4>Ví dụ 1.4:</h4>
+                <p>Cho lục giác đều ABCDEF tâm O. Tìm số các vectơ bằng $\vec{OC}$ có điểm đầu và điểm cuối là các đỉnh của lục giác?</p>
+                <img src="../data/im/knvt-v4.png" alt="Lục giác đều" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Đó là các vectơ: $\vec{AB}, \vec{ED}$.</p>
+                    <p>Chỉ có 2 vectơ này thôi!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Ví dụ 1.5 -->
+        <div class="slide" id="slide16">
+            <div class="example">
+                <h4>Ví dụ 1.5:</h4>
+                <p>Cho hình bình hành ABCD tâm O. Gọi P, Q, R lần lượt là trung điểm của AB, BC, AD. Lấy 8 điểm trên là gốc hoặc ngọn của các vectơ. Tìm số vectơ bằng với vecto $\vec{AR}$</p>
+                <img src="../data/im/knvt-v5.png" alt="Hình bình hành" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Có 3 vectơ là $\vec{RD}; \vec{BQ}; \vec{QC}, \vec{PO}$.</p>
+                    <p>Rất nhiều vectơ bằng nhau trong hình bình hành đó!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Ví dụ 1.6 -->
+        <div class="slide" id="slide17">
+            <div class="example">
+                <h4>Ví dụ 1.6:</h4>
+                <p>Cho tứ giác ABCD. Có bao nhiêu vectơ khác vectơ không có điểm đầu và cuối là các đỉnh của tứ giác?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Một vectơ khác vectơ không được xác định bởi 2 điểm phân biệt. Khi có 4 điểm A, B, C, D ta có 4 cách chọn điểm đầu và 3 cách chọn điểm cuối. Nên ta sẽ có $3.4=12$ cách xác định số vectơ khác $\vec{0}$ thuộc 4 điểm trên.</p>
+                    <p>Quy tắc nhân thật hữu ích phải không?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Ví dụ 1.7 -->
+        <div class="slide" id="slide18">
+            <div class="example">
+                <h4>Ví dụ 1.7:</h4>
+                <p>Số vectơ (khác vectơ $\vec{0}$) có điểm đầu và điểm cuối lấy từ 7 điểm phân biệt cho trước?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Một vectơ khác vectơ không được xác định bởi 2 điểm phân biệt. Khi có 7 điểm ta có 7 cách chọn điểm đầu và 6 cách chọn điểm cuối. Nên ta sẽ có $7.6 = 42$ cách xác định số vectơ khác $\vec{0}$ thuộc 7 điểm trên.</p>
+                    <p>Wow, số lượng tăng lên nhanh chóng!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Ví dụ 1.8 -->
+        <div class="slide" id="slide19">
+            <div class="example">
+                <h4>Ví dụ 1.8:</h4>
+                <p>Trên mặt phẳng cho 6 điểm phân biệt A,B,C,D,E; F . Hỏi có bao nhiêu vectơ khác vecto không, mà có điểm đầu và điểm cuối là các điểm đã cho?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Xét tập $X = \{A, B, C, D, E ; F\}$. Với mỗi cách chọn hai phần tử của tập $X$ và sắp xếp theo một thứ tự ta được một vectơ thỏa mãn yêu cầu.</p>
+                    <p>Số cách chọn điểm đầu là 6, số cách chọn điểm cuối là 5. Vậy số vectơ là $6 \times 5 = 30$.</p>
+                    <p>Nhớ công thức này nhé!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Ví dụ 1.9 -->
+        <div class="slide" id="slide20">
+            <div class="example">
+                <h4>Ví dụ 1.9:</h4>
+                <p>Cho n điểm phân biệt. Hãy xác định số vectơ khác vectơ $\vec{0}$ có điểm đầu và điểm cuối thuộc n điểm trên?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Khi có n điểm, ta có n cách chọn điểm đầu và $n-1$ cách chọn điểm cuối. Nên ta sẽ có $n(n-1)$ cách xác định số vectơ khác $\vec{0}$ thuộc n điểm trên.</p>
+                    <p>Công thức tổng quát đấy!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Ví dụ 1.10 -->
+        <div class="slide" id="slide21">
+            <div class="example">
+                <h4>Ví dụ 1.10:</h4>
+                <p>Cho lục giác đều ABCDEF tâm O. Số các vectơ bằng $\vec{OC}$ có điểm cuối là các đỉnh của lục giác là bao nhiêu?</p>
+                <img src="../data/im/knvt-v10.png" alt="Lục giác đều" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Đó là các vectơ: $\vec{AB}; \vec{ED}$.</p>
+                    <p>Hai vectơ này có cùng hướng và cùng độ dài với $\vec{OC}$!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Ví dụ 1.11 -->
+        <div class="slide" id="slide22">
+            <div class="example">
+                <h4>Ví dụ 1.11:</h4>
+                <p>Cho ba điểm M, N, P thẳng hàng, trong đó điểm N nằm giữa hai điểm M và P. Tìm các cặp vectơ cùng hướng?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Các vec tơ cùng hướng là : $\vec{MN}$ và $\vec{MP}, \vec{MN}$ và $\vec{NP}, \vec{PM}$ và $\vec{PN}, \vec{PN}$ và $\vec{NM}$.</p>
+                    <p>Hãy hình dung trên một đường thẳng để dễ thấy nhé!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Ví dụ 1.12 -->
+        <div class="slide" id="slide23">
+            <div class="example">
+                <h4>Ví dụ 1.12:</h4>
+                <p>Cho hình bình hành ABCD. Tìm vectơ khác $\vec{0}$, cùng phương với vectơ $\vec{AB}$ và có điểm đầu, điểm cuối là đỉnh của hình bình hành ABCD.</p>
+                <img src="../data/im/knvt-v12.png" alt="Hình bình hành" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Các vectơ cùng phương với $\vec{AB}$ mà thỏa mãn điều kiện đầu Câu là: $\vec{BA}, \vec{CD}, \vec{DC}$.</p>
+                    <p>Nhớ rằng cùng phương không có nghĩa là cùng hướng đâu nhé!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Ví dụ 1.13 -->
+        <div class="slide" id="slide24">
+            <div class="example">
+                <h4>Ví dụ 1.13:</h4>
+                <p>Cho lục giác đều ABCDEF tâm O. Tìm số các vectơ khác vectơ không, cùng phương với $\vec{OC}$ có điểm đầu và điểm cuối là các đỉnh của lục giác là:</p>
+                <img src="../data/im/knvt-v13.png" alt="Lục giác đều" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Đó là các vectơ: $\vec{AB}, \vec{BA}, \vec{DE}, \vec{ED}, \vec{FC}, \vec{CF}, \vec{OF}, \vec{FO}$.</p>
+                    <p>Có rất nhiều cặp cùng phương đấy!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Ví dụ 1.14 -->
+        <div class="slide" id="slide25">
+            <div class="example">
+                <h4>Ví dụ 1.14:</h4>
+                <p>Cho điểm A và véctơ $\vec{a}$ khác $\vec{0}$. Tìm điểm M sao cho:</p>
+                <p>a) $\vec{AM}$ cùng phương với $\vec{a}$.</p>
+                <p>b) $\vec{AM}$ cùng hướng với $\vec{a}$.</p>
+                <img src="../data/im/knvt-v14.png" alt="Xác định điểm M" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Gọi $A$ là giá của $\vec{a}$.</p>
+                    <p>a) Nếu $\vec{AM}$ cùng phương với $\vec{a}$ thì đường thẳng AM song song với A. Do đó M thuộc đường thẳng m đi qua A và song song với A. Ngược lại, mọi điểm M thuộc đường thẳng m thì $\vec{AM}$ cùng phương với $\vec{a}$. Chú ý rằng nếu A thuộc đường thẳng A thì m trùng với A.</p>
+                    <p>b) Lập luận tương tự như trên, ta thấy các điểm M thuộc một nửa đường thẳng gốc A của đường thẳng m. Cụ thể, đó là nửa đường thẳng chưa điểm E sao cho $\vec{AE}$ và $\vec{a}$ cùng hướng.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: Ví dụ 1.15 -->
+        <div class="slide" id="slide26">
+            <div class="example">
+                <h4>Ví dụ 1.15:</h4>
+                <p>Cho tam giác ABC có trực tâm H. Gọi D là điểm đối xứng với B qua tâm O của đường tròn ngoại tiếp tam giác ABC. Chứng minh rằng $\vec{HA} = \vec{CD}$ và $\vec{AD} = \vec{HC}$.</p>
+                <img src="../data/im/knvt-v15.png" alt="Tam giác ABC có trực tâm" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có $AH \perp BC$ và $DC \perp BC$ (do góc DCB chắn nửa đường tròn). Suy ra $AH \parallel DC$.</p>
+                    <p>Tương tự ta cũng có $CH \parallel AD$.</p>
+                    <p>Suy ra tứ giác ADCH là hình bình hành. Do đó $\vec{HA} = \vec{CD}$ và $\vec{AD} = \vec{HC}$.</p>
+                    <p>Hình bình hành rất quan trọng trong việc chứng minh vectơ bằng nhau!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 27: Ví dụ 1.16 -->
+        <div class="slide" id="slide27">
+            <div class="example">
+                <h4>Ví dụ 1.16:</h4>
+                <p>Cho tam giác ABC vuông cân tại A, có $AB = AC = 4$. Tính $|\vec{BC}|$.</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì $|\vec{BC}| = BC = \sqrt{AB^2 + AC^2} = \sqrt{16+ 16} = 4\sqrt{2}$.</p>
+                    <p>Định lý Pythagore là bạn của chúng ta!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 28: Ví dụ 1.17 -->
+        <div class="slide" id="slide28">
+            <div class="example">
+                <h4>Ví dụ 1.17:</h4>
+                <p>Cho hình vuông ABCD có độ dài cạnh 3. Giá trị của $|\vec{AC}|$ là bao nhiêu?</p>
+                <img src="../data/im/knvt-v17.png" alt="Hình vuông ABCD" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì $|\vec{AC}| = AC = 3\sqrt{2}$.</p>
+                    <p>Trong hình vuông, đường chéo bằng cạnh nhân $\sqrt{2}$!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 29: Ví dụ 1.18 -->
+        <div class="slide" id="slide29">
+            <div class="example">
+                <h4>Ví dụ 1.18:</h4>
+                <p>Cho tam giác đều ABC cạnh a. Tính $|\vec{CB}|$.</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì $|\vec{CB}| = CB = a$.</p>
+                    <p>Tam giác đều thì tất cả các cạnh bằng nhau!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 30: Ví dụ 1.19 -->
+        <div class="slide" id="slide30">
+            <div class="example">
+                <h4>Ví dụ 1.19:</h4>
+                <p>Gọi G là trọng tâm tam giác vuông ABC với cạnh huyền $BC = 12$. Tính $|\vec{GM}|$ (với M là trung điểm của BC)</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì $|\vec{GM}| = GM = \frac{1}{3}AM = \frac{1}{3}.6=2$.</p>
+                    <p>Trong tam giác vuông, trung tuyến ứng với cạnh huyền bằng một nửa cạnh huyền!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 31: Ví dụ 1.20 -->
+        <div class="slide" id="slide31">
+            <div class="example">
+                <h4>Ví dụ 1.20:</h4>
+                <p>Cho hình chữ nhật ABCD, có $AB = 4$ và $AC = 5$. Tìm độ dài vectơ $\vec{AC}$.</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì $|\vec{AC}|= AC = 5$.</p>
+                    <p>Độ dài của vectơ là độ dài đoạn thẳng mà nó biểu diễn!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 32: Dạng 2: Chứng minh hai vectơ bằng nhau -->
+        <div class="slide" id="slide32">
+            <div class="activity-section">
+                <h3>Dạng 2: CHỨNG MINH HAI VECTƠ BẰNG NHAU</h3>
+                <div class="method-section">
+                    <h4>Phương pháp:</h4>
+                    <ul>
+                        <li>Để chứng minh hai vectơ bằng nhau ta chứng minh chúng có cùng độ dài và cùng hướng hoặc dựa vào nhận xét nếu tứ giác ABCD là hình bình hành thì $\vec{AB} = \vec{DC}$ hoặc $\vec{AD} = \vec{BC}$.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 33: Ví dụ 2.1 -->
+        <div class="slide" id="slide33">
+            <div class="example">
+                <h4>Ví dụ 2.1:</h4>
+                <p>Cho hình vuông ABCD tâm O. Hãy liệt kê tất cả các vectơ bằng nhau nhận đỉnh và tâm của hình vuông làm điểm đầu và điểm cuối.</p>
+                <img src="../data/im/knvt-v21.png" alt="Hình vuông ABCD tâm O" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Các vectơ bằng nhau nhận đỉnh và tâm của hình vuông làm điểm đầu và điểm cuối là:</p>
+                    <p>$\vec{AB} = \vec{DC}, \vec{AD} = \vec{BC}, \vec{BA} = \vec{CD}, \vec{DA} = \vec{CB}, \vec{AO} = \vec{OC}, \vec{OA} = \vec{CO}, \vec{BO} = \vec{OD}, \vec{OB} = \vec{DO}$.</p>
+                    <p>Hình vuông có rất nhiều tính chất đối xứng!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 34: Ví dụ 2.2 -->
+        <div class="slide" id="slide34">
+            <div class="example">
+                <h4>Ví dụ 2.2:</h4>
+                <p>Cho vectơ $\vec{AB}$ và một điểm C. Có bao nhiêu điểm D thỏa mãn $\vec{AB} = \vec{CD}$.</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Nếu C nằm trên đường thẳng AB thì D cũng nằm trên đường thẳng AB.</p>
+                    <p>Nếu C không nằm trên đường thẳng AB thì tứ giác ABDC là hình bình hành. Khi đó D nằm trên đường thẳng đi qua C và song song với đường thẳng AB.</p>
+                    <p>Do vậy, có vô số điểm D thỏa mãn $\vec{AB} = \vec{CD}$.</p>
+                    <p>Thật bất ngờ phải không? Có vô số điểm D!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 35: Ví dụ 2.3 -->
+        <div class="slide" id="slide35">
+            <div class="example">
+                <h4>Ví dụ 2.3:</h4>
+                <p>Cho tứ giác đều ABCD. Gọi M,N,P,Q lần lượt là trung điểm của AB, BC, CD, DA. Chứng minh $\vec{MN} = \vec{QP}$.</p>
+                <img src="../data/im/knvt-v23.png" alt="Tứ giác đều và trung điểm" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có
+                    $$ \begin{cases}
+                        \vec{MN} \parallel \vec{AC} \\
+                        \vec{PQ} \parallel \vec{AC}
+                    \end{cases} $$
+                    và
+                    $$ \begin{cases}
+                        |\vec{MN}| = \frac{1}{2}|\vec{AC}| \\
+                        |\vec{PQ}| = \frac{1}{2}|\vec{AC}|
+                    \end{cases} $$
+                    $\Rightarrow$
+                    $$ \begin{cases}
+                        \vec{MN} \parallel \vec{PQ} \\
+                        |\vec{MN}| = |\vec{PQ}|
+                    \end{cases} $$
+                    Và $\vec{MN}$ cùng hướng $\vec{AC}$, $\vec{PQ}$ cùng hướng $\vec{CA}$ (nên $\vec{PQ}$ ngược hướng $\vec{AC}$).</p>
+                    <p>Chú ý đến hướng: $\vec{MN}$ cùng hướng $\vec{AC}$ và $\vec{QP}$ cùng hướng $\vec{AC}$.</p>
+                    <p>$\Rightarrow \vec{MN} = \vec{QP}$.</p>
+                    <p>Vậy $\vec{MN} = \vec{QP}$.</p>
+                    <p>Đây là tính chất của đường trung bình trong tam giác!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 36: Ví dụ 2.4 -->
+        <div class="slide" id="slide36">
+            <div class="example">
+                <h4>Ví dụ 2.4:</h4>
+                <p>Cho tứ giác ABCD. Điều kiện nào là điều kiện cần và đủ để $\vec{AB} = \vec{CD}$?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có:
+                    $\vec{AB}=\vec{CD} \Rightarrow$
+                    $$ \begin{cases}
+                        AB \parallel CD \\
+                        |\vec{AB}| = |\vec{CD}|
+                    \end{cases} $$
+                    Và $\vec{AB}, \vec{CD}$ cùng hướng. Điều này dẫn đến ABDC là hình bình hành.</p>
+                    <p>Mặt khác, ABDC là hình bình hành $\Rightarrow$
+                    $$ \begin{cases}
+                        AB \parallel CD \\
+                        |\vec{AB}| = |\vec{CD}|
+                    \end{cases} $$
+                    Và $\vec{AB}, \vec{CD}$ cùng hướng.</p>
+                    <p>$\Rightarrow \vec{AB}=\vec{CD}$.</p>
+                    <p>Do đó, điều kiện cần và đủ để $\vec{AB} = \vec{CD}$ là ABDC là hình bình hành.</p>
+                    <p>Tứ giác ABDC nhé, không phải ABCD!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 37: Ví dụ 2.5 -->
+        <div class="slide" id="slide37">
+            <div class="example">
+                <h4>Ví dụ 2.5:</h4>
+                <p>Cho hai điểm phân biệt A, B . Xác định điều kiện để điểm I là trung điểm AB .</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì I là trung điểm AB nên ta có $\vec{IA}+\vec{IB}=\vec{0} \Leftrightarrow \vec{IA}=-\vec{IB} \Leftrightarrow \vec{IA} = \vec{BI}$.</p>
+                    <p>Vậy điều kiện để điểm I là trung điểm AB là: $\vec{IA} = \vec{BI}$.</p>
+                    <p>Một tính chất quan trọng của trung điểm!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 38: Ví dụ 2.6 -->
+        <div class="slide" id="slide38">
+            <div class="example">
+                <h4>Ví dụ 2.6:</h4>
+                <p>Cho tam giác ABC. Gọi D,E,F lần lượt là trung điểm các cạnh BC, CA, AB . Chứng minh $\vec{EF} = \vec{CD}$.</p>
+                <img src="../data/im/knvt-v26.png" alt="Tam giác ABC và các trung điểm" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p><strong>Cách 1:</strong> Vì EF là đường trung bình của tam giác ABC nên $EF \parallel BC$ và $EF = \frac{1}{2}BC$.</p>
+                    <p>Vì D là trung điểm BC nên $CD = \frac{1}{2}BC$ và $CD$ cùng hướng với $EF$ (nếu vẽ hình).</p>
+                    <p>Vậy $\vec{EF} = \vec{CD}$.</p>
+                    <p><strong>Cách 2:</strong> Chứng minh EFCD là hình bình hành.</p>
+                    <p>Ta có $EF \parallel BC$ và $EF = \frac{1}{2}BC$. Mà $CD$ là nửa của $BC$ và nằm trên $BC$.</p>
+                    <p>Suy ra $EF \parallel CD$ và $EF = CD$. Hơn nữa, $\vec{EF}$ và $\vec{CD}$ cùng hướng.</p>
+                    <p>Do đó, EFCD là hình bình hành (hoặc chỉ cần EF và CD song song và bằng nhau, cùng hướng là đủ).</p>
+                    <p>$\Rightarrow \vec{EF} = \vec{CD}$.</p>
+                    <p>Bạn có thể chọn cách nào bạn thấy dễ hiểu hơn!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 39: Ví dụ 2.7 -->
+        <div class="slide" id="slide39">
+            <div class="example">
+                <h4>Ví dụ 2.7:</h4>
+                <p>Cho hình bình hành ABCD. Gọi E là điểm đối xứng C của qua D. Chứng minh rằng $\vec{AE} = \vec{BD}$.</p>
+                <img src="../data/im/knvt-v27.png" alt="Hình bình hành và điểm đối xứng" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì ABCD là hình bình hành nên ta có: $\vec{BA} = \vec{CD}$ (1).</p>
+                    <p>Ta có: E là điểm đối xứng C của qua D nên D là trung điểm cuả CE $\Leftrightarrow \vec{CD} = \vec{DE}$ (2).</p>
+                    <p>Từ (1) và (2) ta có: $\vec{BA} = \vec{DE} \Leftrightarrow$ ABDE là hình bình hành nên $\vec{AE} = \vec{BD}$.</p>
+                    <p>Đối xứng và hình bình hành, hai khái niệm này kết hợp thật thú vị!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 40: Ví dụ 2.8 -->
+        <div class="slide" id="slide40">
+            <div class="example">
+                <h4>Ví dụ 2.8:</h4>
+                <p>Cho $\triangle ABC$ có M, N, P lần lượt là trung điểm của các cạnh AB, BC, CA. Tìm điểm I sao cho $\vec{NP} = \vec{MI}$</p>
+                <img src="../data/im/knvt-v28.png" alt="Tam giác và các trung điểm" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì NP là đường trung bình của tam giác ABC nên $\vec{NP}$ cùng phương, cùng hướng với $\vec{AB}$ và $NP = \frac{1}{2}AB$.</p>
+                    <p>Vì M là trung điểm AB nên $\vec{MB}$ cùng hướng với $\vec{AB}$ và $MB = \frac{1}{2}AB$.</p>
+                    <p>Do đó $\vec{NP} = \vec{MB}$.</p>
+                    <p>Vì $\vec{NP} = \vec{MI}$ mà $\vec{NP} = \vec{MB}$ nên $\vec{MI} = \vec{MB}$.</p>
+                    <p>Điều này chỉ xảy ra khi $I = B$.</p>
+                    <p>Vậy I chính là điểm B!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 41: Ví dụ 2.9 -->
+        <div class="slide" id="slide41">
+            <div class="example">
+                <h4>Ví dụ 2.9:</h4>
+                <p>Cho tứ giác ABCD. Gọi M,N,P,Q lần lượt là trung điểm AB, BC, CD, DA. Chứng minh $\vec{MN} = \vec{QP}; \vec{NP} = \vec{MQ}$.</p>
+                <img src="../data/im/knvt-v29.png" alt="Tứ giác và các trung điểm" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có MN là đường trung bình tam giác ABC $\Rightarrow MN \parallel AC$ và $MN = \frac{1}{2}AC$. Vectơ $\vec{MN}$ cùng hướng với $\vec{AC}$.</p>
+                    <p>PQ là đường trung bình tam giác DAC $\Rightarrow PQ \parallel AC$ và $PQ = \frac{1}{2}AC$. Vectơ $\vec{QP}$ cùng hướng với $\vec{AC}$.</p>
+                    <p>Do đó, $\vec{MN} = \vec{QP}$.</p>
+                    <p>Tương tự, NP là đường trung bình tam giác BCD $\Rightarrow NP \parallel BD$ và $NP = \frac{1}{2}BD$. Vectơ $\vec{NP}$ cùng hướng với $\vec{BD}$.</p>
+                    <p>MQ là đường trung bình tam giác ABD $\Rightarrow MQ \parallel BD$ và $MQ = \frac{1}{2}BD$. Vectơ $\vec{MQ}$ cùng hướng với $\vec{BD}$.</p>
+                    <p>Do đó, $\vec{NP} = \vec{MQ}$.</p>
+                    <p>Kết quả này chứng tỏ MNPQ là một hình bình hành!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 42: Ví dụ 2.10 -->
+        <div class="slide" id="slide42">
+            <div class="example">
+                <h4>Ví dụ 2.10:</h4>
+                <p>Cho hình bình hành ABCD. Gọi M, N lần lượt là trung điểm của AB,DC. AN và CM lần lượt cắt BD tại E, F. Chứng minh rằng $\vec{DE} = \vec{EF} = \vec{FB}$.</p>
+                <img src="../data/im/knvt-v30.png" alt="Hình bình hành và các trung điểm, đường chéo" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có :
+                     $$ \begin{cases}
+                        \vec{AM} = \vec{CN} \\
+                        \vec{AM} \parallel \vec{CN}
+                    \end{cases} $$
+                    $\Rightarrow$ AMCN là hình bình hành.</p>
+                    <p>Trong $\triangle DFC$, ta có N là trung điểm DC và NE $\parallel$ CF (vì AMCN là hình bình hành nên AN $\parallel$ MC, tức NE $\parallel$ CF).</p>
+                    <p>Theo định lý đường trung bình đảo, E là trung điểm của DF $\Rightarrow \vec{DE} = \vec{EF}$ (1).</p>
+                    <p>Tương tự, trong $\triangle ABE$, ta có M là trung điểm AB và MF $\parallel$ AE (vì AMCN là hình bình hành nên AN $\parallel$ MC, tức AE $\parallel$ MF).</p>
+                    <p>Theo định lý đường trung bình đảo, F là trung điểm của BE nên $\vec{EF} = \vec{FB}$ (2).</p>
+                    <p>Từ (1) và (2) ta có: $\vec{DE} = \vec{EF} = \vec{FB}$.</p>
+                    <p>Bài toán này hơi phức tạp một chút, nhưng thật tuyệt khi chúng ta có thể giải quyết nó!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 43: Dạng 3: Xác định điểm thoả đẳng thức vectơ -->
+        <div class="slide" id="slide43">
+            <div class="activity-section">
+                <h3>Dạng 3: XÁC ĐỊNH ĐIỂM THOẢ ĐẲNG THỨC VECTƠ</h3>
+                <div class="method-section">
+                    <h4>Phương pháp:</h4>
+                    <ul>
+                        <li>Sử dụng: Hai véc tơ bằng nhau khi và chỉ khi chúng cùng độ dài và cùng hướng.</li>
+                        <li>Biến đổi đẳng thức vectơ về dạng $\vec{OX} = \vec{v}$ với O là điểm cố định và $\vec{v}$ là một vectơ cố định đã biết.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 44: Ví dụ 3.1 -->
+        <div class="slide" id="slide44">
+            <div class="example">
+                <h4>Ví dụ 3.1:</h4>
+                <p>Cho tam giác ABC. Gọi M, P, Q lần lượt là trung điểm các cạnh AB, BC, CA và N là điểm thỏa mãn $\vec{MP} = \vec{CN}$. Hãy xác định vị trí điểm N.</p>
+                <img src="../data/im/knvt-v31.png" alt="Tam giác ABC với trung điểm và vectơ" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>MP là đường trung bình của $\triangle ABC$, nên $\vec{MP}$ cùng hướng và có độ dài bằng nửa $\vec{AC}$.</p>
+                    <p>$\Rightarrow \vec{MP} = \frac{1}{2}\vec{AC}$.</p>
+                    <p>Vì Q là trung điểm CA, nên $\vec{QC} = \frac{1}{2}\vec{AC}$. Do đó $\vec{MP} = \vec{QC}$.</p>
+                    <p>Do $\vec{MP} = \vec{CN}$ nên $\vec{QC} = \vec{CN}$. Điều này có nghĩa là C là trung điểm của QN.</p>
+                    <p>Vậy N đối xứng với Q qua C.</p>
+                    <p>Điểm N nằm ở vị trí đặc biệt đấy!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 45: Ví dụ 3.2 -->
+        <div class="slide" id="slide45">
+            <div class="example">
+                <h4>Ví dụ 3.2:</h4>
+                <p>Cho hình thang ABCD với đáy $BC = 2AD$. Gọi M,N,P,Q lần lượt là trung điểm của BC,MC, CD, AB và E là điểm thỏa mãn $\vec{BN} = \vec{QE}$. Xác định vị trí điểm E .</p>
+                <img src="../data/im/knvt-v32.png" alt="Hình thang và các trung điểm, vectơ" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì M là trung điểm BC, N là trung điểm MC, nên $BN = NM = MC = \frac{1}{4}BC$.</p>
+                    <p>Q là trung điểm AB, P là trung điểm CD. PQ là đường trung bình của hình thang ABCD.</p>
+                    <p>$PQ = \frac{AD+BC}{2} = \frac{AD+2AD}{2} = \frac{3}{2}AD$.</p>
+                    <p>Vectơ $\vec{BN}$ cùng hướng với $\vec{BC}$ (hoặc $\vec{AD}$).</p>
+                    <p>Vectơ $\vec{QP}$ cùng hướng với $\vec{BC}$ (hoặc $\vec{AD}$).</p>
+                    <p>Ta có $BN = \frac{1}{4}BC = \frac{1}{4}(2AD) = \frac{1}{2}AD$.</p>
+                    <p>$\vec{QP} = \vec{QN} + \vec{NP}$.</p>
+                    <p>Ta cần xác định $\vec{BN}$ bằng vectơ nào có gốc là Q.</p>
+                    <p>Xét hình thang ABMD (với M là trung điểm BC), ta có Q là trung điểm AB.</p>
+                    <p>QP là đường trung bình của hình thang ABCD. QP có giá song song với AD, BC.</p>
+                    <p>Từ đề bài $\vec{BN} = \vec{QE}$. Vì $\vec{BN}$ cùng hướng với $\vec{BC}$ (hoặc $\vec{AD}$), nên $\vec{QE}$ cũng phải cùng hướng với $\vec{AD}$.</p>
+                    <p>Điều này có nghĩa là E nằm trên đường thẳng qua Q và song song với AD, BC. Mà P cũng nằm trên đường thẳng này.</p>
+                    <p>Ta có $BN = \frac{1}{4}BC = \frac{1}{4}(2AD) = \frac{1}{2}AD$.</p>
+                    <p>Đường trung bình Q_P' của hình thang ABCE (P' là trung điểm CE). $Q P' = \frac{AE+BC}{2}$.</p>
+                    <p>Có lẽ cách tiếp cận trực tiếp hơn là vẽ hình và tìm mối quan hệ.</p>
+                    <p>BN = 1/4 BC. QP = 1/2 (AD+BC) = 1/2 (AD + 2AD) = 3/2 AD.</p>
+                    <p>N là trung điểm MC. M là trung điểm BC. Nên BN = NM = MC = 1/4 BC.</p>
+                    <p>Ta thấy $\vec{BN}$ cùng hướng với $\vec{AD}$.</p>
+                    <p>Trong hình thang ABCD, Q là trung điểm AB, P là trung điểm CD. Vậy QP là đường trung bình.</p>
+                    <p>$\vec{QP} = \frac{1}{2}(\vec{AD} + \vec{BC})$.</p>
+                    <p>Vì $\vec{BC} = 2\vec{AD}$ (cùng hướng), nên $\vec{QP} = \frac{1}{2}(\vec{AD} + 2\vec{AD}) = \frac{3}{2}\vec{AD}$.</p>
+                    <p>Và $|\vec{BN}| = \frac{1}{4}|\vec{BC}| = \frac{1}{4}(2|\vec{AD}|) = \frac{1}{2}|\vec{AD}|$.</p>
+                    <p>Vectơ $\vec{QE}$ cùng hướng với $\vec{BN}$, tức cùng hướng với $\vec{AD}$.</p>
+                    <p>Hơn nữa, $|\vec{QE}| = |\vec{BN}| = \frac{1}{2}|\vec{AD}|$.</p>
+                    <p>Xét đường thẳng đi qua Q song song với AD. P nằm trên đường này. Và $QP = \frac{3}{2}AD$.</p>
+                    <p>Điểm E phải nằm trên đường thẳng QP kéo dài từ Q sao cho $QE = \frac{1}{2}AD$.</p>
+                    <p>Vì $\vec{QP}$ cùng hướng với $\vec{AD}$, và $QP = \frac{3}{2}AD$.</p>
+                    <p>Do đó, E nằm giữa Q và P sao cho $QE = \frac{1}{3}QP$.</p>
+                    <p>Suy ra E là điểm chia đoạn QP theo tỉ lệ 1:2.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 46: Ví dụ 3.3 -->
+        <div class="slide" id="slide46">
+            <div class="example">
+                <h4>Ví dụ 3.3:</h4>
+                <p>Cho tam giác ABC có trọng tâm G và N là điểm thỏa mãn $\vec{AN} = \vec{GC}$. Hãy xác định vị trí điểm N.</p>
+                <img src="../data/im/knvt-v33.png" alt="Tam giác ABC trọng tâm G" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Do $\vec{AN} = \vec{GC}$ và A, C, G không thẳng hàng nên AGCN là hình bình hành.</p>
+                    <p>Trong hình bình hành AGCN, các đường chéo cắt nhau tại trung điểm của mỗi đường. Gọi M là trung điểm của AC. Thì M cũng là trung điểm của GN.</p>
+                    <p>Vậy N đối xứng với G qua trung điểm M của AC.</p>
+                    <p>Nhớ tính chất trọng tâm và hình bình hành nhé!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 47: Ví dụ 3.4 -->
+        <div class="slide" id="slide47">
+            <div class="example">
+                <h4>Ví dụ 3.4:</h4>
+                <p>Cho hình chữ nhật ABCD, N, P lần lượt là trung điểm cạnh AD, AB và điểm M thỏa mãn $\vec{AP} = \vec{NM}$. Xác định vị trí điểm M.</p>
+                <img src="../data/im/knvt-v34.png" alt="Hình chữ nhật và trung điểm" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Vì N, P là trung điểm của AD, AB, nên NP là đường trung bình của $\triangle ABD$.</p>
+                    <p>$\Rightarrow \vec{NP}$ cùng phương, cùng hướng với $\vec{BD}$ và $NP = \frac{1}{2}BD$.</p>
+                    <p>Gọi O là tâm của hình chữ nhật ABCD. Khi đó O là trung điểm của BD. Nên $\vec{BO} = \frac{1}{2}\vec{BD}$.</p>
+                    <p>AP là nửa cạnh AB, $AP = \frac{1}{2}AB$.</p>
+                    <p>Từ hình vẽ, ta thấy $\vec{AP}$ cùng hướng với $\vec{NB}$ và $|\vec{AP}| = |\vec{NB}|$. Do đó, APNB là hình bình hành.</p>
+                    <p>Không, cách này không ổn.</p>
+                    <p>Cách khác: Vì N là trung điểm AD, P là trung điểm AB. Ta có $\vec{AP}$ (từ A đến P) và $\vec{NM}$ (từ N đến M).</p>
+                    <p>Trong hình chữ nhật ABCD, $\vec{AP}$ có độ dài $AP = AB/2$.</p>
+                    <p>Nếu O là tâm hình chữ nhật, thì $\vec{AO}$ là một vectơ đường chéo.</p>
+                    <p>Ta có $\vec{AP} = \vec{NO}$ (vì AONP là hình bình hành nếu $AP \parallel ON$ và $AP=ON$).</p>
+                    <p>Mà P là trung điểm AB, N là trung điểm AD. O là tâm. Ta có ON $\parallel$ AB và $ON = \frac{1}{2}AB = AP$.</p>
+                    <p>Và $\vec{ON}$ cùng hướng với $\vec{AP}$ (hướng từ trái sang phải, lên trên).</p>
+                    <p>Vậy $\vec{AP} = \vec{ON}$.</p>
+                    <p>Từ $\vec{AP} = \vec{NM}$ và $\vec{AP} = \vec{ON}$, suy ra $\vec{NM} = \vec{ON}$.</p>
+                    <p>Điều này có nghĩa là N là trung điểm của OM. Nhưng nếu M trùng O, thì $\vec{NO} = \vec{OO} = \vec{0}$, mà $\vec{AP} \neq \vec{0}$.</p>
+                    <p>Có lẽ hình vẽ minh họa trong LaTeX (`data//im/knvt-v34.png`) là chìa khóa.</p>
+                    <p>Xem hình: $\vec{AP}$ hướng từ A đến P. $\vec{NM}$ hướng từ N đến M.</p>
+                    <p>P là trung điểm AB, N là trung điểm AD.</p>
+                    <p>Vẽ hình, ta thấy $\vec{NP}$ là đường trung bình $\triangle ABD$.</p>
+                    <p>Vectơ $\vec{AP}$ và $\vec{NM}$ phải cùng hướng và độ dài.</p>
+                    <p>Xét tứ giác APOM. P là trung điểm AB, O là tâm, M là trung điểm BC.</p>
+                    <p>Trong hình chữ nhật ABCD, gọi O là tâm.</p>
+                    <p>$\vec{AP} = \vec{NO}$. (vì N là trung điểm AD, O là tâm $\Rightarrow$ NO $\parallel$ AP và NO = AP).</p>
+                    <p>Vậy $\vec{NM} = \vec{ON}$. Điều này chỉ xảy ra khi M trùng N và O trùng N, vô lý vì O và N là 2 điểm khác nhau.</p>
+                    <p>Có một sự nhầm lẫn trong lời giải gốc hoặc hình vẽ. Lời giải gốc: "Gọi O là tâm của hình chữ nhật ABCD $\Rightarrow \vec{AP} = \vec{NO}$. Mà $\vec{AP} = \vec{NM}$ suy ra $\vec{NM}=\vec{NO} \Rightarrow M=O$. Vậy M là tâm của hình chữ nhật ABCD."</p>
+                    <p>Để $\vec{AP} = \vec{NO}$ thì N, O, P, A phải tạo thành hình bình hành. NO là đường nối trung điểm cạnh AD (N) và tâm (O). AP là nửa cạnh AB.</p>
+                    <p>Ta có NO $\parallel$ AB, $NO = \frac{1}{2}AB$. AP $\parallel$ AB, $AP = \frac{1}{2}AB$.</p>
+                    <p>Vậy $\vec{AP}$ và $\vec{NO}$ cùng độ dài và cùng phương. Nhưng hướng của $\vec{AP}$ là từ A đến P, còn $\vec{NO}$ là từ N đến O. Chúng không cùng hướng. Hướng của $\vec{NO}$ là xuống dưới và sang phải, trong khi $\vec{AP}$ là sang phải.</p>
+                    <p>Xem lại hình `knvt-v34.png`. $\vec{AP}$ (từ A đến P) và $\vec{NM}$ (từ N đến M). Để chúng bằng nhau, APMN phải là hình bình hành.</p>
+                    <p>Điều này có nghĩa là $\vec{NM}$ phải cùng hướng và độ dài với $\vec{AP}$.</p>
+                    <p>Nếu APMN là hình bình hành thì AM và NP cắt nhau tại trung điểm của mỗi đường.</p>
+                    <p>Từ hình vẽ, N là trung điểm AD, P là trung điểm AB. Vậy NP là đường trung bình của tam giác ABD.</p>
+                    <p>Theo hình `knvt-v34.png`, M là điểm O (tâm hình chữ nhật).</p>
+                    <p>Nếu M là O (tâm), thì $\vec{NM}$ là vectơ từ N (trung điểm AD) đến O (tâm).</p>
+                    <p>Ta có $\vec{AP}$ (hướng từ A sang phải, dài 1/2 AB). $\vec{NM}$ (hướng từ N sang O).</p>
+                    <p>NO là đường thẳng nối trung điểm AD và tâm. NO $\parallel$ AB và NO = 1/2 AB.</p>
+                    <p>Và $\vec{NO}$ có hướng từ N đến O (xuống và sang phải, song song với $\vec{AP}$).</p>
+                    <p>Vậy đúng là $\vec{AP} = \vec{NO}$.</p>
+                    <p>Suy ra $\vec{NM} = \vec{NO}$. Điều này chỉ đúng khi M trùng O.</p>
+                    <p>Vậy M là tâm của hình chữ nhật ABCD.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 48: Ví dụ 3.5 -->
+        <div class="slide" id="slide48">
+            <div class="example">
+                <h4>Ví dụ 3.5:</h4>
+                <p>Cho hình bình hành ABCD tâm O và điểm M thỏa mãn $\vec{AO} = \vec{OM}$. Xác định vị trí điểm M.</p>
+                <img src="../data/im/knvt-v35.png" alt="Hình bình hành và tâm O" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có $\vec{AO} = \vec{OM}$ suy ra $|\vec{AO}| = |\vec{OM}|$ và $\vec{AO}, \vec{OM}$ cùng hướng.</p>
+                    <p>Điều này có nghĩa là O là trung điểm của AM.</p>
+                    <p>Trong hình bình hành ABCD, O là trung điểm của AC và BD.</p>
+                    <p>Vì O là trung điểm của AC, nên $\vec{AO} = \vec{OC}$.</p>
+                    <p>Từ $\vec{AO} = \vec{OM}$ và $\vec{AO} = \vec{OC}$, suy ra $\vec{OM} = \vec{OC}$.</p>
+                    <p>Điều này chỉ đúng khi M trùng C.</p>
+                    <p>Vậy M là điểm C.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 49: Ví dụ 3.6 -->
+        <div class="slide" id="slide49">
+            <div class="example">
+                <h4>Ví dụ 3.6:</h4>
+                <p>Cho $\vec{AB}$ khác $\vec{0}$ và cho điểm C. Xác định điểm D thỏa $|\vec{AB}| = |\vec{AD} - \vec{AC}|$?</p>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có $|\vec{AB}| = |\vec{AD} - \vec{AC}| \Leftrightarrow |\vec{AB}| = |\vec{CD}|$.</p>
+                    <p>Đẳng thức này có nghĩa là độ dài đoạn thẳng AB bằng độ dài đoạn thẳng CD.</p>
+                    <p>Suy ra tập hợp các điểm D là đường tròn tâm C bán kính AB.</p>
+                    <p>Một điểm D có thể nằm ở bất kỳ đâu trên đường tròn đó!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 50: Ví dụ 3.7 -->
+        <div class="slide" id="slide50">
+            <div class="example">
+                <h4>Ví dụ 3.7:</h4>
+                <p>Cho tam giác ABC. Xác định vị trí của điểm M sao cho $\vec{MA} - \vec{MB} + \vec{MC} = \vec{0}$.</p>
+                <img src="../data/im/knvt-v37.png" alt="Tam giác ABC và vectơ" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>$\vec{MA} - \vec{MB} + \vec{MC} = \vec{0}$</p>
+                    <p>Sử dụng quy tắc hiệu vectơ: $\vec{MA} - \vec{MB} = \vec{BA}$.</p>
+                    <p>Vậy $\vec{BA} + \vec{MC} = \vec{0}$.</p>
+                    <p>$\Leftrightarrow \vec{MC} = -\vec{BA}$.</p>
+                    <p>$\Leftrightarrow \vec{MC} = \vec{AB}$.</p>
+                    <p>Điều này có nghĩa là ABMC là hình bình hành.</p>
+                    <p>Để $\vec{CM} = \vec{BA}$, suy ra CBAM là hình bình hành.</p>
+                    <p>Vậy M thỏa mãn CBAM là hình bình hành.</p>
+                    <p>M là đỉnh thứ tư của hình bình hành được tạo bởi C, B, A!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 51: Dạng 4: Tổng hợp -->
+        <div class="slide" id="slide51">
+            <div class="activity-section">
+                <h3>Dạng 4: TỔNG HỢP</h3>
+                <p>Cùng ôn lại những kiến thức đã học qua các bài tập tổng hợp nhé!</p>
+            </div>
+        </div>
+
+        <!-- Slide 52: Ví dụ 4.1 -->
+        <div class="slide" id="slide52">
+            <div class="example">
+                <h4>Ví dụ 4.1:</h4>
+                <p>Cho A, B, C là ba điểm thẳng hàng, B nằm giữa A và C. Viết các cặp vectơ cùng hướng, ngược hướng trong những vectơ sau:</p>
+                <p>$\vec{AB}, \vec{AC}, \vec{BA}, \vec{BC}, \vec{CA}, \vec{CB}$.</p>
+                <img src="../data/im/knvt-v38.png" alt="Ba điểm thẳng hàng" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Do các vectơ đều nằm trên đường thẳng AB nên các vectơ này đều cùng phương với nhau.</p>
+                    <p>Dễ thấy:</p>
+                    <p>Các vectơ $\vec{AB}, \vec{AC}, \vec{BC}$ cùng hướng (từ trái sang phải.)</p>
+                    <p>Các vectơ $\vec{BA}, \vec{CA}, \vec{CB}$ cùng hướng (từ phải sang trái.)</p>
+                    <p>Do đó, các cặp vectơ cùng hướng là:</p>
+                    <p>$\vec{AB}$ và $\vec{AC}$; $\vec{AC}$ và $\vec{BC}$; $\vec{AB}$ và $\vec{BC}$;</p>
+                    <p>$\vec{BA}$ và $\vec{CA}$; $\vec{BA}$ và $\vec{CB}$; $\vec{CA}$ và $\vec{CB}$.</p>
+                    <p>Các cặp vectơ ngược hướng là:</p>
+                    <p>$\vec{AB}$ và $\vec{BA}$; $\vec{AB}$ và $\vec{CA}$; $\vec{AB}$ và $\vec{CB}$</p>
+                    <p>$\vec{AC}$ và $\vec{BA}$; $\vec{AC}$ và $\vec{CA}$; $\vec{AC}$ và $\vec{CB}$;</p>
+                    <p>$\vec{BC}$ và $\vec{BA}$; $\vec{BC}$ và $\vec{CA}$; $\vec{BC}$ và $\vec{CB}$.</p>
+                    <p>Phân loại các vectơ thật là chi tiết!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 53: Ví dụ 4.2 -->
+        <div class="slide" id="slide53">
+            <div class="example">
+                <h4>Ví dụ 4.2:</h4>
+                <p>Cho đoạn thẳng MN có trung điểm là I.</p>
+                <p>a) Viết các vectơ khác vectơ-không có điểm đầu, điểm cuối là một trong ba điểm M, N,I.</p>
+                <p>b) vectơ nào bằng $\vec{MI}$? Bằng $\vec{NI}$?</p>
+                <img src="../data/im/knvt-v39.png" alt="Đoạn thẳng MN và trung điểm I" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>a) Các vectơ đó là: $\vec{MI}, \vec{IM}, \vec{IN}, \vec{NI}, \vec{MN}, \vec{NM}$.</p>
+                    <p>b) Dễ thấy:</p>
+                    <p>+) vectơ $\vec{IN}$ cùng hướng với vectơ $\vec{MI}$. Hơn nữa:</p>
+                    <p>$|\vec{IN}| = IN = MI = |\vec{MI}|$</p>
+                    <p>$\Rightarrow \vec{IN} = \vec{MI}$.</p>
+                    <p>+) vectơ $\vec{IM}$ cùng hướng với vectơ $\vec{NI}$. Hơn nữa:</p>
+                    <p>$|\vec{IM}| = IM = NI = |\vec{NI}|$</p>
+                    <p>$\Rightarrow \vec{IM} = \vec{NI}$.</p>
+                    <p>Vậy $\vec{IN} = \vec{MI}$ và $\vec{IM} = \vec{NI}$.</p>
+                    <p>Trung điểm giúp tạo ra nhiều cặp vectơ bằng nhau!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 54: Ví dụ 4.3 -->
+        <div class="slide" id="slide54">
+            <div class="example">
+                <h4>Ví dụ 4.3:</h4>
+                <p>Cho hình thang ABCD có hai đáy là AB và CD. Tìm vectơ:</p>
+                <p>a) Cùng hướng với $\vec{AB}$</p>
+                <p>b) Ngược hướng với $\vec{AB}$</p>
+                <img src="../data/im/knvt-v40.png" alt="Hình thang ABCD" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Giá của vectơ $\vec{AB}$ là đường thẳng AB.</p>
+                    <p>Các vectơ cùng phương với vectơ $\vec{AB}$ là: $\vec{CD}$ và $\vec{DC}$ (vì AB $\parallel$ CD).</p>
+                    <p>a) vectơ $\vec{DC}$ cùng hướng với vectơ $\vec{AB}$.</p>
+                    <p>b) vectơ $\vec{CD}$ ngược hướng với vectơ $\vec{AB}$.</p>
+                    <p>Cẩn thận với hướng khi làm việc với hình thang!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 55: Ví dụ 4.4 -->
+        <div class="slide" id="slide55">
+            <div class="example">
+                <h4>Ví dụ 4.4:</h4>
+                <p>Cho hình vuông ABCD có độ dài cạnh bằng 3cm. Tính độ dài của các vecto $\vec{AB}, \vec{AC}$.</p>
+                <img src="../data/im/knvt-v41.png" alt="Hình vuông ABCD" class="slide-image small">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Ta có: $|\vec{AB}| = AB$ và $|\vec{AC}| = AC$.</p>
+                    <p>Mà $AB = 3, AC = \sqrt{AB^2 + BC^2} = \sqrt{3^2 + 3^2} = \sqrt{9+9} = \sqrt{18} = 3\sqrt{2}$.</p>
+                    <p>$\Rightarrow |\vec{AB}| = 3; |\vec{AC}| = 3\sqrt{2}$.</p>
+                    <p>Bạn đã thành thạo tính độ dài rồi!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 56: Ví dụ 4.5 -->
+        <div class="slide" id="slide56">
+            <div class="example">
+                <h4>Ví dụ 4.5:</h4>
+                <p>Quan sát ròng rọc hoạt động khi dùng lực để kéo một đầu của ròng rọc. Chuyển động của các đoạn dây được mô tả bằng các vectoo $\vec{a}, \vec{b}, \vec{c}$ (hình)</p>
+                <img src="../data/im/knvt-v42.png" alt="Ròng rọc và vectơ" class="slide-image medium">
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Xem lời giải</button>
+                <div class="solution hidden">
+                    <h5>Lời giải:</h5>
+                    <p>Gọi a, b, c là các đường thẳng lần lượt chứa các vectơ $\vec{a}, \vec{b}, \vec{c}$. Khi đó: a,b,c lần lượt là giá của các vecto $\vec{a}, \vec{b}, \vec{c}$.</p>
+                    <p>a) Dễ thấy: a//b//c</p>
+                    <p>$\Rightarrow$ Ba vectơ $\vec{a}, \vec{b}, \vec{c}$ cùng phương với nhau.</p>
+                    <p>Vậy các cặp vectơ cùng phương là: $\vec{a}$ và $\vec{b}$, $\vec{a}$ và $\vec{c}$, $\vec{b}$ và $\vec{c}$.</p>
+                    <p>b) Quan sát ba vectơ, ta thấy: vectơ $\vec{a}$ và $\vec{c}$ cùng hướng xuống còn vectơ $\vec{b}$ hướng lên trên.</p>
+                    <p>Vậy vectơ $\vec{a}$ và $\vec{c}$ cùng hướng, vectơ $\vec{a}$ và $\vec{b}$ ngược hướng, vecto $\vec{b}$ và $\vec{c}$ ngược hướng.</p>
+                    <p>Ứng dụng của vectơ trong thực tế thật thú vị!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 57: Final Quiz -->
+        <div class="slide" id="slide57">
+            <h2>Tổng kết bài học!</h2>
+            <h3>Quiz cuối bài: Khái niệm Vectơ</h3>
+            <div class="quiz" data-quiz-id="final_quiz1">
+                <p><strong>Câu 1:</strong> Khẳng định nào sau đây là SAI?</p>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, 'final_quiz1')">A. Vectơ là một đoạn thẳng có hướng.</button>
+                    <button onclick="checkAnswer(this, false, 'final_quiz1')">B. Hai vectơ cùng phương thì luôn cùng hướng.</button>
+                    <button onclick="checkAnswer(this, true, 'final_quiz1')">C. Độ dài của vectơ $\vec{AB}$ kí hiệu là $AB$.</button>
+                    <button onclick="checkAnswer(this, false, 'final_quiz1')">D. Vectơ-không có độ dài bằng 0.</button>
+                </div>
+                <p id="feedback_final_quiz1" class="feedback"></p>
+            </div>
+            <div class="quiz" data-quiz-id="final_quiz2">
+                <p><strong>Câu 2:</strong> Cho hình bình hành ABCD. Vectơ nào sau đây BẰNG với $\vec{AB}$?</p>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, 'final_quiz2')">A. $\vec{BA}$</button>
+                    <button onclick="checkAnswer(this, true, 'final_quiz2')">B. $\vec{DC}$</button>
+                    <button onclick="checkAnswer(this, false, 'final_quiz2')">C. $\vec{AD}$</button>
+                    <button onclick="checkAnswer(this, false, 'final_quiz2')">D. $\vec{CD}$</button>
+                </div>
+                <p id="feedback_final_quiz2" class="feedback"></p>
+            </div>
+            <div class="quiz" data-quiz-id="final_quiz3">
+                <p><strong>Câu 3:</strong> Cho 5 điểm phân biệt. Có bao nhiêu vectơ khác vectơ-không có điểm đầu và điểm cuối là các điểm đã cho?</p>
+                <div class="options">
+                    <button onclick="checkAnswer(this, false, 'final_quiz3')">A. 5</button>
+                    <button onclick="checkAnswer(this, false, 'final_quiz3')">B. 10</button>
+                    <button onclick="checkAnswer(this, true, 'final_quiz3')">C. 20</button>
+                    <button onclick="checkAnswer(this, false, 'final_quiz3')">D. 25</button>
+                </div>
+                <p id="feedback_final_quiz3" class="feedback"></p>
+            </div>
+            <button class="show-solution-button" onclick="completeFinalQuiz()">Hoàn thành Quiz Cuối bài</button>
+            <p id="completion_final_quiz" class="completion-message"></p>
+        </div>
+
+        <!-- Slide 58: Drawing Challenge -->
+        <div class="slide" id="slide58">
+            <h2>Thử thách vẽ hình!</h2>
+            <p>Hãy vẽ một hình bình hành ABCD và minh họa các cặp vectơ bằng nhau bằng các mũi tên có màu sắc khác nhau.</p>
+            <div class="activity-area">
+                <canvas id="drawingCanvas58" class="drawing-canvas"></canvas>
+                <div class="drawing-tools">
+                    <button onclick="clearCanvas('drawingCanvas58')">Xóa</button>
+                    <input type="color" id="colorPicker58" value="#0000FF">
+                    <input type="range" id="brushSize58" min="1" max="10" value="3">
+                    <button onclick="drawRuler('drawingCanvas58')">Thước</button>
+                    <button onclick="drawCompass('drawingCanvas58')">Compa</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 59: Kết thúc bài học -->
+        <div class="slide" id="slide59">
+            <h2>Chúc mừng!</h2>
+            <p>Bạn đã hoàn thành bài học về <strong>Khái Niệm Vectơ</strong> một cách xuất sắc!</p>
+            <p>Vectơ là một công cụ mạnh mẽ trong toán học và vật lý. Hãy tiếp tục khám phá nhé!</p>
+            <p>Cảm ơn bạn đã học tập chăm chỉ!</p>
+            <img src="../assets/images/trophy.png" alt="Trophy" class="slide-image small">
+        </div>
+
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="../assets/js/core.js"></script>
+    <script src="../assets/js/music.js"></script>
+    <script src="../assets/js/game.js"></script>
+    <script src="../assets/js/draw.js"></script>
+    <script>
+        // Initialize drawing canvases
+        document.addEventListener('DOMContentLoaded', () => {
+            initDrawingCanvas('drawingCanvas7', 'colorPicker7', 'brushSize7');
+            initDrawingCanvas('drawingCanvas58', 'colorPicker58', 'brushSize58');
+
+            // Play background music when lesson loads
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            if (backgroundMusic) {
+                backgroundMusic.volume = 0.2; // Set a lower volume
+                const playPromise = backgroundMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log("Music started successfully");
+                        document.getElementById('toggleMusic').textContent = 'Nhạc (Bật)';
+                    }).catch(error => {
+                        console.log("Music auto-play prevented:", error);
+                        // Show a prompt or a play button for the user
+                        document.getElementById('toggleMusic').textContent = 'Nhạc (Tắt)'; // Indicate music is off
+                    });
+                }
+            }
+
+            // Update slide counter
+            updateSlideCounter();
+        });
+
+        function completeFinalQuiz() {
+            let correctCount = 0;
+            const quizIds = ['final_quiz1', 'final_quiz2', 'final_quiz3'];
+            let allAnswered = true;
+
+            for (const id of quizIds) {
+                const quizElement = document.querySelector(`.quiz[data-quiz-id="${id}"]`);
+                const buttons = quizElement.querySelectorAll('.options button');
+                let answered = false;
+                buttons.forEach(button => {
+                    if (button.classList.contains('correct-answer') || button.classList.contains('wrong-answer')) {
+                        answered = true;
+                    }
+                });
+                if (!answered) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allAnswered) {
+                alert("Bạn cần trả lời tất cả các câu hỏi trước khi hoàn thành quiz!");
+                return;
+            }
+
+            let allCorrect = true;
+            for (const id of quizIds) {
+                const feedbackElement = document.getElementById(`feedback_${id}`);
+                if (feedbackElement && feedbackElement.textContent !== "Tuyệt vời! Câu trả lời đúng.") {
+                    allCorrect = false;
+                    break;
+                }
+            }
+
+            const completionMessage = document.getElementById('completion_final_quiz');
+            if (allCorrect) {
+                completionMessage.textContent = "Bạn đã hoàn thành xuất sắc tất cả các câu hỏi cuối bài! 🎉";
+                completionMessage.style.color = 'green';
+                playAudio('../assets/audio/applause.mp3');
+            } else {
+                completionMessage.textContent = "Bạn đã hoàn thành quiz. Cố gắng thêm chút nữa nhé!";
+                completionMessage.style.color = 'orange';
+                playAudio('../assets/audio/wrong.mp3'); // Play a 'wrong' sound if not all correct
+            }
+        }
+    </script>
+</body>
+</html>
