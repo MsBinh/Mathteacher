@@ -1,0 +1,3752 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== KHUNG CÂU HỎI ===== */
+.question, .summary-box {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px 22px;
+  width: 96%;
+  max-height: 82vh;
+  overflow-y: auto;
+  margin: 12px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+   color: #03631e;
+   font-size: 22px;
+}
+
+/* Hình ảnh trong câu hỏi */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== TRẮC NGHIỆM ===== */
+.options-row, .option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.option-label, .option-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fdfdfd;
+  transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.option-label:hover, .option-row:hover {
+  background: #e8f1ff;
+  border-color: #0074d9;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #0074d9;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+/* ===== NÚT KIỂM TRA ===== */
+.answer-check {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.answer-check button, .check-btn {
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.answer-check button:hover {
+  background: #0059b2;
+  transform: translateY(-1px);
+}
+
+/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
+.answer-check input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* ===== MENU SLIDE ===== */
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #fefefe;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  border-right: 3px solid #0074d9;
+  overflow-y: auto;
+}
+
+.slide-menu.active {
+  left: 0;
+}
+
+.menu-header {
+  padding: 16px;
+  background: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+.slide-item {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9fafc;
+  cursor: pointer;
+  color: #111;
+  transition: 0.2s;
+}
+
+.slide-item:hover {
+  background: #e7f1ff;
+  border-color: #0074d9;
+}
+
+.slide-item.active {
+  background: #0074d9;
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
+
+/* ===== NÚT MỞ MENU ===== */
+.menu-toggle {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  z-index: 999;
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.menu-toggle:hover {
+  background: #0059b2;
+  transform: scale(1.1);
+}
+
+/* ===== TOOLBAR VẼ ===== */
+#drawCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#toolbar {
+  position: fixed;
+  top: 50%; left: 5px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#toolbar button, #toolbar select {
+  margin: 4px 0;
+  width: 38px; height: 38px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#toolbar button:hover {
+  background: #0074d9;
+  color: white;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 900;
+  padding: 10px 14px;
+  background: #0074d9;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.fullscreen-btn:hover {
+  background: #0056b3;
+}
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
+}
+
+/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
+.clock {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
+.reveal {
+  margin-top: 38px !important;
+}
+
+/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #1976d2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+}
+
+.definition-icon {
+  display: inline-block;
+  margin-right: 10px;
+  color: #1976d2;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin: 12px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 5px solid #ffa000;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 18px;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.solution-steps ol {
+  padding-left: 20px;
+}
+
+.solution-steps li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(232, 245, 232, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #388e3c;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 5px solid #303f9f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #303f9f;
+  padding-bottom: 10px;
+}
+
+.problem-number {
+  background: #303f9f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.problem-header h3 {
+  color: #303f9f;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #f57c00;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f57c00;
+  padding-bottom: 10px;
+}
+
+.example-header h3 {
+  color: #f57c00;
+  margin: 0;
+  font-weight: 700;
+}
+
+.tag {
+  background: #f57c00;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-question {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #f57c00;
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 5px solid #c2185b;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  display: none; /* Ẩn ban đầu, hiện khi click */
+}
+
+.solution h4 {
+  color: #c2185b;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c2185b;
+  padding-bottom: 8px;
+}
+
+.solution-conclusion {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #c2185b;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Nút xem lời giải */
+.btn.solution-toggle {
+  background: #0074d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 10px 0;
+}
+
+.btn.solution-toggle:hover {
+  background: #0059b2;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Hình ảnh */
+.image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề section */
+.doc-section {
+  margin: 30px 0;
+}
+
+.article-subtitle {
+  color: #004aad;
+  font-weight: 700;
+  border-bottom: 3px solid #004aad;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Công thức toán */
+.math {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .definition-box,
+  .note-box,
+  .problem-type,
+  .example,
+  .solution {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tag {
+    margin-top: 8px;
+  }
+  
+  .math {
+    font-size: 20px;
+  }
+}
+/* Cho phép cuộn slide dài */
+.reveal .slides section {
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+/* Không giới hạn chiều cao các box */
+.definition-box,
+.theorem-box,
+.method-box,
+.example,
+.note-box,
+.formula,
+.procedure {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Box lồng nhau thu nhỏ nhẹ */
+.box .box {
+  font-size: 0.9em;
+  padding: 0.8em;
+}
+
+</style>
+
+  <!-- ===== style chuyên đề  ===== -->
+
+
+
+
+</head>
+
+<body>
+    <!-- ===== Thanh tiêu đề cố định ===== -->
+<div class="topbar">
+  <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+  <div class="clock" id="clock">--:--:--</div>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 BÀI 3</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI TẬP TRẮC NGHIỆM </h2>
+  </section>
+<!--@@@@-->
+ <section>
+  <section>
+    <div class="question" id="q1">
+      <p><strong>Question 1</strong>. (THPT Hàm Rồng - Thanh Hóa 2025) Cho hàm số $y = f(x)$ liên tục trên đoạn [−3;5] và có đồ thị như hình vẽ. Giá trị lớn nhất của hàm số $y = f(x)$ trên đoạn [−3;5] bằng <img src="data//im/n39.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q1" value="A"/> A. 3 <span class="option-icon" id="icon-q1-A"></span></label>
+        <label><input type="radio" name="q1" value="B"/> B. 5 <span class="option-icon" id="icon-q1-B"></span></label>
+        <label><input type="radio" name="q1" value="C"/> C. -3 <span class="option-icon" id="icon-q1-C"></span></label>
+        <label><input type="radio" name="q1" value="D"/> D. 2 <span class="option-icon" id="icon-q1-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q1','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q2">
+      <p><strong>Question 2</strong>. (THPT Lương Tài 2 - Bắc Ninh 2025) Cho hàm số $y = f(x)$ liên tục trên đoạn [–4;4] có bảng biến thiên như hình vẽ <img src="data//im/n40.png"> Giá trị nhỏ nhất của hàm số đã cho trên đoạn [–4;4] bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q2" value="A"/> A. 3 <span class="option-icon" id="icon-q2-A"></span></label>
+        <label><input type="radio" name="q2" value="B"/> B. –22 <span class="option-icon" id="icon-q2-B"></span></label>
+        <label><input type="radio" name="q2" value="C"/> C. –71 <span class="option-icon" id="icon-q2-C"></span></label>
+        <label><input type="radio" name="q2" value="D"/> D. –4 <span class="option-icon" id="icon-q2-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q2','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q3">
+      <p><strong>Question 3</strong>. (THPT Tiên Du - Bắc Ninh 2025) Cho hàm số $y = f(x)$ xác định trên [-2;4] có đồ thị như hình vẽ bên. Giá trị lớn nhất hàm số $y = f(x)$ trên đoạn [0;4] là <img src="data//im/n41.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q3" value="A"/> A. 3 <span class="option-icon" id="icon-q3-A"></span></label>
+        <label><input type="radio" name="q3" value="B"/> B. 2 <span class="option-icon" id="icon-q3-B"></span></label>
+        <label><input type="radio" name="q3" value="C"/> C. -2 <span class="option-icon" id="icon-q3-C"></span></label>
+        <label><input type="radio" name="q3" value="D"/> D. 7 <span class="option-icon" id="icon-q3-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q3','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q4">
+      <p><strong>Question 4</strong>. (THPT Nguyễn Đăng Đạo - Bắc Ninh 2025) Gọi $M,m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x)=x^4-2x^2-1$ trên đoạn [-1;2]. Giá trị của biểu thức $M+3m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q4" value="A"/> A. 1 <span class="option-icon" id="icon-q4-A"></span></label>
+        <label><input type="radio" name="q4" value="B"/> B. 5 <span class="option-icon" id="icon-q4-B"></span></label>
+        <label><input type="radio" name="q4" value="C"/> C. 6 <span class="option-icon" id="icon-q4-C"></span></label>
+        <label><input type="radio" name="q4" value="D"/> D. 4 <span class="option-icon" id="icon-q4-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q4','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q5">
+      <p><strong>Question 5</strong>. (THPT Gia Bình - Bắc Ninh 2025) Cho hàm số $y = f(x)$ liên tục và có bảng biến thiên trên đoạn [-1;3] như hình vẽ bên. Khẳng định nào đúng? <img src="data//im/n42.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q5" value="A"/> A. $\min_{[-1;3]} f(x) = -1$ <span class="option-icon" id="icon-q5-A"></span></label>
+        <label><input type="radio" name="q5" value="B"/> B. $\min_{[-1;3]} f(x) = 1$ <span class="option-icon" id="icon-q5-B"></span></label>
+        <label><input type="radio" name="q5" value="C"/> C. $\max_{[-1;3]} f(x) = 5$ <span class="option-icon" id="icon-q5-C"></span></label>
+        <label><input type="radio" name="q5" value="D"/> D. $\max_{[-1;3]} f(x) = 4$ <span class="option-icon" id="icon-q5-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q5','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q6">
+      <p><strong>Question 6</strong>. (THPT Thạch Thành 1 - Thanh Hóa 2025) Cho hàm số $y = f(x)$ liên tục và có bảng biến thiên trên đoạn [-1;3] như hình vẽ bên. Khẳng định nào sau đây là <b>đúng</b>? <img src="data//im/n43.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q6" value="A"/> A. $\max_{[-1;3]} f(x) = 4$ <span class="option-icon" id="icon-q6-A"></span></label>
+        <label><input type="radio" name="q6" value="B"/> B. $\max_{[-1;3]} f(x) = 5$ <span class="option-icon" id="icon-q6-B"></span></label>
+        <label><input type="radio" name="q6" value="C"/> C. $\max_{[-1;3]} f(x) = 1$ <span class="option-icon" id="icon-q6-C"></span></label>
+        <label><input type="radio" name="q6" value="D"/> D. $\max_{[-1;3]} f(x) = 0$ <span class="option-icon" id="icon-q6-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q6','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q7">
+      <p><strong>Question 7</strong>. (THPT Thạch Thành 1 - Thanh Hóa 2025) Giá trị lớn nhất của hàm số $f(x) = x^3 - 3x^2 - 9x + 10$ trên đoạn [-2;2] bằng:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q7" value="A"/> A. –12 <span class="option-icon" id="icon-q7-A"></span></label>
+        <label><input type="radio" name="q7" value="B"/> B. 10 <span class="option-icon" id="icon-q7-B"></span></label>
+        <label><input type="radio" name="q7" value="C"/> C. 15 <span class="option-icon" id="icon-q7-C"></span></label>
+        <label><input type="radio" name="q7" value="D"/> D. -2 <span class="option-icon" id="icon-q7-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q7','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q8">
+      <p><strong>Question 8</strong>. (THPT Yên Lạc - Vĩnh Phúc 2025) Cho hàm số $f(x)$ có đồ thị như hình vẽ <img src="data//im/n44.png"> Giá trị lớn nhất của hàm số đã cho trên khoảng $(-\infty;-1)$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q8" value="A"/> A. 1 <span class="option-icon" id="icon-q8-A"></span></label>
+        <label><input type="radio" name="q8" value="B"/> B. 2 <span class="option-icon" id="icon-q8-B"></span></label>
+        <label><input type="radio" name="q8" value="C"/> C. -6 <span class="option-icon" id="icon-q8-C"></span></label>
+        <label><input type="radio" name="q8" value="D"/> D. -3 <span class="option-icon" id="icon-q8-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q8','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q9">
+      <p><strong>Question 9</strong>. (THPT Chuyên Vĩnh Phúc 2025) Cho hàm số $y = f(x)$ có bảng biến thiên trên đoạn [0;3] như sau. <img src="data//im/n45.png"> Giá trị nhỏ nhất của hàm số $y = f(x)$ trên đoạn [0;3] là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q9" value="A"/> A. –4 <span class="option-icon" id="icon-q9-A"></span></label>
+        <label><input type="radio" name="q9" value="B"/> B. 1 <span class="option-icon" id="icon-q9-B"></span></label>
+        <label><input type="radio" name="q9" value="C"/> C. 4 <span class="option-icon" id="icon-q9-C"></span></label>
+        <label><input type="radio" name="q9" value="D"/> D. 0 <span class="option-icon" id="icon-q9-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q9','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q10">
+      <p><strong>Question 10</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Giá trị nhỏ nhất của hàm số $y = x^3 + 3x - 6$ trên đoạn $[1;3]$ là:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q10" value="A"/> A. -39 <span class="option-icon" id="icon-q10-A"></span></label>
+        <label><input type="radio" name="q10" value="B"/> B. -2 <span class="option-icon" id="icon-q10-B"></span></label>
+        <label><input type="radio" name="q10" value="C"/> C. -10 <span class="option-icon" id="icon-q10-C"></span></label>
+        <label><input type="radio" name="q10" value="D"/> D. -6 <span class="option-icon" id="icon-q10-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q10','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q11">
+      <p><strong>Question 11</strong>. (THPT Thuận Thành 1\&2 - Bắc Ninh 2025) Giá trị lớn nhất của hàm số $y = x^3 - 3x + 1$ trên đoạn $[-2;0]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q11" value="A"/> A. 1 <span class="option-icon" id="icon-q11-A"></span></label>
+        <label><input type="radio" name="q11" value="B"/> B. 3 <span class="option-icon" id="icon-q11-B"></span></label>
+        <label><input type="radio" name="q11" value="C"/> C. -1 <span class="option-icon" id="icon-q11-C"></span></label>
+        <label><input type="radio" name="q11" value="D"/> D. 2 <span class="option-icon" id="icon-q11-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q11','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q12">
+      <p><strong>Question 12</strong>. (THPT Hùng Vương - Bình Thuận 2025) Cho hàm số $y = f(x)$ có bảng biến thiên như sau <img src="data//im/n46.png"> Khẳng định nào sau đây sai?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q12" value="A"/> A. Hàm số $y = f(x)$ nghịch biến trên $(-1;0)$ và $(1;+\infty)$ <span class="option-icon" id="icon-q12-A"></span></label>
+        <label><input type="radio" name="q12" value="B"/> B. Giá trị nhỏ nhất của hàm số $y = f(x)$ trên tập $\mathbb{R}$ bằng $-1$ <span class="option-icon" id="icon-q12-B"></span></label>
+        <label><input type="radio" name="q12" value="C"/> C. Giá trị lớn nhất của hàm số $y = f(x)$ trên tập $\mathbb{R}$ bằng $0$ <span class="option-icon" id="icon-q12-C"></span></label>
+        <label><input type="radio" name="q12" value="D"/> D. Đồ thị hàm số $y = f(x)$ không có đường tiệm cận <span class="option-icon" id="icon-q12-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q12','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q13">
+      <p><strong>Question 13</strong>. (THPT Triệu Sơn 4 - Thanh Hóa 2025) Cho hàm số $y = f(x)$ liên tục và có đồ thị trên đoạn $[-2;4]$ như hình vẽ bên. <img src="data//im/n47.png"> Tổng giá trị lớn nhất và nhỏ nhất của hàm số $y = f(x)$ trên đoạn $[-2;4]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q13" value="A"/> A. -2 <span class="option-icon" id="icon-q13-A"></span></label>
+        <label><input type="radio" name="q13" value="B"/> B. 5 <span class="option-icon" id="icon-q13-B"></span></label>
+        <label><input type="radio" name="q13" value="C"/> C. 3 <span class="option-icon" id="icon-q13-C"></span></label>
+        <label><input type="radio" name="q13" value="D"/> D. 0 <span class="option-icon" id="icon-q13-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q13','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q14">
+      <p><strong>Question 14</strong>. (THPT Triệu Sơn 1 - Thanh Hóa 2025) Giá trị nhỏ nhất của hàm số $f(x) = x^3 - 3x + 2$ trên đoạn $[-3;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q14" value="A"/> A. 0 <span class="option-icon" id="icon-q14-A"></span></label>
+        <label><input type="radio" name="q14" value="B"/> B. -16 <span class="option-icon" id="icon-q14-B"></span></label>
+        <label><input type="radio" name="q14" value="C"/> C. 4 <span class="option-icon" id="icon-q14-C"></span></label>
+        <label><input type="radio" name="q14" value="D"/> D. 20 <span class="option-icon" id="icon-q14-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q14','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q15">
+      <p><strong>Question 15</strong>. (THPT Cụm trường Hải Dương 2025) Giá trị nhỏ nhất của hàm số $f(x) = x^3 - 6x^2 + 9x - 1$ trên nửa khoảng $[-1; +\infty)$ là <img src="data//im/n48.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q15" value="A"/> A. 1 <span class="option-icon" id="icon-q15-A"></span></label>
+        <label><input type="radio" name="q15" value="B"/> B. -17 <span class="option-icon" id="icon-q15-B"></span></label>
+        <label><input type="radio" name="q15" value="C"/> C. 17 <span class="option-icon" id="icon-q15-C"></span></label>
+        <label><input type="radio" name="q15" value="D"/> D. 3 <span class="option-icon" id="icon-q15-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q15','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q16">
+      <p><strong>Question 16</strong>. (Sở Hà Tĩnh 2025) Cho hàm số $y = f(x)$ có bảng biến thiên như hình bên. <img src="data//im/n49.png"> Giá trị lớn nhất của hàm số đã cho trên đoạn $[-2;4]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q16" value="A"/> A. -1 <span class="option-icon" id="icon-q16-A"></span></label>
+        <label><input type="radio" name="q16" value="B"/> B. 10 <span class="option-icon" id="icon-q16-B"></span></label>
+        <label><input type="radio" name="q16" value="C"/> C. 1 <span class="option-icon" id="icon-q16-C"></span></label>
+        <label><input type="radio" name="q16" value="D"/> D. 8 <span class="option-icon" id="icon-q16-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q16','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q17">
+      <p><strong>Question 17</strong>. (Sở Vĩnh Phúc 2025) Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2;6]$ và có đồ thị như hình vẽ sau: <img src="data//im/n50.png"> Tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = f(x)$ trên đoạn $[-2;6]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q17" value="A"/> A. 1 <span class="option-icon" id="icon-q17-A"></span></label>
+        <label><input type="radio" name="q17" value="B"/> B. 5 <span class="option-icon" id="icon-q17-B"></span></label>
+        <label><input type="radio" name="q17" value="C"/> C. 4 <span class="option-icon" id="icon-q17-C"></span></label>
+        <label><input type="radio" name="q17" value="D"/> D. 2 <span class="option-icon" id="icon-q17-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q17','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q18">
+      <p><strong>Question 18</strong>. (Chuyên Thái Bình 2025) Cho hàm số $y = f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ bên. <img src="data//im/n51.png"> Khẳng định nào sau đây đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q18" value="A"/> A. $\max_{[-1;3]} f(x) = f(0)$ <span class="option-icon" id="icon-q18-A"></span></label>
+        <label><input type="radio" name="q18" value="B"/> B. $\max_{[-1;3]} f(x) = f(3)$ <span class="option-icon" id="icon-q18-B"></span></label>
+        <label><input type="radio" name="q18" value="C"/> C. $\max_{[-1;3]} f(x) = f(2)$ <span class="option-icon" id="icon-q18-C"></span></label>
+        <label><input type="radio" name="q18" value="D"/> D. $\max_{[-1;3]} f(x) = f(-1)$ <span class="option-icon" id="icon-q18-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q18','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q19">
+      <p><strong>Question 19</strong>. (Chuyên Vinh 2025) Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm như sau <img src="data//im/n52.png"> Mệnh đề nào sau đây đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q19" value="A"/> A. $\max_{(0;+\infty)} f(x) = f(1)$ <span class="option-icon" id="icon-q19-A"></span></label>
+        <label><input type="radio" name="q19" value="B"/> B. $\max_{[-1;1]} f(x) = f(0)$ <span class="option-icon" id="icon-q19-B"></span></label>
+        <label><input type="radio" name="q19" value="C"/> C. $\max_{(-\infty;-1]} f(x) = f(-1)$ <span class="option-icon" id="icon-q19-C"></span></label>
+        <label><input type="radio" name="q19" value="D"/> D. $\min_{(0;1)} f(x) = f(0)$ <span class="option-icon" id="icon-q19-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q19','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q20">
+      <p><strong>Question 20</strong>. (THPT Cẩm Xuyên - Hà Tĩnh 2025) Giá trị lớn nhất của hàm số $f(x) = x^3 + 3x - 6$ trên đoạn $[1;3]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q20" value="A"/> A. 30 <span class="option-icon" id="icon-q20-A"></span></label>
+        <label><input type="radio" name="q20" value="B"/> B. 39 <span class="option-icon" id="icon-q20-B"></span></label>
+        <label><input type="radio" name="q20" value="C"/> C. 36 <span class="option-icon" id="icon-q20-C"></span></label>
+        <label><input type="radio" name="q20" value="D"/> D. 10 <span class="option-icon" id="icon-q20-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q20','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q21">
+      <p><strong>Question 21</strong>. (THPT Trần Nguyên Hãn - Hải Phòng 2025) Cho hàm số $y = f(x)$ liên tục trên $[-1;3]$ và có đồ thị như hình bên <img src="data//im/n53.png"> Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên đoạn $[-1;3]$. Giá trị của $M+m$ là:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q21" value="A"/> A. -5 <span class="option-icon" id="icon-q21-A"></span></label>
+        <label><input type="radio" name="q21" value="B"/> B. 2 <span class="option-icon" id="icon-q21-B"></span></label>
+        <label><input type="radio" name="q21" value="C"/> C. -6 <span class="option-icon" id="icon-q21-C"></span></label>
+        <label><input type="radio" name="q21" value="D"/> D. -2 <span class="option-icon" id="icon-q21-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q21','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q22">
+      <p><strong>Question 22</strong>. (THPT Sào Nam - Quảng Nam 2025) Giá trị nhỏ nhất của hàm số $f(x)=-x^3-x+2$ trên đoạn $[-2;0]$ bằng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q22" value="A"/> A. 2 <span class="option-icon" id="icon-q22-A"></span></label>
+        <label><input type="radio" name="q22" value="B"/> B. -2 <span class="option-icon" id="icon-q22-B"></span></label>
+        <label><input type="radio" name="q22" value="C"/> C. 0 <span class="option-icon" id="icon-q22-C"></span></label>
+        <label><input type="radio" name="q22" value="D"/> D. -8 <span class="option-icon" id="icon-q22-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q22','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q23">
+      <p><strong>Question 23</strong>. (Cụm trường Nguyễn Hiền - Lê Hồng Phong - Quảng Nam 2025) Giá trị lớn nhất của hàm số $f(x) = -x^4 + 12x^2 + 1$ trên đoạn $[-1;2]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q23" value="A"/> A. 37 <span class="option-icon" id="icon-q23-A"></span></label>
+        <label><input type="radio" name="q23" value="B"/> B. 1 <span class="option-icon" id="icon-q23-B"></span></label>
+        <label><input type="radio" name="q23" value="C"/> C. 12 <span class="option-icon" id="icon-q23-C"></span></label>
+        <label><input type="radio" name="q23" value="D"/> D. 33 <span class="option-icon" id="icon-q23-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q23','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q24">
+      <p><strong>Question 24</strong>. (THPT Nông Cống 3 - Thanh Hóa 2025) Tìm giá trị nhỏ nhất của hàm số $y=-x+3-\dfrac{1}{x+2}$ trên nửa khoảng $[-4;-2)$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q24" value="A"/> A. $\min_{[-4;-2)} y = 5$ <span class="option-icon" id="icon-q24-A"></span></label>
+        <label><input type="radio" name="q24" value="B"/> B. $\min_{[-4;-2)} y = 4$ <span class="option-icon" id="icon-q24-B"></span></label>
+        <label><input type="radio" name="q24" value="C"/> C. $\min_{[-4;-2)} y = 7$ <span class="option-icon" id="icon-q24-C"></span></label>
+        <label><input type="radio" name="q24" value="D"/> D. $\min_{[-4;-2)} y = \dfrac{15}{2}$ <span class="option-icon" id="icon-q24-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q24','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q25">
+      <p><strong>Question 25</strong>. (THPT Anh Sơn 3 - Nghệ An 2025) Giá trị lớn nhất của hàm số $f(x)=x^3-3x^2-9x+10$ trên đoạn $[-2;2]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q25" value="A"/> A. 17 <span class="option-icon" id="icon-q25-A"></span></label>
+        <label><input type="radio" name="q25" value="B"/> B. 10 <span class="option-icon" id="icon-q25-B"></span></label>
+        <label><input type="radio" name="q25" value="C"/> C. 15 <span class="option-icon" id="icon-q25-C"></span></label>
+        <label><input type="radio" name="q25" value="D"/> D. -12 <span class="option-icon" id="icon-q25-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q25','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q26">
+      <p><strong>Question 26</strong>. (Sở Bắc Giang 2025) Giá trị nhỏ nhất của hàm số $y=x^4-4x^2+3$ trên đoạn $[0;4]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q26" value="A"/> A. 0 <span class="option-icon" id="icon-q26-A"></span></label>
+        <label><input type="radio" name="q26" value="B"/> B. $\sqrt{2}$ <span class="option-icon" id="icon-q26-B"></span></label>
+        <label><input type="radio" name="q26" value="C"/> C. 3 <span class="option-icon" id="icon-q26-C"></span></label>
+        <label><input type="radio" name="q26" value="D"/> D. -1 <span class="option-icon" id="icon-q26-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q26','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q29">
+      <p><strong>Question 29</strong>. (Sở Thái Nguyên 2025) Giá trị lớn nhất của hàm số $y=x^3-3x+4$ trên đoạn $[-2;0]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q29" value="A"/> A. 2 <span class="option-icon" id="icon-q29-A"></span></label>
+        <label><input type="radio" name="q29" value="B"/> B. 4 <span class="option-icon" id="icon-q29-B"></span></label>
+        <label><input type="radio" name="q29" value="C"/> C. 12 <span class="option-icon" id="icon-q29-C"></span></label>
+        <label><input type="radio" name="q29" value="D"/> D. 6 <span class="option-icon" id="icon-q29-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q29','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q30">
+      <p><strong>Question 30</strong>. (Chuyên Hùng Vương - Phú Thọ 2025) Cho hàm số $y=f(x)$ xác định trên $\mathbb{R}$ và có bảng xét dấu $f'(x)$ như sau: <img src="data//im/n56.png"> Khẳng định nào dưới đây đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q30" value="A"/> A. $\min_{(-2;+\infty)} f(x)=f(1)$ <span class="option-icon" id="icon-q30-A"></span></label>
+        <label><input type="radio" name="q30" value="B"/> B. $\min_{(-\infty;-3)} f(x)=f(-3)$ <span class="option-icon" id="icon-q30-B"></span></label>
+        <label><input type="radio" name="q30" value="C"/> C. $\min_{(-2;1)} f(x)=f(1)$ <span class="option-icon" id="icon-q30-C"></span></label>
+        <label><input type="radio" name="q30" value="D"/> D. $\min_{[-3;-2]} f(x)=f(-2)$ <span class="option-icon" id="icon-q30-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q30','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q31">
+      <p><strong>Question 31</strong>. (Sở Lào Cai 2025) Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị trên như hình vẽ sau <img src="data//im/n58.png"> Trên đoạn $[1;5]$, hàm số đã cho đạt giá trị lớn nhất tại điểm</p>
+      <div class="options-row">
+        <label><input type="radio" name="q31" value="A"/> A. $x=4$ <span class="option-icon" id="icon-q31-A"></span></label>
+        <label><input type="radio" name="q31" value="B"/> B. $x=1$ <span class="option-icon" id="icon-q31-B"></span></label>
+        <label><input type="radio" name="q31" value="C"/> C. $x=2$ <span class="option-icon" id="icon-q31-C"></span></label>
+        <label><input type="radio" name="q31" value="D"/> D. $x=5$ <span class="option-icon" id="icon-q31-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q31','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q32">
+      <p><strong>Question 32</strong>. (THPT Ngô Sĩ Liên - Bắc Giang 2025) Cho hàm số $f(x)$ liên tục trên $[-1;5]$ và có đồ thị trên đoạn $[-1;5]$ như hình vẽ bên dưới. Tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x)$ trên đoạn $[-1;5]$ bằng <img src="data//im/n60.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q32" value="A"/> A. 4 <span class="option-icon" id="icon-q32-A"></span></label>
+        <label><input type="radio" name="q32" value="B"/> B. 1 <span class="option-icon" id="icon-q32-B"></span></label>
+        <label><input type="radio" name="q32" value="C"/> C. 2 <span class="option-icon" id="icon-q32-C"></span></label>
+        <label><input type="radio" name="q32" value="D"/> D. -1 <span class="option-icon" id="icon-q32-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q32','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q33">
+      <p><strong>Question 33</strong>. (Liên Trường Nghệ An 2025) Tìm giá trị lớn nhất $M$ của hàm số $y = x^3+3x^2-9x-6$ trên đoạn $[-1;2]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q33" value="A"/> A. $M=21$ <span class="option-icon" id="icon-q33-A"></span></label>
+        <label><input type="radio" name="q33" value="B"/> B. $M=7$ <span class="option-icon" id="icon-q33-B"></span></label>
+        <label><input type="radio" name="q33" value="C"/> C. $M=5$ <span class="option-icon" id="icon-q33-C"></span></label>
+        <label><input type="radio" name="q33" value="D"/> D. $M=-11$ <span class="option-icon" id="icon-q33-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q33','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q34">
+      <p><strong>Question 34</strong>. (THPT Hoằng Hóa 2-Thanh Hóa 2025) Cho hàm số $f(x)$ liên tục trên đoạn $[-2;2]$ có đồ thị như hình vẽ. Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-2;2]$. Khi đó, tổng $M+m$ bằng <img src="data//im/n61.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q34" value="A"/> A. -6 <span class="option-icon" id="icon-q34-A"></span></label>
+        <label><input type="radio" name="q34" value="B"/> B. -2 <span class="option-icon" id="icon-q34-B"></span></label>
+        <label><input type="radio" name="q34" value="C"/> C. -5 <span class="option-icon" id="icon-q34-C"></span></label>
+        <label><input type="radio" name="q34" value="D"/> D. 2 <span class="option-icon" id="icon-q34-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q34','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q34">
+      <p><strong>Question 34</strong>. (Cụm Ninh Giang - Tứ Kỳ - Gia Lộc 2025) Giá trị lớn nhất $M$ của hàm số $y=x^3+3x^2-9x-6$ trên đoạn $[-1;2]$ là?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q34" value="A"/> A. $M=7$ <span class="option-icon" id="icon-q34-A"></span></label>
+        <label><input type="radio" name="q34" value="B"/> B. $M=5$ <span class="option-icon" id="icon-q34-B"></span></label>
+        <label><input type="radio" name="q34" value="C"/> C. $M=-11$ <span class="option-icon" id="icon-q34-C"></span></label>
+        <label><input type="radio" name="q34" value="D"/> D. $M=21$ <span class="option-icon" id="icon-q34-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q34','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q35">
+      <p><strong>Question 35</strong>. (THPT Tư Nghĩa 1 - Quảng Ngãi 2025) Cho hàm số $y=f(x)$ có đồ thị trên đoạn $[-3;5]$ như hình vẽ. Gọi $M,m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $[-3;5]$. Tính $2M-m$. <img src="data//im/n62.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q35" value="A"/> A. 5 <span class="option-icon" id="icon-q35-A"></span></label>
+        <label><input type="radio" name="q35" value="B"/> B. 8 <span class="option-icon" id="icon-q35-B"></span></label>
+        <label><input type="radio" name="q35" value="C"/> C. 2 <span class="option-icon" id="icon-q35-C"></span></label>
+        <label><input type="radio" name="q35" value="D"/> D. 6 <span class="option-icon" id="icon-q35-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q35','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q36">
+      <p><strong>Question 36</strong>. (THPT Mai Trúc Loan - Hà Tĩnh 2025) Giá trị lớn nhất của hàm số $y=x^3-3x$ trên đoạn $[0;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q36" value="A"/> A. 2 <span class="option-icon" id="icon-q36-A"></span></label>
+        <label><input type="radio" name="q36" value="B"/> B. 18 <span class="option-icon" id="icon-q36-B"></span></label>
+        <label><input type="radio" name="q36" value="C"/> C. -2 <span class="option-icon" id="icon-q36-C"></span></label>
+        <label><input type="radio" name="q36" value="D"/> D. 0 <span class="option-icon" id="icon-q36-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q36','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q37">
+      <p><strong>Question 37</strong>. (THPT Triệu Quang Phục - Hưng Yên 2025) Cho hàm số $y=f(x)$ liên tục trên đoạn $[-4;3]$, có bảng biến thiên như hình vẽ. Khẳng định nào sau đây là đúng? <img src="data//im/n67.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q37" value="A"/> A. $\min_{[-4;3]} f(x)=-1$ tại $x=3$ <span class="option-icon" id="icon-q37-A"></span></label>
+        <label><input type="radio" name="q37" value="B"/> B. $\max_{[-4;3]} f(x)=4$ tại $x=-4$ <span class="option-icon" id="icon-q37-B"></span></label>
+        <label><input type="radio" name="q37" value="C"/> C. $\max_{[-4;3]} f(x)=2$ tại $x=0$ <span class="option-icon" id="icon-q37-C"></span></label>
+        <label><input type="radio" name="q37" value="D"/> D. $\min_{[-4;3]} f(x)=-2$ tại $x=2$ <span class="option-icon" id="icon-q37-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q37','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q37">
+      <p><strong>Question 37</strong>. (Cụm Chuyên Môn Đăk Lak 2025) Cho hàm số $y=f(x)$, có đồ thị trên đoạn [-2;2] như hình vẽ. <img src="data//im/n63.png"> Gọi giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x)$ trên $[-2;2]$ lần lượt là $M$ và $m$. Khi đó $M-m$ bằng:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q37" value="A"/> A. 5 <span class="option-icon" id="icon-q37-A"></span></label>
+        <label><input type="radio" name="q37" value="B"/> B. 3 <span class="option-icon" id="icon-q37-B"></span></label>
+        <label><input type="radio" name="q37" value="C"/> C. -4 <span class="option-icon" id="icon-q37-C"></span></label>
+        <label><input type="radio" name="q37" value="D"/> D. 0 <span class="option-icon" id="icon-q37-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q37','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q37">
+      <p><strong>Question 37</strong>. (Cụm Chuyên Môn Đăk Lak 2025) Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Giá trị lớn nhất của hàm số $y=f(x)$ trên đoạn $[-2;0]$ bằng: <img src="data//im/n64.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q37" value="A"/> A. 1 <span class="option-icon" id="icon-q37-A"></span></label>
+        <label><input type="radio" name="q37" value="B"/> B. 4 <span class="option-icon" id="icon-q37-B"></span></label>
+        <label><input type="radio" name="q37" value="C"/> C. -2 <span class="option-icon" id="icon-q37-C"></span></label>
+        <label><input type="radio" name="q37" value="D"/> D. -1 <span class="option-icon" id="icon-q37-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q37','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q38">
+      <p><strong>Question 38</strong>. (Sở Hậu Giang 2025) Giá trị nhỏ nhất của hàm số $y=x^4-2x^2-5$ trên đoạn $[-2;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q38" value="A"/> A. -5 <span class="option-icon" id="icon-q38-A"></span></label>
+        <label><input type="radio" name="q38" value="B"/> B. -51 <span class="option-icon" id="icon-q38-B"></span></label>
+        <label><input type="radio" name="q38" value="C"/> C. -1 <span class="option-icon" id="icon-q38-C"></span></label>
+        <label><input type="radio" name="q38" value="D"/> D. -6 <span class="option-icon" id="icon-q38-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q38','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q39">
+      <p><strong>Question 39</strong>. (THPT Bắc Đông Quan - Thái Bình 2025) Gọi $M, m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y=2-\sin x$. Khẳng định nào sau đây đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q39" value="A"/> A. $M=2; m=1$ <span class="option-icon" id="icon-q39-A"></span></label>
+        <label><input type="radio" name="q39" value="B"/> B. $M=1; m=-1$ <span class="option-icon" id="icon-q39-B"></span></label>
+        <label><input type="radio" name="q39" value="C"/> C. $M=3; m=0$ <span class="option-icon" id="icon-q39-C"></span></label>
+        <label><input type="radio" name="q39" value="D"/> D. $M=3; m=1$ <span class="option-icon" id="icon-q39-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q39','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q40">
+      <p><strong>Question 40</strong>. (Sở Hà Tĩnh 2025) Cho hàm số $y=f(x)$ có bảng biến thiên trên đoạn $[0;3]$ như sau: <img src="data//im/n66.png"> Giá trị nhỏ nhất của hàm số $y=f(x)$ trên đoạn $[0;3]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q40" value="A"/> A. -4 <span class="option-icon" id="icon-q40-A"></span></label>
+        <label><input type="radio" name="q40" value="B"/> B. 1 <span class="option-icon" id="icon-q40-B"></span></label>
+        <label><input type="radio" name="q40" value="C"/> C. 4 <span class="option-icon" id="icon-q40-C"></span></label>
+        <label><input type="radio" name="q40" value="D"/> D. 0 <span class="option-icon" id="icon-q40-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q40','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q41">
+      <p><strong>Question 41</strong>. Cho hàm số $y = f(x)$ liên tục và có bảng biến thiên trong đoạn $[-1;3]$ như hình. <img src="data//im/n23.png"> Gọi $M$ là giá trị lớn nhất của hàm số $y = f(x)$ trên đoạn $[-1;3]$. Tìm mệnh đề đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q41" value="A"/> A. $M = f(-1)$ <span class="option-icon" id="icon-q41-A"></span></label>
+        <label><input type="radio" name="q41" value="B"/> B. $M = f(3)$ <span class="option-icon" id="icon-q41-B"></span></label>
+        <label><input type="radio" name="q41" value="C"/> C. $M = f(2)$ <span class="option-icon" id="icon-q41-C"></span></label>
+        <label><input type="radio" name="q41" value="D"/> D. $M = f(0)$ <span class="option-icon" id="icon-q41-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q41','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q42">
+      <p><strong>Question 42</strong>. Cho hàm số $y = f(x)$ xác định và liên tục trên $[-2;3]$ có bảng biến thiên như hình bên. <img src="data//im/n24.png"> Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-2;3]$. Tổng $M + m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q42" value="A"/> A. $1$ <span class="option-icon" id="icon-q42-A"></span></label>
+        <label><input type="radio" name="q42" value="B"/> B. $3$ <span class="option-icon" id="icon-q42-B"></span></label>
+        <label><input type="radio" name="q42" value="C"/> C. $-1$ <span class="option-icon" id="icon-q42-C"></span></label>
+        <label><input type="radio" name="q42" value="D"/> D. $4$ <span class="option-icon" id="icon-q42-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q42','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q43">
+      <p><strong>Question 43</strong>. Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên trên đoạn $[-1;4]$ như hình dưới. Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên đoạn $[-1;4]$. Giá trị của $M + m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q43" value="A"/> A. $-4$ <span class="option-icon" id="icon-q43-A"></span></label>
+        <label><input type="radio" name="q43" value="B"/> B. $-28$ <span class="option-icon" id="icon-q43-B"></span></label>
+        <label><input type="radio" name="q43" value="C"/> C. $20$ <span class="option-icon" id="icon-q43-C"></span></label>
+        <label><input type="radio" name="q43" value="D"/> D. $-20$ <span class="option-icon" id="icon-q43-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q43','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q44">
+      <p><strong>Question 44</strong>. Cho hàm số $y = f(x)$ liên tục trên đoạn $[-1;3]$ và có đồ thị như hình. Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên đoạn $[-1;3]$. Giá trị của $M - m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q44" value="A"/> A. $0$ <span class="option-icon" id="icon-q44-A"></span></label>
+        <label><input type="radio" name="q44" value="B"/> B. $1$ <span class="option-icon" id="icon-q44-B"></span></label>
+        <label><input type="radio" name="q44" value="C"/> C. $4$ <span class="option-icon" id="icon-q44-C"></span></label>
+        <label><input type="radio" name="q44" value="D"/> D. $5$ <span class="option-icon" id="icon-q44-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q44','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q45">
+      <p><strong>Question 45</strong>. Cho hàm số $y = f(x)$ xác định, liên tục trên đoạn $[-2;2]$ và có đồ thị là đường cong trong hình vẽ bên dưới. Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-2;2]$. Giá trị của $M - m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q45" value="A"/> A. $0$ <span class="option-icon" id="icon-q45-A"></span></label>
+        <label><input type="radio" name="q45" value="B"/> B. $8$ <span class="option-icon" id="icon-q45-B"></span></label>
+        <label><input type="radio" name="q45" value="C"/> C. $4$ <span class="option-icon" id="icon-q45-C"></span></label>
+        <label><input type="radio" name="q45" value="D"/> D. $2$ <span class="option-icon" id="icon-q45-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q45','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q46">
+      <p><strong>Question 46</strong>. Cho hàm số $y = f(x)$ xác định và liên tục trên $\mathbb{R}$ có đồ thị bên dưới. Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[1;3]$. Giá trị của $M + m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q46" value="A"/> A. $4$ <span class="option-icon" id="icon-q46-A"></span></label>
+        <label><input type="radio" name="q46" value="B"/> B. $-6$ <span class="option-icon" id="icon-q46-B"></span></label>
+        <label><input type="radio" name="q46" value="C"/> C. $-2$ <span class="option-icon" id="icon-q46-C"></span></label>
+        <label><input type="radio" name="q46" value="D"/> D. $-4$ <span class="option-icon" id="icon-q46-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q46','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q47">
+      <p><strong>Question 47</strong>. Giá trị nhỏ nhất của hàm số $f(x) = x^3 - 21x$ trên đoạn $[2;19]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q47" value="A"/> A. $-36$ <span class="option-icon" id="icon-q47-A"></span></label>
+        <label><input type="radio" name="q47" value="B"/> B. $-14\sqrt{7}$ <span class="option-icon" id="icon-q47-B"></span></label>
+        <label><input type="radio" name="q47" value="C"/> C. $14\sqrt{7}$ <span class="option-icon" id="icon-q47-C"></span></label>
+        <label><input type="radio" name="q47" value="D"/> D. $-34$ <span class="option-icon" id="icon-q47-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q47','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q48">
+      <p><strong>Question 48</strong>. Tìm giá trị nhỏ nhất của hàm số $y = x^3 - 3x + 5$ trên $[0;2]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q48" value="A"/> A. $\min y = 3$ <span class="option-icon" id="icon-q48-A"></span></label>
+        <label><input type="radio" name="q48" value="B"/> B. $\min y = 0$ <span class="option-icon" id="icon-q48-B"></span></label>
+        <label><input type="radio" name="q48" value="C"/> C. $\min y = 5$ <span class="option-icon" id="icon-q48-C"></span></label>
+        <label><input type="radio" name="q48" value="D"/> D. $\min y = 7$ <span class="option-icon" id="icon-q48-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q48','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q49">
+      <p><strong>Question 49</strong>. Tìm giá trị lớn nhất của hàm số $f(x) = x^4 - 2x^2 + 1$ trên $[0;2]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q49" value="A"/> A. $\max f(x) = 0$ <span class="option-icon" id="icon-q49-A"></span></label>
+        <label><input type="radio" name="q49" value="B"/> B. $\max f(x) = 1$ <span class="option-icon" id="icon-q49-B"></span></label>
+        <label><input type="radio" name="q49" value="C"/> C. $\max f(x) = 9$ <span class="option-icon" id="icon-q49-C"></span></label>
+        <label><input type="radio" name="q49" value="D"/> D. $\max f(x) = 64$ <span class="option-icon" id="icon-q49-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q49','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q50">
+      <p><strong>Question 50</strong>. Giá trị lớn nhất của hàm số $f(x) = x^4 - 2x^2 + 3$ trên đoạn $[0;\sqrt{3}]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q50" value="A"/> A. $9$ <span class="option-icon" id="icon-q50-A"></span></label>
+        <label><input type="radio" name="q50" value="B"/> B. $8\sqrt{3}$ <span class="option-icon" id="icon-q50-B"></span></label>
+        <label><input type="radio" name="q50" value="C"/> C. $6$ <span class="option-icon" id="icon-q50-C"></span></label>
+        <label><input type="radio" name="q50" value="D"/> D. $1$ <span class="option-icon" id="icon-q50-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q50','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q51">
+      <p><strong>Question 51</strong>. Giá trị lớn nhất của hàm số $y = x^4 - 4x^2 + 5$ trên đoạn $[-2;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q51" value="A"/> A. $50$ <span class="option-icon" id="icon-q51-A"></span></label>
+        <label><input type="radio" name="q51" value="B"/> B. $5$ <span class="option-icon" id="icon-q51-B"></span></label>
+        <label><input type="radio" name="q51" value="C"/> C. $1$ <span class="option-icon" id="icon-q51-C"></span></label>
+        <label><input type="radio" name="q51" value="D"/> D. $122$ <span class="option-icon" id="icon-q51-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q51','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q52">
+      <p><strong>Question 52</strong>. Giá trị nhỏ nhất của hàm số $f(x) = \dfrac{-2x + 3}{x + 1}$ trên đoạn $[1;4]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q52" value="A"/> A. $1$ <span class="option-icon" id="icon-q52-A"></span></label>
+        <label><input type="radio" name="q52" value="B"/> B. $-1$ <span class="option-icon" id="icon-q52-B"></span></label>
+        <label><input type="radio" name="q52" value="C"/> C. $\dfrac{1}{2}$ <span class="option-icon" id="icon-q52-C"></span></label>
+        <label><input type="radio" name="q52" value="D"/> D. $-\dfrac{1}{2}$ <span class="option-icon" id="icon-q52-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q52','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q53">
+      <p><strong>Question 53</strong>. Giá trị lớn nhất của hàm số $f(x) = \dfrac{3x - 1}{x - 3}$ trên đoạn $[0;2]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q53" value="A"/> A. $-5$ <span class="option-icon" id="icon-q53-A"></span></label>
+        <label><input type="radio" name="q53" value="B"/> B. $-\dfrac{1}{3}$ <span class="option-icon" id="icon-q53-B"></span></label>
+        <label><input type="radio" name="q53" value="C"/> C. $\dfrac{1}{3}$ <span class="option-icon" id="icon-q53-C"></span></label>
+        <label><input type="radio" name="q53" value="D"/> D. $5$ <span class="option-icon" id="icon-q53-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q53','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q54">
+      <p><strong>Question 54</strong>. Giá trị lớn nhất của hàm số $f(x) = x + \dfrac{1}{x}$ trên đoạn $[1;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q54" value="A"/> A. $2$ <span class="option-icon" id="icon-q54-A"></span></label>
+        <label><input type="radio" name="q54" value="B"/> B. $\dfrac{11}{3}$ <span class="option-icon" id="icon-q54-B"></span></label>
+        <label><input type="radio" name="q54" value="C"/> C. $\dfrac{12}{5}$ <span class="option-icon" id="icon-q54-C"></span></label>
+        <label><input type="radio" name="q54" value="D"/> D. $\dfrac{10}{3}$ <span class="option-icon" id="icon-q54-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q54','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q55">
+      <p><strong>Question 55</strong>. Giá trị nhỏ nhất của hàm số $f(x) = x + \dfrac{9}{x}$ trên đoạn $[2;4]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q55" value="A"/> A. $\dfrac{13}{2}$ <span class="option-icon" id="icon-q55-A"></span></label>
+        <label><input type="radio" name="q55" value="B"/> B. $6$ <span class="option-icon" id="icon-q55-B"></span></label>
+        <label><input type="radio" name="q55" value="C"/> C. $\dfrac{11}{2}$ <span class="option-icon" id="icon-q55-C"></span></label>
+        <label><input type="radio" name="q55" value="D"/> D. $\dfrac{25}{4}$ <span class="option-icon" id="icon-q55-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q55','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q56">
+      <p><strong>Question 56</strong>. Giá trị nhỏ nhất của hàm số $y = x^2 + \dfrac{2}{x}$ trên đoạn $[2;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q56" value="A"/> A. $\dfrac{15}{2}$ <span class="option-icon" id="icon-q56-A"></span></label>
+        <label><input type="radio" name="q56" value="B"/> B. $5$ <span class="option-icon" id="icon-q56-B"></span></label>
+        <label><input type="radio" name="q56" value="C"/> C. $\dfrac{29}{3}$ <span class="option-icon" id="icon-q56-C"></span></label>
+        <label><input type="radio" name="q56" value="D"/> D. $3$ <span class="option-icon" id="icon-q56-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q56','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q57">
+      <p><strong>Question 57</strong>. Giá trị lớn nhất của hàm số $y = 1 + \sqrt{4x - x^2}$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q57" value="A"/> A. $0$ <span class="option-icon" id="icon-q57-A"></span></label>
+        <label><input type="radio" name="q57" value="B"/> B. $1$ <span class="option-icon" id="icon-q57-B"></span></label>
+        <label><input type="radio" name="q57" value="C"/> C. $3$ <span class="option-icon" id="icon-q57-C"></span></label>
+        <label><input type="radio" name="q57" value="D"/> D. $2\sqrt{5}$ <span class="option-icon" id="icon-q57-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q57','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q58">
+      <p><strong>Question 58</strong>. Giá trị nhỏ nhất của hàm số $y = \sqrt{x^2 - 2x + 5}$ trên đoạn $[-1;3]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q58" value="A"/> A. $2$ <span class="option-icon" id="icon-q58-A"></span></label>
+        <label><input type="radio" name="q58" value="B"/> B. $2$ <span class="option-icon" id="icon-q58-B"></span></label>
+        <label><input type="radio" name="q58" value="C"/> C. $3$ <span class="option-icon" id="icon-q58-C"></span></label>
+        <label><input type="radio" name="q58" value="D"/> D. $\sqrt{5}$ <span class="option-icon" id="icon-q58-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q58','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q59">
+      <p><strong>Question 59</strong>. Giá trị lớn nhất của hàm số $y = x + \sqrt{2 - x^2}$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q59" value="A"/> A. $-2\sqrt{2}$ <span class="option-icon" id="icon-q59-A"></span></label>
+        <label><input type="radio" name="q59" value="B"/> B. $2\sqrt{2}$ <span class="option-icon" id="icon-q59-B"></span></label>
+        <label><input type="radio" name="q59" value="C"/> C. $3\sqrt{10}$ <span class="option-icon" id="icon-q59-C"></span></label>
+        <label><input type="radio" name="q59" value="D"/> D. $2$ <span class="option-icon" id="icon-q59-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q59','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q60">
+      <p><strong>Question 60</strong>. Giá trị nhỏ nhất của hàm số $y = 3x + \sqrt{10 - x^2}$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q60" value="A"/> A. $\sqrt{10}$ <span class="option-icon" id="icon-q60-A"></span></label>
+        <label><input type="radio" name="q60" value="B"/> B. $-3\sqrt{10}$ <span class="option-icon" id="icon-q60-B"></span></label>
+        <label><input type="radio" name="q60" value="C"/> C. $3\sqrt{10}$ <span class="option-icon" id="icon-q60-C"></span></label>
+        <label><input type="radio" name="q60" value="D"/> D. $10$ <span class="option-icon" id="icon-q60-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q60','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q61">
+      <p><strong>Question 61</strong>. Tìm tập giá trị của hàm số $y = \sqrt{x - 1} + \sqrt{9 - x}$</p>
+      <div class="options-row">
+        <label><input type="radio" name="q61" value="A"/> A. $T = [1;9]$ <span class="option-icon" id="icon-q61-A"></span></label>
+        <label><input type="radio" name="q61" value="B"/> B. $T = [2\sqrt{2};4]$ <span class="option-icon" id="icon-q61-B"></span></label>
+        <label><input type="radio" name="q61" value="C"/> C. $T = (1;9)$ <span class="option-icon" id="icon-q61-C"></span></label>
+        <label><input type="radio" name="q61" value="D"/> D. $T = [0;2\sqrt{2}]$ <span class="option-icon" id="icon-q61-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q61','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q62">
+      <p><strong>Question 62</strong>. Gọi $m, M$ lần lượt là giá trị nhỏ nhất và giá trị lớn nhất của hàm số $f(x) = \dfrac{1}{2}x - \sqrt{x + 1}$ trên đoạn $[0;3]$. Tính tổng $S = 2m + 3M$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q62" value="A"/> A. $S = \dfrac{7}{2}$ <span class="option-icon" id="icon-q62-A"></span></label>
+        <label><input type="radio" name="q62" value="B"/> B. $S = -\dfrac{3}{2}$ <span class="option-icon" id="icon-q62-B"></span></label>
+        <label><input type="radio" name="q62" value="C"/> C. $-3$ <span class="option-icon" id="icon-q62-C"></span></label>
+        <label><input type="radio" name="q62" value="D"/> D. $S = 4$ <span class="option-icon" id="icon-q62-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q62','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q63">
+      <p><strong>Question 63</strong>. Giá trị nhỏ nhất của hàm số $y = x^3 - 3x + 1$ trên khoảng $(0;2)$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q63" value="A"/> A. $1$ <span class="option-icon" id="icon-q63-A"></span></label>
+        <label><input type="radio" name="q63" value="B"/> B. $3$ <span class="option-icon" id="icon-q63-B"></span></label>
+        <label><input type="radio" name="q63" value="C"/> C. $0$ <span class="option-icon" id="icon-q63-C"></span></label>
+        <label><input type="radio" name="q63" value="D"/> D. $-1$ <span class="option-icon" id="icon-q63-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q63','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q64">
+      <p><strong>Question 64</strong>. Giá trị lớn nhất của hàm số $y = x(1 - x^2)$ trên khoảng $(0;1)$ là:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q64" value="A"/> A. $\dfrac{1}{9}$ <span class="option-icon" id="icon-q64-A"></span></label>
+        <label><input type="radio" name="q64" value="B"/> B. $\dfrac{1}{\sqrt{3}}$ <span class="option-icon" id="icon-q64-B"></span></label>
+        <label><input type="radio" name="q64" value="C"/> C. $0$ <span class="option-icon" id="icon-q64-C"></span></label>
+        <label><input type="radio" name="q64" value="D"/> D. $\dfrac{2\sqrt{3}}{9}$ <span class="option-icon" id="icon-q64-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q64','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q65">
+      <p><strong>Question 65</strong>. Giá trị nhỏ nhất của hàm số $y = x - 5 + \dfrac{1}{x}$ trên khoảng $(0;+\infty)$ bằng bao nhiêu?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q65" value="A"/> A. $0$ <span class="option-icon" id="icon-q65-A"></span></label>
+        <label><input type="radio" name="q65" value="B"/> B. $-1$ <span class="option-icon" id="icon-q65-B"></span></label>
+        <label><input type="radio" name="q65" value="C"/> C. $-3$ <span class="option-icon" id="icon-q65-C"></span></label>
+        <label><input type="radio" name="q65" value="D"/> D. $-2$ <span class="option-icon" id="icon-q65-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q65','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q66">
+      <p><strong>Question 66</strong>. Gọi $m$ là giá trị nhỏ nhất của hàm số $y = x + \dfrac{4}{x}$ trên khoảng $(0;+\infty)$. Tìm $m$</p>
+      <div class="options-row">
+        <label><input type="radio" name="q66" value="A"/> A. $m = 4$ <span class="option-icon" id="icon-q66-A"></span></label>
+        <label><input type="radio" name="q66" value="B"/> B. $m = 2$ <span class="option-icon" id="icon-q66-B"></span></label>
+        <label><input type="radio" name="q66" value="C"/> C. $m = 1$ <span class="option-icon" id="icon-q66-C"></span></label>
+        <label><input type="radio" name="q66" value="D"/> D. $m = 3$ <span class="option-icon" id="icon-q66-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q66','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q67">
+      <p><strong>Question 67</strong>. Giá trị nhỏ nhất của hàm số $f(x) = x + \dfrac{1}{x}$ trên nửa khoảng $[2;+\infty)$ là:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q67" value="A"/> A. $2$ <span class="option-icon" id="icon-q67-A"></span></label>
+        <label><input type="radio" name="q67" value="B"/> B. $\dfrac{5}{2}$ <span class="option-icon" id="icon-q67-B"></span></label>
+        <label><input type="radio" name="q67" value="C"/> C. $0$ <span class="option-icon" id="icon-q67-C"></span></label>
+        <label><input type="radio" name="q67" value="D"/> D. $\dfrac{7}{2}$ <span class="option-icon" id="icon-q67-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q67','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q68">
+      <p><strong>Question 68</strong>. Tìm giá trị lớn nhất của hàm số $y = x - \dfrac{1}{x}$ trên nửa khoảng $(0;3]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q68" value="A"/> A. $\dfrac{3}{8}$ <span class="option-icon" id="icon-q68-A"></span></label>
+        <label><input type="radio" name="q68" value="B"/> B. $3$ <span class="option-icon" id="icon-q68-B"></span></label>
+        <label><input type="radio" name="q68" value="C"/> C. $\dfrac{8}{3}$ <span class="option-icon" id="icon-q68-C"></span></label>
+        <label><input type="radio" name="q68" value="D"/> D. $0$ <span class="option-icon" id="icon-q68-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q68','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q69">
+      <p><strong>Question 69</strong>. Giá trị nhỏ nhất của hàm số $f(x) = \dfrac{x^2 - x + 1}{x - 1}$ trên khoảng $(1;+\infty)$ là:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q69" value="A"/> A. $\lim_{(1;+\infty)} y = 3$ <span class="option-icon" id="icon-q69-A"></span></label>
+        <label><input type="radio" name="q69" value="B"/> B. $\lim_{(1;+\infty)} y = -1$ <span class="option-icon" id="icon-q69-B"></span></label>
+        <label><input type="radio" name="q69" value="C"/> C. $\lim_{(1;+\infty)} y = 5$ <span class="option-icon" id="icon-q69-C"></span></label>
+        <label><input type="radio" name="q69" value="D"/> D. $\lim_{(1;+\infty)} y = -\dfrac{7}{3}$ <span class="option-icon" id="icon-q69-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q69','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q70">
+      <p><strong>Question 70</strong>. Với giá trị nào của $x$ thì hàm số $y = x^2 + \dfrac{1}{x}$ đạt giá trị nhỏ nhất trên khoảng $(0;+\infty)$?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q70" value="A"/> A. $x = 1$ <span class="option-icon" id="icon-q70-A"></span></label>
+        <label><input type="radio" name="q70" value="B"/> B. $x = \sqrt[3]{2}$ <span class="option-icon" id="icon-q70-B"></span></label>
+        <label><input type="radio" name="q70" value="C"/> C. $x = \sqrt[3]{\dfrac{1}{2}}$ <span class="option-icon" id="icon-q70-C"></span></label>
+        <label><input type="radio" name="q70" value="D"/> D. $x = 2$ <span class="option-icon" id="icon-q70-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q70','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q71">
+      <p><strong>Question 71</strong>. Cho hàm số $y = \dfrac{-x}{x^2 + 1}$ có giá trị lớn nhất là $M$ và giá trị nhỏ nhất là $m$. Tính giá trị biểu thức $P = M^2 + m^2$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q71" value="A"/> A. $P = \dfrac{1}{4}$ <span class="option-icon" id="icon-q71-A"></span></label>
+        <label><input type="radio" name="q71" value="B"/> B. $P = \dfrac{1}{2}$ <span class="option-icon" id="icon-q71-B"></span></label>
+        <label><input type="radio" name="q71" value="C"/> C. $2$ <span class="option-icon" id="icon-q71-C"></span></label>
+        <label><input type="radio" name="q71" value="D"/> D. $1$ <span class="option-icon" id="icon-q71-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q71','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q72">
+      <p><strong>Question 72</strong>. Giá trị lớn nhất của hàm số $y = \dfrac{x^2 + 4x + 5}{x^2 + 2}$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q72" value="A"/> A. $10$ <span class="option-icon" id="icon-q72-A"></span></label>
+        <label><input type="radio" name="q72" value="B"/> B. $\dfrac{3}{2}$ <span class="option-icon" id="icon-q72-B"></span></label>
+        <label><input type="radio" name="q72" value="C"/> C. $\dfrac{5}{2}$ <span class="option-icon" id="icon-q72-C"></span></label>
+        <label><input type="radio" name="q72" value="D"/> D. $2$ <span class="option-icon" id="icon-q72-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q72','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q73">
+      <p><strong>Question 73</strong>. Cho hàm số $y = x + \dfrac{1}{x}$. Giá trị nhỏ nhất của hàm số trên $(0;+\infty)$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q73" value="A"/> A. $2$ <span class="option-icon" id="icon-q73-A"></span></label>
+        <label><input type="radio" name="q73" value="B"/> B. $2$ <span class="option-icon" id="icon-q73-B"></span></label>
+        <label><input type="radio" name="q73" value="C"/> C. $0$ <span class="option-icon" id="icon-q73-C"></span></label>
+        <label><input type="radio" name="q73" value="D"/> D. $1$ <span class="option-icon" id="icon-q73-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q73','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q74">
+      <p><strong>Question 74</strong>. Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 - x + 1}{x^2 + x + 1}$. Khi đó, tích $m.M$ bằng bao nhiêu?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q74" value="A"/> A. $\dfrac{1}{3}$ <span class="option-icon" id="icon-q74-A"></span></label>
+        <label><input type="radio" name="q74" value="B"/> B. $3$ <span class="option-icon" id="icon-q74-B"></span></label>
+        <label><input type="radio" name="q74" value="C"/> C. $\dfrac{10}{3}$ <span class="option-icon" id="icon-q74-C"></span></label>
+        <label><input type="radio" name="q74" value="D"/> D. $1$ <span class="option-icon" id="icon-q74-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q74','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q75">
+      <p><strong>Question 75</strong>. Cho hàm số $f(x) = \dfrac{x^2 - 1}{x - 2}$ với $x$ thuộc $D = (-\infty; -1] \cup [1; 3]$. Mệnh đề nào dưới đây đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q75" value="A"/> A. $\max_D f(x) = 0; \min_D f(x) = -\sqrt{5}$ <span class="option-icon" id="icon-q75-A"></span></label>
+        <label><input type="radio" name="q75" value="B"/> B. $\max_D f(x) = 0$; không tồn tại $\min_D f(x)$ <span class="option-icon" id="icon-q75-B"></span></label>
+        <label><input type="radio" name="q75" value="C"/> C. $\max_D f(x) = 0; \min_D f(x) = -1$ <span class="option-icon" id="icon-q75-C"></span></label>
+        <label><input type="radio" name="q75" value="D"/> D. $\min_D f(x) = 0$; không tồn tại $\max_D f(x)$ <span class="option-icon" id="icon-q75-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q75','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q76">
+      <p><strong>Question 76</strong>. Một vật chuyển động theo quy luật $s = 3t^2 - t^3$. Thời điểm $t$ (s) tại đó vận tốc $v$ (m/s) của chuyển động đạt giá trị lớn nhất là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q76" value="A"/> A. $t = 5$ <span class="option-icon" id="icon-q76-A"></span></label>
+        <label><input type="radio" name="q76" value="B"/> B. $t = 1$ <span class="option-icon" id="icon-q76-B"></span></label>
+        <label><input type="radio" name="q76" value="C"/> C. $t = 2$ <span class="option-icon" id="icon-q76-C"></span></label>
+        <label><input type="radio" name="q76" value="D"/> D. $t = 3$ <span class="option-icon" id="icon-q76-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q76','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q77">
+      <p><strong>Question 77</strong>. Tìm giá trị nhỏ nhất của hàm số $f(x) = \sin 2x - 4\cos x + 5$ trên đoạn $[0; 2\pi]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q77" value="A"/> A. $1$ <span class="option-icon" id="icon-q77-A"></span></label>
+        <label><input type="radio" name="q77" value="B"/> B. $9$ <span class="option-icon" id="icon-q77-B"></span></label>
+        <label><input type="radio" name="q77" value="C"/> C. $5$ <span class="option-icon" id="icon-q77-C"></span></label>
+        <label><input type="radio" name="q77" value="D"/> D. $6$ <span class="option-icon" id="icon-q77-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q77','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q78">
+      <p><strong>Question 78</strong>. Tìm giá trị lớn nhất của hàm số $f(x) = \dfrac{1}{2}\sin 2x + \cos x$ trên đoạn $[0; \pi]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q78" value="A"/> A. $\dfrac{3\sqrt{3}}{4}$ <span class="option-icon" id="icon-q78-A"></span></label>
+        <label><input type="radio" name="q78" value="B"/> B. $1$ <span class="option-icon" id="icon-q78-B"></span></label>
+        <label><input type="radio" name="q78" value="C"/> C. $-1$ <span class="option-icon" id="icon-q78-C"></span></label>
+        <label><input type="radio" name="q78" value="D"/> D. $\dfrac{5}{4}$ <span class="option-icon" id="icon-q78-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q78','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q79">
+      <p><strong>Question 79</strong>. Tìm giá trị nhỏ nhất của hàm số $f(x) = \sqrt{3}\sin x + \cos x$ trên đoạn $[0; \pi]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q79" value="A"/> A. $-1$ <span class="option-icon" id="icon-q79-A"></span></label>
+        <label><input type="radio" name="q79" value="B"/> B. $-2$ <span class="option-icon" id="icon-q79-B"></span></label>
+        <label><input type="radio" name="q79" value="C"/> C. $2$ <span class="option-icon" id="icon-q79-C"></span></label>
+        <label><input type="radio" name="q79" value="D"/> D. $-\dfrac{3}{4}$ <span class="option-icon" id="icon-q79-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q79','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q80">
+      <p><strong>Question 80</strong>. Tìm giá trị lớn nhất của hàm số $f(x) = x\sin x + \cos x$ trên đoạn $[0; \dfrac{\pi}{2}]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q80" value="A"/> A. $\dfrac{\pi}{4}$ <span class="option-icon" id="icon-q80-A"></span></label>
+        <label><input type="radio" name="q80" value="B"/> B. $1$ <span class="option-icon" id="icon-q80-B"></span></label>
+        <label><input type="radio" name="q80" value="C"/> C. $\dfrac{\pi}{2}$ <span class="option-icon" id="icon-q80-C"></span></label>
+        <label><input type="radio" name="q80" value="D"/> D. $1 + \dfrac{\pi}{2}$ <span class="option-icon" id="icon-q80-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q80','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q81">
+      <p><strong>Question 81</strong>. Tìm giá trị nhỏ nhất của hàm số $f(x) = (1 - x)\sin x - \cos x$ trên đoạn $[0; \dfrac{\pi}{2}]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q81" value="A"/> A. $-1$ <span class="option-icon" id="icon-q81-A"></span></label>
+        <label><input type="radio" name="q81" value="B"/> B. $-\dfrac{\pi}{2}$ <span class="option-icon" id="icon-q81-B"></span></label>
+        <label><input type="radio" name="q81" value="C"/> C. $-\cos 1$ <span class="option-icon" id="icon-q81-C"></span></label>
+        <label><input type="radio" name="q81" value="D"/> D. $1 - \dfrac{\pi}{2}$ <span class="option-icon" id="icon-q81-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q81','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q82">
+      <p><strong>Question 82</strong>. Giá trị nhỏ nhất của hàm số $y = \dfrac{\sin^2 x + 3}{\sin x + 1}$ trên $[0; \dfrac{\pi}{2}]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q82" value="A"/> A. $5$ <span class="option-icon" id="icon-q82-A"></span></label>
+        <label><input type="radio" name="q82" value="B"/> B. $2$ <span class="option-icon" id="icon-q82-B"></span></label>
+        <label><input type="radio" name="q82" value="C"/> C. $3$ <span class="option-icon" id="icon-q82-C"></span></label>
+        <label><input type="radio" name="q82" value="D"/> D. $\dfrac{5}{2}$ <span class="option-icon" id="icon-q82-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q82','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q83">
+      <p><strong>Question 83</strong>. Giá trị nhỏ nhất hàm số $y = \sin^3 x - \cos 2x + \sin x + 2$ trên khoảng $(-\dfrac{\pi}{2}; \dfrac{\pi}{2})$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q83" value="A"/> A. $1$ <span class="option-icon" id="icon-q83-A"></span></label>
+        <label><input type="radio" name="q83" value="B"/> B. $\dfrac{23}{27}$ <span class="option-icon" id="icon-q83-B"></span></label>
+        <label><input type="radio" name="q83" value="C"/> C. $\dfrac{1}{27}$ <span class="option-icon" id="icon-q83-C"></span></label>
+        <label><input type="radio" name="q83" value="D"/> D. $5$ <span class="option-icon" id="icon-q83-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q83','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q84">
+      <p><strong>Question 84</strong>. Giá trị lớn nhất của hàm số $y = \cos^4 x - \cos^2 x + 4$ bằng:</p>
+      <div class="options-row">
+        <label><input type="radio" name="q84" value="A"/> A. $5$ <span class="option-icon" id="icon-q84-A"></span></label>
+        <label><input type="radio" name="q84" value="B"/> B. $\dfrac{1}{2}$ <span class="option-icon" id="icon-q84-B"></span></label>
+        <label><input type="radio" name="q84" value="C"/> C. $4$ <span class="option-icon" id="icon-q84-C"></span></label>
+        <label><input type="radio" name="q84" value="D"/> D. $\dfrac{17}{4}$ <span class="option-icon" id="icon-q84-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q84','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q85">
+      <p><strong>Question 85</strong>. Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số $y = x + \cos^2 x$ trên $[0; \dfrac{\pi}{4}]$. Tính $S = M + m$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q85" value="A"/> A. $S = \dfrac{\pi}{4} + \dfrac{1}{2}$ <span class="option-icon" id="icon-q85-A"></span></label>
+        <label><input type="radio" name="q85" value="B"/> B. $S = 1$ <span class="option-icon" id="icon-q85-B"></span></label>
+        <label><input type="radio" name="q85" value="C"/> C. $S = 0$ <span class="option-icon" id="icon-q85-C"></span></label>
+        <label><input type="radio" name="q85" value="D"/> D. $S = \dfrac{3}{2} + \dfrac{\pi}{4}$ <span class="option-icon" id="icon-q85-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q85','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q86">
+      <p><strong>Question 86</strong>. Giá trị nhỏ nhất của hàm số $y = xe^x$ trên đoạn $[-2;2]$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q86" value="A"/> A. $\dfrac{1}{e}$ <span class="option-icon" id="icon-q86-A"></span></label>
+        <label><input type="radio" name="q86" value="B"/> B. $0$ <span class="option-icon" id="icon-q86-B"></span></label>
+        <label><input type="radio" name="q86" value="C"/> C. $-\dfrac{2}{e^2}$ <span class="option-icon" id="icon-q86-C"></span></label>
+        <label><input type="radio" name="q86" value="D"/> D. $-e$ <span class="option-icon" id="icon-q86-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q86','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q87">
+      <p><strong>Question 87</strong>. Giá trị lớn nhất của hàm số $f(x) = (2x - 3)e^x$ trên $[0;3]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q87" value="A"/> A. $\max f(x) = e^3$ <span class="option-icon" id="icon-q87-A"></span></label>
+        <label><input type="radio" name="q87" value="B"/> B. $\max f(x) = 5e^3$ <span class="option-icon" id="icon-q87-B"></span></label>
+        <label><input type="radio" name="q87" value="C"/> C. $\max f(x) = 3e^3$ <span class="option-icon" id="icon-q87-C"></span></label>
+        <label><input type="radio" name="q87" value="D"/> D. $\max f(x) = 4e^3$ <span class="option-icon" id="icon-q87-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q87','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q88">
+      <p><strong>Question 88</strong>. Gọi $M, N$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = x^2 e^{-x}$ trên đoạn $[-1;1]$. Tính tổng $M + N$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q88" value="A"/> A. $M + N = 3e$ <span class="option-icon" id="icon-q88-A"></span></label>
+        <label><input type="radio" name="q88" value="B"/> B. $M + N = e$ <span class="option-icon" id="icon-q88-B"></span></label>
+        <label><input type="radio" name="q88" value="C"/> C. $M + N = 2e - 1$ <span class="option-icon" id="icon-q88-C"></span></label>
+        <label><input type="radio" name="q88" value="D"/> D. $M + N = 2e + 1$ <span class="option-icon" id="icon-q88-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q88','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q89">
+      <p><strong>Question 89</strong>. Giá trị nhỏ nhất, lớn nhất của hàm số $y = x - \ln x$ trên đoạn $[\dfrac{1}{2}; e]$, theo thứ tự là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q89" value="A"/> A. $1$ và $e-1$ <span class="option-icon" id="icon-q89-A"></span></label>
+        <label><input type="radio" name="q89" value="B"/> B. $\dfrac{1}{2} + \ln 2$ và $e-1$ <span class="option-icon" id="icon-q89-B"></span></label>
+        <label><input type="radio" name="q89" value="C"/> C. $1$ và $e$ <span class="option-icon" id="icon-q89-C"></span></label>
+        <label><input type="radio" name="q89" value="D"/> D. $1$ và $\dfrac{1}{2} + \ln 2$ <span class="option-icon" id="icon-q89-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q89','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q90">
+      <p><strong>Question 90</strong>. Giá trị lớn nhất của hàm số $y = (x-2)^2 e^x$ trên $[1;3]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q90" value="A"/> A. $e$ <span class="option-icon" id="icon-q90-A"></span></label>
+        <label><input type="radio" name="q90" value="B"/> B. $0$ <span class="option-icon" id="icon-q90-B"></span></label>
+        <label><input type="radio" name="q90" value="C"/> C. $3e$ <span class="option-icon" id="icon-q90-C"></span></label>
+        <label><input type="radio" name="q90" value="D"/> D. $4e$ <span class="option-icon" id="icon-q90-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q90','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q91">
+      <p><strong>Question 91</strong>. Giá trị nhỏ nhất của hàm số $y = x^2 - 2\ln x$ trên đoạn $[1;2]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q91" value="A"/> A. $1$ <span class="option-icon" id="icon-q91-A"></span></label>
+        <label><input type="radio" name="q91" value="B"/> B. $2 - 2\ln 2$ <span class="option-icon" id="icon-q91-B"></span></label>
+        <label><input type="radio" name="q91" value="C"/> C. $1$ <span class="option-icon" id="icon-q91-C"></span></label>
+        <label><input type="radio" name="q91" value="D"/> D. $4 - 2\ln 2$ <span class="option-icon" id="icon-q91-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q91','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q92">
+      <p><strong>Question 92</strong>. Giá trị lớn nhất $M$ và giá trị nhỏ nhất $m$ của hàm số $y = \dfrac{2\ln x}{x}$ trên $[e^{-1}; e]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q92" value="A"/> A. $M = \dfrac{2}{e}, m = \dfrac{-2}{e^2}$ <span class="option-icon" id="icon-q92-A"></span></label>
+        <label><input type="radio" name="q92" value="B"/> B. $M = \dfrac{-2}{e^2}, m = 1$ <span class="option-icon" id="icon-q92-B"></span></label>
+        <label><input type="radio" name="q92" value="C"/> C. $M = \dfrac{-1}{e} + 1, m = 1$ <span class="option-icon" id="icon-q92-C"></span></label>
+        <label><input type="radio" name="q92" value="D"/> D. $M = \dfrac{2}{e}, m = 1$ <span class="option-icon" id="icon-q92-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q92','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q93">
+      <p><strong>Question 93</strong>. Tìm giá trị nhỏ nhất trên tập xác định của hàm số $f(x) = \dfrac{2^{x-1} - 3}{2^{2-x} + 2}$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q93" value="A"/> A. $1$ <span class="option-icon" id="icon-q93-A"></span></label>
+        <label><input type="radio" name="q93" value="B"/> B. $4$ <span class="option-icon" id="icon-q93-B"></span></label>
+        <label><input type="radio" name="q93" value="C"/> C. $8$ <span class="option-icon" id="icon-q93-C"></span></label>
+        <label><input type="radio" name="q93" value="D"/> D. $2$ <span class="option-icon" id="icon-q93-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q93','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q94">
+      <p><strong>Question 94</strong>. Gọi $a, b$ lần lượt là giá trị lớn nhất, giá trị nhỏ nhất của hàm số $y = \log_2 (x^2 + 2x - 2)$ trên đoạn $[-2;0]$. Tổng $a + b$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q94" value="A"/> A. $5$ <span class="option-icon" id="icon-q94-A"></span></label>
+        <label><input type="radio" name="q94" value="B"/> B. $0$ <span class="option-icon" id="icon-q94-B"></span></label>
+        <label><input type="radio" name="q94" value="C"/> C. $6$ <span class="option-icon" id="icon-q94-C"></span></label>
+        <label><input type="radio" name="q94" value="D"/> D. $7$ <span class="option-icon" id="icon-q94-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q94','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q95">
+      <p><strong>Question 95</strong>. Tìm giá trị lớn nhất $M$ và giá trị nhỏ nhất $m$ của hàm số $y = \dfrac{\ln x}{x}$ trên đoạn $[1; e^3]$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q95" value="A"/> A. $M = \dfrac{4}{e^2}, m = 0$ <span class="option-icon" id="icon-q95-A"></span></label>
+        <label><input type="radio" name="q95" value="B"/> B. $M = \dfrac{4}{e^2}, m = 0$ <span class="option-icon" id="icon-q95-B"></span></label>
+        <label><input type="radio" name="q95" value="C"/> C. $M = \dfrac{9}{e^3}, m = \dfrac{4}{e^2}$ <span class="option-icon" id="icon-q95-C"></span></label>
+        <label><input type="radio" name="q95" value="D"/> D. $M = \dfrac{4}{e^2}, m = 0$ <span class="option-icon" id="icon-q95-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q95','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q96">
+      <p><strong>Question 96</strong>. Cho số thực dương $x$ bất kỳ và số thực dương $y \neq 1$ thỏa mãn $x^{\ln y - 1} \cdot y^{\sqrt{4 - \ln^2 x}} = 1$. Gọi $M, m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của $\log_y x$. Giá trị $M \cdot m$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q96" value="A"/> A. $4\sqrt{2}$ <span class="option-icon" id="icon-q96-A"></span></label>
+        <label><input type="radio" name="q96" value="B"/> B. $-4\sqrt{2}$ <span class="option-icon" id="icon-q96-B"></span></label>
+        <label><input type="radio" name="q96" value="C"/> C. $4$ <span class="option-icon" id="icon-q96-C"></span></label>
+        <label><input type="radio" name="q96" value="D"/> D. $2\sqrt{2}$ <span class="option-icon" id="icon-q96-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q96','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q97">
+      <p><strong>Question 97</strong>. Giá trị nhỏ nhất của hàm số $y = \log_2^2 x - 4\log_2 x + 1$ trên $[1;8]$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q97" value="A"/> A. $-2$ <span class="option-icon" id="icon-q97-A"></span></label>
+        <label><input type="radio" name="q97" value="B"/> B. $1$ <span class="option-icon" id="icon-q97-B"></span></label>
+        <label><input type="radio" name="q97" value="C"/> C. $-3$ <span class="option-icon" id="icon-q97-C"></span></label>
+        <label><input type="radio" name="q97" value="D"/> D. $2$ <span class="option-icon" id="icon-q97-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q97','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q98">
+      <p><strong>Question 98</strong>. Cho $a \geq b > 1$. Giá trị lớn nhất của biểu thức $S = \log_a \left( \dfrac{a^2}{b} \right) + \log_b \left( \dfrac{b^3}{a} \right)$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q98" value="A"/> A. $-2$ <span class="option-icon" id="icon-q98-A"></span></label>
+        <label><input type="radio" name="q98" value="B"/> B. $3$ <span class="option-icon" id="icon-q98-B"></span></label>
+        <label><input type="radio" name="q98" value="C"/> C. $2$ <span class="option-icon" id="icon-q98-C"></span></label>
+        <label><input type="radio" name="q98" value="D"/> D. $0$ <span class="option-icon" id="icon-q98-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q98','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q99">
+      <p><strong>Question 99</strong>. Cho $x, y$ là các số dương thỏa mãn $xy \leq 4y - 1$. Giá trị nhỏ nhất của $P = \dfrac{6(2x+y)}{x} + \ln \dfrac{x+2y}{y}$ là $a + \ln b$. Giá trị của tích $ab$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q99" value="A"/> A. $ab = 18$ <span class="option-icon" id="icon-q99-A"></span></label>
+        <label><input type="radio" name="q99" value="B"/> B. $ab = 81$ <span class="option-icon" id="icon-q99-B"></span></label>
+        <label><input type="radio" name="q99" value="C"/> C. $ab = 28$ <span class="option-icon" id="icon-q99-C"></span></label>
+        <label><input type="radio" name="q99" value="D"/> D. $ab = 82$ <span class="option-icon" id="icon-q99-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q99','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q100">
+      <p><strong>Question 100</strong>. Cho $x, y$ là các số thực dương thoả mãn $\ln x + \ln y \geq \ln(x^2 + y)$. Tìm giá trị nhỏ nhất của $P = x + y$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q100" value="A"/> A. $P = 6$ <span class="option-icon" id="icon-q100-A"></span></label>
+        <label><input type="radio" name="q100" value="B"/> B. $P = 2 + 3\sqrt{2}$ <span class="option-icon" id="icon-q100-B"></span></label>
+        <label><input type="radio" name="q100" value="C"/> C. $P = 3 + 2\sqrt{2}$ <span class="option-icon" id="icon-q100-C"></span></label>
+        <label><input type="radio" name="q100" value="D"/> D. $P = \sqrt{17} + \sqrt{3}$ <span class="option-icon" id="icon-q100-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q100','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q101">
+      <p><strong>Question 101</strong>. Cho các số thực $a, b$ thỏa mãn điều kiện $0 < b < a < 1$. Tìm giá trị nhỏ nhất của biểu thức $P = \log_a \dfrac{4(3b-1)}{9} + 8\log_b^2 a - 1$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q101" value="A"/> A. $6$ <span class="option-icon" id="icon-q101-A"></span></label>
+        <label><input type="radio" name="q101" value="B"/> B. $3\sqrt{2}$ <span class="option-icon" id="icon-q101-B"></span></label>
+        <label><input type="radio" name="q101" value="C"/> C. $8$ <span class="option-icon" id="icon-q101-C"></span></label>
+        <label><input type="radio" name="q101" value="D"/> D. $7$ <span class="option-icon" id="icon-q101-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q101','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q102">
+      <p><strong>Question 102</strong>. Cho $a, b$ là hai số thực thay đổi thỏa mãn $1 < a < b \leq 2$, biết giá trị nhỏ nhất của biểu thức $P = 2 \cdot \log_a (b^2 + 4b - 4) + \log_b^2 a$ là $m + 3\sqrt[3]{n}$ với $m, n$ là số nguyên dương. Tính $S = m + n$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q102" value="A"/> A. $S = 9$ <span class="option-icon" id="icon-q102-A"></span></label>
+        <label><input type="radio" name="q102" value="B"/> B. $S = 18$ <span class="option-icon" id="icon-q102-B"></span></label>
+        <label><input type="radio" name="q102" value="C"/> C. $S = 54$ <span class="option-icon" id="icon-q102-C"></span></label>
+        <label><input type="radio" name="q102" value="D"/> D. $S = 15$ <span class="option-icon" id="icon-q102-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q102','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q103">
+      <p><strong>Question 103</strong>. Cho hàm số $y = \frac{x+m}{x+1}$ ($m$ là tham số thực) thỏa mãn $\min_{[1;2]} y + \max_{[1;2]} y = \frac{16}{3}$. Mệnh đề nào dưới đây là đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q103" value="A"/> A. $m \le 0$ <span class="option-icon" id="icon-q103-A"></span></label>
+        <label><input type="radio" name="q103" value="B"/> B. $m>4$ <span class="option-icon" id="icon-q103-B"></span></label>
+        <label><input type="radio" name="q103" value="C"/> C. $0 < m \le 2$ <span class="option-icon" id="icon-q103-C"></span></label>
+        <label><input type="radio" name="q103" value="D"/> D. $2 < m \le 4$ <span class="option-icon" id="icon-q103-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q103','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q104">
+      <p><strong>Question 104</strong>. Cho hàm số $y = x^4 - 2x^2 + x - m$ ($m$ là tham số thực) thỏa mãn $\min_{[1;3]} y = -1$. Mệnh đề nào dưới đây là đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q104" value="A"/> A. $m \le 0$ <span class="option-icon" id="icon-q104-A"></span></label>
+        <label><input type="radio" name="q104" value="B"/> B. $m > 10$ <span class="option-icon" id="icon-q104-B"></span></label>
+        <label><input type="radio" name="q104" value="C"/> C. $0 < m \le 2$ <span class="option-icon" id="icon-q104-C"></span></label>
+        <label><input type="radio" name="q104" value="D"/> D. $2 < m \le 8$ <span class="option-icon" id="icon-q104-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q104','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q105">
+      <p><strong>Question 105</strong>. Tìm các giá trị nguyên dương của tham số $m$ để giá trị nhỏ nhất của hàm số $y = \frac{x-m^2+m}{x+1}$ trên $[0;1]$ bằng $-2$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q105" value="A"/> A. $m=1$ <span class="option-icon" id="icon-q105-A"></span></label>
+        <label><input type="radio" name="q105" value="B"/> B. $m=2$ <span class="option-icon" id="icon-q105-B"></span></label>
+        <label><input type="radio" name="q105" value="C"/> C. $m=3$ <span class="option-icon" id="icon-q105-C"></span></label>
+        <label><input type="radio" name="q105" value="D"/> D. $m=4$ <span class="option-icon" id="icon-q105-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q105','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q106">
+      <p><strong>Question 106</strong>. Tìm tham số $m$ để hàm số $y = \frac{mx+1}{x-m}$ đạt giá trị lớn nhất trên $[2;4]$ bằng 2.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q106" value="A"/> A. $m = \frac{7}{6}$ <span class="option-icon" id="icon-q106-A"></span></label>
+        <label><input type="radio" name="q106" value="B"/> B. $m=1$ <span class="option-icon" id="icon-q106-B"></span></label>
+        <label><input type="radio" name="q106" value="C"/> C. $m=2$ <span class="option-icon" id="icon-q106-C"></span></label>
+        <label><input type="radio" name="q106" value="D"/> D. $m = \frac{3}{4}$ <span class="option-icon" id="icon-q106-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q106','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q107">
+      <p><strong>Question 107</strong>. Tìm tham số $m$ để hàm số $y = x^3 - 3mx^2 + 6$ đạt giá trị nhỏ nhất trên $[0;3]$ bằng 2.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q107" value="A"/> A. $m = \frac{7}{6}$ <span class="option-icon" id="icon-q107-A"></span></label>
+        <label><input type="radio" name="q107" value="B"/> B. $m=1$ <span class="option-icon" id="icon-q107-B"></span></label>
+        <label><input type="radio" name="q107" value="C"/> C. $m=2$ <span class="option-icon" id="icon-q107-C"></span></label>
+        <label><input type="radio" name="q107" value="D"/> D. $m = \frac{3}{4}$ <span class="option-icon" id="icon-q107-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q107','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q108">
+      <p><strong>Question 108</strong>. Gọi $S$ là tập hợp tất cả giá trị của tham số $m$ để hàm số $y = -x^3+mx^2 - (m^2+m+1)x$ đạt giá trị nhỏ nhất trên $[-1;1]$ bằng $-6$. Tính tổng bình phương các phần tử của $S$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q108" value="A"/> A. 5 <span class="option-icon" id="icon-q108-A"></span></label>
+        <label><input type="radio" name="q108" value="B"/> B. 1 <span class="option-icon" id="icon-q108-B"></span></label>
+        <label><input type="radio" name="q108" value="C"/> C. 8 <span class="option-icon" id="icon-q108-C"></span></label>
+        <label><input type="radio" name="q108" value="D"/> D. 13 <span class="option-icon" id="icon-q108-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q108','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q109">
+      <p><strong>Question 109</strong>. Tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = \frac{x+m}{x+1}$ trên đoạn $[1;2]$ bằng 8 ($m$ là tham số thực). Khẳng định nào sau đây là đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q109" value="A"/> A. $m>10$ <span class="option-icon" id="icon-q109-A"></span></label>
+        <label><input type="radio" name="q109" value="B"/> B. $8 < m < 10$ <span class="option-icon" id="icon-q109-B"></span></label>
+        <label><input type="radio" name="q109" value="C"/> C. $0<m<4$ <span class="option-icon" id="icon-q109-C"></span></label>
+        <label><input type="radio" name="q109" value="D"/> D. $4<m<8$ <span class="option-icon" id="icon-q109-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q109','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q110">
+      <p><strong>Question 110</strong>. Có bao nhiêu giá trị của tham số $m$ để giá trị lớn nhất của hàm số $y = \frac{x-m^2-2}{x-m}$ trên đoạn $[0;4]$ bằng $-1$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q110" value="A"/> A. 3 <span class="option-icon" id="icon-q110-A"></span></label>
+        <label><input type="radio" name="q110" value="B"/> B. 2 <span class="option-icon" id="icon-q110-B"></span></label>
+        <label><input type="radio" name="q110" value="C"/> C. 1 <span class="option-icon" id="icon-q110-C"></span></label>
+        <label><input type="radio" name="q110" value="D"/> D. 0 <span class="option-icon" id="icon-q110-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q110','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q111">
+      <p><strong>Question 111</strong>. Tìm giá trị dương của tham số $m$ để giá trị nhỏ nhất của hàm số $y = \frac{m^2x-1}{x+2}$ trên đoạn $[1;3]$ bằng 1.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q111" value="A"/> A. $m = \sqrt{2}$ <span class="option-icon" id="icon-q111-A"></span></label>
+        <label><input type="radio" name="q111" value="B"/> B. $m = \sqrt{3}$ <span class="option-icon" id="icon-q111-B"></span></label>
+        <label><input type="radio" name="q111" value="C"/> C. $m=4$ <span class="option-icon" id="icon-q111-C"></span></label>
+        <label><input type="radio" name="q111" value="D"/> D. $m=2$ <span class="option-icon" id="icon-q111-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q111','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q112">
+      <p><strong>Question 112</strong>. Tìm giá trị của tham số thực $m$ để giá trị nhỏ nhất của hàm số $y = \frac{2x+m}{x+1}$ trên đoạn $[0;4]$ bằng 3.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q112" value="A"/> A. $m=3$ <span class="option-icon" id="icon-q112-A"></span></label>
+        <label><input type="radio" name="q112" value="B"/> B. $m=1$ <span class="option-icon" id="icon-q112-B"></span></label>
+        <label><input type="radio" name="q112" value="C"/> C. $m=7$ <span class="option-icon" id="icon-q112-C"></span></label>
+        <label><input type="radio" name="q112" value="D"/> D. $m=5$ <span class="option-icon" id="icon-q112-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q112','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q113">
+      <p><strong>Question 113</strong>. Tìm các giá trị của tham số $m$ để giá trị nhỏ nhất của hàm số $y = \frac{x-m^2+m}{x+1}$ trên đoạn $[0;1]$ bằng $-2$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q113" value="A"/> A. $\begin{cases} m=-1 \\ m=-2 \end{cases}$ <span class="option-icon" id="icon-q113-A"></span></label>
+        <label><input type="radio" name="q113" value="B"/> B. $\begin{cases} m=1 \\ m=2 \end{cases}$ <span class="option-icon" id="icon-q113-B"></span></label>
+        <label><input type="radio" name="q113" value="C"/> C. $\begin{cases} m=1 \\ m=-2 \end{cases}$ <span class="option-icon" id="icon-q113-C"></span></label>
+        <label><input type="radio" name="q113" value="D"/> D. $\begin{cases} m=-1 \\ m=2 \end{cases}$ <span class="option-icon" id="icon-q113-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q113','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q114">
+      <p><strong>Question 114</strong>. Cho hàm số $y=2x^3-3x^2-m$. Trên $[-1;1]$ hàm số có giá trị nhỏ nhất là $-1$. Tính $m$?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q114" value="A"/> A. $m=-6$ <span class="option-icon" id="icon-q114-A"></span></label>
+        <label><input type="radio" name="q114" value="B"/> B. $m=-3$ <span class="option-icon" id="icon-q114-B"></span></label>
+        <label><input type="radio" name="q114" value="C"/> C. $m=-4$ <span class="option-icon" id="icon-q114-C"></span></label>
+        <label><input type="radio" name="q114" value="D"/> D. $m=-5$ <span class="option-icon" id="icon-q114-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q114','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q115">
+      <p><strong>Question 115</strong>. Tìm tất cả các giá trị thực của tham số $m$ để hàm số $y=x^3-3x^2+m$ có giá trị nhỏ nhất trên đoạn $[-1;1]$ bằng $\sqrt{2}$</p>
+      <div class="options-row">
+        <label><input type="radio" name="q115" value="A"/> A. $m=\sqrt{2}$ <span class="option-icon" id="icon-q115-A"></span></label>
+        <label><input type="radio" name="q115" value="B"/> B. $m=2+\sqrt{2}$ <span class="option-icon" id="icon-q115-B"></span></label>
+        <label><input type="radio" name="q115" value="C"/> C. $m=4+\sqrt{2}$ <span class="option-icon" id="icon-q115-C"></span></label>
+        <label><input type="radio" name="q115" value="D"/> D. <span class="option-icon" id="icon-q115-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q115','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q116">
+      <p><strong>Question 116</strong>. Có một giá trị $m_0$ của tham số $m$ để hàm số $y=x^3+(m^2+1)x+m+1$ đạt giá trị nhỏ nhất bằng 5 trên đoạn $[0;1]$. Mệnh đề nào sau đây là đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q116" value="A"/> A. $2025m_0-m_0^2 \ge 2025$ <span class="option-icon" id="icon-q116-A"></span></label>
+        <label><input type="radio" name="q116" value="B"/> B. $2m_0-1<0$ <span class="option-icon" id="icon-q116-B"></span></label>
+        <label><input type="radio" name="q116" value="C"/> C. $6m_0-m_0^2 < 0$ <span class="option-icon" id="icon-q116-C"></span></label>
+        <label><input type="radio" name="q116" value="D"/> D. $2m_0+1<0$ <span class="option-icon" id="icon-q116-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q116','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q117">
+      <p><strong>Question 117</strong>. Nếu hàm số $y=x+m+\sqrt{1-x^2}$ có giá trị lớn nhất bằng $2\sqrt{2}$ thì giá trị của $m$ là</p>
+      <div class="options-row">
+        <label><input type="radio" name="q117" value="A"/> A. $\frac{\sqrt{2}}{2}$ <span class="option-icon" id="icon-q117-A"></span></label>
+        <label><input type="radio" name="q117" value="B"/> B. $-\sqrt{2}$ <span class="option-icon" id="icon-q117-B"></span></label>
+        <label><input type="radio" name="q117" value="C"/> C. $\sqrt{2}$ <span class="option-icon" id="icon-q117-C"></span></label>
+        <label><input type="radio" name="q117" value="D"/> D. $-\frac{\sqrt{2}}{2}$ <span class="option-icon" id="icon-q117-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q117','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q118">
+      <p><strong>Question 118</strong>. Biết rằng giá trị nhỏ nhất của hàm số $y=mx+\frac{36}{x+1}$ trên $[0;3]$ bằng 20. Mệnh đề nào sau đây đúng?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q118" value="A"/> A. $0<m\le 2$ <span class="option-icon" id="icon-q118-A"></span></label>
+        <label><input type="radio" name="q118" value="B"/> B. $4<m\le 8$ <span class="option-icon" id="icon-q118-B"></span></label>
+        <label><input type="radio" name="q118" value="C"/> C. $2<m\le 4$ <span class="option-icon" id="icon-q118-C"></span></label>
+        <label><input type="radio" name="q118" value="D"/> D. $m>8$ <span class="option-icon" id="icon-q118-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q118','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q119">
+      <p><strong>Question 119</strong>. Biết $S$ là tập giá trị của $m$ để tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y=x^4-m^2x^3-2x^2-m$ trên đoạn $[0;1]$ bằng $-16$. Tính tích các phần tử của $S$.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q119" value="A"/> A. 2 <span class="option-icon" id="icon-q119-A"></span></label>
+        <label><input type="radio" name="q119" value="B"/> B. –2 <span class="option-icon" id="icon-q119-B"></span></label>
+        <label><input type="radio" name="q119" value="C"/> C. –15 <span class="option-icon" id="icon-q119-C"></span></label>
+        <label><input type="radio" name="q119" value="D"/> D. –17 <span class="option-icon" id="icon-q119-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q119','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q120">
+      <p><strong>Question 120</strong>. Cho hàm số $f(x)=m\sqrt{x-1}$ ($m$ là tham số thực khác 0). Gọi $m_1, m_2$ là hai giá trị của $m$ thoả mãn $\min_{[2;5]} f(x) + \max_{[2;5]} f(x) = m^2-10$. Giá trị của $m_1+m_2$ bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q120" value="A"/> A. 3 <span class="option-icon" id="icon-q120-A"></span></label>
+        <label><input type="radio" name="q120" value="B"/> B. 5 <span class="option-icon" id="icon-q120-B"></span></label>
+        <label><input type="radio" name="q120" value="C"/> C. 10 <span class="option-icon" id="icon-q120-C"></span></label>
+        <label><input type="radio" name="q120" value="D"/> D. 2 <span class="option-icon" id="icon-q120-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q120','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q121">
+      <p><strong>Question 121</strong>. Tìm tất cả các giá trị của tham số $m$ để hàm số $y=\frac{x+m}{x^2+x+1}$ có giá trị lớn nhất trên $\mathbb{R}$ nhỏ hơn hoặc bằng 1.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q121" value="A"/> A. $m \le 1$ <span class="option-icon" id="icon-q121-A"></span></label>
+        <label><input type="radio" name="q121" value="B"/> B. $m \ge 1$ <span class="option-icon" id="icon-q121-B"></span></label>
+        <label><input type="radio" name="q121" value="C"/> C. $m \ge -1$ <span class="option-icon" id="icon-q121-C"></span></label>
+        <label><input type="radio" name="q121" value="D"/> D. $m \le -1$ <span class="option-icon" id="icon-q121-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q121','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q122">
+      <p><strong>Question 122</strong>. Cho hàm số $y=x^3-3mx^2+3(m^2-1)x+2028$. Có tất cả bao nhiêu giá trị nguyên của $m$ sao cho hàm số có giá trị nhỏ nhất trên khoảng $(0;+\infty)$?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q122" value="A"/> A. 2 <span class="option-icon" id="icon-q122-A"></span></label>
+        <label><input type="radio" name="q122" value="B"/> B. 1 <span class="option-icon" id="icon-q122-B"></span></label>
+        <label><input type="radio" name="q122" value="C"/> C. Vô số <span class="option-icon" id="icon-q122-C"></span></label>
+        <label><input type="radio" name="q122" value="D"/> D. 3 <span class="option-icon" id="icon-q122-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q122','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q123">
+      <p><strong>Question 123</strong>. Một chất điểm chuyển động theo quy luật $s(t) = 6t^2 - t^3$. Tính thời điểm t (giây) tại đó vận tốc v (m/s) của chuyển động đạt giá trị lớn nhất.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q123" value="A"/> A. $t=2$ (s) <span class="option-icon" id="icon-q123-A"></span></label>
+        <label><input type="radio" name="q123" value="B"/> B. $t=3$ (s) <span class="option-icon" id="icon-q123-B"></span></label>
+        <label><input type="radio" name="q123" value="C"/> C. $t=5$ (s) <span class="option-icon" id="icon-q123-C"></span></label>
+        <label><input type="radio" name="q123" value="D"/> D. $t=6$ (s) <span class="option-icon" id="icon-q123-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q123','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q124">
+      <p><strong>Question 124</strong>. Một vật chuyển động theo quy luật $S=\frac{1}{4}t^4 - \frac{3}{2}t^2+2t-100$ với $t$ (giây) là khoảng thời gian kể từ lúc vật bắt đầu chuyển động, $S$ (mét) là quãng đường vật đi được trong khoảng thời gian đó. Hỏi vận tốc của vật đạt giá trị nhỏ nhất tại thời điểm $t$ bằng bao nhiêu?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q124" value="A"/> A. $t=1$ (s) <span class="option-icon" id="icon-q124-A"></span></label>
+        <label><input type="radio" name="q124" value="B"/> B. $t=16$ (s) <span class="option-icon" id="icon-q124-B"></span></label>
+        <label><input type="radio" name="q124" value="C"/> C. $t=5$ (s) <span class="option-icon" id="icon-q124-C"></span></label>
+        <label><input type="radio" name="q124" value="D"/> D. $t=3$ (s) <span class="option-icon" id="icon-q124-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q124','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q125">
+      <p><strong>Question 125</strong>. Trong tất cả các hình chữ nhật có diện tích $S$, hình chữ nhật có chu vi nhỏ nhất bằng bao nhiêu?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q125" value="A"/> A. $\sqrt{S}$ <span class="option-icon" id="icon-q125-A"></span></label>
+        <label><input type="radio" name="q125" value="B"/> B. $2\sqrt{S}$ <span class="option-icon" id="icon-q125-B"></span></label>
+        <label><input type="radio" name="q125" value="C"/> C. $4\sqrt{S}$ <span class="option-icon" id="icon-q125-C"></span></label>
+        <label><input type="radio" name="q125" value="D"/> D. $6\sqrt{S}$ <span class="option-icon" id="icon-q125-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q125','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q126">
+      <p><strong>Question 126</strong>. Một tấm kẽm hình vuông ABCD có cạnh bằng 30 (cm). Người ta gập tấm kẽm theo hai cạnh EF và GH cho đến khi AD và BC trùng nhau như hình vẽ dưới đây để được một hình lăng trụ khuyết hai đáy. Giá trị của x để thể tích khối lăng trụ lớn nhất là <img src="data//im/n29.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q126" value="A"/> A. $x = 5$ (cm) <span class="option-icon" id="icon-q126-A"></span></label>
+        <label><input type="radio" name="q126" value="B"/> B. $x = 9$ (cm) <span class="option-icon" id="icon-q126-B"></span></label>
+        <label><input type="radio" name="q126" value="C"/> C. $x = 8$ (cm) <span class="option-icon" id="icon-q126-C"></span></label>
+        <label><input type="radio" name="q126" value="D"/> D. $x = 10$ (cm) <span class="option-icon" id="icon-q126-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q126','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q127">
+      <p><strong>Question 127</strong>. Khi nuôi cá thí nghiệm trong hồ, một nhà sinh vật học thấy rằng: Nếu trên mỗi đơn vị diện tích mặt hồ có $n$ con cá thì trung bình mỗi con cá sau một vụ cân nặng $P(n) = 480-20n$ (gam). Hỏi phải thả bao nhiêu cá trên một đơn vị diện tích của mặt hồ để sau một vụ thu hoạch cá đạt được tổng khối lượng lớn nhất?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q127" value="A"/> A. $n=12$ <span class="option-icon" id="icon-q127-A"></span></label>
+        <label><input type="radio" name="q127" value="B"/> B. $n=6$ <span class="option-icon" id="icon-q127-B"></span></label>
+        <label><input type="radio" name="q127" value="C"/> C. $n=8$ <span class="option-icon" id="icon-q127-C"></span></label>
+        <label><input type="radio" name="q127" value="D"/> D. $n=24$ <span class="option-icon" id="icon-q127-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q127','A')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q128">
+      <p><strong>Question 128</strong>. Độ giảm huyết áp của một bệnh nhân được cho bởi công thức $G(x) = 0,025x^2(30-x)$, trong đó $x$ là liều lượng thuốc được tiêm cho bệnh nhân ($x$ được tính bằng miligam). Tính liều lượng thuốc cần tiêm cho bệnh nhân để huyết áp giảm nhiều nhất và tính độ giảm đó.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q128" value="A"/> A. $x=30$ (mg) <span class="option-icon" id="icon-q128-A"></span></label>
+        <label><input type="radio" name="q128" value="B"/> B. $x=20$ (mg) <span class="option-icon" id="icon-q128-B"></span></label>
+        <label><input type="radio" name="q128" value="C"/> C. $x=10$ (mg) <span class="option-icon" id="icon-q128-C"></span></label>
+        <label><input type="radio" name="q128" value="D"/> D. $x=15$ (mg) <span class="option-icon" id="icon-q128-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q128','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q129">
+      <p><strong>Question 129</strong>. Một loại thuốc được dùng cho một bệnh nhân và nồng độ thuốc trong máu của bệnh nhân được giám sát bởi bác sĩ. Biết rằng nồng độ thuốc trong máu của bệnh nhân sau khi tiêm vào cơ thể trong $t$ giờ được cho bởi công thức $c(t) = \frac{t}{t^2+1}$ (mg/L). Sau khi tiêm thuốc bao lâu thì nồng độ thuốc trong máu của bệnh nhân cao nhất?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q129" value="A"/> A. 4 giờ <span class="option-icon" id="icon-q129-A"></span></label>
+        <label><input type="radio" name="q129" value="B"/> B. 1 giờ <span class="option-icon" id="icon-q129-B"></span></label>
+        <label><input type="radio" name="q129" value="C"/> C. 3 giờ <span class="option-icon" id="icon-q129-C"></span></label>
+        <label><input type="radio" name="q129" value="D"/> D. 2 giờ <span class="option-icon" id="icon-q129-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q129','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q130">
+      <p><strong>Question 130</strong>. Nhà máy A chuyên sản xuất một loại sản phẩm cung cấp cho nhà máy B. Hai nhà máy thoả thuận rằng: Hàng tháng nhà máy A cung cấp cho nhà máy B số lượng sản phẩm theo đơn đặt hàng của B (tối đa 100 tấn sản phẩm). Nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm là $P(x) = 45-0,001x^2$ (triệu đồng). Chi phí để A sản xuất x tấn sản phẩm trong một tháng bao gồm:
+<ul>
+    <li>Chi phí cố định: 100 triệu đồng.</li>
+    <li>Cho phí cho mỗi tấn sản phẩm làm ra: 30 triệu đồng.</li>
+</ul>
+ Hỏi nhà máy A cần bán cho nhà máy B bao nhiêu tấn sản phẩm mỗi tháng để lợi nhuận thu được là lớn nhất? (Làm tròn kết quả đến hàng phần chục).</p>
+      <div class="options-row">
+        <label><input type="radio" name="q130" value="A"/> A. 73,9 <span class="option-icon" id="icon-q130-A"></span></label>
+        <label><input type="radio" name="q130" value="B"/> B. 72,3 <span class="option-icon" id="icon-q130-B"></span></label>
+        <label><input type="radio" name="q130" value="C"/> C. 70,7 <span class="option-icon" id="icon-q130-C"></span></label>
+        <label><input type="radio" name="q130" value="D"/> D. 71,6 <span class="option-icon" id="icon-q130-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q130','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q131">
+      <p><strong>Question 131</strong>. Một con cá hồi bơi ngược dòng để vượt một khoảng cách là 300 km. Vận tốc dòng nước là 6 km/h. Nếu vận tốc của cá bơi khi nước đứng yên là $v$ (km/h) thì năng lượng tiêu hao của cá trong $t$ giờ được cho bởi công thức $E(v) = cv^3t$, trong đó $c$ là một hằng số, $E$ được tính bằng jun. Tìm vận tốc bơi của cá khi nước đứng yên để năng lượng tiêu hao là ít nhất.</p>
+      <div class="options-row">
+        <label><input type="radio" name="q131" value="A"/> A. 6 (km/h) <span class="option-icon" id="icon-q131-A"></span></label>
+        <label><input type="radio" name="q131" value="B"/> B. 5 (km/h) <span class="option-icon" id="icon-q131-B"></span></label>
+        <label><input type="radio" name="q131" value="C"/> C. 9 (km/h) <span class="option-icon" id="icon-q131-C"></span></label>
+        <label><input type="radio" name="q131" value="D"/> D. 8 (km/h) <span class="option-icon" id="icon-q131-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q131','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q132">
+      <p><strong>Question 132</strong>. Cho một tấm nhôm hình chữ nhật có chiều dài bằng 10cm và chiều rộng bằng 8cm. Người ta cắt bỏ ở bốn góc của tấm nhôm đó bốn hình vuông bằng nhau, mỗi hình vuông có cạnh bằng $x(cm)$, rồi gập tấm nhôm lại (như hình vẽ) để được một cái hộp không nắp. Tìm $x$ để hộp nhận được có thể tích lớn nhất. <img src="data//im/nn30.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q132" value="A"/> A. $x = \frac{8-2\sqrt{21}}{3}$ <span class="option-icon" id="icon-q132-A"></span></label>
+        <label><input type="radio" name="q132" value="B"/> B. $x = \frac{10-2\sqrt{7}}{3}$ <span class="option-icon" id="icon-q132-B"></span></label>
+        <label><input type="radio" name="q132" value="C"/> C. $x = \frac{9+\sqrt{21}}{9}$ <span class="option-icon" id="icon-q132-C"></span></label>
+        <label><input type="radio" name="q132" value="D"/> D. $x = \frac{9-\sqrt{21}}{3}$ <span class="option-icon" id="icon-q132-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q132','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q133">
+      <p><strong>Question 133</strong>. Một người nông dân có 15.000.000 đồng muốn làm một cái hàng rào hình chữ E dọc theo một con sông (như hình vẽ) để làm một khu đất có hai phần chữ nhật để trồng rau. Đối với mặt hàng rào song song với bờ sông thì chi phí nguyên vật liệu là 60.000 đồng một mét, còn đối với ba mặt hàng rào song song nhau thì chi phí nguyên vật liệu là 50.000 đồng một mét. Tìm diện tích lớn nhất của đất rào thu được <img src="data//im/n30.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q133" value="A"/> A. $3125$ m$^2$ <span class="option-icon" id="icon-q133-A"></span></label>
+        <label><input type="radio" name="q133" value="B"/> B. $50$ m$^2$ <span class="option-icon" id="icon-q133-B"></span></label>
+        <label><input type="radio" name="q133" value="C"/> C. $1250$ m$^2$ <span class="option-icon" id="icon-q133-C"></span></label>
+        <label><input type="radio" name="q133" value="D"/> D. $6250$ m$^2$ <span class="option-icon" id="icon-q133-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q133','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q134">
+      <p><strong>Question 134</strong>. Từ một tấm bạt hình chữ nhật có kích thước $12m \times 6m$ như hình vẽ. Một nhóm học sinh trong quá trình đi dã ngoại đã gập đôi tấm bạt lại theo đoạn nối trung điểm 2 cạnh là chi rộng của tấm bạt sao cho 2 mép chiều dài của tấm bạt sát đất và cách nhau $x$ (m) (như hình vẽ). Tìm $x$ để khoảng không gian trong lều là lớn nhất. <img src="data//im/n31.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q134" value="A"/> A. $x=4$ <span class="option-icon" id="icon-q134-A"></span></label>
+        <label><input type="radio" name="q134" value="B"/> B. $x = 3\sqrt{3}$ <span class="option-icon" id="icon-q134-B"></span></label>
+        <label><input type="radio" name="q134" value="C"/> C. $x=3$ <span class="option-icon" id="icon-q134-C"></span></label>
+        <label><input type="radio" name="q134" value="D"/> D. $x = 3\sqrt{2}$ <span class="option-icon" id="icon-q134-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q134','D')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q135">
+      <p><strong>Question 135</strong>. Cho một tấm nhôm hình vuông cạnh 6 cm. Người ta muốn cắt một hình thang như hình vẽ trong đó $AH=x, AE=2, CG=y, CF=3$. Tìm tổng $x+y$ để diện tích hình thang EFGH đạt giá trị nhỏ nhất. <img src="data//im/n32.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q135" value="A"/> A. $x+y=7$ <span class="option-icon" id="icon-q135-A"></span></label>
+        <label><input type="radio" name="q135" value="B"/> B. $x+y=5$ <span class="option-icon" id="icon-q135-B"></span></label>
+        <label><input type="radio" name="q135" value="C"/> C. $x+y = \frac{7\sqrt{2}}{2}$ <span class="option-icon" id="icon-q135-C"></span></label>
+        <label><input type="radio" name="q135" value="D"/> D. $x+y=4\sqrt{2}$ <span class="option-icon" id="icon-q135-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q135','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q136">
+      <p><strong>Question 136</strong>. Một người đàn ông muốn chèo thuyền ở vị trí A tới điểm B về phía hạ lưu bờ đối diện, càng nhanh càng tốt, trên một bờ sông thẳng rộng 3 km (như hình vẽ). Anh có thể chèo thuyền của mình trực tiếp qua sông để đến C và sau đó chạy đến B, hay có thể chèo trực tiếp đến B, hoặc anh ta có thể chèo thuyền đến một điểm D giữa C và B và sau đó chạy đến B. Biết anh ấy có thể chèo thuyền 6 km/h, chạy 8 km/h và quãng đường BC = 8 km. Biết tốc độ của dòng nước là không đáng kể so với tốc độ chèo thuyền của người đàn ông. Tính khoảng thời gian ngắn nhất (đơn vị: giờ) để người đàn ông đến B. <img src="data//im/n33.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q136" value="A"/> A. $\frac{3}{2}$ <span class="option-icon" id="icon-q136-A"></span></label>
+        <label><input type="radio" name="q136" value="B"/> B. $\frac{9}{\sqrt{7}}$ <span class="option-icon" id="icon-q136-B"></span></label>
+        <label><input type="radio" name="q136" value="C"/> C. $\frac{\sqrt{73}}{6}$ <span class="option-icon" id="icon-q136-C"></span></label>
+        <label><input type="radio" name="q136" value="D"/> D. $1+\frac{\sqrt{7}}{8}$ <span class="option-icon" id="icon-q136-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q136','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q137">
+      <p><strong>Question 137</strong>. Một ngọn hải đăng đặt ở vị trí A cách bờ biển một khoảng AB = 5 km. Trên bờ biển có một cái kho ở vị trí C cách B một khoảng là 7 km. Người canh hải đăng có thể chèo đò từ A đến vị trí M trên bờ biển với vận tốc 4km/h rồi đi bộ đến C với vận tốc 6 km/h. Vị trí của điểm M cách B một khoảng nhất với giá trị nào nhất để người đó đến kho nhanh nhất? <img src="data//im/n34.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q137" value="A"/> A. 3,0km <span class="option-icon" id="icon-q137-A"></span></label>
+        <label><input type="radio" name="q137" value="B"/> B. 7,0km <span class="option-icon" id="icon-q137-B"></span></label>
+        <label><input type="radio" name="q137" value="C"/> C. 4,5km <span class="option-icon" id="icon-q137-C"></span></label>
+        <label><input type="radio" name="q137" value="D"/> D. 2,1km <span class="option-icon" id="icon-q137-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q137','C')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q138">
+      <p><strong>Question 138</strong>. Cho nửa đường tròn đường kính AB = 2 và hai điểm C, D thay đổi trên nửa đường tròn đó sao cho ABCD là hình thang. Diện tích lớn nhất của hình thang ABCD bằng</p>
+      <div class="options-row">
+        <label><input type="radio" name="q138" value="A"/> A. $\frac{1}{2}$ <span class="option-icon" id="icon-q138-A"></span></label>
+        <label><input type="radio" name="q138" value="B"/> B. $\frac{3\sqrt{3}}{4}$ <span class="option-icon" id="icon-q138-B"></span></label>
+        <label><input type="radio" name="q138" value="C"/> C. 1 <span class="option-icon" id="icon-q138-C"></span></label>
+        <label><input type="radio" name="q138" value="D"/> D. $\frac{3\sqrt{3}}{2}$ <span class="option-icon" id="icon-q138-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q138','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q139">
+      <p><strong>Question 139</strong>. Một sợi dây kim loại dài 60cm được cắt thành hai đoạn. Đoạn dây thứ nhất uốn thành hình vuông cạnh a, đoạn dây thứ hai uốn thành đường tròn bán kính r. Để tổng diện tích của hình vuông và hình tròn nhỏ nhất thì tỉ số $\frac{a}{r}$ bằng: <img src="data//im/n35.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q139" value="A"/> A. $\frac{a}{r}=1$ <span class="option-icon" id="icon-q139-A"></span></label>
+        <label><input type="radio" name="q139" value="B"/> B. $\frac{a}{r}=2$ <span class="option-icon" id="icon-q139-B"></span></label>
+        <label><input type="radio" name="q139" value="C"/> C. $\frac{a}{r}=3$ <span class="option-icon" id="icon-q139-C"></span></label>
+        <label><input type="radio" name="q139" value="D"/> D. $\frac{a}{r}=4$ <span class="option-icon" id="icon-q139-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q139','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q140">
+      <p><strong>Question 140</strong>. Một mảnh giấy hình chữ nhật có chiều dài 12cm và chiều rộng 6cm. Thực hiện thao tác gấp góc dưới bên phải sao cho đỉnh được gấp nằm trên cạnh chiều dài còn lại. Hỏi chiều dài L tối thiểu của nếp gấp là bao nhiêu? <img src="data//im/n36.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q140" value="A"/> A. $\min L = 6\sqrt{2}$ cm <span class="option-icon" id="icon-q140-A"></span></label>
+        <label><input type="radio" name="q140" value="B"/> B. $\min L = \frac{9\sqrt{3}}{2}$ cm <span class="option-icon" id="icon-q140-B"></span></label>
+        <label><input type="radio" name="q140" value="C"/> C. $\min L = \frac{7\sqrt{3}}{2}$ cm <span class="option-icon" id="icon-q140-C"></span></label>
+        <label><input type="radio" name="q140" value="D"/> D. $9\sqrt{2}$ cm <span class="option-icon" id="icon-q140-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q140','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q141">
+      <p><strong>Question 141</strong>. Hình dáng phần đất liền của hai xã thuộc tỉnh Đồng Tháp được mô hình hóa bởi đồ thị hàm số $y=\frac{x^2+ax+b}{x-2}$; biết đồ thị có một điểm cực trị là (1; 1), với hệ trục tọa độ Oxy như hình vẽ, đơn vị trên mỗi trục là 10 mét. Để thuận tiện cho giao thông hai xã, lãnh đạo tỉnh đã phê duyệt dự án xây một chiếc cầu nối phần đất liền của hai xã này. Nhằm tiết kiệm chi phí cho công trình, người kỹ sư trưởng thiết kế có nhiệm vụ nghiên cứu để chọn được hai vị trí A, B trên phần đất liền hai xã sao cho độ dài chiếc cầu (đoạn AB) là ngắn nhất có thể. Hỏi độ dài ngắn nhất của chiếc cầu đó (tính theo đường chim bay) là bao nhiêu mét (làm tròn đến hàng phần chục)? <img src="data//im/n37.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q141" value="A"/> A. 41,1 <span class="option-icon" id="icon-q141-A"></span></label>
+        <label><input type="radio" name="q141" value="B"/> B. 43,9 <span class="option-icon" id="icon-q141-B"></span></label>
+        <label><input type="radio" name="q141" value="C"/> C. 38,4 <span class="option-icon" id="icon-q141-C"></span></label>
+        <label><input type="radio" name="q141" value="D"/> D. 42,7 <span class="option-icon" id="icon-q141-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q141','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <div class="question" id="q142">
+      <p><strong>Question 142</strong>. Một chiến sĩ đặc công đang nấp ở bờ sông, cần phải bơi qua bờ bên kia để tấn công mục tiêu. Có thể xem con sông này là thẳng và có độ rộng 100 m; vận tốc bơi của chiến sĩ bằng một phần ba vận tốc chạy bộ. Biết rằng mục tiêu tấn công cách chiến sĩ 1 km theo đường chim bay; hỏi chiến sĩ phải bơi bao nhiêu mét để đến được mục tiêu nhanh nhất (làm tròn kết quả đến hàng đơn vị)? <img src="data//im/n38.png"></p>
+      <div class="options-row">
+        <label><input type="radio" name="q142" value="A"/> A. 105 <span class="option-icon" id="icon-q142-A"></span></label>
+        <label><input type="radio" name="q142" value="B"/> B. 106 <span class="option-icon" id="icon-q142-B"></span></label>
+        <label><input type="radio" name="q142" value="C"/> C. 107 <span class="option-icon" id="icon-q142-C"></span></label>
+        <label><input type="radio" name="q142" value="D"/> D. 108 <span class="option-icon" id="icon-q142-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q142','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 15px;
+    left: 40px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+ /* ==== TOOLBAR ==== */
+#toolbar {
+  position: fixed;
+  bottom: 8px;
+  left: 15px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
+  white-space: nowrap;
+  gap: 6px;
+  background: rgba(2, 27, 125, 0.6);
+  border-radius: 8px;
+  padding: 4px 6px;
+  z-index: 10001 !important;
+  backdrop-filter: blur(3px);
+  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
+}
+#toolbar::-webkit-scrollbar {
+  height: 4px;
+}
+#toolbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+}
+
+
+/* ==== CÁC NÚT VÀ COMBO ==== */
+#toolbar button,
+#toolbar select {
+  font-size: 12px;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#toolbar select {
+  height: 22px;
+}
+
+#toolbar button:hover,
+#toolbar select:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+/* ==== CÁC BIỂU TƯỢNG ==== */
+#toolbar button {
+  line-height: 1;
+}
+
+/* 📱 Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  #toolbar {
+    bottom: 6px;
+    left: 6px;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  #toolbar button,
+  #toolbar select {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+}
+
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <a href="../index.html" title="Trang chủ">
+  <button>🏠</button>
+     </a>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+      const homeBtn = document.getElementById("homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
+      });
+    }
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+  // Hàm phát âm thanh
+  function playSound(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  // =====================
+  // 1️⃣ TRẮC NGHIỆM 4 LỰA CHỌN
+  // =====================
+  function showOptionIcon(qid, selected, correct) {
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent = "");
+    const icon = document.getElementById(`icon-${qid}-${selected}`);
+    if (icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+  }
+
+  function checkAnswer(qid, correct) {
+    // Xóa icon cũ
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+    
+    // Lấy lựa chọn
+    const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+    if (!chosen) {
+      alert("Hãy chọn một đáp án!");
+      playSound("../audio/wrong.mp3");
+      return;
+    }
+
+    const chosenVal = chosen.value;
+    const iconId = `icon-${qid}-${chosenVal}`;
+
+    // Hiển thị đúng/sai + phát âm thanh
+    if (chosenVal === correct) {
+      document.getElementById(iconId).textContent = '✅';
+      playSound("../audio/correct.mp3");
+    } else {
+      document.getElementById(iconId).textContent = '❌';
+      document.getElementById(`icon-${qid}-${correct}`).textContent = '✅';
+      playSound("../audio/wrong.mp3");
+    }
+  }
+
+  // =====================
+  // 2️⃣ CÂU HỎI ĐÚNG / SAI
+  // =====================
+  
+</script>
+<script>
+function playSound(src){
+  try{
+    const a = new Audio(src);
+    a.volume = 0.9;
+    a.play().catch(()=>{/* muted or user gesture required */});
+  }catch(e){}
+}
+
+/**
+ * checkTrueFalseAnswer:
+ * - questionId: 'q1'
+ * - correctAnswers: either an Array like ['True','False','True','True'] OR a string '["True","False",...]'
+ */
+function checkTrueFalseAnswer(questionId, correctAnswers){
+  // normalize correctAnswers to array of strings
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      // fallback: try to split by comma (robust)
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      // add icon near selected radio (if option-icon exists)
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  // render feedback in .answer-check .result (create if missing)
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // play sound
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+}
+</script>
+<script>
+function checkShortAnswer(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  // So sánh không phân biệt khoảng trắng / chữ hoa
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    playSound("../audio/wrong.mp3");
+  }
+}
+</script>
+
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // chạy ngay khi tải trang
+</script>
+
+<script>
+// === AUTO FIX SLIDE STRUCTURE ===
+// Mục đích: Đưa mọi <img> (hoặc <center><img>...</center>) nằm ngoài <section> vào slide hợp lệ
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelector(".reveal .slides");
+  if (!slides) return;
+
+  // Tạo slide mới chứa node
+  const makeSlide = (node) => {
+    const sec = document.createElement("section");
+    sec.appendChild(node);
+    return sec;
+  };
+
+  // 1️⃣ Di chuyển ảnh hoặc center chưa nằm trong slide nào vào slide mới
+  const imgs = [...document.querySelectorAll(".reveal .slides img")];
+  imgs.forEach(img => {
+    // Kiểm tra có nằm trong slide hợp lệ không
+    let ancestor = img.closest(".reveal .slides > section");
+    if (!ancestor) {
+      // Nếu nằm trong <center>, di chuyển cả center
+      const wrap = img.closest("center") || img;
+      slides.appendChild(makeSlide(wrap));
+    }
+  });
+
+  // 2️⃣ Sửa các <section> bị lồng hoặc đóng sai
+  const badNested = [...slides.querySelectorAll("section section")];
+  badNested.forEach(sec => slides.appendChild(sec));
+
+  // 3️⃣ Xóa các section rỗng (chỉ chứa khoảng trắng)
+  [...slides.querySelectorAll("section")].forEach(sec => {
+    if (!sec.innerHTML.trim()) sec.remove();
+  });
+
+  console.log("✅ Slide structure fixed: images moved into valid slides.");
+});
+</script>
+
+   
+</body>
+</html>

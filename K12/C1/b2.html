@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề: ỨNG DỤNG CỦA ĐẠO HÀM</title>
+    
+    <!-- Font Awesome for Icons -->
+    <!-- MathJax for LaTeX Rendering -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                processEscapes: true
+            },
+            chtml: {
+                linebreaks: { automatic: true }
+            }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+           
+            <div class="logo">
+                <img src="logo3.jpg" alt="Logo EduCode" class="logo-img">
+                <div class="logo-text">
+                    <h1>EDUCODE</h1>
+                    <p>Chinh phục tri thức, dẫn đầu tương lai</p>
+                </div>
+            </div>
+            <button id="fullscreen-btn">⛶ </button>
+            <button class="hamburger-btn">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul class="main-menu">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                 
+                    
+                  
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar điều hướng tài liệu -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">DANH MỤC TÀI LIỆU</div>
+                <ul class="document-nav" id="documentNav">
+                    <!-- Các mục tài liệu sẽ được thêm bằng JavaScript -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">BÀI TẬP RÈN LUYỆN</div>
+                <ul class="article-list">
+                    <li><a href="12C1B1TN.html" >Trắc nghiệm</a></li>
+                    <li><a href="12C1B1DS.html" >Đúng sai</a></li>
+                    <li><a href="12C1B1TLN.html" >Trả lời ngắn</a></li>
+                    <li><a href="12C1B1TT.html" >Thực tế</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+<!-- Nội dung soạn bài -->
+    <main class="main-content">
+    <div id="documentViewer">
+        <h1 class="article-title">CHUYÊN ĐỀ: ỨNG DỤNG ĐẠO HÀM</h1>
+        <p class="doc-subtitle">Môn Toán - Lớp 12</p>
+        <div class="doc-meta">
+            <span><i class="fas fa-book"></i> 7 dạng bài</span>
+            <span><i class="fas fa-lightbulb"></i> 25 ví dụ</span>
+            <span><i class="fas fa-pencil-alt"></i> 50 bài tập</span>
+            <span><i class="fas fa-calendar-alt"></i> Cập nhật: 20/08/2025</span>
+            <span><i class="fas fa-user-edit"></i> Biên soạn: ThS. Nguyễn Thanh Bình</span>
+        </div>
+
+        <!-- Knowledge Summary Section -->
+        <section class="doc-section">
+            <h2 class="article-subtitle"><i class="fas fa-book-open"></i> TÓM TẮT KIẾN THỨC</h2>
+
+            <!-- Maximum and Minimum Values -->
+            <h3>Giá trị lớn nhất và giá trị nhỏ nhất của hàm số</h3>
+
+            <!-- Definition -->
+            <div class="definition-box">
+                <div class="definition-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="definition-content">
+                    <h3><i class="fas fa-book"></i> Định Nghĩa</h3>
+                    <p>Cho hàm số \( y = f(x) \) xác định trên tập hợp \( D \).</p>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Số \( M \) được gọi là <strong>giá trị lớn nhất</strong> của hàm số \( y = f(x) \) trên \( D \) nếu \( f(x) \le M, \forall x \in D \) và \( \exists x_0 \in D, f(x_0) = M \).<br>
+                            Ký hiệu: \( M = \max_{D} f(x) \).</li>
+                        <li><i class="fas fa-pencil-alt" style="color: #28a745; margin-right: 8px;"></i> Số \( m \) được gọi là <strong>giá trị nhỏ nhất</strong> của hàm số \( y = f(x) \) trên \( D \) nếu \( f(x) \ge m, \forall x \in D \) và \( \exists x_0 \in D, f(x_0) = m \).<br>
+                            Ký hiệu: \( m = \min_{D} f(x) \).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Note -->
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                    <ul>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Khi nói đến giá trị lớn nhất, giá trị nhỏ nhất của một hàm số thì ta hiểu đó là giá trị lớn nhất, giá trị nhỏ nhất của hàm số đó trên tập xác định của nó.</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Ta có thể tìm giá trị lớn nhất, giá trị nhỏ nhất của một hàm số bằng cách dựa vào đồ thị hoặc dựa vào bảng biến thiên của nó.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Method for Finding Maximum and Minimum -->
+            <h4>Phương pháp tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số</h4>
+
+            <!-- Method 1: On a Closed Interval -->
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">1. Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số trên một đoạn</div>
+                </div>
+                <div class="note-content">
+                    <p><strong>Bài toán:</strong> Tìm giá trị lớn nhất – giá trị nhỏ nhất của hàm số \( y = f(x) \) trên \( [a;b] \).</p>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Bước 1:</strong> Tính \( y' = f'(x) \). Tìm các nghiệm \( x_i \in (a;b), i = 1, 2, 3, ... \) mà tại đó đạo hàm bằng 0 hoặc không tồn tại.</li>
+                            <li><strong>Bước 2:</strong> Tính các giá trị \( f(a), f(b) \) và \( f(x_i) \) (nếu có).</li>
+                            <li><strong>Bước 3:</strong> So sánh tất cả giá trị trong <strong>bước 2</strong> để kết luận về giá trị lớn nhất, nhỏ nhất của hàm số trên đoạn \( [a;b] \).</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Note for Closed Interval -->
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">Chú ý</div>
+                </div>
+                <div class="note-content">
+                    <ul>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Mọi hàm số liên tục trên đoạn \( [a;b] \) thì chúng đều có giá trị lớn nhất, giá trị nhỏ nhất trên đoạn \( [a;b] \).</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nếu hàm số \( y = f(x) \) đồng biến trên đoạn \( [a;b] \) thì \( f(a) \le f(x) \le f(b) \) hay \( \max_{[a;b]}f(x) = f(b) \), \( \min_{[a;b]}f(x) = f(a) \).</li>
+                        <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Nếu hàm số \( f(x) \) nghịch biến trên đoạn \( [a;b] \) thì \( f(a) \ge f(x) \ge f(b) \) hay \( \max_{[a;b]}f(x) = f(a) \), \( \min_{[a;b]}f(x) = f(b) \).</li>
+                    </ul>
+                    <div class="image-container">
+                        <img src="data//im/63.png" alt="Bảng biến thiên cho phương pháp tìm GTLN-GTNN trên đoạn">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 2: On an Open or Semi-Open Interval -->
+            <div class="note-box">
+                <div class="note-header">
+                    <div class="note-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="note-title">2. Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số trên một khoảng hoặc nửa khoảng</div>
+                </div>
+                <div class="note-content">
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Bước 1:</strong> Tính \( y' = f'(x) \). Tìm các nghiệm \( x_i \) mà tại đó đạo hàm bằng 0 hoặc không tồn tại.</li>
+                            <li><strong>Bước 2:</strong> Lập bảng biến thiên của hàm số trên khoảng hoặc nửa khoảng đã cho.</li>
+                            <li><strong>Bước 3:</strong> Dựa vào bảng biến thiên để kết luận về giá trị lớn nhất, giá trị nhỏ nhất của hàm số trên khoảng nửa khoảng cho trước.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Types Section -->
+        <section class="doc-section">
+            <h2 class="article-subtitle"><i class="fas fa-tasks"></i> CÁC DẠNG TOÁN VÀ PHƯƠNG PHÁP GIẢI</h2>
+
+            <!-- Problem Type 1 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">1</div>
+                    <h3>Dạng 1: Tìm GTLN-GTNN của hàm số trên đoạn [a ; b]</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Bước 0:</strong> Tìm tập xác định hàm số (nếu đề bài chưa cho trước đoạn cần tìm max-min).</li>
+                            <li><strong>Bước 1:</strong> Tính đạo hàm \( f'(x) \) và cho \( f'(x) = 0 \) để tìm nghiệm \( x_i \in [a;b], i = 1,2,... \)</li>
+                            <li><strong>Bước 2:</strong> Tính các giá trị \( f(a), f(b), f(x_i) \).</li>
+                            <li><strong>Bước 3:</strong> So sánh các giá trị trong bước 2, kết luận về Max-Min của hàm số trên đoạn \( [a; b] \).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples for Problem Type 1 -->
+            <section class="doc-section">
+                <h2 class="article-subtitle"><i class="fas fa-lightbulb"></i> VÍ DỤ MINH HỌA</h2>
+
+                <!-- Example 1 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 1: Tìm GTLN-GTNN của hàm số trên đoạn [0;3]</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Giá trị lớn nhất và giá trị nhỏ nhất của hàm số \( y = f(x) = x^3 + 3x^2 - 9x + 1 \) trên đoạn \( [0;3] \) lần lượt bằng bao nhiêu?</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p><i>Nhận xét:</i> Hàm số đã cho liên tục trên \( [0;3] \).</p>
+                        <p>Đạo hàm: \( y' = 3x^2 + 6x - 9 \); \( y' = 0 \Leftrightarrow \begin{cases} x = 1 \text{ (nhận)} \\ x = -3 \text{ (loại)} \end{cases} \).</p>
+                        <p>Ta có: \( f(0) = 1, f(1) = -4, f(3) = 28 \). Vậy \( \max_{x \in [0;3]} f(x) = f(3) = 28 \), \( \min_{x \in [0;3]} f(x) = f(1) = -4 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị lớn nhất là 28, giá trị nhỏ nhất là -4.</p>
+                    </div>
+                </div>
+
+                <!-- Example 2 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 2: Tìm GTLN của hàm số trên đoạn [1;2]</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm giá trị lớn nhất của hàm số \( y = \frac{2x-1}{x+1} \) trên đoạn \( [1;2] \).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p><i>Nhận xét:</i> Hàm số đã cho liên tục \( \forall x \neq -1 \) nên cũng liên tục trên \( [1;2] \).</p>
+                        <p>Đạo hàm \( y' = \frac{3}{(x+1)^2} > 0, \forall x \in [1;2] \).</p>
+                        <p>Ta có \( y(1) = \frac{1}{2} \), \( y(2) = 1 \). Vậy \( \max_{[1;2]} y = y(2) = 1 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị lớn nhất là 1.</p>
+                    </div>
+                </div>
+
+                <!-- Example 3 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 3: Tìm GTNN của hàm số trên đoạn [0;2]</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm giá trị nhỏ nhất của hàm số \( y = \frac{x^2-5}{x+3} \) trên đoạn \( [0;2] \).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p><i>Nhận xét:</i> Hàm số đã cho liên tục \( \forall x \neq -3 \) nên cũng liên tục trên \( [0;2] \).</p>
+                        <p>Đạo hàm: \( y' = \frac{x^2 + 6x + 5}{(x+3)^2} \); \( y' = 0 \Leftrightarrow \begin{cases} x = -1 \text{ (loại)} \\ x = -5 \text{ (loại)} \end{cases} \).</p>
+                        <p>Ta có: \( y(0) = -\frac{5}{3} \), \( y(2) = -\frac{1}{3} \). Vậy \( \min_{[0;2]} y = y(0) = -\frac{5}{3} \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị nhỏ nhất là \( -\frac{5}{3} \).</p>
+                    </div>
+                </div>
+
+                <!-- Example 4 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 4: Tìm GTLN-GTNN của hàm số trên tập xác định</h3>
+                        <span class="tag">Dạng 1</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số \( f(x) = \sqrt{2-x^2} + x \).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Điều kiện xác định: \( 2 - x^2 \ge 0 \Leftrightarrow -\sqrt{2} \le x \le \sqrt{2} \). Tập xác định: \( D = [-\sqrt{2}; \sqrt{2}] \).</p>
+                        <p>Đạo hàm: \( y' = \frac{-x}{\sqrt{2-x^2}} + 1 \).</p>
+                        <p>\( y' = 0 \Leftrightarrow \sqrt{2-x^2} = x \Leftrightarrow \begin{cases} x \ge 0 \\ 2 - x^2 = x^2 \end{cases} \Leftrightarrow x = 1 \in D \).</p>
+                        <p>Ta có: \( y(-\sqrt{2}) = -\sqrt{2} \), \( y(1) = 2 \), \( y(\sqrt{2}) = \sqrt{2} \).</p>
+                        <p>Vậy \( \min_D y = -\sqrt{2} \), \( \max_D y = 2 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị lớn nhất là 2, giá trị nhỏ nhất là \( -\sqrt{2} \).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 2 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">2</div>
+                    <h3>Dạng 2: Tìm Max-Min của hàm số trên một khoảng, nửa khoảng</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Bước 0:</strong> Tìm tập xác định (nếu đề bài chưa cho trước khoảng, nửa khoảng cần tìm max-min).</li>
+                            <li><strong>Bước 1:</strong> Tìm đạo hàm của hàm số và tìm nghiệm (nếu có) của đạo hàm đó.</li>
+                            <li><strong>Bước 2:</strong> Lập bảng biến thiên và kết luận về Max-Min hàm số.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Example 5 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 5: Tìm GTNN của hàm số trên khoảng (1;+\infty)</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Gọi \( m \) là giá trị nhỏ nhất của hàm số \( y = x - 1 + \frac{4}{x-1} \) trên khoảng \( (1; +\infty) \). Tìm \( m \).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Tập xác định \( D = \mathbb{R} \setminus \{1\} \).</p>
+                        <p>Ta có \( y' = \frac{x^2 - 2x - 3}{(x-1)^2} \).</p>
+                        <p>\( y' = 0 \Leftrightarrow \begin{cases} x = -1 \\ x = 3 \end{cases} \).</p>
+                        <p>Ta có: \( m = \min_{(1; +\infty)} y = 4 \) khi \( x = 3 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị nhỏ nhất là 4.</p>
+                    </div>
+                </div>
+
+                <!-- Example 6 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 6: Tìm GTLN-GTNN của hàm số trên tập xác định</h3>
+                        <span class="tag">Dạng 2</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Mệnh đề nào sau đây là đúng về hàm số \( y = \frac{x+1}{\sqrt{x^2+5}} \) trên tập xác định của nó.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Tập xác định \( D = \mathbb{R} \).</p>
+                        <p>\( y' = \frac{5 - x}{\sqrt{x^2 + 5}(x^2 + 5)} \).</p>
+                        <p>\( y' = 0 \Leftrightarrow x = 5 \).</p>
+                        <p>Từ bảng biến thiên có \( \max_{\mathbb{R}} y = y(5) = \frac{\sqrt{30}}{5} \) khi \( x = 5 \). Hàm số không có giá trị nhỏ nhất.</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Hàm số có giá trị lớn nhất là \( \frac{\sqrt{30}}{5} \) và không có giá trị nhỏ nhất.</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 3 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">3</div>
+                    <h3>Dạng 3: Tìm GTLN-GTNN của hàm số lượng giác, hàm số mũ, hàm số lôgarit</h3>
+                </div>
+                <div class="problem-content">
+                    <!-- No specific method provided in the LaTeX, so no method is included -->
+                </div>
+            </div>
+
+                <!-- Example 7 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 7: Tìm GTLN-GTNN của hàm số lượng giác trên đoạn [0;π]</h3>
+                        <span class="tag">Dạng 3</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số \( f(x) = \sin^2 x + \cos x \) trên đoạn \( [0;\pi] \).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có: \( f'(x) = 2\sin x \cos x - \sin x = \sin x(2\cos x - 1) \).</p>
+                        <p>\( f'(x) = 0 \Leftrightarrow \begin{cases} \sin x = 0 \\ \cos x = \frac{1}{2} \end{cases} \Leftrightarrow x = \frac{\pi}{3} \in (0;\pi) \).</p>
+                        <p>Ta có: \( f(0) = 1 \); \( f\left(\frac{\pi}{3}\right) = \frac{5}{4} \); \( f(\pi) = -1 \).</p>
+                        <p>Vậy \( \max_{[0;\pi]} f(x) = \frac{5}{4} \) và \( \min_{[0;\pi]} f(x) = -1 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị lớn nhất là \( \frac{5}{4} \), giá trị nhỏ nhất là -1.</p>
+                    </div>
+                </div>
+
+                <!-- Example 8 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 8: Tìm GTLN-GTNN của hàm số mũ và lôgarit</h3>
+                        <span class="tag">Dạng 3</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm giá trị lớn nhất, giá trị nhỏ nhất của hàm số:</p>
+                        <p>a) \( y = (x-1)e^{-x} \) trên đoạn \( [-1;1] \).</p>
+                        <p>b) \( y = x \ln x + 1 \) trên đoạn \( \left[\frac{1}{e^2}; e\right] \).</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p><strong>a)</strong> Ta có: \( y' = (2-x)e^{-x} \); \( y' = 0 \Leftrightarrow x = 2 \notin (-1;1) \).</p>
+                        <p>\( y(-1) = -2e \); \( y(1) = 0 \). Vậy \( \max_{[-1;1]} y = 0 \) và \( \min_{[-1;1]} y = -2e \).</p>
+                        <p><strong>b)</strong> Ta có: \( y' = \ln x + 1 \); \( y' = 0 \Leftrightarrow x = \frac{1}{e} \in \left(\frac{1}{e^2}; e\right) \).</p>
+                        <p>\( y\left(\frac{1}{e^2}\right) = 1 - \frac{2}{e^2} \); \( y\left(\frac{1}{e}\right) = 1 - \frac{1}{e} \); \( y(e) = e + 1 \).</p>
+                        <p>Vậy \( \max_{\left[\frac{1}{e^2}; e\right]} y = e + 1 \) và \( \min_{\left[\frac{1}{e^2}; e\right]} y = 1 - \frac{1}{e} \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: a) Giá trị lớn nhất là 0, giá trị nhỏ nhất là \( -2e \). b) Giá trị lớn nhất là \( e + 1 \), giá trị nhỏ nhất là \( 1 - \frac{1}{e} \).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 4 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">4</div>
+                    <h3>Dạng 4: Tìm tham số thỏa mãn điều kiện Max-Min cho trước</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Bước 0:</strong> Tìm tập xác định hàm số (nếu đề bài chưa cho trước đoạn cần tìm max-min).</li>
+                            <li><strong>Bước 1:</strong> Tính đạo hàm \( f'(x) \) và cho \( f'(x) = 0 \) để tìm nghiệm \( x_i \in [a;b], i = 1,2,... \). Nếu \( x_i \) chứa tham số và chưa biết có thuộc \( [a;b] \) hay không thì ta cần xét các trường hợp.</li>
+                            <li><strong>Bước 2:</strong> Tính các giá trị \( f(a), f(b), f(x_i) \).</li>
+                            <li><strong>Bước 3:</strong> So sánh các giá trị trong bước 2 để tìm Max-Min hàm số (theo tham số) rồi cho chúng thỏa mãn đề bài để suy ra tham số cần tìm.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Example 9 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 9: Tìm tham số m để GTNN bằng 0</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm giá trị của \( m \) để hàm số \( y = -x^3 - 3x^2 + m \) có giá trị nhỏ nhất trên \( [-1;1] \) bằng 0.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Đạo hàm: \( y' = -3x^2 - 6x = -3x(x+2) \); \( y' = 0 \Leftrightarrow \begin{cases} x = 0 \text{ (nhận)} \\ x = -2 \text{ (loại)} \end{cases} \).</p>
+                        <p>Ta có: \( y(-1) = m - 2 \), \( y(0) = m \), \( y(1) = m - 4 \).</p>
+                        <p>Dễ thấy \( \min_{[-1;1]} y = y(1) = m - 4 \). Theo đề: \( m - 4 = 0 \Leftrightarrow m = 4 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị của \( m \) là 4.</p>
+                    </div>
+                </div>
+
+                <!-- Example 10 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 10: Tìm tham số m để GTNN bằng -1</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Hàm số \( y = \frac{x - m^2}{x + 1} \) có giá trị nhỏ nhất trên đoạn \( [0;1] \) bằng -1 khi:</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Hàm số đã cho xác định với mọi \( x \neq -1 \) nên cũng xác định trên \( [0;1] \).</p>
+                        <p>Đạo hàm: \( y' = \frac{1 + m^2}{(x+1)^2} > 0, \forall x \in [0;1] \Rightarrow \) Hàm số đã cho đồng biến trên \( [0;1] \).</p>
+                        <p>Ta có: \( \min_{[0;1]} f(x) = f(0) = -m^2 \); theo đề: \( -m^2 = -1 \Leftrightarrow m = \pm 1 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị của \( m \) là \( \pm 1 \).</p>
+                    </div>
+                </div>
+
+                <!-- Example 11 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 11: Tìm tham số m để GTNN bằng 3</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Cho hàm số \( y = \frac{x + m}{x - 1} \) (\( m \) là tham số thực) thỏa mãn \( \min_{[2;4]} y = 3 \). Mệnh đề nào dưới đây là đúng?</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Hàm số liên tục trên đoạn \( [2;4] \).</p>
+                        <p>Ta có: \( y' = \frac{-1 - m}{(x-1)^2} \). Nếu \( m = -1 \) thì hàm số đã cho là hàm hằng \( y = 1, \forall x \neq 1 \), không tồn tại \( \min_{[2;4]} y = 3 \).</p>
+                        <p>Trường hợp 1: \( y(2) > y(4) \Rightarrow \min_{[2;4]} y = y(4) = 3 \Leftrightarrow \frac{4 + m}{4 - 1} = 3 \Rightarrow m = 5 \).</p>
+                        <p>Trường hợp 2: \( y(2) < y(4) \Rightarrow \min_{[2;4]} y = y(2) = 3 \Leftrightarrow \frac{2 + m}{2 - 1} = 3 \Rightarrow m = 1 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị của \( m \) là 1 hoặc 5.</p>
+                    </div>
+                </div>
+
+                <!-- Example 12 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 12: Tìm tham số m để GTLN bằng \( 3\sqrt{2} \)</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Biết rằng giá trị lớn nhất của hàm số \( y = x + \sqrt{4 - x^2} + m \) là \( 3\sqrt{2} \). Giá trị của \( m \) là:</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Hàm số xác định \( \Leftrightarrow 4 - x^2 \ge 0 \Leftrightarrow x \in [-2;2] \).</p>
+                        <p>Đạo hàm: \( y' = 1 - \frac{x}{\sqrt{4 - x^2}} = \frac{\sqrt{4 - x^2} - x}{\sqrt{4 - x^2}} \); \( y' = 0 \Leftrightarrow \sqrt{4 - x^2} = x \Leftrightarrow x = \sqrt{2} \).</p>
+                        <p>Ta có: \( y(-2) = m - 2 \), \( y(\sqrt{2}) = m + 2\sqrt{2} \), \( y(2) = m + 2 \).</p>
+                        <p>Do đó \( \max_D y = m + 2\sqrt{2} = 3\sqrt{2} \Leftrightarrow m = \sqrt{2} \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị của \( m \) là \( \sqrt{2} \).</p>
+                    </div>
+                </div>
+
+                <!-- Example 13 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 13: Tìm tham số m để GTNN bé hơn 3</h3>
+                        <span class="tag">Dạng 4</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Tìm tất cả các giá trị của \( m > 0 \) để giá trị nhỏ nhất của hàm số \( y = x^3 - 3x + 1 \) trên đoạn \( [m+1; m+2] \) luôn bé hơn 3.</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta có \( y' = 3x^2 - 3 \), \( y' = 0 \Leftrightarrow x = \pm 1 \). \( y_{CT} = y(1) = -1 \) và \( y_{CĐ} = y(-1) = 3 \).</p>
+                        <p>Ta có \( m > 0 \Rightarrow m + 1 > 1 \); do đó trên đoạn \( [m+1; m+2] \) hàm số luôn đồng biến.</p>
+                        <p>Khi đó GTNN: \( \min_{[m+1; m+2]} y = y(m+1) = (m+1)^3 - 3(m+1) + 1 \).</p>
+                        <p>GTNN luôn bé hơn 3 \( \Leftrightarrow (m+1)^3 - 3(m+1) - 2 < 0 \Leftrightarrow \begin{cases} m + 1 < 2 \\ m + 1 \neq -1 \end{cases} \Leftrightarrow \begin{cases} m < 1 \\ m \neq -2 \end{cases} \).</p>
+                        <p>Kết hợp điều kiện \( m > 0 \) ta được \( m \in (0;1) \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị của \( m \) thuộc \( (0;1) \).</p>
+                    </div>
+                </div>
+
+            <!-- Problem Type 5 -->
+            <div class="problem-type">
+                <div class="problem-header">
+                    <div class="problem-number">5</div>
+                    <h3>Dạng 5: Tìm Max-Min cho bài toán thực tế</h3>
+                </div>
+                <div class="problem-content">
+                    <p><strong>Phương pháp giải:</strong></p>
+                    <div class="solution-steps">
+                        <ol>
+                            <li><strong>Bước 1:</strong> Lập ra hàm số \( y = f(x) \) là hàm đặc trưng cho chi phí, lợi nhuận, quãng đường, diện tích, thể tích v.v...</li>
+                            <li><strong>Bước 2:</strong> Khảo sát và tìm giá trị lớn nhất (hay nhỏ nhất) của hàm số này tùy vào yêu cầu bài toán.</li>
+                        </ol>
+                    </div>
+                    <div class="note-box">
+                        <div class="note-header">
+                            <div class="note-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="note-title">Chú ý</div>
+                        </div>
+                        <div class="note-content">
+                            <p><strong>Công thức cho Bài toán Chuyển động:</strong></p>
+                            <ul>
+                                <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Một vật chuyển động với quãng đường được tính theo công thức \( S(t) \) (với \( t \) là thời gian), vật đó có vận tốc: \( v(t) = S'(t) \).</li>
+                                <li><i class="fas fa-square-root-alt" style="color: #f31212; margin-right: 8px;"></i> Một vật chuyển động với vận tốc \( v(t) \) sẽ có gia tốc là \( a(t) = v'(t) \).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Example 14 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 14: Tối ưu thể tích hộp không nắp</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Cho một tấm nhôm hình vuông cạnh 12 cm. Người ta cắt ở bốn góc của tấm nhôm đó bốn hình vuông bằng nhau, mỗi hình vuông có cạnh bằng \( x \) (cm), rồi gập tấm nhôm lại để được một cái hộp không nắp. Tìm \( x \) để hộp nhận được có thể tích lớn nhất.</p>
+                        <div class="image-container">
+                            <img src="data//im/65.png" alt="Hình minh họa hộp không nắp">
+                        </div>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Ta nhận thấy cạnh hình vuông nhỏ là \( x \) (cm), \( 0 < x < 6 \) chính là chiều cao của hình hộp chữ nhật được tạo thành.</p>
+                        <p>Sau khi cắt bỏ đi các hình vuông nhỏ cạnh \( x \) thì đáy khối hộp không nắp là một hình vuông có cạnh \( 12 - 2x \) (cm).</p>
+                        <p>Thể tích khối hộp là hàm số: \( V(x) = (12 - 2x)^2 \cdot x = 4x^3 - 48x^2 + 144x \) với \( 0 < x < 6 \).</p>
+                        <p>\( V'(x) = 12x^2 - 96x + 144 = 0 \Leftrightarrow \begin{cases} x = 6 \text{ (loại)} \\ x = 2 \text{ (nhận)} \end{cases} \).</p>
+                        <p>Thể tích khối hộp lớn nhất là \( \max_{(0;6)} V = V(2) = 128 (\text{cm}^3) \); khi đó cạnh hình vuông nhỏ là \( x = 2 (\text{cm}) \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Giá trị \( x = 2 \) cm để thể tích lớn nhất là 128 cm³.</p>
+                    </div>
+                </div>
+
+                <!-- Example 15 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 15: Tối ưu chi phí xây bể chứa nước</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Một người muốn xây một cái bể chứa nước, dạng một khối hộp chữ nhật không nắp có thể tích bằng 288 dm³. Đáy bể là hình chữ nhật có chiều dài gấp đôi chiều rộng, giá thuê nhân công để xây bể là 500000 đồng/m². Nếu người đó biết xác định các kích thước của bể hợp lí thì chi phí thuê nhân công sẽ thấp nhất. Hỏi người đó trả chi phí thấp nhất để thuê nhân công xây dựng bể đó là bao nhiêu?</p>
+                        <div class="image-container">
+                            <img src="data//im/66.png" alt="Hình minh họa bể chứa nước">
+                        </div>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Gọi \( x \) là chiều rộng của đáy bể (\( x > 0 \)). Khi đó chiều dài đáy bể là \( 2x \).</p>
+                        <p>Thể tích của bể: \( V = 288 \text{ dm}^3 = 0.288 \text{ m}^3 \).</p>
+                        <p>Mà \( V = x \cdot 2x \cdot h \Rightarrow h = \frac{V}{2x^2} = \frac{0.288}{2x^2} = \frac{0.144}{x^2} \).</p>
+                        <p>Phần xây dựng của bể (trừ mặt trên của bể) có diện tích:</p>
+                        <p>\( S = 2 \cdot h \cdot x + 2 \cdot h \cdot 2x + x \cdot 2x = 6hx + 2x^2 = 6 \cdot \frac{0.144}{x^2} \cdot x + 2x^2 = \frac{0.864}{x} + 2x^2, x > 0 \).</p>
+                        <p>Xét hàm số \( S(x) = \frac{0.864}{x} + 2x^2 \); \( S'(x) = -\frac{0.864}{x^2} + 4x = \frac{4x^3 - 0.864}{x^2} \).</p>
+                        <p>\( S'(x) = 0 \Leftrightarrow 4x^3 - 0.864 = 0 \Leftrightarrow x = \sqrt[3]{\frac{0.864}{4}} = 0.6 \).</p>
+                        <p>Ta có: \( \min_{(0; +\infty)} S(x) = \frac{54}{25} \text{ m}^2 \), nên chi phí thấp nhất phải trả: \( \frac{54}{25} \cdot 500000 = 1080000 \) đồng.</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Chi phí thấp nhất là 1080000 đồng.</p>
+                    </div>
+                </div>
+
+                <!-- Example 16 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 16: Tìm vận tốc lớn nhất</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Một vật chuyển động dọc theo trục Ox mà vị trí của nó là \( s \) (mét) được cho bởi công thức \( s = -\frac{1}{2}t^3 + 9t^2 \), với \( t \) (giây) là khoảng thời gian tính từ lúc vật bắt đầu chuyển động. Hỏi trong khoảng thời gian 10 giây kể từ lúc bắt đầu chuyển động, vận tốc lớn nhất mà vật đạt được bằng bao nhiêu?</p>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Vận tốc chuyển động của vật: \( v(t) = s'(t) = -\frac{3}{2}t^2 + 18t \).</p>
+                        <p>Xét hàm \( v(t) = -\frac{3}{2}t^2 + 18t \) với \( t \in (0;10) \); \( v'(t) = -3t + 18 \); \( v'(t) = 0 \Leftrightarrow t = 6 \).</p>
+                        <p>Dựa vào bảng biến thiên, ta thấy vận tốc lớn nhất của vật trong khoảng 10 giây đầu là 54 m/s.</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Vận tốc lớn nhất là 54 m/s.</p>
+                    </div>
+                </div>
+
+                <!-- Example 17 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 17: Tối ưu quãng đường qua cầu</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Hai thành phố cách nhau một con sông. Lấy \( A \) và \( B \) lần lượt là hai điểm mốc của hai thành phố trong việc đo đạc, đơn vị là km. Người ta xây dựng một cây cầu \( EF \) bắc qua sông biết rằng vị trí \( A \) cách con sông một khoảng là 5 km và vị trí \( B \) cách con sông một khoảng là 7 km, biết \( HE + KF = 24 \) km và độ dài \( EF \) không đổi. Hỏi người ta cần xây cây cầu cách vị trí \( B \) là bao nhiêu km để đường đi từ vị trí \( A \) đến vị trí \( B \) là ngắn nhất (đi theo đường gấp khúc \( AEFB \))? (Kết quả gần đúng được làm tròn đến hàng phần trăm).</p>
+                        <div class="image-container">
+                            <img src="data//im/67.png" alt="Hình minh họa cây cầu">
+                        </div>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Đặt \( HE = x \Rightarrow FK = 24 - x \) (\( 0 < x < 24 \)). Ta có:</p>
+                        <p>\( AE = \sqrt{25 + x^2} \)</p>
+                        <p>\( BF = \sqrt{49 + (24 - x)^2} \)</p>
+                        <p>Ta cần tổng quãng đường \( AE + EF + FB \) ngắn nhất, mà \( EF \) không đổi nên \( AE + FB \) bé nhất.</p>
+                        <p>Xét hàm số \( f(x) = \sqrt{x^2 + 25} + \sqrt{x^2 - 48x + 625} \);</p>
+                        <p>\( f'(x) = \frac{x}{\sqrt{x^2 + 25}} + \frac{x - 24}{\sqrt{x^2 - 48x + 625}} \), \( \forall x \in (0;24) \); \( f'(x) = 0 \Rightarrow x = 10 \).</p>
+                        <p>Ta có: \( \min_{(0;24)} f(x) = 12\sqrt{5} \); khi đó \( x = 10 \) km và \( BF = 7\sqrt{5} \text{ km} \approx 15.65 \text{ km} \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Cây cầu cần xây cách vị trí \( B \) là 15.65 km.</p>
+                    </div>
+                </div>
+
+                <!-- Example 18 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 18: Tối ưu chiều dài thang</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Một bức tường cao 2m nằm song song với bức tường của một tòa nhà và cách tòa nhà đó 2m. Người ta muốn làm ra một chiếc thang bắc từ mặt đất bên ngoài bức tường, gác qua bức tường và chạm vào tòa nhà. Hỏi chiều dài tối thiểu của thang bằng bao nhiêu mét?</p>
+                        <div class="image-container">
+                            <img src="data//im/68.png" alt="Hình minh họa chiếc thang">
+                        </div>
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <p>Xét hệ điểm \( A, B, C, D, E \) như hình vẽ.</p>
+                        <p>Gọi \( BC = x (x > 0) \). Ta cần tìm \( x \) để độ dài \( CD \) đạt giá trị nhỏ nhất.</p>
+                        <p>Dễ thấy hai tam giác \( CAB, CDE \) đồng dạng, suy ra: \( \frac{BC}{CE} = \frac{AC}{CD} \Rightarrow CD = AC \cdot \frac{x + 2}{x} \).</p>
+                        <p>Đặt \( f(x) = \sqrt{x^2 + 4} \cdot \frac{x + 2}{x} \) với \( x > 0 \).</p>
+                        <p>\( f'(x) = \frac{x}{\sqrt{x^2 + 4}} \cdot \frac{x + 2}{x} - \sqrt{x^2 + 4} \cdot \frac{2}{x^2} = \frac{x^2(x + 2) - 2(x^2 + 4)}{x^2 \sqrt{x^2 + 4}} = 0 \)</p>
+                        <p>\( \Leftrightarrow x^3(x + 2) = 2(x^2 + 4) \Leftrightarrow x^3 = 8 \Leftrightarrow x = 2 \).</p>
+                        <p>Bảng biến thiên của \( f(x) \):</p>
+                        <p>Vậy chiều dài tối thiểu của thang bằng \( 4\sqrt{2} \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Chiều dài tối thiểu của thang là \( 4\sqrt{2} \) mét.</p>
+                    </div>
+                </div>
+
+                <!-- Example 19 -->
+                <div class="example">
+                    <div class="example-header">
+                        <h3>Ví dụ 19: Tối ưu thể tích khối trụ nội tiếp elip</h3>
+                        <span class="tag">Dạng 5</span>
+                    </div>
+                    <div class="example-question">
+                        <p>Một quả trứng khủng long đồ chơi bằng nhựa có thiết diện qua trục lớn là một đường elip. Biết độ dài mỗi trục là 12 cm và 8 cm. Bên trong quả trứng người ta cần thiết kế một chiếc hộp hình trụ để đựng các đồ chơi trẻ con như bóng đèn xanh đỏ, kẹo v.v... Hỏi khối trụ như thế có thể tích tối đa bao nhiêu cm³ (làm tròn đến hàng đơn vị).</p>
+                        <div class="image-container">
+                            <img src="data//im/69.png" alt="Hình minh họa quả trứng elip">
+                        </div>
+                        
+                    </div>
+                    <button class="btn solution-toggle"><i class="fas fa-eye mr-2"></i>Xem lời giải</button>
+                    <div class="solution">
+                        <h4>Lời giải:</h4>
+                        <div class="image-container">
+                            <img src="data//im/70.png" alt="Hình minh họa khối trụ nội tiếp elip">
+                        </div>
+                        <p>Gắn elip lên hệ trục tọa độ Oxy như hình vẽ, elip có \( 2a = 12 \Rightarrow a = 6 \); \( 2b = 8 \Rightarrow b = 4 \).</p>
+                        <p>Phương trình chính tắc elip (E): \( \frac{x^2}{36} + \frac{y^2}{16} = 1 \).</p>
+                        <p>Đặt chiều cao và bán kính đáy hình trụ nội tiếp elip là \( h, r \) thì điểm tiếp xúc \( M\left(\frac{h}{2}; r\right) \) với \( 0 < h < 12 \); \( 0 < r < 4 \).</p>
+                        <p>Điểm \( M \) thuộc (E): \( \frac{(h/2)^2}{36} + \frac{r^2}{16} = 1 \Rightarrow \frac{h^2}{144} + \frac{r^2}{16} = 1 \Rightarrow r^2 = 16\left(1 - \frac{h^2}{144}\right) \).</p>
+                        <p>Thể tích khối trụ là \( V = \pi r^2 h = \pi 16 \left(1 - \frac{h^2}{144}\right) h = \pi \left(16h - \frac{h^3}{9}\right) \).</p>
+                        <p>Ta có \( V' = \pi \left(16 - \frac{h^2}{3}\right) \); \( V' = 0 \Rightarrow 16 - \frac{h^2}{3} = 0 \Rightarrow h^2 = 48 \Rightarrow h = 4\sqrt{3} \in (0;12) \).</p>
+                        <p>Giá trị lớn nhất của thể tích khối trụ là \( V_{\max} = V(4\sqrt{3}) = \pi \left(16 \cdot 4\sqrt{3} - \frac{(4\sqrt{3})^3}{9}\right) \approx 232 \text{ cm}^3 \).</p>
+                        <p class="solution-conclusion"><i class="fas fa-check-circle"></i> Kết luận: Thể tích tối đa của khối trụ là 232 cm³.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+    </main>
+</div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Về Educode</h3>
+                 <p>EduCode là nền tảng học online đang trên hình trình xây dưng, với kỳ vọng mang đến các khóa học toán chất lượng cao. Chúng tôi cam kết giúp bạn nắm vững kiến thức và chuẩn bị cho tương lai với các khóa học lý, hóa, tin học và AI sắp ra mắt.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/nguyen.binhthanh.5209"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+                          
+                      
+            <div class="footer-col">
+                <h3>Liên hệ</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> 0878042368</p>
+                    <p><i class="fas fa-envelope"></i> nguyenthanhbinh_thpt_tts@bentre.edu.vn</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="https://meet.google.com/osh-vjqs-vdg">Học online </a></li>
+                    <li><a href="#K12/12C1B1.html">Tài liệu & Đề ôn luyện</a></li>
+                    <li><a href="#coming-soon">Sắp ra mắt: Lý, Hóa, AI</a></li>
+                    <li><a href="#blog">Blog EduCode</a></li>
+                </ul>
+            </div>
+            </div>
+        
+        <div class="copyright">
+            <p>© 2025 EduCode – Thạc sĩ Nguyễn Thanh Bình. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    
+    <style>
+        /* CSS cho thanh điều hướng tài liệu */
+        .document-nav {
+            list-style: none;
+        }
+        
+        .document-nav li {
+            margin-bottom: 5px;
+        }
+        
+        .document-nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .document-nav a:hover,
+        .document-nav a.active {
+            background: #f0f0f0;
+            border-left: 3px solid #c8102e;
+            color: #c8102e;
+        }
+        
+        .document-nav .submenu {
+            padding-left: 20px;
+            display: none;
+        }
+        
+        .document-nav .active .submenu {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .document-nav .submenu {
+                padding-left: 15px;
+            }
+        }
+    </style>
+
+    <script>
+        // Dữ liệu tài liệu mẫu (tập trung vào Toán 12)
+        const documentData = {
+            "toan12": {
+                "title": "Tóm tắt kiến thức",
+                "docs": {
+                    "toan12-chuong1": "Định nghĩa",
+                    "toan12-chuong2": "Định lí",
+                    "toan12-chuong3": "Chú ý- Ghi nhớ"
+                }
+            },
+            "ly12": {
+                "title": "Hệ thống các dạng toán",
+                "docs": {
+                    "ly12-chuong3": "Dạng toán..",
+                    "ly12-chuong1": "Phương pháp giải",
+                    "ly12-chuong2": "Ví dụ minh họa"
+                    
+                }
+            },
+            "hoa12": {
+                "title": "Bài tập vận dụng",
+                "docs": {
+                    "hoa12-chuong1": "Trắc nghiệm",
+                    "hoa12-chuong2": "Đúng sai",
+                    "hoa12-chuong3": "Trả lời ngắn",
+                    "hoa12-chuong3": "Đề ôn tập cuối bài"
+                }
+            }
+        };
+
+        // Tạo menu điều hướng tài liệu
+        function initDocumentNav() {
+            const navContainer = document.getElementById('documentNav');
+            
+            for (const [key, category] of Object.entries(documentData)) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="#" class="category-link" data-category="${key}">
+                        ${category.title} <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu" id="submenu-${key}"></ul>
+                `;
+                navContainer.appendChild(li);
+                
+                // Thêm tài liệu con
+                const submenu = document.getElementById(`submenu-${key}`);
+                for (const [docId, docTitle] of Object.entries(category.docs)) {
+                    const subLi = document.createElement('li');
+                    subLi.innerHTML = `<a href="#" data-doc="${docId}">${docTitle}</a>`;
+                    submenu.appendChild(subLi);
+                }
+            }
+            
+            // Xử lý click category
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-chevron-up');
+                    this.querySelector('i').classList.toggle('fa-chevron-down');
+                });
+            });
+            
+            // Xử lý click tài liệu
+            document.querySelectorAll('[data-doc]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const docId = this.getAttribute('data-doc');
+                    
+                    // Đánh dấu active
+                    document.querySelectorAll('[data-doc]').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Cập nhật URL (không reload trang)
+                    history.pushState(null, null, `?doc=${docId}`);
+                });
+            });
+        }
+        
+        // Khởi tạo khi trang tải xong
+        document.addEventListener('DOMContentLoaded', function() {
+            initDocumentNav();
+            
+            // Mở rộng danh mục chứa tài liệu hiện tại (nếu có)
+            const urlParams = new URLSearchParams(window.location.search);
+            const docParam = urlParams.get('doc');
+            if (docParam) {
+                const category = docParam.split('-')[0];
+                const categoryElement = document.querySelector(`[data-category="${category}"]`);
+                if (categoryElement) {
+                    categoryElement.click(); // Mở rộng danh mục
+                }
+                
+                // Đánh dấu active cho tài liệu
+                const docElement = document.querySelector(`[data-doc="${docParam}"]`);
+                if (docElement) {
+                    docElement.click();
+                }
+            }
+        });
+    </script>
+    
+    
+
+    
+    <script>
+    // Xử lý menu mobile
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+        });
+    });
+</script>
+
+    
+
+    <script>
+        // Hàm kiểm tra trắc nghiệm nhiều lựa chọn
+        function checkMultipleChoice(questionId, correctOption) {
+            // Ẩn tất cả icon trước khi kiểm tra
+            document.querySelectorAll(`#${questionId} .option-icon`).forEach(icon => {
+                icon.innerHTML = '';
+            });
+            
+            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+            if (!selectedOption) {
+                alert("Vui lòng chọn đáp án!");
+                return;
+            }
+            
+            const selectedValue = selectedOption.value;
+            const isCorrect = selectedValue === correctOption;
+            
+            // Hiển thị icon đúng/sai
+            const iconSpan = document.getElementById(`icon-${questionId}-${selectedValue}`);
+            if (iconSpan) {
+                iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+            }
+            
+            // Nếu đúng, hiển thị icon cho đáp án đúng (trường hợp chọn sai)
+            if (!isCorrect) {
+                const correctIconSpan = document.getElementById(`icon-${questionId}-${correctOption}`);
+                if (correctIconSpan) {
+                    correctIconSpan.innerHTML = '✅';
+                }
+            }
+        }
+        
+        // Hàm kiểm tra trắc nghiệm đúng/sai
+        function checkTrueFalse(questionId, correctAnswers) {
+            const parts = ['a', 'b', 'c', 'd'];
+            let allAnswered = true;
+            
+            parts.forEach((part, index) => {
+                const selectedOption = document.querySelector(`input[name="${questionId}${part}"]:checked`);
+                if (!selectedOption) {
+                    allAnswered = false;
+                    return;
+                }
+                
+                const userAnswer = selectedOption.value;
+                const isCorrect = userAnswer === correctAnswers[index];
+                
+                // Hiển thị biểu tượng đúng/sai
+                const iconSpan = document.getElementById(`icon-${questionId}${part}`);
+                if (iconSpan) {
+                    iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+                }
+            });
+            
+            if (!allAnswered) {
+                alert("Vui lòng trả lời tất cả các mệnh đề!");
+                return;
+            }
+        }
+        
+        // Hàm kiểm tra câu trả lời ngắn
+        function checkShortAnswer(inputId, correctAnswer) {
+            const inputElement = document.getElementById(inputId);
+            const userAnswer = inputElement.value.trim();
+            if (!userAnswer) {
+                alert("Vui lòng nhập đáp án!");
+                return;
+            }
+            
+            // Cho phép đáp án có nhiều cách viết
+            const normalizedUserAnswer = userAnswer.replace(/\s+/g, '');
+            const normalizedCorrectAnswer = correctAnswer.replace(/\s+/g, '');
+            
+            const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
+            
+            // Hiển thị biểu tượng đúng/sai
+            const iconSpan = document.getElementById(`icon-${inputId}`);
+            if (iconSpan) {
+                iconSpan.innerHTML = isCorrect ? '✅' : '❌';
+            }
+        }
+        
+        // Hàm hiển thị/ẩn lời giải
+        function toggleSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            if (solution) {
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+         // Toggle solution visibility
+        document.querySelectorAll('.solution-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const solution = this.nextElementSibling;
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+                
+                if (solution.style.display === 'block') {
+                    this.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>Ẩn lời giải';
+                } else {
+                    this.innerHTML = '<i class="fas fa-eye mr-2"></i>Xem lời giải';
+                }
+            });
+        });  
+    </script>
+
+    
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('drawCanvas');
+        const toolbar = document.getElementById('drawToolbar');
+        const toggleBtn = document.getElementById('toggle-draw');
+        const undoBtn = document.getElementById('undo-canvas');
+        const clearBtn = document.getElementById('clear-canvas');
+        const saveBtn = document.getElementById('save-canvas');
+        const exitBtn = document.getElementById('exit-draw');
+        const colorPicker = document.getElementById('colorPicker');
+        const toolSelect = document.getElementById('tool');
+        const widthPicker = document.getElementById('draw-width');
+
+        if (!canvas || !toolbar || !toggleBtn || !undoBtn || !clearBtn || !saveBtn || !exitBtn || !colorPicker || !toolSelect || !widthPicker) {
+            console.error('Một hoặc nhiều phần tử DOM không tìm thấy. Kiểm tra ID trong HTML.');
+            return;
+        }
+
+        const ctx = canvas.getContext('2d');
+        let lineWidth = parseInt(widthPicker.value) || 2;
+        let isDrawing = false;
+        let isDrawMode = false;
+        let startX = 0, startY = 0;
+        let currentTool = toolSelect.value || 'pen';
+        let imageBeforeShape;
+        const history = [];
+        const maxHistory = 50;
+
+        // Lưu trữ các điểm vẽ gần nhất để làm mượt nét vẽ
+        let lastPoint = null;
+
+        // --- Cải thiện 1: Lấy vị trí chuột/cảm ứng chính xác hơn ---
+        function getCanvasPos(e) {
+            const rect = canvas.getBoundingClientRect(); // Lấy kích thước và vị trí của canvas
+            let clientX, clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            // Tính toán vị trí tương đối so với canvas
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        // Resize canvas
+        function resizeCanvas() {
+            // Lưu nội dung hiện tại của canvas trước khi thay đổi kích thước
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            tempCtx.drawImage(canvas, 0, 0);
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Vẽ lại nội dung đã lưu
+            ctx.drawImage(tempCanvas, 0, 0);
+            
+            // Cập nhật lịch sử nếu cần thiết (ví dụ: nếu bạn muốn scale lịch sử)
+            // Hiện tại, chỉ vẽ lại nội dung cuối cùng, lịch sử sẽ bị mất tỷ lệ nếu màn hình thay đổi nhiều.
+            // Để xử lý tốt hơn, bạn cần lưu trữ các lệnh vẽ hoặc vector thay vì ImageData.
+            if (history.length > 0) {
+                // Nếu muốn giữ nguyên hình ảnh sau resize, bạn có thể redraw từ lịch sử
+                // Nhưng với ImageData, nó sẽ không scale tốt nếu tỷ lệ khung hình thay đổi.
+                // ctx.putImageData(history[history.length - 1], 0, 0); 
+            }
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function toggleDrawMode() {
+            isDrawMode = !isDrawMode;
+            if (isDrawMode) {
+                canvas.style.display = 'block';
+                toolbar.style.display = 'flex'; // Hiển thị trước khi animation để tránh giật
+                setTimeout(() => { // Dùng setTimeout để đảm bảo display đã được cập nhật
+                    toolbar.style.opacity = '1';
+                    toolbar.style.transform = 'translateY(0)';
+                }, 0);
+            } else {
+                toolbar.style.opacity = '0';
+                toolbar.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    toolbar.style.display = 'none';
+                    canvas.style.display = 'none';
+                }, 300); // Phù hợp với thời gian transition
+            }
+            toggleBtn.textContent = isDrawMode ? '❌ Tắt vẽ' : '🖊️ Vẽ';
+        }
+
+        toggleBtn.addEventListener('click', toggleDrawMode);
+        exitBtn.addEventListener('click', toggleDrawMode);
+
+        toolSelect.addEventListener('change', () => {
+            currentTool = toolSelect.value;
+        });
+
+        colorPicker.addEventListener('input', () => ctx.strokeStyle = colorPicker.value);
+        widthPicker.addEventListener('input', () => {
+            lineWidth = parseInt(widthPicker.value) || 2;
+        });
+
+        undoBtn.addEventListener('click', () => {
+            history.pop();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (history.length > 0) {
+                ctx.putImageData(history[history.length - 1], 0, 0);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            history.length = 0;
+        });
+
+        saveBtn.addEventListener('click', () => {
+            try {
+                const link = document.createElement('a');
+                link.download = 'ban_ve.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                console.error('Lỗi khi lưu canvas:', error);
+                alert('Không thể lưu ảnh. Có thể trình duyệt của bạn không hỗ trợ hoặc canvas quá lớn.');
+            }
+        });
+
+        function startDraw(e) {
+            if (!isDrawMode) return;
+            e.preventDefault(); // Ngăn hành động mặc định của trình duyệt
+            const pos = getCanvasPos(e); // Lấy vị trí chính xác trên canvas
+            isDrawing = true;
+            startX = pos.x;
+            startY = pos.y;
+            lastPoint = pos; // Khởi tạo điểm cuối cùng
+
+            if (currentTool !== 'pen') {
+                imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+            }
+        }
+
+        function drawMove(e) {
+            if (!isDrawing || !isDrawMode) return;
+            e.preventDefault(); // Ngăn hành động mặc định của trình duyệt
+            const pos = getCanvasPos(e); // Lấy vị trí chính xác trên canvas
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round'; // Cải thiện 2: Làm mượt các góc nối
+
+            if (currentTool === 'pen') {
+                // Cải thiện 3: Làm mượt nét vẽ bằng cách vẽ đường cong
+                if (lastPoint) {
+                    // Sử dụng quadraticCurveTo để tạo đường cong mượt
+                    ctx.quadraticCurveTo(lastPoint.x, lastPoint.y, pos.x, pos.y);
+                } else {
+                    ctx.moveTo(pos.x, pos.y);
+                }
+                ctx.stroke();
+                lastPoint = pos; // Cập nhật điểm cuối cùng
+            } else {
+                ctx.putImageData(imageBeforeShape, 0, 0);
+                if (currentTool === 'line') {
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(pos.x, pos.y);
+                    ctx.stroke();
+                } else if (currentTool === 'rect') {
+                    ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                } else if (currentTool === 'circle') {
+                    const radius = Math.hypot(pos.x - startX, pos.y - startY);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                } else if (currentTool === 'cube') {
+                    let size = Math.min(Math.abs(pos.x - startX), Math.abs(pos.y - startY));
+                    let xOffset = (pos.x - startX > 0) ? 0 : -size;
+                    let yOffset = (pos.y - startY > 0) ? 0 : -size;
+
+                    // Điều chỉnh để cube vẽ đúng hướng
+                    let actualStartX = startX + xOffset;
+                    let actualStartY = startY + yOffset;
+                    
+                    ctx.strokeRect(actualStartX, actualStartY, size, size);
+                    ctx.strokeRect(actualStartX + size / 4, actualStartY - size / 4, size, size); // Thay 10 bằng size / 4 để scale theo kích thước
+                    ctx.beginPath();
+                    ctx.moveTo(actualStartX, actualStartY);
+                    ctx.lineTo(actualStartX + size / 4, actualStartY - size / 4);
+                    ctx.moveTo(actualStartX + size, actualStartY);
+                    ctx.lineTo(actualStartX + size + size / 4, actualStartY - size / 4);
+                    ctx.moveTo(actualStartX, actualStartY + size);
+                    ctx.lineTo(actualStartX + size / 4, actualStartY + size - size / 4);
+                    ctx.moveTo(actualStartX + size, actualStartY + size);
+                    ctx.lineTo(actualStartX + size + size / 4, actualStartY + size - size / 4);
+                    ctx.stroke();
+                } else if (currentTool === 'cone') {
+                    let radius = Math.abs(pos.x - startX);
+                    let height = Math.abs(pos.y - startY);
+                    ctx.beginPath();
+                    ctx.ellipse(startX, startY + height, radius, radius / 4, 0, 0, Math.PI * 2); // Đế elip
+                    ctx.moveTo(startX - radius, startY + height);
+                    ctx.lineTo(startX, startY); // Đỉnh nón
+                    ctx.lineTo(startX + radius, startY + height);
+                    ctx.stroke();
+                } else if (currentTool === 'cylinder') {
+                    let r = Math.abs(pos.x - startX);
+                    let h = Math.abs(pos.y - startY);
+                    ctx.beginPath();
+                    ctx.ellipse(startX, startY, r, r / 4, 0, 0, Math.PI * 2); // Nắp trên
+                    ctx.moveTo(startX - r, startY);
+                    ctx.lineTo(startX - r, startY + h);
+                    ctx.moveTo(startX + r, startY);
+                    ctx.lineTo(startX + r, startY + h);
+                    ctx.ellipse(startX, startY + h, r, r / 4, 0, 0, Math.PI); // Đáy dưới (chỉ vẽ phần nhìn thấy)
+                    ctx.stroke();
+                } else if (currentTool === 'pyramid') {
+                    let baseSize = Math.abs(pos.x - startX);
+                    let pyramidHeight = Math.abs(pos.y - startY);
+                    
+                    ctx.beginPath();
+                    // Vẽ đáy (hình vuông hoặc hình chữ nhật)
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX + baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX + baseSize / 2, startY + pyramidHeight + baseSize / 4); // Tạo độ sâu
+                    ctx.lineTo(startX - baseSize / 2, startY + pyramidHeight + baseSize / 4);
+                    ctx.closePath();
+
+                    // Vẽ các cạnh nối tới đỉnh
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX, startY); // Đỉnh
+                    ctx.moveTo(startX + baseSize / 2, startY + pyramidHeight);
+                    ctx.lineTo(startX, startY);
+                    ctx.moveTo(startX - baseSize / 2, startY + pyramidHeight + baseSize / 4); // Cạnh sau bên trái
+                    ctx.lineTo(startX, startY);
+                    ctx.moveTo(startX + baseSize / 2, startY + pyramidHeight + baseSize / 4); // Cạnh sau bên phải
+                    ctx.lineTo(startX, startY);
+                    ctx.stroke();
+                } else if (currentTool === 'sphere') {
+                    let r = Math.hypot(pos.x - startX, pos.y - startY);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, r, 0, Math.PI * 2); // Đường tròn lớn
+                    ctx.ellipse(startX, startY, r, r / 2, 0, 0, Math.PI * 2); // Đường tròn nhỏ (tạo ảo giác 3D)
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function endDraw() {
+            if (!isDrawMode) return;
+            isDrawing = false;
+            lastPoint = null; // Reset điểm cuối cùng khi kết thúc vẽ
+            if (history.length >= maxHistory) history.shift();
+            history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            // Cải thiện 4: Vẽ lại nét bút cuối cùng nếu nó chưa hoàn chỉnh
+            if (currentTool === 'pen' && ctx.strokeStyle !== 'transparent') { // Kiểm tra nếu bút không trong suốt
+                 // Nét bút sẽ được hoàn thành trong drawMove nhờ quadraticCurveTo
+            }
+        }
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', drawMove);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseleave', endDraw); // Thêm sự kiện mouseleave
+
+        canvas.addEventListener('touchstart', startDraw, { passive: false });
+        canvas.addEventListener('touchmove', drawMove, { passive: false });
+        canvas.addEventListener('touchend', endDraw);
+        canvas.addEventListener('touchcancel', endDraw); // Thêm sự kiện touchcancel
+    });
+</script>
+
+            
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none'; // Dự phòng
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+});
+</script>
+
+
+<!-- Floating button để toggle vẽ -->
+<button class="floating-button" id="toggle-draw" aria-label="Bật/tắt chế độ vẽ">🖊️ Vẽ</button>
+<!-- Canvas cho vẽ -->
+<canvas id="drawCanvas"></canvas>
+
+<!-- Toolbar công cụ vẽ -->
+<div class="toolbar" id="drawToolbar" role="toolbar" aria-label="Thanh công cụ vẽ">
+    <div class="drawing-tools">
+        <select id="tool" title="Chọn công cụ" aria-label="Chọn công cụ vẽ">
+            <option value="pen">✏️ Bút</option>
+            <option value="line">📏 Đường</option>
+            <option value="rect">⬛ Chữ nhật</option>
+            <option value="circle">⚪ Tròn</option>
+            <option value="cube">📦 Hộp</option>
+            <option value="cone">🔺 Nón</option>
+            <option value="cylinder">⬤ Trụ</option>
+            <option value="pyramid">🔻 Chóp</option>
+            <option value="sphere">⚽ Cầu</option>
+        </select>
+        <button title="Undo" id="undo-canvas">↩️</button>
+        <button title="Xóa" id="clear-canvas">🧹</button>
+        <button title="Lưu" id="save-canvas">💾</button>
+        <button title="Thoát" id="exit-draw">❌</button>
+    </div>
+    <input type="color" id="colorPicker" value="#000000" title="Chọn màu" aria-label="Chọn màu vẽ">
+    <input type="range" id="draw-width" min="1" max="20" value="2" title="Độ dày nét vẽ" aria-label="Độ dày nét vẽ">
+</div>
+>
+<!-- Nút toggle bảng xanh -->
+<button class="blackboard-toggle" id="toggle-blackboard" aria-label="Bật/tắt bảng xanh">📋</button>
+<!-- Bảng xanh -->
+<div id="blackboard" class="blackboard" role="region" aria-label="Bảng xanh">
+    <button id="close-blackboard" aria-label="Đóng bảng xanh">❌</button>
+</div>
+
+
+<script>
+// Script bảng xanh
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBlackboard = document.getElementById('toggle-blackboard');
+    const blackboard = document.getElementById('blackboard');
+    const closeBlackboard = document.getElementById('close-blackboard');
+
+    if (!toggleBlackboard || !blackboard || !closeBlackboard) {
+        console.error('DOM missing: toggle-blackboard, blackboard, close-blackboard');
+        return;
+    }
+
+    let isBlackboardMode = false;
+    let isDraggingBoard = false;
+    let dragStartX = 0, dragStartY = 0;
+
+    function toggleBlackboardMode() {
+        isBlackboardMode = !isBlackboardMode;
+        blackboard.classList.toggle('show', isBlackboardMode);
+        toggleBlackboard.classList.toggle('active', isBlackboardMode);
+        blackboard.style.display = isBlackboardMode ? 'block' : 'none';
+        console.log('Toggle blackboard:', isBlackboardMode, 'Display:', blackboard.style.display);
+    }
+
+    toggleBlackboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBlackboardMode();
+    });
+
+    closeBlackboard.addEventListener('click', toggleBlackboardMode);
+
+    blackboard.addEventListener('mousedown', (e) => {
+        if (e.target === closeBlackboard) return;
+        isDraggingBoard = true;
+        dragStartX = e.clientX - blackboard.offsetLeft;
+        dragStartY = e.clientY - blackboard.offsetTop;
+        console.log('Start dragging blackboard');
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDraggingBoard) {
+            blackboard.style.left = `${e.clientX - dragStartX}px`;
+            blackboard.style.top = `${e.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDraggingBoard = false;
+    });
+
+    blackboard.addEventListener('touchstart', (e) => {
+        if (e.target === closeBlackboard) return;
+        const touch = e.touches[0];
+        isDraggingBoard = true;
+        dragStartX = touch.clientX - blackboard.offsetLeft;
+        dragStartY = touch.clientY - blackboard.offsetTop;
+        console.log('Start touch dragging blackboard');
+        e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isDraggingBoard) {
+            const touch = e.touches[0];
+            blackboard.style.left = `${touch.clientX - dragStartX}px`;
+            blackboard.style.top = `${touch.clientY - dragStartY}px`;
+            blackboard.style.transform = 'none';
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+        isDraggingBoard = false;
+    });
+});
+</script>
+<script>
+                const btn = document.getElementById("fullscreen-btn");
+                const content = document.getElementById("content");
+
+                btn.addEventListener("click", async () => {
+                if (!document.fullscreenElement) {
+                    // Vào fullscreen
+                    await document.documentElement.requestFullscreen();
+                    document.body.classList.add("fullscreen-mode");
+                    btn.textContent = "⛶";
+                } else {
+                    // Thoát fullscreen
+                    await document.exitFullscreen();
+                    document.body.classList.remove("fullscreen-mode");
+                    btn.textContent = "⛶ ";
+                }
+             });
+
+             </script>
+
+</body>
+</html>

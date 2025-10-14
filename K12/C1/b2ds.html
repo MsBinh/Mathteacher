@@ -1,0 +1,3444 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title> LỚP TOÁN THẦY BÌNH </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+  <!-- Thêm vào phần head, sau các link CSS hiện có -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!--<link rel="stylesheet" href="styles1.css">-->
+  <style>
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== KHUNG CÂU HỎI ===== */
+.question, .summary-box {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px 22px;
+  width: 96%;
+  max-height: 82vh;
+  overflow-y: auto;
+  margin: 12px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+   color: #03631e;
+   font-size: 22px;
+}
+
+/* Hình ảnh trong câu hỏi */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== TRẮC NGHIỆM ===== */
+.options-row, .option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.option-label, .option-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fdfdfd;
+  transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.option-label:hover, .option-row:hover {
+  background: #e8f1ff;
+  border-color: #0074d9;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #0074d9;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+/* ===== NÚT KIỂM TRA ===== */
+.answer-check {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.answer-check button, .check-btn {
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.answer-check button:hover {
+  background: #0059b2;
+  transform: translateY(-1px);
+}
+
+/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
+.answer-check input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* ===== MENU SLIDE ===== */
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #fefefe;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  border-right: 3px solid #0074d9;
+  overflow-y: auto;
+}
+
+.slide-menu.active {
+  left: 0;
+}
+
+.menu-header {
+  padding: 16px;
+  background: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+.slide-item {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9fafc;
+  cursor: pointer;
+  color: #111;
+  transition: 0.2s;
+}
+
+.slide-item:hover {
+  background: #e7f1ff;
+  border-color: #0074d9;
+}
+
+.slide-item.active {
+  background: #0074d9;
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
+
+/* ===== NÚT MỞ MENU ===== */
+.menu-toggle {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  z-index: 999;
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.menu-toggle:hover {
+  background: #0059b2;
+  transform: scale(1.1);
+}
+
+/* ===== TOOLBAR VẼ ===== */
+#drawCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#toolbar {
+  position: fixed;
+  top: 50%; left: 5px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#toolbar button, #toolbar select {
+  margin: 4px 0;
+  width: 38px; height: 38px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#toolbar button:hover {
+  background: #0074d9;
+  color: white;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 900;
+  padding: 10px 14px;
+  background: #0074d9;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.fullscreen-btn:hover {
+  background: #0056b3;
+}
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
+}
+
+/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
+.clock {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
+.reveal {
+  margin-top: 38px !important;
+}
+
+/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #1976d2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+}
+
+.definition-icon {
+  display: inline-block;
+  margin-right: 10px;
+  color: #1976d2;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin: 12px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 5px solid #ffa000;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 18px;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.solution-steps ol {
+  padding-left: 20px;
+}
+
+.solution-steps li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(232, 245, 232, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #388e3c;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 5px solid #303f9f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #303f9f;
+  padding-bottom: 10px;
+}
+
+.problem-number {
+  background: #303f9f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.problem-header h3 {
+  color: #303f9f;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #f57c00;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f57c00;
+  padding-bottom: 10px;
+}
+
+.example-header h3 {
+  color: #f57c00;
+  margin: 0;
+  font-weight: 700;
+}
+
+.tag {
+  background: #f57c00;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-question {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #f57c00;
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 5px solid #c2185b;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  display: none; /* Ẩn ban đầu, hiện khi click */
+}
+
+.solution h4 {
+  color: #c2185b;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c2185b;
+  padding-bottom: 8px;
+}
+
+.solution-conclusion {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #c2185b;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Nút xem lời giải */
+.btn.solution-toggle {
+  background: #0074d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 10px 0;
+}
+
+.btn.solution-toggle:hover {
+  background: #0059b2;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Hình ảnh */
+.image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề section */
+.doc-section {
+  margin: 30px 0;
+}
+
+.article-subtitle {
+  color: #004aad;
+  font-weight: 700;
+  border-bottom: 3px solid #004aad;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Công thức toán */
+.math {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .definition-box,
+  .note-box,
+  .problem-type,
+  .example,
+  .solution {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tag {
+    margin-top: 8px;
+  }
+  
+  .math {
+    font-size: 20px;
+  }
+}
+/* Cho phép cuộn slide dài */
+.reveal .slides section {
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+/* Không giới hạn chiều cao các box */
+.definition-box,
+.theorem-box,
+.method-box,
+.example,
+.note-box,
+.formula,
+.procedure {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Box lồng nhau thu nhỏ nhẹ */
+.box .box {
+  font-size: 0.9em;
+  padding: 0.8em;
+}
+
+</style>
+
+  <!-- ===== style chuyên đề  ===== -->
+
+
+
+
+</head>
+
+<body>
+    <!-- ===== Thanh tiêu đề cố định ===== -->
+<div class="topbar">
+  <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+  <div class="clock" id="clock">--:--:--</div>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+  <!-- TÊN BÀI -->
+      <section>
+        <h2>📘 BÀI 3</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI TẬP TRẮC NGHIỆM ĐÚNG SAI </h2>
+  </section>
+<!--@@@@-->
+ <section>
+                <section>
+                    <div class="question" id="q1">
+                        <p class="question-title"><strong>Question 1.</strong> (THPT Triệu Quang Phục - Hưng Yên 2025) Cho đồ thị hàm số $y=\cos x/\left[-\dfrac{5\pi}{2};\dfrac{5\pi}{2}\right]$ dưới đây. Xét tính đúng sai của các phát biểu sau:</p>
+                        <div class="options">
+        <div class="option-row">a) a) Hàm số đã cho đồng biến trên các khoảng $(-\pi;0)$ và $(\pi;2\pi)$
+          <label><input name="q1a" type="radio" value="True"/> True</label>
+          <label><input name="q1a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) b) Giá trị lớn nhất, giá trị nhỏ nhất của hàm số là $Max y=1; Min y=-1$
+          <label><input name="q1b" type="radio" value="True"/> True</label>
+          <label><input name="q1b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) c) Hàm số đã cho là hàm tuần hoàn với chu kì $2\pi$
+          <label><input name="q1c" type="radio" value="True"/> True</label>
+          <label><input name="q1c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) d) Phương trình $\cos x=a$ với $0<a<\dfrac{1}{2}$ trên đoạn $\left[-\dfrac{5\pi}{2};\dfrac{5\pi}{2}\right]$ có 4 nghiệm
+          <label><input name="q1d" type="radio" value="True"/> True</label>
+          <label><input name="q1d" type="radio" value="False"/> False</label>
+        </div>
+                        </div>
+                        <div class="answer-check">
+                            <button onclick="checkTrueFalseAnswer('q1',["True","True","True","False"])">Check</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+   
+  <section>
+    <div class="question" id="q2">
+      <p><strong>Question 2</strong>. (THPT Tiên Du - Bắc Ninh 2025) Người ta bơm xăng vào bình xăng của một xe ô tô. Biết rằng thể tích $V$ (tính theo lít) của lượng xăng trong bình xăng được tính theo thời gian bơm xăng $t$ (phút) được cho bởi công thức:
+$V(t) = 300(t^2-t^3)+4,5$ với $0 \le t \le 0,5$.
+Gọi $V'(t)$ là tốc độ tăng thể tích tại thời điểm $t$ với $0 \le t \le 0,5$. Biết 1 lít xăng có giá là 21.000 đồng.</p>
+      <div class="options">
+        <div class="option-row">a) Lượng xăng ban đầu trong bình ban đầu là 1,5 lít
+          <label><input name="q2a" type="radio" value="True"/> True</label>
+          <label><input name="q2a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Sau khi bơm 30 giây thì bình xăng đầy. Số tiền người mua phải trả là 787.500 đồng
+          <label><input name="q2b" type="radio" value="True"/> True</label>
+          <label><input name="q2b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Khi xăng chảy vào bình xăng thì tốc độ tăng thể tích là lớn nhất vào thời điểm ở giây thứ 21
+          <label><input name="q2c" type="radio" value="True"/> True</label>
+          <label><input name="q2c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình $V'(t)=0$ có hai nghiệm phân biệt trên đoạn $\left[0; \frac{1}{2}\right]$
+          <label><input name="q2d" type="radio" value="True"/> True</label>
+          <label><input name="q2d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q2',['False','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q3">
+      <p><strong>Question 3</strong>. (THPT Thạch Thành 1 - Thanh Hóa 2025) Bác Lâm muốn gò một cái thùng bằng tôn dạng hình hộp chữ nhật không nắp có đáy là hình vuông và đựng đầy được 32 lít nước. Gọi độ dài cạnh đáy của thùng là $x(dm)$, chiều cao của thùng là $h(dm)$.</p>
+      <div class="options">
+        <div class="option-row">a) Thể tích của thùng là $V = x^2.h(dm^3)$
+          <label><input name="q3a" type="radio" value="True"/> True</label>
+          <label><input name="q3a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Tổng diện tích xung quanh và diện tích đáy của thùng là: $S = 4xh + x^2 (dm^2)$
+          <label><input name="q3b" type="radio" value="True"/> True</label>
+          <label><input name="q3b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đạo hàm của hàm số $S(x) = \frac{128}{x} + x^2$ là $S'(x) = -\frac{128}{x^2} + 2x$
+          <label><input name="q3c" type="radio" value="True"/> True</label>
+          <label><input name="q3c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Để làm được cái thùng mà tốn ít nguyên liệu nhất thì độ dài cạnh đáy của thùng là 4dm
+          <label><input name="q3d" type="radio" value="True"/> True</label>
+          <label><input name="q3d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q3',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q4">
+      <p><strong>Question 4</strong>. (THPT Thạch Thành 1 - Thanh Hóa 2025) Kính viễn vọng không gian Hubble được đưa vào vũ trụ ngày 24/4/1990 bằng tàu con thoi Discovery.
+Vận tốc của tàu con thoi trong sứ mệnh này, từ lúc cất cánh tại thời điểm $t=0(s)$ cho đến khi tên lửa đẩy được phóng đi tại thời điểm $t=126(s)$, cho bởi hàm số sau:
+$v(t) = 0,001302t^3 - 0,09029t^2 + 23,61t - 3,083$ (v được tính bằng $feet/s$, $1 \ feet = 0,3048 \ m$).</p>
+      <div class="options">
+        <div class="option-row">a) Vận tốc của tàu con thoi luôn tăng trong khoảng thời gian từ lúc cất cánh đến khi tên lửa đẩy được phóng đi
+          <label><input name="q4a" type="radio" value="True"/> True</label>
+          <label><input name="q4a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Gia tốc lớn nhất mà tàu con thoi có thể đạt được trong lúc thực hiện sứ mệnh trên (làm tròn đến hàng phần trăm) là $62,87 \ feet/s^2$
+          <label><input name="q4b" type="radio" value="True"/> True</label>
+          <label><input name="q4b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Gia tốc của tàu con thoi tăng trong khoảng thời gian từ lúc cất cánh đến thời điểm $t=23(s)$
+          <label><input name="q4c" type="radio" value="True"/> True</label>
+          <label><input name="q4c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Gia tốc của tàu con thoi tăng trong khoảng thời gian từ $t=21,5(s)$ đến $t=126(s)$
+          <label><input name="q4d" type="radio" value="True"/> True</label>
+          <label><input name="q4d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q4',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q5">
+      <p><strong>Question 5</strong>. (THPT Yên Lạc - Vĩnh Phúc 2025) Số giờ có ánh sáng mặt trời của một thành phố ven biển A trong ngày thứ t của một năm không nhuận được cho bởi hàm số
+$d(t) = 3\sin\left[\frac{\pi}{180}(t-70)\right]+10$ với $t \in \mathbb{Z}$ và $0 < t \le 365$. Cánh đồng muối B (thuộc địa phận của thành phố A) có thể hoạt động nếu trong ngày nắng nhiều hơn 10 giờ.</p>
+      <div class="options">
+        <div class="option-row">a) Ngày có nhiều giờ ánh sáng nhất là 13 giờ
+          <label><input name="q5a" type="radio" value="True"/> True</label>
+          <label><input name="q5a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Số giờ có ánh sáng giảm liên tục trong tháng 7
+          <label><input name="q5b" type="radio" value="True"/> True</label>
+          <label><input name="q5b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Cánh đồng muối B có thể hoạt động 213 ngày mỗi năm
+          <label><input name="q5c" type="radio" value="True"/> True</label>
+          <label><input name="q5c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Ngày thứ 70 trong năm, thành phố có 10 giờ có ánh sáng
+          <label><input name="q5d" type="radio" value="True"/> True</label>
+          <label><input name="q5d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q5',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q6">
+      <p><strong>Question 6</strong>. (THPT Chuyên Vĩnh Phúc 2025) Theo báo cáo của một cơ sở sản xuất nước tinh khiết, nếu mỗi ngày cơ sở này sản xuất $x(m^3)$ nước tinh khiết thì phải chi phí các khoản sau: 3 triệu đồng chi phí cố định; 0,15 triệu đồng cho mỗi mét khối sản phẩm; $0,0003x^2$ chi phí bảo dưỡng máy móc. Biết công suất tối đa mỗi ngày của cơ sở này là $200m^3$. Gọi $C(x)$ là chi phí sản xuất $x(m^3)$ sản phẩm mỗi ngày và $\bar{c}(x)$ là chi phí trung bình mỗi mét khối sản phẩm. Khi đó, mệnh đề sau đây đúng hay sai?</p>
+      <div class="options">
+        <div class="option-row">a) Chi phí sản xuất $100m^3$ nước tinh khiết là 20 triệu đồng
+          <label><input name="q6a" type="radio" value="True"/> True</label>
+          <label><input name="q6a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) $\bar{c}(x) = 0,0003x+0,15+\frac{3}{x}$
+          <label><input name="q6b" type="radio" value="True"/> True</label>
+          <label><input name="q6b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chi phí trung bình mỗi mét khối sản phẩm thấp nhất khi sản lượng nước tinh khiết trong ngày là $100m^3$
+          <label><input name="q6c" type="radio" value="True"/> True</label>
+          <label><input name="q6c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) $C(x) = 0,0003x^2+0,15x+5$
+          <label><input name="q6d" type="radio" value="True"/> True</label>
+          <label><input name="q6d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q6',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q7">
+      <p><strong>Question 7</strong>. (Sở Ninh Bình 2025) Một hạt chuyển động trên một đường thẳng có gắn một trục tọa độ với gốc tọa độ là vị trí hạt bắt đầu chuyển động. Tọa độ của hạt trên trục tại thời điểm $t$ ( đơn vị: giây) kể từ khi xuất phát được cho bởi công thức $x(t) = 2t-3\ln(t+1)$ ( đơn vị: mét), $t \ge 0$. Hàm số $v(t) = x'(t)$ (đơn vị: mét/ giây), biểu thị vận tốc chuyển động của hạt.</p>
+      <div class="options">
+        <div class="option-row">a) Quãng đường mà hạt đi được trong 3 giây đầu tiên là 1,84m (làm tròn kết quả đến hàng phần trăm)
+          <label><input name="q7a" type="radio" value="True"/> True</label>
+          <label><input name="q7a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hạt đứng yên tại thời điểm $t = 0,5s$
+          <label><input name="q7b" type="radio" value="True"/> True</label>
+          <label><input name="q7b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) $v(t) = 2 - \frac{3}{t+1}$
+          <label><input name="q7c" type="radio" value="True"/> True</label>
+          <label><input name="q7c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vận tốc ban đầu của hạt là $1(m/s)$
+          <label><input name="q7d" type="radio" value="True"/> True</label>
+          <label><input name="q7d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q7',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q8">
+      <p><strong>Question 8</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Một tàu đổ bộ tiếp cận Mặt Trăng theo cách tiếp cận thẳng đứng và đốt cháy các tên lửa hãm ở độ cao 250 km so với bề mặt của Mặt Trăng. Trong khoảng 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao $h$ của con tàu so với bề mặt của Mặt Trăng được tính (gần đúng) bởi hàm $h(t) = -0,01t^3 + 1,1t^2 - 30t + 250$ trong đó $t$ là thời gian tính bằng giây và $h$ là độ cao tính bằng kilomet.</p>
+      <div class="options">
+        <div class="option-row">a) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao lớn nhất mà con tàu đạt được là 250 (km)
+          <label><input name="q8a" type="radio" value="True"/> True</label>
+          <label><input name="q8a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao con tàu đạt được khi vận tốc của con tàu lớn nhất là 139,37 (km)
+          <label><input name="q8b" type="radio" value="True"/> True</label>
+          <label><input name="q8b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, vận tốc lớn nhất của con tàu là $v \approx 10,33$ (km/s)
+          <label><input name="q8c" type="radio" value="True"/> True</label>
+          <label><input name="q8c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao thấp nhất mà con tàu đạt được tại thời điểm $t \approx 25(s)$
+          <label><input name="q8d" type="radio" value="True"/> True</label>
+          <label><input name="q8d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q8',['True','False','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q9">
+      <p><strong>Question 9</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Một nhà sản xuất trung bình bán được 1500 ti vi màn hình phẳng mỗi tuần với giá 15 triệu đồng một chiếc. Một cuộc khảo sát thị trường chỉ ra rằng nếu cứ giảm giá bán 600 nghìn đồng, số lượng ti vi bán ra sẽ tăng thêm khoảng 120 ti vi mỗi tuần. Gọi $p$ (triệu đồng) là giá của mỗi ti vi, $x$ là số ti vi.</p>
+      <div class="options">
+        <div class="option-row">a) Nếu hàm chi phí hằng tuần là $C(x)=12000-\frac{7}{2}x$ (triệu đồng), trong đó x là số ti vi bán ra trong tuần, nhà sản xuất nên đặt giá bán 9,5 triệu đồng thì lợi nhuận là lớn nhất
+          <label><input name="q9a" type="radio" value="True"/> True</label>
+          <label><input name="q9a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Công ty giảm giá 3,5 triệu đồng cho người mua thì doanh thu của công ty sẽ lớn nhất
+          <label><input name="q9b" type="radio" value="True"/> True</label>
+          <label><input name="q9b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng doanh thu từ tiền bán ti vi là $f(p)=-200p^2+450p$ (triệu đồng)
+          <label><input name="q9c" type="radio" value="True"/> True</label>
+          <label><input name="q9c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Hàm cầu là $P = -\frac{1}{200}x + \frac{45}{2}$ (triệu đồng)
+          <label><input name="q9d" type="radio" value="True"/> True</label>
+          <label><input name="q9d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q9',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q10">
+      <p><strong>Question 10</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Nồng độ thuốc $C(t)$ tính theo mg/cm$^3$ trong máu bệnh nhân được tính bởi $C(t)=\frac{0,05t}{t^2+t+1}$ trong đó $t$ là thời gian tính theo giờ kể từ khi tiêm cho bệnh nhân.</p>
+      <div class="options">
+        <div class="option-row">a) Có thời điểm nồng độ trong máu của bệnh nhân đạt 0,02 mg/cm$^3$
+          <label><input name="q10a" type="radio" value="True"/> True</label>
+          <label><input name="q10a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Nồng độ thuốc trong máu lớn nhất ở thời điểm 1 giờ sau khi tiêm
+          <label><input name="q10b" type="radio" value="True"/> True</label>
+          <label><input name="q10b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Hàm số $C(t)$ có đạo hàm $C'(t)=\frac{1-t^2}{20(t^2+t+1)^2}, (t \ge 0)$
+          <label><input name="q10c" type="radio" value="True"/> True</label>
+          <label><input name="q10c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Sau khi tiêm, nồng độ thuốc trong máu của bệnh nhân giảm dần theo thời gian
+          <label><input name="q10d" type="radio" value="True"/> True</label>
+          <label><input name="q10d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q10',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q11">
+      <p><strong>Question 11</strong>. (THPT Lý Thường Kiệt - Hà Nội 2025) Anh B chế tạo một bể cá có dạng khối hộp chữ nhật không nắp có thể tích $0,096m^3$, chiều cao $h=0,6m$, chiều rồng x, chiều dài y (với $x>0, y>0$). Anh B dùng loại kính để làm các mặt bên có giá 70.000 đồng/m$^2$ và loại kính để làm đáy có giá 100.000 đồng/m$^2$. Mọi chi phí khác xem như không đáng kể. Khi đó</p>
+      <div class="options">
+        <div class="option-row">a) Biểu thức tín chi phí làm các mặt xung quanh là $C_{xq}=84000\left(x+\frac{0,16}{x}\right)$
+          <label><input name="q11a" type="radio" value="True"/> True</label>
+          <label><input name="q11a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hàm số biểu thị y theo x là $y=\frac{0,16}{x}$
+          <label><input name="q11b" type="radio" value="True"/> True</label>
+          <label><input name="q11b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chi phí mua kính để làm đáy bể là 11200 đồng
+          <label><input name="q11c" type="radio" value="True"/> True</label>
+          <label><input name="q11c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chi phí làm bể cá thấp nhất là 100000 đồng
+          <label><input name="q11d" type="radio" value="True"/> True</label>
+          <label><input name="q11d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q11',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q12">
+      <p><strong>Question 12</strong>. (THPT Lê Lợi - Thanh Hóa 2025) Người ta bơm xăng vào bình xăng của một xe ô tô. Biết rằng thể tích V (tính theo lít) của lượng xăng trong bình xăng được tính theo thời gian bơm xăng t (phút) được cho bởi công thức:
+$V(t)=300(t^2-t^3)+4,5$ với $0 \le t \le 0,5$.
+Gọi $V'(t)$ là tốc độ tăng thể tích tại thời điểm t với $0 \le t \le 0,5$. Biết 1 lít xăng có giá là 21.000 đồng.</p>
+      <div class="options">
+        <div class="option-row">a) Lượng xăng ban đầu trong bình ban đầu là 1,5 lít
+          <label><input name="q12a" type="radio" value="True"/> True</label>
+          <label><input name="q12a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Sau khi bơm 30 giây thì bình xăng đầy. Số tiền người mua phải trả là 787.500 đồng
+          <label><input name="q12b" type="radio" value="True"/> True</label>
+          <label><input name="q12b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Khi xăng chảy vào bình xăng thì tốc độ tăng thể tích là lớn nhất vào thời điểm ở giây thứ 21
+          <label><input name="q12c" type="radio" value="True"/> True</label>
+          <label><input name="q12c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình $V'(t)=0$ có hai nghiệm phân biệt trên đoạn $\left[0; \frac{1}{2}\right]$
+          <label><input name="q12d" type="radio" value="True"/> True</label>
+          <label><input name="q12d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q12',['False','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q13">
+      <p><strong>Question 13</strong>. (Sở Ninh Bình 2025) Một hạt chuyển động trên một đường thẳng có gắn một trục tọa độ với gốc tọa độ là vị trí hạt bắt đầu chuyển động. Tọa độ của hạt trên trục tại thời điểm $t$ ( đơn vị: giây) kể từ khi xuất phát được cho bởi công thức $x(t) = 2t-3\ln(t+1)$ ( đơn vị: mét), $t \ge 0$. Hàm số $v(t) = x'(t)$ (đơn vị: mét/ giây), biểu thị vận tốc chuyển động của hạt.</p>
+      <div class="options">
+        <div class="option-row">a) Quãng đường mà hạt đi được trong 3 giây đầu tiên là 1,84m (làm tròn kết quả đến hàng phần trăm)
+          <label><input name="q13a" type="radio" value="True"/> True</label>
+          <label><input name="q13a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hạt đứng yên tại thời điểm $t = 0,5s$
+          <label><input name="q13b" type="radio" value="True"/> True</label>
+          <label><input name="q13b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) $v(t) = 2 - \frac{3}{t+1}$
+          <label><input name="q13c" type="radio" value="True"/> True</label>
+          <label><input name="q13c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vận tốc ban đầu của hạt là $1(m/s)$
+          <label><input name="q13d" type="radio" value="True"/> True</label>
+          <label><input name="q13d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q13',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q14">
+      <p><strong>Question 14</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Một tàu đổ bộ tiếp cận Mặt Trăng theo cách tiếp cận thẳng đứng và đốt cháy các tên lửa hãm ở độ cao 250 km so với bề mặt của Mặt Trăng. Trong khoảng 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao $h$ của con tàu so với bề mặt của Mặt Trăng được tính (gần đúng) bởi hàm $h(t) = -0,01t^3 + 1,1t^2 - 30t + 250$ trong đó $t$ là thời gian tính bằng giây và $h$ là độ cao tính bằng kilomet.</p>
+      <div class="options">
+        <div class="option-row">a) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao lớn nhất mà con tàu đạt được là 250 (km)
+          <label><input name="q14a" type="radio" value="True"/> True</label>
+          <label><input name="q14a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao con tàu đạt được khi vận tốc của con tàu lớn nhất là 139,37 (km)
+          <label><input name="q14b" type="radio" value="True"/> True</label>
+          <label><input name="q14b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, vận tốc lớn nhất của con tàu là $v \approx 10,33$ (km/s)
+          <label><input name="q14c" type="radio" value="True"/> True</label>
+          <label><input name="q14c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Trong 50 giây đầu tiên kể từ khi đốt cháy các tên lửa hãm, độ cao thấp nhất mà con tàu đạt được tại thời điểm $t \approx 25(s)$
+          <label><input name="q14d" type="radio" value="True"/> True</label>
+          <label><input name="q14d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q14',['True','False','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q15">
+      <p><strong>Question 15</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Một nhà sản xuất trung bình bán được 1500 ti vi màn hình phẳng mỗi tuần với giá 15 triệu đồng một chiếc. Một cuộc khảo sát thị trường chỉ ra rằng nếu cứ giảm giá bán 600 nghìn đồng, số lượng ti vi bán ra sẽ tăng thêm khoảng 120 ti vi mỗi tuần. Gọi $p$ (triệu đồng) là giá của mỗi ti vi, $x$ là số ti vi.</p>
+      <div class="options">
+        <div class="option-row">a) Nếu hàm chi phí hằng tuần là $C(x)=12000-\frac{7}{2}x$ (triệu đồng), trong đó x là số ti vi bán ra trong tuần, nhà sản xuất nên đặt giá bán 9,5 triệu đồng thì lợi nhuận là lớn nhất
+          <label><input name="q15a" type="radio" value="True"/> True</label>
+          <label><input name="q15a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Công ty giảm giá 3,5 triệu đồng cho người mua thì doanh thu của công ty sẽ lớn nhất
+          <label><input name="q15b" type="radio" value="True"/> True</label>
+          <label><input name="q15b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng doanh thu từ tiền bán ti vi là $f(p)=-200p^2+450p$ (triệu đồng)
+          <label><input name="q15c" type="radio" value="True"/> True</label>
+          <label><input name="q15c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Hàm cầu là $P = -\frac{1}{200}x + \frac{45}{2}$ (triệu đồng)
+          <label><input name="q15d" type="radio" value="True"/> True</label>
+          <label><input name="q15d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q15',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q16">
+      <p><strong>Question 16</strong>. (THPT Nguyễn Viết Xuân - Vĩnh Phúc 2025) Nồng độ thuốc $C(t)$ tính theo mg/cm$^3$ trong máu bệnh nhân được tính bởi $C(t)=\frac{0,05t}{t^2+t+1}$ trong đó $t$ là thời gian tính theo giờ kể từ khi tiêm cho bệnh nhân.</p>
+      <div class="options">
+        <div class="option-row">a) Có thời điểm nồng độ trong máu của bệnh nhân đạt 0,02 mg/cm$^3$
+          <label><input name="q16a" type="radio" value="True"/> True</label>
+          <label><input name="q16a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Nồng độ thuốc trong máu lớn nhất ở thời điểm 1 giờ sau khi tiêm
+          <label><input name="q16b" type="radio" value="True"/> True</label>
+          <label><input name="q16b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Hàm số $C(t)$ có đạo hàm $C'(t)=\frac{1-t^2}{20(t^2+t+1)^2}, (t \ge 0)$
+          <label><input name="q16c" type="radio" value="True"/> True</label>
+          <label><input name="q16c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Sau khi tiêm, nồng độ thuốc trong máu của bệnh nhân giảm dần theo thời gian
+          <label><input name="q16d" type="radio" value="True"/> True</label>
+          <label><input name="q16d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q16',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q17">
+      <p><strong>Question 17</strong>. (THPT Lý Thường Kiệt - Hà Nội 2025) Anh B chế tạo một bể cá có dạng khối hộp chữ nhật không nắp có thể tích $0,096m^3$, chiều cao $h=0,6m$, chiều rồng x, chiều dài y (với $x>0, y>0$). Anh B dùng loại kính để làm các mặt bên có giá 70.000 đồng/m$^2$ và loại kính để làm đáy có giá 100.000 đồng/m$^2$. Mọi chi phí khác xem như không đáng kể. Khi đó</p>
+      <div class="options">
+        <div class="option-row">a) Biểu thức tín chi phí làm các mặt xung quanh là $C_{xq}=84000\left(x+\frac{0,16}{x}\right)$
+          <label><input name="q17a" type="radio" value="True"/> True</label>
+          <label><input name="q17a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hàm số biểu thị y theo x là $y=\frac{0,16}{x}$
+          <label><input name="q17b" type="radio" value="True"/> True</label>
+          <label><input name="q17b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chi phí mua kính để làm đáy bể là 11200 đồng
+          <label><input name="q17c" type="radio" value="True"/> True</label>
+          <label><input name="q17c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chi phí làm bể cá thấp nhất là 100000 đồng
+          <label><input name="q17d" type="radio" value="True"/> True</label>
+          <label><input name="q17d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q17',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q18">
+      <p><strong>Question 18</strong>. (THPT Lê Lợi - Thanh Hóa 2025) Người ta bơm xăng vào bình xăng của một xe ô tô. Biết rằng thể tích V (tính theo lít) của lượng xăng trong bình xăng được tính theo thời gian bơm xăng t (phút) được cho bởi công thức:
+$V(t)=300(t^2-t^3)+4,5$ với $0 \le t \le 0,5$.
+Gọi $V'(t)$ là tốc độ tăng thể tích tại thời điểm t với $0 \le t \le 0,5$. Biết 1 lít xăng có giá là 21.000 đồng.</p>
+      <div class="options">
+        <div class="option-row">a) Lượng xăng ban đầu trong bình ban đầu là 1,5 lít
+          <label><input name="q18a" type="radio" value="True"/> True</label>
+          <label><input name="q18a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Sau khi bơm 30 giây thì bình xăng đầy. Số tiền người mua phải trả là 787.500 đồng
+          <label><input name="q18b" type="radio" value="True"/> True</label>
+          <label><input name="q18b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Khi xăng chảy vào bình xăng thì tốc độ tăng thể tích là lớn nhất vào thời điểm ở giây thứ 21
+          <label><input name="q18c" type="radio" value="True"/> True</label>
+          <label><input name="q18c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình $V'(t)=0$ có hai nghiệm phân biệt trên đoạn $\left[0; \frac{1}{2}\right]$
+          <label><input name="q18d" type="radio" value="True"/> True</label>
+          <label><input name="q18d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q18',['False','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q19">
+      <p><strong>Question 19</strong>. (Cụm trường THPT Hải Dương 2025) Cho hàm số $f(x) = 92-20\ln(x+1)$.</p>
+      <div class="options">
+        <div class="option-row">a) Tập xác định của hàm số $y = f(x)$ là $D = (-1;+\infty)$
+          <label><input name="q19a" type="radio" value="True"/> True</label>
+          <label><input name="q19a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hàm số $y = f(x)$ nghịch biến trên khoảng $(-1;+\infty)$
+          <label><input name="q19b" type="radio" value="True"/> True</label>
+          <label><input name="q19b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Bất phương trình $f(x) \ge 72$ có đúng 3 nghiệm nguyên
+          <label><input name="q19c" type="radio" value="True"/> True</label>
+          <label><input name="q19c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Một nghiên cứu chỉ ra rằng sau khi tham gia một khóa học, phần trăm kiến thức sinh viên còn nhớ sau $t$ tháng kết thúc khóa học được xác định bởi hàm số $y = f(t)$, trong đó $f(t)$ được tính bằng $\%$ và $0 \le t \le 24$. Phần trăm kiến thức sinh viên còn nhớ 50% khi $t=7$ (kết quả làm tròn đến hàng đơn vị)
+          <label><input name="q19d" type="radio" value="True"/> True</label>
+          <label><input name="q19d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q19',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q20">
+      <p><strong>Question 20</strong>. (Cụm trường THPT Hải Dương 2025) Trong một trò chơi thử thách, bạn Giáp đang ở trên thuyền (vị trí A) cách bờ hồ (vị trí C) 300 m và cần đi đến vị trí B trên bờ hồ như hình vẽ, khoảng cách từ C đến B là 400 m, lưu ý là Giáp có thể chèo thuyền thẳng từ A đến B hoặc chèo thuyền từ A đến một điểm nằm giữa C và B rồi chạy bộ đến B.
+<img src="images/figure-001">
+Biết rằng Giáp chèo thuyền với tốc độ 50 m/phút và chạy bộ với tốc độ 100m/phút.</p>
+      <div class="options">
+        <div class="option-row">a) Thời gian Giáp chèo thuyền thẳng từ A đến B là là 10 phút
+          <label><input name="q20a" type="radio" value="True"/> True</label>
+          <label><input name="q20a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Thời gian Giáp chèo thuyền từ A đến C rồi chạy bộ từ C đến B là là 10 phút
+          <label><input name="q20b" type="radio" value="True"/> True</label>
+          <label><input name="q20b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Giả sử Giáp chèo thuyền thẳng đến điểm D nằm giữa B và C và cách C một đoạn x (m) như hình vẽ dưới đây, rồi chạy bộ đến B thì thời gian Giáp đi từ A đến B được tính bằng công thức $f(x) = \frac{1}{100}\left(\sqrt{x^2+90000}+400-x\right)$ (phút)
+          <label><input name="q20c" type="radio" value="True"/> True</label>
+          <label><input name="q20c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Thời gian nhanh nhất để Giáp đi từ A đến B xấp xỉ 9,2 phút (kết quả làm tròn đến hàng phần chục)
+          <label><input name="q20d" type="radio" value="True"/> True</label>
+          <label><input name="q20d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q20',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q21">
+      <p><strong>Question 21</strong>. (THPT Kinh Môn - Hải Dương 2025) Một công ty sản xuất dụng cụ thể thao nhận được một đơn đặt hàng sản xuất 8000 quả bóng pickleball. Công ty này sở hữu một số máy móc, mỗi máy có thể sản xuất 30 quả bóng trong một giờ. Chi phí thiết lập các máy này là 200 nghìn đồng cho mỗi máy. Khi được thiết lập, hoạt động sản xuất sẽ hoàn toàn diễn ra tự động dưới sự giám sát (người giám sát sẽ giám sát tất cả các máy). Số tiền phải trả cho người giám sát là 192 nghìn đồng một giờ.</p>
+      <div class="options">
+        <div class="option-row">a) Trong 1 giờ, cần 266 máy để sản xuất được 8000 quả bóng pickleball
+          <label><input name="q21a" type="radio" value="True"/> True</label>
+          <label><input name="q21a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Trong $\frac{8}{3}$ giờ, cần 100 máy để sản xuất được 8000 quả bóng pickleball
+          <label><input name="q21b" type="radio" value="True"/> True</label>
+          <label><input name="q21b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chi phí hoạt động thấp nhất là 6,5 triệu đồng
+          <label><input name="q21c" type="radio" value="True"/> True</label>
+          <label><input name="q21c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Để chi phí hoạt động thấp nhất, công ty cần sử dụng 16 máy
+          <label><input name="q21d" type="radio" value="True"/> True</label>
+          <label><input name="q21d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q21',['False','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q22">
+      <p><strong>Question 22</strong>. (HSG Vũng Tàu 2025) Chi phí nguyên liệu của một con tàu chạy trên sông được chia làm hai phần. Phần thứ nhất không phụ thuộc vào vận tốc và bằng 480 nghìn đồng trên 1 giờ. Phần thứ hai tỉ lệ thuận với lập phương của vận tốc, khi $v=10km/h$ thì chi phí nguyên liệu phần thứ hai bằng 30 nghìn đồng/giờ. Gọi $x(km/h)$ là vận tốc của tàu.</p>
+      <div class="options">
+        <div class="option-row">a) Chi phí nhiên liệu cho phần thứ nhất trong thời gian tàu chạy quãng đường 1 km là $\frac{480}{x}$ (nghìn đồng)
+          <label><input name="q22a" type="radio" value="True"/> True</label>
+          <label><input name="q22a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Tổng chi phí nhiên liệu tàu chạy trong 1 giờ là $C(x)=480+0,03x^2$ (nghìn đồng)
+          <label><input name="q22b" type="radio" value="True"/> True</label>
+          <label><input name="q22b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng chi phí nhiên liệu tàu chạy trên quãng đường 1 km giảm khi vận tốc của tàu thuộc (0;30)
+          <label><input name="q22c" type="radio" value="True"/> True</label>
+          <label><input name="q22c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Tổng chi phí nhiên liệu để tàu chạy trên quãng đường 1 km nhỏ nhất là 43 (nghìn đồng)
+          <label><input name="q22d" type="radio" value="True"/> True</label>
+          <label><input name="q22d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q22',['True','False','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q23">
+      <p><strong>Question 23</strong>. (THPT Lê Xoay - Vĩnh Phúc 2025) Nhà máy A chuyên sản xuất một loại sản phẩm cho nhà máy B. Hai nhà máy thỏa thuận rằng, hằng tháng A cung cấp cho B số lượng sản phẩm theo đơn đặt hàng của B (tối đa 100 tấn sản phẩm). Nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm của A cho B được biểu diễn bởi công thức: $P(x)=45-0,001x^2$ (triệu đồng). Chi phí để A sản xuất x tấn sản phẩm trong một tháng là $C(x)=100+30x$ triệu đồng (gồm 100 triệu đồng chi phí cố định và 30 triệu đồng cho mỗi tấn sản phẩm).</p>
+      <div class="options">
+        <div class="option-row">a) Lợi nhuận mà A thu được khi bán x tấn sản phẩm ($0 \le x \le 100$) cho B được biểu diễn bởi công thức $H(x)=-0,001x^3+15x-100$
+          <label><input name="q23a" type="radio" value="True"/> True</label>
+          <label><input name="q23a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Số tiền mà A thu được khi bán 10 tấn sản phẩm cho B là 600 triệu đồng
+          <label><input name="q23b" type="radio" value="True"/> True</label>
+          <label><input name="q23b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nhà máy A bán cho nhà máy B $50\sqrt{2} \approx 70,7$ tấn sản phẩm mỗi tháng thì thu được lợi nhuận lớn nhất
+          <label><input name="q23c" type="radio" value="True"/> True</label>
+          <label><input name="q23c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chi phí để A sản xuất 10 tấn sản phẩm trong một tháng là 400 triệu đồng
+          <label><input name="q23d" type="radio" value="True"/> True</label>
+          <label><input name="q23d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q23',['True','False','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q24">
+      <p><strong>Question 24</strong>. (Sở Hà Tĩnh 2025) Một loại thuốc được dùng cho một bệnh nhân và nồng độ thuốc trong máu của bệnh nhân được giám sát bởi bác sĩ. Biết nồng độ thuốc trong máu của bệnh nhân sau khi tiêm vào cơ thể trong $t$ giờ được cho bởi công thức $c(t)=\frac{t}{t^2+1}$ (mg/l).</p>
+      <div class="options">
+        <div class="option-row">a) Sau khi tiêm thuốc 2 giờ thì nồng độ thuốc trong máu của bện nhân bằng 0,4 (mg/l)
+          <label><input name="q24a" type="radio" value="True"/> True</label>
+          <label><input name="q24a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Sau khi tiêm thuốc thì nồng độ thuốc trong máu của bệnh nhân có thể vượt quá 0,5 (mg/l)
+          <label><input name="q24b" type="radio" value="True"/> True</label>
+          <label><input name="q24b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Sau khi tiêm thuốc 1 giờ thì nồng độ thuốc trong máu của bện nhân cao nhất
+          <label><input name="q24c" type="radio" value="True"/> True</label>
+          <label><input name="q24c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Sau khi tiêm thuốc thì nồng độ thuốc trong máu của bệnh nhân cao nhất bằng 0,5 (mg/l)
+          <label><input name="q24d" type="radio" value="True"/> True</label>
+          <label><input name="q24d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q24',['True','False','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q25">
+      <p><strong>Question 25</strong>. (Sở Hà Tĩnh 2025) Một hồ nước nhân tạo được xây dựng trong một công viên giải trí. Trong mô hình minh hoạ, nó được giới hạn bởi các trục tọa độ và đồ thị của hàm số $y=f(x)=-0,1x^3+0,9x^2-1,5x+5,6$.
+<img src="images/figure-006">
+Đơn vị đo độ dài trên mỗi trục tọa độ là 100m.</p>
+      <div class="options">
+        <div class="option-row">a) Đường dạo ven hồ chạy dọc theo trục Ox dài 600m
+          <label><input name="q25a" type="radio" value="True"/> True</label>
+          <label><input name="q25a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Trên đường đi dạo ven hồ chạy dọc theo trục Ox, điểm cách gốc O một đoạn 500m có khoảng cách theo phương thẳng đứng đến bờ hồ đối điện là lớn nhất
+          <label><input name="q25b" type="radio" value="True"/> True</label>
+          <label><input name="q25b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Khoảng cách nhỏ nhất theo phương thẳng đứng từ một điểm trên đường đi dạo ven hồ đến bờ hồ đối diện là 490m
+          <label><input name="q25c" type="radio" value="True"/> True</label>
+          <label><input name="q25c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Trong công viên có một con đường chạy dọc theo đồ thị hàm số $y=-1,5x+18$. Người ta dự định xây dựng bên bờ hồ một bến thuyền đạp nước sao cho khoảng cách từ bến thuyền đến con đường này là ngắn nhất. Biết toạ độ của điểm để xây bến thuyền này là $M(a;b)$. Giá trị $a+5b$ bằng 43
+          <label><input name="q25d" type="radio" value="True"/> True</label>
+          <label><input name="q25d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q25',['False','True','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q25">
+      <p><strong>Question 25</strong>. (THPT Cẩm Xuyên - Hà Tĩnh 2025) Một chất điểm chuyển động theo phương trình $s(t)=-t^3+9t^2+21t+9$ với t tính bằng giây (s) là khoảng thời gian tính từ lúc vật bắt đầu chuyển động và S tính bằng mét (m) là quãng đường vật đi trong thời gian đó.</p>
+      <div class="options">
+        <div class="option-row">a) Vận tốc của chất điểm chuyển động tại thời điểm t (giây) là $v(t)=-3t^2+18t+21$
+          <label><input name="q25a" type="radio" value="True"/> True</label>
+          <label><input name="q25a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Vận tốc của chất điềm tại giây thứ 2 là 45m/s
+          <label><input name="q25b" type="radio" value="True"/> True</label>
+          <label><input name="q25b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Quãng đường chất điểm đi được từ lúc bắt đầu đến lúc dừng hẳn là 255(m)
+          <label><input name="q25c" type="radio" value="True"/> True</label>
+          <label><input name="q25c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vận tốc chuyền động của chất điểm đạt giá trị lớn nhất tại thời điềm t=3(s)
+          <label><input name="q25d" type="radio" value="True"/> True</label>
+          <label><input name="q25d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q25',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q26">
+      <p><strong>Question 26</strong>. (Sở Vĩnh Phúc 2025) Một cửa hàng bán cam canh Cao Phong với giá là 40000 đồng/1 kg. Giá nhập vào là 24000 đồng/1 kg. Với giá bán này cửa hàng bán được 100 kg/ngày. Cửa hàng dự định giảm giá bán, ước tính cứ giảm 1000 đồng/1 kg thì số cam canh Cao Phong bán được sẽ tăng thêm là 10 kg.</p>
+      <div class="options">
+        <div class="option-row">a) Nếu giữ nguyên giá bán đầu, lợi nhuận theo ngày của cửa hàng là 1500000 đồng
+          <label><input name="q26a" type="radio" value="True"/> True</label>
+          <label><input name="q26a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Nếu giá bán là 35000 đồng/1 kg, khi đó cửa hàng bán được 150 kg/1 ngày
+          <label><input name="q26b" type="radio" value="True"/> True</label>
+          <label><input name="q26b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nếu giá bán là 30000 đồng/1 kg, khi đó lợi nhuận theo ngày của cửa hàng là 1300000 đồng
+          <label><input name="q26c" type="radio" value="True"/> True</label>
+          <label><input name="q26c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Lợi nhuận tối đa theo ngày của cửa hàng là 1690000 đồng
+          <label><input name="q26d" type="radio" value="True"/> True</label>
+          <label><input name="q26d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q26',['False','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q27">
+      <p><strong>Question 27</strong>. (Cụm trường THPT Hải Dương 2025) Cho hàm số $f(x) = 92-20\ln(x+1)$.</p>
+      <div class="options">
+        <div class="option-row">a) Tập xác định của hàm số $y = f(x)$ là $D = (-1;+\infty)$
+          <label><input name="q27a" type="radio" value="True"/> True</label>
+          <label><input name="q27a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hàm số $y = f(x)$ nghịch biến trên khoảng $(-1;+\infty)$
+          <label><input name="q27b" type="radio" value="True"/> True</label>
+          <label><input name="q27b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Bất phương trình $f(x) \ge 72$ có đúng 3 nghiệm nguyên
+          <label><input name="q27c" type="radio" value="True"/> True</label>
+          <label><input name="q27c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Một nghiên cứu chỉ ra rằng sau khi tham gia một khóa học, phần trăm kiến thức sinh viên còn nhớ sau $t$ tháng kết thúc khóa học được xác định bởi hàm số $y = f(t)$, trong đó $f(t)$ được tính bằng $\%$ và $0 \le t \le 24$. Phần trăm kiến thức sinh viên còn nhớ 50\% khi $t=7$ (kết quả làm tròn đến hàng đơn vị)
+          <label><input name="q27d" type="radio" value="True"/> True</label>
+          <label><input name="q27d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q27',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q28">
+      <p><strong>Question 28</strong>. (Cụm trường THPT Hải Dương 2025) Trong một trò chơi thử thách, bạn Giáp đang ở trên thuyền (vị trí A) cách bờ hồ (vị trí C) 300 m và cần đi đến vị trí B trên bờ hồ như hình vẽ, khoảng cách từ C đến B là 400 m, lưu ý là Giáp có thể chèo thuyền thẳng từ A đến B hoặc chèo thuyền từ A đến một điểm nằm giữa C và B rồi chạy bộ đến B.
+<img src="images/figure-001">
+Biết rằng Giáp chèo thuyền với tốc độ 50 m/phút và chạy bộ với tốc độ 100 m/phút.</p>
+      <div class="options">
+        <div class="option-row">a) Thời gian Giáp chèo thuyền thẳng từ A đến B là là 10 phút
+          <label><input name="q28a" type="radio" value="True"/> True</label>
+          <label><input name="q28a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Thời gian Giáp chèo thuyền từ A đến C rồi chạy bộ từ C đến B là là 10 phút
+          <label><input name="q28b" type="radio" value="True"/> True</label>
+          <label><input name="q28b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Giả sử Giáp chèo thuyền thẳng đến điểm D nằm giữa B và C và cách C một đoạn x (m) như hình vẽ dưới đây, rồi chạy bộ đến B thì thời gian Giáp đi từ A đến B được tính bằng công thức $f(x) = \frac{1}{100}\left(\sqrt{x^2+90000}+400-x\right)$ (phút)
+          <label><input name="q28c" type="radio" value="True"/> True</label>
+          <label><input name="q28c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Thời gian nhanh nhất để Giáp đi từ A đến B xấp xỉ 9,2 phút (kết quả làm tròn đến hàng phần chục)
+          <label><input name="q28d" type="radio" value="True"/> True</label>
+          <label><input name="q28d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q28',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q29">
+      <p><strong>Question 29</strong>. (THPT Kinh Môn - Hải Dương 2025) Một công ty sản xuất dụng cụ thể thao nhận được một đơn đặt hàng sản xuất 8000 quả bóng pickleball. Công ty này sở hữu một số máy móc, mỗi máy có thể sản xuất 30 quả bóng trong một giờ. Chi phí thiết lập các máy này là 200 nghìn đồng cho mỗi máy. Khi được thiết lập, hoạt động sản xuất sẽ hoàn toàn diễn ra tự động dưới sự giám sát (người giám sát sẽ giám sát tất cả các máy). Số tiền phải trả cho người giám sát là 192 nghìn đồng một giờ.</p>
+      <div class="options">
+        <div class="option-row">a) Trong 1 giờ, cần 266 máy để sản xuất được 8000 quả bóng pickleball
+          <label><input name="q29a" type="radio" value="True"/> True</label>
+          <label><input name="q29a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Trong $\frac{8}{3}$ giờ, cần 100 máy để sản xuất được 8000 quả bóng pickleball
+          <label><input name="q29b" type="radio" value="True"/> True</label>
+          <label><input name="q29b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chi phí hoạt động thấp nhất là 6,5 triệu đồng
+          <label><input name="q29c" type="radio" value="True"/> True</label>
+          <label><input name="q29c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Để chi phí hoạt động thấp nhất, công ty cần sử dụng 16 máy
+          <label><input name="q29d" type="radio" value="True"/> True</label>
+          <label><input name="q29d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q29',['False','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q30">
+      <p><strong>Question 30</strong>. (HSG Vũng Tàu 2025) Chi phí nguyên liệu của một con tàu chạy trên sông được chia làm hai phần. Phần thứ nhất không phụ thuộc vào vận tốc và bằng 480 nghìn đồng trên 1 giờ. Phần thứ hai tỉ lệ thuận với lập phương của vận tốc, khi $v=10km/h$ thì chi phí nguyên liệu phần thứ hai bằng 30 nghìn đồng/giờ. Gọi $x(km/h)$ là vận tốc của tàu.</p>
+      <div class="options">
+        <div class="option-row">a) Chi phí nhiên liệu cho phần thứ nhất trong thời gian tàu chạy quãng đường 1 km là $\frac{480}{x}$ (nghìn đồng)
+          <label><input name="q30a" type="radio" value="True"/> True</label>
+          <label><input name="q30a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Tổng chi phí nhiên liệu tàu chạy trong 1 giờ là $C(x)=480+0,03x^3$ (nghìn đồng)
+          <label><input name="q30b" type="radio" value="True"/> True</label>
+          <label><input name="q30b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng chi phí nhiên liệu tàu chạy trên quãng đường 1 km giảm khi vận tốc của tàu thuộc (0;30)
+          <label><input name="q30c" type="radio" value="True"/> True</label>
+          <label><input name="q30c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Tổng chi phí nhiên liệu để tàu chạy trên quãng đường 1 km nhỏ nhất là 43 (nghìn đồng)
+          <label><input name="q30d" type="radio" value="True"/> True</label>
+          <label><input name="q30d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q30',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q31">
+      <p><strong>Question 31</strong>. (THPT Lê Xoay - Vĩnh Phúc 2025) Nhà máy A chuyên sản xuất một loại sản phẩm cho nhà máy B. Hai nhà máy thỏa thuận rằng, hằng tháng A cung cấp cho B số lượng sản phẩm theo đơn đặt hàng của B (tối đa 100 tấn sản phẩm). Nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm của A cho B được biểu diễn bởi công thức: $P(x)=45-0,001x^2$ (triệu đồng). Chi phí để A sản xuất x tấn sản phẩm trong một tháng là $C(x)=100+30x$ triệu đồng (gồm 100 triệu đồng chi phí cố định và 30 triệu đồng cho mỗi tấn sản phẩm).</p>
+      <div class="options">
+        <div class="option-row">a) Lợi nhuận mà A thu được khi bán x tấn sản phẩm ($0 \le x \le 100$) cho B được biểu diễn bởi công thức $H(x)=-0,001x^3+15x-100$
+          <label><input name="q31a" type="radio" value="True"/> True</label>
+          <label><input name="q31a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Số tiền mà A thu được khi bán 10 tấn sản phẩm cho B là 600 triệu đồng
+          <label><input name="q31b" type="radio" value="True"/> True</label>
+          <label><input name="q31b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nhà máy A bán cho nhà máy B $50\sqrt{2} \approx 70,7$ tấn sản phẩm mỗi tháng thì thu được lợi nhuận lớn nhất
+          <label><input name="q31c" type="radio" value="True"/> True</label>
+          <label><input name="q31c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chi phí để A sản xuất 10 tấn sản phẩm trong một tháng là 400 triệu đồng
+          <label><input name="q31d" type="radio" value="True"/> True</label>
+          <label><input name="q31d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q31',['True','False','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q32">
+      <p><strong>Question 32</strong>. (Sở Hà Tĩnh 2025) Một loại thuốc được dùng cho một bệnh nhân và nồng độ thuốc trong máu của bệnh nhân được giám sát bởi bác sĩ. Biết nồng độ thuốc trong máu của bệnh nhân sau khi tiêm vào cơ thể trong $t$ giờ được cho bởi công thức $c(t)=\frac{t}{t^2+1}$ (mg/l).</p>
+      <div class="options">
+        <div class="option-row">a) Sau khi tiêm thuốc 2 giờ thì nồng độ thuốc trong máu của bện nhân bằng 0,4 (mg/l)
+          <label><input name="q32a" type="radio" value="True"/> True</label>
+          <label><input name="q32a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Sau khi tiêm thuốc thì nồng độ thuốc trong máu của bệnh nhân có thể vượt quá 0,5 (mg/l)
+          <label><input name="q32b" type="radio" value="True"/> True</label>
+          <label><input name="q32b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Sau khi tiêm thuốc 1 giờ thì nồng độ thuốc trong máu của bện nhân cao nhất
+          <label><input name="q32c" type="radio" value="True"/> True</label>
+          <label><input name="q32c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Sau khi tiêm thuốc thì nồng độ thuốc trong máu của bệnh nhân cao nhất bằng 0,5 (mg/l)
+          <label><input name="q32d" type="radio" value="True"/> True</label>
+          <label><input name="q32d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q32',['True','False','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q33">
+      <p><strong>Question 33</strong>. (Sở Hà Tĩnh 2025) Một hồ nước nhân tạo được xây dựng trong một công viên giải trí. Trong mô hình minh hoạ, nó được giới hạn bởi các trục tọa độ và đồ thị của hàm số $y=f(x)=-0,1x^3+0,9x^2-1,5x+5,6$.
+<img src="images/figure-006">
+Đơn vị đo độ dài trên mỗi trục tọa độ là 100m.</p>
+      <div class="options">
+        <div class="option-row">a) Đường dạo ven hồ chạy dọc theo trục Ox dài 600m
+          <label><input name="q33a" type="radio" value="True"/> True</label>
+          <label><input name="q33a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Trên đường đi dạo ven hồ chạy dọc theo trục Ox, điểm cách gốc O một đoạn 500m có khoảng cách theo phương thẳng đứng đến bờ hồ đối điện là lớn nhất
+          <label><input name="q33b" type="radio" value="True"/> True</label>
+          <label><input name="q33b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Khoảng cách nhỏ nhất theo phương thẳng đứng từ một điểm trên đường đi dạo ven hồ đến bờ hồ đối diện là 490m
+          <label><input name="q33c" type="radio" value="True"/> True</label>
+          <label><input name="q33c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Trong công viên có một con đường chạy dọc theo đồ thị hàm số $y=-1,5x+18$. Người ta dự định xây dựng bên bờ hồ một bến thuyền đạp nước sao cho khoảng cách từ bến thuyền đến con đường này là ngắn nhất. Biết toạ độ của điểm để xây bến thuyền này là $M(a;b)$. Giá trị $a+5b$ bằng 43
+          <label><input name="q33d" type="radio" value="True"/> True</label>
+          <label><input name="q33d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q33',['False','True','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q34">
+      <p><strong>Question 34</strong>. (THPT Cẩm Xuyên - Hà Tĩnh 2025) Một chất điểm chuyển động theo phương trình $s(t)=-t^3+9t^2+21t+9$ với t tính bằng giây (s) là khoảng thời gian tính từ lúc vật bắt đầu chuyển động và S tính bằng mét (m) là quãng đường vật đi trong thời gian đó.</p>
+      <div class="options">
+        <div class="option-row">a) Vận tốc của chất điểm chuyển động tại thời điểm t (giây) là $v(t)=-3t^2+18t+21$
+          <label><input name="q34a" type="radio" value="True"/> True</label>
+          <label><input name="q34a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Vận tốc của chất điềm tại giây thứ 2 là 45m/s
+          <label><input name="q34b" type="radio" value="True"/> True</label>
+          <label><input name="q34b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Quãng đường chất điểm đi được từ lúc bắt đầu đến lúc dừng hẳn là 255(m)
+          <label><input name="q34c" type="radio" value="True"/> True</label>
+          <label><input name="q34c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vận tốc chuyền động của chất điểm đạt giá trị lớn nhất tại thời điềm $t=3(s)$
+          <label><input name="q34d" type="radio" value="True"/> True</label>
+          <label><input name="q34d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q34',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q35">
+      <p><strong>Question 35</strong>. (Sở Vĩnh Phúc 2025) Một cửa hàng bán cam canh Cao Phong với giá là 40000 đồng/1 kg. Giá nhập vào là 24000 đồng/1 kg. Với giá bán này cửa hàng bán được 100 kg/ngày. Cửa hàng dự định giảm giá bán, ước tính cứ giảm 1000 đồng/1 kg thì số cam canh Cao Phong bán được sẽ tăng thêm là 10 kg.</p>
+      <div class="options">
+        <div class="option-row">a) Nếu giữ nguyên giá bán đầu, lợi nhuận theo ngày của cửa hàng là 1500000 đồng
+          <label><input name="q35a" type="radio" value="True"/> True</label>
+          <label><input name="q35a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Nếu giá bán là 35000 đồng/1 kg, khi đó cửa hàng bán được 150 kg/1 ngày
+          <label><input name="q35b" type="radio" value="True"/> True</label>
+          <label><input name="q35b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nếu giá bán là 30000 đồng/1 kg, khi đó lợi nhuận theo ngày của cửa hàng là 1300000 đồng
+          <label><input name="q35c" type="radio" value="True"/> True</label>
+          <label><input name="q35c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Lợi nhuận tối đa theo ngày của cửa hàng là 1690000 đồng
+          <label><input name="q35d" type="radio" value="True"/> True</label>
+          <label><input name="q35d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q35',['False','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q36">
+      <p><strong>Question 36</strong>. (THPT Lê Thánh Tông - HCM 2025) Sau học kì I năm học 2024–2025, thầy Nghĩa chủ nhiệm lớp 12B5 nhận thấy rằng lớp mình có 60\% học sinh có kết quả suất sắc, 40\% học sinh có kết quả loại giỏi, không có học sinh khá và trung bình. Nhưng để nắm chính xác hơn về năng lực tư duy môn Toán của từng học sinh nên thầy Nghĩa đã cho học sinh làm bài kiểm tra toán trong 90 phút. Sau khi chấm bài xong, thầy Nghĩa thấy rằng trong số học sinh loại giỏi có 8 học sinh từ 9 điểm trở lên và có 75\% học sinh xuất sắc trong các học sinh được điểm Toán từ 9 trở lên. Biết lớp 12B5 có 40 học sinh.</p>
+      <div class="options">
+        <div class="option-row">a) Tỉ lệ học sinh có điểm Toán từ 9 trở lên của lớp 12B5 là 80\%
+          <label><input name="q36a" type="radio" value="True"/> True</label>
+          <label><input name="q36a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Học sinh xuất sắc kiểm tra môn Toán đều có điểm lớn hơn hoặc bằng 9
+          <label><input name="q36b" type="radio" value="True"/> True</label>
+          <label><input name="q36b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Những học sinh có điểm Toán dưới 9 điểm đều là học sinh loại giỏi
+          <label><input name="q36c" type="radio" value="True"/> True</label>
+          <label><input name="q36c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Có 22 học sinh kết quả xuất sắc có điểm trên 9 biết rằng tỉ lệ học sinh có điểm Toán trên 9 điểm của học sinh giỏi bằng 37,5\% và trong số học sinh có điểm bằng 9 có 50\% học sinh xuất sắc
+          <label><input name="q36d" type="radio" value="True"/> True</label>
+          <label><input name="q36d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q36',['True','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q37">
+      <p><strong>Question 37</strong>. (Chuyên Hạ Long 2025) Một cơ sở sản xuất có thể cung cấp 1000 sản phẩm A trong 1 tháng. Qua khảo sát thì thấy rằng nếu sản phẩm A bán với giá 100 nghìn đồng thì có 290 người mua, nếu cứ giảm 10 nghìn đồng thì lại có thêm 50 người mua. Gọi $p$ là giá bán sản phẩm A (nghìn đồng) và $R(p)$ là hàm doanh thu trong 1 tháng (nghìn đồng).</p>
+      <div class="options">
+        <div class="option-row">a) Số sản phẩm bán ra là $790-5p$
+          <label><input name="q37a" type="radio" value="True"/> True</label>
+          <label><input name="q37a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hàm doanh thu $R(p)=1000-790p+5p^2$
+          <label><input name="q37b" type="radio" value="True"/> True</label>
+          <label><input name="q37b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Phương trình $R'(p)=0$ có nghiệm là $p=79$
+          <label><input name="q37c" type="radio" value="True"/> True</label>
+          <label><input name="q37c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Doanh thu lớn nhất trong 1 tháng là 31.205.000 đồng
+          <label><input name="q37d" type="radio" value="True"/> True</label>
+          <label><input name="q37d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q37',['True','False','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q38">
+      <p><strong>Question 38</strong>. (Chuyên Vinh 2025) Những ngày giáp Tết Nguyên Đán cũng là dịp bước vào vụ Đông Xuân, bà con nông dân tích cực xuống đồng cấy lúa. Cây lúa sau khi được cấy trải qua quá trình tăng trưởng để nhanh và phát triển chiều cao trước khi làm đòng, trổ bông. Qua nghiên cứu một giống lúa mới, các nhà khoa học nhận thấy một cây lúa tính từ lúc được cấy bằng một cây mạ với chiều cao 20cm có tốc độ tăng trưởng chiều cao cho bởi hàm số $v(t) = -0,1t^3+1,1t^2$, trong đó $t$ tính theo tuần, $v(t)$ tính bằng cm/tuần. Gọi $h(t)$ là chiều cao của cây lúa ở tuần thứ $t$ ($t \ge 0$).
+<img src="images/figure-002">
+</p>
+      <div class="options">
+        <div class="option-row">a) $h(t) = -\frac{1}{40}t^4 + \frac{11}{30}t^3 + 20$
+          <label><input name="q38a" type="radio" value="True"/> True</label>
+          <label><input name="q38a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Giai đoạn tăng trưởng chiều cao của cây lúa kéo dài 12 tuần
+          <label><input name="q38b" type="radio" value="True"/> True</label>
+          <label><input name="q38b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chiều cao tối đa của cây lúa là 150cm
+          <label><input name="q38c" type="radio" value="True"/> True</label>
+          <label><input name="q38c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vào thời điểm cây lúa phát triển nhanh nhất, chiều cao của cây đã lớn hơn 80cm
+          <label><input name="q38d" type="radio" value="True"/> True</label>
+          <label><input name="q38d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q38',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q39">
+      <p><strong>Question 39</strong>. (Cụm trường THPT Hải Dương 2025) Một ô tô đang chạy với vận tốc 80 km/h thì người lái xe bất ngờ phát hiện chướng ngại vật trên đường cách đó 55m. Người lái xe phản ứng một giây, sau đó đạp phanh. Kể từ thời điểm này, ô tô chuyển động chậm dần đều với vận tốc thay đổi theo hàm số $v(t)=-10t+20$ (m/s), trong đó $t$ là thời gian tính bằng giây kể từ lúc đạp phanh. Gọi $s(t)$ là quãng đường xe ô tô đi được trong $t$ giây kể từ lúc đạp phanh.</p>
+      <div class="options">
+        <div class="option-row">a) Quãng đường $s(t)$ mà xe ô tô đi được trong $t$ giây kể từ lúc đạp phanh là một nguyên hàm của hàm số $v(t)$
+          <label><input name="q39a" type="radio" value="True"/> True</label>
+          <label><input name="q39a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) $s(t) = -5t^2+20t+55$
+          <label><input name="q39b" type="radio" value="True"/> True</label>
+          <label><input name="q39b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Thời gian kể từ lúc người lái xe đạp phanh đến khi xe ô tô dừng hẳn là 4 giây
+          <label><input name="q39c" type="radio" value="True"/> True</label>
+          <label><input name="q39c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Đến khi dừng hẳn, xe ô tô còn cách chướng ngại vật một khoảng lớn hơn 12 m
+          <label><input name="q39d" type="radio" value="True"/> True</label>
+          <label><input name="q39d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q39',['True','False','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q40">
+      <p><strong>Question 40</strong>. (THPT Trần Nguyên Hãn - Hải Phòng 2025) Quảng cáo là hình thức tuyên truyền được trả phí hoặc không để thực hiện việc giới thiệu thông tin về sản phẩm, dịch vụ, công ty hay ý tưởng, quảng cáo là hoạt động truyền thông phi trực tiếp giữa người với người mà trong đó người muốn truyền thông phải trả tiền cho các phương tiện truyền thông đại chúng để đưa thông tin đến thuyết phục hay tác động đến người nhận thông tin. Khảo sát tại một công ty A cho thấy nếu chi $X$ triệu đồng để quảng cáo một loại sản phẩm thì số sản phẩm công ty A bán được là $S(x)=-2x^3+27x^2+216x+150$ với $x \in [0;15]$.</p>
+      <div class="options">
+        <div class="option-row">a) $S'(x) = -6x^2+54x+216$
+          <label><input name="q40a" type="radio" value="True"/> True</label>
+          <label><input name="q40a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Nếu công ty A chi 11 triệu đồng đến 12 triệu đồng cho quảng cáo loại sản phẩm này thì số lượng sản phẩm công ty A bán được đạt tối đa bằng 3131 triệu đồng
+          <label><input name="q40b" type="radio" value="True"/> True</label>
+          <label><input name="q40b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nếu không chi cho quảng cáo thì số lượng sản phẩm công ty A bán được là 391 sản phẩm
+          <label><input name="q40c" type="radio" value="True"/> True</label>
+          <label><input name="q40c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Nếu công ty A chi từ 11 triệu đồng đến 12 triệu đồng cho quảng cáo loại sản phẩm này thì số lượng sản phẩm bán được sẽ tăng
+          <label><input name="q40d" type="radio" value="True"/> True</label>
+          <label><input name="q40d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q40',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q41">
+      <p><strong>Question 41</strong>. (Sở Vĩnh Phúc 2025) Quan sát quá trình sinh trưởng và phát triển của một giống cà chua mới trong 18 tuần kể từ khi trồng, các kĩ sư thuộc một trung tâm giống cây trồng nhận thấy: chiều cao thân cây sau t tuần kể từ khi trồng được tính xấp xỉ bởi hàm số $h(t)=40\log_3(2t+1)+12$ (đơn vị: centimet, $0 \le t \le 18$). Sau 9 tuần kể từ khi trồng, hoa bắt đầu kết trái. Kể từ đó, đường kính trái cà chua ở tuần thứ $t$ xấp xỉ bởi hàm số $d(t)=3^{\frac{2t-17}{t-8}}-3$ (đơn vị: centimet, $9 \le t \le 18$).</p>
+      <div class="options">
+        <div class="option-row">a) Tốc độ tăng trưởng chiều cao của thân cây cà chua ở tuần thứ 7 (làm tròn đến hàng phần trăm) xấp xỉ bằng 4,85 (cm/tuần)
+          <label><input name="q41a" type="radio" value="True"/> True</label>
+          <label><input name="q41a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Khi được 4 tuần tuổi, chiều cao của thân cây cà chua là 92 cm
+          <label><input name="q41b" type="radio" value="True"/> True</label>
+          <label><input name="q41b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chiều cao của thân cây cà chua liên tục tăng trong suốt 18 tuần
+          <label><input name="q41c" type="radio" value="True"/> True</label>
+          <label><input name="q41c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Sau 4 tuần, kể từ khi kết trái, đường kính trái cà chua lớn hơn 12cm
+          <label><input name="q41d" type="radio" value="True"/> True</label>
+          <label><input name="q41d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q41',['True','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q42">
+      <p><strong>Question 42</strong>. (Cụm trường Hưng Yên 2025) Một cơ sở sản xuất khăn đang bán mỗi chiếc khăn với giá 50000 đồng một chiếc và mỗi tháng cơ sở bán được trung bình 34000 chiếc khăn. Cơ sở sản xuất đang có kế hoạch tăng giá bán để có lợi nhuận tốt hơn. Sau khi tham khảo thị trường, người quản lý thấy rằng nếu từ mức giá 50000 đồng mà cứ tăng giá thêm 1000 đồng thì mỗi tháng sẽ bán ít hơn 500 chiếc. Biết vốn sản xuất một chiếc khăn không thay đổi là 32000 đồng, gọi số tiền cần tăng giá mỗi chiếc khăn là $X$ (nghìn đồng). Xét tính đúng sai của các khẳng định sau:</p>
+      <div class="options">
+        <div class="option-row">a) Tổng doanh thu trung bình mỗi tháng cơ sở sản xuất thu được khi chưa tăng giá là 1700000000 nghìn đồng
+          <label><input name="q42a" type="radio" value="True"/> True</label>
+          <label><input name="q42a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Số khăn bán ra được mỗi tháng sau khi tăng giá là $34000-5x$ chiếc
+          <label><input name="q42b" type="radio" value="True"/> True</label>
+          <label><input name="q42b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Để đạt lợi nhuận lớn nhất thì sau khi tăng giá mỗi chiếc khăn lãi 41 nghìn đồng
+          <label><input name="q42c" type="radio" value="True"/> True</label>
+          <label><input name="q42c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Để đạt lợi nhuận lớn nhất thì số khăn bán ra giảm 12500 chiếc
+          <label><input name="q42d" type="radio" value="True"/> True</label>
+          <label><input name="q42d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q42',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q43">
+      <p><strong>Question 43</strong>. (Sở Thừa Thiên Huế 2025) Ông An có một mảnh đất hình vuông ABCD có cạnh AB=12m. Ông làm một hồ bơi dạng hình thang cong (phần tô đậm) và một lối đi là đoạn thẳng HB. Nếu đặt hệ trục toạ độ có gốc tại A như hình vẽ, độ dài đơn vị là 1m, thì đường cong EFIG là một phần đồ thị của một hàm số bậc ba $y=f(x)$ có F là điểm cực tiểu và I là điểm cực đại. Biết $CH=DE=GB=3m$ và các điểm F, I cách cạnh AD lần lượt là 2m và 6m.
+<img src="images/figure-001">
+</p>
+      <div class="options">
+        <div class="option-row">a) Phương trình của đường thẳng HB là $y = -4x+48$
+          <label><input name="q43a" type="radio" value="True"/> True</label>
+          <label><input name="q43a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Tồn tại $a \in \mathbb{R}$ sao cho $f'(x) = a(x+2)(x+6)$
+          <label><input name="q43b" type="radio" value="True"/> True</label>
+          <label><input name="q43b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tiếp tuyến của đồ thị hàm số $y=f(x)$ tại điểm có hoành độ bằng 7 song song với đường thẳng HB
+          <label><input name="q43c" type="radio" value="True"/> True</label>
+          <label><input name="q43c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Ông An cần đặt một cái thang lên xuống hồ bơi tại một điểm trên đường cong EFIG sao cho khoảng cách từ điểm đặt thang đến lối đi là ngắn nhất, khoảng cách đó bằng 2,56m (kết quả làm tròn đến hàng phần trăm)
+          <label><input name="q43d" type="radio" value="True"/> True</label>
+          <label><input name="q43d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q43',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q44">
+      <p><strong>Question 44</strong>. (Chuyên Hoàng Văn Thụ - Hòa Bình 2025) Vận tốc $v_1 (cm/s)$ của con lắc thứ nhất và vận tốc $v_2 (cm/s)$ của con lắc thứ hai theo thời gian $t$ (giây) được cho bởi công thức
+$v_1(t)=2\cos\left(t-\frac{\pi}{3}\right); v_2(t)=4\cos\left(\frac{t}{3}+\frac{\pi}{6}\right)$
+<img src="images/figure-002">
+</p>
+      <div class="options">
+        <div class="option-row">a) Tại thời điểm ban đầu vận tốc con lắc thứ nhất bằng 1
+          <label><input name="q44a" type="radio" value="True"/> True</label>
+          <label><input name="q44a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Vận tốc lớn nhất của con lắc thứ hai bằng 4
+          <label><input name="q44b" type="radio" value="True"/> True</label>
+          <label><input name="q44b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tại thời điểm $t = \frac{\pi}{4}$, vận tốc của con lắc thứ hai gấp hai lần vận tốc của con lắc thứ nhất
+          <label><input name="q44c" type="radio" value="True"/> True</label>
+          <label><input name="q44c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Trong thời gian 10 giây đầu tiên, con lắc thứ nhất đạt vận tốc lớn nhất hai lần
+          <label><input name="q44d" type="radio" value="True"/> True</label>
+          <label><input name="q44d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q44',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q45">
+      <p><strong>Question 45</strong>. (THPT Sào Nam - Quảng Nam 2025) Xét một chất điểm M chuyển động trên đường nằm ngang chọn O làm gốc, chiều dương từ trái sang phải. Chuyển động của M được cho bởi công thức $S(t)=t^3-3t^2-1$, với $t$ (giây), $t \ge 0$ là khoảng thời gian tính từ lúc chất điểm bắt đầu chuyển động. Gọi OM là khoảng cách từ M đến O tính bằng (mét).</p>
+      <div class="options">
+        <div class="option-row">a) Tại thời điểm $t=0$ thì $OM=1m$
+          <label><input name="q45a" type="radio" value="True"/> True</label>
+          <label><input name="q45a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Chất điểm chuyển động với vận tốc được xác định bởi biểu thức $v=3t^2-6t+1$ (m/s)
+          <label><input name="q45b" type="radio" value="True"/> True</label>
+          <label><input name="q45b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Trong khoảng thời gian 2 giây đầu tiên kể từ lúc bắt đầu chuyển động, chất điểm chuyển động sang trái
+          <label><input name="q45c" type="radio" value="True"/> True</label>
+          <label><input name="q45c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Đến giây thứ 3 kể từ lúc bắt đầu chuyển động, khoảng cách lớn nhất của OM là 5m
+          <label><input name="q45d" type="radio" value="True"/> True</label>
+          <label><input name="q45d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q45',['True','False','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q46">
+      <p><strong>Question 46</strong>. (Sở Ninh Bình 2025) Một chiếc đèn được đặt trên đỉnh của một cột đèn cao $h(m)$ để chiếu sáng một vòng xuyến giao thông đông đúc có bán kính 12 m. Cường độ ánh sáng I tại một điểm P trên vòng xuyến tỉ lệ thuận với cosin của góc $\theta$ và tỉ lệ nghịch với bình phương khoảng cách $d(m)$ từ nguồn sáng đến điểm P (xem hình dưới đây).
+<img src="images/figure-004">
+</p>
+      <div class="options">
+        <div class="option-row">a) Nếu $I=f(h)$ thì $f'(h)=k \frac{-2h^2+144}{(h^2+144)^2\sqrt{h^2+144}}.$
+          <label><input name="q46a" type="radio" value="True"/> True</label>
+          <label><input name="q46a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Để cường độ ánh sáng I lớn nhất thì cột đèn phải cao $6\sqrt{2}$ m
+          <label><input name="q46b" type="radio" value="True"/> True</label>
+          <label><input name="q46b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) $\cos\theta = \frac{12}{\sqrt{h^2+144}}.$
+          <label><input name="q46c" type="radio" value="True"/> True</label>
+          <label><input name="q46c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) $I = k\frac{\cos\theta}{d^2}$ (với k là hằng số dương)
+          <label><input name="q46d" type="radio" value="True"/> True</label>
+          <label><input name="q46d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q46',['False','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q47">
+      <p><strong>Question 47</strong>. (Sở Thái Nguyên 2025) Sau khi phát hiện một bệnh dịch, các chuyên gia y tế ước tính số người nhiễm bệnh kể từ ngày xuất hiện bệnh nhân đầu tiên đến ngày thứ t là $f(t)=45t^2-t^3$ với $t \ge 0$. Nếu coi $y=f(t)$ là hàm số xác định trên $[0;+\infty)$ thì $f'(t)$ được xem là tốc độ truyền bệnh (người/ngày) tại thời điểm $t$.</p>
+      <div class="options">
+        <div class="option-row">a) Tốc độ truyền bệnh tại thời điểm $t$ là $f'(t)=90t-3t^2$
+          <label><input name="q47a" type="radio" value="True"/> True</label>
+          <label><input name="q47a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Số người bị nhiễm bệnh từ ngày xuất hiện bệnh nhân đầu tiên đến ngày thứ 13 là 4752
+          <label><input name="q47b" type="radio" value="True"/> True</label>
+          <label><input name="q47b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đến ngày thứ 45 thì không còn người nhiễm bệnh
+          <label><input name="q47c" type="radio" value="True"/> True</label>
+          <label><input name="q47c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Trong 35 ngày đầu tiên thì số người nhiễm bệnh luôn tăng
+          <label><input name="q47d" type="radio" value="True"/> True</label>
+          <label><input name="q47d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q47',['True','False','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q48">
+      <p><strong>Question 48</strong>. (Sở Quảng Bình 2025) Một sợi dây kim loại dài 6(cm). Người ta cắt sợi dây đó thành hai đoạn. Đoạn có độ dài $x(cm)$ được uốn thành đường tròn và đoạn còn lại được uốn thành hình vuông ($0<x<6$).
+<img src="images/figure-007">
+</p>
+      <div class="options">
+        <div class="option-row">a) Bán kính đường tròn là $r = \frac{x}{\pi}$
+          <label><input name="q48a" type="radio" value="True"/> True</label>
+          <label><input name="q48a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Diện tích hình vuông là $\left(\frac{6-x}{4}\right)^2$
+          <label><input name="q48b" type="radio" value="True"/> True</label>
+          <label><input name="q48b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng diện tích hai hình là $\frac{(4+\pi)x^2-12\pi x+36\pi}{16\pi}$
+          <label><input name="q48c" type="radio" value="True"/> True</label>
+          <label><input name="q48c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Khi $x=\frac{6\pi}{2+\pi}$ thì hình vuông và hình tròn tương ứng có tổng diện tích nhỏ nhất
+          <label><input name="q48d" type="radio" value="True"/> True</label>
+          <label><input name="q48d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q48',['False','True','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q49">
+      <p><strong>Question 49</strong>. (Sở Bạc Liêu 2025) Cho hàm số $y=f(x)=ax^3+bx^2+cx+d$ có đồ thị như vẽ
+<img src="images/figure-009">
+</p>
+      <div class="options">
+        <div class="option-row">a) Hàm số có hệ số $d>0$
+          <label><input name="q49a" type="radio" value="True"/> True</label>
+          <label><input name="q49a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Hàm số có hệ số $a>0$
+          <label><input name="q49b" type="radio" value="True"/> True</label>
+          <label><input name="q49b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đồ thị hàm số đã cho đi qua điểm $E(0;2)$
+          <label><input name="q49c" type="radio" value="True"/> True</label>
+          <label><input name="q49c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Một hộ làm nghề dệt vải lụa tơ tằm sản xuất mỗi ngày được x mét vải lụa ($0 \le x \le 18$). Tổng chi phí sản xuất x mét vải lụa, tính bằng nghìn đồng, cho bởi hàm chi phí $C(x)=f(x)-20x+500$. Giả sử hộ làm nghề dệt này bán hết sản phẩm mỗi ngày với giá 200 nghìn đồng/mét. Lợi nhuận tối đa của hộ làm nghề dệt vải lụa tơ tằm trong một ngày là 1100 nghìn đồng
+          <label><input name="q49d" type="radio" value="True"/> True</label>
+          <label><input name="q49d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q49',['False','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q50">
+      <p><strong>Question 50</strong>. (THPT Lê Thánh Tông - Nguyễn Khuyến 2025) Số giờ có ánh sáng mặt trời của thành phố A ở vĩ độ 40° Bắc trong ngày thứ t của một năm không nhuận được cho bởi hàm số: $d(t)=3\sin\left[\frac{\pi}{182}(t-80)\right]+12$ với $t \in \mathbb{N}$ và $0 < t \le 365$.
+<img src="images/figure-010">
+</p>
+      <div class="options">
+        <div class="option-row">a) Ngày thứ 80 trong năm có đúng 10 giờ ánh sáng mặt trời
+          <label><input name="q50a" type="radio" value="True"/> True</label>
+          <label><input name="q50a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Đạo hàm của hàm số đã cho là $d'(t)=\frac{3\pi}{182}\cos\left[\frac{\pi}{182}(t-80)\right]$
+          <label><input name="q50b" type="radio" value="True"/> True</label>
+          <label><input name="q50b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nghiệm của phương trình $d'(t)=0$ trên đoạn [1;171] là t=171
+          <label><input name="q50c" type="radio" value="True"/> True</label>
+          <label><input name="q50c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Ngày thứ 160 có số giờ ánh sáng lớn nhất trong năm
+          <label><input name="q50d" type="radio" value="True"/> True</label>
+          <label><input name="q50d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q50',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q51">
+      <p><strong>Question 51</strong>. (Chuyên Phan Bội Châu - Hà Tĩnh 2025) Cây đậu Hà Lan khi trồng có chiều cao 3 centimet. Gọi $h(t)$ là độ cao tính bằng centimet của cây đậu Hà Lan tại thời điểm $t$ kể từ khi được trồng, với $t$ tính theo tuần. Khảo sát cho thấy tốc độ tăng chiều cao của cây đậu Hà Lan sau khi trồng là $h'(t)=-0,02t^3+0,3t^2$ (centimet/tuần).</p>
+      <div class="options">
+        <div class="option-row">a) Hàm số $h(t)$ có công thức là $h(t) = -0,005t^4+0,1t^3$
+          <label><input name="q51a" type="radio" value="True"/> True</label>
+          <label><input name="q51a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Giai đoạn tăng trưởng của cây đậu Hà Lan đó kéo dài 15 tuần
+          <label><input name="q51b" type="radio" value="True"/> True</label>
+          <label><input name="q51b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chiều cao tối đa của cây đậu Hà Lan đó là 88 centimet
+          <label><input name="q51c" type="radio" value="True"/> True</label>
+          <label><input name="q51c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vào thời điểm cây đậu Hà Lan phát triển nhanh nhất thì chiều cao của cây là 53 centimet
+          <label><input name="q51d" type="radio" value="True"/> True</label>
+          <label><input name="q51d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q51',['False','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q52">
+      <p><strong>Question 52</strong>. (Sở Hòa Bình 2025) Cây cà chua khi trồng có chiều cao 5cm. Tốc độ tăng trưởng chiều cao của cây cà chua khi trồng được cho bởi hàm số $v(t) = -0,1t^3+t^2$, trong đó $t$ tính theo tuần, $v(t)$ tính bằng centimét/tuần. Gọi $h(t)$ (tính bằng centimét) là chiều cao của cây cà chua ở tuần thứ $t (t \ge 0)$</p>
+      <div class="options">
+        <div class="option-row">a) $h(t)=-\frac{1}{40}t^4+\frac{1}{3}t^3$
+          <label><input name="q52a" type="radio" value="True"/> True</label>
+          <label><input name="q52a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Giai đoạn tăng trưởng chiều cao của cây cà chua kéo dài 10 tuần
+          <label><input name="q52b" type="radio" value="True"/> True</label>
+          <label><input name="q52b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Chiều cao của cây cà chua ở tuần thứ 6 lớn hơn 40cm
+          <label><input name="q52c" type="radio" value="True"/> True</label>
+          <label><input name="q52c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chiều cao tối đa của cây cà chua không vượt quá 90 cm
+          <label><input name="q52d" type="radio" value="True"/> True</label>
+          <label><input name="q52d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q52',['False','True','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q53">
+      <p><strong>Question 53</strong>. (Sở Phú Thọ 2025) Cây cà chua khi trồng có chiều cao 5 cm. Tốc độ tăng chiều cao của cây cà chua sau khi trồng được cho bởi hàm số $v(t)=-0,1t^3+t^2$, trong đó $t$ tính theo tuần, $v(t)$ tính bằng centimét/tuần. Gọi $h(t)$ (tính bằng centimét) là độ cao của cây cà chua ở tuần thứ $t$ (Nguồn: A. Bigalke et al., Mathematik, Grundkurs ma-1, Cornelsen 2016).</p>
+      <div class="options">
+        <div class="option-row">a) $h'(t)=v(t)$
+          <label><input name="q53a" type="radio" value="True"/> True</label>
+          <label><input name="q53a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) $h(t)=-\frac{t^4}{40}+\frac{t^3}{3}+5 (t \ge 0)$
+          <label><input name="q53b" type="radio" value="True"/> True</label>
+          <label><input name="q53b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Giai đoạn tăng trưởng của cây cà chua đó kéo dài 9 tuần
+          <label><input name="q53c" type="radio" value="True"/> True</label>
+          <label><input name="q53c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chiều cao tối đa của cây cà chua đó là 88,3cm. (Làm tròn kết quả đến hàng phần mười)
+          <label><input name="q53d" type="radio" value="True"/> True</label>
+          <label><input name="q53d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q53',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q54">
+      <p><strong>Question 54</strong>. (Sở Lào Cai 2025) Khi loại thuốc A được tiêm vào bệnh nhân, nồng độ (mg/l) của thuốc trong máu sau $x$ phút (kể từ khi bắt đầu tiêm) được xác định bởi công thức: $C(x)=\frac{30x}{x^2+2}$. (Nguồn: James Stewart, J. (2015). Calculus. Cengage Learning)</p>
+      <div class="options">
+        <div class="option-row">a) Thời điểm 1 phút sau khi tiêm, nồng độ thuốc trong máu là 10 (mg/l)
+          <label><input name="q54a" type="radio" value="True"/> True</label>
+          <label><input name="q54a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Đạo hàm của hàm số $C(x)$ là $C'(x)=\frac{60-30x^2}{(x^2+2)^2}$
+          <label><input name="q54b" type="radio" value="True"/> True</label>
+          <label><input name="q54b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Trong khoảng thời gian từ 1 phút sau khi tiêm trở đi, nồng độ thuốc trong máu giảm dần
+          <label><input name="q54c" type="radio" value="True"/> True</label>
+          <label><input name="q54c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Nồng độ thuốc trong máu đạt giá trị lớn nhất tại thời điểm 2 phút sau khi tiêm
+          <label><input name="q54d" type="radio" value="True"/> True</label>
+          <label><input name="q54d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q54',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q55">
+      <p><strong>Question 55</strong>. (Sở Quảng Nam 2025) Nhà ông A cần làm một bể chứa nước có dạng khối hộp chữ nhật không nắp, có đáy là hình chữ nhật và chiều dài gấp ba lần chiều rộng, khối hộp tương ứng có thể tích bằng 1152 dm$^3$. Giả sử bề dày của thành bể và đáy bể là không đáng kể, Giá thuê công nhân để làm bể là 400000 đồng/m$^2$. Gọi x là chiều rộng của đáy bể (x là số dương và có đơn vị là dm).
+<img src="images/figure-005">
+</p>
+      <div class="options">
+        <div class="option-row">a) Chiều cao của bể nước là $\frac{384}{x^2}$ (dm)
+          <label><input name="q55a" type="radio" value="True"/> True</label>
+          <label><input name="q55a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Diện tích xung quanh của bể chứa nước là $\frac{3072}{x}$ (dm$^2$)
+          <label><input name="q55b" type="radio" value="True"/> True</label>
+          <label><input name="q55b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng diện tích cần làm của bể chứa nước là $\frac{3072}{x}+6x^2$ (dm$^2$)
+          <label><input name="q55c" type="radio" value="True"/> True</label>
+          <label><input name="q55c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Chi phí thấp nhất mà ông A trả cho công nhân làm bể nước theo yêu cầu là 3072000 đồng
+          <label><input name="q55d" type="radio" value="True"/> True</label>
+          <label><input name="q55d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q55',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q56">
+      <p><strong>Question 56</strong>. (Sở Thái Nguyên 2025) Một chất điểm chuyển động theo phương trình $s(t)=t^3-3t^2+6t+4$, trong đó $0 \le t \le 10$, t tính bằng giây và $s(t)$ tính bằng mét.</p>
+      <div class="options">
+        <div class="option-row">a) Quãng đường chất điểm chuyển động trong 2(s) đầu tiên là 8(m)
+          <label><input name="q56a" type="radio" value="True"/> True</label>
+          <label><input name="q56a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Vận tốc tức thời của chất điểm tại thời điểm t=3(s) là 15(m/s)
+          <label><input name="q56b" type="radio" value="True"/> True</label>
+          <label><input name="q56b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tại thời điểm mà $s(t)=22(m)$ thì gia tốc tức thời của chất điểm là 12($m/s^2$)
+          <label><input name="q56c" type="radio" value="True"/> True</label>
+          <label><input name="q56c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Tại thời điểm t=2(s) vận tốc tức thời của chất điểm đạt giá trị nhỏ nhất
+          <label><input name="q56d" type="radio" value="True"/> True</label>
+          <label><input name="q56d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q56',['True','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q57">
+      <p><strong>Question 57</strong>. (Liên Trường Nghệ An 2025) Nhân dịp Tết Trung thu, bác Oanh làm các đèn lồng cho con. Mỗi đèn bác dùng một sợi dây đồng dài 24dm cắt thành 3 đoạn để uốn làm khung đèn. Đoạn thứ nhất bác uốn thành hình vuông ABCD có cạnh bằng $x(dm)$ để làm đáy, hai đoạn còn lại có độ dài bằng nhau uốn thành các đường gấp khúc ASC và BSD. Khung đèn sau khi hoàn thiện có hình dạng là một hình chóp tứ giác đều S.ABCD và mặt ngoài của đèn được dán giấy màu để trang trí (xem các mối nối, dán là không đáng kể). Khi đó ta có:
+<img src="images/figure-007">
+</p>
+      <div class="options">
+        <div class="option-row">a) Độ dài cạnh bên của khung đèn bằng $6-x(dm)$
+          <label><input name="q57a" type="radio" value="True"/> True</label>
+          <label><input name="q57a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Khi $x=2(dm)$ thì độ dài đường cao của khung đèn là $\sqrt{14}(dm)$
+          <label><input name="q57b" type="radio" value="True"/> True</label>
+          <label><input name="q57b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Khi tất cả các cạnh bằng nhau thì diện tích giấy màu cần dùng là $9(1+\sqrt{3})dm^2$
+          <label><input name="q57c" type="radio" value="True"/> True</label>
+          <label><input name="q57c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Thể tích phần không gian của đèn lồng lớn nhất khi $x=2,79dm$ (Kết quả làm tròn đến hàng phần trăm)
+          <label><input name="q57d" type="radio" value="True"/> True</label>
+          <label><input name="q57d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q57',['True','True','True','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q58">
+      <p><strong>Question 58</strong>. (THPT Tư Nghĩa 1 - Quảng Ngãi 2025) Một tấm nhôm hình vuông ABCD có cạnh bằng 30cm. Người ta gập tấm nhôm theo hai cạnh EF và GH cho đến khi AD và BC trùng nhau như hình vẽ bên để được một hình lăng trụ khuyết hai đáy.
+<img src="images/figure-009">
+</p>
+      <div class="options">
+        <div class="option-row">a) Thể tích khối lăng trụ được tính bằng công thức $V=30S$ trong đó S là diện tích của tam giác AEG
+          <label><input name="q58a" type="radio" value="True"/> True</label>
+          <label><input name="q58a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Giá trị của x để thể tích khối lăng trụ lớn nhất là $x=10(cm)$
+          <label><input name="q58b" type="radio" value="True"/> True</label>
+          <label><input name="q58b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Diện tích của tam giác AEG bằng $\sqrt{30.(15-x)^2.(2x-15)}$
+          <label><input name="q58c" type="radio" value="True"/> True</label>
+          <label><input name="q58c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Thể tích khối lăng trụ lớn nhất bằng 1250
+          <label><input name="q58d" type="radio" value="True"/> True</label>
+          <label><input name="q58d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q58',['True','True','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q59">
+      <p><strong>Question 59</strong>. (Sở Vũng Tàu 2025) Một khu du lịch sinh thái đang khai thác dịch vụ chèo thuyền và ngắm cảnh ven hồ. Hồ nước có dạng hình tròn tâm $O$, bán kính bằng 1km và tại hai vị trí A, B đối xứng nhau qua O người ta xây dựng nơi bán vé vào và nơi kết thúc thăm quan. Du khách sẽ được sử dụng dịch vụ chèo thuyền từ vị trí A đến vị trí C trên bờ hồ và sẽ có xe chở ngắm cảnh từ vị trí C men theo bờ hồ đến nơi kết thúc B. Biết rằng vận tốc chèo thuyền là 100m mỗi phút và vận tốc xe chạy ngắm cảnh là 200m mỗi phút. Gọi x (radian) là số đo góc $\widehat{CAB} \left(0 \le x < \frac{\pi}{2}\right)$.
+<img src="images/figure-001">
+</p>
+      <div class="options">
+        <div class="option-row">a) Khi $x=0$ thời gian đi từ A đến B là 20 phút
+          <label><input name="q59a" type="radio" value="True"/> True</label>
+          <label><input name="q59a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Quãng đường xe chở người đi ngắm cảnh là 1000x (mét)
+          <label><input name="q59b" type="radio" value="True"/> True</label>
+          <label><input name="q59b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Thời gian đi từ A đến B là $20\cos x + 5x$ (phút)
+          <label><input name="q59c" type="radio" value="True"/> True</label>
+          <label><input name="q59c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Thời gian xe đi từ A đến B luôn ít hơn 22 phút 30 giây với mọi cách chọn từ vị trí điểm C
+          <label><input name="q59d" type="radio" value="True"/> True</label>
+          <label><input name="q59d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q59',['True','False','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q60">
+      <p><strong>Question 60</strong>. (THPT Quế Võ 1 - Bắc Ninh 2025) Nhân ngày quốc tế Phụ nữ 20 – 10 năm 2024. Ông M đã mua tặng vợ một món quà và đặt nó trong một chiếc hộp chữ nhật có thể tích là 32 (đvtt) có đáy là hình vuông và không nắp. Để món quà trở nên đặc biệt và xứng tầm với giá trị của nó, ông quyết định mạ vàng chiếc hộp, biết rằng độ dày của lớp mạ trên mọi điểm của chiếc hộp là không đổi và như nhau. Gọi chiều cao và cạnh đáy của chiếc hộp lần lượt là $h$ và $x$.</p>
+      <div class="options">
+        <div class="option-row">a) Công thức tính thể tích chiếc hộp là $V=x^2h$
+          <label><input name="q60a" type="radio" value="True"/> True</label>
+          <label><input name="q60a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Diện tích các mặt ngoài của chiếc hộp là $S=2x^2+4xh$
+          <label><input name="q60b" type="radio" value="True"/> True</label>
+          <label><input name="q60b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Diện tích tất cả các mặt được mạ vàng là $S_{MV}=2x^2+4xh$
+          <label><input name="q60c" type="radio" value="True"/> True</label>
+          <label><input name="q60c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Khi cạnh đáy của chiếc hộp x lớn hơn 4 thì x càng lớn, lượng vàng được mạ càng tăng
+          <label><input name="q60d" type="radio" value="True"/> True</label>
+          <label><input name="q60d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q60',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q61">
+      <p><strong>Question 61</strong>. (Cụm Chương Mỹ - Thanh Oai 2025) Có hai cây cột, một cây cao 16 m và một cây cao 24 m đứng cách nhau 30 m. Chúng được giữ bằng hai sợi dây, gắn vào một cọc duy nhất nối từ mặt đất đến đỉnh mỗi cột (tham khảo hình vẽ sau).
+<img src="images/figure-003">
+Gọi $x(m)$ là khoảng cách từ chân cột cao 16 m đến cọc ($0 \le x \le 30$). Khi đó</p>
+      <div class="options">
+        <div class="option-row">a) Khoảng cách từ chân cây cột cao 24 m đến cọc là $30-x(m)$
+          <label><input name="q61a" type="radio" value="True"/> True</label>
+          <label><input name="q61a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Chiều dài của sợi dây nối từ cọc đến đỉnh cột cao 24 m là $\sqrt{(30-x)^2+24^2}$
+          <label><input name="q61b" type="radio" value="True"/> True</label>
+          <label><input name="q61b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Tổng chiều dài của hai sợi dây là $\sqrt{256+x^2}+\sqrt{1476-60x+x^2}$
+          <label><input name="q61c" type="radio" value="True"/> True</label>
+          <label><input name="q61c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Tổng chiều dài của hai sợi dây ngắn nhất bằng 51 m
+          <label><input name="q61d" type="radio" value="True"/> True</label>
+          <label><input name="q61d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q61',['True','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q62">
+      <p><strong>Question 62</strong>. (Cụm Chuyên Môn Đăk Lak 2025) Giả sử một hạt chuyển động trên một trục thẳng đứng chiều dương hướng lên trên sao cho tọa độ của hạt (đơn vị: mét) tại thời điểm t (giây) là $y=t^3-12t+3, (t \ge 0)$.</p>
+      <div class="options">
+        <div class="option-row">a) Hạt chuyển động lên trên khi $t>2$ và hạt chuyển động xuống dưới khi $t<2$
+          <label><input name="q62a" type="radio" value="True"/> True</label>
+          <label><input name="q62a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Quãng đường hạt đi được trong khoảng thời gian $0<t<3$ là 9 m
+          <label><input name="q62b" type="radio" value="True"/> True</label>
+          <label><input name="q62b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Hàm vận tốc là: $v(t)=y'=3t^2-12, (t \ge 0)$ và hàm gia tốc là $a(t)=6t, (t \ge 0)$
+          <label><input name="q62c" type="radio" value="True"/> True</label>
+          <label><input name="q62c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Hạt tăng tốc khi $t>2$ và hạt giảm tốc $0<t<2$
+          <label><input name="q62d" type="radio" value="True"/> True</label>
+          <label><input name="q62d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q62',['True','False','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q63">
+      <p><strong>Question 63</strong>. (Sở Hậu Giang 2025) Một tấm nhôm hình vuông cạnh 240cm. Người ta cắt ở bốn góc của tấm nhôm đó bốn hình vuông bằng nhau, mỗi hình vuông có cạnh bằng x(cm), rồi gập tấm nhôm lại như hình vẽ dưới đây để được một cái hộp không nắp.
+<img src="images/figure-005">
+</p>
+      <div class="options">
+        <div class="option-row">a) Thể tích khối hộp nhận được khi tính theo x là $V=x(240-2x)^2$
+          <label><input name="q63a" type="radio" value="True"/> True</label>
+          <label><input name="q63a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Khi $x=20cm$ thì thể tích của khối hộp nhận được là $8(m^3)$
+          <label><input name="q63b" type="radio" value="True"/> True</label>
+          <label><input name="q63b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Để hộp nhận được có thể tích lớn nhất thì $x=60cm$
+          <label><input name="q63c" type="radio" value="True"/> True</label>
+          <label><input name="q63c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Hộp nhận được có thể tích lớn nhất là $1024dm^3$
+          <label><input name="q63d" type="radio" value="True"/> True</label>
+          <label><input name="q63d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q63',['True','False','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q64">
+      <p><strong>Question 64</strong>. (Cụm chuyên môn Đak Lak 2025) Khi bỏ qua sức cản của không khí, độ cao (mét) của một vật thể sau thời gian t giây được phóng thẳng đứng lên trên từ điểm cách mặt đất 5 mét với tốc độ ban đầu 39,2 m/s là $h(t)=5+39,2t-4,9t^2$, chọn chiều dương là chiều hướng từ dưới lên (theo Vật lí đại cương, NXB Giáo dục Việt Nam, 2016). Các mệnh đề sau đúng hay sai?</p>
+      <div class="options">
+        <div class="option-row">a) Vận tốc của vật sau 3 giây là 4,6 m/s
+          <label><input name="q64a" type="radio" value="True"/> True</label>
+          <label><input name="q64a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Khoảng thời gian vật ở độ cao trên 10 mét dài hơn 7 giây
+          <label><input name="q64b" type="radio" value="True"/> True</label>
+          <label><input name="q64b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Vận tốc của vật lúc chạm đất sấp xỉ $-40,43$ m/s
+          <label><input name="q64c" type="radio" value="True"/> True</label>
+          <label><input name="q64c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Vật đạt độ cao lớn nhất bằng 83,4 mét tại thời điểm t=4 giây
+          <label><input name="q64d" type="radio" value="True"/> True</label>
+          <label><input name="q64d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q64',['False','True','True','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q65">
+      <p><strong>Question 65</strong>. (Sở Nghệ An 2025) Trong một phòng thí nghiệm có máy đo nồng độ khí CO$_2$ cho thấy: nồng độ khí CO$_2$ trong phòng thay đổi theo thời gian $t$ (tính bằng giờ) và được thể hiện qua hàm số $f(t)=400+\frac{2000t}{t^2+5}$ (ppm), với $t \ge 0$ (Khi nói nồng độ khí CO$_2$ trong không khí là 400 ppm, điều đó có nghĩa là: Trong một triệu phần thể tích của không khí, có 400 phần thể tích là khí CO$_2$).
+Các khẳng định sau đúng hay sai?</p>
+      <div class="options">
+        <div class="option-row">a) Nồng độ khí CO$_2$ trong phòng tại thời điểm $t=0$ là 400 (ppm)
+          <label><input name="q65a" type="radio" value="True"/> True</label>
+          <label><input name="q65a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) $f'(t)=\frac{-2000t^2-10000}{(t^2+5)^2}$ với $t \ge 0$
+          <label><input name="q65b" type="radio" value="True"/> True</label>
+          <label><input name="q65b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Nghiệm của phương trình $f'(t)=0$ là $t=2$
+          <label><input name="q65c" type="radio" value="True"/> True</label>
+          <label><input name="q65c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Nồng độ khí CO$_2$ cao nhất đo được trong phòng thí nghiệm (làm tròn đến hàng đơn vị) là 947 (ppm)
+          <label><input name="q65d" type="radio" value="True"/> True</label>
+          <label><input name="q65d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q65',['True','False','False','False'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <div class="question" id="q66">
+      <p><strong>Question 66</strong>. (Sở Thái Bình 2025) Nhà máy A chuyên sản xuất một loại sản phẩm cho nhà máy B. Hai nhà máy thoả thuận rằng, hằng tháng nhà máy A cung cấp cho nhà máy B số lượng sản phẩm theo đơn đặt hàng của nhà máy B (tối đa 100 tấn sản phẩm). Biết rằng, nếu số lượng đặt hàng là x (tấn) sản phẩm thì giá bán cho mỗi tấn sản phẩm là $P(x)=45-0,001x^2$ (triệu đồng) và chi phí để nhà máy A sản xuất được x (tấn) sản phẩm trong một tháng là $C(x)=100+30x$ (triệu đồng, gồm 100 triệu đồng chi phí cố định và 30 triệu đồng cho mỗi tấn sản phẩm).</p>
+      <div class="options">
+        <div class="option-row">a) Lợi nhuận mà nhà máy A thu được khi bán x (tấn) sản phẩm ($0 \le x \le 100$) cho nhà máy B là $H(x)=-0,001x^3+15x-100$
+          <label><input name="q66a" type="radio" value="True"/> True</label>
+          <label><input name="q66a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Chi phí để nhà máy A sản xuất 10 tấn sản phẩm trong một tháng là 400 triệu đồng
+          <label><input name="q66b" type="radio" value="True"/> True</label>
+          <label><input name="q66b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Số tiền nhà máy A thu được khi bán 10 tấn sản phẩm cho nhà máy B là 600 triệu đồng
+          <label><input name="q66c" type="radio" value="True"/> True</label>
+          <label><input name="q66c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Nhà máy A bán cho nhà máy B khoảng 70,7 tấn sản phẩm mỗi tháng thì thu được lợi nhuận lớn nhất
+          <label><input name="q66d" type="radio" value="True"/> True</label>
+          <label><input name="q66d" type="radio" value="False"/> False</label>
+        </div>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q66',['True','True','False','True'])">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+  </div>
+</div>
+<!-- Slide Navigation Menu -->
+<div id="slideMenu" class="slide-menu">
+    <div class="menu-header">
+        <h3>📋 Danh sách slide</h3>
+        <button onclick="closeSlideMenu()" class="close-btn">×</button>
+    </div>
+    <div class="menu-content">
+        <div id="slideList" class="slide-list">
+            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở menu -->
+<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
+  <!-- Canvas -->
+  <canvas id="drawCanvas"></canvas>
+<style>
+  /* ==== CANVAS ==== */
+ #drawCanvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998 !important;
+  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  touch-action: none;
+}
+
+
+  /* ==== NÚT MENU (☰) ==== */
+  #toggleMenu {
+    position: fixed;
+    top: 15px;
+    left: 40px;
+    z-index: 10000 !important;
+    font-size: 22px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  #toggleMenu:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+ /* ==== TOOLBAR ==== */
+#toolbar {
+  position: fixed;
+  bottom: 8px;
+  left: 15px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
+  white-space: nowrap;
+  gap: 6px;
+  background: rgba(2, 27, 125, 0.6);
+  border-radius: 8px;
+  padding: 4px 6px;
+  z-index: 10001 !important;
+  backdrop-filter: blur(3px);
+  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
+}
+#toolbar::-webkit-scrollbar {
+  height: 4px;
+}
+#toolbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+}
+
+
+/* ==== CÁC NÚT VÀ COMBO ==== */
+#toolbar button,
+#toolbar select {
+  font-size: 12px;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#toolbar select {
+  height: 22px;
+}
+
+#toolbar button:hover,
+#toolbar select:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+/* ==== CÁC BIỂU TƯỢNG ==== */
+#toolbar button {
+  line-height: 1;
+}
+
+/* 📱 Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  #toolbar {
+    bottom: 6px;
+    left: 6px;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  #toolbar button,
+  #toolbar select {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+}
+
+</style>
+
+  <!-- Toggle menu -->
+  <button id="toggleMenu">☰</button>
+
+  <!-- Toolbar -->
+  <div id="toolbar" style="display:none;">
+    <a href="../index.html" title="Trang chủ">
+  <button>🏠</button>
+     </a>
+    <button id="toggleDraw" title="Bút vẽ">✏️</button>
+    <select id="colorPicker" title="Màu">
+      <option value="yellow">🟡</option>
+      <option value="white">⚪</option>
+      <option value="red">🔴</option>
+      <option value="cyan">🔵</option>
+    </select>
+    <select id="lineWidthPicker" title="Độ dày">
+      <option value="2">Mảnh</option>
+      <option value="3" selected>Vừa</option>
+      <option value="6">Đậm</option>
+    </select>
+    <button id="lineBtn" title="Đoạn">▬</button>
+    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
+    <button id="circleBtn" title="Tròn">⚪</button>
+    <button id="ellipseBtn" title="Elip">⬭</button>
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearCanvas" title="Xóa hết">🧹</button>
+    <button id="disableDraw">❌</button>
+    <button id="fullscreen" title="Full">⛶</button>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+
+ <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // === Elements ===
+  const canvas = document.getElementById("drawCanvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
+
+  // === Toolbar elements ===
+  const toggleMenu = document.getElementById("toggleMenu");
+  const toolbar = document.getElementById("toolbar");
+  const toggleDraw = document.getElementById("toggleDraw");
+  const disableDraw = document.getElementById("disableDraw");
+  const colorPicker = document.getElementById("colorPicker");
+  const lineWidthPicker = document.getElementById("lineWidthPicker");
+  const lineBtn = document.getElementById("lineBtn");
+  const dashedLineBtn = document.getElementById("dashedLineBtn");
+  const circleBtn = document.getElementById("circleBtn");
+  const ellipseBtn = document.getElementById("ellipseBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const clearBtn = document.getElementById("clearCanvas");
+  const fullscreenBtn = document.getElementById("fullscreen");
+      const homeBtn = document.getElementById("homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
+      });
+    }
+
+  // === State ===
+  let drawing = false;
+  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
+  let start = { x: 0, y: 0 };
+  let current = { x: 0, y: 0 };
+  let snapshot = null;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let currentShape = "free";
+  let rawLineDash = [];
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 40;
+
+  // === Helper: lấy tọa độ theo devicePixelRatio ===
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * dpr);
+    const y = Math.round((e.clientY - rect.top) * dpr);
+    return { x, y };
+  }
+
+  // === Resize Canvas ===
+  function resizeCanvas() {
+    const data = canvas.toDataURL();
+    const w = Math.max(window.innerWidth, 1);
+    const h = Math.max(window.innerHeight, 1);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = data;
+  }
+  window.addEventListener("resize", debounce(resizeCanvas, 120));
+  resizeCanvas();
+
+  // === Undo/Redo ===
+  function saveState() {
+    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
+    undoStack.push(canvas.toDataURL("image/png"));
+    redoStack.length = 0;
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    redoStack.push(canvas.toDataURL("image/png"));
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = undoStack.pop();
+  }
+
+  // === Cấu hình nét vẽ ===
+  function applyStrokeStyle(e) {
+    const lwCss = parseFloat(lineWidthPicker.value) || 2;
+    const lwDevice = Math.max(
+      1,
+      Math.round(
+        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
+      )
+    );
+    ctx.lineWidth = lwDevice;
+    ctx.strokeStyle = colorPicker.value || "black";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
+  }
+
+  // === Vẽ ===
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
+    if (e.button !== 0 && e.pointerType !== "pen") return;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {}
+    drawing = true;
+    start = getPos(e);
+    current = { ...start };
+
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+    } else {
+      try {
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      } catch {
+        snapshot = null;
+      }
+    }
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    current = getPos(e);
+    if (currentShape === "free") {
+      applyStrokeStyle(e);
+      ctx.lineTo(current.x, current.y);
+      ctx.stroke();
+    } else {
+      if (snapshot) ctx.putImageData(snapshot, 0, 0);
+      applyStrokeStyle(e);
+      if (currentShape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(current.x, current.y);
+        ctx.stroke();
+      } else if (currentShape === "circle") {
+        const r = Math.hypot(current.x - start.x, current.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (currentShape === "ellipse") {
+        const rx = Math.abs(current.x - start.x);
+        const ry = Math.abs(current.y - start.y);
+        ctx.beginPath();
+        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    e.preventDefault();
+  });
+
+  function finishPointer(e) {
+    if (!drawing) return;
+    drawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch {}
+    saveState();
+  }
+  canvas.addEventListener("pointerup", finishPointer);
+  canvas.addEventListener("pointercancel", finishPointer);
+
+  // === Toolbar Buttons ===
+  toggleDraw &&
+    toggleDraw.addEventListener("click", () => {
+      drawEnabled = true;
+      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
+      currentShape = "free";
+      if (disableDraw) disableDraw.style.opacity = "1";
+    });
+
+  disableDraw &&
+    disableDraw.addEventListener("click", () => {
+      drawEnabled = !drawEnabled;
+      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
+      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
+    });
+
+  lineBtn &&
+    lineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [];
+    });
+  dashedLineBtn &&
+    dashedLineBtn.addEventListener("click", () => {
+      currentShape = "line";
+      rawLineDash = [8, 6];
+    });
+  circleBtn &&
+    circleBtn.addEventListener("click", () => {
+      currentShape = "circle";
+      rawLineDash = [];
+    });
+  ellipseBtn &&
+    ellipseBtn.addEventListener("click", () => {
+      currentShape = "ellipse";
+      rawLineDash = [6, 6];
+    });
+  undoBtn && undoBtn.addEventListener("click", undo);
+
+  clearBtn &&
+    clearBtn.addEventListener("click", () => {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  fullscreenBtn &&
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement)
+        document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+  // === Toggle menu (☰) ===
+  toggleMenu &&
+    toggleMenu.addEventListener("click", () => {
+      if (!toolbar) return;
+      toolbar.style.display =
+        toolbar.style.display === "none" || toolbar.style.display === ""
+          ? "flex"
+          : "none";
+    });
+
+  // === Khởi tạo ===
+  saveState();
+
+  // === Helpers ===
+  function debounce(fn, ms) {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  }
+
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
+});
+</script>
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+
+
+
+  <script>
+  // Hàm phát âm thanh
+  function playSound(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  // =====================
+  // 1️⃣ TRẮC NGHIỆM 4 LỰA CHỌN
+  // =====================
+  function showOptionIcon(qid, selected, correct) {
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent = "");
+    const icon = document.getElementById(`icon-${qid}-${selected}`);
+    if (icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+  }
+
+  function checkAnswer(qid, correct) {
+    // Xóa icon cũ
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+    
+    // Lấy lựa chọn
+    const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+    if (!chosen) {
+      alert("Hãy chọn một đáp án!");
+      playSound("../audio/wrong.mp3");
+      return;
+    }
+
+    const chosenVal = chosen.value;
+    const iconId = `icon-${qid}-${chosenVal}`;
+
+    // Hiển thị đúng/sai + phát âm thanh
+    if (chosenVal === correct) {
+      document.getElementById(iconId).textContent = '✅';
+      playSound("../audio/correct.mp3");
+    } else {
+      document.getElementById(iconId).textContent = '❌';
+      document.getElementById(`icon-${qid}-${correct}`).textContent = '✅';
+      playSound("../audio/wrong.mp3");
+    }
+  }
+
+  // =====================
+  // 2️⃣ CÂU HỎI ĐÚNG / SAI
+  // =====================
+  
+</script>
+<script>
+function playSound(src){
+  try{
+    const a = new Audio(src);
+    a.volume = 0.9;
+    a.play().catch(()=>{/* muted or user gesture required */});
+  }catch(e){}
+}
+
+/**
+ * checkTrueFalseAnswer:
+ * - questionId: 'q1'
+ * - correctAnswers: either an Array like ['True','False','True','True'] OR a string '["True","False",...]'
+ */
+function checkTrueFalseAnswer(questionId, correctAnswers){
+  // normalize correctAnswers to array of strings
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      // fallback: try to split by comma (robust)
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      // add icon near selected radio (if option-icon exists)
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  // render feedback in .answer-check .result (create if missing)
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // play sound
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+}
+</script>
+<script>
+function checkShortAnswer(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  // So sánh không phân biệt khoảng trắng / chữ hoa
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    playSound("../audio/wrong.mp3");
+  }
+}
+</script>
+
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // chạy ngay khi tải trang
+</script>
+
+<script>
+// === AUTO FIX SLIDE STRUCTURE ===
+// Mục đích: Đưa mọi <img> (hoặc <center><img>...</center>) nằm ngoài <section> vào slide hợp lệ
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelector(".reveal .slides");
+  if (!slides) return;
+
+  // Tạo slide mới chứa node
+  const makeSlide = (node) => {
+    const sec = document.createElement("section");
+    sec.appendChild(node);
+    return sec;
+  };
+
+  // 1️⃣ Di chuyển ảnh hoặc center chưa nằm trong slide nào vào slide mới
+  const imgs = [...document.querySelectorAll(".reveal .slides img")];
+  imgs.forEach(img => {
+    // Kiểm tra có nằm trong slide hợp lệ không
+    let ancestor = img.closest(".reveal .slides > section");
+    if (!ancestor) {
+      // Nếu nằm trong <center>, di chuyển cả center
+      const wrap = img.closest("center") || img;
+      slides.appendChild(makeSlide(wrap));
+    }
+  });
+
+  // 2️⃣ Sửa các <section> bị lồng hoặc đóng sai
+  const badNested = [...slides.querySelectorAll("section section")];
+  badNested.forEach(sec => slides.appendChild(sec));
+
+  // 3️⃣ Xóa các section rỗng (chỉ chứa khoảng trắng)
+  [...slides.querySelectorAll("section")].forEach(sec => {
+    if (!sec.innerHTML.trim()) sec.remove();
+  });
+
+  console.log("✅ Slide structure fixed: images moved into valid slides.");
+});
+</script>
+
+   
+</body>
+</html>
