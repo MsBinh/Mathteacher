@@ -838,9 +838,11 @@
 <button id="toggleMenu">☰</button>
 
 <script>
+/* === SCRIPT VẼ - PHIÊN BẢN MƯỢT CHUẨN (Giữ nguyên chức năng cũ, cải tiến nét bút) === */
+
 const canvas = document.getElementById("drawCanvas");
 const ctx = canvas.getContext("2d");
-const toggleBtn = document.getElementById("toggleMenu"); // dùng nút ☰
+const toggleBtn = document.getElementById("toggleMenu"); // nút ☰ bật/tắt vẽ
 const toolbar = document.getElementById("drawToolbar");
 const clearBtn = document.getElementById("clearBtn");
 const saveBtn = document.getElementById("saveBtn");
@@ -855,24 +857,30 @@ widthPicker.oninput = () => lineWidth = parseInt(widthPicker.value);
 let isDrawing = false;
 let isDrawMode = false;
 let startX = 0, startY = 0;
+let lastX = 0, lastY = 0;
 let currentTool = "pen";
 let imageBeforeShape;
 
-// Cập nhật kích thước canvas
+// === Giữ nét mượt: cấu hình bút ===
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+
+// === Đảm bảo canvas đúng kích thước, không bị lệch ===
 function resizeCanvas() {
+  const rect = document.body.getBoundingClientRect();
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-// Bật / tắt chế độ vẽ
+// === Bật / tắt chế độ vẽ ===
 toggleBtn.onclick = () => {
   isDrawMode = !isDrawMode;
   if (isDrawMode) {
     canvas.style.display = "block";
-    canvas.style.pointerEvents = "auto";
     toolbar.style.display = "flex";
+    canvas.style.pointerEvents = "auto";
   } else {
     canvas.style.display = "none";
     toolbar.style.display = "none";
@@ -880,7 +888,7 @@ toggleBtn.onclick = () => {
   }
 };
 
-// Nút Thoát
+// === Thoát vẽ ===
 exitBtn.onclick = () => {
   isDrawMode = false;
   canvas.style.display = "none";
@@ -888,13 +896,13 @@ exitBtn.onclick = () => {
   canvas.style.pointerEvents = "none";
 };
 
-// Chọn công cụ
+// === Chọn công cụ ===
 toolSelect.onchange = () => currentTool = toolSelect.value;
 
-// Xóa toàn bộ
+// === Xóa toàn bộ ===
 clearBtn.onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// Lưu ảnh
+// === Lưu ảnh ===
 saveBtn.onclick = () => {
   const link = document.createElement("a");
   link.download = "ban_ve.png";
@@ -902,51 +910,73 @@ saveBtn.onclick = () => {
   link.click();
 };
 
-// Nút fullscreen
+// === Fullscreen ===
 const fullBtn = document.createElement("button");
 fullBtn.textContent = "⛶ Full";
 fullBtn.title = "Toàn màn hình";
 fullBtn.onclick = () => {
-  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
-  else document.exitFullscreen();
+  if (!document.fullscreenElement)
+    document.documentElement.requestFullscreen().catch(() => {});
+  else
+    document.exitFullscreen();
 };
 toolbar.appendChild(fullBtn);
 
-// Lấy tọa độ
+// === Lấy tọa độ chính xác, khớp cả cảm ứng và màn hình Reveal ===
 function getPos(e) {
-  if (e.touches && e.touches.length > 0)
-    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-  return { x: e.clientX, y: e.clientY };
+  const rect = canvas.getBoundingClientRect();
+  if (e.touches && e.touches.length > 0) {
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
+    };
+  }
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
 }
 
-// Bắt đầu vẽ
+// === Bắt đầu vẽ ===
 function startDraw(e) {
   if (!isDrawMode) return;
   e.preventDefault();
   const pos = getPos(e);
   isDrawing = true;
-  startX = pos.x;
-  startY = pos.y;
-  if (currentTool !== "pen") {
-    imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  } else {
-    ctx.beginPath();
-    ctx.moveTo(startX, startY);
-  }
-}
-
-// Khi vẽ
-function drawMove(e) {
-  if (!isDrawing || !isDrawMode) return;
-  const pos = getPos(e);
+  startX = lastX = pos.x;
+  startY = lastY = pos.y;
   ctx.strokeStyle = colorPicker.value;
   ctx.lineWidth = lineWidth;
   ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+
+  if (currentTool !== "pen") {
+    imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  }
+}
+
+// === Khi rê để vẽ ===
+function drawMove(e) {
+  if (!isDrawing || !isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
   ctx.setLineDash([]);
 
   if (currentTool === "pen") {
+    // ✏️ Giữ nguyên nét vẽ mượt như Firebase bản cũ
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
   } else {
     ctx.putImageData(imageBeforeShape, 0, 0);
 
@@ -1017,20 +1047,22 @@ function drawMove(e) {
   }
 }
 
-// Kết thúc vẽ
+// === Kết thúc vẽ ===
 function endDraw() {
   if (!isDrawMode) return;
   isDrawing = false;
 }
 
-// Gắn sự kiện
+// === Gắn sự kiện ===
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawMove);
 canvas.addEventListener("mouseup", endDraw);
+canvas.addEventListener("mouseleave", endDraw);
 canvas.addEventListener("touchstart", startDraw, { passive: false });
 canvas.addEventListener("touchmove", drawMove, { passive: false });
 canvas.addEventListener("touchend", endDraw);
 </script>
+
 <!-- Reveal.js -->
   <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
   <script>
