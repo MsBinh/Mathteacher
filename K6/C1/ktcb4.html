@@ -923,25 +923,19 @@ fullBtn.onclick = () => {
 toolbar.appendChild(fullBtn);
 
 // === Lấy tọa độ chính xác, khớp cả cảm ứng và màn hình Reveal ===
-
 function getPos(e) {
-  const rect = canvas.getBoundingClientRect(); // vị trí thật trên màn hình
-  const scaleX = canvas.width / rect.width;    // tỉ lệ zoom ngang
-  const scaleY = canvas.height / rect.height;  // tỉ lệ zoom dọc
-
+  const rect = canvas.getBoundingClientRect();
   if (e.touches && e.touches.length > 0) {
     return {
-      x: (e.touches[0].clientX - rect.left) * scaleX,
-      y: (e.touches[0].clientY - rect.top) * scaleY
-    };
-  } else {
-    return {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
     };
   }
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
 }
-
 
 // === Bắt đầu vẽ ===
 function startDraw(e) {
