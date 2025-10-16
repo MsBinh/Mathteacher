@@ -661,6 +661,20 @@
   font-size: 0.9em;
   padding: 0.8em;
 }
+/* ==== FIX: ensure reveal controls & progress visible above canvas ==== */
+.reveal .controls,
+.reveal .progress,
+.reveal .slide-number {
+  z-index: 10005 !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure toolbar stays above controls but below toggleMenu */
+#toolbar { z-index: 10010 !important; }
+#toggleMenu { z-index: 10030 !important; }
+
+/* Canvas should not block interactions when not in draw mode */
+#drawCanvas { pointer-events: none; }
 
 </style>
 
@@ -683,14 +697,45 @@
 <!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
   <!-- TÊN BÀI -->
       <section>
-        <h2>📘 BÀI 3</h2>
+        <h2>📘 BÀI 2</h2>
         <p>Môn Toán - Lớp 12</p>
       </section>
   <section>
-        <h2>📘 BÀI TẬP TRẢ LỜI NGẮN </h2>
+        <h2>📘 BÀI TẬP TRẮC NGHIỆM </h2>
   </section>
 <!--@@@@-->
+<!-- TÊN BÀI -->
+      <section>
+        <h2>📘 BÀI 2</h2>
+        <p>Môn Toán - Lớp 12</p>
+      </section>
+  <section>
+        <h2>📘 BÀI TẬP TRẮC NGHIỆM </h2>
+  </section>
+<!--@@@@-->
+<section>
+  <section>
+    <div class="question" id="q1">
+      <p><strong>Question 1</strong>. Cho hàm số $f(x)$ có bảng biến thiên như sau:
+    <center>
+        <img src="data/im/30.png">
+    </center>
 
+        Hàm số đã cho đồng biến trên khoảng nào sau đây?</p>
+      <div class="options-row">
+        <label><input type="radio" name="q1" value="A"/> A. $(-\infty;1)$ <span class="option-icon" id="icon-q1-A"></span></label>
+        <label><input type="radio" name="q1" value="B"/> B. $(3;+\infty)$ <span class="option-icon" id="icon-q1-B"></span></label>
+        <label><input type="radio" name="q1" value="C"/> C. $(1;3)$ <span class="option-icon" id="icon-q1-C"></span></label>
+        <label><input type="radio" name="q1" value="D"/> D. $(3;-\,+\infty)$ <span class="option-icon" id="icon-q1-D"></span></label>
+      </div>
+      <div class="answer-check">
+        <button onclick="checkAnswer('q1','B')">Check</button>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <section>
 <!---------------------------------------------------------THE END----------------------------------------------------->
   </div>
 </div>
@@ -710,144 +755,321 @@
 <!-- Nút mở menu -->
 <button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
   <!-- Canvas -->
-  <canvas id="drawCanvas"></canvas>
-<style>
-  /* ==== CANVAS ==== */
- #drawCanvas {
-  position: fixed !important;
+ 
+  <style>
+/* ==== Canvas và Toolbar ==== */
+#drawCanvas { 
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9998 !important;
-  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
+  z-index: 9998;
   touch-action: none;
 }
 
-
-  /* ==== NÚT MENU (☰) ==== */
-  #toggleMenu {
-    position: fixed;
-    top: 15px;
-    left: 40px;
-    z-index: 10000 !important;
-    font-size: 22px;
-    background: rgba(0,0,0,0.45);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 3px 8px;
-    cursor: pointer;
-  }
-  #toggleMenu:hover {
-    background: rgba(255,255,255,0.25);
-  }
-
- /* ==== TOOLBAR ==== */
-#toolbar {
+.toolbar {
   position: fixed;
-  bottom: 8px;
-  left: 15px;
-  transform: translateX(-50%);
+  top: 70px;
+  left: 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 6px;
+  z-index: 10000;
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
-  white-space: nowrap;
-  gap: 6px;
-  background: rgba(2, 27, 125, 0.6);
-  border-radius: 8px;
-  padding: 4px 6px;
-  z-index: 10001 !important;
-  backdrop-filter: blur(3px);
-  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
-}
-#toolbar::-webkit-scrollbar {
-  height: 4px;
-}
-#toolbar::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.4);
-  border-radius: 2px;
+  flex-direction: column;
+  gap: 4px;
+  width: 48px;
+  align-items: center;
 }
 
+.toolbar button,
+.toolbar select,
+.toolbar input[type="color"],
+.toolbar input[type="range"] {
+  width: 100%;
+  font-size: 10px;
+  padding: 2px;
+  height: 28px;
+  box-sizing: border-box;
+}
 
-/* ==== CÁC NÚT VÀ COMBO ==== */
-#toolbar button,
-#toolbar select {
-  font-size: 12px;
-  color: white;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 5px;
-  padding: 2px 5px;
+/* ==== Nút 3 gạch ☰ ==== */
+#toggleMenu {
+  position: fixed;
+  top: 15px;
+  left: 40px;
+  z-index: 99999 !important;
+  font-size: 22px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
-
-#toolbar select {
-  height: 22px;
-}
-
-#toolbar button:hover,
-#toolbar select:hover {
+#toggleMenu:hover {
   background: rgba(255,255,255,0.25);
-  transform: translateY(-1px);
 }
-
-/* ==== CÁC BIỂU TƯỢNG ==== */
-#toolbar button {
-  line-height: 1;
-}
-
-/* 📱 Responsive cho màn hình nhỏ */
-@media (max-width: 768px) {
-  #toolbar {
-    bottom: 6px;
-    left: 6px;
-    flex-wrap: wrap;
-    gap: 3px;
-    padding: 4px;
-  }
-
-  #toolbar button,
-  #toolbar select {
-    font-size: 13px;
-    padding: 2px 4px;
-  }
-}
-
 </style>
 
-  <!-- Toggle menu -->
-  <button id="toggleMenu">☰</button>
+<!-- ==== Canvas + Toolbar ==== -->
+<canvas id="drawCanvas" style="display:none;"></canvas>
 
-  <!-- Toolbar -->
-  <div id="toolbar" style="display:none;">
-    <a href="../index.html" title="Trang chủ">
-  <button>🏠</button>
-     </a>
-    <button id="toggleDraw" title="Bút vẽ">✏️</button>
-    <select id="colorPicker" title="Màu">
-      <option value="yellow">🟡</option>
-      <option value="white">⚪</option>
-      <option value="red">🔴</option>
-      <option value="cyan">🔵</option>
-    </select>
-    <select id="lineWidthPicker" title="Độ dày">
-      <option value="2">Mảnh</option>
-      <option value="3" selected>Vừa</option>
-      <option value="6">Đậm</option>
-    </select>
-    <button id="lineBtn" title="Đoạn">▬</button>
-    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
-    <button id="circleBtn" title="Tròn">⚪</button>
-    <button id="ellipseBtn" title="Elip">⬭</button>
-    <button id="undoBtn" title="Undo">↩️</button>
-    <button id="clearCanvas" title="Xóa hết">🧹</button>
-    <button id="disableDraw">❌</button>
-    <button id="fullscreen" title="Full">⛶</button>
-  </div>
+<div class="toolbar" id="drawToolbar" style="display:none;">
+  <select id="tool">
+    <option value="pen">✏️ Bút</option>
+    <option value="line">📏 Đường</option>
+    <option value="rect">⬛ Chữ nhật</option>
+    <option value="parallelogram">▱ Bình hành</option>
+    <option value="circle">⚪ Tròn</option>
+    <option value="dashedLineBtn">– –</option>
+    <option value="ellipseBtn">⬭ Elip</option>
+    <option value="sphere">⚽ Cầu</option>
+  </select>
+  <input type="range" id="draw-width" min="1" max="5" value="2" />
+  <input type="color" id="colorPicker" value="#6b21a8" />
+  <button id="clearBtn">🧹 Xoá</button>
+  <button id="undoBtn" title="Undo">↩️</button>
+  <button id="saveBtn">💾 Lưu</button>
+  <button id="exitBtn">❌ Thoát</button>
+</div>
 
-  <!-- Reveal.js -->
+<!-- Nút 3 gạch để bật/tắt vẽ -->
+<button id="toggleMenu">☰</button>
+
+<script>
+/* === SCRIPT VẼ - PHIÊN BẢN MƯỢT CHUẨN (Giữ nguyên chức năng cũ, cải tiến nét bút) === */
+
+const canvas = document.getElementById("drawCanvas");
+const ctx = canvas.getContext("2d");
+const toggleBtn = document.getElementById("toggleMenu"); // nút ☰ bật/tắt vẽ
+const toolbar = document.getElementById("drawToolbar");
+const clearBtn = document.getElementById("clearBtn");
+const saveBtn = document.getElementById("saveBtn");
+const exitBtn = document.getElementById("exitBtn");
+const colorPicker = document.getElementById("colorPicker");
+const toolSelect = document.getElementById("tool");
+const widthPicker = document.getElementById("draw-width");
+
+let lineWidth = 2;
+widthPicker.oninput = () => lineWidth = parseInt(widthPicker.value);
+
+let isDrawing = false;
+let isDrawMode = false;
+let startX = 0, startY = 0;
+let lastX = 0, lastY = 0;
+let currentTool = "pen";
+let imageBeforeShape;
+
+// === Giữ nét mượt: cấu hình bút ===
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+
+// === Đảm bảo canvas đúng kích thước, không bị lệch ===
+function resizeCanvas() {
+  const rect = document.body.getBoundingClientRect();
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// === Bật / tắt chế độ vẽ ===
+toggleBtn.onclick = () => {
+  isDrawMode = !isDrawMode;
+  if (isDrawMode) {
+    canvas.style.display = "block";
+    toolbar.style.display = "flex";
+    canvas.style.pointerEvents = "auto";
+  } else {
+    canvas.style.display = "none";
+    toolbar.style.display = "none";
+    canvas.style.pointerEvents = "none";
+  }
+};
+
+// === Thoát vẽ ===
+exitBtn.onclick = () => {
+  isDrawMode = false;
+  canvas.style.display = "none";
+  toolbar.style.display = "none";
+  canvas.style.pointerEvents = "none";
+};
+
+// === Chọn công cụ ===
+toolSelect.onchange = () => currentTool = toolSelect.value;
+
+// === Xóa toàn bộ ===
+clearBtn.onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// === Lưu ảnh ===
+saveBtn.onclick = () => {
+  const link = document.createElement("a");
+  link.download = "ban_ve.png";
+  link.href = canvas.toDataURL();
+  link.click();
+};
+
+// === Fullscreen ===
+const fullBtn = document.createElement("button");
+fullBtn.textContent = "⛶ Full";
+fullBtn.title = "Toàn màn hình";
+fullBtn.onclick = () => {
+  if (!document.fullscreenElement)
+    document.documentElement.requestFullscreen().catch(() => {});
+  else
+    document.exitFullscreen();
+};
+toolbar.appendChild(fullBtn);
+
+// === Lấy tọa độ chính xác, khớp cả cảm ứng và màn hình Reveal ===
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect(); // vị trí thật trên màn hình
+  const scaleX = canvas.width / rect.width;    // tỉ lệ zoom ngang
+  const scaleY = canvas.height / rect.height;  // tỉ lệ zoom dọc
+
+  if (e.touches && e.touches.length > 0) {
+    return {
+      x: (e.touches[0].clientX - rect.left) * scaleX,
+      y: (e.touches[0].clientY - rect.top) * scaleY
+    };
+  } else {
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY
+    };
+  }
+}
+
+
+// === Bắt đầu vẽ ===
+function startDraw(e) {
+  if (!isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+  isDrawing = true;
+  startX = lastX = pos.x;
+  startY = lastY = pos.y;
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+
+  if (currentTool !== "pen") {
+    imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  }
+}
+
+// === Khi rê để vẽ ===
+function drawMove(e) {
+  if (!isDrawing || !isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.setLineDash([]);
+
+  if (currentTool === "pen") {
+    // ✏️ Giữ nguyên nét vẽ mượt như Firebase bản cũ
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+  } else {
+    ctx.putImageData(imageBeforeShape, 0, 0);
+
+    if (currentTool === "line") {
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+    else if (currentTool === "dashedLineBtn") {
+      ctx.beginPath();
+      ctx.setLineDash([8, 6]);
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+    else if (currentTool === "rect") {
+      ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+    }
+    else if (currentTool === "circle") {
+      const radius = Math.hypot(pos.x - startX, pos.y - startY);
+      ctx.beginPath();
+      ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    else if (currentTool === "ellipseBtn") {
+      ctx.beginPath();
+      ctx.setLineDash([6, 4]);
+      const rx = Math.abs(pos.x - startX);
+      const ry = Math.abs(pos.y - startY);
+      ctx.ellipse(startX, startY, rx, ry, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    else if (currentTool === "sphere") {
+      let rs = Math.abs(pos.x - startX);
+      ctx.beginPath();
+      ctx.arc(startX, startY, rs, 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.setLineDash([6, 4]);
+      ctx.ellipse(startX, startY, rs, rs / 2, 0, Math.PI, 2 * Math.PI);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.ellipse(startX, startY, rs, rs / 2, 0, 0, Math.PI);
+      ctx.stroke();
+    }
+    else if (currentTool === "parallelogram") {
+      const width = pos.x - startX;
+      const height = pos.y - startY;
+      const offset = width * 0.3;
+      ctx.beginPath();
+      ctx.moveTo(startX + offset, startY);
+      ctx.lineTo(startX + width + offset, startY);
+      ctx.lineTo(startX + width - offset, startY + height);
+      ctx.lineTo(startX - offset, startY + height);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.setLineDash([6, 4]);
+      ctx.moveTo(startX + offset, startY);
+      ctx.lineTo(startX - offset, startY + height);
+      ctx.moveTo(startX + width + offset, startY);
+      ctx.lineTo(startX + width - offset, startY + height);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+}
+
+// === Kết thúc vẽ ===
+function endDraw() {
+  if (!isDrawMode) return;
+  isDrawing = false;
+}
+
+// === Gắn sự kiện ===
+canvas.addEventListener("mousedown", startDraw);
+canvas.addEventListener("mousemove", drawMove);
+canvas.addEventListener("mouseup", endDraw);
+canvas.addEventListener("mouseleave", endDraw);
+canvas.addEventListener("touchstart", startDraw, { passive: false });
+canvas.addEventListener("touchmove", drawMove, { passive: false });
+canvas.addEventListener("touchend", endDraw);
+</script>
+
+<!-- Reveal.js -->
   <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
   <script>
   Reveal.initialize({
@@ -890,252 +1112,7 @@
 </script>
 
  <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // === Elements ===
-  const canvas = document.getElementById("drawCanvas");
-  const ctx = canvas.getContext("2d", { alpha: true });
-  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
 
-  // === Toolbar elements ===
-  const toggleMenu = document.getElementById("toggleMenu");
-  const toolbar = document.getElementById("toolbar");
-  const toggleDraw = document.getElementById("toggleDraw");
-  const disableDraw = document.getElementById("disableDraw");
-  const colorPicker = document.getElementById("colorPicker");
-  const lineWidthPicker = document.getElementById("lineWidthPicker");
-  const lineBtn = document.getElementById("lineBtn");
-  const dashedLineBtn = document.getElementById("dashedLineBtn");
-  const circleBtn = document.getElementById("circleBtn");
-  const ellipseBtn = document.getElementById("ellipseBtn");
-  const undoBtn = document.getElementById("undoBtn");
-  const clearBtn = document.getElementById("clearCanvas");
-  const fullscreenBtn = document.getElementById("fullscreen");
-      const homeBtn = document.getElementById("homeBtn");
-    if (homeBtn) {
-      homeBtn.addEventListener("click", () => {
-        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
-      });
-    }
-
-  // === State ===
-  let drawing = false;
-  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
-  let start = { x: 0, y: 0 };
-  let current = { x: 0, y: 0 };
-  let snapshot = null;
-  let dpr = Math.max(1, window.devicePixelRatio || 1);
-  let currentShape = "free";
-  let rawLineDash = [];
-  const undoStack = [];
-  const redoStack = [];
-  const MAX_HISTORY = 40;
-
-  // === Helper: lấy tọa độ theo devicePixelRatio ===
-  function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.round((e.clientX - rect.left) * dpr);
-    const y = Math.round((e.clientY - rect.top) * dpr);
-    return { x, y };
-  }
-
-  // === Resize Canvas ===
-  function resizeCanvas() {
-    const data = canvas.toDataURL();
-    const w = Math.max(window.innerWidth, 1);
-    const h = Math.max(window.innerHeight, 1);
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    const img = new Image();
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    img.src = data;
-  }
-  window.addEventListener("resize", debounce(resizeCanvas, 120));
-  resizeCanvas();
-
-  // === Undo/Redo ===
-  function saveState() {
-    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
-    undoStack.push(canvas.toDataURL("image/png"));
-    redoStack.length = 0;
-  }
-  function undo() {
-    if (!undoStack.length) return;
-    redoStack.push(canvas.toDataURL("image/png"));
-    const img = new Image();
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    img.src = undoStack.pop();
-  }
-
-  // === Cấu hình nét vẽ ===
-  function applyStrokeStyle(e) {
-    const lwCss = parseFloat(lineWidthPicker.value) || 2;
-    const lwDevice = Math.max(
-      1,
-      Math.round(
-        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
-      )
-    );
-    ctx.lineWidth = lwDevice;
-    ctx.strokeStyle = colorPicker.value || "black";
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
-  }
-
-  // === Vẽ ===
-  canvas.addEventListener("pointerdown", (e) => {
-    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
-    if (e.button !== 0 && e.pointerType !== "pen") return;
-    try {
-      canvas.setPointerCapture(e.pointerId);
-    } catch {}
-    drawing = true;
-    start = getPos(e);
-    current = { ...start };
-
-    if (currentShape === "free") {
-      applyStrokeStyle(e);
-      ctx.beginPath();
-      ctx.moveTo(start.x, start.y);
-    } else {
-      try {
-        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      } catch {
-        snapshot = null;
-      }
-    }
-    e.preventDefault();
-  });
-
-  canvas.addEventListener("pointermove", (e) => {
-    if (!drawing) return;
-    current = getPos(e);
-    if (currentShape === "free") {
-      applyStrokeStyle(e);
-      ctx.lineTo(current.x, current.y);
-      ctx.stroke();
-    } else {
-      if (snapshot) ctx.putImageData(snapshot, 0, 0);
-      applyStrokeStyle(e);
-      if (currentShape === "line") {
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y);
-        ctx.lineTo(current.x, current.y);
-        ctx.stroke();
-      } else if (currentShape === "circle") {
-        const r = Math.hypot(current.x - start.x, current.y - start.y);
-        ctx.beginPath();
-        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
-        ctx.stroke();
-      } else if (currentShape === "ellipse") {
-        const rx = Math.abs(current.x - start.x);
-        const ry = Math.abs(current.y - start.y);
-        ctx.beginPath();
-        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-    }
-    e.preventDefault();
-  });
-
-  function finishPointer(e) {
-    if (!drawing) return;
-    drawing = false;
-    try {
-      canvas.releasePointerCapture(e.pointerId);
-    } catch {}
-    saveState();
-  }
-  canvas.addEventListener("pointerup", finishPointer);
-  canvas.addEventListener("pointercancel", finishPointer);
-
-  // === Toolbar Buttons ===
-  toggleDraw &&
-    toggleDraw.addEventListener("click", () => {
-      drawEnabled = true;
-      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
-      currentShape = "free";
-      if (disableDraw) disableDraw.style.opacity = "1";
-    });
-
-  disableDraw &&
-    disableDraw.addEventListener("click", () => {
-      drawEnabled = !drawEnabled;
-      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
-      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
-    });
-
-  lineBtn &&
-    lineBtn.addEventListener("click", () => {
-      currentShape = "line";
-      rawLineDash = [];
-    });
-  dashedLineBtn &&
-    dashedLineBtn.addEventListener("click", () => {
-      currentShape = "line";
-      rawLineDash = [8, 6];
-    });
-  circleBtn &&
-    circleBtn.addEventListener("click", () => {
-      currentShape = "circle";
-      rawLineDash = [];
-    });
-  ellipseBtn &&
-    ellipseBtn.addEventListener("click", () => {
-      currentShape = "ellipse";
-      rawLineDash = [6, 6];
-    });
-  undoBtn && undoBtn.addEventListener("click", undo);
-
-  clearBtn &&
-    clearBtn.addEventListener("click", () => {
-      saveState();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-
-  fullscreenBtn &&
-    fullscreenBtn.addEventListener("click", () => {
-      if (!document.fullscreenElement)
-        document.documentElement.requestFullscreen().catch(() => {});
-      else document.exitFullscreen();
-    });
-
-  // === Toggle menu (☰) ===
-  toggleMenu &&
-    toggleMenu.addEventListener("click", () => {
-      if (!toolbar) return;
-      toolbar.style.display =
-        toolbar.style.display === "none" || toolbar.style.display === ""
-          ? "flex"
-          : "none";
-    });
-
-  // === Khởi tạo ===
-  saveState();
-
-  // === Helpers ===
-  function debounce(fn, ms) {
-    let t;
-    return (...a) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn(...a), ms);
-    };
-  }
-
-  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
-  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
-});
-</script>
 <!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
 
 
