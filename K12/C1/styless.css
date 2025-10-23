@@ -1,0 +1,736 @@
+
+/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
+.reveal .backgrounds {
+  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
+}
+
+.reveal section {
+  color: #020a44;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  text-shadow: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
+.reveal .slides section {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ✨ TIÊU ĐỀ CHÍNH */
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #004aad;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== KHUNG CÂU HỎI ===== */
+.question, .summary-box {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px 22px;
+  width: 96%;
+  max-height: 82vh;
+  overflow-y: auto;
+  margin: 12px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+   color: #03631e;
+   font-size: 22px;
+}
+
+/* Hình ảnh trong câu hỏi */
+.question img, .summary-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ===== TRẮC NGHIỆM ===== */
+.options-row, .option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.option-label, .option-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #fdfdfd;
+  transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.option-label:hover, .option-row:hover {
+  background: #e8f1ff;
+  border-color: #0074d9;
+}
+
+.option-letter {
+  font-weight: bold;
+  color: #0074d9;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+/* ===== NÚT KIỂM TRA ===== */
+.answer-check {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.answer-check button, .check-btn {
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.answer-check button:hover {
+  background: #0059b2;
+  transform: translateY(-1px);
+}
+
+/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
+.answer-check input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  width: 240px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* ===== MENU SLIDE ===== */
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #fefefe;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  border-right: 3px solid #0074d9;
+  overflow-y: auto;
+}
+
+.slide-menu.active {
+  left: 0;
+}
+
+.menu-header {
+  padding: 16px;
+  background: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-content {
+  padding: 10px;
+}
+
+.slide-item {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9fafc;
+  cursor: pointer;
+  color: #111;
+  transition: 0.2s;
+}
+
+.slide-item:hover {
+  background: #e7f1ff;
+  border-color: #0074d9;
+}
+
+.slide-item.active {
+  background: #0074d9;
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
+
+/* ===== NÚT MỞ MENU ===== */
+.menu-toggle {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  z-index: 999;
+  background: #0074d9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.25s;
+}
+
+.menu-toggle:hover {
+  background: #0059b2;
+  transform: scale(1.1);
+}
+
+/* ===== TOOLBAR VẼ ===== */
+#drawCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#toolbar {
+  position: fixed;
+  top: 50%; left: 5px;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#toolbar button, #toolbar select {
+  margin: 4px 0;
+  width: 38px; height: 38px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#toolbar button:hover {
+  background: #0074d9;
+  color: white;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 900;
+  padding: 10px 14px;
+  background: #0074d9;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.fullscreen-btn:hover {
+  background: #0056b3;
+}
+/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.topbar-title {
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
+}
+
+/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
+.clock {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
+.reveal {
+  margin-top: 38px !important;
+}
+
+/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
+
+/* 🌟 ĐỊNH NGHĨA */
+.definition-box {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #1976d2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+}
+
+.definition-icon {
+  display: inline-block;
+  margin-right: 10px;
+  color: #1976d2;
+}
+
+.definition-content h3 {
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin: 12px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+}
+
+/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
+.note-box {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-left: 5px solid #ffa000;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.note-icon {
+  color: #ffa000;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.note-title {
+  font-weight: 700;
+  color: #ffa000;
+  font-size: 18px;
+}
+
+.note-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.note-content li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+/* 🔍 PHƯƠNG PHÁP GIẢI */
+.solution-steps {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.solution-steps ol {
+  padding-left: 20px;
+}
+
+.solution-steps li {
+  margin: 10px 0;
+  padding: 8px;
+  background: rgba(232, 245, 232, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #388e3c;
+}
+
+/* 📊 DẠNG TOÁN */
+.problem-type {
+  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+  border-left: 5px solid #303f9f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #303f9f;
+  padding-bottom: 10px;
+}
+
+.problem-number {
+  background: #303f9f;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.problem-header h3 {
+  color: #303f9f;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 📝 VÍ DỤ */
+.example {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #f57c00;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f57c00;
+  padding-bottom: 10px;
+}
+
+.example-header h3 {
+  color: #f57c00;
+  margin: 0;
+  font-weight: 700;
+}
+
+.tag {
+  background: #f57c00;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-question {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #f57c00;
+}
+
+/* 💡 LỜI GIẢI */
+.solution {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border-left: 5px solid #c2185b;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  display: none; /* Ẩn ban đầu, hiện khi click */
+}
+
+.solution h4 {
+  color: #c2185b;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c2185b;
+  padding-bottom: 8px;
+}
+
+.solution-conclusion {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #c2185b;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Nút xem lời giải */
+.btn.solution-toggle {
+  background: #0074d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 10px 0;
+}
+
+.btn.solution-toggle:hover {
+  background: #0059b2;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+/* Hình ảnh */
+.image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề section */
+.doc-section {
+  margin: 30px 0;
+}
+
+.article-subtitle {
+  color: #004aad;
+  font-weight: 700;
+  border-bottom: 3px solid #004aad;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Công thức toán */
+.math {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .definition-box,
+  .note-box,
+  .problem-type,
+  .example,
+  .solution {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tag {
+    margin-top: 8px;
+  }
+  
+  .math {
+    font-size: 20px;
+  }
+}
+/* Cho phép cuộn slide dài */
+.reveal .slides section {
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+/* Không giới hạn chiều cao các box */
+.definition-box,
+.theorem-box,
+.method-box,
+.example,
+.note-box,
+.formula,
+.procedure {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Box lồng nhau thu nhỏ nhẹ */
+.box .box {
+  font-size: 0.9em;
+  padding: 0.8em;
+}
+/* ==== FIX: ensure reveal controls & progress visible above canvas ==== */
+.reveal .controls,
+.reveal .progress,
+.reveal .slide-number {
+  z-index: 10005 !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure toolbar stays above controls but below toggleMenu */
+#toolbar { z-index: 10010 !important; }
+#toggleMenu { z-index: 10030 !important; }
+
+/* Canvas should not block interactions when not in draw mode */
+#drawCanvas { pointer-events: none; }
+
+
+/* ==== Thanh công cụ chọn đề, đăng nhập, tính điểm ==== */
+.topbar-controls {
+  position: fixed;
+  top: 8px;        /* khoảng cách từ mép trên */
+  right: 80px    /* lệch phải tránh nút ☰ */
+  z-index: 99999;  /* nằm trên Reveal và Canvas */
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.topbar-controls select,
+.topbar-controls button {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.topbar-controls select:hover,
+.topbar-controls button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: #000;
+}
+
+/* canva
+/* ==== Canvas và Toolbar ==== */
+#drawCanvas { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  touch-action: none;
+}
+
+.toolbar {
+  position: fixed;
+  top: 70px;
+  left: 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 6px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 48px;
+  align-items: center;
+}
+
+.toolbar button,
+.toolbar select,
+.toolbar input[type="color"],
+.toolbar input[type="range"] {
+  width: 100%;
+  font-size: 10px;
+  padding: 2px;
+  height: 28px;
+  box-sizing: border-box;
+}
+
+/* ==== Nút 3 gạch ☰ ==== */
+#toggleMenu {
+  position: fixed;
+  top: 45px;
+  left: 40px;
+  z-index: 99999 !important;
+  font-size: 22px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+#toggleMenu:hover {
+  background: rgba(255,255,255,0.25);
+}

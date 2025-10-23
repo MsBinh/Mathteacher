@@ -676,6 +676,40 @@
 /* Canvas should not block interactions when not in draw mode */
 #drawCanvas { pointer-events: none; }
 
+
+/* ==== Thanh công cụ chọn đề, đăng nhập, tính điểm ==== */
+.topbar-controls {
+  position: fixed;
+  top: 8px;        /* khoảng cách từ mép trên */
+  right: 80px    /* lệch phải tránh nút ☰ */
+  z-index: 99999;  /* nằm trên Reveal và Canvas */
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.topbar-controls select,
+.topbar-controls button {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.topbar-controls select:hover,
+.topbar-controls button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: #000;
+}
+
 </style>
 
   <!-- ===== style chuyên đề  ===== -->
@@ -690,6 +724,20 @@
 <div class="topbar">
   <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
   <div class="clock" id="clock">--:--:--</div>
+  <button id="toggleMenu">☰</button>
+  <!-- ==== Thanh công cụ: Chọn đề / Đăng nhập / Tính điểm ==== -->
+<div class="topbar-controls">
+  <select id="selectExam">
+    <option value="">-- Chọn đề --</option>
+    <option value="de1">Đề 1</option>
+    <option value="de2">Đề 2</option>
+  </select>
+  <button id="loginBtn">🔑 Đăng nhập</button>
+  <button id="scoreBtn">📊 Tính điểm</button>
+</div>
+
+
+  
 </div>
 
 <div class="reveal">
@@ -697,46 +745,62 @@
 <!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
   <!-- TÊN BÀI -->
       <section>
-        <h2>📘 BÀI 2</h2>
+        <h2>📘 ĐỀ KIỂM TRA</h2>
         <p>Môn Toán - Lớp 12</p>
       </section>
+ 
   <section>
-        <h2>📘 BÀI TẬP TRẮC NGHIỆM </h2>
+        <h2>📘 PHẦN  TRẮC NGHIỆM </h2>
   </section>
 <!--@@@@-->
-<!-- TÊN BÀI -->
-      <section>
-        <h2>📘 BÀI 2</h2>
-        <p>Môn Toán - Lớp 12</p>
-      </section>
-  <section>
-        <h2>📘 BÀI TẬP TRẮC NGHIỆM </h2>
-  </section>
-<!--@@@@-->
-<section>
-  <section>
-    <div class="question" id="q1">
-      <p><strong>Question 1</strong>. Cho hàm số $f(x)$ có bảng biến thiên như sau:
-    <center>
-        <img src="data/im/30.png">
-    </center>
 
-        Hàm số đã cho đồng biến trên khoảng nào sau đây?</p>
-      <div class="options-row">
-        <label><input type="radio" name="q1" value="A"/> A. $(-\infty;1)$ <span class="option-icon" id="icon-q1-A"></span></label>
-        <label><input type="radio" name="q1" value="B"/> B. $(3;+\infty)$ <span class="option-icon" id="icon-q1-B"></span></label>
-        <label><input type="radio" name="q1" value="C"/> C. $(1;3)$ <span class="option-icon" id="icon-q1-C"></span></label>
-        <label><input type="radio" name="q1" value="D"/> D. $(3;-\,+\infty)$ <span class="option-icon" id="icon-q1-D"></span></label>
-      </div>
+        <h2>📘 PHẦN  ĐÚNG SAI (4 CÂU) </h2>
+  </section>
+<section>
+                <section>
+                    <div class="question" id="q1">
+                        <p class="question-title"><strong>Question 1.</strong> (THPT Triệu Quang Phục - Hưng Yên 2025) Cho đồ thị hàm số $y=\cos x/\left[-\dfrac{5\pi}{2};\dfrac{5\pi}{2}\right]$ dưới đây. Xét tính đúng sai của các phát biểu sau:</p>
+                        <div class="options">
+        <div class="option-row">a) a) Hàm số đã cho đồng biến trên các khoảng $(-\pi;0)$ và $(\pi;2\pi)$
+          <label><input name="q1a" type="radio" value="True"/> True</label>
+          <label><input name="q1a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) b) Giá trị lớn nhất, giá trị nhỏ nhất của hàm số là $Max y=1; Min y=-1$
+          <label><input name="q1b" type="radio" value="True"/> True</label>
+          <label><input name="q1b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) c) Hàm số đã cho là hàm tuần hoàn với chu kì $2\pi$
+          <label><input name="q1c" type="radio" value="True"/> True</label>
+          <label><input name="q1c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) d) Phương trình $\cos x=a$ với $0<a<\dfrac{1}{2}$ trên đoạn $\left[-\dfrac{5\pi}{2};\dfrac{5\pi}{2}\right]$ có 4 nghiệm
+          <label><input name="q1d" type="radio" value="True"/> True</label>
+          <label><input name="q1d" type="radio" value="False"/> False</label>
+        </div>
+                        </div>
+                        <div class="answer-check">
+                            <button onclick="checkTrueFalseAnswer('q1',['True','True','True','False'])">Check</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+   
+  <section>
+    <section>
+        <h2>📘 PHẦN  TRẢ LỜI NGẮN ( 6 CÂU) </h2>
+        <section>
+  <section>
+    <div class="question" id="q2">
+      <p><strong>Question 2</strong>. Biết đồ thị hàm số $y=ax^3+bx^2+cx+d$ có hai điểm cực trị $A(1;-7), B(2;-8)$. Tính $y(-1)$.</p>
       <div class="answer-check">
-        <button onclick="checkAnswer('q1','B')">Check</button>
+        <input type="text" id="input-q2" placeholder="Enter your answer">
+        <button onclick="checkShortAnswer('q2','-35')">Check</button>
+        <span id="icon-q2"></span>
       </div>
     </div>
   </section>
 </section>
-<section>
-  <section>
-<!---------------------------------------------------------THE END----------------------------------------------------->
+  <!---------------------------------------------------------THE END----------------------------------------------------->
   </div>
 </div>
 <!-- Slide Navigation Menu -->
@@ -796,7 +860,7 @@
 /* ==== Nút 3 gạch ☰ ==== */
 #toggleMenu {
   position: fixed;
-  top: 15px;
+  top: 45px;
   left: 40px;
   z-index: 99999 !important;
   font-size: 22px;
@@ -838,8 +902,7 @@
     <button id="exitBtn">❌ Thoát</button>
   </div>
 
-  <button id="toggleMenu">☰</button>
-
+  
   <script>
 /* === SCRIPT VẼ (bắt nguồn từ b2ds) === */
 /* Mình chỉ thêm: history (undo), và 3 case vẽ: box, pyramid3, pyramid4.
@@ -1533,6 +1596,226 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ Slide structure fixed: images moved into valid slides.");
 });
 </script>
+<!----------------->
+<!-- LOGIN MODAL (thêm vào nếu chưa có) -->
+<div id="login-modal" style="display:none; position:fixed; inset:0; z-index:12000; 
+     background: rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+  <div style="background:#fff; color:#000; padding:20px; border-radius:8px; width:340px;">
+    <h3>Đăng nhập học sinh</h3>
+    <form id="code-login-form">
+      <input id="login-code" type="text" placeholder="Mã học sinh" required style="width:100%;padding:8px;margin:6px 0;">
+      <input id="student-name" type="text" placeholder="Họ tên (tùy chọn)" style="width:100%;padding:8px;margin:6px 0;">
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+        <button type="submit" style="padding:6px 10px;">Đăng nhập</button>
+        <button type="button" id="close-modal" style="padding:6px 10px;">Đóng</button>
+      </div>
+    </form>
+    <div id="auth-status" style="margin-top:8px;color:#333;font-weight:600;"></div>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
+  authDomain: "veonline-3bcbf.firebaseapp.com",
+  projectId: "veonline-3bcbf",
+  storageBucket: "veonline-3bcbf.appspot.com",
+  messagingSenderId: "83902304195",
+  appId: "1:83902304195:web:2f9ec1ee0c23d6e21bb776"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ===== Form đăng nhập (kết hợp với modal HTML) =====
+const codeForm = document.getElementById('code-login-form');
+if (codeForm) {
+  codeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('login-code').value.trim();
+    const name = document.getElementById('student-name').value.trim();
+    try {
+      const codesRef = collection(db, "codes");
+      const q = query(codesRef, where("code", "==", code));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const docData = querySnapshot.docs[0].data();
+        localStorage.setItem("studentName", docData.name || name);
+        localStorage.setItem("studentCode", code);
+        document.getElementById('login-modal').style.display = 'none';
+        document.getElementById('auth-status').textContent = '✅ Đăng nhập thành công';
+      } else {
+        document.getElementById('auth-status').textContent = '❌ Mã không hợp lệ';
+      }
+    } catch (err) {
+      console.error(err);
+      document.getElementById('auth-status').textContent = '❌ Lỗi: ' + err.message;
+    }
+  });
+}
+
+// nút loginBtn trên topbar (toggle modal / logout)
+document.getElementById('loginBtn')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const studentCode = localStorage.getItem("studentCode");
+  if (studentCode) {
+    localStorage.removeItem("studentName");
+    localStorage.removeItem("studentCode");
+    document.getElementById('auth-status').textContent = 'Đã đăng xuất';
+  } else {
+    document.getElementById('login-modal').style.display = 'flex';
+  }
+});
+document.getElementById('close-modal')?.addEventListener('click', ()=>{
+  document.getElementById('login-modal').style.display = 'none';
+});
+
+// ===== Lưu kết quả bài làm lên Firestore =====
+window.saveAttempt = async function(testId, answersObject, score) {
+  const studentName = localStorage.getItem("studentName") || null;
+  const studentCode = localStorage.getItem("studentCode") || null;
+  if (!studentCode) return alert('⚠️ Vui lòng đăng nhập trước khi lưu kết quả!');
+  try {
+    await addDoc(collection(db, 'attempts'), {
+      name: studentName,
+      code: studentCode,
+      testId: testId || document.title || 'unknown',
+      answers: answersObject || {},
+      score: score,
+      createdAt: serverTimestamp()
+    });
+    console.log('✅ Đã lưu bài làm lên Firestore');
+    alert('Kết quả đã lưu');
+  } catch (err) {
+    console.error('Lưu lỗi', err);
+    alert('Lưu thất bại: '+ err.message);
+  }
+};
+function calculateScore() {
+  if (isScoreCalculated) return;
+/* @@ */
+  const correctAnswers = {
+    q1: 'D',
+    q2: 'A',
+    q3: 'C',
+    q4: 'A',
+    q5: 'B',
+    q6: 'B',
+    q7: 'D',
+    q8: 'C',
+    q9: 'C',
+    q10: 'A',
+    q11: 'A',
+    q12: 'D',
+    q13: ['Đúng',  'Sai', 'Đúng', 'Đúng'],
+    q14: ['Đúng', 'Sai','Đúng',  'Đúng'],
+    q15: ['Đúng', 'Sai','Sai', 'Sai'],
+    q16: ['Đúng', 'Đúng', 'Đúng','Sai'],
+    q17: '8976',
+    q18: '688',
+    q19: '16',
+    q20: '6',
+    q21: '126',
+    q22: '10'
+  };
+
+  let studentAnswers = {};
+
+  // Câu 1 → 12: Trắc nghiệm ABCD
+  for (let i = 1; i <= 12; i++) {
+    const name = 'q' + i;
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    if (selected) {
+      studentAnswers[name] = selected.value.trim();
+    }
+  }
+
+  // Câu 13 → 16: Đúng / Sai từng mệnh đề
+  for (let i = 13; i <= 16; i++) {
+    const subAnswers = [];
+    ['a', 'b', 'c', 'd'].forEach(letter => {
+      const inputName = `q${i}${letter}`;
+      const selected = document.querySelector(`input[name="${inputName}"]:checked`);
+      if (selected) {
+        subAnswers.push(selected.value.trim());
+      } else {
+        subAnswers.push(''); // Không chọn gì
+      }
+    });
+    studentAnswers['q' + i] = subAnswers;
+    console.log(`q${i}:`, subAnswers);  // Ghi ra console
+  }
+
+  // Câu 17 → 22: Tự luận (text input)
+  // Câu 17 → 22: Tự luận (text input)
+for (let i = 17; i <= 22; i++) {
+  const input = document.getElementById(`input-q${i}`);
+  if (input) {
+    studentAnswers['q' + i] = input.value.trim().replace(',', '.');
+  }
+}
+  // Bắt đầu tính điểm
+  let totalScore = 0;
+
+  for (let i = 1; i <= 22; i++) {
+    const key = 'q' + i;
+    const userAns = studentAnswers[key];
+    const correctAns = correctAnswers[key];
+
+    if (i >= 1 && i <= 12) {
+      if (userAns && userAns === correctAns) totalScore += 0.25;
+    } else if (i >= 13 && i <= 16) {
+      if (Array.isArray(userAns) && Array.isArray(correctAns)) {
+        let correctCount = 0;
+        for (let j = 0; j < correctAns.length; j++) {
+          if (userAns[j] === correctAns[j]) correctCount++;
+        }
+        console.log(`Câu ${key} đúng ${correctCount} phần`);
+        if (correctCount === 1) totalScore += 0.1;
+        else if (correctCount === 2) totalScore += 0.25;
+        else if (correctCount === 3) totalScore += 0.5;
+        else if (correctCount === 4) totalScore += 1;
+      }
+    } else if (i >= 17 && i <= 22) {
+      const user = parseFloat(userAns?.toString().replace(',', '.'));
+      const correct = parseFloat(correctAns?.toString().replace(',', '.'));
+      if (!isNaN(user) && !isNaN(correct) && Math.abs(user - correct) < 0.001) {
+        totalScore += 0.5;
+      }
+    }
+    }
+  const scoreElement = document.getElementById("score-result");
+  scoreElement.textContent = `Tổng điểm của bạn: ${totalScore.toFixed(2)} / 10`;
+  scoreElement.className = "correct";
+  isScoreCalculated = true;
+}
+
+let allowShowSolution = true; // Đặt thành false nếu muốn khóa lời giải
+
+  function toggleSolution(id) {
+    if (!allowShowSolution) {
+      alert("Lời giải đang bị khóa. Liên hệ giáo viên để mở.");
+      return;
+    }
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle("hidden");
+      el.classList.toggle('visible');
+    }
+  }
+
+  function showVideoSolution(url, qid) {
+    if (!allowShowSolution) {
+      alert("Lời giải đang bị khóa. Liên hệ giáo viên để mở.");
+      return;
+    }
+    window.open(url, '_blank');
+  }
+  </script>
+
+
 
    
 </body>

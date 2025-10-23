@@ -1,22 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <title> LỚP TOÁN THẦY BÌNH </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Reveal.js CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
-  <!-- Thêm vào phần head, sau các link CSS hiện có -->
-  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
-  <script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
-  <script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
-  <script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
-  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
-  <!-- MathJax -->
-  <script>
+<meta charset="utf-8"/>
+<title> LỚP TOÁN THẦY BÌNH </title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Reveal.js CSS -->
+<link href="https://unpkg.com/reveal.js/dist/reveal.css" rel="stylesheet"/>
+<link href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme" rel="stylesheet"/>
+<!-- Thêm vào phần head, sau các link CSS hiện có -->
+<script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+<link href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css" rel="stylesheet"/>
+<!-- MathJax -->
+<script>
     MathJax = {
       tex: { 
         inlineMath: [['$', '$'], ['\\(', '\\)']],
@@ -26,672 +26,42 @@
       chtml: { linebreaks: { automatic: true } }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <!--<link rel="stylesheet" href="styles1.css">-->
-  <style>
-/* 🌞 ===== TOÀN BỘ GIAO DIỆN ===== */
-.reveal .backgrounds {
-  background: linear-gradient(135deg, #fdfdfd 0%, #f6f8fa 100%);
-}
-
-.reveal section {
-  color: #020a44;
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-size: 26px;
-  line-height: 1.6;
-  text-shadow: none;
-  letter-spacing: 0.3px;
-  transition: color 0.3s;
-}
-
-/* 🌸 KHUNG SLIDE CHUNG – có viền và đổ bóng nhẹ */
-.reveal .slides section {
-  max-width: 100% !important;
-  width: 100% !important;
-  height: auto;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(243, 5, 40, 0.08);
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* ✨ TIÊU ĐỀ CHÍNH */
-.reveal h1, .reveal h2, .reveal h3 {
-  color: #004aad;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* ===== KHUNG CÂU HỎI ===== */
-.question, .summary-box {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 18px 22px;
-  width: 96%;
-  max-height: 82vh;
-  overflow-y: auto;
-  margin: 12px auto;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  box-sizing: border-box;
-   color: #03631e;
-   font-size: 22px;
-}
-
-/* Hình ảnh trong câu hỏi */
-.question img, .summary-box img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 12px auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* ===== TRẮC NGHIỆM ===== */
-.options-row, .option-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-
-.option-label, .option-row label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 10px 14px;
-  border: 1px solid #d0d0d0;
-  border-radius: 8px;
-  background: #fdfdfd;
-  transition: all 0.25s;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-.option-label:hover, .option-row:hover {
-  background: #e8f1ff;
-  border-color: #0074d9;
-}
-
-.option-letter {
-  font-weight: bold;
-  color: #0074d9;
-}
-
-.icon {
-  font-size: 20px;
-  margin-left: 8px;
-}
-
-/* ===== NÚT KIỂM TRA ===== */
-.answer-check {
-  margin-top: 14px;
-  text-align: left;
-}
-
-.answer-check button, .check-btn {
-  background: #0074d9;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.answer-check button:hover {
-  background: #0059b2;
-  transform: translateY(-1px);
-}
-
-/* ===== Ô NHẬP CÂU TRẢ LỜI NGẮN ===== */
-.answer-check input[type="text"] {
-  padding: 6px 10px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-  width: 240px;
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-/* ===== MENU SLIDE ===== */
-.slide-menu {
-  position: fixed;
-  top: 0;
-  left: -400px;
-  width: 350px;
-  height: 100vh;
-  background: #fefefe;
-  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
-  z-index: 1000;
-  transition: left 0.3s ease;
-  border-right: 3px solid #0074d9;
-  overflow-y: auto;
-}
-
-.slide-menu.active {
-  left: 0;
-}
-
-.menu-header {
-  padding: 16px;
-  background: #0074d9;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.menu-header h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.menu-content {
-  padding: 10px;
-}
-
-.slide-item {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #f9fafc;
-  cursor: pointer;
-  color: #111;
-  transition: 0.2s;
-}
-
-.slide-item:hover {
-  background: #e7f1ff;
-  border-color: #0074d9;
-}
-
-.slide-item.active {
-  background: #0074d9;
-  color: white;
-  border-color: #0056b3;
-  font-weight: bold;
-}
-
-/* ===== NÚT MỞ MENU ===== */
-.menu-toggle {
-  position: fixed;
-  top: 30px;
-  right: 10px;
-  z-index: 999;
-  background: #0074d9;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 20px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-  transition: transform 0.25s, background 0.25s;
-}
-
-.menu-toggle:hover {
-  background: #0059b2;
-  transform: scale(1.1);
-}
-
-/* ===== TOOLBAR VẼ ===== */
-#drawCanvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 10;
-  pointer-events: none;
-}
-
-#toolbar {
-  position: fixed;
-  top: 50%; left: 5px;
-  transform: translateY(-50%);
-  z-index: 20;
-  display: flex; flex-direction: column;
-  background: rgba(255,255,255,0.95);
-  padding: 4px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-#toolbar button, #toolbar select {
-  margin: 4px 0;
-  width: 38px; height: 38px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  background: #f2f2f2;
-  color: #111;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-#toolbar button:hover {
-  background: #0074d9;
-  color: white;
-}
-
-/* ===== NÚT TOÀN MÀN HÌNH ===== */
-.fullscreen-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 900;
-  padding: 10px 14px;
-  background: #0074d9;
-  color: white;
-  border-radius: 50%;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.fullscreen-btn:hover {
-  background: #0056b3;
-}
-/* ===== THANH TIÊU ĐỀ NGANG CỐ ĐỊNH ===== */
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(90deg, #004aad, #0074d9, #00b4d8);
-  color: #fff;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 60px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  z-index: 2000;
-  border-bottom: 3px solid rgba(255,255,255,0.3);
-}
-
-.topbar-title {
-  animation: titleGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes titleGlow {
-  0% { text-shadow: 0 0 8px #fff, 0 0 14px #00b4d8; }
-  100% { text-shadow: 0 0 15px #fff, 0 0 25px #0074d9; }
-}
-
-/* ===== ĐỒNG HỒ (góc phải thanh) ===== */
-.clock {
-  position: absolute;
-  right: 30px;
-  top: 0;
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: #fff;
-  text-shadow: 0 0 6px rgba(0,0,0,0.5);
-}
-
-/* Dời phần trình chiếu xuống dưới thanh tiêu đề */
-.reveal {
-  margin-top: 38px !important;
-}
-
-/* ===== CÁC KIỂU TRÌNH BÀY TOÁN HỌC - PHIÊN BẢN CẬP NHẬT ===== */
-
-/* 🌟 ĐỊNH NGHĨA */
-.definition-box {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  border-left: 5px solid #1976d2;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
-  position: relative;
-}
-
-.definition-icon {
-  display: inline-block;
-  margin-right: 10px;
-  color: #1976d2;
-}
-
-.definition-content h3 {
-  color: #1976d2;
-  font-weight: 700;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #1976d2;
-  padding-bottom: 8px;
-}
-
-.styled-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.styled-list li {
-  margin: 12px 0;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
-  border-left: 3px solid #28a745;
-}
-
-/* 🎯 CHÚ Ý & PHƯƠNG PHÁP */
-.note-box {
-  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
-  border-left: 5px solid #ffa000;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px rgba(255, 160, 0, 0.15);
-}
-
-.note-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.note-icon {
-  color: #ffa000;
-  margin-right: 10px;
-  font-size: 20px;
-}
-
-.note-title {
-  font-weight: 700;
-  color: #ffa000;
-  font-size: 18px;
-}
-
-.note-content ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.note-content li {
-  margin: 10px 0;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 4px;
-}
-
-/* 🔍 PHƯƠNG PHÁP GIẢI */
-.solution-steps {
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 6px;
-  padding: 15px;
-  margin: 15px 0;
-}
-
-.solution-steps ol {
-  padding-left: 20px;
-}
-
-.solution-steps li {
-  margin: 10px 0;
-  padding: 8px;
-  background: rgba(232, 245, 232, 0.5);
-  border-radius: 4px;
-  border-left: 3px solid #388e3c;
-}
-
-/* 📊 DẠNG TOÁN */
-.problem-type {
-  background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
-  border-left: 5px solid #303f9f;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px rgba(48, 63, 159, 0.15);
-}
-
-.problem-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #303f9f;
-  padding-bottom: 10px;
-}
-
-.problem-number {
-  background: #303f9f;
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  margin-right: 15px;
-}
-
-.problem-header h3 {
-  color: #303f9f;
-  margin: 0;
-  font-weight: 700;
-}
-
-/* 📝 VÍ DỤ */
-.example {
-  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-  border-left: 5px solid #f57c00;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.15);
-}
-
-.example-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #f57c00;
-  padding-bottom: 10px;
-}
-
-.example-header h3 {
-  color: #f57c00;
-  margin: 0;
-  font-weight: 700;
-}
-
-.tag {
-  background: #f57c00;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.example-question {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 15px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  border-left: 3px solid #f57c00;
-}
-
-/* 💡 LỜI GIẢI */
-.solution {
-  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
-  border-left: 5px solid #c2185b;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 15px 0;
-  display: none; /* Ẩn ban đầu, hiện khi click */
-}
-
-.solution h4 {
-  color: #c2185b;
-  font-weight: 700;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #c2185b;
-  padding-bottom: 8px;
-}
-
-.solution-conclusion {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 12px;
-  border-radius: 6px;
-  border-left: 4px solid #c2185b;
-  font-weight: 600;
-  margin-top: 15px;
-}
-
-/* Nút xem lời giải */
-.btn.solution-toggle {
-  background: #0074d9;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.3s;
-  margin: 10px 0;
-}
-
-.btn.solution-toggle:hover {
-  background: #0059b2;
-}
-
-.mr-2 {
-  margin-right: 8px;
-}
-
-/* Hình ảnh */
-.image-container {
-  text-align: center;
-  margin: 15px 0;
-}
-
-.image-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Tiêu đề section */
-.doc-section {
-  margin: 30px 0;
-}
-
-.article-subtitle {
-  color: #004aad;
-  font-weight: 700;
-  border-bottom: 3px solid #004aad;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-/* Công thức toán */
-.math {
-  font-size: 24px;
-  margin: 10px 0;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .definition-box,
-  .note-box,
-  .problem-type,
-  .example,
-  .solution {
-    padding: 15px;
-    margin: 15px 0;
-  }
-  
-  .example-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .tag {
-    margin-top: 8px;
-  }
-  
-  .math {
-    font-size: 20px;
-  }
-}
-/* Cho phép cuộn slide dài */
-.reveal .slides section {
-  overflow-y: auto !important;
-  max-height: 100vh !important;
-  scroll-behavior: smooth;
-  padding-bottom: 2rem;
-}
-
-/* Không giới hạn chiều cao các box */
-.definition-box,
-.theorem-box,
-.method-box,
-.example,
-.note-box,
-.formula,
-.procedure {
-  max-height: none !important;
-  overflow: visible !important;
-}
-
-/* Box lồng nhau thu nhỏ nhẹ */
-.box .box {
-  font-size: 0.9em;
-  padding: 0.8em;
-}
-
-</style>
-
-  <!-- ===== style chuyên đề  ===== -->
-
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="styless.css">
+<!-- ===== style chuyên đề  ===== -->
 </head>
-
 <body>
-    <!-- ===== Thanh tiêu đề cố định ===== -->
+<!-- ===== Thanh tiêu đề cố định ===== -->
 <div class="topbar">
-  <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
-  <div class="clock" id="clock">--:--:--</div>
+<div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+<div class="clock" id="clock">--:--:--</div>
+<button id="toggleMenu">☰</button>
+<!-- ==== Thanh công cụ: Chọn đề / Đăng nhập / Tính điểm ==== -->
+<div class="topbar-controls">
+  
+<select id="selectExam">
+<option value="">-- Chọn đề --</option>
+<option value="de1">Đề 1</option>
+<option value="de2">Đề 2</option>
+</select>
+<button id="loginBtn">🔑 Đăng nhập</button>
+<button id="scoreBtn">📊 Tính điểm</button>
 </div>
 
+</div>
 <div class="reveal">
-  <div class="slides">
+<div class="slides">
 <!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
-  <!-- TÊN BÀI -->
-      <section>
-        <h2>📘 BÀI 4</h2>
-        <p>Môn Toán - Lớp 12</p>
-      </section>
-  <section>
-        <h2>📘 BÀI TẬP ĐÚNG </h2>
-  </section>
-<!--@@@@-->
-<!--@@@@-->
+<!-- TÊN BÀI -->
 <section>
+<h2>📘 KHẢO SÁT VÀ VẼ ĐỒ THỊ HÀM SỐ</h2>
+  <p>Môn Toán - Lớp 12</p>
+</section>
+
+<section><h2>📘 PHẦN  ĐÚNG SAI </h2></section>
+<!--@@@@-->
+
+            <section>
                 <section>
                     <div class="question" id="q1">
                         <p class="question-title"><strong>Question 1.</strong> (Cụm trường THPT Bắc Ninh 2025) Cho hàm số bậc ba $y = f(x) = ax^3+bx^2+cx+d$ có đồ thị là đường cong như hình vẽ bên.</p>
@@ -720,6 +90,7 @@
                     </div>
                 </section>
             </section>
+
             <section>
                 <section>
                     <div class="question" id="q2">
@@ -4273,6 +3644,7 @@
                     </div>
                 </section>
             </section>
+            
             <section>
                 <section>
                     <div class="question" id="q127">
@@ -4302,164 +3674,386 @@
                 </section>
             </section>
 <!---------------------------------------------------------THE END----------------------------------------------------->
-  </div>
+</div>
 </div>
 <!-- Slide Navigation Menu -->
-<div id="slideMenu" class="slide-menu">
-    <div class="menu-header">
-        <h3>📋 Danh sách slide</h3>
-        <button onclick="closeSlideMenu()" class="close-btn">×</button>
-    </div>
-    <div class="menu-content">
-        <div id="slideList" class="slide-list">
-            <!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
-        </div>
-    </div>
+<div class="slide-menu" id="slideMenu">
+<div class="menu-header">
+<h3>📋 Danh sách slide</h3>
+<button class="close-btn" onclick="closeSlideMenu()">×</button>
 </div>
-
+<div class="menu-content">
+<div class="slide-list" id="slideList">
+<!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+</div>
+</div>
+</div>
 <!-- Nút mở menu -->
-<button id="menuToggle" class="menu-toggle" onclick="toggleSlideMenu()">📋</button>
-  <!-- Canvas -->
-  <canvas id="drawCanvas"></canvas>
-<style>
-  /* ==== CANVAS ==== */
- #drawCanvas {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9998 !important;
-  pointer-events: none;    /* 👈 KHÔNG nhận click mặc định */
-  touch-action: none;
+<button class="menu-toggle" id="menuToggle" onclick="toggleSlideMenu()">📋</button>
+<!-- Canvas -->
+
+<!-- ==== Canvas + Toolbar ==== -->
+<canvas id="drawCanvas" style="display:none;"></canvas>
+<div class="toolbar" id="drawToolbar" style="display:none;">
+<a href="../index.html" title="Về trang chủ">
+  <button id="homeBtn" style="font-size:22px;">🏠</button>
+</a>
+<select id="tool">
+<option value="pen">✏️ Bút</option>
+<option value="line">📏 Đường</option>
+<option value="rect">⬛ Chữ nhật</option>
+<option value="parallelogram">▱ Bình hành</option>
+<option value="circle">⚪ Tròn</option>
+<option value="dashedLineBtn">– –</option>
+<option value="ellipseBtn">⬭ Elip</option>
+<!-- Thêm 3 công cụ mới -->
+<option value="box">📦 Hộp 3D</option>
+<option value="pyramid3">🔺 Chóp tam giác</option>
+<option value="pyramid4">🔲 Chóp tứ giác</option>
+<option value="sphere">⚽ Cầu</option>
+</select>
+<input id="draw-width" max="5" min="1" type="range" value="2"/>
+<input id="colorPicker" type="color" value="#6b21a8">
+<button id="undoBtn" title="Undo">↩️</button>
+<button id="clearBtn">🧹 Xoá</button>
+<button id="saveBtn">💾 Lưu</button>
+<button id="exitBtn">❌ Thoát</button>
+</input></div>
+<script>
+/* === SCRIPT VẼ (bắt nguồn từ b2ds) === */
+/* Mình chỉ thêm: history (undo), và 3 case vẽ: box, pyramid3, pyramid4.
+   Không sửa logic vẽ khác. */
+
+const canvas = document.getElementById("drawCanvas");
+const ctx = canvas.getContext("2d");
+const toggleBtn = document.getElementById("toggleMenu");
+const toolbar = document.getElementById("drawToolbar");
+const clearBtn = document.getElementById("clearBtn");
+const saveBtn = document.getElementById("saveBtn");
+const exitBtn = document.getElementById("exitBtn");
+const colorPicker = document.getElementById("colorPicker");
+const toolSelect = document.getElementById("tool");
+const widthPicker = document.getElementById("draw-width");
+const undoBtn = document.getElementById("undoBtn");
+
+let lineWidth = 2;
+widthPicker.oninput = () => lineWidth = parseInt(widthPicker.value);
+
+let isDrawing = false;
+let isDrawMode = false;
+let startX = 0, startY = 0, lastX = 0, lastY = 0;
+let currentTool = "pen";
+let imageBeforeShape;
+
+// HISTORY cho Undo (hoàn tác nét gần nhất)
+let history = [];
+
+// mượt hơn
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+
+// kích thước canvas (đơn giản, giữ nguyên như b2ds)
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
-
-  /* ==== NÚT MENU (☰) ==== */
-  #toggleMenu {
-    position: fixed;
-    top: 15px;
-    left: 40px;
-    z-index: 10000 !important;
-    font-size: 22px;
-    background: rgba(0,0,0,0.45);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 3px 8px;
-    cursor: pointer;
+// bật/tắt vẽ
+toggleBtn.onclick = () => {
+  isDrawMode = !isDrawMode;
+  if (isDrawMode) {
+    canvas.style.display = "block";
+    toolbar.style.display = "flex";
+    canvas.style.pointerEvents = "auto"; // bật tương tác khi vẽ
+  } else {
+    canvas.style.display = "none";
+    toolbar.style.display = "none";
+    canvas.style.pointerEvents = "none";
   }
-  #toggleMenu:hover {
-    background: rgba(255,255,255,0.25);
+};
+
+// thoát
+exitBtn.onclick = () => {
+  isDrawMode = false;
+  canvas.style.display = "none";
+  toolbar.style.display = "none";
+  canvas.style.pointerEvents = "none";
+};
+
+// chọn công cụ
+toolSelect.onchange = () => currentTool = toolSelect.value;
+
+// undo: hoàn tác 1 bước (nét gần nhất)
+undoBtn.onclick = () => {
+  if (history.length > 0) {
+    const last = history.pop();
+    try {
+      ctx.putImageData(last, 0, 0);
+    } catch (e) {
+      // nếu putImageData lỗi do mismatch kích thước, clear và ignore
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+  }
+};
+
+// xoá toàn bộ
+clearBtn.onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// lưu ảnh
+saveBtn.onclick = () => {
+  const link = document.createElement("a");
+  link.download = "ban_ve.png";
+  link.href = canvas.toDataURL();
+  link.click();
+};
+
+// fullscreen button (giữ nguyên)
+const fullBtn = document.createElement("button");
+fullBtn.textContent = "⛶ Full";
+fullBtn.title = "Toàn màn hình";
+fullBtn.onclick = () => {
+  if (!document.fullscreenElement)
+    document.documentElement.requestFullscreen().catch(() => {});
+  else
+    document.exitFullscreen();
+};
+toolbar.appendChild(fullBtn);
+
+// lấy vị trí chính xác
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  if (e.touches && e.touches.length > 0)
+    return { x: (e.touches[0].clientX - rect.left) * scaleX, y: (e.touches[0].clientY - rect.top) * scaleY };
+  return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY };
+}
+
+// bắt đầu vẽ
+function startDraw(e) {
+  if (!isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+
+  // LƯU trạng thái trước khi vẽ (cho Undo: hoàn tác nét gần nhất)
+  try {
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  } catch (err) {
+    // ignore nếu getImageData lỗi (ví dụ canvas chưa có kích thước)
   }
 
- /* ==== TOOLBAR ==== */
-#toolbar {
-  position: fixed;
-  bottom: 8px;
-  left: 15px;
-  transform: translateX(-50%);
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;          /* 👈 Cho phép cuộn ngang nếu dài */
-  white-space: nowrap;
-  gap: 6px;
-  background: rgba(2, 27, 125, 0.6);
-  border-radius: 8px;
-  padding: 4px 6px;
-  z-index: 10001 !important;
-  backdrop-filter: blur(3px);
-  max-width: 95vw;           /* 👈 Không vượt quá khung trình chiếu */
-}
-#toolbar::-webkit-scrollbar {
-  height: 4px;
-}
-#toolbar::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.4);
-  border-radius: 2px;
-}
-
-
-/* ==== CÁC NÚT VÀ COMBO ==== */
-#toolbar button,
-#toolbar select {
-  font-size: 12px;
-  color: white;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 5px;
-  padding: 2px 5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#toolbar select {
-  height: 22px;
-}
-
-#toolbar button:hover,
-#toolbar select:hover {
-  background: rgba(255,255,255,0.25);
-  transform: translateY(-1px);
-}
-
-/* ==== CÁC BIỂU TƯỢNG ==== */
-#toolbar button {
-  line-height: 1;
-}
-
-/* 📱 Responsive cho màn hình nhỏ */
-@media (max-width: 768px) {
-  #toolbar {
-    bottom: 6px;
-    left: 6px;
-    flex-wrap: wrap;
-    gap: 3px;
-    padding: 4px;
-  }
-
-  #toolbar button,
-  #toolbar select {
-    font-size: 13px;
-    padding: 2px 4px;
+  isDrawing = true;
+  startX = lastX = pos.x;
+  startY = lastY = pos.y;
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  if (currentTool !== "pen") {
+    try { imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height); } catch(e){ imageBeforeShape = null; }
+  } else {
+    imageBeforeShape = null;
   }
 }
 
-</style>
+// vẽ khi rê
+function drawMove(e) {
+  if (!isDrawing || !isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.setLineDash([]);
 
-  <!-- Toggle menu -->
-  <button id="toggleMenu">☰</button>
+  if (currentTool === "pen") {
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x; lastY = pos.y;
+  } else {
+    // khôi phục nền trước shape live preview
+    if (imageBeforeShape) {
+      try { ctx.putImageData(imageBeforeShape, 0, 0); } catch(e){ /* ignore */ }
+    } else {
+      // nếu không có imageBeforeShape, xóa phần vẽ tạm
+      // (để tránh chồng lớp)
+      // ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
 
-  <!-- Toolbar -->
-  <div id="toolbar" style="display:none;">
-    <a href="../index.html" title="Trang chủ">
-  <button>🏠</button>
-     </a>
-    <button id="toggleDraw" title="Bút vẽ">✏️</button>
-    <select id="colorPicker" title="Màu">
-      <option value="yellow">🟡</option>
-      <option value="white">⚪</option>
-      <option value="red">🔴</option>
-      <option value="cyan">🔵</option>
-    </select>
-    <select id="lineWidthPicker" title="Độ dày">
-      <option value="2">Mảnh</option>
-      <option value="3" selected>Vừa</option>
-      <option value="6">Đậm</option>
-    </select>
-    <button id="lineBtn" title="Đoạn">▬</button>
-    <button id="dashedLineBtn" title="Đoạn đứt">– –</button>
-    <button id="circleBtn" title="Tròn">⚪</button>
-    <button id="ellipseBtn" title="Elip">⬭</button>
-    <button id="undoBtn" title="Undo">↩️</button>
-    <button id="clearCanvas" title="Xóa hết">🧹</button>
-    <button id="disableDraw">❌</button>
-    <button id="fullscreen" title="Full">⛶</button>
-  </div>
+    switch (currentTool) {
+      case "line":
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        break;
 
-  <!-- Reveal.js -->
-  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
-  <script>
+      case "dashedLineBtn":
+        ctx.setLineDash([8,6]);
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        break;
+
+      case "rect":
+        ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+        break;
+
+      case "circle":
+        const r = Math.hypot(pos.x - startX, pos.y - startY);
+        ctx.beginPath();
+        ctx.arc(startX, startY, r, 0, Math.PI*2);
+        ctx.stroke();
+        break;
+
+      case "ellipseBtn":
+        ctx.setLineDash([6,4]);
+        ctx.beginPath();
+        ctx.ellipse(startX, startY, Math.abs(pos.x - startX), Math.abs(pos.y - startY), 0, 0, Math.PI*2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        break;
+
+      case "sphere":
+        const rs = Math.abs(pos.x - startX);
+        ctx.beginPath();
+        ctx.arc(startX, startY, rs, 0, Math.PI*2);
+        ctx.stroke();
+        ctx.setLineDash([6,4]);
+        ctx.beginPath();
+        ctx.ellipse(startX, startY, rs, rs/2, 0, Math.PI, 2 * Math.PI);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.ellipse(startX, startY, rs, rs/2, 0, 0, Math.PI);
+        ctx.stroke();
+        break;
+
+      case "parallelogram":
+        const width = pos.x - startX;
+        const height = pos.y - startY;
+        const offset = width * 0.3;
+        ctx.beginPath();
+        ctx.moveTo(startX + offset, startY);
+        ctx.lineTo(startX + width + offset, startY);
+        ctx.lineTo(startX + width - offset, startY + height);
+        ctx.lineTo(startX - offset, startY + height);
+        ctx.closePath();
+        ctx.stroke();
+        break;
+
+      /* ==== THÊM: BOX (HỘP 3D) ==== */
+      case "box":
+        {
+          const w = pos.x - startX;
+          const h = pos.y - startY;
+          const depth = Math.min(Math.abs(w), Math.abs(h)) * 0.3;
+          // front face
+          ctx.beginPath();
+          ctx.strokeRect(startX, startY, w, h);
+          // back face (offset by depth up-left)
+          ctx.strokeRect(startX + depth, startY - depth, w, h);
+          // connect corners
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(startX + depth, startY - depth);
+          ctx.moveTo(startX + w, startY);
+          ctx.lineTo(startX + w + depth, startY - depth);
+          ctx.moveTo(startX, startY + h);
+          ctx.lineTo(startX + depth, startY + h - depth);
+          ctx.moveTo(startX + w, startY + h);
+          ctx.lineTo(startX + w + depth, startY + h - depth);
+          ctx.stroke();
+        }
+        break;
+
+      /* ==== THÊM: CHÓP TAM GIÁC (pyramid3) ==== */
+      /* ==== CẢI TIẾN: CHÓP TAM GIÁC 3D (pyramid3) ==== */
+        case "pyramid3": {
+          // xác định 3 đỉnh đáy (tam giác nằm trên mặt phẳng đáy)
+          const baseLeft = { x: startX, y: pos.y };
+          const baseRight = { x: pos.x, y: pos.y };
+          const baseMid = { x: (startX + pos.x) / 2, y: pos.y - (pos.y - startY) * 0.2 };
+
+          // đỉnh chóp (cao hơn đáy)
+          const apex = { 
+            x: (startX + pos.x) / 2, 
+            y: startY - Math.abs(pos.y - startY) * 0.7 
+          };
+
+          ctx.beginPath();
+          ctx.setLineDash([]); // nét liền
+
+          // vẽ mặt trước (2 cạnh bên + cạnh đáy trước)
+          ctx.moveTo(apex.x, apex.y);
+          ctx.lineTo(baseLeft.x, baseLeft.y);
+          ctx.lineTo(baseRight.x, baseRight.y);
+          ctx.closePath();
+          ctx.stroke();
+
+          // vẽ cạnh phía sau (ẩn - nét đứt)
+          ctx.setLineDash([6, 4]);
+          ctx.beginPath();
+          ctx.moveTo(apex.x, apex.y);
+          ctx.lineTo(baseMid.x, baseMid.y);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          break;
+        }
+
+
+      /* ==== THÊM: CHÓP TỨ GIÁC (pyramid4) ==== */
+      case "pyramid4":
+        {
+          const w4 = pos.x - startX, h4 = pos.y - startY;
+          const apexX = startX + w4 / 2;
+          const apexY = startY - h4 / 1.5; // apex above the rectangle
+          ctx.beginPath();
+          // base rectangle (front)
+          ctx.rect(startX, startY, w4, h4);
+          ctx.stroke();
+          // connect base corners to apex
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(apexX, apexY);
+          ctx.moveTo(startX + w4, startY);
+          ctx.lineTo(apexX, apexY);
+          ctx.moveTo(startX, startY + h4);
+          ctx.lineTo(apexX, apexY);
+          ctx.moveTo(startX + w4, startY + h4);
+          ctx.lineTo(apexX, apexY);
+          ctx.stroke();
+        }
+        break;
+
+      case "pyramid3": // duplicate safe-guard
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+// kết thúc
+function endDraw() { isDrawing = false; }
+
+canvas.addEventListener("mousedown", startDraw);
+canvas.addEventListener("mousemove", drawMove);
+canvas.addEventListener("mouseup", endDraw);
+canvas.addEventListener("mouseleave", endDraw);
+canvas.addEventListener("touchstart", startDraw, { passive: false });
+canvas.addEventListener("touchmove", drawMove, { passive: false });
+canvas.addEventListener("touchend", endDraw);
+  </script>
+<!-- Reveal.js -->
+<script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+<script>
   Reveal.initialize({
   width: "100%",   // 👈 chiều rộng = full trình duyệt
   height: "100%",  // 👈 chiều cao = full trình duyệt
@@ -4498,259 +4092,9 @@
 });
 
 </script>
-
- <!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // === Elements ===
-  const canvas = document.getElementById("drawCanvas");
-  const ctx = canvas.getContext("2d", { alpha: true });
-  canvas.style.pointerEvents = "none"; // 👈 Mặc định KHÔNG chặn slide
-
-  // === Toolbar elements ===
-  const toggleMenu = document.getElementById("toggleMenu");
-  const toolbar = document.getElementById("toolbar");
-  const toggleDraw = document.getElementById("toggleDraw");
-  const disableDraw = document.getElementById("disableDraw");
-  const colorPicker = document.getElementById("colorPicker");
-  const lineWidthPicker = document.getElementById("lineWidthPicker");
-  const lineBtn = document.getElementById("lineBtn");
-  const dashedLineBtn = document.getElementById("dashedLineBtn");
-  const circleBtn = document.getElementById("circleBtn");
-  const ellipseBtn = document.getElementById("ellipseBtn");
-  const undoBtn = document.getElementById("undoBtn");
-  const clearBtn = document.getElementById("clearCanvas");
-  const fullscreenBtn = document.getElementById("fullscreen");
-      const homeBtn = document.getElementById("homeBtn");
-    if (homeBtn) {
-      homeBtn.addEventListener("click", () => {
-        window.location.href = "12C1B1.html"; // 🔗 quay về trang chủ
-      });
-    }
-
-  // === State ===
-  let drawing = false;
-  let drawEnabled = false; // 👈 Mặc định: KHÔNG vẽ (Reveal nhận sự kiện)
-  let start = { x: 0, y: 0 };
-  let current = { x: 0, y: 0 };
-  let snapshot = null;
-  let dpr = Math.max(1, window.devicePixelRatio || 1);
-  let currentShape = "free";
-  let rawLineDash = [];
-  const undoStack = [];
-  const redoStack = [];
-  const MAX_HISTORY = 40;
-
-  // === Helper: lấy tọa độ theo devicePixelRatio ===
-  function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.round((e.clientX - rect.left) * dpr);
-    const y = Math.round((e.clientY - rect.top) * dpr);
-    return { x, y };
-  }
-
-  // === Resize Canvas ===
-  function resizeCanvas() {
-    const data = canvas.toDataURL();
-    const w = Math.max(window.innerWidth, 1);
-    const h = Math.max(window.innerHeight, 1);
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    const img = new Image();
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    img.src = data;
-  }
-  window.addEventListener("resize", debounce(resizeCanvas, 120));
-  resizeCanvas();
-
-  // === Undo/Redo ===
-  function saveState() {
-    if (undoStack.length >= MAX_HISTORY) undoStack.shift();
-    undoStack.push(canvas.toDataURL("image/png"));
-    redoStack.length = 0;
-  }
-  function undo() {
-    if (!undoStack.length) return;
-    redoStack.push(canvas.toDataURL("image/png"));
-    const img = new Image();
-    img.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    img.src = undoStack.pop();
-  }
-
-  // === Cấu hình nét vẽ ===
-  function applyStrokeStyle(e) {
-    const lwCss = parseFloat(lineWidthPicker.value) || 2;
-    const lwDevice = Math.max(
-      1,
-      Math.round(
-        lwCss * dpr * (e && e.pressure ? (0.6 + e.pressure * 1.4) : 1)
-      )
-    );
-    ctx.lineWidth = lwDevice;
-    ctx.strokeStyle = colorPicker.value || "black";
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.setLineDash(rawLineDash.length ? rawLineDash.map((v) => v * dpr) : []);
-  }
-
-  // === Vẽ ===
-  canvas.addEventListener("pointerdown", (e) => {
-    if (!drawEnabled) return; // chỉ khi bật chế độ vẽ
-    if (e.button !== 0 && e.pointerType !== "pen") return;
-    try {
-      canvas.setPointerCapture(e.pointerId);
-    } catch {}
-    drawing = true;
-    start = getPos(e);
-    current = { ...start };
-
-    if (currentShape === "free") {
-      applyStrokeStyle(e);
-      ctx.beginPath();
-      ctx.moveTo(start.x, start.y);
-    } else {
-      try {
-        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      } catch {
-        snapshot = null;
-      }
-    }
-    e.preventDefault();
-  });
-
-  canvas.addEventListener("pointermove", (e) => {
-    if (!drawing) return;
-    current = getPos(e);
-    if (currentShape === "free") {
-      applyStrokeStyle(e);
-      ctx.lineTo(current.x, current.y);
-      ctx.stroke();
-    } else {
-      if (snapshot) ctx.putImageData(snapshot, 0, 0);
-      applyStrokeStyle(e);
-      if (currentShape === "line") {
-        ctx.beginPath();
-        ctx.moveTo(start.x, start.y);
-        ctx.lineTo(current.x, current.y);
-        ctx.stroke();
-      } else if (currentShape === "circle") {
-        const r = Math.hypot(current.x - start.x, current.y - start.y);
-        ctx.beginPath();
-        ctx.arc(start.x, start.y, r, 0, Math.PI * 2);
-        ctx.stroke();
-      } else if (currentShape === "ellipse") {
-        const rx = Math.abs(current.x - start.x);
-        const ry = Math.abs(current.y - start.y);
-        ctx.beginPath();
-        ctx.ellipse(start.x, start.y, rx, ry, 0, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-    }
-    e.preventDefault();
-  });
-
-  function finishPointer(e) {
-    if (!drawing) return;
-    drawing = false;
-    try {
-      canvas.releasePointerCapture(e.pointerId);
-    } catch {}
-    saveState();
-  }
-  canvas.addEventListener("pointerup", finishPointer);
-  canvas.addEventListener("pointercancel", finishPointer);
-
-  // === Toolbar Buttons ===
-  toggleDraw &&
-    toggleDraw.addEventListener("click", () => {
-      drawEnabled = true;
-      canvas.style.pointerEvents = "auto"; // 👈 bật chế độ vẽ
-      currentShape = "free";
-      if (disableDraw) disableDraw.style.opacity = "1";
-    });
-
-  disableDraw &&
-    disableDraw.addEventListener("click", () => {
-      drawEnabled = !drawEnabled;
-      disableDraw.style.opacity = drawEnabled ? "1" : "0.5";
-      canvas.style.pointerEvents = drawEnabled ? "auto" : "none"; // 👈 tắt/bật vẽ
-    });
-
-  lineBtn &&
-    lineBtn.addEventListener("click", () => {
-      currentShape = "line";
-      rawLineDash = [];
-    });
-  dashedLineBtn &&
-    dashedLineBtn.addEventListener("click", () => {
-      currentShape = "line";
-      rawLineDash = [8, 6];
-    });
-  circleBtn &&
-    circleBtn.addEventListener("click", () => {
-      currentShape = "circle";
-      rawLineDash = [];
-    });
-  ellipseBtn &&
-    ellipseBtn.addEventListener("click", () => {
-      currentShape = "ellipse";
-      rawLineDash = [6, 6];
-    });
-  undoBtn && undoBtn.addEventListener("click", undo);
-
-  clearBtn &&
-    clearBtn.addEventListener("click", () => {
-      saveState();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-
-  fullscreenBtn &&
-    fullscreenBtn.addEventListener("click", () => {
-      if (!document.fullscreenElement)
-        document.documentElement.requestFullscreen().catch(() => {});
-      else document.exitFullscreen();
-    });
-
-  // === Toggle menu (☰) ===
-  toggleMenu &&
-    toggleMenu.addEventListener("click", () => {
-      if (!toolbar) return;
-      toolbar.style.display =
-        toolbar.style.display === "none" || toolbar.style.display === ""
-          ? "flex"
-          : "none";
-    });
-
-  // === Khởi tạo ===
-  saveState();
-
-  // === Helpers ===
-  function debounce(fn, ms) {
-    let t;
-    return (...a) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn(...a), ms);
-    };
-  }
-
-  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
-  if (colorPicker && !colorPicker.value) colorPicker.value = "yellow";
-});
-</script>
+<!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
 <!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
-
-
-
-  <script>
+<script>
   // Hàm phát âm thanh
   function playSound(src) {
     const audio = new Audio(src);
@@ -4911,7 +4255,6 @@ function checkShortAnswer(qid, correct) {
   }
 }
 </script>
-
 <script>
 // Biến toàn cục
 let slideMenu, menuToggle, slideList, menuOverlay;
@@ -5023,7 +4366,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock(); // chạy ngay khi tải trang
 </script>
-
 <script>
 // === AUTO FIX SLIDE STRUCTURE ===
 // Mục đích: Đưa mọi <img> (hoặc <center><img>...</center>) nằm ngoài <section> vào slide hợp lệ
@@ -5062,7 +4404,518 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ Slide structure fixed: images moved into valid slides.");
 });
 </script>
+<!----------------->
+<!-- LOGIN MODAL (thêm vào nếu chưa có) -->
+<div id="login-modal" style="display:none; position:fixed; inset:0; z-index:12000; 
+     background: rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+<div style="background:#fff; color:#000; padding:20px; border-radius:8px; width:340px;">
+<h3>Đăng nhập học sinh</h3>
+<form id="code-login-form">
+<input id="login-code" placeholder="Mã học sinh" required="" style="width:100%;padding:8px;margin:6px 0;" type="text"/>
+<input id="student-name" placeholder="Họ tên (tùy chọn)" style="width:100%;padding:8px;margin:6px 0;" type="text"/>
+<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+<button style="padding:6px 10px;" type="submit">Đăng nhập</button>
+<button id="close-modal" style="padding:6px 10px;" type="button">Đóng</button>
+</div>
+</form>
+<div id="auth-status" style="margin-top:8px;color:#333;font-weight:600;"></div>
+</div>
+</div>
+<script type="module">
+// Nếu chưa khai báo global flag, khởi tạo
+if (typeof window.isScoreCalculated === 'undefined') window.isScoreCalculated = false;
 
-   
+function calculateScore() {
+  if (window.isScoreCalculated) return;
+  const studentAnswers = {};
+  const correctAnswers = {};
+  let totalScore = 0;
+
+  document.querySelectorAll('.question').forEach(q => {
+    const qid = q.id;
+    if (!qid) return;
+    const btn = q.querySelector('button[onclick*="check"]');
+    const onclickStr = btn ? (btn.getAttribute('onclick') || '') : '';
+
+    if (onclickStr.includes('checkTrueFalseAnswer')) {
+      const arrMatch = onclickStr.match(/\[(.*?)\]/);
+      if (arrMatch) {
+        const arr = arrMatch[1].split(',').map(s => s.replace(/['"\s\[\]]/g, '').trim());
+        if (arr.length) correctAnswers[qid] = arr;
+      }
+    } else if (onclickStr.includes('checkShortAnswer')) {
+      const m = onclickStr.match(/checkShortAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2];
+    } else if (onclickStr.includes('checkAnswer')) {
+      const m = onclickStr.match(/checkAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([A-Za-z0-9]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2].toString().toUpperCase();
+    }
+  });
+
+  for (let i = 1; i <= 12; i++) {
+    const name = 'q' + i;
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    studentAnswers[name] = selected ? selected.value.trim() : '';
+  }
+
+  for (let i = 13; i <= 16; i++) {
+    const sub = [];
+    ['a','b','c','d'].forEach(letter => {
+      const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
+      sub.push(sel ? sel.value.trim() : '');
+    });
+    studentAnswers['q' + i] = sub;
+  }
+
+  for (let i = 17; i <= 22; i++) {
+    const el = document.getElementById(`input-q${i}`);
+    studentAnswers['q' + i] = el ? el.value.trim().replace(',', '.') : '';
+  }
+
+  document.querySelectorAll('.question').forEach(q => {
+    const qid = q.id;
+    if (!correctAnswers[qid]) {
+      const dataCorrect = q.getAttribute('data-correct');
+      if (dataCorrect) {
+        try {
+          const parsed = JSON.parse(dataCorrect);
+          correctAnswers[qid] = parsed;
+        } catch (e) {
+          correctAnswers[qid] = dataCorrect;
+        }
+      }
+    }
+  });
+
+  for (let i = 1; i <= 22; i++) {
+    const key = 'q' + i;
+    const userAns = studentAnswers[key];
+    const corr = correctAnswers[key];
+    if (i >= 1 && i <= 12) {
+      if (!corr) continue;
+      if (userAns && String(userAns).toUpperCase() === String(corr).toUpperCase()) totalScore += 0.25;
+    } else if (i >= 13 && i <= 16) {
+      if (!Array.isArray(corr) || !Array.isArray(userAns)) continue;
+      let correctCount = 0;
+      for (let j = 0; j < corr.length && j < userAns.length; j++) {
+        const exp = String(corr[j]).toLowerCase();
+        const u = String(userAns[j]).toLowerCase();
+        if (u && (u === exp || (exp.startsWith('t') && u.startsWith('t')) || (exp.startsWith('đ') && u.startsWith('đ')))) {
+          correctCount++;
+        }
+      }
+      if (correctCount === 1) totalScore += 0.1;
+      else if (correctCount === 2) totalScore += 0.25;
+      else if (correctCount === 3) totalScore += 0.5;
+      else if (correctCount === 4) totalScore += 1;
+    } else if (i >= 17 && i <= 22) {
+      if (typeof corr === 'undefined') continue;
+      const userNum = parseFloat((userAns || '').toString().replace(',', '.'));
+      const corrNum = parseFloat((corr || '').toString().replace(',', '.'));
+      if (!isNaN(userNum) && !isNaN(corrNum)) {
+        if (Math.abs(userNum - corrNum) < 0.001) totalScore += 0.5;
+      } else {
+        if ((userAns || '').toString().trim().toLowerCase() === (corr || '').toString().trim().toLowerCase()) {
+          totalScore += 0.5;
+        }
+      }
+    }
+  }
+
+  let box = document.getElementById('score-result');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'score-result';
+    box.style.cssText = 'position:fixed; bottom:15px; right:15px; background:rgba(0,0,0,0.8); color:#fff; padding:10px 14px; border-radius:8px; z-index:99999; font-size:16px;';
+    document.body.appendChild(box);
+  }
+  box.innerHTML = `📊 Tổng điểm của bạn: <b>${totalScore.toFixed(2)}</b> / 10`;
+
+  try { playSound(totalScore >= 5 ? "../audio/correct.mp3" : "../audio/wrong.mp3"); } catch(e){}
+  if (typeof saveAttempt === 'function') {
+    saveAttempt(document.title || 'de1', { studentAnswers, correctAnswers }, totalScore.toFixed(2));
+  }
+  console.log('=== correctAnswers ===', correctAnswers);
+  console.log('=== studentAnswers ===', studentAnswers);
+  console.log('=== totalScore ===', totalScore);
+  window.isScoreCalculated = true;
+}
+
+document.getElementById('scoreBtn')?.addEventListener('click', calculateScore);
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+// === CẤU HÌNH FIREBASE ===
+const firebaseConfig = {
+  apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
+  authDomain: "veonline-3bcbf.firebaseapp.com",
+  projectId: "veonline-3bcbf",
+  storageBucket: "veonline-3bcbf.appspot.com",
+  messagingSenderId: "83902304195",
+  appId: "1:83902304195:web:2f9ec1ee0c23d6e21bb776"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// === XỬ LÝ ĐĂNG NHẬP ===
+const codeForm = document.getElementById('code-login-form');
+if (codeForm) {
+  codeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('login-code').value.trim();
+    const name = document.getElementById('student-name').value.trim();
+
+    try {
+      const codesRef = collection(db, "codes");
+      const q = query(codesRef, where("code", "==", code));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        localStorage.setItem("studentCode", code);
+        localStorage.setItem("studentName", name);
+        document.getElementById('login-modal').style.display = 'none';
+        alert('✅ Đăng nhập thành công!');
+      } else {
+        alert('❌ Mã không hợp lệ!');
+      }
+    } catch (err) {
+      alert('❌ Lỗi: ' + err.message);
+    }
+  });
+}
+
+document.getElementById('loginBtn')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const studentCode = localStorage.getItem("studentCode");
+  if (studentCode) {
+    localStorage.removeItem("studentCode");
+    localStorage.removeItem("studentName");
+    alert('Đã đăng xuất');
+  } else {
+    document.getElementById('login-modal').style.display = 'flex';
+  }
+});
+
+document.getElementById('close-modal')?.addEventListener('click', () => {
+  document.getElementById('login-modal').style.display = 'none';
+});
+
+// === LƯU KẾT QUẢ LÀM BÀI (CÓ CHI TIẾT) ===
+
+window.saveAttempt = async function saveAttempt(testId, detailsOrScore, maybeScore) {
+  const code = localStorage.getItem("studentCode");
+  const name = localStorage.getItem("studentName");
+  if (!code || !name) {
+    alert("⚠️ Vui lòng đăng nhập trước khi lưu!");
+    return;
+  }
+
+  let answers = {};
+  let totalScore = 0;
+
+  // Nhận dạng cách gọi
+  if (typeof detailsOrScore === "object" && maybeScore !== undefined) {
+    // Gọi dạng: saveAttempt(testId, { studentAnswers, correctAnswers }, totalScore)
+    answers = detailsOrScore.studentAnswers || {};
+    totalScore = parseFloat(maybeScore);
+  } else {
+    // Gọi dạng: saveAttempt(testId, totalScore)
+    totalScore = parseFloat(detailsOrScore);
+  }
+
+  try {
+    await addDoc(collection(db, "attempts"), {
+      code,
+      name,
+      testId,
+      score: totalScore,         // ✅ Ghi rõ cột điểm tổng kết
+      answers,                   // Có thể bỏ nếu không cần chi tiết
+      createdAt: serverTimestamp()
+    });
+    console.log("✅ Đã lưu điểm:", totalScore);
+  } catch (err) {
+    console.error("❌ Lỗi lưu:", err);
+  }
+}
+
+// Override checkAnswer, checkTrueFalseAnswer, checkShortAnswer to lock and optionally savePartial
+window.checkAnswer = function(qid, correct) {
+  // Xóa icon cũ
+  document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+
+  // Lấy lựa chọn
+  const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+  if (!chosen) {
+    alert("Hãy chọn một đáp án!");
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  const chosenVal = chosen.value;
+  const iconId = `icon-${qid}-${chosenVal}`;
+
+  // Hiển thị đúng/sai + phát âm thanh
+  if (chosenVal === correct) {
+    const el = document.getElementById(iconId);
+    if (el) el.textContent = '✅';
+    playSound("../audio/correct.mp3");
+    // khóa lựa chọn
+    document.querySelectorAll(`input[name="${qid}"]`).forEach(el=>el.disabled=true);
+    if (isLoggedIn()) {
+      try { savePartial(qid, chosenVal, correct, true); } catch(e){}
+    }
+  } else {
+    const el = document.getElementById(iconId);
+    if (el) el.textContent = '❌';
+    const corrEl = document.getElementById(`icon-${qid}-${correct}`);
+    if (corrEl) corrEl.textContent = '✅';
+    playSound("../audio/wrong.mp3");
+    document.querySelectorAll(`input[name="${qid}"]`).forEach(el=>el.disabled=true);
+    if (isLoggedIn()) {
+      try { savePartial(qid, chosenVal, correct, false); } catch(e){}
+    }
+  }
+};
+
+// Override checkTrueFalseAnswer
+window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // khóa inputs của câu này
+  container.querySelectorAll("input[type='radio']").forEach(r=>r.disabled=true);
+
+  // lưu partial từng mệnh đề nếu đăng nhập
+  if (isLoggedIn()) {
+    optionRows.forEach((row, idx) => {
+      const sel = row.querySelector("input[type='radio']:checked");
+      const user = sel ? sel.value : '';
+      const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+      try { savePartial(questionId + '_' + idx, user, expected, user === expected); } catch(e){}
+    });
+  }
+
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+};
+
+// Override checkShortAnswer
+window.checkShortAnswer = function(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    input.disabled = true;
+    if (isLoggedIn()) {
+      try { savePartial(qid, userAnswer, correct, true); }catch(e){}
+    }
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    input.disabled = true;
+    if (isLoggedIn()) {
+      try { savePartial(qid, userAnswer, correct, false); }catch(e){}
+    }
+    playSound("../audio/wrong.mp3");
+  }
+};
+
+// Override calculateScore: only save if logged in
+if (typeof window.isScoreCalculated === 'undefined') window.isScoreCalculated = false;
+window.calculateScore = function() {
+  if (window.isScoreCalculated) return;
+  const studentAnswers = {};
+  const correctAnswers = {};
+  let totalScore = 0;
+
+  // gather correct answers from onclicks or data-correct
+  document.querySelectorAll('.question').forEach(q => {
+    const qid = q.id;
+    if (!qid) return;
+    const btn = q.querySelector('button[onclick*="check"]');
+    const onclickStr = btn ? (btn.getAttribute('onclick') || '') : '';
+
+    if (onclickStr.includes('checkTrueFalseAnswer')) {
+      const arrMatch = onclickStr.match(/\[(.*?)\]/);
+      if (arrMatch) {
+        const arr = arrMatch[1].split(',').map(s => s.replace(/['"\s\[\]]/g, '').trim());
+        if (arr.length) correctAnswers[qid] = arr;
+      }
+    } else if (onclickStr.includes('checkShortAnswer')) {
+      const m = onclickStr.match(/checkShortAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2];
+    } else if (onclickStr.includes('checkAnswer')) {
+      const m = onclickStr.match(/checkAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([A-Za-z0-9]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2].toString().toUpperCase();
+    }
+
+    // fallback data-correct
+    if (!correctAnswers[qid]) {
+      const dataCorrect = q.getAttribute('data-correct');
+      if (dataCorrect) {
+        try { correctAnswers[qid] = JSON.parse(dataCorrect); } catch(e) { correctAnswers[qid] = dataCorrect; }
+      }
+    }
+  });
+
+  for (let i = 1; i <= 12; i++) {
+    const name = 'q' + i;
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    studentAnswers[name] = selected ? selected.value.trim() : '';
+  }
+
+  for (let i = 13; i <= 16; i++) {
+    const sub = [];
+    ['a','b','c','d'].forEach(letter => {
+      const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
+      sub.push(sel ? sel.value.trim() : '');
+    });
+    studentAnswers['q' + i] = sub;
+  }
+
+  for (let i = 17; i <= 22; i++) {
+    const el = document.getElementById(`input-q${i}`);
+    studentAnswers['q' + i] = el ? el.value.trim().replace(',', '.') : '';
+  }
+
+  for (let i = 1; i <= 22; i++) {
+    const key = 'q' + i;
+    const userAns = studentAnswers[key];
+    const corr = correctAnswers[key];
+    if (i >= 1 && i <= 12) {
+      if (!corr) continue;
+      if (userAns && String(userAns).toUpperCase() === String(corr).toUpperCase()) totalScore += 0.25;
+    } else if (i >= 13 && i <= 16) {
+      if (!Array.isArray(corr) || !Array.isArray(userAns)) continue;
+      let correctCount = 0;
+      for (let j = 0; j < corr.length && j < userAns.length; j++) {
+        const exp = String(corr[j]).toLowerCase();
+        const u = String(userAns[j]).toLowerCase();
+        if (u && (u === exp || (exp.startsWith('t') && u.startsWith('t')) || (exp.startsWith('đ') && u.startsWith('đ')))) {
+          correctCount++;
+        }
+      }
+      if (correctCount === 1) totalScore += 0.1;
+      else if (correctCount === 2) totalScore += 0.25;
+      else if (correctCount === 3) totalScore += 0.5;
+      else if (correctCount === 4) totalScore += 1;
+    } else if (i >= 17 && i <= 22) {
+      if (typeof corr === 'undefined') continue;
+      const userNum = parseFloat((userAns || '').toString().replace(',', '.'));
+      const corrNum = parseFloat((corr || '').toString().replace(',', '.'));
+      if (!isNaN(userNum) && !isNaN(corrNum)) {
+        if (Math.abs(userNum - corrNum) < 0.001) totalScore += 0.5;
+      } else {
+        if ((userAns || '').toString().trim().toLowerCase() === (corr || '').toString().trim().toLowerCase()) {
+          totalScore += 0.5;
+        }
+      }
+    }
+  }
+
+  let box = document.getElementById('score-result');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'score-result';
+    box.style.cssText = 'position:fixed; bottom:15px; right:15px; background:rgba(0,0,0,0.8); color:#fff; padding:10px 14px; border-radius:8px; z-index:99999; font-size:16px;';
+    document.body.appendChild(box);
+  }
+  box.innerHTML = `📊 Tổng điểm của bạn: <b>${totalScore.toFixed(2)}</b> / 10`;
+
+  try { playSound(totalScore >= 5 ? "../audio/correct.mp3" : "../audio/wrong.mp3"); } catch(e){}
+  if (isLoggedIn() && typeof saveAttempt === 'function') {
+    saveAttempt(document.title || 'de1', { studentAnswers, correctAnswers }, totalScore.toFixed(2));
+    box.innerHTML += '<br/><small style="opacity:0.95">✅ Kết quả đã lưu (tài khoản đăng nhập)</small>';
+  } else {
+    box.innerHTML += '<br/><small style="opacity:0.8">ℹ️ Chưa đăng nhập — kết quả chỉ hiển thị trên trình duyệt.</small>';
+  }
+  console.log('=== correctAnswers ===', correctAnswers);
+  console.log('=== studentAnswers ===', studentAnswers);
+  console.log('=== totalScore ===', totalScore);
+  window.isScoreCalculated = true;
+};
+
+document.getElementById('scoreBtn')?.addEventListener('click', () => {
+  // reset flag to allow re-calc during testing if desired
+  window.isScoreCalculated = false;
+  window.calculateScore();
+});
+</script>
 </body>
 </html>

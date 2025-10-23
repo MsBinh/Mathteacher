@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>📊 Quản lý kết quả học sinh</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    body { background:#f5f7fa; padding:20px; font-family:Arial, sans-serif; }
+    h2 { margin-bottom:20px; }
+    table { font-size:13.5px; }
+    th { background:#34495e; color:white; text-align:center; }
+    td { text-align:center; vertical-align:middle; }
+    .btn { border-radius:8px; padding:6px 14px; }
+    .filter-bar { display:flex; gap:10px; margin-bottom:15px; align-items:center; flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+  <h2>📊 Quản lý kết quả học sinh</h2>
+
+  <div class="filter-bar">
+    <button id="loadBtn" class="btn btn-primary">🔄 Làm mới</button>
+    <input type="text" id="filterCode" placeholder="🔍 Lọc theo mã lớp (VD: 10A1)">
+    <button id="exportBtn" class="btn btn-success">📥 Xuất Excel</button>
+    <span id="recordCount" class="ms-3 text-muted"></span>
+  </div>
+
+  <div class="table-responsive">
+    <table id="resultsTable" class="table table-bordered table-striped table-sm align-middle">
+      <thead>
+        <tr>
+          <th>Mã đăng nhập</th>
+          <th>Họ tên</th>
+          <th>Đề</th>
+          <th>Điểm</th>
+          <th>C1</th><th>C2</th><th>C3</th><th>C4</th><th>C5</th><th>C6</th>
+          <th>C7</th><th>C8</th><th>C9</th><th>C10</th><th>C11</th><th>C12</th>
+          <th>Đ/S13</th><th>Đ/S14</th><th>Đ/S15</th><th>Đ/S16</th>
+          <th>C17</th><th>C18</th><th>C19</th><th>C20</th><th>C21</th><th>C22</th>
+          <th>Thời gian nộp</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+  </div>
+
+<script>
+const API_KEY = "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA";
+const PROJECT_ID = "veonline-3bcbf"; 
+let allResults = [], filteredResults = [];
+
+async function loadResults(){
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/attempts?pageSize=500&key=${API_KEY}`;
+  const body = document.getElementById("resultsBody");
+  body.innerHTML = "<tr><td colspan='35'>⏳ Đang tải dữ liệu...</td></tr>";
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    allResults = [];
+
+    if (data.documents) {
+      data.documents.forEach(doc=>{
+        const d = doc.fields || {};
+        allResults.push({
+          code: d.code?.stringValue || "",
+          name: d.name?.stringValue || "",
+          testId: d.testId?.stringValue || "",
+          score: d.score?.doubleValue ?? d.score?.integerValue ?? "",
+          createdAt: d.createdAt?.timestampValue ? new Date(d.createdAt.timestampValue).toLocaleString("vi-VN") : "",
+          answers: d.answers?.mapValue?.fields || {}
+        });
+      });
+    }
+    filteredResults = allResults;
+    renderTable(filteredResults);
+  } catch (err) {
+    body.innerHTML = `<tr><td colspan='35'>❌ Lỗi: ${err.message}</td></tr>`;
+  }
+}
+
+function renderTable(data){
+  const body = document.getElementById("resultsBody");
+  const count = document.getElementById("recordCount");
+  body.innerHTML = "";
+  if (!data.length){
+    body.innerHTML = "<tr><td colspan='35'>⚠️ Không có dữ liệu</td></tr>";
+    count.textContent = "";
+    return;
+  }
+
+  data.forEach(d=>{
+    const a = d.answers;
+    let row = `<tr>
+      <td>${d.code}</td><td>${d.name}</td><td>${d.testId}</td><td>${d.score}</td>`;
+    for(let i=1;i<=12;i++) row += `<td>${a["q"+i]?.stringValue || ""}</td>`;
+    for(let i=13;i<=16;i++){
+      if(a["q"+i]?.arrayValue?.values)
+        row += `<td>${a["q"+i].arrayValue.values.map(v=>v.stringValue).join(", ")}</td>`;
+      else row += "<td></td>";
+    }
+    for(let i=17;i<=22;i++) row += `<td>${a["q"+i]?.stringValue || ""}</td>`;
+    row += `<td>${d.createdAt}</td></tr>`;
+    body.innerHTML += row;
+  });
+  count.textContent = `Hiển thị ${data.length} / ${allResults.length} bản ghi`;
+}
+
+document.getElementById("filterCode").addEventListener("input", e=>{
+  const key = e.target.value.trim().toLowerCase();
+  filteredResults = allResults.filter(r=>r.code.toLowerCase().includes(key));
+  renderTable(filteredResults);
+});
+
+document.getElementById("exportBtn").addEventListener("click", ()=>{
+  if (!filteredResults.length) return alert("⚠️ Không có dữ liệu để xuất!");
+  const wsData = [
+    ["Mã","Họ tên","Đề","Điểm",
+    "C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12",
+    "Đ/S13","Đ/S14","Đ/S15","Đ/S16","C17","C18","C19","C20","C21","C22","Thời gian"]
+  ];
+  filteredResults.forEach(d=>{
+    const a = d.answers;
+    const row = [d.code, d.name, d.testId, d.score];
+    for(let i=1;i<=12;i++) row.push(a["q"+i]?.stringValue || "");
+    for(let i=13;i<=16;i++){
+      if(a["q"+i]?.arrayValue?.values)
+        row.push(a["q"+i].arrayValue.values.map(v=>v.stringValue).join(", "));
+      else row.push("");
+    }
+    for(let i=17;i<=22;i++) row.push(a["q"+i]?.stringValue || "");
+    row.push(d.createdAt);
+    wsData.push(row);
+  });
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), "Kết quả");
+  XLSX.writeFile(wb, "KetQuaHocSinh.xlsx");
+});
+
+document.getElementById("loadBtn").addEventListener("click", loadResults);
+loadResults();
+</script>
+</body>
+</html>
