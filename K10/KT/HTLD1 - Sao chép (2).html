@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title> LỚP TOÁN THẦY BÌNH </title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Reveal.js CSS -->
+<link href="https://unpkg.com/reveal.js/dist/reveal.css" rel="stylesheet"/>
+<link href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme" rel="stylesheet"/>
+<!-- Thêm vào phần head, sau các link CSS hiện có -->
+<script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+<link href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css" rel="stylesheet"/>
+<!-- MathJax -->
+<script>
+    MathJax = {
+      tex: { 
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global', linebreaks: { automatic: true } },
+      chtml: { linebreaks: { automatic: true } }
+    };
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="styless.css">
+<!-- ===== style chuyên đề  ===== -->
+</head>
+<body>
+<!-- ===== Thanh tiêu đề cố định ===== -->
+<div class="topbar">
+<div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+<div class="clock" id="clock">--:--:--</div>
+<button id="toggleMenu">☰</button>
+<!-- ==== Thanh công cụ: Chọn đề / Đăng nhập / Tính điểm ==== -->
+<div class="topbar-controls">
+  
+<select id="selectExam">
+<option value="">-- Chọn đề --</option>
+<option value="de1">Đề 1</option>
+<option value="de2">Đề 2</option>
+</select>
+<button id="loginBtn">🔑 Đăng nhập</button>
+<button id="scoreBtn">📊 Tính điểm</button>
+</div>
+
+</div>
+<div class="reveal">
+<div class="slides">
+<!-------------BẮT ĐẦU NỘI DUNG CÁC SLIDE-->
+<!-- TÊN BÀI -->
+<section>
+<h2>📘 ĐỀ KIỂM TRA</h2>
+<p>Môn Toán - Lớp 10</p>
+</section>
+<section>
+<h2>📘 HỆ THỨC LƯỢNG ĐỀ 1 </h2>
+</section>
+<!--@@@@-->
+
+<!---------------------------------------------------------THE END----------------------------------------------------->
+</div>
+</div>
+<!-- Slide Navigation Menu -->
+<div class="slide-menu" id="slideMenu">
+<div class="menu-header">
+<h3>📋 Danh sách slide</h3>
+<button class="close-btn" onclick="closeSlideMenu()">×</button>
+</div>
+<div class="menu-content">
+<div class="slide-list" id="slideList">
+<!-- Danh sách slide sẽ được tạo tự động bằng JavaScript -->
+</div>
+</div>
+</div>
+<!-- Nút mở menu -->
+<button class="menu-toggle" id="menuToggle" onclick="toggleSlideMenu()">📋</button>
+<!-- Canvas -->
+
+<!-- ==== Canvas + Toolbar ==== -->
+<canvas id="drawCanvas" style="display:none;"></canvas>
+<div class="toolbar" id="drawToolbar" style="display:none;">
+<a href="../index.html" title="Về trang chủ">
+  <button id="homeBtn" style="font-size:22px;">🏠</button>
+</a>
+<select id="tool">
+<option value="pen">✏️ Bút</option>
+<option value="line">📏 Đường</option>
+<option value="rect">⬛ Chữ nhật</option>
+<option value="parallelogram">▱ Bình hành</option>
+<option value="circle">⚪ Tròn</option>
+<option value="dashedLineBtn">– –</option>
+<option value="ellipseBtn">⬭ Elip</option>
+<!-- Thêm 3 công cụ mới -->
+<option value="box">📦 Hộp 3D</option>
+<option value="pyramid3">🔺 Chóp tam giác</option>
+<option value="pyramid4">🔲 Chóp tứ giác</option>
+<option value="sphere">⚽ Cầu</option>
+</select>
+<input id="draw-width" max="5" min="1" type="range" value="2"/>
+<input id="colorPicker" type="color" value="#6b21a8">
+<button id="undoBtn" title="Undo">↩️</button>
+<button id="clearBtn">🧹 Xoá</button>
+<button id="saveBtn">💾 Lưu</button>
+<button id="exitBtn">❌ Thoát</button>
+</input></div>
+<script>
+/* === SCRIPT VẼ (bắt nguồn từ b2ds) === */
+/* Mình chỉ thêm: history (undo), và 3 case vẽ: box, pyramid3, pyramid4.
+   Không sửa logic vẽ khác. */
+
+const canvas = document.getElementById("drawCanvas");
+const ctx = canvas.getContext("2d");
+const toggleBtn = document.getElementById("toggleMenu");
+const toolbar = document.getElementById("drawToolbar");
+const clearBtn = document.getElementById("clearBtn");
+const saveBtn = document.getElementById("saveBtn");
+const exitBtn = document.getElementById("exitBtn");
+const colorPicker = document.getElementById("colorPicker");
+const toolSelect = document.getElementById("tool");
+const widthPicker = document.getElementById("draw-width");
+const undoBtn = document.getElementById("undoBtn");
+
+let lineWidth = 2;
+widthPicker.oninput = () => lineWidth = parseInt(widthPicker.value);
+
+let isDrawing = false;
+let isDrawMode = false;
+let startX = 0, startY = 0, lastX = 0, lastY = 0;
+let currentTool = "pen";
+let imageBeforeShape;
+
+// HISTORY cho Undo (hoàn tác nét gần nhất)
+let history = [];
+
+// mượt hơn
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+
+// kích thước canvas (đơn giản, giữ nguyên như b2ds)
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// bật/tắt vẽ
+toggleBtn.onclick = () => {
+  isDrawMode = !isDrawMode;
+  if (isDrawMode) {
+    canvas.style.display = "block";
+    toolbar.style.display = "flex";
+    canvas.style.pointerEvents = "auto"; // bật tương tác khi vẽ
+  } else {
+    canvas.style.display = "none";
+    toolbar.style.display = "none";
+    canvas.style.pointerEvents = "none";
+  }
+};
+
+// thoát
+exitBtn.onclick = () => {
+  isDrawMode = false;
+  canvas.style.display = "none";
+  toolbar.style.display = "none";
+  canvas.style.pointerEvents = "none";
+};
+
+// chọn công cụ
+toolSelect.onchange = () => currentTool = toolSelect.value;
+
+// undo: hoàn tác 1 bước (nét gần nhất)
+undoBtn.onclick = () => {
+  if (history.length > 0) {
+    const last = history.pop();
+    try {
+      ctx.putImageData(last, 0, 0);
+    } catch (e) {
+      // nếu putImageData lỗi do mismatch kích thước, clear và ignore
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+  }
+};
+
+// xoá toàn bộ
+clearBtn.onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// lưu ảnh
+saveBtn.onclick = () => {
+  const link = document.createElement("a");
+  link.download = "ban_ve.png";
+  link.href = canvas.toDataURL();
+  link.click();
+};
+
+// fullscreen button (giữ nguyên)
+const fullBtn = document.createElement("button");
+fullBtn.textContent = "⛶ Full";
+fullBtn.title = "Toàn màn hình";
+fullBtn.onclick = () => {
+  if (!document.fullscreenElement)
+    document.documentElement.requestFullscreen().catch(() => {});
+  else
+    document.exitFullscreen();
+};
+toolbar.appendChild(fullBtn);
+
+// lấy vị trí chính xác
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  if (e.touches && e.touches.length > 0)
+    return { x: (e.touches[0].clientX - rect.left) * scaleX, y: (e.touches[0].clientY - rect.top) * scaleY };
+  return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY };
+}
+
+// bắt đầu vẽ
+function startDraw(e) {
+  if (!isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+
+  // LƯU trạng thái trước khi vẽ (cho Undo: hoàn tác nét gần nhất)
+  try {
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  } catch (err) {
+    // ignore nếu getImageData lỗi (ví dụ canvas chưa có kích thước)
+  }
+
+  isDrawing = true;
+  startX = lastX = pos.x;
+  startY = lastY = pos.y;
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  if (currentTool !== "pen") {
+    try { imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height); } catch(e){ imageBeforeShape = null; }
+  } else {
+    imageBeforeShape = null;
+  }
+}
+
+// vẽ khi rê
+function drawMove(e) {
+  if (!isDrawing || !isDrawMode) return;
+  e.preventDefault();
+  const pos = getPos(e);
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = lineWidth;
+  ctx.setLineDash([]);
+
+  if (currentTool === "pen") {
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x; lastY = pos.y;
+  } else {
+    // khôi phục nền trước shape live preview
+    if (imageBeforeShape) {
+      try { ctx.putImageData(imageBeforeShape, 0, 0); } catch(e){ /* ignore */ }
+    } else {
+      // nếu không có imageBeforeShape, xóa phần vẽ tạm
+      // (để tránh chồng lớp)
+      // ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+    switch (currentTool) {
+      case "line":
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        break;
+
+      case "dashedLineBtn":
+        ctx.setLineDash([8,6]);
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        break;
+
+      case "rect":
+        ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+        break;
+
+      case "circle":
+        const r = Math.hypot(pos.x - startX, pos.y - startY);
+        ctx.beginPath();
+        ctx.arc(startX, startY, r, 0, Math.PI*2);
+        ctx.stroke();
+        break;
+
+      case "ellipseBtn":
+        ctx.setLineDash([6,4]);
+        ctx.beginPath();
+        ctx.ellipse(startX, startY, Math.abs(pos.x - startX), Math.abs(pos.y - startY), 0, 0, Math.PI*2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        break;
+
+      case "sphere":
+        const rs = Math.abs(pos.x - startX);
+        ctx.beginPath();
+        ctx.arc(startX, startY, rs, 0, Math.PI*2);
+        ctx.stroke();
+        ctx.setLineDash([6,4]);
+        ctx.beginPath();
+        ctx.ellipse(startX, startY, rs, rs/2, 0, Math.PI, 2 * Math.PI);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.ellipse(startX, startY, rs, rs/2, 0, 0, Math.PI);
+        ctx.stroke();
+        break;
+
+      case "parallelogram":
+        const width = pos.x - startX;
+        const height = pos.y - startY;
+        const offset = width * 0.3;
+        ctx.beginPath();
+        ctx.moveTo(startX + offset, startY);
+        ctx.lineTo(startX + width + offset, startY);
+        ctx.lineTo(startX + width - offset, startY + height);
+        ctx.lineTo(startX - offset, startY + height);
+        ctx.closePath();
+        ctx.stroke();
+        break;
+
+      /* ==== THÊM: BOX (HỘP 3D) ==== */
+      case "box":
+        {
+          const w = pos.x - startX;
+          const h = pos.y - startY;
+          const depth = Math.min(Math.abs(w), Math.abs(h)) * 0.3;
+          // front face
+          ctx.beginPath();
+          ctx.strokeRect(startX, startY, w, h);
+          // back face (offset by depth up-left)
+          ctx.strokeRect(startX + depth, startY - depth, w, h);
+          // connect corners
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(startX + depth, startY - depth);
+          ctx.moveTo(startX + w, startY);
+          ctx.lineTo(startX + w + depth, startY - depth);
+          ctx.moveTo(startX, startY + h);
+          ctx.lineTo(startX + depth, startY + h - depth);
+          ctx.moveTo(startX + w, startY + h);
+          ctx.lineTo(startX + w + depth, startY + h - depth);
+          ctx.stroke();
+        }
+        break;
+
+      /* ==== THÊM: CHÓP TAM GIÁC (pyramid3) ==== */
+      /* ==== CẢI TIẾN: CHÓP TAM GIÁC 3D (pyramid3) ==== */
+        case "pyramid3": {
+          // xác định 3 đỉnh đáy (tam giác nằm trên mặt phẳng đáy)
+          const baseLeft = { x: startX, y: pos.y };
+          const baseRight = { x: pos.x, y: pos.y };
+          const baseMid = { x: (startX + pos.x) / 2, y: pos.y - (pos.y - startY) * 0.2 };
+
+          // đỉnh chóp (cao hơn đáy)
+          const apex = { 
+            x: (startX + pos.x) / 2, 
+            y: startY - Math.abs(pos.y - startY) * 0.7 
+          };
+
+          ctx.beginPath();
+          ctx.setLineDash([]); // nét liền
+
+          // vẽ mặt trước (2 cạnh bên + cạnh đáy trước)
+          ctx.moveTo(apex.x, apex.y);
+          ctx.lineTo(baseLeft.x, baseLeft.y);
+          ctx.lineTo(baseRight.x, baseRight.y);
+          ctx.closePath();
+          ctx.stroke();
+
+          // vẽ cạnh phía sau (ẩn - nét đứt)
+          ctx.setLineDash([6, 4]);
+          ctx.beginPath();
+          ctx.moveTo(apex.x, apex.y);
+          ctx.lineTo(baseMid.x, baseMid.y);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          break;
+        }
+
+
+      /* ==== THÊM: CHÓP TỨ GIÁC (pyramid4) ==== */
+      case "pyramid4":
+        {
+          const w4 = pos.x - startX, h4 = pos.y - startY;
+          const apexX = startX + w4 / 2;
+          const apexY = startY - h4 / 1.5; // apex above the rectangle
+          ctx.beginPath();
+          // base rectangle (front)
+          ctx.rect(startX, startY, w4, h4);
+          ctx.stroke();
+          // connect base corners to apex
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(apexX, apexY);
+          ctx.moveTo(startX + w4, startY);
+          ctx.lineTo(apexX, apexY);
+          ctx.moveTo(startX, startY + h4);
+          ctx.lineTo(apexX, apexY);
+          ctx.moveTo(startX + w4, startY + h4);
+          ctx.lineTo(apexX, apexY);
+          ctx.stroke();
+        }
+        break;
+
+      case "pyramid3": // duplicate safe-guard
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+// kết thúc
+function endDraw() { isDrawing = false; }
+
+canvas.addEventListener("mousedown", startDraw);
+canvas.addEventListener("mousemove", drawMove);
+canvas.addEventListener("mouseup", endDraw);
+canvas.addEventListener("mouseleave", endDraw);
+canvas.addEventListener("touchstart", startDraw, { passive: false });
+canvas.addEventListener("touchmove", drawMove, { passive: false });
+canvas.addEventListener("touchend", endDraw);
+  </script>
+<!-- Reveal.js -->
+<script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+  width: "100%",   // 👈 chiều rộng = full trình duyệt
+  height: "100%",  // 👈 chiều cao = full trình duyệt
+  margin: 0.02,    // khoảng trống xung quanh (0 → không viền trắng)
+  minScale: 0.2,
+  maxScale: 2,
+  slideNumber: true,
+  center: false,
+  hash: true,
+  // các cấu hình khác...
+ 
+    hash: true,
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+    math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: true,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+        }
+    },
+    transition: 'slide',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    slideNumber: 'c/t'
+});
+
+</script>
+<!-- ========== SCRIPT VẼ - BẢN ĐÃ SỬA ỔN ĐỊNH (KHÔNG MẤT LOGIC) ========== -->
+<!-- ========== KẾT THÚC SCRIPT VẼ ========== -->
+<script>
+  // Hàm phát âm thanh
+  function playSound(src) {
+    const audio = new Audio(src);
+    audio.play();
+  }
+
+  // =====================
+  // 1️⃣ TRẮC NGHIỆM 4 LỰA CHỌN
+  // =====================
+  function showOptionIcon(qid, selected, correct) {
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(ic => ic.textContent = "");
+    const icon = document.getElementById(`icon-${qid}-${selected}`);
+    if (icon) icon.textContent = (selected === correct) ? "✅" : "❌";
+  }
+
+  function checkAnswer(qid, correct) {
+    // Xóa icon cũ
+    document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+    
+    // Lấy lựa chọn
+    const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+    if (!chosen) {
+      alert("Hãy chọn một đáp án!");
+      playSound("../audio/wrong.mp3");
+      return;
+    }
+
+    const chosenVal = chosen.value;
+    const iconId = `icon-${qid}-${chosenVal}`;
+
+    // Hiển thị đúng/sai + phát âm thanh
+    if (chosenVal === correct) {
+      document.getElementById(iconId).textContent = '✅';
+      playSound("../audio/correct.mp3");
+    } else {
+      document.getElementById(iconId).textContent = '❌';
+      document.getElementById(`icon-${qid}-${correct}`).textContent = '✅';
+      playSound("../audio/wrong.mp3");
+    }
+  }
+
+  // =====================
+  // 2️⃣ CÂU HỎI ĐÚNG / SAI
+  // =====================
+  
+</script>
+<script>
+function playSound(src){
+  try{
+    const a = new Audio(src);
+    a.volume = 0.9;
+    a.play().catch(()=>{/* muted or user gesture required */});
+  }catch(e){}
+}
+
+/**
+ * checkTrueFalseAnswer:
+ * - questionId: 'q1'
+ * - correctAnswers: either an Array like ['True','False','True','True'] OR a string '["True","False",...]'
+ */
+function checkTrueFalseAnswer(questionId, correctAnswers){
+  // normalize correctAnswers to array of strings
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      // fallback: try to split by comma (robust)
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      // add icon near selected radio (if option-icon exists)
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  // render feedback in .answer-check .result (create if missing)
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // play sound
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+}
+</script>
+<script>
+function checkShortAnswer(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  // So sánh không phân biệt khoảng trắng / chữ hoa
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    playSound("../audio/wrong.mp3");
+  }
+}
+</script>
+<script>
+// Biến toàn cục
+let slideMenu, menuToggle, slideList, menuOverlay;
+
+// Khởi tạo khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    slideMenu = document.getElementById('slideMenu');
+    menuToggle = document.getElementById('menuToggle');
+    slideList = document.getElementById('slideList');
+    
+    // Tạo overlay
+    menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    menuOverlay.onclick = closeSlideMenu;
+    document.body.appendChild(menuOverlay);
+    
+    // Tạo danh sách slide
+    createSlideList();
+    
+    // Lắng nghe sự kiện chuyển slide
+    Reveal.addEventListener('slidechanged', updateActiveSlide);
+});
+
+// Tạo danh sách slide
+function createSlideList() {
+    const slides = document.querySelectorAll('.reveal .slides section');
+    let html = '';
+    
+    slides.forEach((slide, index) => {
+        const slideTitle = getSlideTitle(slide);
+        const isVertical = slide.parentNode.classList.contains('stack');
+        
+        if (!isVertical) {
+            html += `
+                <div class="slide-item" data-slide-index="${index}" onclick="goToSlide(${index})">
+                    <span class="slide-number">${index + 1}</span>
+                    ${slideTitle}
+                </div>
+            `;
+        }
+    });
+    
+    slideList.innerHTML = html;
+    updateActiveSlide();
+}
+
+// Lấy tiêu đề slide
+function getSlideTitle(slide) {
+    // Ưu tiên tìm h2 đầu tiên
+    const h2 = slide.querySelector('h2');
+    if (h2) return h2.textContent;
+    
+    // Nếu không có h2, tìm đoạn đầu tiên
+    const p = slide.querySelector('p');
+    if (p) return p.textContent.substring(0, 30) + '...';
+    
+    // Mặc định
+    return `Slide ${Array.from(slide.parentNode.children).indexOf(slide) + 1}`;
+}
+
+// Cập nhật slide đang active
+function updateActiveSlide() {
+    const currentSlide = Reveal.getCurrentSlide();
+    const slides = document.querySelectorAll('.reveal .slides section');
+    const currentIndex = Array.from(slides).indexOf(currentSlide);
+    
+    // Cập nhật active class
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Chuyển đến slide cụ thể
+function goToSlide(index) {
+    Reveal.slide(index);
+    closeSlideMenu();
+}
+
+// Mở/đóng menu
+function toggleSlideMenu() {
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+function closeSlideMenu() {
+    slideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+}
+
+// Đóng menu bằng phím ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSlideMenu();
+    }
+});
+</script>
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // chạy ngay khi tải trang
+</script>
+<script>
+// === AUTO FIX SLIDE STRUCTURE ===
+// Mục đích: Đưa mọi <img> (hoặc <center><img>...</center>) nằm ngoài <section> vào slide hợp lệ
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelector(".reveal .slides");
+  if (!slides) return;
+
+  // Tạo slide mới chứa node
+  const makeSlide = (node) => {
+    const sec = document.createElement("section");
+    sec.appendChild(node);
+    return sec;
+  };
+
+  // 1️⃣ Di chuyển ảnh hoặc center chưa nằm trong slide nào vào slide mới
+  const imgs = [...document.querySelectorAll(".reveal .slides img")];
+  imgs.forEach(img => {
+    // Kiểm tra có nằm trong slide hợp lệ không
+    let ancestor = img.closest(".reveal .slides > section");
+    if (!ancestor) {
+      // Nếu nằm trong <center>, di chuyển cả center
+      const wrap = img.closest("center") || img;
+      slides.appendChild(makeSlide(wrap));
+    }
+  });
+
+  // 2️⃣ Sửa các <section> bị lồng hoặc đóng sai
+  const badNested = [...slides.querySelectorAll("section section")];
+  badNested.forEach(sec => slides.appendChild(sec));
+
+  // 3️⃣ Xóa các section rỗng (chỉ chứa khoảng trắng)
+  [...slides.querySelectorAll("section")].forEach(sec => {
+    if (!sec.innerHTML.trim()) sec.remove();
+  });
+
+  console.log("✅ Slide structure fixed: images moved into valid slides.");
+});
+</script>
+<!----------------->
+<!-- LOGIN MODAL (thêm vào nếu chưa có) -->
+<div id="login-modal" style="display:none; position:fixed; inset:0; z-index:12000; 
+     background: rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+<div style="background:#fff; color:#000; padding:20px; border-radius:8px; width:340px;">
+<h3>Đăng nhập học sinh</h3>
+<form id="code-login-form">
+<input id="login-code" placeholder="Mã học sinh" required="" style="width:100%;padding:8px;margin:6px 0;" type="text"/>
+<input id="student-name" placeholder="Họ tên (tùy chọn)" style="width:100%;padding:8px;margin:6px 0;" type="text"/>
+<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">
+<button style="padding:6px 10px;" type="submit">Đăng nhập</button>
+<button id="close-modal" style="padding:6px 10px;" type="button">Đóng</button>
+</div>
+</form>
+<div id="auth-status" style="margin-top:8px;color:#333;font-weight:600;"></div>
+</div>
+</div>
+<script type="module">
+// Nếu chưa khai báo global flag, khởi tạo
+if (typeof window.isScoreCalculated === 'undefined') window.isScoreCalculated = false;
+
+function calculateScore() {
+  if (window.isScoreCalculated) return;
+  const studentAnswers = {};
+  const correctAnswers = {};
+  let totalScore = 0;
+
+  document.querySelectorAll('.question').forEach(q => {
+    const qid = q.id;
+    if (!qid) return;
+    const btn = q.querySelector('button[onclick*="check"]');
+    const onclickStr = btn ? (btn.getAttribute('onclick') || '') : '';
+
+    if (onclickStr.includes('checkTrueFalseAnswer')) {
+      const arrMatch = onclickStr.match(/\[(.*?)\]/);
+      if (arrMatch) {
+        const arr = arrMatch[1].split(',').map(s => s.replace(/['"\s\[\]]/g, '').trim());
+        if (arr.length) correctAnswers[qid] = arr;
+      }
+    } else if (onclickStr.includes('checkShortAnswer')) {
+      const m = onclickStr.match(/checkShortAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2];
+    } else if (onclickStr.includes('checkAnswer')) {
+      const m = onclickStr.match(/checkAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([A-Za-z0-9]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2].toString().toUpperCase();
+    }
+  });
+
+  for (let i = 1; i <= 12; i++) {
+    const name = 'q' + i;
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    studentAnswers[name] = selected ? selected.value.trim() : '';
+  }
+
+  for (let i = 13; i <= 16; i++) {
+    const sub = [];
+    ['a','b','c','d'].forEach(letter => {
+      const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
+      sub.push(sel ? sel.value.trim() : '');
+    });
+    studentAnswers['q' + i] = sub;
+  }
+
+  for (let i = 17; i <= 22; i++) {
+    const el = document.getElementById(`input-q${i}`);
+    studentAnswers['q' + i] = el ? el.value.trim().replace(',', '.') : '';
+  }
+
+  document.querySelectorAll('.question').forEach(q => {
+    const qid = q.id;
+    if (!correctAnswers[qid]) {
+      const dataCorrect = q.getAttribute('data-correct');
+      if (dataCorrect) {
+        try {
+          const parsed = JSON.parse(dataCorrect);
+          correctAnswers[qid] = parsed;
+        } catch (e) {
+          correctAnswers[qid] = dataCorrect;
+        }
+      }
+    }
+  });
+
+  for (let i = 1; i <= 22; i++) {
+    const key = 'q' + i;
+    const userAns = studentAnswers[key];
+    const corr = correctAnswers[key];
+    if (i >= 1 && i <= 12) {
+      if (!corr) continue;
+      if (userAns && String(userAns).toUpperCase() === String(corr).toUpperCase()) totalScore += 0.25;
+    } else if (i >= 13 && i <= 16) {
+      if (!Array.isArray(corr) || !Array.isArray(userAns)) continue;
+      let correctCount = 0;
+      for (let j = 0; j < corr.length && j < userAns.length; j++) {
+        const exp = String(corr[j]).toLowerCase();
+        const u = String(userAns[j]).toLowerCase();
+        if (u && (u === exp || (exp.startsWith('t') && u.startsWith('t')) || (exp.startsWith('đ') && u.startsWith('đ')))) {
+          correctCount++;
+        }
+      }
+      if (correctCount === 1) totalScore += 0.1;
+      else if (correctCount === 2) totalScore += 0.25;
+      else if (correctCount === 3) totalScore += 0.5;
+      else if (correctCount === 4) totalScore += 1;
+    } else if (i >= 17 && i <= 22) {
+      if (typeof corr === 'undefined') continue;
+      const userNum = parseFloat((userAns || '').toString().replace(',', '.'));
+      const corrNum = parseFloat((corr || '').toString().replace(',', '.'));
+      if (!isNaN(userNum) && !isNaN(corrNum)) {
+        if (Math.abs(userNum - corrNum) < 0.001) totalScore += 0.5;
+      } else {
+        if ((userAns || '').toString().trim().toLowerCase() === (corr || '').toString().trim().toLowerCase()) {
+          totalScore += 0.5;
+        }
+      }
+    }
+  }
+
+  let box = document.getElementById('score-result');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'score-result';
+    box.style.cssText = 'position:fixed; bottom:15px; right:15px; background:rgba(0,0,0,0.8); color:#fff; padding:10px 14px; border-radius:8px; z-index:99999; font-size:16px;';
+    document.body.appendChild(box);
+  }
+  box.innerHTML = `📊 Tổng điểm của bạn: <b>${totalScore.toFixed(2)}</b> / 10`;
+
+  try { playSound(totalScore >= 5 ? "../audio/correct.mp3" : "../audio/wrong.mp3"); } catch(e){}
+  if (typeof saveAttempt === 'function') {
+    saveAttempt(document.title || 'de1', { studentAnswers, correctAnswers }, totalScore.toFixed(2));
+  }
+  console.log('=== correctAnswers ===', correctAnswers);
+  console.log('=== studentAnswers ===', studentAnswers);
+  console.log('=== totalScore ===', totalScore);
+  window.isScoreCalculated = true;
+}
+
+document.getElementById('scoreBtn')?.addEventListener('click', calculateScore);
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+// === CẤU HÌNH FIREBASE ===
+const firebaseConfig = {
+  apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
+  authDomain: "veonline-3bcbf.firebaseapp.com",
+  projectId: "veonline-3bcbf",
+  storageBucket: "veonline-3bcbf.appspot.com",
+  messagingSenderId: "83902304195",
+  appId: "1:83902304195:web:2f9ec1ee0c23d6e21bb776"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// === XỬ LÝ ĐĂNG NHẬP ===
+const codeForm = document.getElementById('code-login-form');
+if (codeForm) {
+  codeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('login-code').value.trim();
+    const name = document.getElementById('student-name').value.trim();
+
+    try {
+      const codesRef = collection(db, "codes");
+      const q = query(codesRef, where("code", "==", code));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        localStorage.setItem("studentCode", code);
+        localStorage.setItem("studentName", name);
+        document.getElementById('login-modal').style.display = 'none';
+        alert('✅ Đăng nhập thành công!');
+      } else {
+        alert('❌ Mã không hợp lệ!');
+      }
+    } catch (err) {
+      alert('❌ Lỗi: ' + err.message);
+    }
+  });
+}
+
+document.getElementById('loginBtn')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const studentCode = localStorage.getItem("studentCode");
+  if (studentCode) {
+    localStorage.removeItem("studentCode");
+    localStorage.removeItem("studentName");
+    alert('Đã đăng xuất');
+  } else {
+    document.getElementById('login-modal').style.display = 'flex';
+  }
+});
+
+document.getElementById('close-modal')?.addEventListener('click', () => {
+  document.getElementById('login-modal').style.display = 'none';
+});
+
+// === LƯU KẾT QUẢ LÀM BÀI (CÓ CHI TIẾT) ===
+
+window.saveAttempt = async function saveAttempt(testId, detailsOrScore, maybeScore) {
+  const code = localStorage.getItem("studentCode");
+  const name = localStorage.getItem("studentName");
+  if (!code || !name) {
+    alert("⚠️ Vui lòng đăng nhập trước khi lưu!");
+    return;
+  }
+
+  let answers = {};
+  let totalScore = 0;
+
+  // Nhận dạng cách gọi
+  if (typeof detailsOrScore === "object" && maybeScore !== undefined) {
+    // Gọi dạng: saveAttempt(testId, { studentAnswers, correctAnswers }, totalScore)
+    answers = detailsOrScore.studentAnswers || {};
+    totalScore = parseFloat(maybeScore);
+  } else {
+    // Gọi dạng: saveAttempt(testId, totalScore)
+    totalScore = parseFloat(detailsOrScore);
+  }
+
+  try {
+    await addDoc(collection(db, "attempts"), {
+      code,
+      name,
+      testId,
+      score: totalScore,         // ✅ Ghi rõ cột điểm tổng kết
+      answers,                   // Có thể bỏ nếu không cần chi tiết
+      createdAt: serverTimestamp()
+    });
+    console.log("✅ Đã lưu điểm:", totalScore);
+  } catch (err) {
+    console.error("❌ Lỗi lưu:", err);
+  }
+}
+
+// Override checkAnswer, checkTrueFalseAnswer, checkShortAnswer to lock and optionally savePartial
+window.checkAnswer = function(qid, correct) {
+  // Xóa icon cũ
+  document.querySelectorAll(`#${qid} .option-icon`).forEach(el => el.textContent = '');
+
+  // Lấy lựa chọn
+  const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+  if (!chosen) {
+    alert("Hãy chọn một đáp án!");
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  const chosenVal = chosen.value;
+  const iconId = `icon-${qid}-${chosenVal}`;
+
+  // Hiển thị đúng/sai + phát âm thanh
+  if (chosenVal === correct) {
+    const el = document.getElementById(iconId);
+    if (el) el.textContent = '✅';
+    playSound("../audio/correct.mp3");
+    // khóa lựa chọn
+    document.querySelectorAll(`input[name="${qid}"]`).forEach(el=>el.disabled=true);
+    if (isLoggedIn()) {
+      try { savePartial(qid, chosenVal, correct, true); } catch(e){}
+    }
+  } else {
+    const el = document.getElementById(iconId);
+    if (el) el.textContent = '❌';
+    const corrEl = document.getElementById(`icon-${qid}-${correct}`);
+    if (corrEl) corrEl.textContent = '✅';
+    playSound("../audio/wrong.mp3");
+    document.querySelectorAll(`input[name="${qid}"]`).forEach(el=>el.disabled=true);
+    if (isLoggedIn()) {
+      try { savePartial(qid, chosenVal, correct, false); } catch(e){}
+    }
+  }
+};
+
+// Override checkTrueFalseAnswer
+window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
+  if(typeof correctAnswers === 'string'){
+    try{ correctAnswers = JSON.parse(correctAnswers); }
+    catch(e){ 
+      correctAnswers = correctAnswers.replace(/^\[|\]$/g,'').split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')); 
+    }
+  }
+  if(!Array.isArray(correctAnswers)) return console.warn('Invalid correctAnswers for', questionId);
+
+  const container = document.getElementById(questionId);
+  if(!container){ console.warn('No container', questionId); return; }
+
+  const optionRows = container.querySelectorAll(".option-row");
+  let allCorrect = true;
+  let feedbackHtml = '';
+
+  optionRows.forEach((row, idx) => {
+    const radios = row.querySelectorAll("input[type='radio']");
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+    const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+    if (selected === null) {
+      feedbackHtml += `Mệnh đề ${letter}) ⭕ Chưa chọn<br>`;
+      allCorrect = false;
+    } else if (selected === expected) {
+      feedbackHtml += `Mệnh đề ${letter}) ✅ Đúng<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '✅';
+    } else {
+      feedbackHtml += `Mệnh đề ${letter}) ❌ Sai (chọn ${selected})<br>`;
+      const icon = row.querySelector('.option-icon');
+      if(icon) icon.textContent = '❌';
+      allCorrect = false;
+    }
+  });
+
+  let resultBox = container.querySelector(".answer-check .result");
+  if(!resultBox){
+    resultBox = document.createElement('div');
+    resultBox.className = 'result';
+    resultBox.style.marginTop = '8px';
+    resultBox.style.padding = '8px';
+    resultBox.style.background = 'rgba(255,255,255,0.06)';
+    resultBox.style.borderRadius = '6px';
+    container.querySelector(".answer-check").appendChild(resultBox);
+  }
+  resultBox.innerHTML = feedbackHtml;
+
+  // khóa inputs của câu này
+  container.querySelectorAll("input[type='radio']").forEach(r=>r.disabled=true);
+
+  // lưu partial từng mệnh đề nếu đăng nhập
+  if (isLoggedIn()) {
+    optionRows.forEach((row, idx) => {
+      const sel = row.querySelector("input[type='radio']:checked");
+      const user = sel ? sel.value : '';
+      const expected = (correctAnswers[idx] && String(correctAnswers[idx]).toLowerCase().startsWith('t')) ? 'True' : 'False';
+      try { savePartial(questionId + '_' + idx, user, expected, user === expected); } catch(e){}
+    });
+  }
+
+  if(allCorrect) playSound('../audio/correct.mp3'); else playSound('../audio/wrong.mp3');
+};
+
+// Override checkShortAnswer
+window.checkShortAnswer = function(qid, correct) {
+  const input = document.getElementById(`input-${qid}`);
+  const icon = document.getElementById(`icon-${qid}`);
+  const resultBox = input?.closest(".answer-check");
+
+  if (!input) return;
+
+  const userAnswer = input.value.trim();
+
+  // Tạo vùng thông báo nếu chưa có
+  let feedback = resultBox.querySelector(".result");
+  if (!feedback) {
+    feedback = document.createElement("div");
+    feedback.className = "result";
+    feedback.style.marginTop = "6px";
+    feedback.style.padding = "6px";
+    feedback.style.borderRadius = "6px";
+    feedback.style.fontSize = "0.95em";
+    resultBox.appendChild(feedback);
+  }
+
+  if (userAnswer === "") {
+    icon.textContent = "⚠️";
+    feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+    playSound("../audio/wrong.mp3");
+    return;
+  }
+
+  if (userAnswer.toLowerCase() === correct.trim().toLowerCase()) {
+    icon.textContent = "✅";
+    feedback.innerHTML = "🎯 <b>Đúng rồi!</b>";
+    input.disabled = true;
+    if (isLoggedIn()) {
+      try { savePartial(qid, userAnswer, correct, true); }catch(e){}
+    }
+    playSound("../audio/correct.mp3");
+  } else {
+    icon.textContent = "❌";
+    feedback.innerHTML = `❌ Sai rồi. Đáp án đúng là: <b>${correct}</b>`;
+    input.disabled = true;
+    if (isLoggedIn()) {
+      try { savePartial(qid, userAnswer, correct, false); }catch(e){}
+    }
+    playSound("../audio/wrong.mp3");
+  }
+};
+
+// Override calculateScore: only save if logged in
+if (typeof window.isScoreCalculated === 'undefined') window.isScoreCalculated = false;
+window.calculateScore = function() {
+  if (window.isScoreCalculated) return;
+  const studentAnswers = {};
+  const correctAnswers = {};
+  let totalScore = 0;
+
+  // gather correct answers from onclicks or data-correct
+  document.querySelectorAll('.question').forEach(q => {
+    const qid = q.id;
+    if (!qid) return;
+    const btn = q.querySelector('button[onclick*="check"]');
+    const onclickStr = btn ? (btn.getAttribute('onclick') || '') : '';
+
+    if (onclickStr.includes('checkTrueFalseAnswer')) {
+      const arrMatch = onclickStr.match(/\[(.*?)\]/);
+      if (arrMatch) {
+        const arr = arrMatch[1].split(',').map(s => s.replace(/['"\s\[\]]/g, '').trim());
+        if (arr.length) correctAnswers[qid] = arr;
+      }
+    } else if (onclickStr.includes('checkShortAnswer')) {
+      const m = onclickStr.match(/checkShortAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2];
+    } else if (onclickStr.includes('checkAnswer')) {
+      const m = onclickStr.match(/checkAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([A-Za-z0-9]+)['"]\)/);
+      if (m) correctAnswers[m[1]] = m[2].toString().toUpperCase();
+    }
+
+    // fallback data-correct
+    if (!correctAnswers[qid]) {
+      const dataCorrect = q.getAttribute('data-correct');
+      if (dataCorrect) {
+        try { correctAnswers[qid] = JSON.parse(dataCorrect); } catch(e) { correctAnswers[qid] = dataCorrect; }
+      }
+    }
+  });
+
+  for (let i = 1; i <= 12; i++) {
+    const name = 'q' + i;
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    studentAnswers[name] = selected ? selected.value.trim() : '';
+  }
+
+  for (let i = 13; i <= 16; i++) {
+    const sub = [];
+    ['a','b','c','d'].forEach(letter => {
+      const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
+      sub.push(sel ? sel.value.trim() : '');
+    });
+    studentAnswers['q' + i] = sub;
+  }
+
+  for (let i = 17; i <= 22; i++) {
+    const el = document.getElementById(`input-q${i}`);
+    studentAnswers['q' + i] = el ? el.value.trim().replace(',', '.') : '';
+  }
+
+  for (let i = 1; i <= 22; i++) {
+    const key = 'q' + i;
+    const userAns = studentAnswers[key];
+    const corr = correctAnswers[key];
+    if (i >= 1 && i <= 12) {
+      if (!corr) continue;
+      if (userAns && String(userAns).toUpperCase() === String(corr).toUpperCase()) totalScore += 0.25;
+    } else if (i >= 13 && i <= 16) {
+      if (!Array.isArray(corr) || !Array.isArray(userAns)) continue;
+      let correctCount = 0;
+      for (let j = 0; j < corr.length && j < userAns.length; j++) {
+        const exp = String(corr[j]).toLowerCase();
+        const u = String(userAns[j]).toLowerCase();
+        if (u && (u === exp || (exp.startsWith('t') && u.startsWith('t')) || (exp.startsWith('đ') && u.startsWith('đ')))) {
+          correctCount++;
+        }
+      }
+      if (correctCount === 1) totalScore += 0.1;
+      else if (correctCount === 2) totalScore += 0.25;
+      else if (correctCount === 3) totalScore += 0.5;
+      else if (correctCount === 4) totalScore += 1;
+    } else if (i >= 17 && i <= 22) {
+      if (typeof corr === 'undefined') continue;
+      const userNum = parseFloat((userAns || '').toString().replace(',', '.'));
+      const corrNum = parseFloat((corr || '').toString().replace(',', '.'));
+      if (!isNaN(userNum) && !isNaN(corrNum)) {
+        if (Math.abs(userNum - corrNum) < 0.001) totalScore += 0.5;
+      } else {
+        if ((userAns || '').toString().trim().toLowerCase() === (corr || '').toString().trim().toLowerCase()) {
+          totalScore += 0.5;
+        }
+      }
+    }
+  }
+
+  let box = document.getElementById('score-result');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'score-result';
+    box.style.cssText = 'position:fixed; bottom:15px; right:15px; background:rgba(0,0,0,0.8); color:#fff; padding:10px 14px; border-radius:8px; z-index:99999; font-size:16px;';
+    document.body.appendChild(box);
+  }
+  box.innerHTML = `📊 Tổng điểm của bạn: <b>${totalScore.toFixed(2)}</b> / 10`;
+
+  try { playSound(totalScore >= 5 ? "../audio/correct.mp3" : "../audio/wrong.mp3"); } catch(e){}
+  if (isLoggedIn() && typeof saveAttempt === 'function') {
+    saveAttempt(document.title || 'de1', { studentAnswers, correctAnswers }, totalScore.toFixed(2));
+    box.innerHTML += '<br/><small style="opacity:0.95">✅ Kết quả đã lưu (tài khoản đăng nhập)</small>';
+  } else {
+    box.innerHTML += '<br/><small style="opacity:0.8">ℹ️ Chưa đăng nhập — kết quả chỉ hiển thị trên trình duyệt.</small>';
+  }
+  console.log('=== correctAnswers ===', correctAnswers);
+  console.log('=== studentAnswers ===', studentAnswers);
+  console.log('=== totalScore ===', totalScore);
+  window.isScoreCalculated = true;
+};
+
+document.getElementById('scoreBtn')?.addEventListener('click', () => {
+  // reset flag to allow re-calc during testing if desired
+  window.isScoreCalculated = false;
+  window.calculateScore();
+});
+</script>
+</body>
+</html>
