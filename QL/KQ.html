@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tổng hợp kết quả Hội thi STEM & KHKT - THPT Trần Trường Sinh (v2)</title>
+<title>Tổng hợp kết quả Hội thi STEM & KHKT - THPT Trần Trường Sinh</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
   body { background:#f8f9fa; }
@@ -14,13 +14,62 @@
   .iqr-header { background:#0066cc; color:white; }
   .loading { text-align: center; padding: 20px; }
   .error { color: red; text-align: center; }
+  .medal-gold { color: #ffd700; font-weight: bold; }
+  .medal-silver { color: #c0c0c0; font-weight: bold; }
+  .medal-bronze { color: #cd7f32; font-weight: bold; }
+  /* Nút quay về trang chủ */
+.home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.home-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .home-button {
+    top: 10px;
+    left: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Phiên bản nút nhỏ hơn cho các trang cần nhiều không gian */
+.home-button-sm {
+  padding: 8px 16px;
+  font-size: 14px;
 </style>
 </head>
 <body>
 <div class="container">
   <h2 class="text-primary mb-4 fw-bold">🏆 TỔNG HỢP KẾT QUẢ HỘI THI STEM & KHKT<br>Trường THPT Trần Trường Sinh</h2>
-  
-
+   <a href="index.html" class="home-button" title="Quay về trang chính">
+  🏠 Trang chính
+  </a>
   <!-- Loading Indicator -->
   <div id="loading" class="loading">
     <div class="spinner-border text-primary" role="status">
@@ -59,9 +108,9 @@
       <div class="table-responsive">
         <table class="table table-hover" id="stem-iqr">
           <thead class="iqr-header text-center">
-            <tr><th>Hạng</th><th>STT</th><th>Tên dự án</th><th>Số điểm hợp lệ</th><th>Điểm TB (IQR)</th></tr>
+            <tr><th>Hạng</th><th>STT</th><th>Tên dự án</th><th>Tổng lượt</th><th>Lượt hợp lệ</th><th>Điểm TB (IQR)</th></tr>
           </thead>
-          <tbody><tr><td colspan="5" class="text-center text-muted">Đang tải...</td></tr></tbody>
+          <tbody><tr><td colspan="6" class="text-center text-muted">Đang tải...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -97,9 +146,9 @@
       <div class="table-responsive">
         <table class="table table-hover" id="science-iqr">
           <thead class="iqr-header text-center">
-            <tr><th>Hạng</th><th>STT</th><th>Tên dự án</th><th>Số điểm hợp lệ</th><th>Điểm TB (IQR)</th></tr>
+            <tr><th>Hạng</th><th>STT</th><th>Tên dự án</th><th>Tổng lượt</th><th>Lượt hợp lệ</th><th>Điểm TB (IQR)</th></tr>
           </thead>
-          <tbody><tr><td colspan="5" class="text-center text-muted">Đang tải...</td></tr></tbody>
+          <tbody><tr><td colspan="6" class="text-center text-muted">Đang tải...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -151,69 +200,46 @@ function quantile(arr, q) {
   }
 }
 
-// Hàm hiển thị dữ liệu
-function renderForType(type, projMap, scores) {
-  const isStem = type === "STEM";
-  const typeName = isStem ? "stem" : "science";
+// Hàm hiển thị dữ liệu STEM
+function renderStemData(projects, stemScores) {
+  console.log(`🎯 Rendering STEM: ${stemScores.length} scores`);
   
-  console.log(`🎯 Rendering ${type}: ${scores.length} scores`);
-
-  // Lọc scores theo type
-  const filteredScores = scores.filter(s => {
-    const scoreType = s.type;
-    if (isStem) {
-      return !scoreType || scoreType === "STEM";
-    } else {
-      return scoreType === "KHKT";
-    }
-  });
-
-  console.log(`📋 ${type} filtered scores:`, filteredScores.length);
-
-  // 1️⃣ Bảng chi tiết
-  const tbody = document.querySelector(`#${typeName}-detailed tbody`);
-  if (!filteredScores.length) { 
-    tbody.innerHTML = `<tr><td colspan="12" class="text-center text-muted">Chưa có dữ liệu chấm điểm</td></tr>`; 
+  // 1️⃣ Bảng chi tiết STEM
+  const stemTbody = document.querySelector('#stem-detailed tbody');
+  if (!stemScores.length) { 
+    stemTbody.innerHTML = `<tr><td colspan="12" class="text-center text-muted">Chưa có dữ liệu chấm điểm STEM</td></tr>`; 
   } else {
-    tbody.innerHTML = "";
-    filteredScores.forEach((score, i) => {
-      const project = projMap[score.projectId] || {};
+    stemTbody.innerHTML = "";
+    stemScores.forEach((score, i) => {
+      const project = projects[score.projectId] || {};
       const title = project.title || "(Không tên)";
       const order = project.order || "?";
       const judgeName = score.judgeName || "Không xác định";
       const judgeCode = score.judgeCode || "???";
       
-      const row = isStem ? 
-        `<tr>
+      stemTbody.innerHTML += `
+        <tr>
           <td>${i + 1}</td><td>${order}</td><td>${escapeHtml(title)}</td>
           <td>${judgeCode}</td><td>${escapeHtml(judgeName)}</td>
           <td>${score.idea || 0}</td><td>${score.applySTEM || 0}</td><td>${score.process || 0}</td>
           <td>${score.product || 0}</td><td>${score.presentation || 0}</td>
           <td>${score.teamwork || 0}</td><td class="fw-bold">${score.total || 0}</td>
-        </tr>` :
-        `<tr>
-          <td>${i + 1}</td><td>${order}</td><td>${escapeHtml(title)}</td>
-          <td>${judgeCode}</td><td>${escapeHtml(judgeName)}</td>
-          <td>${score.question || 0}</td><td>${score.design || 0}</td><td>${score.implementation || 0}</td>
-          <td>${score.creativity || 0}</td><td>${score.poster || 0}</td>
-          <td>${score.interview || 0}</td><td class="fw-bold">${score.total || 0}</td>
         </tr>`;
-      tbody.innerHTML += row;
     });
   }
 
-  // 2️⃣ Bảng xếp hạng trung bình
-  const byPid = {};
-  filteredScores.forEach(score => {
+  // 2️⃣ Bảng xếp hạng trung bình STEM
+  const stemByPid = {};
+  stemScores.forEach(score => {
     const pid = score.projectId;
-    if (!byPid[pid]) byPid[pid] = [];
-    byPid[pid].push(Number(score.total) || 0);
+    if (!stemByPid[pid]) stemByPid[pid] = [];
+    stemByPid[pid].push(Number(score.total) || 0);
   });
 
-  const leaderboardList = Object.keys(projMap)
+  const stemLeaderboardList = Object.keys(projects)
     .map(pid => {
-      const project = projMap[pid];
-      const scoresArr = byPid[pid] || [];
+      const project = projects[pid];
+      const scoresArr = stemByPid[pid] || [];
       const avg = scoresArr.length ? scoresArr.reduce((a, b) => a + b, 0) / scoresArr.length : 0;
       
       return {
@@ -227,16 +253,21 @@ function renderForType(type, projMap, scores) {
     .filter(x => x.cnt > 0)
     .sort((a, b) => b.avg - a.avg);
 
-  const lbTbody = document.querySelector(`#${typeName}-leaderboard tbody`);
-  lbTbody.innerHTML = "";
+  const stemLbTbody = document.querySelector('#stem-leaderboard tbody');
+  stemLbTbody.innerHTML = "";
   
-  if (leaderboardList.length === 0) {
-    lbTbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Chưa có dữ liệu xếp hạng</td></tr>`;
+  if (stemLeaderboardList.length === 0) {
+    stemLbTbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Chưa có dữ liệu xếp hạng STEM</td></tr>`;
   } else {
-    leaderboardList.forEach((item, index) => {
-      lbTbody.innerHTML += `
+    stemLeaderboardList.forEach((item, index) => {
+      let rankClass = "";
+      if (index === 0) rankClass = "medal-gold";
+      else if (index === 1) rankClass = "medal-silver";
+      else if (index === 2) rankClass = "medal-bronze";
+      
+      stemLbTbody.innerHTML += `
         <tr>
-          <td>${index + 1}</td>
+          <td class="${rankClass}">${index + 1}</td>
           <td>${item.order}</td>
           <td>${escapeHtml(item.title)}</td>
           <td>${item.cnt}</td>
@@ -245,13 +276,13 @@ function renderForType(type, projMap, scores) {
     });
   }
 
-  // 3️⃣ Bảng xếp hạng IQR
-  const iqrTbody = document.querySelector(`#${typeName}-iqr tbody`);
-  iqrTbody.innerHTML = "";
+  // 3️⃣ Bảng xếp hạng IQR STEM
+  const stemIqrTbody = document.querySelector('#stem-iqr tbody');
+  stemIqrTbody.innerHTML = "";
   
-  const iqrList = [];
-  for (const pid in byPid) {
-    const scoresArr = byPid[pid].slice().sort((a, b) => a - b);
+  const stemIqrList = [];
+  for (const pid in stemByPid) {
+    const scoresArr = stemByPid[pid].slice().sort((a, b) => a - b);
     
     if (scoresArr.length >= 3) {
       const Q1 = quantile(scoresArr, 0.25);
@@ -265,38 +296,194 @@ function renderForType(type, projMap, scores) {
         filtered.reduce((a, b) => a + b, 0) / filtered.length : 
         scoresArr.reduce((a, b) => a + b, 0) / scoresArr.length;
       
-      iqrList.push({
+      stemIqrList.push({
         pid,
-        order: projMap[pid]?.order || 0,
-        title: projMap[pid]?.title || "",
-        valid: filtered.length,
+        order: projects[pid]?.order || 0,
+        title: projects[pid]?.title || "",
+        totalCount: scoresArr.length,
+        validCount: filtered.length,
         avg: avg
       });
     } else {
       // Nếu ít hơn 3 lượt chấm, dùng trung bình thông thường
       const avg = scoresArr.reduce((a, b) => a + b, 0) / scoresArr.length;
-      iqrList.push({
+      stemIqrList.push({
         pid,
-        order: projMap[pid]?.order || 0,
-        title: projMap[pid]?.title || "",
-        valid: scoresArr.length,
+        order: projects[pid]?.order || 0,
+        title: projects[pid]?.title || "",
+        totalCount: scoresArr.length,
+        validCount: scoresArr.length,
         avg: avg
       });
     }
   }
 
-  iqrList.sort((a, b) => b.avg - a.avg);
+  stemIqrList.sort((a, b) => b.avg - a.avg);
   
-  if (iqrList.length === 0) {
-    iqrTbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Chưa có dữ liệu IQR</td></tr>`;
+  if (stemIqrList.length === 0) {
+    stemIqrTbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted">Chưa có dữ liệu IQR STEM</td></tr>`;
   } else {
-    iqrList.forEach((item, index) => {
-      iqrTbody.innerHTML += `
+    stemIqrList.forEach((item, index) => {
+      let rankClass = "";
+      if (index === 0) rankClass = "medal-gold";
+      else if (index === 1) rankClass = "medal-silver";
+      else if (index === 2) rankClass = "medal-bronze";
+      
+      const outlierInfo = item.totalCount > item.validCount ? 
+        ` <small class="text-danger">(-${item.totalCount - item.validCount})</small>` : "";
+      
+      stemIqrTbody.innerHTML += `
         <tr>
-          <td>${index + 1}</td>
+          <td class="${rankClass}">${index + 1}</td>
           <td>${item.order}</td>
           <td>${escapeHtml(item.title)}</td>
-          <td>${item.valid}</td>
+          <td>${item.totalCount}</td>
+          <td>${item.validCount}${outlierInfo}</td>
+          <td class="fw-bold text-primary">${item.avg.toFixed(2)}</td>
+        </tr>`;
+    });
+  }
+}
+
+// Hàm hiển thị dữ liệu KHKT
+function renderScienceData(projects, scienceScores) {
+  console.log(`🎯 Rendering KHKT: ${scienceScores.length} scores`);
+  
+  // 1️⃣ Bảng chi tiết KHKT
+  const scienceTbody = document.querySelector('#science-detailed tbody');
+  if (!scienceScores.length) { 
+    scienceTbody.innerHTML = `<tr><td colspan="12" class="text-center text-muted">Chưa có dữ liệu chấm điểm KHKT</td></tr>`; 
+  } else {
+    scienceTbody.innerHTML = "";
+    scienceScores.forEach((score, i) => {
+      const project = projects[score.projectId] || {};
+      const title = project.title || "(Không tên)";
+      const order = project.order || "?";
+      const judgeName = score.judgeName || "Không xác định";
+      const judgeCode = score.judgeCode || "???";
+      
+      scienceTbody.innerHTML += `
+        <tr>
+          <td>${i + 1}</td><td>${order}</td><td>${escapeHtml(title)}</td>
+          <td>${judgeCode}</td><td>${escapeHtml(judgeName)}</td>
+          <td>${score.c1 || 0}</td><td>${score.c2 || 0}</td><td>${score.c3 || 0}</td>
+          <td>${score.c4 || 0}</td><td>${score.c5 || 0}</td>
+          <td>${score.c6 || 0}</td><td class="fw-bold">${score.total || 0}</td>
+        </tr>`;
+    });
+  }
+
+  // 2️⃣ Bảng xếp hạng trung bình KHKT
+  const scienceByPid = {};
+  scienceScores.forEach(score => {
+    const pid = score.projectId;
+    if (!scienceByPid[pid]) scienceByPid[pid] = [];
+    scienceByPid[pid].push(Number(score.total) || 0);
+  });
+
+  const scienceLeaderboardList = Object.keys(projects)
+    .map(pid => {
+      const project = projects[pid];
+      const scoresArr = scienceByPid[pid] || [];
+      const avg = scoresArr.length ? scoresArr.reduce((a, b) => a + b, 0) / scoresArr.length : 0;
+      
+      return {
+        pid,
+        order: project.order || 0,
+        title: project.title || "",
+        cnt: scoresArr.length,
+        avg: avg
+      };
+    })
+    .filter(x => x.cnt > 0)
+    .sort((a, b) => b.avg - a.avg);
+
+  const scienceLbTbody = document.querySelector('#science-leaderboard tbody');
+  scienceLbTbody.innerHTML = "";
+  
+  if (scienceLeaderboardList.length === 0) {
+    scienceLbTbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Chưa có dữ liệu xếp hạng KHKT</td></tr>`;
+  } else {
+    scienceLeaderboardList.forEach((item, index) => {
+      let rankClass = "";
+      if (index === 0) rankClass = "medal-gold";
+      else if (index === 1) rankClass = "medal-silver";
+      else if (index === 2) rankClass = "medal-bronze";
+      
+      scienceLbTbody.innerHTML += `
+        <tr>
+          <td class="${rankClass}">${index + 1}</td>
+          <td>${item.order}</td>
+          <td>${escapeHtml(item.title)}</td>
+          <td>${item.cnt}</td>
+          <td class="fw-bold text-success">${item.avg.toFixed(2)}</td>
+        </tr>`;
+    });
+  }
+
+  // 3️⃣ Bảng xếp hạng IQR KHKT
+  const scienceIqrTbody = document.querySelector('#science-iqr tbody');
+  scienceIqrTbody.innerHTML = "";
+  
+  const scienceIqrList = [];
+  for (const pid in scienceByPid) {
+    const scoresArr = scienceByPid[pid].slice().sort((a, b) => a - b);
+    
+    if (scoresArr.length >= 3) {
+      const Q1 = quantile(scoresArr, 0.25);
+      const Q3 = quantile(scoresArr, 0.75);
+      const IQR = Q3 - Q1;
+      const lower = Q1 - 1.5 * IQR;
+      const upper = Q3 + 1.5 * IQR;
+      
+      const filtered = scoresArr.filter(x => x >= lower && x <= upper);
+      const avg = filtered.length > 0 ? 
+        filtered.reduce((a, b) => a + b, 0) / filtered.length : 
+        scoresArr.reduce((a, b) => a + b, 0) / scoresArr.length;
+      
+      scienceIqrList.push({
+        pid,
+        order: projects[pid]?.order || 0,
+        title: projects[pid]?.title || "",
+        totalCount: scoresArr.length,
+        validCount: filtered.length,
+        avg: avg
+      });
+    } else {
+      // Nếu ít hơn 3 lượt chấm, dùng trung bình thông thường
+      const avg = scoresArr.reduce((a, b) => a + b, 0) / scoresArr.length;
+      scienceIqrList.push({
+        pid,
+        order: projects[pid]?.order || 0,
+        title: projects[pid]?.title || "",
+        totalCount: scoresArr.length,
+        validCount: scoresArr.length,
+        avg: avg
+      });
+    }
+  }
+
+  scienceIqrList.sort((a, b) => b.avg - a.avg);
+  
+  if (scienceIqrList.length === 0) {
+    scienceIqrTbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted">Chưa có dữ liệu IQR KHKT</td></tr>`;
+  } else {
+    scienceIqrList.forEach((item, index) => {
+      let rankClass = "";
+      if (index === 0) rankClass = "medal-gold";
+      else if (index === 1) rankClass = "medal-silver";
+      else if (index === 2) rankClass = "medal-bronze";
+      
+      const outlierInfo = item.totalCount > item.validCount ? 
+        ` <small class="text-danger">(-${item.totalCount - item.validCount})</small>` : "";
+      
+      scienceIqrTbody.innerHTML += `
+        <tr>
+          <td class="${rankClass}">${index + 1}</td>
+          <td>${item.order}</td>
+          <td>${escapeHtml(item.title)}</td>
+          <td>${item.totalCount}</td>
+          <td>${item.validCount}${outlierInfo}</td>
           <td class="fw-bold text-primary">${item.avg.toFixed(2)}</td>
         </tr>`;
     });
@@ -316,25 +503,47 @@ async function loadAll() {
     });
     console.log(`📁 Đã tải ${Object.keys(projects).length} dự án`);
 
-    // Lấy dữ liệu scores
-    const scoresSnapshot = await db.collection('scores').get();
-    const scores = [];
-    scoresSnapshot.forEach(doc => {
-      scores.push({
+    // Lấy dữ liệu scores STEM
+    const stemScoresSnapshot = await db.collection('scores').get();
+    const stemScores = [];
+    stemScoresSnapshot.forEach(doc => {
+      stemScores.push({
         id: doc.id,
         ...doc.data()
       });
     });
-    console.log(`📊 Đã tải ${scores.length} bản chấm điểm`);
+    console.log(`📊 Đã tải ${stemScores.length} bản chấm điểm STEM`);
+
+    // Lấy dữ liệu scores KHKT
+    const scienceScoresSnapshot = await db.collection('scores_khkt').get();
+    const scienceScores = [];
+    scienceScoresSnapshot.forEach(doc => {
+      scienceScores.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    console.log(`📊 Đã tải ${scienceScores.length} bản chấm điểm KHKT`);
 
     // Ẩn loading, hiển thị nội dung
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('stem-section').style.display = 'block';
-    document.getElementById('science-section').style.display = 'block';
-
-    // Hiển thị cho cả 2 loại
-    renderForType("STEM", projects, scores);
-    renderForType("KHKT", projects, scores);
+    
+    // Hiển thị section nếu có dữ liệu
+    if (stemScores.length > 0) {
+      document.getElementById('stem-section').style.display = 'block';
+      renderStemData(projects, stemScores);
+    }
+    
+    if (scienceScores.length > 0) {
+      document.getElementById('science-section').style.display = 'block';
+      renderScienceData(projects, scienceScores);
+    }
+    
+    // Nếu không có dữ liệu nào
+    if (stemScores.length === 0 && scienceScores.length === 0) {
+      document.getElementById('error-message').style.display = 'block';
+      document.getElementById('error-text').textContent = 'Không có dữ liệu chấm điểm nào trong hệ thống.';
+    }
     
     console.log("🎉 Đã render xong tất cả dữ liệu!");
     

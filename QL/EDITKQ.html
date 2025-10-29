@@ -232,7 +232,8 @@ const db = firebase.firestore();
 
 // Biến toàn cục
 let allProjectsData = [];
-let allScoresData = [];
+let allStemScoresData = [];
+let allScienceScoresData = [];
 
 // Hàm tiện ích
 function escapeHtml(s) { 
@@ -254,17 +255,29 @@ async function loadAllData() {
       });
     });
 
-    // Lấy dữ liệu scores
-    const scoresSnapshot = await db.collection('scores').get();
-    allScoresData = [];
-    scoresSnapshot.forEach(doc => {
-      allScoresData.push({
+    // Lấy dữ liệu scores STEM
+    const stemScoresSnapshot = await db.collection('scores').get();
+    allStemScoresData = [];
+    stemScoresSnapshot.forEach(doc => {
+      allStemScoresData.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
+        type: 'STEM'
       });
     });
 
-    console.log(`✅ Đã tải: ${allProjectsData.length} dự án, ${allScoresData.length} lượt chấm`);
+    // Lấy dữ liệu scores KHKT
+    const scienceScoresSnapshot = await db.collection('scores_khkt').get();
+    allScienceScoresData = [];
+    scienceScoresSnapshot.forEach(doc => {
+      allScienceScoresData.push({
+        id: doc.id,
+        ...doc.data(),
+        type: 'KHKT'
+      });
+    });
+
+    console.log(`✅ Đã tải: ${allProjectsData.length} dự án, ${allStemScoresData.length} STEM, ${allScienceScoresData.length} KHKT`);
     
     refreshStats();
     renderProjectsList();
@@ -277,13 +290,10 @@ async function loadAllData() {
 
 // Làm mới thống kê
 function refreshStats() {
-  const stemScores = allScoresData.filter(s => !s.type || s.type === 'STEM');
-  const scienceScores = allScoresData.filter(s => s.type === 'KHKT');
-  
   document.getElementById('total-projects').textContent = allProjectsData.length;
-  document.getElementById('total-scores').textContent = allScoresData.length;
-  document.getElementById('stem-scores').textContent = stemScores.length;
-  document.getElementById('science-scores').textContent = scienceScores.length;
+  document.getElementById('total-scores').textContent = allStemScoresData.length + allScienceScoresData.length;
+  document.getElementById('stem-scores').textContent = allStemScoresData.length;
+  document.getElementById('science-scores').textContent = allScienceScoresData.length;
 }
 
 // Hiển thị danh sách dự án
@@ -298,26 +308,37 @@ function renderProjectsList() {
   tbody.innerHTML = '';
 
   allProjectsData.forEach(project => {
-    const projectScores = allScoresData.filter(score => score.projectId === project.id);
-    const avgScore = projectScores.length > 0 
-      ? (projectScores.reduce((sum, score) => sum + (score.total || 0), 0) / projectScores.length).toFixed(2)
+    const stemScores = allStemScoresData.filter(score => score.projectId === project.id);
+    const scienceScores = allScienceScoresData.filter(score => score.projectId === project.id);
+    const allScores = [...stemScores, ...scienceScores];
+    
+    // Xác định loại dự án dựa trên điểm chấm
+    let projectType = 'STEM';
+    if (scienceScores.length > 0 && stemScores.length === 0) {
+      projectType = 'KHKT';
+    } else if (scienceScores.length > 0 && stemScores.length > 0) {
+      projectType = 'CẢ HAI';
+    }
+    
+    const avgScore = allScores.length > 0 
+      ? (allScores.reduce((sum, score) => sum + (score.total || 0), 0) / allScores.length).toFixed(2)
       : '0.00';
     
-    const projectType = project.type === 'KHKT' ? 'KHKT' : 'STEM';
-    const typeBadge = projectType === 'STEM' ? 'bg-success' : 'bg-info';
+    const typeBadge = projectType === 'STEM' ? 'bg-success' : 
+                     projectType === 'KHKT' ? 'bg-info' : 'bg-warning';
     
     const row = `
       <tr>
         <td>
-          <input type="checkbox" class="project-checkbox" value="${project.id}" onchange="updateSelection()" ${projectScores.length === 0 ? 'disabled' : ''}>
+          <input type="checkbox" class="project-checkbox" value="${project.id}" onchange="updateSelection()" ${allScores.length === 0 ? 'disabled' : ''}>
         </td>
         <td>${project.order || '?'}</td>
         <td>${escapeHtml(project.title || 'Không tên')}</td>
         <td><span class="badge ${typeBadge}">${projectType}</span></td>
-        <td class="text-center">${projectScores.length}</td>
+        <td class="text-center">${allScores.length}</td>
         <td class="text-center"><strong>${avgScore}</strong></td>
         <td class="text-center">
-          <button class="btn btn-sm btn-outline-danger" onclick="deleteProjectScores('${project.id}')" ${projectScores.length === 0 ? 'disabled' : ''}>
+          <button class="btn btn-sm btn-outline-danger" onclick="deleteProjectScores('${project.id}')" ${allScores.length === 0 ? 'disabled' : ''}>
             🗑️ Xóa
           </button>
         </td>
@@ -387,9 +408,13 @@ async function deleteSelectedProjects() {
     return project?.title || 'Không tên';
   });
 
-  const totalScores = projectIds.reduce((total, id) => {
-    return total + allScoresData.filter(score => score.projectId === id).length;
-  }, 0);
+  // Tính tổng số lượt chấm
+  let totalScores = 0;
+  projectIds.forEach(id => {
+    const stemScores = allStemScoresData.filter(score => score.projectId === id).length;
+    const scienceScores = allScienceScoresData.filter(score => score.projectId === id).length;
+    totalScores += stemScores + scienceScores;
+  });
 
   if (!confirm(`🗑️ XÓA ${totalScores} LƯỢT CHẤM?\n\n${projectNames.join('\n')}\n\n⚠️ Hành động này không thể hoàn tác!`)) {
     return;
@@ -399,10 +424,17 @@ async function deleteSelectedProjects() {
     let totalDeleted = 0;
     
     for (const projectId of projectIds) {
-      const scoresToDelete = allScoresData.filter(score => score.projectId === projectId);
-      
-      for (const score of scoresToDelete) {
+      // Xóa điểm STEM
+      const stemScoresToDelete = allStemScoresData.filter(score => score.projectId === projectId);
+      for (const score of stemScoresToDelete) {
         await db.collection('scores').doc(score.id).delete();
+        totalDeleted++;
+      }
+      
+      // Xóa điểm KHKT
+      const scienceScoresToDelete = allScienceScoresData.filter(score => score.projectId === projectId);
+      for (const score of scienceScoresToDelete) {
+        await db.collection('scores_khkt').doc(score.id).delete();
         totalDeleted++;
       }
     }
@@ -419,23 +451,31 @@ async function deleteSelectedProjects() {
 // Xóa dữ liệu chấm của một dự án
 async function deleteProjectScores(projectId) {
   const project = allProjectsData.find(p => p.id === projectId);
-  const projectScores = allScoresData.filter(score => score.projectId === projectId);
+  const stemScores = allStemScoresData.filter(score => score.projectId === projectId);
+  const scienceScores = allScienceScoresData.filter(score => score.projectId === projectId);
+  const totalScores = stemScores.length + scienceScores.length;
   
-  if (projectScores.length === 0) {
+  if (totalScores === 0) {
     alert('ℹ️ Dự án này chưa có dữ liệu chấm điểm');
     return;
   }
 
-  if (!confirm(`🗑️ Xóa ${projectScores.length} lượt chấm của:\n"${project?.title || 'Không tên'}"\n\n⚠️ Không thể hoàn tác!`)) {
+  if (!confirm(`🗑️ Xóa ${totalScores} lượt chấm của:\n"${project?.title || 'Không tên'}"\n\n⚠️ Không thể hoàn tác!`)) {
     return;
   }
 
   try {
-    for (const score of projectScores) {
+    // Xóa điểm STEM
+    for (const score of stemScores) {
       await db.collection('scores').doc(score.id).delete();
     }
     
-    alert(`✅ Đã xóa ${projectScores.length} lượt chấm điểm!`);
+    // Xóa điểm KHKT
+    for (const score of scienceScores) {
+      await db.collection('scores_khkt').doc(score.id).delete();
+    }
+    
+    alert(`✅ Đã xóa ${totalScores} lượt chấm điểm!`);
     loadAllData();
     
   } catch (error) {
@@ -446,25 +486,32 @@ async function deleteProjectScores(projectId) {
 
 // Xóa theo loại
 async function deleteByType(type) {
-  const typeScores = allScoresData.filter(score => 
-    type === 'STEM' ? (!score.type || score.type === 'STEM') : score.type === type
-  );
+  let scoresToDelete = [];
+  let collectionName = '';
   
-  if (typeScores.length === 0) {
+  if (type === 'STEM') {
+    scoresToDelete = allStemScoresData;
+    collectionName = 'scores';
+  } else if (type === 'KHKT') {
+    scoresToDelete = allScienceScoresData;
+    collectionName = 'scores_khkt';
+  }
+  
+  if (scoresToDelete.length === 0) {
     alert(`ℹ️ Không có dữ liệu chấm ${type} nào`);
     return;
   }
 
-  if (!confirm(`🗑️ XÓA ${typeScores.length} LƯỢT CHẤM ${type}?\n\n⚠️ Không thể hoàn tác!`)) {
+  if (!confirm(`🗑️ XÓA ${scoresToDelete.length} LƯỢT CHẤM ${type}?\n\n⚠️ Không thể hoàn tác!`)) {
     return;
   }
 
   try {
-    for (const score of typeScores) {
-      await db.collection('scores').doc(score.id).delete();
+    for (const score of scoresToDelete) {
+      await db.collection(collectionName).doc(score.id).delete();
     }
     
-    alert(`✅ Đã xóa ${typeScores.length} lượt chấm ${type}!`);
+    alert(`✅ Đã xóa ${scoresToDelete.length} lượt chấm ${type}!`);
     loadAllData();
     
   } catch (error) {
@@ -475,12 +522,14 @@ async function deleteByType(type) {
 
 // Xóa toàn bộ dữ liệu chấm điểm
 async function deleteAllScores() {
-  if (allScoresData.length === 0) {
+  const totalScores = allStemScoresData.length + allScienceScoresData.length;
+  
+  if (totalScores === 0) {
     alert('ℹ️ Không có dữ liệu chấm điểm nào');
     return;
   }
 
-  if (!confirm(`💀 XÓA TOÀN BỘ ${allScoresData.length} LƯỢT CHẤM?\n\n🚨 CỰC KỲ NGUY HIỂM - KHÔNG THỂ KHÔI PHỤC!`)) {
+  if (!confirm(`💀 XÓA TOÀN BỘ ${totalScores} LƯỢT CHẤM?\n\n🚨 CỰC KỲ NGUY HIỂM - KHÔNG THỂ KHÔI PHỤC!`)) {
     return;
   }
 
@@ -492,11 +541,17 @@ async function deleteAllScores() {
   }
 
   try {
-    for (const score of allScoresData) {
+    // Xóa tất cả điểm STEM
+    for (const score of allStemScoresData) {
       await db.collection('scores').doc(score.id).delete();
     }
     
-    alert(`✅ Đã xóa toàn bộ ${allScoresData.length} lượt chấm điểm!`);
+    // Xóa tất cả điểm KHKT
+    for (const score of allScienceScoresData) {
+      await db.collection('scores_khkt').doc(score.id).delete();
+    }
+    
+    alert(`✅ Đã xóa toàn bộ ${totalScores} lượt chấm điểm!`);
     loadAllData();
     
   } catch (error) {
