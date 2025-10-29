@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧪 Hệ thống Chấm Dự án KHKT - Trường THPT Trần Trường Sinh</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+  background: linear-gradient(135deg, #17a2b8, #6610f2);
+  min-height: 100vh;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #333;
+}
+.container {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.card {
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  border: none;
+}
+.section-title {
+  font-weight: bold;
+  color: #6610f2;
+  margin-top: 20px;
+  border-bottom: 3px solid #6610f2;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+.table th {
+  background-color: #f8f9fa;
+}
+.login-required {
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+.highlight-row {
+  background-color: #fff3cd !important;
+}
+.medal-gold { color: #ffd700; font-weight: bold; }
+.medal-silver { color: #c0c0c0; font-weight: bold; }
+.medal-bronze { color: #cd7f32; font-weight: bold; }
+.progress {
+  height: 10px;
+}
+.score-input:focus {
+  border-color: #6610f2;
+  box-shadow: 0 0 0 0.2rem rgba(102, 16, 242, 0.25);
+}
+/* Nút quay về trang chủ */
+.home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.home-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .home-button {
+    top: 10px;
+    left: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Phiên bản nút nhỏ hơn cho các trang cần nhiều không gian */
+.home-button-sm {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-white">🧪 HỆ THỐNG CHẤM DỰ ÁN KHOA HỌC KỸ THUẬT</h2>
+    <h5 class="text-white">Trường THPT Trần Trường Sinh - Sở GD&ĐT Vĩnh Long</h5>
+  </div>
+<a href="index.html" class="home-button" title="Quay về trang chính">
+  🏠 Trang chính
+</a>
+  <!-- Đăng nhập -->
+  <div id="login-area" class="card p-4 mb-4">
+    <h4 class="text-primary text-center mb-3">🎓 Đăng nhập Giám khảo</h4>
+    <form id="login-form">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Mã giám khảo</label>
+          <input type="text" id="judgeCodeInput" class="form-control" placeholder="VD: TTs12a1 hoặc yennhi2008" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Họ và tên</label>
+          <input type="text" id="judgeNameInput" class="form-control" placeholder="Nhập họ tên giám khảo" required>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+        </div>
+      </div>
+    </form>
+    <p id="login-msg" class="text-danger mt-3" style="display:none"></p>
+  </div>
+
+  <!-- Khu vực chính -->
+  <div id="main-area" class="login-required" style="display:none;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="text-white">Xin chào, <span id="judgeNameDisplay"></span> <span id="admin-badge" class="badge bg-danger ms-2" style="display:none">ADMIN</span></h4>
+      <div>
+        <button id="btn-export-data" class="btn btn-info btn-sm me-2">📊 Xuất dữ liệu</button>
+        <button id="btn-logout" class="btn btn-outline-light">Đăng xuất</button>
+      </div>
+    </div>
+
+    <!-- Form thêm dự án -->
+    <div id="project-form-section" class="card p-3 mb-4" style="display:none;">
+      <h5 class="section-title">➕ Thêm / Sửa Dự án</h5>
+      <form id="project-form" class="row g-2">
+        <div class="col-md-1"><input type="number" id="p-order" class="form-control" placeholder="STT" required></div>
+        <div class="col-md-3"><input type="text" id="p-title" class="form-control" placeholder="Tên dự án" required></div>
+        <div class="col-md-2"><input type="text" id="p-authors" class="form-control" placeholder="Nhóm tác giả" required></div>
+        <div class="col-md-2"><input type="text" id="p-teacher" class="form-control" placeholder="GV hướng dẫn"></div>
+        <div class="col-md-3"><input type="text" id="p-note" class="form-control" placeholder="Ghi chú"></div>
+        <div class="col-md-1"><button class="btn btn-success w-100">Lưu</button></div>
+      </form>
+    </div>
+
+    <!-- Danh sách dự án -->
+    <div class="card p-3 mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="section-title mb-0">📋 Danh sách Dự án</h5>
+        <button id="refresh-projects" class="btn btn-outline-secondary btn-sm">🔄 Làm mới</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle" id="projectsTable">
+          <thead class="table-light">
+            <tr>
+              <th class="text-center">STT</th>
+              <th>Tên dự án</th>
+              <th>Nhóm tác giả</th>
+              <th>GVHD</th>
+              <th>Ghi chú</th>
+              <th class="text-center" style="width: 180px;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Dự án đã chấm -->
+    <div class="card p-3 mb-4">
+      <h5 class="section-title">🧾 Các dự án bạn đã chấm</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle" id="myScoresTable">
+          <thead class="table-light">
+            <tr>
+              <th class="text-center">STT</th>
+              <th>Tên dự án</th>
+              <th class="text-center">Câu hỏi NC</th>
+              <th class="text-center">Thiết kế & PP</th>
+              <th class="text-center">Thực hiện NC</th>
+              <th class="text-center">Sáng tạo</th>
+              <th class="text-center">Poster</th>
+              <th class="text-center">Phỏng vấn</th>
+              <th class="text-center">Tổng</th>
+              <th>Nhận xét</th>
+              <th class="text-center">Chấm lại</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Khu admin -->
+    <div id="admin-section" style="display:none;">
+      <!-- Bảng chấm của tất cả GK -->
+      <div class="card p-3 mb-4">
+        <h5 class="section-title">📊 Bảng chấm của tất cả Giám khảo</h5>
+        <div class="table-responsive">
+          <div id="allScoresTable"></div>
+        </div>
+      </div>
+      
+      <!-- Bảng xếp hạng TB -->
+      <div class="card p-3 mb-4">
+        <h5 class="section-title">🏆 Bảng xếp hạng trung bình</h5>
+        <div class="table-responsive">
+          <div id="leaderboard"></div>
+        </div>
+      </div>
+      
+      <!-- Bảng xếp hạng IQR -->
+      <div class="card p-3 mb-4">
+        <h5 class="section-title text-success">📈 Bảng xếp hạng sau khi lọc ngoại lệ (IQR)</h5>
+        <div class="table-responsive">
+          <div id="iqrLeaderboard"></div>
+        </div>
+      </div>
+      
+      <!-- Thống kê -->
+      <div class="card p-3 mb-4">
+        <h5 class="section-title">📊 Thống kê dữ liệu</h5>
+        <div class="row text-center" id="stats-panel">
+          <div class="col-md-3">
+            <h4 id="total-projects" class="text-primary">0</h4>
+            <small class="text-muted">Tổng dự án</small>
+          </div>
+          <div class="col-md-3">
+            <h4 id="total-scores" class="text-success">0</h4>
+            <small class="text-muted">Tổng lượt chấm</small>
+          </div>
+          <div class="col-md-3">
+            <h4 id="total-judges" class="text-info">0</h4>
+            <small class="text-muted">Số giám khảo</small>
+          </div>
+          <div class="col-md-3">
+            <h4 id="outliers-removed" class="text-warning">0</h4>
+            <small class="text-muted">Điểm ngoại lệ đã loại</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal chấm điểm -->
+<div class="modal fade" id="scoreModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title">🧮 Chấm điểm Dự án KHKT</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="score-form">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Dự án đang chấm</label>
+            <div id="project-info" class="alert alert-light"></div>
+          </div>
+          <div id="criteria-area" class="row g-3"></div>
+          <div class="mt-3">
+            <label class="form-label fw-semibold">Tổng điểm: <span id="score-total-display" class="fw-bold text-primary">0</span>/100</label>
+            <div class="progress mt-1">
+              <div id="score-progress-bar" class="progress-bar" role="progressbar" style="width: 0%">0%</div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="form-label fw-semibold">Nhận xét (tuỳ chọn)</label>
+            <textarea id="score-note" class="form-control" rows="3" placeholder="Nhận xét về dự án..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3 w-100">Lưu điểm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ====== CẤU HÌNH ====== */
+const API_KEY = "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA";
+const PROJECT_ID = "veonline-3bcbf";
+const ADMIN_CODE = "yennhi2008";
+
+/* ====== TRẠNG THÁI ====== */
+let judgeCode = null;
+let judgeName = null;
+let isAdmin = false;
+let PROJECTS_MAP = new Map();
+let leaderboardData = [];
+let iqrData = [];
+
+/* ====== TIÊU CHÍ CHẤM KHKT ====== */
+const criteriaKHKT = [
+  {id:"c1", label:"1. Câu hỏi (vấn đề) nghiên cứu", max:10, desc:"Tính rõ ràng, khả thi và ý nghĩa của câu hỏi nghiên cứu"},
+  {id:"c2", label:"2. Thiết kế và phương pháp", max:15, desc:"Tính phù hợp và hiệu quả của phương pháp nghiên cứu"},
+  {id:"c3", label:"3. Thực hiện nghiên cứu", max:20, desc:"Quy trình thực hiện, thu thập và xử lý dữ liệu"},
+  {id:"c4", label:"4. Sáng tạo", max:20, desc:"Tính mới, sáng tạo và đột phá của dự án"},
+  {id:"c5", label:"5. Poster và trình bày", max:10, desc:"Thiết kế poster và khả năng trình bày trực quan"},
+  {id:"c6", label:"6. Phỏng vấn và bảo vệ", max:25, desc:"Khả năng trả lời phỏng vấn, bảo vệ kết quả nghiên cứu"}
+];
+
+/* ====== TIỆN ÍCH ====== */
+function qs(id){ return document.getElementById(id); }
+function show(el){ el.style.display = 'block'; }
+function hide(el){ el.style.display = 'none'; }
+function escapeHtml(s){ if(!s) return ""; return String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
+
+function showToast(msg){ 
+  const toast = document.createElement('div');
+  toast.className = 'toast align-items-center text-bg-info border-0 position-fixed top-0 end-0 m-3';
+  toast.style.zIndex = '1060';
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${msg}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toast);
+  const bsToast = new bootstrap.Toast(toast);
+  bsToast.show();
+  setTimeout(() => {
+    if (toast.parentNode) document.body.removeChild(toast);
+  }, 3000);
+}
+
+/* ====== FIRESTORE REST HELPERS ====== */
+async function fetchCollection(coll, pageSize=1000){
+  try{
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${coll}?pageSize=${pageSize}&key=${API_KEY}`;
+    const r = await fetch(url);
+    if(!r.ok){
+      console.error('fetchCollection failed', coll, r.status, await r.text());
+      return null;
+    }
+    return await r.json();
+  }catch(err){ console.error('fetchCollection error', err); return null; }
+}
+
+async function fetchDocument(coll, docId){
+  try{
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${coll}/${encodeURIComponent(docId)}?key=${API_KEY}`;
+    const r = await fetch(url);
+    if(!r.ok) return null;
+    return await r.json();
+  }catch(err){ console.error('fetchDocument', err); return null; }
+}
+
+async function createDocument(coll, body){
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${coll}?key=${API_KEY}`;
+  const r = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  return r;
+}
+
+async function patchDocument(coll, docId, body){
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${coll}/${encodeURIComponent(docId)}?key=${API_KEY}`;
+  const r = await fetch(url, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  return r;
+}
+
+async function deleteDocument(coll, docId){
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${coll}/${encodeURIComponent(docId)}?key=${API_KEY}`;
+  return await fetch(url, { method:'DELETE' });
+}
+
+/* ====== XÁC THỰC GIÁM KHẢO (GIỐNG STEM) ====== */
+async function verifyJudgeCode(code){
+  if(code === ADMIN_CODE) return true;
+  // try direct doc
+  const doc = await fetchDocument('codes', code);
+  if(doc) return true;
+  // search field 'code' in collection
+  const list = await fetchCollection('codes', 500);
+  if(!list || !list.documents) return false;
+  for(const d of list.documents){
+    const f = d.fields || {};
+    if(f.code && f.code.stringValue === code) return true;
+  }
+  return false;
+}
+
+/* ====== LOGIN + SESSION (GIỐNG STEM) ====== */
+const loginForm = qs('login-form');
+const btnLogout = qs('btn-logout');
+
+loginForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const code = qs('judgeCodeInput').value.trim();
+  const name = qs('judgeNameInput').value.trim();
+  if(!code || !name) return showToast('Vui lòng nhập mã và họ tên');
+  qs('login-msg').style.display = 'block'; qs('login-msg').textContent = 'Đang xác thực...';
+  const ok = await verifyJudgeCode(code);
+  if(!ok){ qs('login-msg').textContent = 'Mã không hợp lệ'; return; }
+  judgeCode = code; judgeName = name; isAdmin = (code === ADMIN_CODE);
+  localStorage.setItem('judgeCode', judgeCode); localStorage.setItem('judgeName', judgeName);
+  qs('login-msg').style.display = 'none';
+  await afterLogin();
+});
+
+btnLogout.addEventListener('click', ()=>{
+  localStorage.removeItem('judgeCode'); localStorage.removeItem('judgeName'); location.reload();
+});
+
+async function afterLogin(){
+  // show user info and controls
+  loginForm.style.display = 'none';
+  show(qs('main-area'));
+  qs('main-area').classList.remove('login-required');
+  btnLogout.classList.remove('d-none');
+  qs('judgeNameDisplay').innerHTML = `<b>${escapeHtml(judgeName)}</b> (${escapeHtml(judgeCode)}) ${isAdmin?'<span class="text-danger">[ADMIN]</span>':''}`;
+  
+  // show admin sections only if admin
+  if(isAdmin) {
+    show(qs('admin-section'));
+    show(qs('project-form-section'));
+    qs('admin-badge').style.display = 'inline';
+  } else {
+    hide(qs('project-form-section'));
+  }
+  
+  await loadProjects();
+  await loadMyScores();
+  if(isAdmin) { 
+    await loadAllScores(); 
+    await computeLeaderboard(); 
+    await computeLeaderboardIQR(); 
+  }
+}
+
+/* restore session if exists */
+(function restore(){
+  const c = localStorage.getItem('judgeCode');
+  const n = localStorage.getItem('judgeName');
+  if(c && n){
+    judgeCode = c; judgeName = n; isAdmin = (c === ADMIN_CODE);
+    afterLogin();
+  }
+})();
+
+
+// ========== QUẢN LÝ DỰ ÁN ==========
+async function loadProjects() {
+  const tbody = qs("#projectsTable tbody");
+  tbody.innerHTML = "<tr><td colspan='6' class='text-center text-muted'>Đang tải...</td></tr>";
+  
+  const docs = await fetchCollection("projects");
+  PROJECTS_MAP.clear();
+  
+  if (docs.length === 0) {
+    tbody.innerHTML = "<tr><td colspan='6' class='text-center text-muted'>Chưa có dự án nào</td></tr>";
+    return;
+  }
+  
+  // Sắp xếp theo STT
+  docs.sort((a, b) => {
+    const aOrder = parseInt(a.fields.order?.integerValue || a.fields.order?.stringValue || 0);
+    const bOrder = parseInt(b.fields.order?.integerValue || b.fields.order?.stringValue || 0);
+    return aOrder - bOrder;
+  });
+  
+  tbody.innerHTML = "";
+  docs.forEach((doc, index) => {
+    const fields = doc.fields;
+    const docId = doc.name.split('/').pop();
+    
+    PROJECTS_MAP.set(docId, {
+      id: docId,
+      order: parseInt(fields.order?.integerValue || fields.order?.stringValue || 0),
+      title: fields.title?.stringValue || "",
+      authors: fields.authors?.stringValue || "",
+      teacher: fields.teacher?.stringValue || "",
+      note: fields.note?.stringValue || ""
+    });
+    
+    const row = document.createElement("tr");
+    
+    // Chỉ hiển thị nút sửa/xóa cho admin
+    const adminButtons = isAdmin ? 
+      `<button class="btn btn-sm btn-warning me-1" onclick="editProject('${docId}')">Sửa</button>
+       <button class="btn btn-sm btn-danger" onclick="deleteProject('${docId}')">Xóa</button>` : '';
+    
+    row.innerHTML = `
+      <td class="text-center">${fields.order?.integerValue || ""}</td>
+      <td>${escapeHtml(fields.title?.stringValue || "")}</td>
+      <td>${escapeHtml(fields.authors?.stringValue || "")}</td>
+      <td>${escapeHtml(fields.teacher?.stringValue || "")}</td>
+      <td>${escapeHtml(fields.note?.stringValue || "")}</td>
+      <td class="text-center">
+        <button class="btn btn-sm btn-primary me-1" onclick="openScoreModal('${docId}')">Chấm</button>
+        ${adminButtons}
+      </td>`;
+    tbody.appendChild(row);
+  });
+}
+
+qs("#project-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  
+  // Kiểm tra quyền admin
+  if (!isAdmin) {
+    showToast("Chỉ admin mới có quyền thêm/sửa dự án", "warning");
+    return;
+  }
+  
+  const order = qs("#order").value.trim();
+  const title = qs("#title").value.trim();
+  const authors = qs("#authors").value.trim();
+  const teacher = qs("#teacher").value.trim();
+  const note = qs("#note").value.trim();
+  
+  if (!order || !title || !authors) {
+    showToast("Vui lòng nhập STT, tên dự án và nhóm tác giả", "warning");
+    return;
+  }
+  
+  const fields = {
+    order: { integerValue: parseInt(order) },
+    title: { stringValue: title },
+    authors: { stringValue: authors },
+    teacher: { stringValue: teacher },
+    note: { stringValue: note }
+  };
+  
+  const editId = qs("#project-form").dataset.editId;
+  let success = false;
+  
+  if (editId) {
+    // Sửa dự án
+    success = await patchDocument("projects", editId, fields);
+    delete qs("#project-form").dataset.editId;
+  } else {
+    // Thêm dự án mới
+    success = await createDocument("projects", fields);
+  }
+  
+  if (success) {
+    showToast(editId ? "Cập nhật dự án thành công" : "Thêm dự án thành công", "success");
+    e.target.reset();
+    loadProjects();
+    if (isAdmin) {
+      computeLeaderboard();
+      computeLeaderboardIQR();
+      updateStatistics();
+    }
+  } else {
+    showToast("Lỗi khi lưu dự án", "danger");
+  }
+});
+
+async function deleteProject(docId) {
+  if (!isAdmin) {
+    showToast("Chỉ admin mới có quyền xóa dự án", "warning");
+    return;
+  }
+  
+  if (!confirm("Bạn có chắc chắn muốn xóa dự án này?")) return;
+  
+  const success = await deleteDocument("projects", docId);
+  if (success) {
+    showToast("Đã xóa dự án thành công", "success");
+    loadProjects();
+    if (isAdmin) {
+      computeLeaderboard();
+      computeLeaderboardIQR();
+      updateStatistics();
+    }
+  } else {
+    showToast("Lỗi khi xóa dự án", "danger");
+  }
+}
+
+function editProject(docId) {
+  if (!isAdmin) {
+    showToast("Chỉ admin mới có quyền sửa dự án", "warning");
+    return;
+  }
+  
+  const project = PROJECTS_MAP.get(docId);
+  if (!project) {
+    showToast("Không tìm thấy dự án", "warning");
+    return;
+  }
+  
+  qs("#order").value = project.order;
+  qs("#title").value = project.title;
+  qs("#authors").value = project.authors;
+  qs("#teacher").value = project.teacher;
+  qs("#note").value = project.note;
+  qs("#project-form").dataset.editId = docId;
+  
+  // Cuộn đến form
+  qs("#project-form").scrollIntoView({ behavior: 'smooth' });
+}
+
+// ========== CHẤM ĐIỂM ==========
+function updateScoreDisplay() {
+  let total = 0;
+  criteriaKHKT.forEach(criterion => {
+    const value = parseFloat(qs(`#${criterion.id}`).value) || 0;
+    total += value;
+  });
+  
+  qs("#score-total-display").textContent = total;
+  
+  // Cập nhật thanh tiến trình
+  const progressBar = qs("#score-progress-bar");
+  const percentage = total;
+  progressBar.style.width = `${percentage}%`;
+  progressBar.textContent = `${total}%`;
+  
+  // Thay đổi màu theo điểm
+  if (total < 50) {
+    progressBar.className = "progress-bar bg-danger";
+  } else if (total < 70) {
+    progressBar.className = "progress-bar bg-warning";
+  } else {
+    progressBar.className = "progress-bar bg-success";
+  }
+}
+
+function openScoreModal(projectId) {
+  if (!judgeCode) {
+    showToast("Vui lòng đăng nhập trước khi chấm điểm", "warning");
+    return;
+  }
+  
+  const project = PROJECTS_MAP.get(projectId);
+  if (!project) {
+    showToast("Không tìm thấy thông tin dự án", "warning");
+    return;
+  }
+  
+  // Hiển thị thông tin dự án
+  qs("#project-info").innerHTML = `
+    <strong>#${project.order} - ${project.title}</strong><br>
+    <small class="text-muted">Nhóm tác giả: ${project.authors} | GVHD: ${project.teacher || "Không có"}</small>
+  `;
+  
+  // Tạo form chấm điểm
+  const criteriaArea = qs("#criteria-area");
+  criteriaArea.innerHTML = "";
+  
+  criteriaKHKT.forEach(criterion => {
+    const col = document.createElement("div");
+    col.className = "col-md-6";
+    col.innerHTML = `
+      <div class="mb-3">
+        <label class="form-label">
+          <strong>${criterion.label}</strong> 
+          <small class="text-muted">(Tối đa: ${criterion.max})</small>
+        </label>
+        <input type="number" 
+               min="0" 
+               max="${criterion.max}" 
+               id="${criterion.id}" 
+               class="form-control score-input" 
+               placeholder="0-${criterion.max}"
+               required>
+        <small class="form-text text-muted">${criterion.desc}</small>
+      </div>
+    `;
+    criteriaArea.appendChild(col);
+  });
+  
+  // Thêm sự kiện cập nhật điểm
+  criteriaKHKT.forEach(criterion => {
+    qs(`#${criterion.id}`).addEventListener("input", updateScoreDisplay);
+  });
+  
+  // Reset form
+  qs("#score-form").reset();
+  qs("#criteria-area").dataset.projectId = projectId;
+  updateScoreDisplay();
+  
+  // Hiển thị modal
+  const modal = new bootstrap.Modal("#scoreModal");
+  modal.show();
+}
+
+qs("#score-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  
+  if (!judgeCode) {
+    showToast("Vui lòng đăng nhập trước", "warning");
+    return;
+  }
+  
+  const projectId = qs("#criteria-area").dataset.projectId;
+  if (!projectId) {
+    showToast("Lỗi: Không xác định được dự án", "danger");
+    return;
+  }
+  
+  // Tính tổng điểm
+  let total = 0;
+  const fields = {
+    projectId: { stringValue: projectId },
+    judgeCode: { stringValue: judgeCode },
+    judgeName: { stringValue: judgeName },
+    note: { stringValue: qs("#score-note").value || "" },
+    createdAt: { timestampValue: new Date().toISOString() }
+  };
+  
+  criteriaKHKT.forEach(criterion => {
+    const value = parseFloat(qs(`#${criterion.id}`).value) || 0;
+    if (value < 0 || value > criterion.max) {
+      showToast(`Điểm ${criterion.label} không hợp lệ (0-${criterion.max})`, "warning");
+      return;
+    }
+    total += value;
+    fields[criterion.id] = { doubleValue: value };
+  });
+  
+  fields.total = { doubleValue: total };
+  
+  // Kiểm tra xem giám khảo đã chấm dự án này chưa
+  const allScores = await fetchCollection("scores_khkt");
+  const existingScore = allScores.find(doc => 
+    doc.fields.projectId?.stringValue === projectId && 
+    doc.fields.judgeCode?.stringValue === judgeCode
+  );
+  
+  let success = false;
+  
+  if (existingScore) {
+    // Cập nhật điểm
+    const scoreId = existingScore.name.split('/').pop();
+    if (!confirm("Bạn đã chấm dự án này. Cập nhật điểm mới?")) return;
+    success = await patchDocument("scores_khkt", scoreId, fields);
+  } else {
+    // Thêm điểm mới
+    success = await createDocument("scores_khkt", fields);
+  }
+  
+  if (success) {
+    showToast("Lưu điểm thành công", "success");
+    bootstrap.Modal.getInstance("#scoreModal").hide();
+    loadMyScores();
+    if (isAdmin) {
+      loadAllScores();
+      computeLeaderboard();
+      computeLeaderboardIQR();
+      updateStatistics();
+    }
+  } else {
+    showToast("Lỗi khi lưu điểm", "danger");
+  }
+});
+
+// ========== ĐIỂM CỦA TÔI ==========
+async function loadMyScores() {
+  const tbody = qs("#myScoresTable tbody");
+  tbody.innerHTML = "<tr><td colspan='11' class='text-center text-muted'>Đang tải...</td></tr>";
+  
+  const allScores = await fetchCollection("scores_khkt");
+  const myScores = allScores.filter(doc => 
+    doc.fields.judgeCode?.stringValue === judgeCode
+  );
+  
+  if (myScores.length === 0) {
+    tbody.innerHTML = "<tr><td colspan='11' class='text-center text-muted'>Bạn chưa chấm dự án nào</td></tr>";
+    return;
+  }
+  
+  // Lấy thông tin dự án
+  const projects = await fetchCollection("projects");
+  const projectMap = new Map();
+  projects.forEach(doc => {
+    const id = doc.name.split('/').pop();
+    projectMap.set(id, {
+      order: parseInt(doc.fields.order?.integerValue || doc.fields.order?.stringValue || 0),
+      title: doc.fields.title?.stringValue || ""
+    });
+  });
+  
+  // Sắp xếp theo STT dự án
+  myScores.sort((a, b) => {
+    const aProject = projectMap.get(a.fields.projectId?.stringValue) || { order: 0 };
+    const bProject = projectMap.get(b.fields.projectId?.stringValue) || { order: 0 };
+    return aProject.order - bProject.order;
+  });
+  
+  tbody.innerHTML = "";
+  myScores.forEach((doc, index) => {
+    const fields = doc.fields;
+    const projectId = fields.projectId?.stringValue;
+    const project = projectMap.get(projectId) || { order: "?", title: "Không xác định" };
+    
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td class="text-center">${index + 1}</td>
+      <td><strong>#${project.order}</strong> - ${escapeHtml(project.title)}</td>
+      <td class="text-center">${(fields.c1?.doubleValue || 0).toFixed(1)}</td>
+      <td class="text-center">${(fields.c2?.doubleValue || 0).toFixed(1)}</td>
+      <td class="text-center">${(fields.c3?.doubleValue || 0).toFixed(1)}</td>
+      <td class="text-center">${(fields.c4?.doubleValue || 0).toFixed(1)}</td>
+      <td class="text-center">${(fields.c5?.doubleValue || 0).toFixed(1)}</td>
+      <td class="text-center">${(fields.c6?.doubleValue || 0).toFixed(1)}</td>
+      <td class="text-center fw-bold text-primary">${(fields.total?.doubleValue || 0).toFixed(1)}</td>
+      <td>${escapeHtml(fields.note?.stringValue || "")}</td>
+      <td class="text-center">
+        <button class="btn btn-sm btn-outline-primary" onclick="openScoreModal('${projectId}')">Chấm lại</button>
+      </td>`;
+    tbody.appendChild(row);
+  });
+}
+
+// ========== ADMIN: TẤT CẢ ĐIỂM ==========
+async function loadAllScores() {
+  if (!isAdmin) return;
+  
+  const container = qs("#allScoresTable");
+  container.innerHTML = "<div class='text-center text-muted'>Đang tải...</div>";
+  
+  const [projects, scores] = await Promise.all([
+    fetchCollection("projects"),
+    fetchCollection("scores_khkt")
+  ]);
+  
+  if (scores.length === 0) {
+    container.innerHTML = "<div class='text-center text-muted'>Chưa có điểm nào</div>";
+    return;
+  }
+  
+  // Tạo bảng
+  let html = `
+    <table class="table table-bordered table-sm">
+      <thead class="table-light">
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-center">STT</th>
+          <th>Tên dự án</th>
+          <th class="text-center">Mã GK</th>
+          <th>Tên GK</th>
+          <th class="text-center">C1</th>
+          <th class="text-center">C2</th>
+          <th class="text-center">C3</th>
+          <th class="text-center">C4</th>
+          <th class="text-center">C5</th>
+          <th class="text-center">C6</th>
+          <th class="text-center">Tổng</th>
+        </tr>
+      </thead>
+      <tbody>`;
+  
+  // Tạo map dự án
+  const projectMap = new Map();
+  projects.forEach(doc => {
+    const id = doc.name.split('/').pop();
+    projectMap.set(id, {
+      order: parseInt(doc.fields.order?.integerValue || doc.fields.order?.stringValue || 0),
+      title: doc.fields.title?.stringValue || ""
+    });
+  });
+  
+  // Sắp xếp điểm
+  scores.sort((a, b) => {
+    const aProject = projectMap.get(a.fields.projectId?.stringValue) || { order: 0 };
+    const bProject = projectMap.get(b.fields.projectId?.stringValue) || { order: 0 };
+    return aProject.order - bProject.order;
+  });
+  
+  // Thêm hàng
+  scores.forEach((doc, index) => {
+    const fields = doc.fields;
+    const projectId = fields.projectId?.stringValue;
+    const project = projectMap.get(projectId) || { order: "?", title: "Không xác định" };
+    
+    html += `
+      <tr>
+        <td class="text-center">${index + 1}</td>
+        <td class="text-center">${project.order}</td>
+        <td>${escapeHtml(project.title)}</td>
+        <td class="text-center">${escapeHtml(fields.judgeCode?.stringValue || "")}</td>
+        <td>${escapeHtml(fields.judgeName?.stringValue || "")}</td>
+        <td class="text-center">${(fields.c1?.doubleValue || 0).toFixed(1)}</td>
+        <td class="text-center">${(fields.c2?.doubleValue || 0).toFixed(1)}</td>
+        <td class="text-center">${(fields.c3?.doubleValue || 0).toFixed(1)}</td>
+        <td class="text-center">${(fields.c4?.doubleValue || 0).toFixed(1)}</td>
+        <td class="text-center">${(fields.c5?.doubleValue || 0).toFixed(1)}</td>
+        <td class="text-center">${(fields.c6?.doubleValue || 0).toFixed(1)}</td>
+        <td class="text-center fw-bold">${(fields.total?.doubleValue || 0).toFixed(1)}</td>
+      </tr>`;
+  });
+  
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
+
+// ========== BẢNG XẾP HẠNG ==========
+async function computeLeaderboard() {
+  if (!isAdmin) return;
+  
+  const container = qs("#leaderboard");
+  container.innerHTML = "<div class='text-center text-muted'>Đang tính toán...</div>";
+  
+  const [projects, scores] = await Promise.all([
+    fetchCollection("projects"),
+    fetchCollection("scores_khkt")
+  ]);
+  
+  if (projects.length === 0) {
+    container.innerHTML = "<div class='text-center text-muted'>Chưa có dự án nào</div>";
+    return;
+  }
+  
+  // Tính điểm trung bình
+  const scoreMap = {};
+  scores.forEach(doc => {
+    const fields = doc.fields;
+    const projectId = fields.projectId?.stringValue;
+    if (!projectId) return;
+    
+    if (!scoreMap[projectId]) {
+      scoreMap[projectId] = { sum: 0, count: 0 };
+    }
+    scoreMap[projectId].sum += fields.total?.doubleValue || 0;
+    scoreMap[projectId].count++;
+  });
+  
+  // Tạo danh sách xếp hạng
+  const rankings = [];
+  projects.forEach(doc => {
+    const id = doc.name.split('/').pop();
+    const fields = doc.fields;
+    const scoreData = scoreMap[id] || { sum: 0, count: 0 };
+    const avg = scoreData.count > 0 ? scoreData.sum / scoreData.count : 0;
+    
+    rankings.push({
+      id: id,
+      order: parseInt(fields.order?.integerValue || fields.order?.stringValue || 0),
+      title: fields.title?.stringValue || "",
+      count: scoreData.count,
+      avg: avg
+    });
+  });
+  
+  // Sắp xếp theo điểm trung bình
+  rankings.sort((a, b) => b.avg - a.avg || a.order - b.order);
+  leaderboardData = [...rankings];
+  
+  // Hiển thị
+  let html = `
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th class="text-center">Hạng</th>
+          <th class="text-center">STT</th>
+          <th>Tên dự án</th>
+          <th class="text-center">Số lượt</th>
+          <th class="text-center">Điểm TB</th>
+        </tr>
+      </thead>
+      <tbody>`;
+  
+  rankings.forEach((item, index) => {
+    let rankClass = "";
+    if (index === 0) rankClass = "medal-gold";
+    else if (index === 1) rankClass = "medal-silver";
+    else if (index === 2) rankClass = "medal-bronze";
+    
+    html += `
+      <tr>
+        <td class="text-center ${rankClass}">${index + 1}</td>
+        <td class="text-center">${item.order}</td>
+        <td>${escapeHtml(item.title)}</td>
+        <td class="text-center">${item.count}</td>
+        <td class="text-center fw-bold text-success">${item.avg.toFixed(2)}</td>
+      </tr>`;
+  });
+  
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
+
+// ========== BẢNG XẾP HẠNG IQR ==========
+function quantile(sortedArr, q) {
+  if (!sortedArr.length) return 0;
+  const pos = (sortedArr.length - 1) * q;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  if (base + 1 < sortedArr.length) {
+    return sortedArr[base] + (sortedArr[base + 1] - sortedArr[base]) * rest;
+  }
+  return sortedArr[base];
+}
+
+async function computeLeaderboardIQR() {
+  if (!isAdmin) return;
+  
+  const container = qs("#iqrLeaderboard");
+  container.innerHTML = "<div class='text-center text-muted'>Đang tính toán IQR...</div>";
+  
+  const [projects, scores] = await Promise.all([
+    fetchCollection("projects"),
+    fetchCollection("scores_khkt")
+  ]);
+  
+  if (projects.length === 0) {
+    container.innerHTML = "<div class='text-center text-muted'>Chưa có dự án nào</div>";
+    return;
+  }
+  
+  // Gom điểm theo dự án
+  const scoresByProject = {};
+  scores.forEach(doc => {
+    const fields = doc.fields;
+    const projectId = fields.projectId?.stringValue;
+    if (!projectId) return;
+    
+    if (!scoresByProject[projectId]) {
+      scoresByProject[projectId] = [];
+    }
+    scoresByProject[projectId].push(fields.total?.doubleValue || 0);
+  });
+  
+  // Tính IQR và lọc ngoại lệ
+  const results = [];
+  let totalOutliers = 0;
+  
+  projects.forEach(doc => {
+    const id = doc.name.split('/').pop();
+    const fields = doc.fields;
+    const scores = scoresByProject[id] || [];
+    
+    if (scores.length === 0) {
+      results.push({
+        id: id,
+        order: parseInt(fields.order?.integerValue || fields.order?.stringValue || 0),
+        title: fields.title?.stringValue || "",
+        totalCount: 0,
+        validCount: 0,
+        avg: 0,
+        outlierCount: 0,
+        regularRank: null
+      });
+      return;
+    }
+    
+    // Sắp xếp điểm
+    const sortedScores = [...scores].sort((a, b) => a - b);
+    
+    // Tính IQR
+    const Q1 = quantile(sortedScores, 0.25);
+    const Q3 = quantile(sortedScores, 0.75);
+    const IQR = Q3 - Q1;
+    const lowerBound = Q1 - 1.5 * IQR;
+    const upperBound = Q3 + 1.5 * IQR;
+    
+    // Lọc ngoại lệ
+    const filteredScores = sortedScores.filter(score => 
+      score >= lowerBound && score <= upperBound
+    );
+    
+    // Đếm ngoại lệ
+    const outlierCount = sortedScores.length - filteredScores.length;
+    totalOutliers += outlierCount;
+    
+    // Tính điểm trung bình (sau khi lọc)
+    let avg;
+    if (filteredScores.length >= 2) {
+      avg = filteredScores.reduce((sum, score) => sum + score, 0) / filteredScores.length;
+    } else {
+      // Nếu không đủ điểm hợp lệ, dùng tất cả điểm
+      avg = sortedScores.reduce((sum, score) => sum + score, 0) / sortedScores.length;
+    }
+    
+    // Tìm hạng trong bảng xếp hạng thường
+    const regularRank = leaderboardData.findIndex(item => item.id === id);
+    
+    results.push({
+      id: id,
+      order: parseInt(fields.order?.integerValue || fields.order?.stringValue || 0),
+      title: fields.title?.stringValue || "",
+      totalCount: sortedScores.length,
+      validCount: filteredScores.length,
+      avg: avg,
+      outlierCount: outlierCount,
+      regularRank: regularRank >= 0 ? regularRank + 1 : null
+    });
+  });
+  
+  // Sắp xếp theo điểm IQR
+  results.sort((a, b) => b.avg - a.avg || a.order - b.order);
+  iqrData = [...results];
+  
+  // Hiển thị
+  let html = `
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th class="text-center">Hạng</th>
+          <th class="text-center">STT</th>
+          <th>Tên dự án</th>
+          <th class="text-center">Tổng lượt</th>
+          <th class="text-center">Lượt hợp lệ</th>
+          <th class="text-center">Điểm TB (IQR)</th>
+          <th class="text-center">Thay đổi</th>
+        </tr>
+      </thead>
+      <tbody>`;
+  
+  results.forEach((item, index) => {
+    // Tính thay đổi hạng
+    let changeIndicator = "";
+    if (item.regularRank !== null) {
+      const change = item.regularRank - (index + 1);
+      if (change > 0) {
+        changeIndicator = `<span class="text-success">↑+${change}</span>`;
+      } else if (change < 0) {
+        changeIndicator = `<span class="text-danger">↓${change}</span>`;
+      } else {
+        changeIndicator = `<span class="text-muted">-</span>`;
+      }
+    }
+    
+    // Thêm class highlight cho dự án có ngoại lệ
+    const rowClass = item.outlierCount > 0 ? "highlight-row" : "";
+    
+    // Thêm huy chương cho top 3
+    let rankClass = "";
+    if (index === 0) rankClass = "medal-gold";
+    else if (index === 1) rankClass = "medal-silver";
+    else if (index === 2) rankClass = "medal-bronze";
+    
+    html += `
+      <tr class="${rowClass}">
+        <td class="text-center ${rankClass}">${index + 1}</td>
+        <td class="text-center">${item.order}</td>
+        <td>${escapeHtml(item.title)}</td>
+        <td class="text-center">${item.totalCount}</td>
+        <td class="text-center">${item.validCount} ${item.outlierCount > 0 ? `<small class="text-danger">(-${item.outlierCount})</small>` : ""}</td>
+        <td class="text-center fw-bold text-primary">${item.avg.toFixed(2)}</td>
+        <td class="text-center">${changeIndicator}</td>
+      </tr>`;
+  });
+  
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+  
+  // Cập nhật thống kê
+  updateStatistics(totalOutliers);
+}
+
+// ========== THỐNG KÊ ==========
+async function updateStatistics(totalOutliers = 0) {
+  if (!isAdmin) return;
+  
+  const [projects, scores] = await Promise.all([
+    fetchCollection("projects"),
+    fetchCollection("scores_khkt")
+  ]);
+  
+  // Đếm số giám khảo duy nhất
+  const judges = new Set();
+  scores.forEach(doc => {
+    const judgeCode = doc.fields.judgeCode?.stringValue;
+    if (judgeCode) judges.add(judgeCode);
+  });
+  
+  // Cập nhật UI
+  qs("#total-projects").textContent = projects.length;
+  qs("#total-scores").textContent = scores.length;
+  qs("#total-judges").textContent = judges.size;
+  qs("#outliers-removed").textContent = totalOutliers;
+}
+
+// ========== XUẤT DỮ LIỆU ==========
+qs("#btn-export-data").addEventListener("click", async function() {
+  if (!isAdmin) {
+    showToast("Chỉ admin mới có quyền xuất dữ liệu", "warning");
+    return;
+  }
+  
+  try {
+    const [projects, scores] = await Promise.all([
+      fetchCollection("projects"),
+      fetchCollection("scores_khkt")
+    ]);
+    
+    if (projects.length === 0) {
+      showToast("Không có dữ liệu để xuất", "warning");
+      return;
+    }
+    
+    // Tạo nội dung CSV
+    let csvContent = "DANH SÁCH DỰ ÁN KHKT\n";
+    csvContent += "STT,Tên dự án,Nhóm tác giả,Giáo viên hướng dẫn,Ghi chú\n";
+    
+    projects.forEach(project => {
+      const fields = project.fields;
+      csvContent += `"${fields.order?.integerValue || ''}","${fields.title?.stringValue || ''}","${fields.authors?.stringValue || ''}","${fields.teacher?.stringValue || ''}","${fields.note?.stringValue || ''}"\n`;
+    });
+    
+    csvContent += "\n\nDANH SÁCH ĐIỂM CHẤM\n";
+    csvContent += "STT,Tên dự án,Mã GK,Tên GK,Câu hỏi NC,Thiết kế & PP,Thực hiện NC,Sáng tạo,Poster,Phỏng vấn,Tổng điểm,Nhận xét\n";
+    
+    // Tạo map dự án
+    const projectMap = new Map();
+    projects.forEach(doc => {
+      const id = doc.name.split('/').pop();
+      projectMap.set(id, {
+        order: doc.fields.order?.integerValue || "",
+        title: doc.fields.title?.stringValue || ""
+      });
+    });
+    
+    // Thêm điểm
+    scores.forEach(doc => {
+      const fields = doc.fields;
+      const projectId = fields.projectId?.stringValue;
+      const project = projectMap.get(projectId) || { order: "?", title: "Không xác định" };
+      
+      csvContent += `"${project.order}","${project.title}","${fields.judgeCode?.stringValue || ''}","${fields.judgeName?.stringValue || ''}",`;
+      csvContent += `"${fields.c1?.doubleValue || 0}","${fields.c2?.doubleValue || 0}","${fields.c3?.doubleValue || 0}",`;
+      csvContent += `"${fields.c4?.doubleValue || 0}","${fields.c5?.doubleValue || 0}","${fields.c6?.doubleValue || 0}",`;
+      csvContent += `"${fields.total?.doubleValue || 0}","${fields.note?.stringValue || ''}"\n`;
+    });
+    
+    // Tạo và tải file
+    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `KHKT_Scores_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showToast("Dữ liệu đã được xuất thành công", "success");
+  } catch (error) {
+    console.error("Lỗi xuất dữ liệu:", error);
+    showToast("Lỗi khi xuất dữ liệu", "danger");
+  }
+});
+
+// ========== LÀM MỚI ==========
+qs("#refresh-projects").addEventListener("click", async () => {
+  await loadProjects();
+  await loadMyScores();
+  if (isAdmin) {
+    await loadAllScores();
+    await computeLeaderboard();
+    await computeLeaderboardIQR();
+    await updateStatistics();
+  }
+  showToast("Đã làm mới dữ liệu", "success");
+});
+</script>
+</body>
+</html>

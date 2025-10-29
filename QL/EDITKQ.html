@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quản lý dữ liệu chấm điểm - Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body { background:#f8f9fa; padding-top:20px; }
+  .container { max-width:1400px; }
+  .card-header { font-weight:bold; }
+  .table th { vertical-align:middle; }
+  .stats-card { text-align:center; }
+  .stats-number { font-size:1.5rem; font-weight:bold; }
+  /* Nút quay về trang chủ */
+.home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.home-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .home-button {
+    top: 10px;
+    left: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Phiên bản nút nhỏ hơn cho các trang cần nhiều không gian */
+.home-button-sm {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center text-danger mb-4">🔐 TRANG QUẢN LÝ DỮ LIỆU CHẤM ĐIỂM</h1>
+  <p class="text-center text-muted mb-4">Chỉ dành cho quản trị viên - Thao tác xóa không thể hoàn tác</p>
+  <a href="index.html" class="home-button" title="Quay về trang chính">
+  🏠 Trang chính
+</a>
+
+  <!-- Thống kê tổng quan -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">📊 THỐNG KÊ DỮ LIỆU HIỆN TẠI</div>
+    <div class="card-body">
+      <div class="row text-center">
+        <div class="col-md-3 mb-3">
+          <div class="card bg-light h-100">
+            <div class="card-body">
+              <div class="stats-number text-primary" id="total-projects">0</div>
+              <small class="text-muted">Tổng dự án</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card bg-light h-100">
+            <div class="card-body">
+              <div class="stats-number text-info" id="total-scores">0</div>
+              <small class="text-muted">Tổng lượt chấm</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card bg-light h-100">
+            <div class="card-body">
+              <div class="stats-number text-success" id="stem-scores">0</div>
+              <small class="text-muted">Lượt chấm STEM</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card bg-light h-100">
+            <div class="card-body">
+              <div class="stats-number text-warning" id="science-scores">0</div>
+              <small class="text-muted">Lượt chấm KHKT</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <button class="btn btn-outline-primary btn-sm" onclick="refreshStats()">
+          🔄 Cập nhật thống kê
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" onclick="loadAllData()">
+          📥 Tải lại toàn bộ dữ liệu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quản lý theo dự án -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-warning text-dark">🗂️ QUẢN LÝ DỮ LIỆU THEO DỰ ÁN</div>
+    <div class="card-body">
+      <div class="alert alert-warning">
+        <strong>⚠️ Lưu ý:</strong> Chỉ xóa dữ liệu chấm điểm, không xóa thông tin dự án
+      </div>
+      
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="project-filter" placeholder="🔍 Tìm kiếm dự án..." onkeyup="filterProjects()">
+        </div>
+        <div class="col-md-6">
+          <select class="form-control" id="type-filter" onchange="filterProjects()">
+            <option value="">Tất cả loại</option>
+            <option value="STEM">STEM</option>
+            <option value="KHKT">KHKT</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+        <table class="table table-sm table-hover table-striped">
+          <thead class="table-light sticky-top">
+            <tr>
+              <th width="40">
+                <input type="checkbox" id="select-all" onchange="toggleSelectAll(this)">
+              </th>
+              <th width="60">STT</th>
+              <th>Tên dự án</th>
+              <th width="100">Loại</th>
+              <th width="100" class="text-center">Lượt chấm</th>
+              <th width="100" class="text-center">Điểm TB</th>
+              <th width="120" class="text-center">Hành động</th>
+            </tr>
+          </thead>
+          <tbody id="projects-list">
+            <tr><td colspan="7" class="text-center text-muted">Đang tải dữ liệu...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 p-3 bg-light rounded">
+        <div>
+          <span id="selected-count" class="text-muted">Đã chọn: 0 dự án</span>
+        </div>
+        <div>
+          <button class="btn btn-outline-secondary btn-sm me-2" onclick="clearSelection()">
+            🔄 Bỏ chọn
+          </button>
+          <button class="btn btn-danger" onclick="deleteSelectedProjects()" id="delete-selected-btn" disabled>
+            🗑️ Xóa dữ liệu chấm đã chọn
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Công cụ nâng cao -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">⚙️ CÔNG CỤ NÂNG CAO</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card border-danger h-100">
+            <div class="card-body text-center">
+              <h5 class="text-danger">🔄 Xóa theo loại</h5>
+              <p class="text-muted">Xóa toàn bộ dữ liệu chấm điểm theo loại cuộc thi</p>
+              <button class="btn btn-outline-danger btn-sm me-2" onclick="deleteByType('STEM')">
+                Xóa tất cả STEM
+              </button>
+              <button class="btn btn-outline-danger btn-sm" onclick="deleteByType('KHKT')">
+                Xóa tất cả KHKT
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-dark h-100">
+            <div class="card-body text-center">
+              <h5 class="text-dark">💀 Xóa toàn bộ</h5>
+              <p class="text-muted">Xóa tất cả dữ liệu chấm điểm (cực kỳ nguy hiểm)</p>
+              <button class="btn btn-dark" onclick="deleteAllScores()">
+                💀 XÓA TOÀN BỘ
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+// Cấu hình Firebase (dùng chung với file chính)
+const firebaseConfig = {
+  apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
+  authDomain: "veonline-3bcbf.firebaseapp.com",
+  projectId: "veonline-3bcbf",
+  storageBucket: "veonline-3bcbf.firebasestorage.app",
+  messagingSenderId: "1097751337006",
+  appId: "1:1097751337006:web:8d4e6d9c2b2d4c3d8d4e6d"
+};
+
+// Khởi tạo Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Biến toàn cục
+let allProjectsData = [];
+let allScoresData = [];
+
+// Hàm tiện ích
+function escapeHtml(s) { 
+  return s ? s.replace(/[&<>]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])) : ""; 
+}
+
+// Tải toàn bộ dữ liệu
+async function loadAllData() {
+  try {
+    console.log('🔄 Đang tải dữ liệu...');
+    
+    // Lấy dữ liệu projects
+    const projectsSnapshot = await db.collection('projects').get();
+    allProjectsData = [];
+    projectsSnapshot.forEach(doc => {
+      allProjectsData.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+    // Lấy dữ liệu scores
+    const scoresSnapshot = await db.collection('scores').get();
+    allScoresData = [];
+    scoresSnapshot.forEach(doc => {
+      allScoresData.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+    console.log(`✅ Đã tải: ${allProjectsData.length} dự án, ${allScoresData.length} lượt chấm`);
+    
+    refreshStats();
+    renderProjectsList();
+    
+  } catch (error) {
+    console.error('❌ Lỗi khi tải dữ liệu:', error);
+    alert('Lỗi khi tải dữ liệu: ' + error.message);
+  }
+}
+
+// Làm mới thống kê
+function refreshStats() {
+  const stemScores = allScoresData.filter(s => !s.type || s.type === 'STEM');
+  const scienceScores = allScoresData.filter(s => s.type === 'KHKT');
+  
+  document.getElementById('total-projects').textContent = allProjectsData.length;
+  document.getElementById('total-scores').textContent = allScoresData.length;
+  document.getElementById('stem-scores').textContent = stemScores.length;
+  document.getElementById('science-scores').textContent = scienceScores.length;
+}
+
+// Hiển thị danh sách dự án
+function renderProjectsList() {
+  const tbody = document.getElementById('projects-list');
+  
+  if (allProjectsData.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">Không có dự án nào</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '';
+
+  allProjectsData.forEach(project => {
+    const projectScores = allScoresData.filter(score => score.projectId === project.id);
+    const avgScore = projectScores.length > 0 
+      ? (projectScores.reduce((sum, score) => sum + (score.total || 0), 0) / projectScores.length).toFixed(2)
+      : '0.00';
+    
+    const projectType = project.type === 'KHKT' ? 'KHKT' : 'STEM';
+    const typeBadge = projectType === 'STEM' ? 'bg-success' : 'bg-info';
+    
+    const row = `
+      <tr>
+        <td>
+          <input type="checkbox" class="project-checkbox" value="${project.id}" onchange="updateSelection()" ${projectScores.length === 0 ? 'disabled' : ''}>
+        </td>
+        <td>${project.order || '?'}</td>
+        <td>${escapeHtml(project.title || 'Không tên')}</td>
+        <td><span class="badge ${typeBadge}">${projectType}</span></td>
+        <td class="text-center">${projectScores.length}</td>
+        <td class="text-center"><strong>${avgScore}</strong></td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-outline-danger" onclick="deleteProjectScores('${project.id}')" ${projectScores.length === 0 ? 'disabled' : ''}>
+            🗑️ Xóa
+          </button>
+        </td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+}
+
+// Lọc dự án
+function filterProjects() {
+  const nameFilter = document.getElementById('project-filter').value.toLowerCase();
+  const typeFilter = document.getElementById('type-filter').value;
+  
+  const rows = document.querySelectorAll('#projects-list tr');
+  
+  rows.forEach(row => {
+    const projectName = row.cells[2].textContent.toLowerCase();
+    const projectType = row.cells[3].textContent;
+    
+    const nameMatch = projectName.includes(nameFilter);
+    const typeMatch = !typeFilter || projectType === typeFilter;
+    
+    row.style.display = nameMatch && typeMatch ? '' : 'none';
+  });
+}
+
+// Chọn/bỏ chọn tất cả
+function toggleSelectAll(checkbox) {
+  const checkboxes = document.querySelectorAll('.project-checkbox:not(:disabled)');
+  checkboxes.forEach(cb => {
+    cb.checked = checkbox.checked;
+  });
+  updateSelection();
+}
+
+// Cập nhật số lượng đã chọn
+function updateSelection() {
+  const selected = document.querySelectorAll('.project-checkbox:checked');
+  const count = selected.length;
+  
+  document.getElementById('selected-count').textContent = `Đã chọn: ${count} dự án`;
+  document.getElementById('delete-selected-btn').disabled = count === 0;
+  document.getElementById('select-all').checked = count > 0 && 
+    count === document.querySelectorAll('.project-checkbox:not(:disabled)').length;
+}
+
+// Bỏ chọn tất cả
+function clearSelection() {
+  document.getElementById('select-all').checked = false;
+  const checkboxes = document.querySelectorAll('.project-checkbox');
+  checkboxes.forEach(cb => {
+    cb.checked = false;
+  });
+  updateSelection();
+}
+
+// Xóa dữ liệu chấm của dự án đã chọn
+async function deleteSelectedProjects() {
+  const selected = document.querySelectorAll('.project-checkbox:checked');
+  const projectIds = Array.from(selected).map(cb => cb.value);
+  
+  if (projectIds.length === 0) return;
+
+  const projectNames = projectIds.map(id => {
+    const project = allProjectsData.find(p => p.id === id);
+    return project?.title || 'Không tên';
+  });
+
+  const totalScores = projectIds.reduce((total, id) => {
+    return total + allScoresData.filter(score => score.projectId === id).length;
+  }, 0);
+
+  if (!confirm(`🗑️ XÓA ${totalScores} LƯỢT CHẤM?\n\n${projectNames.join('\n')}\n\n⚠️ Hành động này không thể hoàn tác!`)) {
+    return;
+  }
+
+  try {
+    let totalDeleted = 0;
+    
+    for (const projectId of projectIds) {
+      const scoresToDelete = allScoresData.filter(score => score.projectId === projectId);
+      
+      for (const score of scoresToDelete) {
+        await db.collection('scores').doc(score.id).delete();
+        totalDeleted++;
+      }
+    }
+    
+    alert(`✅ Đã xóa ${totalDeleted} lượt chấm điểm!`);
+    loadAllData(); // Reload dữ liệu
+    
+  } catch (error) {
+    console.error('Lỗi khi xóa:', error);
+    alert('❌ Lỗi khi xóa dữ liệu: ' + error.message);
+  }
+}
+
+// Xóa dữ liệu chấm của một dự án
+async function deleteProjectScores(projectId) {
+  const project = allProjectsData.find(p => p.id === projectId);
+  const projectScores = allScoresData.filter(score => score.projectId === projectId);
+  
+  if (projectScores.length === 0) {
+    alert('ℹ️ Dự án này chưa có dữ liệu chấm điểm');
+    return;
+  }
+
+  if (!confirm(`🗑️ Xóa ${projectScores.length} lượt chấm của:\n"${project?.title || 'Không tên'}"\n\n⚠️ Không thể hoàn tác!`)) {
+    return;
+  }
+
+  try {
+    for (const score of projectScores) {
+      await db.collection('scores').doc(score.id).delete();
+    }
+    
+    alert(`✅ Đã xóa ${projectScores.length} lượt chấm điểm!`);
+    loadAllData();
+    
+  } catch (error) {
+    console.error('Lỗi khi xóa:', error);
+    alert('❌ Lỗi: ' + error.message);
+  }
+}
+
+// Xóa theo loại
+async function deleteByType(type) {
+  const typeScores = allScoresData.filter(score => 
+    type === 'STEM' ? (!score.type || score.type === 'STEM') : score.type === type
+  );
+  
+  if (typeScores.length === 0) {
+    alert(`ℹ️ Không có dữ liệu chấm ${type} nào`);
+    return;
+  }
+
+  if (!confirm(`🗑️ XÓA ${typeScores.length} LƯỢT CHẤM ${type}?\n\n⚠️ Không thể hoàn tác!`)) {
+    return;
+  }
+
+  try {
+    for (const score of typeScores) {
+      await db.collection('scores').doc(score.id).delete();
+    }
+    
+    alert(`✅ Đã xóa ${typeScores.length} lượt chấm ${type}!`);
+    loadAllData();
+    
+  } catch (error) {
+    console.error('Lỗi khi xóa:', error);
+    alert('❌ Lỗi: ' + error.message);
+  }
+}
+
+// Xóa toàn bộ dữ liệu chấm điểm
+async function deleteAllScores() {
+  if (allScoresData.length === 0) {
+    alert('ℹ️ Không có dữ liệu chấm điểm nào');
+    return;
+  }
+
+  if (!confirm(`💀 XÓA TOÀN BỘ ${allScoresData.length} LƯỢT CHẤM?\n\n🚨 CỰC KỲ NGUY HIỂM - KHÔNG THỂ KHÔI PHỤC!`)) {
+    return;
+  }
+
+  const confirmText = prompt(`⚠️ XÁC NHẬN CUỐI:\nNhập "XÓA HẾT" để xác nhận:`);
+  
+  if (confirmText !== "XÓA HẾT") {
+    alert('❌ Đã hủy!');
+    return;
+  }
+
+  try {
+    for (const score of allScoresData) {
+      await db.collection('scores').doc(score.id).delete();
+    }
+    
+    alert(`✅ Đã xóa toàn bộ ${allScoresData.length} lượt chấm điểm!`);
+    loadAllData();
+    
+  } catch (error) {
+    console.error('Lỗi khi xóa toàn bộ:', error);
+    alert('❌ Lỗi: ' + error.message);
+  }
+}
+
+// Tự động tải dữ liệu khi trang load
+document.addEventListener('DOMContentLoaded', loadAllData);
+</script>
+</body>
+</html>
