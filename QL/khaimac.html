@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bài phát biểu khai mạc — Ngày hội STEM & KHKT | THPT Trần Trường Sinh</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f3f6fb;
+      --text: #0a2340;
+      --muted: #405770;
+      --accent: #0d6efd;
+      --box1: #114b5f;
+      --box2: #2a9d8f;
+      --box3: #e76f51;
+      --box4: #f4a261;
+      --box5: #264653;
+      --white: #ffffff;
+      --maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#eef6ff 0%, #f7fafc 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px 16px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    header{
+      text-align:center;
+      margin-bottom:20px;
+    }
+    header h1{
+      margin:0;
+      font-size:2rem;
+      line-height:1.05;
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:0.2px;
+    }
+    header p.lead{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border: none;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.95rem;
+      box-shadow: 0 8px 20px rgba(13,110,253,0.08);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:hover{ transform: translateY(-3px); }
+    .btn.print{ background: linear-gradient(90deg,#0d6efd,#3b82f6); color:#fff; }
+    .btn.copy{ background: #fff; color:var(--text); border:1px solid rgba(10,34,64,0.06); }
+    .btn.theme{ background:#111827; color:#fff; }
+
+    /* Boxes */
+    .box{
+      border-radius:14px;
+      padding:26px;
+      margin-bottom:18px;
+      color:var(--white);
+      line-height:1.7;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+    }
+    .box .section-title{
+      font-size:1.25rem;
+      margin:0 0 8px;
+      font-weight:700;
+    }
+    .box p{ font-size:1.15rem; margin:10px 0; }
+
+    .box1{ background: linear-gradient(120deg,#0f3943 0%, #114b5f 100%); }
+    .box2{ background: linear-gradient(120deg,#15877e 0%, #2a9d8f 100%); }
+    .box3{ background: linear-gradient(120deg,#d9534f 0%, #e76f51 100%); }
+    .box4{ background: linear-gradient(120deg,#f6a05e 0%, #f4a261 100%); color:#082032; }
+    .box5{ background: linear-gradient(120deg,#1f3b4d 0%, #264653 100%); }
+
+    /* Emphasis */
+    .highlight{ font-weight:700; color:#fff; text-decoration:underline; text-underline-offset:6px; text-decoration-color: rgba(255,255,255,0.15); }
+
+    /* Signature / footer */
+    .signature{ margin-top:10px; font-weight:700; color:var(--white); font-size:1.05rem; }
+
+    /* Responsive: font-size scale down on small screens */
+    @media (max-width:720px){
+      header h1{ font-size:1.6rem; }
+      .box p{ font-size:1.05rem; }
+      .btn{ padding:8px 10px; font-size:0.9rem; }
+    }
+
+    /* Print rules */
+    @media print{
+      body{ background: #fff; padding:0; }
+      .controls{ display:none; }
+      .box{ box-shadow:none; border-radius:0; color:#000; -webkit-print-color-adjust: exact; }
+      .box1, .box2, .box3, .box4, .box5 { background: none !important; }
+      .box p{ color:#000; }
+      header h1{ color:#000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main" aria-labelledby="pageTitle">
+    <header>
+      <h1 id="pageTitle">BÀI PHÁT BIỂU KHAI MẠC<br><small style="font-size:0.86rem;color:#5b6b7a;font-weight:600">NGÀY HỘI STEM & CUỘC THI NGHIÊN CỨU KHOA HỌC KỸ THUẬT – TRƯỜNG THPT TRẦN TRƯỜNG SINH</small></h1>
+      <p class="lead">Phiên bản in/hiển thị - chữ to, rõ, các khối màu khác nhau cho từng phần</p>
+    </header>
+
+    <div class="controls" role="toolbar" aria-label="Công cụ">
+      <button class="btn print" id="printBtn" title="In hoặc lưu PDF">🖨️ In / Lưu PDF</button>
+      <button class="btn copy" id="copyBtn" title="Sao chép toàn bộ văn bản">📋 Sao chép</button>
+      <button class="btn theme" id="toggleTheme" title="Chuyển chế độ tối/sáng">🌗 Sáng/Tối</button>
+    </div>
+
+    <!-- Section 0: Greeting (box1) -->
+    <section class="box box1" aria-label="Lời chào">
+      <div class="section-title">Kính thưa Quý Thầy Cô,  cùng toàn thể các em học sinh thân mến!</div>
+      <p style="font-size:1.12rem; margin-top:8px; color:rgba(255,255,255,0.95)">
+        <span class="highlight">Hôm nay</span>, chúng ta cùng có mặt trong Ngày hội STEM và Cuộc thi Nghiên cứu Khoa học Kỹ thuật cấp trường – một hoạt động không chỉ mang ý nghĩa học thuật, mà còn thể hiện tinh thần đổi mới, sáng tạo của thầy và trò trường Trần Trường Sinh.
+      </p>
+    </section>
+
+    <!-- 1. Ý nghĩa (box2) -->
+    <section class="box box2" aria-labelledby="sec1">
+      <div id="sec1" class="section-title">🌱 1. Ý nghĩa của ngày hội</div>
+      <p>Trong thời đại tri thức phát triển từng giờ, STEM không chỉ là viết tắt của <strong>Khoa học, Công nghệ, Kỹ thuật và Toán học</strong>, mà còn là <strong>một cách nghĩ – một cách học – và một cách vận dụng kiến thức vào cuộc sống</strong>.</p>
+      <p>Đây là nơi học sinh được tư duy, khám phá, sáng tạo và trải nghiệm; được tự tay biến những công thức, con số và hiện tượng thành <strong>ý tưởng, sản phẩm, và giải pháp cho đời sống</strong>.</p>
+      <p>Mỗi mô hình, mỗi dự án hôm nay đều là kết quả của quá trình <strong>tự học, tự tìm tòi, thử sai và kiên trì</strong> – những phẩm chất quý nhất mà giáo dục hiện đại hướng tới. Hơn cả một cuộc thi, đây là một hành trình của <strong>niềm đam mê, tinh thần vượt khó và khát vọng chinh phục tri thức</strong> của học sinh Trường THPT Trần Trường Sinh.</p>
+    </section>
+
+    <!-- 2. To students (box3) -->
+    <section class="box box3" aria-labelledby="sec2">
+      <div id="sec2" class="section-title">🧭 2. Gửi đến các em học sinh</div>
+      <p>Các em thân mến,</p>
+      <p>Thầy  biết, để có được một sản phẩm hay một báo cáo hoàn chỉnh, các em đã phải vượt qua rất nhiều khó khăn: từ việc tìm ý tưởng, nghiên cứu tài liệu, thử nghiệm, đến việc trình bày và thuyết minh. Có những nhóm đã thất bại hàng chục lần, nhưng vẫn không bỏ cuộc.</p>
+      <p>Chính điều đó đã làm nên giá trị thật sự của Ngày hội hôm nay – giá trị của <strong>sự kiên trì và tinh thần không lùi bước</strong>. Dù kết quả ra sao, thầy  tin rằng mọi nhóm đều đã chiến thắng: chiến thắng sự e dè, chiến thắng nỗi sợ sai, và chiến thắng chính mình để dám bước lên thể hiện.</p>
+      <p><strong>Điểm số không phải là đích đến cuối cùng</strong> –điều quan trọng nhất là các em đã dám nghĩ, dám làm, để biến ý tưởng thành sản phẩm, biến tri thức thành sáng tạo..</p>
+    </section>
+
+    <!-- 3. To judges (box4) -->
+    <section class="box box4" aria-labelledby="sec3">
+      <div id="sec3" class="section-title">👨‍🏫 3. Gửi đến Quý Thầy Cô – Ban Giám Khảo</div>
+      <p>Với Thầy cô hướng dẫn</p>
+      <p>Tôi hiểu rằng, giữa bộn bề công việc, Thầy Cô vẫn dành thời gian quý báu để đồng hành cùng học sinh – đọc từng báo cáo, xem từng mô hình, lắng nghe từng bài thuyết trình. Đó là sự tận tâm, là trách nhiệm, và cũng là tình yêu nghề – yêu trò mà không điều gì có thể đo đếm được.</p>
+      <p>Với Thầy Cô Trong BGJ: tôi cũng hiểu rằng  thời gian để đọc, xem xét và đánh giá từng dự án của các em học sinh thật không nhiều. Tuy nhiên, chính niềm đam mê sáng tạo, tinh thần trách nhiệm, và tình yêu dành cho học trò đã khiến Thầy Cô dành trọn tâm huyết cho công tác chấm thi hôm nay.Mỗi dự án mà các em gửi gắm không chỉ là kết quả của những ngày miệt mài tìm tòi và sáng tạo, mà còn là ước mơ, là nỗ lực vượt qua giới hạn bản thân. Tôi tin rằng, bằng con mắt tinh tường và trái tim công tâm, Quý Thầy Cô sẽ nhận ra và trân trọng từng ý tưởng, từng nỗ lực của học sinh. Xin kính mong Quý Thầy Cô đọc thật kỹ, – chấm công tâm – đánh giá chính xác, để kết quả cuối cùng không chỉ là những con số, mà còn là sự ghi nhận xứng đáng cho hành trình cố gắng và khát vọng, là sự khích lệ, là niềm tin để học sinh tiếp tục hành trình sáng tạo của mình.</p>
+    </section>
+
+    <!-- 4. Thanks to organizers and supporters (box5) -->
+    <section class="box box5" aria-labelledby="sec4">
+      <div id="sec4" class="section-title">🤝 4. Lời cảm ơn đến Ban Tổ chức & những người đồng hành</div>
+      <p>Để có được một ngày hội trọn vẹn như hôm nay, từng thành viên Ban Tổ chức  nhiều tuần lễ làm việc miệt mài và âm thầm.</p>
+      <p>Xin được gửi lời cảm ơn chân thành nhất đến các Thầy Cô   – những người đứng sau sân khấu, nhưng đã làm nên thành công hôm nay.</p>
+      
+    </section>
+
+    <!-- 5. Conclusion (box1 variant) -->
+    <section class="box box1" aria-labelledby="sec5">
+      <div id="sec5" class="section-title">🌟 5. Lời kết – Truyền lửa</div>
+      <p>Kính thưa Quý Thầy Cô, à toàn thể học sinh,</p>
+      <p>Một lần nửa khẳng định: Ngày hội STEM và Cuộc thi Nghiên cứu Khoa học Kỹ thuật  không chỉ là dịp để chọn ra dự án xuất sắc, mà còn là nơi lan tỏa tinh thần học tập chủ động, dấn thân và đổi mới.</p>
+      <p>Tôi Hy vọng rằng, sau ngày hôm nay, tinh thần STEM và nghiên cứu khoa học sẽ lan tỏa mạnh mẽ hơn nữa trong từng tiết học, từng nhóm học sinh, từng lớp học, để mỗi em đều tìm thấy niềm vui trong việc học và khám phá thế giới xung quanh.</p>
+
+      <p style="margin-top:14px" class="signature">Xin kính chúc Quý Thầy Cô thật nhiều sức khỏe, <br>chúc các em học sinh tự tin, bản lĩnh và thể hiện thật tốt phần dự án của mình.</p>
+
+      <p style="margin-top:12px; font-weight:800; font-size:1.06rem;">Và bây giờ,</p>
+      <p style="font-size:1rem; font-weight:700;">Tôi xin trân trọng tuyên bố khai mạc Ngày hội STEM và Cuộc thi Nghiên cứu Khoa học Kỹ thuật cấp trường Trường THPT Trần Trường Sinh năm học 2025 -2026!</p>
+
+      <p style="margin-top:8px" class="signature">Xin trân trọng cảm ơn và kính chào! 🌿</p>
+    </section>
+
+  </div>
+
+  <script>
+    // Print
+    document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+    // Copy all text content
+    document.getElementById('copyBtn').addEventListener('click', async function(){
+      const nodes = document.querySelectorAll('.box');
+      let txt = '';
+      nodes.forEach(n => {
+        txt += (n.querySelector('.section-title')?.innerText || '') + '\\n';
+        txt += (n.innerText.replace(n.querySelector('.section-title')?.innerText || '', '') || '') + '\\n\\n';
+      });
+      try {
+        await navigator.clipboard.writeText(txt.trim());
+        alert('Đã sao chép nội dung bài phát biểu vào bộ nhớ tạm.'); 
+      } catch (e) {
+        // fallback: show prompt
+        prompt('Sao chép thủ công (Ctrl+C):', txt.trim());
+      }
+    });
+
+    // Theme toggle: invert backgrounds for simpler "light" mode
+    document.getElementById('toggleTheme').addEventListener('click', function(){
+      const body = document.body;
+      if(body.style.background === 'white'){
+        body.style.background = '';
+        // reset boxes by removing inline styles (not needed here)
+        this.textContent = '🌗 Sáng/Tối';
+      } else {
+        body.style.background = 'white';
+        this.textContent = '🌗 Sáng/Tối';
+      }
+    });
+  </script>
+</body>
+</html>
