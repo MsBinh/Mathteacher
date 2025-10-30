@@ -104,22 +104,6 @@ body {
   padding: 8px 16px;
   font-size: 14px;
 }
-
-/* Dự án cần chấm */
-.project-to-score {
-  background-color: #e8f5e8 !important;
-  border-left: 4px solid #28a745 !important;
-}
-
-/* Ẩn cột phân công GK cho người dùng thường */
-.hide-assignment {
-  display: none;
-}
-
-/* Hiển thị cột phân công GK cho admin */
-.show-assignment {
-  display: table-cell;
-}
 </style>
 </head>
 <body>
@@ -167,7 +151,6 @@ body {
     <div class="card p-3 mb-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="section-title mb-0">📋 Danh sách Dự án</h5>
-        <button id="btn-show-my-projects" class="btn btn-info btn-sm">Chỉ hiện dự án tôi cần chấm</button>
       </div>
       <div class="table-responsive">
         <table class="table table-bordered align-middle">
@@ -177,7 +160,7 @@ body {
               <th>Tên dự án</th>
               <th>Nhóm tác giả</th>
               <th>GVHD</th>
-              <th id="assignment-header" class="hide-assignment">Phân công GK</th>
+              <th>Ghi chú</th>
               <th class="text-center" style="width: 180px;">Thao tác</th>
             </tr>
           </thead>
@@ -331,11 +314,7 @@ body {
           <div class="mb-3"><label class="form-label">Tên dự án</label><input id="p-title" class="form-control" required></div>
           <div class="mb-3"><label class="form-label">Nhóm tác giả</label><input id="p-authors" class="form-control"></div>
           <div class="mb-3"><label class="form-label">Giáo viên hướng dẫn</label><input id="p-teacher" class="form-control"></div>
-          <div class="mb-3">
-            <label class="form-label">Phân công GK</label>
-            <input id="p-note" class="form-control" placeholder="Nhập mã giám khảo phân cách bằng dấu phẩy (VD: GK01,GK02)">
-            <small class="form-text text-muted">Nhập mã giám khảo để chỉ định ai sẽ chấm dự án này (chỉ admin xem được)</small>
-          </div>
+          <div class="mb-3"><label class="form-label">Ghi chú</label><input id="p-note" class="form-control"></div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary">Lưu</button>
@@ -419,7 +398,6 @@ let isAdmin = false;
 let PROJECTS_MAP = new Map();
 let leaderboardData = [];
 let iqrData = [];
-let showOnlyMyProjects = false; // Trạng thái hiển thị dự án cần chấm
 
 /* ====== TIỆN ÍCH ====== */
 function qs(id){ return document.getElementById(id); }
@@ -505,7 +483,6 @@ const loginForm = qs('login-form');
 const btnAddProject = qs('btn-add-project');
 const btnRefresh = qs('refresh-projects');
 const btnLogout = qs('btn-logout');
-const btnShowMyProjects = qs('btn-show-my-projects');
 
 loginForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
@@ -532,9 +509,6 @@ async function afterLogin(){
   qs('main-area').classList.remove('login-required');
   qs('judgeInfo').innerHTML = `<b>${escapeHtml(judgeName)}</b> (${escapeHtml(judgeCode)}) ${isAdmin?'<span class="text-danger">[ADMIN]</span>':''}`;
   
-  // Cập nhật hiển thị cột phân công GK
-  updateAssignmentColumnVisibility();
-  
   // show admin sections only if admin
   if(isAdmin) {
     show(qs('admin-section'));
@@ -548,20 +522,6 @@ async function afterLogin(){
     await computeLeaderboard(); 
     await computeLeaderboardIQR(); 
     await updateStatistics();
-  }
-}
-
-// Cập nhật hiển thị cột phân công GK
-function updateAssignmentColumnVisibility() {
-  const assignmentHeader = qs('assignment-header');
-  if (assignmentHeader) {
-    if (isAdmin) {
-      assignmentHeader.classList.remove('hide-assignment');
-      assignmentHeader.classList.add('show-assignment');
-    } else {
-      assignmentHeader.classList.remove('show-assignment');
-      assignmentHeader.classList.add('hide-assignment');
-    }
   }
 }
 
@@ -598,107 +558,32 @@ async function loadProjects(){
     PROJECTS_MAP.set(id, { id, order, title, authors, teacher, note });
     return { id, order, title, authors, teacher, note };
   }).sort((a,b)=>a.order - b.order);
-  
   // render rows
-  renderProjectsTable(arr);
-  populateProjectSelects();
-}
-
-// Hàm render bảng dự án với tính năng lọc dự án cần chấm
-function renderProjectsTable(projects) {
-  const tbody = qs('projects-tbody');
   tbody.innerHTML = '';
-  
-  if (projects.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Chưa có dự án</td></tr>';
-    return;
-  }
-  
   let idx = 0;
-  let hasMyProjects = false;
-  
-  for(const p of projects) {
-    // Kiểm tra xem dự án này có cần chấm bởi giám khảo hiện tại không
-    const isMyProject = isProjectForMe(p.note);
-    
-    // Nếu đang ở chế độ chỉ hiện dự án cần chấm và dự án này không phải của tôi, bỏ qua
-    if (showOnlyMyProjects && !isMyProject) continue;
-    
+  for(const p of arr){
     idx++;
-    hasMyProjects = true;
-    
     const tr = document.createElement('tr');
-    
-    // Thêm class highlight nếu là dự án cần chấm
-    if (isMyProject) {
-      tr.classList.add('project-to-score');
-    }
     
     // Chỉ hiển thị nút sửa/xóa cho admin
     const adminButtons = isAdmin ? 
       `<button class="btn btn-sm btn-warning me-1" onclick="editProject('${p.id}')">Sửa</button>
        <button class="btn btn-sm btn-danger" onclick="deleteProject('${p.id}')">Xóa</button>` : '';
     
-    // Xác định số cột hiển thị (5 cột cho user thường, 6 cột cho admin)
-    const colCount = isAdmin ? 6 : 5;
-    
-    let rowContent = `
+    tr.innerHTML = `
       <td class="text-center">${idx}</td>
       <td>${escapeHtml(p.title)}</td>
       <td>${escapeHtml(p.authors)}</td>
       <td>${escapeHtml(p.teacher)}</td>
-    `;
-    
-    // Thêm cột phân công GK chỉ cho admin
-    if (isAdmin) {
-      rowContent += `<td>${escapeHtml(p.note)}</td>`;
-    }
-    
-    rowContent += `
+      <td>${escapeHtml(p.note)}</td>
       <td class="text-center">
         <button class="btn btn-sm btn-primary me-1" onclick="openScoreModal_select('${p.id}')">Chấm</button>
         ${adminButtons}
       </td>
     `;
-    
-    tr.innerHTML = rowContent;
     tbody.appendChild(tr);
   }
-  
-  // Nếu không có dự án nào cần chấm trong chế độ lọc
-  if (showOnlyMyProjects && !hasMyProjects) {
-    const colCount = isAdmin ? 6 : 5;
-    tbody.innerHTML = `<tr><td colspan="${colCount}" class="text-center text-muted">Không có dự án nào bạn cần chấm</td></tr>`;
-  }
-}
-
-// Hàm kiểm tra xem dự án có cần chấm bởi giám khảo hiện tại không
-function isProjectForMe(note) {
-  if (!note || !judgeCode) return false;
-  
-  // Tách các mã giám khảo trong ghi chú (phân cách bằng dấu phẩy)
-  const judgeCodesInNote = note.split(',').map(code => code.trim());
-  
-  // Kiểm tra xem mã giám khảo hiện tại có trong danh sách không
-  return judgeCodesInNote.includes(judgeCode);
-}
-
-// Hàm chuyển đổi chế độ hiển thị dự án cần chấm
-function toggleMyProjectsView() {
-  showOnlyMyProjects = !showOnlyMyProjects;
-  
-  if (showOnlyMyProjects) {
-    btnShowMyProjects.textContent = 'Hiện tất cả dự án';
-    btnShowMyProjects.classList.remove('btn-info');
-    btnShowMyProjects.classList.add('btn-warning');
-  } else {
-    btnShowMyProjects.textContent = 'Chỉ hiện dự án tôi cần chấm';
-    btnShowMyProjects.classList.remove('btn-warning');
-    btnShowMyProjects.classList.add('btn-info');
-  }
-  
-  // Tải lại danh sách dự án với bộ lọc mới
-  loadProjects();
+  populateProjectSelects();
 }
 
 /* Add / Edit project */
@@ -1270,24 +1155,6 @@ async function updateStatistics(totalOutliers = 0) {
   qs("total-judges").textContent = judges.size;
   qs("outliers-removed").textContent = totalOutliers;
 }
-
-/* ====== TÍNH NĂNG MỚI: HIỂN THỊ DỰ ÁN CẦN CHẤM ====== */
-btnShowMyProjects.addEventListener('click', async () => {
-  showOnlyMyProjects = !showOnlyMyProjects;
-  
-  if (showOnlyMyProjects) {
-    btnShowMyProjects.textContent = 'Hiện tất cả dự án';
-    btnShowMyProjects.classList.remove('btn-info');
-    btnShowMyProjects.classList.add('btn-warning');
-  } else {
-    btnShowMyProjects.textContent = 'Chỉ hiện dự án tôi cần chấm';
-    btnShowMyProjects.classList.remove('btn-warning');
-    btnShowMyProjects.classList.add('btn-info');
-  }
-  
-  // Tải lại danh sách dự án với bộ lọc mới
-  await loadProjects();
-});
 
 /* ====== EVENTS cho Nút refresh, add project ====== */
 btnRefresh.addEventListener('click', async ()=>{ 

@@ -1348,5 +1348,323 @@ document.getElementById('scoreBtn')?.addEventListener('click', () => {
   window.calculateScore();
 });
 </script>
+<!-- Bảng theo dõi học sinh real-time -->
+<div id="teacher-monitor" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 30px rgba(0,0,0,0.5); z-index: 20000; width: 90vw; height: 80vh; overflow: auto;">
+    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin: 0;">📊 Bảng theo dõi học sinh - REAL TIME</h3>
+        <button onclick="closeMonitor()" style="background: #ff4757; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-left: auto;">✕ Đóng</button>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+        <strong>Mã lớp:</strong> <code id="monitor-session-code"></code>
+        <span style="margin-left: 20px;">
+            <strong>Học sinh online:</strong> <span id="live-student-count">0</span>
+        </span>
+    </div>
+
+    <!-- Bộ lọc và tìm kiếm -->
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <input type="text" id="search-student" placeholder="🔍 Tìm học sinh..." style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+        <select id="filter-status" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+            <option value="all">Tất cả trạng thái</option>
+            <option value="active">Đang làm bài</option>
+            <option value="finished">Đã hoàn thành</option>
+            <option value="not-started">Chưa bắt đầu</option>
+        </select>
+    </div>
+
+    <!-- Bảng kết quả -->
+    <div class="table-container" style="max-height: 60vh; overflow-y: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+            <thead style="background: #f8f9fa; position: sticky; top: 0;">
+                <tr>
+                    <th style="padding: 12px; border: 1px solid #dee2e6; text-align: left;">Học sinh</th>
+                    <th style="padding: 12px; border: 1px solid #dee2e6; text-align: center;">Trạng thái</th>
+                    <th style="padding: 12px; border: 1px solid #dee2e6; text-align: center;">Điểm số</th>
+                    <th style="padding: 12px; border: 1px solid #dee2e6; text-align: center;">Thời gian</th>
+                    <th style="padding: 12px; border: 1px solid #dee2e6; text-align: center;">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody id="student-results-body">
+                <!-- Dữ liệu sẽ được cập nhật real-time -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Thống kê tổng quan -->
+    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+        <h4 style="margin-top: 0;">📈 Thống kê tổng quan</h4>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+            <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #17a2b8;" id="stats-total">0</div>
+                <div style="font-size: 12px; color: #6c757d;">Tổng số HS</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #28a745;" id="stats-completed">0</div>
+                <div style="font-size: 12px; color: #6c757d;">Đã hoàn thành</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #ffc107;" id="stats-average">0.0</div>
+                <div style="font-size: 12px; color: #6c757d;">Điểm TB</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #dc3545;" id="stats-failed">0</div>
+                <div style="font-size: 12px; color: #6c757d;">Dưới 5 điểm</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nút mở bảng theo dõi (cho giáo viên) -->
+<button id="toggle-monitor" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; padding: 12px 18px; border-radius: 25px; cursor: pointer; z-index: 9999; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    👁️ Theo dõi HS
+</button>
+
+<script>
+// =====================
+// THEO DÕI HỌC SINH REAL-TIME
+// =====================
+let monitorStudents = new Map();
+
+function setupStudentMonitoring() {
+    const monitorBtn = document.getElementById('toggle-monitor');
+    if (monitorBtn) {
+        monitorBtn.addEventListener('click', toggleMonitor);
+    }
+
+    // Lắng nghe kết quả làm bài real-time
+    const attemptsRef = collection(db, 'attempts');
+    const q = query(attemptsRef, where('testId', '==', document.title || 'de1'));
+    
+    onSnapshot(q, (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            const data = change.doc.data();
+            const studentId = data.code;
+            
+            if (change.type === 'added' || change.type === 'modified') {
+                // Cập nhật thông tin học sinh
+                monitorStudents.set(studentId, {
+                    id: studentId,
+                    name: data.name || 'Chưa đặt tên',
+                    score: parseFloat(data.score) || 0,
+                    status: data.score !== undefined ? 'finished' : 'active',
+                    timestamp: data.createdAt?.toDate() || new Date(),
+                    answers: data.answers || {},
+                    lastActivity: new Date()
+                });
+            } else if (change.type === 'removed') {
+                monitorStudents.delete(studentId);
+            }
+        });
+        
+        updateMonitorDisplay();
+        updateStatistics();
+    });
+
+    // Lắng nghe hoạt động real-time của học sinh
+    setupActivityTracking();
+}
+
+function setupActivityTracking() {
+    // Theo dõi khi học sinh tương tác với câu hỏi
+    const activityRef = collection(db, 'classSessions', currentSessionId, 'activities');
+    
+    onSnapshot(activityRef, (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === 'added') {
+                const data = change.doc.data();
+                updateStudentActivity(data.studentId, data.questionId, data.action);
+            }
+        });
+    });
+}
+
+function updateStudentActivity(studentId, questionId, action) {
+    if (!monitorStudents.has(studentId)) {
+        monitorStudents.set(studentId, {
+            id: studentId,
+            name: 'Học sinh mới',
+            score: 0,
+            status: 'active',
+            timestamp: new Date(),
+            answers: {},
+            lastActivity: new Date(),
+            currentQuestion: questionId
+        });
+    }
+    
+    const student = monitorStudents.get(studentId);
+    student.lastActivity = new Date();
+    student.currentQuestion = questionId;
+    
+    if (action === 'answer') {
+        student.answers[questionId] = 'answered';
+    }
+    
+    updateMonitorDisplay();
+}
+
+function updateMonitorDisplay() {
+    const tbody = document.getElementById('student-results-body');
+    if (!tbody) return;
+    
+    const searchTerm = document.getElementById('search-student')?.value.toLowerCase() || '';
+    const filterStatus = document.getElementById('filter-status')?.value || 'all';
+    
+    let html = '';
+    let displayedCount = 0;
+    
+    monitorStudents.forEach((student) => {
+        // Lọc theo tìm kiếm
+        if (searchTerm && !student.name.toLowerCase().includes(searchTerm)) {
+            return;
+        }
+        
+        // Lọc theo trạng thái
+        if (filterStatus !== 'all' && student.status !== filterStatus) {
+            return;
+        }
+        
+        displayedCount++;
+        
+        const statusBadge = getStatusBadge(student.status);
+        const scoreDisplay = student.score > 0 ? student.score.toFixed(2) : '-';
+        const timeAgo = getTimeAgo(student.lastActivity);
+        
+        html += `
+            <tr style="border-bottom: 1px solid #dee2e6;">
+                <td style="padding: 12px;">
+                    <strong>${escapeHtml(student.name)}</strong><br>
+                    <small style="color: #6c757d;">ID: ${student.id}</small>
+                </td>
+                <td style="padding: 12px; text-align: center;">
+                    ${statusBadge}
+                    ${student.currentQuestion ? `<br><small>Đang làm: ${student.currentQuestion}</small>` : ''}
+                </td>
+                <td style="padding: 12px; text-align: center; font-weight: bold; color: ${getScoreColor(student.score)}">
+                    ${scoreDisplay}
+                </td>
+                <td style="padding: 12px; text-align: center;">
+                    ${timeAgo}
+                </td>
+                <td style="padding: 12px; text-align: center;">
+                    <button onclick="viewStudentDetails('${student.id}')" style="background: #17a2b8; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;">
+                        👁️ Chi tiết
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html || '<tr><td colspan="5" style="text-align: center; padding: 20px; color: #6c757d;">Chưa có học sinh nào tham gia</td></tr>';
+    
+    // Cập nhật số lượng học sinh online
+    document.getElementById('live-student-count').textContent = displayedCount;
+}
+
+function updateStatistics() {
+    const students = Array.from(monitorStudents.values());
+    const total = students.length;
+    const completed = students.filter(s => s.status === 'finished').length;
+    const average = total > 0 ? students.reduce((sum, s) => sum + (s.score || 0), 0) / total : 0;
+    const failed = students.filter(s => s.score < 5).length;
+    
+    document.getElementById('stats-total').textContent = total;
+    document.getElementById('stats-completed').textContent = completed;
+    document.getElementById('stats-average').textContent = average.toFixed(1);
+    document.getElementById('stats-failed').textContent = failed;
+}
+
+function getStatusBadge(status) {
+    const badges = {
+        'active': '<span style="background: #ffc107; color: #000; padding: 4px 8px; border-radius: 12px; font-size: 12px;">🟡 Đang làm</span>',
+        'finished': '<span style="background: #28a745; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">✅ Hoàn thành</span>',
+        'not-started': '<span style="background: #6c757d; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">⚫ Chưa bắt đầu</span>'
+    };
+    return badges[status] || badges['not-started'];
+}
+
+function getScoreColor(score) {
+    if (score >= 8) return '#28a745';
+    if (score >= 5) return '#ffc107';
+    return '#dc3545';
+}
+
+function getTimeAgo(timestamp) {
+    const now = new Date();
+    const diffMs = now - timestamp;
+    const diffMins = Math.floor(diffMs / 60000);
+    
+    if (diffMins < 1) return 'Vừa xong';
+    if (diffMins < 60) return `${diffMins} phút trước`;
+    
+    const diffHours = Math.floor(diffMins / 60);
+    return `${diffHours} giờ trước`;
+}
+
+function toggleMonitor() {
+    const monitor = document.getElementById('teacher-monitor');
+    if (monitor.style.display === 'none') {
+        monitor.style.display = 'block';
+        document.getElementById('monitor-session-code').textContent = currentSessionId;
+        updateMonitorDisplay();
+        updateStatistics();
+    } else {
+        monitor.style.display = 'none';
+    }
+}
+
+function closeMonitor() {
+    document.getElementById('teacher-monitor').style.display = 'none';
+}
+
+function viewStudentDetails(studentId) {
+    const student = monitorStudents.get(studentId);
+    if (!student) return;
+    
+    alert(`
+Chi tiết học sinh:
+📛 Tên: ${student.name}
+🎯 Mã: ${student.id}
+📊 Điểm: ${student.score || 'Chưa có'}
+📝 Trạng thái: ${student.status === 'finished' ? 'Đã hoàn thành' : 'Đang làm bài'}
+⏰ Hoạt động cuối: ${student.lastActivity.toLocaleTimeString()}
+
+Câu hỏi đã làm: ${Object.keys(student.answers).length}
+    `);
+}
+
+// Thêm sự kiện tìm kiếm và lọc
+document.addEventListener('DOMContentLoaded', function() {
+    // Tìm kiếm học sinh
+    const searchInput = document.getElementById('search-student');
+    if (searchInput) {
+        searchInput.addEventListener('input', updateMonitorDisplay);
+    }
+    
+    // Lọc trạng thái
+    const filterSelect = document.getElementById('filter-status');
+    if (filterSelect) {
+        filterSelect.addEventListener('change', updateMonitorDisplay);
+    }
+});
+
+// Khởi tạo monitoring khi trang load
+setTimeout(() => {
+    setupStudentMonitoring();
+}, 2000);
+
+// Hàm escape HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Make functions globally available
+window.toggleMonitor = toggleMonitor;
+window.closeMonitor = closeMonitor;
+window.viewStudentDetails = viewStudentDetails;
+</script>
 </body>
 </html>
