@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bài phát biểu Bế mạc — Ngày hội STEM & KHKT | THPT Trần Trường Sinh</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f3f6fb;
+      --text: #052036;
+      --muted: #405770;
+      --accent: #0d6efd;
+      --boxA: #0b4663; /* deep blue */
+      --boxB: #117a65; /* teal */
+      --boxC: #d9534f; /* red */
+      --boxD: #f4a261; /* warm */
+      --boxE: #264653; /* dark */
+      --white: #ffffff;
+      --maxw: 960px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#eef6ff 0%, #fbfcff 100%);
+      color:var(--text);
+      padding:28px 16px;
+      display:flex;
+      justify-content:center;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    header{
+      text-align:center;
+      margin-bottom:18px;
+    }
+    header h1{
+      margin:0;
+      font-size:1.6rem;
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:0.2px;
+    }
+    header p.lead{margin:8px 0 0;color:var(--muted);font-weight:600}
+
+    .controls{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin:14px 0 22px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:0.95rem;
+      border:none;
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:hover{ transform:translateY(-3px); }
+    .btn.print{ background: linear-gradient(90deg,#0d6efd,#3b82f6); color:#fff; box-shadow:0 10px 30px rgba(13,110,253,0.12);}
+    .btn.copy{ background:#fff; color:var(--text); border:1px solid rgba(5,32,54,0.06); }
+    .btn.theme{ background:#111827; color:#fff; }
+
+    /* Boxes */
+    .box{
+      border-radius:14px;
+      padding:26px;
+      margin-bottom:16px;
+      color:var(--white);
+      line-height:1.7;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+      font-size:1.12rem;
+    }
+    .section-title{ font-size:1.18rem; margin-bottom:8px; font-weight:800; color:rgba(255,255,255,0.98) }
+    .box p{ margin:10px 0; color:rgba(255,255,255,0.95) }
+
+    .boxA{ background: linear-gradient(120deg,#073347 0%, var(--boxA) 100%); }
+    .boxB{ background: linear-gradient(120deg,#0f8b7e 0%, var(--boxB) 100%); }
+    .boxC{ background: linear-gradient(120deg,#c43b33 0%, var(--boxC) 100%); }
+    .boxD{ background: linear-gradient(120deg,#f7a971 0%, var(--boxD) 100%); color:#072032 }
+    .boxE{ background: linear-gradient(120deg,#16323a 0%, var(--boxE) 100%); }
+
+    .highlight{ font-weight:800; text-decoration:underline; text-decoration-color: rgba(255,255,255,0.12); text-underline-offset:5px }
+
+    .signature{ margin-top:10px; font-weight:700; color:var(--white); font-size:1.02rem }
+
+    /* responsive */
+    @media (max-width:720px){
+      header h1{ font-size:1.3rem }
+      .box{ padding:20px; font-size:1.03rem }
+      .btn{ padding:8px 10px; font-size:0.92rem }
+    }
+
+    /* Print */
+    @media print{
+      body{ background:#fff; padding:0 }
+      .controls{ display:none }
+      .box{ box-shadow:none; border-radius:0; color:#000; padding:14px 8px }
+      .boxA,.boxB,.boxC,.boxD,.boxE{ background:none !important; -webkit-print-color-adjust:exact; }
+      .section-title{ color:#000 }
+      .box p{ color:#000 }
+      header h1{ color:#000 }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main" aria-labelledby="pageTitle">
+    <header>
+      <h1 id="pageTitle">BÀI PHÁT BIỂU BẾ MẠC</h1>
+      <p class="lead">Ngày hội STEM & Cuộc thi Nghiên cứu KHKT — Trường THPT Trần Trường Sinh</p>
+    </header>
+
+    <div class="controls" role="toolbar" aria-label="Công cụ">
+      <button class="btn print" id="printBtn" title="In hoặc lưu PDF">🖨️ In / Lưu PDF</button>
+      <button class="btn copy" id="copyBtn" title="Sao chép toàn bộ">📋 Sao chép</button>
+      <button class="btn theme" id="toggleTheme" title="Chuyển chế độ sáng/tối">🌗 Chủ đề</button>
+    </div>
+
+    <!-- 1: Summary box (boxA) -->
+    <section class="box boxA" aria-labelledby="s1">
+      <div id="s1" class="section-title">🌱 1. Hành trình khép lại — tinh thần còn mãi</div>
+      <p>Sau những ngày làm việc hăng say,một buổi hoạt động tích cực, Ngày hội STEM và Cuộc thi Nghiên cứu KHKT cấp trường đã đến lúc bế mạc. Chúng ta không chỉ thu được bảng điểm hay sản phẩm, mà quan trọng hơn là <strong class="highlight">hành trình sáng tạo, nỗ lực và trưởng thành</strong> của các em học sinh.</p>
+    </section>
+
+    <!-- 2: To students (boxB) -->
+    <section class="box boxB" aria-labelledby="s2">
+      <div id="s2" class="section-title">🔬 2. Gửi đến các em học sinh — nhà sáng tạo trẻ</div>
+      <p>Các em thân mến, điều quý giá nhất hôm nay không chỉ là danh hiệu hay thứ hạng, mà là niềm tự hào khi chính các em đã biến tư duy thành sản phẩm, biến ý tưởng thành hành động. Hãy giữ vững tinh thần <strong>dám nghĩ, dám làm, dám khác biệt</strong>.</p>
+    </section>
+
+    <!-- 3: Judges & feedback (boxC) -->
+    <section class="box boxC" aria-labelledby="s3">
+      <div id="s3" class="section-title">👨‍🏫 3. Gửi đến Quý Thầy Cô — Ban Giám Khảo</div>
+      <p>Chúng tôi trân trọng mọi đóng góp quý báu của Quý Thầy Cô trong quá trình tổ chức Ngày Hội. Nếu trong tổ chức còn những điều chưa hài lòng, Ban Tổ chức <strong>hoàn toàn tiếp thu</strong> và sẽ chỉnh sửa cho lần sau. Điều quan trọng là chúng ta cùng chia sẻ, đồng cảm và kết thúc ngày hội với tinh thần vui vẻ, tích cực.</p>
+    </section>
+
+    <!-- 4: Thanks to organizers (boxD) -->
+    <section class="box boxD" aria-labelledby="s4">
+      <div id="s4" class="section-title">🤝 4. Cảm ơn Ban Tổ chức & các nhà hỗ trợ</div>
+      <p>Xin chân thành cảm ơn Ban Giám Hiệu, các Tổ chuyên môn, các thầy cô, thành viên Ban Tổ chức và các mạnh thường quân đã đóng góp công sức, thời gian và nguồn lực để ngày hội diễn ra chu đáo. Sự đồng hành của quý vị là nguồn động lực to lớn cho học sinh và nhà trường.</p>
+    </section>
+
+    <!-- 5: Closing & call to unity (boxE) -->
+    <section class="box boxE" aria-labelledby="s5">
+      <div id="s5" class="section-title">🌟 5. Kết thúc — kết nối & hy vọng</div>
+      <p>Ngày hội khép lại nhưng tinh thần sáng tạo phải tiếp tục. Chúng tôi mong nhận được <strong>sự đồng cảm và sẻ chia</strong> từ Quý Thầy Cô và các em để kết thúc trong niềm vui và tôn trọng lẫn nhau — đó là mục tiêu cao nhất của ngày hội.</p>
+      <p class="signature">Và bây giờ, tôi xin trân trọng tuyên bố: <strong>BẾ MẠC Ngày hội STEM & Cuộc thi Nghiên cứu KHKT cấp trường năm học …</strong></p>
+      <p class="signature">Xin kính chúc Quý Thầy Cô sức khỏe, chúc các em học sinh tiếp tục giữ lửa sáng tạo. Xin trân trọng cảm ơn!</p>
+    </section>
+
+  </div>
+
+  <script>
+    // Print
+    document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+    // Copy content: concatenate visible texts
+    document.getElementById('copyBtn').addEventListener('click', async function(){
+      const nodes = document.querySelectorAll('.box');
+      let txt = '';
+      nodes.forEach(n=>{
+        const title = n.querySelector('.section-title')?.innerText || '';
+        const body = Array.from(n.querySelectorAll('p')).map(p=>p.innerText).join('\\n');
+        txt += title + '\\n' + body + '\\n\\n';
+      });
+      try {
+        await navigator.clipboard.writeText(txt.trim());
+        alert('Đã sao chép nội dung bài bế mạc vào bộ nhớ tạm.');
+      } catch (e) {
+        prompt('Sao chép thủ công (Ctrl+C):', txt.trim());
+      }
+    });
+
+    // Theme toggle (simple contrast inversion)
+    document.getElementById('toggleTheme').addEventListener('click', function(){
+      const body = document.body;
+      if(body.style.background && body.style.background.includes('white')){
+        body.style.background = '';
+        this.textContent = '🌗 Chủ đề';
+      } else {
+        body.style.background = 'linear-gradient(180deg,#0a1722 0%, #071427 100%)';
+        // invert text colors for print-like dark mode — but boxes keep their gradients for contrast
+        this.textContent = '🌗 Chủ đề';
+      }
+    });
+  </script>
+</body>
+</html>
