@@ -1293,7 +1293,39 @@ body:-ms-fullscreen .reveal {
 .solution-box {
     display: none !important;
 }
+/* === FIX ĐIỆN THOẠI === */
+@media (max-width: 768px) {
+    .reveal .slides section {
+        padding: 15px !important;
+        height: auto !important;
+        min-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .question {
+        margin: 15px 0 !important;
+        padding: 15px !important;
+    }
+    
+    .reveal .slides {
+        font-size: 1.4rem !important;
+        height: auto !important;
+    }
+    
+    /* Cho phép cuộn nội dung dài */
+    .question-title, .solution-content {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* Đảm bảo input không bị zoom */
+    input[type="text"], input[type="email"] {
+        font-size: 16px !important;
+    }
+}
 </style>
+
 </head>
 <body>
 <!-- ===== Thanh tiêu đề cố định ===== -->
@@ -2602,6 +2634,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             transition: 'slide', backgroundTransition: 'fade',
             controls: true, progress: true, center: true, slideNumber: 'c/t'
+            
         });
         
         // Khởi tạo hệ thống modal cải tiến
@@ -5540,6 +5573,115 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('DOMContentLoaded', styleAllTables);
 Reveal.addEventListener('slidechanged', styleAllTables);
 setupFullscreen();
+// ===== HỆ THỐNG LƯU KẾT QUẢ ĐỘC LẬP =====
+class ResultManager {
+    constructor() {
+        this.currentTest = window.location.pathname.split('/').pop() || 'unknown';
+        this.studentData = null;
+    }
+
+    // Lưu kết quả hoàn chỉnh
+    async saveCompleteResult() {
+        if (!this.checkLogin()) return;
+
+        try {
+            const resultData = this.collectResultData();
+            await this.saveToFirebase(resultData);
+            console.log('✅ Đã lưu kết quả hoàn chỉnh');
+        } catch (error) {
+            console.error('❌ Lỗi lưu kết quả:', error);
+        }
+    }
+
+    // Kiểm tra đăng nhập
+    checkLogin() {
+        if (!currentUser || currentUser.role !== 'student') {
+            console.log('⚠️ Chưa đăng nhập học sinh');
+            return false;
+        }
+        this.studentData = currentUser;
+        return true;
+    }
+
+    // Thu thập dữ liệu kết quả
+    collectResultData() {
+        const answers = this.collectAllAnswers();
+        const score = this.calculateScore(answers);
+        
+        return {
+            studentCode: this.studentData.code,
+            studentName: this.studentData.name,
+            testFile: this.currentTest,
+            testName: document.title,
+            answers: answers,
+            totalScore: score,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            sessionCode: sessionCode || 'no_session'
+        };
+    }
+
+    // Thu thập tất cả đáp án
+    collectAllAnswers() {
+        const answers = {};
+        
+        // Câu hỏi trắc nghiệm (1-12)
+        for (let i = 1; i <= 12; i++) {
+            const qid = 'q' + i;
+            const selected = document.querySelector(`input[name="${qid}"]:checked`);
+            answers[qid] = selected ? selected.value : '';
+        }
+
+        // Câu True/False (13-16)
+        for (let i = 13; i <= 16; i++) {
+            const subAnswers = [];
+            ['a','b','c','d'].forEach(letter => {
+                const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
+                subAnswers.push(sel ? sel.value : '');
+            });
+            answers['q' + i] = subAnswers;
+        }
+
+        // Câu trả lời ngắn (17-22)
+        for (let i = 17; i <= 22; i++) {
+            const el = document.getElementById(`input-q${i}`);
+            answers['q' + i] = el ? el.value.trim() : '';
+        }
+
+        return answers;
+    }
+
+    // Tính điểm (tạm thời, có thể cải tiến sau)
+    calculateScore(answers) {
+        let score = 0;
+        // Logic tính điểm có thể thêm sau
+        return score;
+    }
+
+    // Lưu lên Firebase
+    async saveToFirebase(resultData) {
+        const timestamp = new Date().getTime();
+        const recordId = `${resultData.studentCode}_${timestamp}`;
+        
+        await db.ref(`completeResults/${recordId}`).set(resultData);
+    }
+}
+
+// Khởi tạo và tự động lưu
+const resultManager = new ResultManager();
+
+// Tự động lưu khi click kiểm tra (không ảnh hưởng JS hiện tại)
+document.addEventListener('click', function(e) {
+    if (e.target.matches('button[onclick*="checkAnswer"], button[onclick*="checkTrueFalseAnswer"], button[onclick*="checkShortAnswer"]')) {
+        setTimeout(() => resultManager.saveCompleteResult(), 1000);
+    }
+});
+
+// Lưu khi tính điểm
+const originalCalculateScore = window.calculateFinalScore;
+window.calculateFinalScore = function() {
+    resultManager.saveCompleteResult();
+    return originalCalculateScore.apply(this, arguments);
+};
 </script>
 
 
