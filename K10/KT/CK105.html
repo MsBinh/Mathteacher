@@ -1434,782 +1434,651 @@ body:-ms-fullscreen .reveal {
 <!-- SLIDE TÓM TẮT CÔNG THỨC THỐNG KÊ -->
 <section>
 <div class="question" id="q1">
-    <p class="question-title"><strong>Câu 1.</strong> Điểm trung bình từng môn học kì I của bạn An được cho bởi bảng sau:
-    <table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-        <tr>
-            <th style="border: 1px solid #ddd; padding: 8px;"><strong>Môn</strong></th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Toán</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Vật lí</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Hoá học</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Ngữ văn</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Lịch sử</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Địa lý</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Tin học</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">Tiếng Anh</th>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #ddd; padding: 8px;"><strong>Điểm</strong></td>
-            <td style="border: 1px solid #ddd; padding: 8px;">9,1</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">8,6</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">9,3</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">6,8</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">8,0</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">7,5</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">8,7</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">6,8</td>
-        </tr>
-    </table>
-    Phương sai của mẫu số liệu trên bằng:</p>
+    <p class="question-title"><strong>Câu 1.</strong> Cho tập hợp $A = \{x \in \mathbb{Z} \mid |x|\le2\}$ và $B=(-1;2]$. Tập hợp $A \cap B$ là</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q1" value="A" id="q1A">
-            <label for="q1A">A. 0,92.</label>
-            <span class="option-icon" id="icon-q1-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q1" value="A" id="q1A">
+                <label for="q1A">A. $\{-1;0;1;2\}$</label>
+                <span class="option-icon" id="icon-q1-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q1" value="B" id="q1B">
+                <label for="q1B">B. $\{0;1;2\}$</label>
+                <span class="option-icon" id="icon-q1-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q1" value="C" id="q1C">
+                <label for="q1C">C. $\{-2;-1;0;1;2\}$</label>
+                <span class="option-icon" id="icon-q1-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q1" value="D" id="q1D">
+                <label for="q1D">D. $\{-1;0;1\}$</label>
+                <span class="option-icon" id="icon-q1-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="B" id="q1B">
-            <label for="q1B">B. 2,5.</label>
-            <span class="option-icon" id="icon-q1-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="C" id="q1C">
-            <label for="q1C">C. 0,85.</label>
-            <span class="option-icon" id="icon-q1-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="D" id="q1D">
-            <label for="q1D">D. 0,72.</label>
-            <span class="option-icon" id="icon-q1-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q1', 'C')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q1', 'B')">✅ Kiểm tra</button>
         <span id="result-q1"></span>
-    </div>
-    <button onclick="toggleSolution('q1')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q1" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 1</div>
-        <div class="solution-content">
-            Số trung bình của mẫu số liệu trên là $\bar{x}$
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q2">
-    <p class="question-title"><strong>Câu 2.</strong> Từ ba điểm phân biệt $A, B$ và $C$, có thể lập được bao nhiêu véc tơ khác véc tơ $\vec{0}$ có điểm đầu và điểm cuối là các điểm đã cho.</p>
+    <p class="question-title"><strong>Câu 2.</strong> Hệ bất phương trình nào là hệ bất phương trình bậc nhất hai ẩn?</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q2" value="A" id="q2A">
-            <label for="q2A">A. 6.</label>
-            <span class="option-icon" id="icon-q2-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q2" value="A" id="q2A">
+                <label for="q2A">A. $\begin{cases} 0x +0y > -4 \\ 4x + y \le 2 \end{cases}$</label>
+                <span class="option-icon" id="icon-q2-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q2" value="B" id="q2B">
+                <label for="q2B">B. $\begin{cases} 2x-5y \ge2 \\ \dfrac{3}{x}-y\le-1 \end{cases}$</label>
+                <span class="option-icon" id="icon-q2-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q2" value="C" id="q2C">
+                <label for="q2C">C. $\begin{cases} x^2 + y^3 > 4 \\ 2x-5y\le1 \end{cases}$</label>
+                <span class="option-icon" id="icon-q2-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q2" value="D" id="q2D">
+                <label for="q2D">D. $\begin{cases} 3x+7y\le11 \\ 5x-y<5 \end{cases}$</label>
+                <span class="option-icon" id="icon-q2-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="B" id="q2B">
-            <label for="q2B">B. 9.</label>
-            <span class="option-icon" id="icon-q2-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="C" id="q2C">
-            <label for="q2C">C. 4.</label>
-            <span class="option-icon" id="icon-q2-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="D" id="q2D">
-            <label for="q2D">D. 3.</label>
-            <span class="option-icon" id="icon-q2-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q2', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q2', 'D')">✅ Kiểm tra</button>
         <span id="result-q2"></span>
-    </div>
-    <button onclick="toggleSolution('q2')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q2" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 2</div>
-        <div class="solution-content">
-            Ta có thể lập được các véc tơ: $\vec{AB}$
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q3">
-    <p class="question-title"><strong>Câu 3.</strong> Thu nhập hàng tháng (đơn vị: triệu đồng) của 7 nhân viên trong công ti A được cho như sau:
-    3,5 6,5 6,8 7,2 8,2 8,5 9,2. Số trung vị của mẫu số liệu trên bằng</p>
+    <p class="question-title"><strong>Câu 3.</strong> Tập xác định của hàm số $y = \sqrt{x-2024}$ là</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q3" value="A" id="q3A">
-            <label for="q3A">A. 6,8</label>
-            <span class="option-icon" id="icon-q3-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q3" value="A" id="q3A">
+                <label for="q3A">A. $(2024; +\infty)$</label>
+                <span class="option-icon" id="icon-q3-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q3" value="B" id="q3B">
+                <label for="q3B">B. $(-\infty; 2024]$</label>
+                <span class="option-icon" id="icon-q3-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q3" value="C" id="q3C">
+                <label for="q3C">C. $[2024; +\infty)$</label>
+                <span class="option-icon" id="icon-q3-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q3" value="D" id="q3D">
+                <label for="q3D">D. $\mathbb{R} \setminus \{2024\}$</label>
+                <span class="option-icon" id="icon-q3-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="B" id="q3B">
-            <label for="q3B">B. 3,5</label>
-            <span class="option-icon" id="icon-q3-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="C" id="q3C">
-            <label for="q3C">C. 9,2</label>
-            <span class="option-icon" id="icon-q3-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="D" id="q3D">
-            <label for="q3D">D. 7,2</label>
-            <span class="option-icon" id="icon-q3-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q3', 'D')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q3', 'C')">✅ Kiểm tra</button>
         <span id="result-q3"></span>
-    </div>
-    <button onclick="toggleSolution('q3')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q3" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 3</div>
-        <div class="solution-content">
-            Chọn D
-        Ta có $n = 7$ nên số trung vị $M_e = x_4 = 7,2$.
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q4">
-    <p class="question-title"><strong>Câu 4.</strong> Cho tam giác $ABC$ vuông tại $A$ có $\widehat{B} = 40^\circ$. Hệ thức nào sau đây là <strong>sai</strong>?</p>
-    <img src="data/im/CK101-c4.png">
+    <p class="question-title"><strong>Câu 4.</strong> Biết rằng đồ thị hàm số $y = ax^2 + bx + 2$ là một parabol có đỉnh $I(2;-2)$. Tính giá trị của biểu thức $S=a+b$.</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q4" value="A" id="q4A">
-            <label for="q4A">A. $(\vec{AC}, \vec{CB}) = 50^\circ$</label>
-            <span class="option-icon" id="icon-q4-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q4" value="A" id="q4A">
+                <label for="q4A">A. $S=1$</label>
+                <span class="option-icon" id="icon-q4-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q4" value="B" id="q4B">
+                <label for="q4B">B. $S=-3$</label>
+                <span class="option-icon" id="icon-q4-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q4" value="C" id="q4C">
+                <label for="q4C">C. $S=-1$</label>
+                <span class="option-icon" id="icon-q4-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q4" value="D" id="q4D">
+                <label for="q4D">D. $S=2$</label>
+                <span class="option-icon" id="icon-q4-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="B" id="q4B">
-            <label for="q4B">B. $(\vec{BC}, \vec{AC}) = 50^\circ$</label>
-            <span class="option-icon" id="icon-q4-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="C" id="q4C">
-            <label for="q4C">C. $(\vec{AB},\vec{CB}) = 40^\circ$</label>
-            <span class="option-icon" id="icon-q4-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="D" id="q4D">
-            <label for="q4D">D. $(\vec{AB}, \vec{BC}) = 140^\circ$</label>
-            <span class="option-icon" id="icon-q4-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q4', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q4', 'B')">✅ Kiểm tra</button>
         <span id="result-q4"></span>
-    </div>
-    <button onclick="toggleSolution('q4')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q4" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 4</div>
-        <div class="solution-content">
-            \begin{center}
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q5">
-    <p class="question-title"><strong>Câu 5.</strong> Trong mặt phẳng tọa độ $Oxy$ với vec tơ đơn vị $\vec{i}$ của trục $Ox$ và véctơ đơn vị $\vec{j}$ của trục $Oy$ cho $\vec{u}+2\vec{i}-3\vec{j} = \vec{0}$. Tọa độ của $\vec{u}$ là</p>
+    <p class="question-title"><strong>Câu 5.</strong> Cho $90^\circ < \alpha <180^\circ$. Chọn phát biểu đúng trong các phát biểu sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q5" value="A" id="q5A">
-            <label for="q5A">A. $\vec{u} = (3;-2)$.</label>
-            <span class="option-icon" id="icon-q5-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q5" value="A" id="q5A">
+                <label for="q5A">A. $\cot \alpha > 0$</label>
+                <span class="option-icon" id="icon-q5-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q5" value="B" id="q5B">
+                <label for="q5B">B. $\tan \alpha > 0$</label>
+                <span class="option-icon" id="icon-q5-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q5" value="C" id="q5C">
+                <label for="q5C">C. $\sin \alpha < 0$</label>
+                <span class="option-icon" id="icon-q5-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q5" value="D" id="q5D">
+                <label for="q5D">D. $\cos \alpha < 0$</label>
+                <span class="option-icon" id="icon-q5-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="B" id="q5B">
-            <label for="q5B">B. $\vec{u} =(2;-3)$.</label>
-            <span class="option-icon" id="icon-q5-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="C" id="q5C">
-            <label for="q5C">C. $\vec{u}=(-3;2)$.</label>
-            <span class="option-icon" id="icon-q5-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="D" id="q5D">
-            <label for="q5D">D. $\vec{u}=(-2;3)$.</label>
-            <span class="option-icon" id="icon-q5-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
         <button onclick="checkAnswer('q5', 'D')">✅ Kiểm tra</button>
         <span id="result-q5"></span>
-    </div>
-    <button onclick="toggleSolution('q5')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q5" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 5</div>
-        <div class="solution-content">
-            Ta có: $\vec{u}$
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q6">
-    <p class="question-title"><strong>Câu 6.</strong> Miền nghiệm của bất phương trình $x+2(y-1) > x + 4$ chứa điểm nào sau đây?</p>
+    <p class="question-title"><strong>Câu 6.</strong> Cho tam giác $ABC$. Khẳng định nào sau đây là đúng?</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q6" value="A" id="q6A">
-            <label for="q6A">A. $Q(6;0)$.</label>
-            <span class="option-icon" id="icon-q6-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q6" value="A" id="q6A">
+                <label for="q6A">A. $\dfrac{\sin B}{b} = 2R$</label>
+                <span class="option-icon" id="icon-q6-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q6" value="B" id="q6B">
+                <label for="q6B">B. $\dfrac{a}{\sin A} = R$</label>
+                <span class="option-icon" id="icon-q6-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q6" value="C" id="q6C">
+                <label for="q6C">C. $\cos B = \dfrac{b^2 + c^2}{2bc}$</label>
+                <span class="option-icon" id="icon-q6-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q6" value="D" id="q6D">
+                <label for="q6D">D. $\cos C = \dfrac{b^2 + a^2-c^2}{2ab}$</label>
+                <span class="option-icon" id="icon-q6-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="B" id="q6B">
-            <label for="q6B">B. $P(-5;5)$.</label>
-            <span class="option-icon" id="icon-q6-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="C" id="q6C">
-            <label for="q6C">C. $M(-2;1)$.</label>
-            <span class="option-icon" id="icon-q6-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="D" id="q6D">
-            <label for="q6D">D. $N(1;3)$.</label>
-            <span class="option-icon" id="icon-q6-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q6', 'B')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q6', 'D')">✅ Kiểm tra</button>
         <span id="result-q6"></span>
-    </div>
-    <button onclick="toggleSolution('q6')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q6" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 6</div>
-        <div class="solution-content">
-            Thay tọa độ điểm $Q(6;0)$ vào bất phương trình ta được: $6+2(0-1)>6+4$ (Sai)
-        Thay tọa độ điểm $P(-5;5)$ vào bất phương trình ta được: $-5+2(5-1)>-5+4$ (Đúng)
-        Thay tọa độ điểm $M(-2;1)$ vào bất phương trình ta được: $-2+2(1-1) > -2 + 4$ (Sai)
-        Thay tọa độ điểm $N(1;3)$ vào bất phương trình ta được: $1+2(3-1) > 1+4$ ( Sai)
-        Vậy miền nghiệm của bất phương trình đã cho chứa điểm $N(1;3)$.
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q7">
-    <p class="question-title"><strong>Câu 7.</strong> Điểm kiểm tra học kỳ I môn Toán của 8 học sinh tổ I lớp 10A được cho như sau
-    8 \quad 6 \quad 7 \quad 8 \quad 9 \quad 10 \quad 9 \quad 7
-    Khoảng biến thiên của mẫu số liệu trên là:</p>
+    <p class="question-title"><strong>Câu 7.</strong> Cho tam giác $ABC$ với $AB = c, AC = b, BC = a$. Biết $c = 14, A = 60^\circ, B = 40^\circ$. Làm tròn đến số thập phân thứ nhất thì độ lớn $b$ là</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q7" value="A" id="q7A">
-            <label for="q7A">A. $R = 4$.</label>
-            <span class="option-icon" id="icon-q7-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q7" value="A" id="q7A">
+                <label for="q7A">A. $9,14$</label>
+                <span class="option-icon" id="icon-q7-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q7" value="B" id="q7B">
+                <label for="q7B">B. $9,13$</label>
+                <span class="option-icon" id="icon-q7-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q7" value="C" id="q7C">
+                <label for="q7C">C. $9,1$</label>
+                <span class="option-icon" id="icon-q7-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q7" value="D" id="q7D">
+                <label for="q7D">D. $9,2$</label>
+                <span class="option-icon" id="icon-q7-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="B" id="q7B">
-            <label for="q7B">B. $R = 3$.</label>
-            <span class="option-icon" id="icon-q7-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="C" id="q7C">
-            <label for="q7C">C. $R = 2$.</label>
-            <span class="option-icon" id="icon-q7-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="D" id="q7D">
-            <label for="q7D">D. $R = 1$.</label>
-            <span class="option-icon" id="icon-q7-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q7', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q7', 'C')">✅ Kiểm tra</button>
         <span id="result-q7"></span>
-    </div>
-    <button onclick="toggleSolution('q7')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q7" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 7</div>
-        <div class="solution-content">
-            +) Ta có: Điểm kiểm tra thấp nhất, cao nhất tương ứng là $10; 6$. Do đó khoảng biến thiên là: $R=10-6= 4$.
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q8">
-    <p class="question-title"><strong>Câu 8.</strong> Cho tam giác đều $ABC$ có cạnh $a$. Tính $\vec{CA}.\vec{CB}$.</p>
+    <p class="question-title"><strong>Câu 8.</strong> Cho 3 điểm phân biệt $M,N,P$. Hỏi có bao nhiêu véc tơ khác véc tơ $\vec{0}$, có điểm đầu và điểm cuối được lấy từ 3 điểm đã cho.</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q8" value="A" id="q8A">
-            <label for="q8A">A. $a^2$.</label>
-            <span class="option-icon" id="icon-q8-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q8" value="A" id="q8A">
+                <label for="q8A">A. $3$</label>
+                <span class="option-icon" id="icon-q8-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q8" value="B" id="q8B">
+                <label for="q8B">B. $4$</label>
+                <span class="option-icon" id="icon-q8-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q8" value="C" id="q8C">
+                <label for="q8C">C. $5$</label>
+                <span class="option-icon" id="icon-q8-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q8" value="D" id="q8D">
+                <label for="q8D">D. $6$</label>
+                <span class="option-icon" id="icon-q8-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="B" id="q8B">
-            <label for="q8B">B. $\frac{a^2\sqrt{3}}{2}$</label>
-            <span class="option-icon" id="icon-q8-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="C" id="q8C">
-            <label for="q8C">C. $\frac{a^2}{2}$</label>
-            <span class="option-icon" id="icon-q8-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="D" id="q8D">
-            <label for="q8D">D. $-a^2$.</label>
-            <span class="option-icon" id="icon-q8-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q8', 'C')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q8', 'D')">✅ Kiểm tra</button>
         <span id="result-q8"></span>
-    </div>
-    <button onclick="toggleSolution('q8')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q8" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 8</div>
-        <div class="solution-content">
-            Chọn C
-        Tam giác đều $ABC$ có $(\vec{CA}$
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q9">
-    <p class="question-title"><strong>Câu 9.</strong> Trong mặt phẳng tọa độ $Oxy$, cho $M(1;2), N(-3;1)$ và $P(0;6)$ lần lượt là trung điểm các cạnh $BC, CA, AB$ của tam giác $ABC$. Tìm tọa độ đỉnh $C$.</p>
-    <img src="data/im/CK101-c9.png">
+    <p class="question-title"><strong>Câu 9.</strong> Cho 3 điểm $A,B,C$ phân biệt. Khi đó $\vec{AC}+\vec{CB}$ bằng</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q9" value="A" id="q9A">
-            <label for="q9A">A. $C(-4;-7)$.</label>
-            <span class="option-icon" id="icon-q9-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q9" value="A" id="q9A">
+                <label for="q9A">A. $\vec{AB}$</label>
+                <span class="option-icon" id="icon-q9-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q9" value="B" id="q9B">
+                <label for="q9B">B. $\vec{BA}$</label>
+                <span class="option-icon" id="icon-q9-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q9" value="C" id="q9C">
+                <label for="q9C">C. $\vec{CA}$</label>
+                <span class="option-icon" id="icon-q9-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q9" value="D" id="q9D">
+                <label for="q9D">D. $\vec{BC}$</label>
+                <span class="option-icon" id="icon-q9-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="B" id="q9B">
-            <label for="q9B">В. $С(-2;-3)$.</label>
-            <span class="option-icon" id="icon-q9-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="C" id="q9C">
-            <label for="q9C">C. $C(4;7)$.</label>
-            <span class="option-icon" id="icon-q9-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="D" id="q9D">
-            <label for="q9D">D. $C(-4;5)$.</label>
-            <span class="option-icon" id="icon-q9-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q9', 'B')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q9', 'A')">✅ Kiểm tra</button>
         <span id="result-q9"></span>
-    </div>
-    <button onclick="toggleSolution('q9')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q9" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 9</div>
-        <div class="solution-content">
-            \begin{center}
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q10">
-    <p class="question-title"><strong>Câu 10.</strong> Cho số gần đúng $a = 1263,5$ với độ chính xác $d = 0,1$. Số quy tròn của số $a$ là:</p>
+    <p class="question-title"><strong>Câu 10.</strong> Cho hình thoi $ABCD$ tâm $O$, cạnh bằng $2a$ và góc $\widehat{BAD} = 60^\circ$. Độ dài $|\vec{AB}+ \vec{AD}|$ bằng</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q10" value="A" id="q10A">
-            <label for="q10A">A. 1262.</label>
-            <span class="option-icon" id="icon-q10-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q10" value="A" id="q10A">
+                <label for="q10A">A. $a\sqrt{3}$</label>
+                <span class="option-icon" id="icon-q10-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q10" value="B" id="q10B">
+                <label for="q10B">B. $3a$</label>
+                <span class="option-icon" id="icon-q10-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q10" value="C" id="q10C">
+                <label for="q10C">C. $2a\sqrt{3}$</label>
+                <span class="option-icon" id="icon-q10-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q10" value="D" id="q10D">
+                <label for="q10D">D. $3a\sqrt{3}$</label>
+                <span class="option-icon" id="icon-q10-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="B" id="q10B">
-            <label for="q10B">Β. 1264.</label>
-            <span class="option-icon" id="icon-q10-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="C" id="q10C">
-            <label for="q10C">C. 1260.</label>
-            <span class="option-icon" id="icon-q10-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="D" id="q10D">
-            <label for="q10D">D. 1300.</label>
-            <span class="option-icon" id="icon-q10-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q10', 'B')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q10', 'C')">✅ Kiểm tra</button>
         <span id="result-q10"></span>
-    </div>
-    <button onclick="toggleSolution('q10')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q10" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 10</div>
-        <div class="solution-content">
-            Số quy tròn của số $a$ là $1264$.
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q11">
-    <p class="question-title"><strong>Câu 11.</strong> Một con thuyền di chuyển trên sông với vận tốc riêng được biểu diễn bởi vectơ $\vec{v_r}$, vận tốc của dòng nước được biểu diễn bởi vectơ $\vec{v_n}$ và vận tốc thực tế của con thuyền được biểu diễn bởi vectơ $\vec{v}$. Khẳng định nào sau đây đúng?</p>
-    <img src="data/im/CK101-c11.png">
+    <p class="question-title"><strong>Câu 11.</strong> Khi sử dụng máy tính bỏ túi với 10 chữ số thập phân ta được $\sqrt{11} = 3,31662479$. Giá trị gần đúng của $\sqrt{11}$ chính xác đến hàng phần nghìn là</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q11" value="A" id="q11A">
-            <label for="q11A">A. $|\vec{v_r}| + |\vec{v_n}| = |\vec{v}|$.</label>
-            <span class="option-icon" id="icon-q11-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q11" value="A" id="q11A">
+                <label for="q11A">A. $3,316$</label>
+                <span class="option-icon" id="icon-q11-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q11" value="B" id="q11B">
+                <label for="q11B">B. $3,317$</label>
+                <span class="option-icon" id="icon-q11-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q11" value="C" id="q11C">
+                <label for="q11C">C. $3,31$</label>
+                <span class="option-icon" id="icon-q11-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q11" value="D" id="q11D">
+                <label for="q11D">D. $3,318$</label>
+                <span class="option-icon" id="icon-q11-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="B" id="q11B">
-            <label for="q11B">B. $\vec{v_r} - \vec{v_n} = \vec{v}$.</label>
-            <span class="option-icon" id="icon-q11-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="C" id="q11C">
-            <label for="q11C">C. $\vec{v_r} + \vec{v_n} = \vec{v}$.</label>
-            <span class="option-icon" id="icon-q11-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="D" id="q11D">
-            <label for="q11D">D. $\vec{v_n} - \vec{v_r} = \vec{v}$.</label>
-            <span class="option-icon" id="icon-q11-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q11', 'C')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q11', 'B')">✅ Kiểm tra</button>
         <span id="result-q11"></span>
-    </div>
-    <button onclick="toggleSolution('q11')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q11" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 11</div>
-        <div class="solution-content">
-            Chọn C
-        \begin{center}
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q12">
-    <p class="question-title"><strong>Câu 12.</strong> Cho hình bình hành $ABCD$ có $AB = 7, BC =10$ và $\widehat{ABC} = 30^\circ$. Tính diện tích $S$ của hình bình hành $ABCD$ là</p>
-    <img src="data/im/CK101-c12.png">
+    <p class="question-title"><strong>Câu 12.</strong> Số nhân khẩu trong các hộ gia đình ở làng được thống kê ở bảng sau:
+        <table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
+<tr><th style="border: 1px solid #ddd; padding: 8px;"><strong>Số nhân khẩu</strong></th><th style="border: 1px solid #ddd; padding: 8px;">$1$</th><th style="border: 1px solid #ddd; padding: 8px;">$2$</th><th style="border: 1px solid #ddd; padding: 8px;">$3$</th><th style="border: 1px solid #ddd; padding: 8px;">$4$</th><th style="border: 1px solid #ddd; padding: 8px;">$5$</th><th style="border: 1px solid #ddd; padding: 8px;">$6$</th></tr>
+<tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>Số hộ gia đình</strong></td><td style="border: 1px solid #ddd; padding: 8px;">$1$</td><td style="border: 1px solid #ddd; padding: 8px;">$4$</td><td style="border: 1px solid #ddd; padding: 8px;">$7$</td><td style="border: 1px solid #ddd; padding: 8px;">$11$</td><td style="border: 1px solid #ddd; padding: 8px;">$5$</td><td style="border: 1px solid #ddd; padding: 8px;">$2$</td></tr>
+</table>
+        Mốt của mẫu số liệu trên bằng</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q12" value="A" id="q12A">
-            <label for="q12A">A. $S = \frac{35}{2}$</label>
-            <span class="option-icon" id="icon-q12-A"></span>
+            <div class="option-row">
+                <input type="radio" name="q12" value="A" id="q12A">
+                <label for="q12A">A. $4$</label>
+                <span class="option-icon" id="icon-q12-A"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q12" value="B" id="q12B">
+                <label for="q12B">B. $11$</label>
+                <span class="option-icon" id="icon-q12-B"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q12" value="C" id="q12C">
+                <label for="q12C">C. $6$</label>
+                <span class="option-icon" id="icon-q12-C"></span>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="q12" value="D" id="q12D">
+                <label for="q12D">D. $1$</label>
+                <span class="option-icon" id="icon-q12-D"></span>
+            </div>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="B" id="q12B">
-            <label for="q12B">B. $S = 35$.</label>
-            <span class="option-icon" id="icon-q12-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="C" id="q12C">
-            <label for="q12C">C. $S = 70$.</label>
-            <span class="option-icon" id="icon-q12-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="D" id="q12D">
-            <label for="q12D">D. $S = \frac{35\sqrt{3}}{2}$</label>
-            <span class="option-icon" id="icon-q12-D"></span>
-        </div>
-    </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q12', 'B')">✅ Kiểm tra</button>
+        <button onclick="checkAnswer('q12', 'A')">✅ Kiểm tra</button>
         <span id="result-q12"></span>
-    </div>
-    <button onclick="toggleSolution('q12')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q12" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 12</div>
-        <div class="solution-content">
-            \begin{center}
-        </div>
     </div>
 </div>
 </section>
 <section>
 <div class="question" id="q13">
-<p class="question-title"><strong>Câu 13.</strong> Mẫu số liệu khi cho bảng tần số dưới đây:
-    <table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
-        <tr>
-            <th style="border: 1px solid #ddd; padding: 8px;"><strong>Giá trị $x_i$</strong></th>
-            <th style="border: 1px solid #ddd; padding: 8px;">10</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">20</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">30</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">40</th>
-            <th style="border: 1px solid #ddd; padding: 8px;">50</th>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #ddd; padding: 8px;"><strong>Tần số $n_i$</strong></td>
-            <td style="border: 1px solid #ddd; padding: 8px;">3</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">4</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">7</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">9</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">1</td>
-        </tr>
-    </table></p>
-<div class="options">
-        <div class="option-row">a) Số trung bình: $\bar{x} \approx 30,4167$.
-          <label><input name="q13a" type="radio" value="True" id="q13aTrue"/> True</label>
-          <label><input name="q13a" type="radio" value="False" id="q13aFalse"/> False</label>
+    <p class="question-title"><strong>Câu 13.</strong> Cho tam giác $ABC$ có $BC = a, AC = 4, AB = 3$ và diện tích tam giác $ABC$ là $3\sqrt{3}$.</p>
+    <div class="options">
+        <div class="option-row">a) $a^2 = 25 – 24 \cos A$
+          <label><input name="q13a" type="radio" value="True"/> True</label>
+          <label><input name="q13a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">b) $M_e = 30$
-          <label><input name="q13b" type="radio" value="True" id="q13bTrue"/> True</label>
-          <label><input name="q13b" type="radio" value="False" id="q13bFalse"/> False</label>
+        <div class="option-row">b) $\sin A = \dfrac{\sqrt{3}}{2}$
+          <label><input name="q13b" type="radio" value="True"/> True</label>
+          <label><input name="q13b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">c) $Q_3 = 30$.
-          <label><input name="q13c" type="radio" value="True" id="q13cTrue"/> True</label>
-          <label><input name="q13c" type="radio" value="False" id="q13cFalse"/> False</label>
+        <div class="option-row">c) $\cos A = \dfrac{1}{2}$
+          <label><input name="q13c" type="radio" value="True"/> True</label>
+          <label><input name="q13c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">d) Mốt: $M_0 = 40$.
-          <label><input name="q13d" type="radio" value="True" id="q13dTrue"/> True</label>
-          <label><input name="q13d" type="radio" value="False" id="q13dFalse"/> False</label>
+        <div class="option-row">d) $a = \sqrt{37}$
+          <label><input name="q13d" type="radio" value="True"/> True</label>
+          <label><input name="q13d" type="radio" value="False"/> False</label>
         </div>
-</div>
-<div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q13',['True','True','False','True'])">✅ Kiểm tra</button>
-<span id="result-q13"></span>
-</div>
-<button onclick="toggleSolution('q13')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q13" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 13</div>
-    <div class="solution-content">
-        Số trung bình: $\bar{x}$
     </div>
-</div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q13',['True','True','False','False'])">✅ Kiểm tra</button>
+        <span id="result-q13"></span>
+    </div>
+    <button onclick="toggleSolution('q13')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q13" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 13</div>
+        <div class="solution-content">
+            <p><strong>(a)</strong> $a^2 = 25-24 \cos A$ ;</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q14">
-<p class="question-title"><strong>Câu 14.</strong> Một người quan sát đứng cách một cái tháp 10m, nhìn thẳng cái tháp dưới một góc $55^\circ$ và được phân tích như trong hình. Các mệnh đề sau đúng hay sai?</p>
-<img src="data/im/CK1-c14.png">
-<div class="options">
-        <div class="option-row">a) Độ dài cạnh $HK \approx 1,76m$.
-          <label><input name="q14a" type="radio" value="True" id="q14aTrue"/> True</label>
-          <label><input name="q14a" type="radio" value="False" id="q14aFalse"/> False</label>
+    <p class="question-title"><strong>Câu 14.</strong> Cho hàm số bậc hai $y = ax^2 + bx + c$ biết đồ thị hàm số đi qua điểm $A(-1;8)$ và có đỉnh $I(2;-1)$. Khi đó:</p>
+    <div class="options">
+        <div class="option-row">a) $a-b+c=8$
+          <label><input name="q14a" type="radio" value="True"/> True</label>
+          <label><input name="q14a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">b) Chiều cao cái tháp $HB \approx 11,76m$.
-          <label><input name="q14b" type="radio" value="True" id="q14bTrue"/> True</label>
-          <label><input name="q14b" type="radio" value="False" id="q14bFalse"/> False</label>
+        <div class="option-row">b) $b = 4a$ và $4a+2b + c = -1$
+          <label><input name="q14b" type="radio" value="True"/> True</label>
+          <label><input name="q14b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">c) Diện tích tam giác $ABH$ bằng $117,6m^2$.
-          <label><input name="q14c" type="radio" value="True" id="q14cTrue"/> True</label>
-          <label><input name="q14c" type="radio" value="False" id="q14cFalse"/> False</label>
+        <div class="option-row">c) $y = x^2-4x+3$
+          <label><input name="q14c" type="radio" value="True"/> True</label>
+          <label><input name="q14c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">d) Người ta muốn bắt dây điện nháy từ đỉnh tháp $B$ chạy thẳng đến 3 vị trí $A,H,M$ với $M$ là trung điểm cạnh $AH$. Độ dài dây điện cần chuẩn bị để đủ bắt là khoảng $38m$.
-          <label><input name="q14d" type="radio" value="True" id="q14dTrue"/> True</label>
-          <label><input name="q14d" type="radio" value="False" id="q14dFalse"/> False</label>
+        <div class="option-row">d) Giá trị nhỏ nhất của hàm số đã cho trên đoạn $[-3;0]$ bằng $-1$
+          <label><input name="q14d" type="radio" value="True"/> True</label>
+          <label><input name="q14d" type="radio" value="False"/> False</label>
         </div>
-</div>
-<div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q14',['True','True','False','True'])">✅ Kiểm tra</button>
-<span id="result-q14"></span>
-</div>
-<button onclick="toggleSolution('q14')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q14" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 14</div>
-    <div class="solution-content">
-        \begin{center}
     </div>
-</div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q14',['True','False','True','False'])">✅ Kiểm tra</button>
+        <span id="result-q14"></span>
+    </div>
+    <button onclick="toggleSolution('q14')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q14" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 14</div>
+        <div class="solution-content">
+            <p><strong>(a)</strong> $a-b+c=8$.</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q15">
-<p class="question-title"><strong>Câu 15.</strong> Cho tam giác $ABC$ vuông cân tại $A$ biết $BC = a\sqrt{2}$, đường cao $AH$.</p>
-<img src="data/im/CK101-c15.png">
-<img src="data/im/CK101-c15_extra.png">
-<div class="options">
-        <div class="option-row">a) $\vec{AH} - \vec{AB} = \vec{AH} - \vec{AC}$.
-          <label><input name="q15a" type="radio" value="True" id="q15aTrue"/> True</label>
-          <label><input name="q15a" type="radio" value="False" id="q15aFalse"/> False</label>
+    <p class="question-title"><strong>Câu 15.</strong> Cho mẫu số liệu về chiều cao đầu năm học của một nhóm học sinh lớp 10 như sau:
+        <table style="width: 80%; margin: 0 auto; border-collapse: collapse;">
+<tr><th style="border: 1px solid #ddd; padding: 8px;"><strong>Chiều cao (cm)</strong></th><th style="border: 1px solid #ddd; padding: 8px;">$150$</th><th style="border: 1px solid #ddd; padding: 8px;">$155$</th><th style="border: 1px solid #ddd; padding: 8px;">$160$</th><th style="border: 1px solid #ddd; padding: 8px;">$165$</th><th style="border: 1px solid #ddd; padding: 8px;">$170$</th></tr>
+<tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>Tần số</strong></td><td style="border: 1px solid #ddd; padding: 8px;">$25$</td><td style="border: 1px solid #ddd; padding: 8px;">$28$</td><td style="border: 1px solid #ddd; padding: 8px;">$103$</td><td style="border: 1px solid #ddd; padding: 8px;">$44$</td><td style="border: 1px solid #ddd; padding: 8px;">$13$</td></tr>
+</table>
+        Khi đó:</p>
+    <div class="options">
+        <div class="option-row">a) Tìm khoảng biến thiên của mẫu số liệu là $R = 10$
+          <label><input name="q15a" type="radio" value="True"/> True</label>
+          <label><input name="q15a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">b) $|\vec{AH} + \vec{HB}| = |\vec{AH} + \vec{HC}|$.
-          <label><input name="q15b" type="radio" value="True" id="q15bTrue"/> True</label>
-          <label><input name="q15b" type="radio" value="False" id="q15bFalse"/> False</label>
+        <div class="option-row">b) Tứ phân vị thứ nhất là $Q_1 =157,5$
+          <label><input name="q15b" type="radio" value="True"/> True</label>
+          <label><input name="q15b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">c) $|\vec{AB}-\vec{HB}|=\frac{a}{2}$.
-          <label><input name="q15c" type="radio" value="True" id="q15cTrue"/> True</label>
-          <label><input name="q15c" type="radio" value="False" id="q15cFalse"/> False</label>
+        <div class="option-row">c) Số trung bình cộng của mẫu số liệu là $\bar{x}=159,8$ (làm tròn đến hàng phần chục)
+          <label><input name="q15c" type="radio" value="True"/> True</label>
+          <label><input name="q15c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">d) Biết rằng điểm $M$ thỏa mãn điều kiện $\vec{MA} - \vec{MB} + \vec{MC} = \vec{0}$. Khi đó $|\vec{AH} + \vec{AM}| = \frac{a\sqrt{5}}{2}$.
-          <label><input name="q15d" type="radio" value="True" id="q15dTrue"/> True</label>
-          <label><input name="q15d" type="radio" value="False" id="q15dFalse"/> False</label>
+        <div class="option-row">d) Độ lệch chuẩn của mẫu số liệu là $S = 5,492$ (làm tròn đến hàng phần nghìn)
+          <label><input name="q15d" type="radio" value="True"/> True</label>
+          <label><input name="q15d" type="radio" value="False"/> False</label>
         </div>
-</div>
-<div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q15',['False','True','False','False'])">✅ Kiểm tra</button>
-<span id="result-q15"></span>
-</div>
-<button onclick="toggleSolution('q15')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q15" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 15</div>
-    <div class="solution-content">
-        \begin{center}
     </div>
-</div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q15',['False','True','True','True'])">✅ Kiểm tra</button>
+        <span id="result-q15"></span>
+    </div>
+    <button onclick="toggleSolution('q15')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q15" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 15</div>
+        <div class="solution-content">
+            <p><strong>(a)</strong> Tìm khoảng biến thiên của mẫu số liệu là $R =10$.</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q16">
-<p class="question-title"><strong>Câu 16.</strong> Một gia đình cần ít nhất 900 gam chất protein và 400 gam chất lipit trong thức ăn mỗi ngày. Biết rằng thịt bò chứa 80</p>
-
-<div class="options">
-        <div class="option-row">a) $\begin{cases} 0 \le x \le 1,6 \\ 0 \le y \le 1,1 \\ 4x + 3y \ge 4,5 \\ x + 2y \ge 2 \end{cases}$ là hệ bất phương trình biểu thị các điều kiện của bài toán
-          <label><input name="q16a" type="radio" value="True" id="q16aTrue"/> True</label>
-          <label><input name="q16a" type="radio" value="False" id="q16aFalse"/> False</label>
+    <p class="question-title"><strong>Câu 16.</strong> Cho hình bình hành $ABCD$ có tâm $O, M$ là một điểm bất kỳ.</p>
+    <div class="options">
+        <div class="option-row">a) $\vec{AB}+ \vec{AD} = \vec{AC}$
+          <label><input name="q16a" type="radio" value="True"/> True</label>
+          <label><input name="q16a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">b) Miền nghiệm của hệ trên là miền của tam giác
-          <label><input name="q16b" type="radio" value="True" id="q16bTrue"/> True</label>
-          <label><input name="q16b" type="radio" value="False" id="q16bFalse"/> False</label>
+        <div class="option-row">b) $\vec{AB}+5\vec{AC} + \vec{AD} = 6\vec{AC}$
+          <label><input name="q16b" type="radio" value="True"/> True</label>
+          <label><input name="q16b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">c) Gọi $T$ (nghìn đồng) là số tiền phải trả cho $x$ (kilogam) thịt bò và $y$ (kilogam) thịt lợn. Khi đó, chi phí để mua $x$ kg thịt bò và $y$ kg thịt lợn là: $T = 35x+45y$ (nghìn đồng).
-          <label><input name="q16c" type="radio" value="True" id="q16cTrue"/> True</label>
-          <label><input name="q16c" type="radio" value="False" id="q16cFalse"/> False</label>
+        <div class="option-row">c) $\vec{MA}+\vec{MB} + \vec{MC} + \vec{MD} = 4\vec{MO}$
+          <label><input name="q16c" type="radio" value="True"/> True</label>
+          <label><input name="q16c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">d) Gia đình đó mua 0,6 kg thịt bò và 0,7 kg thịt lợn thì chi phí là ít nhất.
-          <label><input name="q16d" type="radio" value="True" id="q16dTrue"/> True</label>
-          <label><input name="q16d" type="radio" value="False" id="q16dFalse"/> False</label>
+        <div class="option-row">d) $I,G$ là 2 điểm nằm trên $AD, AC$ thỏa: $\vec{AI} = \dfrac{1}{6} \vec{AD}, \vec{AG} = \dfrac{2}{5} \vec{AC}$. $M$ là điểm thuộc $BC$ sao cho $I,G,M$ thẳng hàng. Khi đó: $BM = \dfrac{3}{4} BC$
+          <label><input name="q16d" type="radio" value="True"/> True</label>
+          <label><input name="q16d" type="radio" value="False"/> False</label>
         </div>
-</div>
-<div class="answer-check">
-<button onclick="checkTrueFalseAnswer('q16',['True','False','False','True'])">✅ Kiểm tra</button>
-<span id="result-q16"></span>
-</div>
-<button onclick="toggleSolution('q16')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q16" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 16</div>
-    <div class="solution-content">
-       <img src="data/im/CK1-c16.png">
     </div>
-</div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q16',['True','True','True','True'])">✅ Kiểm tra</button>
+        <span id="result-q16"></span>
+    </div>
+    <button onclick="toggleSolution('q16')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q16" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 16</div>
+        <div class="solution-content">
+            <p><strong>(a)</strong> $\vec{AB}$</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
+<h2>📘 PHẦN TRẢ LỜI NGẮN</h2>
 <div class="question" id="q17">
-<p class="question-title"><strong>Câu 17.</strong> Lớp 10A có 45 học sinh chuẩn bị cho hội diễn văn nghệ chào mừng ngày nhà giáo Việt Nam 20/11. Trong danh sách đăng kí tham gia tiết mục nhảy Flashmob và tiết mục hát, có 35 học sinh tham gia tiết mục nhảy Flashmob, 10 học sinh tham gia cả hai tiết mục. Hỏi có bao nhiêu học sinh trong lớp tham gia tiết mục hát? Biết rằng lớp 10A có 4 bạn không tham gia tiết mục nào.</p>
-<img src="data/im/CK101-c17.png">
-<div class="answer-check">
-<input id="input-q17" placeholder="Nhập kết quả (ví dụ: 16)" type="text"/>
-<button onclick="checkShortAnswer('q17','16')">✅ Kiểm tra</button>
-<span id="icon-q17"></span>
-</div>
-<div id="result-q17"></div>
-<button onclick="toggleSolution('q17')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q17" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 17</div>
-    <div class="solution-content">
-        Gọi $A$ là tập hợp học sinh tham gia tiết mục nhảy Flashmob, $B$ là tập hợp học sinh tham gia tiết mục hát.
-        \begin{center}
+    <p class="question-title"><strong>Câu 17.</strong> Bạn An đứng ở sân thượng của tòa nhà và quan sát chiếc diều, nhận thấy góc giữa phương nhìn từ mắt của An tới chiếc diều và phương nằm ngang là $\alpha = 50^\circ$. Khoảng cách từ sân thượng tòa nhà tới mắt của An là $1,7$m. Cùng lúc đó, ở dưới chân tòa nhà theo phương thẳng đứng với vị trí của An, bạn Bình cũng quan sát chiếc diều đó và thấy góc giữa phương nhìn từ mắt của Bình tới chiếc diều và phương nằm ngang là $\beta = 75^\circ$. Khoảng cách từ mặt đất tới mắt của Bình là $1,6$m. Biết chiều cao của tòa nhà là $h = 22$m (hình vẽ).
+        Hỏi chiếc diều ở vị trí cách mặt đất bao nhiêu mét (các phép toán làm tròn kết quả đến hàng phần chục)?</p>
+        <img src="data/im/CK105-c17.png">
+    <div class="answer-check">
+        <input id="input-q17" placeholder="Nhập kết quả (ví dụ: 34,1)" type="text"/>
+        <button onclick="checkShortAnswer('q17','$34,1$')">✅ Kiểm tra</button>
+        <span id="icon-q17"></span>
     </div>
-</div>
+    <div id="result-q17"></div>
+    <button onclick="toggleSolution('q17')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q17" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 17</div>
+        <div class="solution-content">
+            <p>Đặt tên các điểm như hình vẽ với $M, N$ lần lượt là vị trí mắt của Bình, An. Ta có $MN = 22,1(m)$.
+        Xét tam giác $MND$ có
+        $\widehat{MND}$</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q18">
-<p class="question-title"><strong>Câu 18.</strong> Trong mặt phẳng tọa độ $Oxy$, cho $A(3;0), B(4;5)$ và $C(-2;1)$. Tọa độ điểm $M(x;y)$ trên đường thẳng $BC$ sao cho $\vec{AM}.\vec{BC} = -52$. Tính $x + y$</p>
-<div class="answer-check">
-<input id="input-q18" placeholder="Nhập kết quả (ví dụ: 14)" type="text"/>
-<button onclick="checkShortAnswer('q18','14')">✅ Kiểm tra</button>
-<span id="icon-q18"></span>
-</div>
-<div id="result-q18"></div>
-<button onclick="toggleSolution('q18')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q18" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 18</div>
-    <div class="solution-content">
-        $\vec{BC}$
+    <p class="question-title"><strong>Câu 18.</strong> Cho hàm số $y = f(x)$ có tập xác định có đồ thị như hình vẽ.
+        Biết hàm số nghịch biến trên $(a;b)$. Xác định giá trị lớn nhất của $b-a$</p>
+        <img src="data/im/CK105-c18.png">
+    <div class="answer-check">
+        <input id="input-q18" placeholder="Nhập kết quả (ví dụ: 2)" type="text"/>
+        <button onclick="checkShortAnswer('q18','$2$')">✅ Kiểm tra</button>
+        <span id="icon-q18"></span>
     </div>
-</div>
+    <div id="result-q18"></div>
+    <button onclick="toggleSolution('q18')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q18" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 18</div>
+        <div class="solution-content">
+            <p>Hàm số nghịch biến trên $(-1;1)$ và trên các khoảng $(a;b)$ là tập con của $(-1;1)$.
+        Do đó giá trị lớn nhất của $b-a$ là $1-(-1)= 2$.</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q19">
-<p class="question-title"><strong>Câu 19.</strong> Cho tam giác $ABC$ có trọng tâm $G$ và $I$ là trung điểm của $BG$. Khi đó, vectơ $\vec{AI}$ được biểu diễn qua hai vectơ $\vec{AB}$ và $\vec{AC}$ có dạng $\vec{AI} = x.\vec{AB} + y.\vec{AC}$. Tính $3x+6y$.</p>
-<img src="data/im/CK101-c19.png">
-<div class="answer-check">
-<input id="input-q19" placeholder="Nhập kết quả (ví dụ: 3)" type="text"/>
-<button onclick="checkShortAnswer('q19','3')">✅ Kiểm tra</button>
-<span id="icon-q19"></span>
-</div>
-<div id="result-q19"></div>
-<button onclick="toggleSolution('q19')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q19" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 19</div>
-    <div class="solution-content">
-        \begin{center}
+    <p class="question-title"><strong>Câu 19.</strong> Nhiệt độ của thành phố Vinh ghi nhận trong 10 ngày qua lần lượt là:
+        $24 \quad 21 \quad 30 \quad 34 \quad 28 \quad 35 \quad 33 \quad 36 \quad 25 \quad 27$
+        Khoảng tứ phân vị của mẫu số liệu bằng bao nhiêu?</p>
+    <div class="answer-check">
+        <input id="input-q19" placeholder="Nhập kết quả (ví dụ: 9)" type="text"/>
+        <button onclick="checkShortAnswer('q19','$9$')">✅ Kiểm tra</button>
+        <span id="icon-q19"></span>
     </div>
-</div>
+    <div id="result-q19"></div>
+    <button onclick="toggleSolution('q19')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q19" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 19</div>
+        <div class="solution-content">
+            <p>Ta sắp xếp mẫu số liệu theo thứ tự không giảm:<br>
+        $21 \quad 24 \quad 25 \quad 27 \quad 28 \quad 30 \quad 33 \quad 34 \quad 35 \quad 36$<br>
+        Mẫu số liệu gồm 10 giá trị nên số trung vị là $Q_2 = (28+30) : 2 = 29$. <br>
+        Nửa số liệu bên trái là $21; 24; 25; 27;28$ gồm 5 giá trị, số chính giữa là $25$. <br>
+        Khi đó $Q_1 = 25$. <br>
+        Nửa số liệu bên phải là $30;33; 34; 35;36$ gồm 5 giá trị, số chính giữa là $34$. <br>
+        Khi đó $Q_3 = 34$. <br>
+        Khoảng tứ phân vị của mẫu số liệu bằng: $\Delta_Q = Q_3 - Q_1 = 34-25=9$.</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q20">
-<p class="question-title"><strong>Câu 20.</strong> Một người đứng ở trên một tháp truyền hình cao 352 m so với mặt đất, muốn xác định khoảng cách giữa hai cột mốc trên mặt đất bên dưới. Người đó quan sát thấy góc được tạo bởi hai đường ngắm tới hai mốc này là $43^\circ$, góc giữa phương thẳng đứng và đường ngắm tới một điểm mốc trên mặt đất là $62^\circ$ và đến điểm mốc khác là $54^\circ$ (Hình). Tính khoảng cách giữa hai cột mốc này. (kết quả làm tròn đến hàng đơn vị)</p>
-<img src="data/im/CK1-c20.png">
-<div class="answer-check">
-<input id="input-q20" placeholder="Nhập kết quả (ví dụ: 142)" type="text"/>
-<button onclick="checkShortAnswer('q20','142')">✅ Kiểm tra</button>
-<span id="icon-q20"></span>
-</div>
-<div id="result-q20"></div>
-<button onclick="toggleSolution('q20')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q20" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 20</div>
-    <div class="solution-content">
-        \begin{center}
+    <p class="question-title"><strong>Câu 20.</strong> Cho hai lực $\vec{F_1} = \vec{OA}, \vec{F_2} = \vec{OB}$ cùng tác động vào một vật tại điểm $O$. Cường độ hai lực $F_1, F_2$ lần lượt là $34(N)$ và $134(N)$. Góc $\widehat{AOB} = 120^\circ$. Tính cường độ của lực tổng hợp tác động vào vật. (làm tròn đến hàng đơn vị)</p>
+    <img src="data/im/CK105-c20.png">
+    <div class="answer-check">
+        <input id="input-q20" placeholder="Nhập kết quả (ví dụ: 121)" type="text"/>
+        <button onclick="checkShortAnswer('q20','$121$')">✅ Kiểm tra</button>
+        <span id="icon-q20"></span>
     </div>
-</div>
+    <div id="result-q20"></div>
+    <button onclick="toggleSolution('q20')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q20" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 20</div>
+        <div class="solution-content">
+            <p>Gọi $\vec{F}$</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q21">
-<p class="question-title"><strong>Câu 21.</strong> Cho biết sự chuyển động của một chiếc thuyền được thể hiện trên một mặt phẳng tọa độ như sau: Thuyền rời bến từ vị trí $A(2;3)$ chuyển động thẳng đều với vận tốc (tính theo giờ) được biểu thị bởi vectơ $\vec{v} = (a;b)$, sau khi khởi hành 2 giờ thì vị trí của tàu (trên mặt phẳng tọa độ) là $B(8;9)$. Tính $a+b$.</p>
-<div class="answer-check">
-<input id="input-q21" placeholder="Nhập kết quả (ví dụ: 6)" type="text"/>
-<button onclick="checkShortAnswer('q21','6')">✅ Kiểm tra</button>
-<span id="icon-q21"></span>
-</div>
-<div id="result-q21"></div>
-<button onclick="toggleSolution('q21')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q21" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 21</div>
-    <div class="solution-content">
-        Do thuyền chuyển động thẳng đều với vận tốc (tính theo giờ) được biểu thị bởi vectơ $\vec{v}$
+    <p class="question-title"><strong>Câu 21.</strong> Cho tam giác đều $ABC$ và các điểm $M, N, P$ thỏa mãn $\vec{BM} = k\vec{BC}, \vec{CN} = \dfrac{2}{3} \vec{CA}, \vec{AP} = \dfrac{4}{15} \vec{AB}$. Giá trị $k = \dfrac{a}{b}$ ($(a,b \in \mathbb{Q}, (a,b)=1)$) để $AM$ vuông góc với $PN$. Tính $a+b$?</p>
+    <div class="answer-check">
+        <input id="input-q21" placeholder="Nhập kết quả (ví dụ: 4)" type="text"/>
+        <button onclick="checkShortAnswer('q21','$4$')">✅ Kiểm tra</button>
+        <span id="icon-q21"></span>
     </div>
-</div>
+    <div id="result-q21"></div>
+    <button onclick="toggleSolution('q21')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q21" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 21</div>
+        <div class="solution-content">
+            <p>Ta có: $\vec{BM}$</p>
+        </div>
+    </div>
 </div>
 </section>
 <section>
 <div class="question" id="q22">
-<p class="question-title"><strong>Câu 22.</strong> Hãy tìm giá trị bất thường của mẫu số liệu:
-    38 \quad 38 \quad 24 \quad 47 \quad 43 \quad 70 \quad 22 \quad 48 \quad 48 \quad 37</p>
-<div class="answer-check">
-<input id="input-q22" placeholder="Nhập kết quả (ví dụ: 70)" type="text"/>
-<button onclick="checkShortAnswer('q22','70')">✅ Kiểm tra</button>
-<span id="icon-q22"></span>
-</div>
-<div id="result-q22"></div>
-<button onclick="toggleSolution('q22')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q22" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 22</div>
-    <div class="solution-content">
-        Xét mẫu số liệu đã sắp xếp là:
-        22 \quad 24 \quad 35 \quad 37 \quad 38 \quad 38 \quad 43 \quad 47 \quad 48 \quad 48 \quad 70
-        Cỡ mẫu là $n = 11$, là số lẻ nên giá trị tứ phân vị thứ hai là: $Q_2 = 38$.
-        Tứ phân vị thứ nhất là trung vị của nửa số liệu bên trái: $22;24;35;37;38$.
-        Do đó $Q_1 = 35$.
-        Tứ phân vị thứ ba là trung vị của nửa số liệu bên phải: $43;47;48;48;70$.
-        Do đó $Q_3 = 48$.
-        Khoảng tứ phân vị của mẫu là: $\Delta_Q = Q_3 - Q_1 = 48-35=13$.
-        Ta có: $Q_1 - 1,5\Delta_Q = 35 - 1,5.13 = 15,5$
-        $Q_3 + 1,5\Delta_Q = 48 + 1,5.13 = 67,5$
-        Suy ra $70$ là giá trị bất thường trong mẫu số liệu.
+    <p class="question-title"><strong>Câu 22.</strong> Khi một quả bóng được ném lên, nó sẽ đạt đến độ cao nào đó rồi rơi xuống. Biết quỹ đạo của quả bóng là một cung Parabol trong mặt phẳng với hệ tọa độ $Oth$, trong đó $t$ là thời gian (tính bằng giây), kể từ khi quả bóng được đá lên, $h$ là độ cao (tính bằng mét) của quả bóng. Giả thiết rằng quả bóng được đá lên từ độ cao $1,2$m. Sau đó $1$ giây, nó đạt độ cao $8,5$m và $2$ giây sau khi đá nó lên, nó ở độ cao $6$m. Sau bao nhiêu giây thì quả bóng sẽ chạm đất kể từ khi đá lên (Tính chính xác đến hàng phần trăm)?</p>
+    <div class="answer-check">
+        <input id="input-q22" placeholder="Nhập kết quả (ví dụ: 2.58)" type="text"/>
+        <button onclick="checkShortAnswer('q22','$2,58$')">✅ Kiểm tra</button>
+        <span id="icon-q22"></span>
+    </div>
+    <div id="result-q22"></div>
+    <button onclick="toggleSolution('q22')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q22" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 22</div>
+        <div class="solution-content">
+            <p>Do bóng được đá từ độ cao $1,2$m nên trong hệ trục tọa độ $Oth$ ta có Parabol cắt trục $Oh$ tại điểm có tung độ $h_0 =1,2$m. <br>
+        Khi đó phương trình Parabol có dạng: $h(t)=at^2 +bt+1,2 \ (t>0)$. <br>
+        Theo giả thiết ta có hệ phương trình:
+        $\begin{cases}$</p>
+        </div>
     </div>
 </div>
-</div>
 </section>
-
-<!-- KẾT THÚC -->
 
 <!---------------------------------------------------------THE END----------------------------------------------------->
 </div>
