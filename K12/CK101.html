@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"/>
-<title>GIỮA KỲ 1 ĐỀ 1 </title>
+<title>LỚP TOÁN THẦY BÌNH </title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Hệ thống dạy học Toán trực tuyến đầy đủ tính năng - Lớp Toán Thầy Bình">
 <meta name="keywords" content="toán, học trực tuyến, lớp 12, ôn thi, firebase, real-time, canvas, bảng vẽ">
@@ -1290,7 +1290,7 @@ body:-ms-fullscreen .reveal {
     visibility: hidden !important;
 }
 /* ẨN HOÀN TOÀN TẤT CẢ LỜI GIẢI KHI MỞ TRANG */
-.solution-box {
+/*.solution-box {
     display: none !important;
 }
 /* === FIX ĐIỆN THOẠI === */
@@ -1324,6 +1324,58 @@ body:-ms-fullscreen .reveal {
         font-size: 16px !important;
     }
 }
+/* Giải pháp đơn giản nhất - chỉ cần thêm đoạn CSS này */
+.option-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #17a2b8;
+    line-height: 1.6;
+}
+
+.option-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .option-row {
+        flex-direction: column;
+    }
+    
+    .option-row label {
+        align-self: flex-start;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+/* Thêm hiệu ứng đẹp */
+.option-row:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+.option-row label:hover {
+    background: #f8f9fa;
+    border-color: #17a2b8;
+}
+
 </style>
 
 </head>
@@ -1336,8 +1388,11 @@ body:-ms-fullscreen .reveal {
         <button id="slideMenuBtn">📋 DS Slide</button>
         <select id="selectExam">
             <option value="mm">-- Chọn đề --</option>
-            <option value="gk1de1.html">Đề 1: Giữa HK1</option>
-            <option value="gk1de2.html">Đề 2:Giữa HK1</option>
+            <option value="CK101.html">Đề 1:  HK1</option>
+            <option value="CK102.html">Đề 2:HK1</option>
+            <option value="CK103.html">Đề 3: HK1</option>
+            <option value="CK104.html">Đề 4: HK1</option>
+            <option value="CK105.html">Đề 5: HK1</option>
         </select>
         <button id="studentInteractBtn">🎮 Tương tác</button>
         <button id="teacherMonitorBtn">👁️ Theo dõi</button>
@@ -1368,7 +1423,7 @@ body:-ms-fullscreen .reveal {
     <h1 style="color: white; border: none; font-size: 3em;">🧮 LỚP TOÁN THẦY BÌNH</h1>
     <h3 style="color: white;">Hệ Thống Dạy Học Trực Tuyến Toàn Diện</h3>
     <div style="margin-top: 50px;">
-        <p>📍 <strong>KIỂM TRA GIỮA KỲ I:</strong> Môn Toán Lớp 12A1</p>
+        <p>📍 <strong>KIỂM TRA cuối KỲ I:</strong> Môn Toán Lớp 10</p>
         <p>⏰ <strong>Thời gian:</strong> 90 phút</p>
     </div>
     <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
@@ -1379,760 +1434,2152 @@ body:-ms-fullscreen .reveal {
 <!-- SLIDE TÓM TẮT CÔNG THỨC THỐNG KÊ -->
 <section>
 <div class="question" id="q1">
-    <p class="question-title"><strong>Câu 1.</strong> Giá trị lớn nhất của hàm số $y = x(1 - x^2)$ trên khoảng $(0;1)$ là:</p>
+    <p class="question-title"><strong>Câu 1.</strong> Trong không gian $Oxyz$, cho điểm $A(1;2;5)$ và mặt phẳng $(\alpha) : x + 2y+2z - 6 = 0$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q1" value="A" id="q1A">
-            <label for="q1A">A. $\dfrac{1}{9}$</label>
-            <span class="option-icon" id="icon-q1-A"></span>
+        <div class="option-row">a) Véc tơ $\vec{n} = (1;2;2)$ là một vectơ pháp tuyến của $(\alpha)$.
+            <label><input name="q1a" type="radio" value='True'/> True</label>
+            <label><input name="q1a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="B" id="q1B">
-            <label for="q1B">B. $\dfrac{1}{\sqrt{3}}$</label>
-            <span class="option-icon" id="icon-q1-B"></span>
+        <div class="option-row">b) Phương trình mặt phẳng $(\beta)$ đi qua điểm $A$ và song song với mặt phẳng $(\alpha)$ có phương trình $x+2y+2z+15 = 0$
+            <label><input name="q1b" type="radio" value='True'/> True</label>
+            <label><input name="q1b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="C" id="q1C">
-            <label for="q1C">C. $0$</label>
-            <span class="option-icon" id="icon-q1-C"></span>
+        <div class="option-row">c) Phương trình mặt phẳng $(\gamma)$ đi qua hai điểm $O$ và $A$ đồng thời vuông góc với mặt phẳng $(\alpha)$ có phương trình $2x - y = 0$.
+            <label><input name="q1c" type="radio" value='True'/> True</label>
+            <label><input name="q1c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="D" id="q1D">
-            <label for="q1D">D. $\dfrac{2\sqrt{3}}{9}$</label>
-            <span class="option-icon" id="icon-q1-D"></span>
+        <div class="option-row">d) Điểm $M \in (\alpha)$ sao cho $A,O,M$ thẳng hàng thì tọa độ $M\left(\frac{2}{5};\frac{4}{5};2\right)$.
+            <label><input name="q1d" type="radio" value='True'/> True</label>
+            <label><input name="q1d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q1', 'D')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q1',[\"True\",\"False\",\"True\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q1"></span>
     </div>
     <button onclick="toggleSolution('q1')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q1" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 1</div>
         <div class="solution-content">
-            $y = x - x^3$, $y' = 1 - 3x^2 = 0 \Leftrightarrow x = \dfrac{1}{\sqrt{3}}$.
-            Trên khoảng $(0;1)$, hàm số đạt giá trị lớn nhất tại $x = \dfrac{1}{\sqrt{3}}$.
-            $y\left(\dfrac{1}{\sqrt{3}}\right) = \dfrac{1}{\sqrt{3}}\left(1 - \left(\dfrac{1}{\sqrt{3}}\right)^2\right) = \dfrac{1}{\sqrt{3}}\left(1 - \dfrac{1}{3}\right) = \dfrac{1}{\sqrt{3}} \cdot \dfrac{2}{3} = \dfrac{2\sqrt{3}}{9}$.
+            <p>a) Đúng: Theo định nghĩa vectơ $\vec{n}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q2">
-    <p class="question-title"><strong>Câu 2.</strong> Cho hình hộp ABCD.A'B'C'D' . Phát biểu nào sau đây là đúng?</p>
+    <p class="question-title"><strong>Câu 2.</strong> Trong không gian với hệ trục toạ độ $Oxyz$, cho ba điểm $A(1;2;-2); B(2;1;2);C(3;-2;1)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q2" value="A" id="q2A">
-            <label for="q2A">A. $\vec{AB}+ \vec{AA'} + \vec{AD} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-A"></span>
+        <div class="option-row">a) Phương trình mặt phẳng $(P)$ đi qua ba điểm $A,B,C$ có một vectơ pháp tuyến là $\vec{n} = [\vec{AB}, \vec{AC}]$
+            <label><input name="q2a" type="radio" value='True'/> True</label>
+            <label><input name="q2a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="B" id="q2B">
-            <label for="q2B">B. $\vec{AB} + \vec{BB'} + \vec{B'A'} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-B"></span>
+        <div class="option-row">b) Phương trình mặt phẳng $(P)$ là $13x + 5y - 2z+ 27 = 0$.
+            <label><input name="q2b" type="radio" value='True'/> True</label>
+            <label><input name="q2b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="C" id="q2C">
-            <label for="q2C">C. $\vec{AB}+\vec{BC'} +\vec{C'D'} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-C"></span>
+        <div class="option-row">c) Phương trình mặt phẳng đi qua điểm $A(1;2;-2)$ và nhận $\vec{BC}$ làm véc tơ pháp tuyến có dạng: $1(x+1)x-3( y + 2) - 1(z - 2) = 0$.
+            <label><input name="q2c" type="radio" value='True'/> True</label>
+            <label><input name="q2c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="D" id="q2D">
-            <label for="q2D">D. $\vec{AB}+ \vec{AC} + \vec{AA'} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-D"></span>
+        <div class="option-row">d) Phương trình mặt phẳng đi qua ba điểm $E;F;K$ lần lượt là hình chiếu vuông góc của $A$ lên trục $Ox, Oy, Oz$ có phương trình $\frac{x}{1} + \frac{y}{2} + \frac{z}{-2} = 1$.
+            <label><input name="q2d" type="radio" value='True'/> True</label>
+            <label><input name="q2d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q2', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q2',[\"True\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q2"></span>
     </div>
     <button onclick="toggleSolution('q2')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q2" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 2</div>
         <div class="solution-content">
-            Theo quy tắc hình hộp ta có $\vec{AB} + \vec{AD} + \vec{AA'} = \vec{AC'}$.
+            <p>a) Đúng: Vì $\begin{cases}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q3">
-    <p class="question-title"><strong>Câu 3.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho tam giác $ABC$ biết $A(5; -2; 0), B(-2; 3; 0), C(0; 2; 3)$. Tìm toạ độ trọng tâm $G$ của tam giác $ABC$.</p>
+    <p class="question-title"><strong>Câu 3.</strong> Trong không gian $Oxyz$, cho bốn điểm $A(1;2;1), B(-2;1;3), C(2;-1;1)$ và $D(0;3;1)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q3" value="A" id="q3A">
-            <label for="q3A">A. $(1; 1; 1)$</label>
-            <span class="option-icon" id="icon-q3-A"></span>
+        <div class="option-row">a) Phương trình mặt phẳng $(ABC)$ là $3x + y + 5z -10 = 0$.
+            <label><input name="q3a" type="radio" value='True'/> True</label>
+            <label><input name="q3a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="B" id="q3B">
-            <label for="q3B">B. $(2; 0; -1)$</label>
-            <span class="option-icon" id="icon-q3-B"></span>
+        <div class="option-row">b) Bốn điểm $A,B,C,D$ tạo thành tứ diện.
+            <label><input name="q3b" type="radio" value='True'/> True</label>
+            <label><input name="q3b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="C" id="q3C">
-            <label for="q3C">C. $(1; 1; -2)$</label>
-            <span class="option-icon" id="icon-q3-C"></span>
+        <div class="option-row">c) Mặt phẳng $(P)$ chứa $AB$ và song song với $CD$ có một vectơ pháp tuyến là $\vec{a} = (4;-2;7)$.
+            <label><input name="q3c" type="radio" value='True'/> True</label>
+            <label><input name="q3c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="D" id="q3D">
-            <label for="q3D">D. $(1; 2; 1)$</label>
-            <span class="option-icon" id="icon-q3-D"></span>
+        <div class="option-row">d) Có 2 mặt phẳng đi qua 2 điểm $A,B$ sao cho khoảng cách từ $C$ và $D$ đến mặt phẳng đó bằng nhau và 2 mặt phẳng này đều đi qua điểm $M (1;2;1)$.
+            <label><input name="q3d" type="radio" value='True'/> True</label>
+            <label><input name="q3d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q3', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q3',[\"True\",\"True\",\"False\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q3"></span>
     </div>
     <button onclick="toggleSolution('q3')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q3" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 3</div>
         <div class="solution-content">
-            Tọa độ trọng tâm $G$ của tam giác $ABC$ là $G\left(\dfrac{5+(-2)+0}{3}; \dfrac{-2+3+2}{3}; \dfrac{0+0+3}{3}\right) = (1;1;1)$.
+            <p>a) Đúng: Ta có $\vec{AB}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q4">
-    <p class="question-title"><strong>Câu 4.</strong> Trong không gian với hệ tọa độ Oxyz cho hai điểm $A(4;2;1), B(-2;-1;4)$. Tìm tọa độ điểm M thỏa mãn đẳng thức $\vec{AM}=2\vec{MB}$.</p>
+    <p class="question-title"><strong>Câu 4.</strong> Trong không gian $Oxyz$, cho $A(2;0;0), B(0;2;0), C(0;0;3)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q4" value="A" id="q4A">
-            <label for="q4A">A. $M(0;0;3)$</label>
-            <span class="option-icon" id="icon-q4-A"></span>
+        <div class="option-row">a) Một vectơ pháp tuyến của mặt phẳng $(ABC)$ là $\vec{n} = (3;3;2)$.
+            <label><input name="q4a" type="radio" value='True'/> True</label>
+            <label><input name="q4a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="B" id="q4B">
-            <label for="q4B">B. $M(0;0;-3)$</label>
-            <span class="option-icon" id="icon-q4-B"></span>
+        <div class="option-row">b) Mặt phẳng đi qua $C$ và vuông góc với đường thẳng $AB$ có phương trình là $x - y = 0$.
+            <label><input name="q4b" type="radio" value='True'/> True</label>
+            <label><input name="q4b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="C" id="q4C">
-            <label for="q4C">C. $M(-8;-4;7)$</label>
-            <span class="option-icon" id="icon-q4-C"></span>
+        <div class="option-row">c) Mặt phẳng chứa đường thẳng $AB$ và vuông góc với $(ABC)$ có phương trình là: $x+y-3z+2= 0$.
+            <label><input name="q4c" type="radio" value='True'/> True</label>
+            <label><input name="q4c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="D" id="q4D">
-            <label for="q4D">D. $M(8;4;-7)$</label>
-            <span class="option-icon" id="icon-q4-D"></span>
+        <div class="option-row">d) Gọi $M (a;b;c) \in (Oyz)$ sao cho $MA + MB + MC$ nhỏ nhất thì khi đó $3(a+b)+c = 5$.
+            <label><input name="q4d" type="radio" value='True'/> True</label>
+            <label><input name="q4d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q4', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q4',[\"True\",\"True\",\"False\",\"False\"])">✅ Kiểm tra</button>
         <span id="result-q4"></span>
+    </div>
+    <button onclick="toggleSolution('q4')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q4" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 4</div>
+        <div class="solution-content">
+            <p>a) Đúng: Phương trình mặt phẳng $(ABC):\frac{x}</p>
+        </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q5">
-    <p class="question-title"><strong>Câu 5.</strong> Tiệm cận ngang của đồ thị hàm số $y=\dfrac{x-2}{x+1}$ là</p>
+    <p class="question-title"><strong>Câu 5.</strong> Trong không gian với hệ trục tọa độ $Oxyz$, cho mặt phẳng $(P):(4-a)x-(a + 3) y + z + 1 = 0$ và mặt phẳng $(Q): 3x – 4y + z + 3 = 0$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q5" value="A" id="q5A">
-            <label for="q5A">A. $y=-2$</label>
-            <span class="option-icon" id="icon-q5-A"></span>
+        <div class="option-row">a) Mặt phẳng $(P)$ và mặt phẳng $(Q)$ song song với nhau khi $a = 1$.
+            <label><input name="q5a" type="radio" value='True'/> True</label>
+            <label><input name="q5a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="B" id="q5B">
-            <label for="q5B">B. $x=2$</label>
-            <span class="option-icon" id="icon-q5-B"></span>
+        <div class="option-row">b) Mặt phẳng $(P)$ và mặt phẳng $(Q)$ vuông góc với nhau khi $a = 2$.
+            <label><input name="q5b" type="radio" value='True'/> True</label>
+            <label><input name="q5b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="C" id="q5C">
-            <label for="q5C">C. $x=-1$</label>
-            <span class="option-icon" id="icon-q5-C"></span>
+        <div class="option-row">c) Không có giá trị nào của $a$ để hai mặt phẳng trên trùng nhau.
+            <label><input name="q5c" type="radio" value='True'/> True</label>
+            <label><input name="q5c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="D" id="q5D">
-            <label for="q5D">D. $y=1$</label>
-            <span class="option-icon" id="icon-q5-D"></span>
+        <div class="option-row">d) Mặt phẳng vuông góc với cả hai mặt phẳng trên có vectơ pháp tuyến là $\vec{n} = (1;-1;-7)$.
+            <label><input name="q5d" type="radio" value='True'/> True</label>
+            <label><input name="q5d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q5', 'D')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q5',[\"True\",\"False\",\"True\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q5"></span>
     </div>
     <button onclick="toggleSolution('q5')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q5" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 5</div>
         <div class="solution-content">
-            Chọn D
-            Ta có $\lim_{x \to \pm\infty} \dfrac{x-2}{x+1} = \lim_{x \to \pm\infty} \dfrac{1 - \frac{2}{x}}{1 + \frac{1}{x}} = 1$.
-            Vậy tiệm cận ngang của đồ thị hàm số là $y=1$.
+            <p>a) Đúng: Khi $a = 1$ ta có $\vec{n_P}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q6">
-    <p class="question-title"><strong>Câu 6.</strong> Cho hình lập phương ABCD.A'B'C'D' cạnh a. Khi đó $|\vec{AA'} + \vec{AD}|$ bằng</p>
+    <p class="question-title"><strong>Câu 6.</strong> Trong không gian $Oxyz$ cho ba điểm $A(3;5;-1)$, $B(7;x;1)$, $C(9;2;y)$, $D(-1;2;3)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q6" value="A" id="q6A">
-            <label for="q6A">A. 2a</label>
-            <span class="option-icon" id="icon-q6-A"></span>
+        <div class="option-row">a) Toạ độ điểm $M$ trung điểm của đoạn $AD$ là $(1;7;1)$.
+            <label><input name="q6a" type="radio" value='True'/> True</label>
+            <label><input name="q6a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="B" id="q6B">
-            <label for="q6B">B. $\dfrac{a\sqrt{2}}{2}$</label>
-            <span class="option-icon" id="icon-q6-B"></span>
+        <div class="option-row">b) Toạ độ điểm $E$ để tứ giác $OADE$ là hình bình hành là $(-4;-3;4)$.
+            <label><input name="q6b" type="radio" value='True'/> True</label>
+            <label><input name="q6b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="C" id="q6C">
-            <label for="q6C">C. $a\sqrt{2}$</label>
-            <span class="option-icon" id="icon-q6-C"></span>
+        <div class="option-row">c) Toạ độ điểm $C$ để tam giác $ACD$ vuông tại $A$ là $(9;2;11)$.
+            <label><input name="q6c" type="radio" value='True'/> True</label>
+            <label><input name="q6c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="D" id="q6D">
-            <label for="q6D">D. $a\sqrt{6}$</label>
-            <span class="option-icon" id="icon-q6-D"></span>
+        <div class="option-row">d) Để ba điểm $A, B, C$ thẳng hàng thì giá trị của biểu thức $x + y$ bằng $5$.
+            <label><input name="q6d" type="radio" value='True'/> True</label>
+            <label><input name="q6d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q6', 'C')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q6',[\"False\",\"True\",\"False\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q6"></span>
     </div>
     <button onclick="toggleSolution('q6')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q6" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 6</div>
         <div class="solution-content">
-            $|\vec{AA'} + \vec{AD}| = |\vec{AD'}|\text{ (theo quy tắc hình bình hành)} = \sqrt{AD^2+AA'^2} = \sqrt{a^2+a^2} = a\sqrt{2}$.
+            <p>a) Sai: $M$ trung điểm của đoạn $AD$ suy ra toạ độ $M$ là $\left(1;\frac{7}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q7">
-    <p class="question-title"><strong>Câu 7.</strong> Trong không gian với hệ trục tọa độ Oxyz cho $M(4;5;6)$. Hình chiếu của M xuống mặt phẳng (Oxy) là $M'$. Xác định tọa độ $M'$.</p>
+    <p class="question-title"><strong>Câu 7.</strong> Trong không gian $Oxyz$ cho tam giác $ABC$ có $A(1;-1;1)$, $B(2;1;−2)$, $C(0;0;1)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q7" value="A" id="q7A">
-            <label for="q7A">A. $M'(4;5;0)$</label>
-            <span class="option-icon" id="icon-q7-A"></span>
+        <div class="option-row">a) Toạ độ trọng tâm $G$ của tam giác $ABC$ là $(1;0;0)$.
+            <label><input name="q7a" type="radio" value='True'/> True</label>
+            <label><input name="q7a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="B" id="q7B">
-            <label for="q7B">B. $M'(4;0;6)$</label>
-            <span class="option-icon" id="icon-q7-B"></span>
+        <div class="option-row">b) Toạ độ điểm $E \in Ox$ sao cho $\vec{AE} \perp \vec{BC}$ là $(-1;0;0)$.
+            <label><input name="q7b" type="radio" value='True'/> True</label>
+            <label><input name="q7b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="C" id="q7C">
-            <label for="q7C">C. $M'(4;0;0)$</label>
-            <span class="option-icon" id="icon-q7-C"></span>
+        <div class="option-row">c) Toạ độ điểm $M$ thoả mãn $\vec{AM} = \vec{AB} – \vec{AC}$ là $(3;0;2)$.
+            <label><input name="q7c" type="radio" value='True'/> True</label>
+            <label><input name="q7c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="D" id="q7D">
-            <label for="q7D">D. $M'(0;5;6)$</label>
-            <span class="option-icon" id="icon-q7-D"></span>
+        <div class="option-row">d) Tìm tọa độ trực tâm $H$ của tam giác $ABC$ có toạ độ là $\left(\frac{5}{9};\frac{4}{9};\frac{8}{9}\right)$.
+            <label><input name="q7d" type="radio" value='True'/> True</label>
+            <label><input name="q7d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q7', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q7',[\"True\",\"True\",\"False\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q7"></span>
+    </div>
+    <button onclick="toggleSolution('q7')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q7" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 7</div>
+        <div class="solution-content">
+            <p>a) Đúng: Toạ độ trọng tâm $G$ của tam giác $ABC$ là $(1;0;0).</p>
+            <p>b) Đúng: Vì $E \in Ox \Rightarrow E(x;0;0)$ mà $\vec{AE}</p>
+        </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q8">
-    <p class="question-title"><strong>Câu 8.</strong> Cho đồ thị hàm số $y=\dfrac{2x^2+x-5}{x+3}$ có đường tiệm cận xiên là đường thẳng $\Delta: y=ax+b$ với $a,b \in \mathbb{R}, a \ne 0$. Giá trị của tổng $a+b$ bằng</p>
+    <p class="question-title"><strong>Câu 8.</strong> Trong không gian $Oxyz$ với ba vecto đơn vị $\vec{i},\vec{j},\vec{k}$, cho $A(1;1;2)$, $B(2;-1;0)$, $\vec{u} = (1;-2;-1)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q8" value="A" id="q8A">
-            <label for="q8A">A. -3</label>
-            <span class="option-icon" id="icon-q8-A"></span>
+        <div class="option-row">a) Tích có hướng của hai veccto $\vec{i}$ và $\vec{j}$ là vecto $\vec{k}$.
+            <label><input name="q8a" type="radio" value='True'/> True</label>
+            <label><input name="q8a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="B" id="q8B">
-            <label for="q8B">B. 7</label>
-            <span class="option-icon" id="icon-q8-B"></span>
+        <div class="option-row">b) $[\vec{u},\vec{i}] = (0;1;2)$.
+            <label><input name="q8b" type="radio" value='True'/> True</label>
+            <label><input name="q8b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="C" id="q8C">
-            <label for="q8C">C. 3</label>
-            <span class="option-icon" id="icon-q8-C"></span>
+        <div class="option-row">c) $[\vec{AB},\vec{u}] = (6;1;0)$.
+            <label><input name="q8c" type="radio" value='True'/> True</label>
+            <label><input name="q8c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="D" id="q8D">
-            <label for="q8D">D. -5</label>
-            <span class="option-icon" id="icon-q8-D"></span>
+        <div class="option-row">d) $[\vec{OA},\vec{OB}] = (2;4;-3)$.
+            <label><input name="q8d" type="radio" value='True'/> True</label>
+            <label><input name="q8d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q8', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q8',[\"True\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
         <span id="result-q8"></span>
     </div>
     <button onclick="toggleSolution('q8')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q8" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 8</div>
         <div class="solution-content">
-            Chọn A
-            Ta xét phương trình đường tiệm cận xiên của đồ thị hàm số $y=\dfrac{2x^2+x-5}{x+3}$.
-            Ta có $y = \dfrac{2x^2+x-5}{x+3} = \dfrac{2x(x+3) - 5x - 5}{x+3} = \dfrac{2x(x+3) - 5(x+3) + 10 - 5}{x+3} = 2x - 5 + \dfrac{5}{x+3}$.
-            Suy ra đường tiệm cận xiên là $y=2x-5$.
-            Vậy $a=2, b=-5$. Tổng $a+b=2+(-5)=-3$.
+            <p>a) Đúng: Ta có $\begin{cases}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q9">
-    <p class="question-title"><strong>Câu 9.</strong> Giá trị của tiểu của hàm số $y = -x^4+2x^2+2$ bằng</p>
+    <p class="question-title"><strong>Câu 9.</strong> Trong không gian $Oxyz$, cho ba điểm $A(-1;1;0)$, $B(1;-1;2)$, $C(1;-2;1)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q9" value="A" id="q9A">
-            <label for="q9A">A. 2</label>
-            <span class="option-icon" id="icon-q9-A"></span>
+        <div class="option-row">a) Một vecto pháp tuyến của mặt phẳng $(ABC)$ là $[\vec{AB}, \vec{AC}]$.
+            <label><input name="q9a" type="radio" value='True'/> True</label>
+            <label><input name="q9a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="B" id="q9B">
-            <label for="q9B">B. (0;2)</label>
-            <span class="option-icon" id="icon-q9-B"></span>
+        <div class="option-row">b) Vecto $\vec{n} = (1;2;3)$ là một vecto pháp tuyến của mặt phẳng $(ABC)$.
+            <label><input name="q9b" type="radio" value='True'/> True</label>
+            <label><input name="q9b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="C" id="q9C">
-            <label for="q9C">C. (1;3)</label>
-            <span class="option-icon" id="icon-q9-C"></span>
+        <div class="option-row">c) Vecto $\vec{u} = (1;1;0)$ là một vecto pháp tuyến của mặt phẳng đi qua $O$ và chứa đường thẳng $AB$.
+            <label><input name="q9c" type="radio" value='True'/> True</label>
+            <label><input name="q9c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="D" id="q9D">
-            <label for="q9D">D. 3</label>
-            <span class="option-icon" id="icon-q9-D"></span>
+        <div class="option-row">d) Vecto $\vec{v} = (1;2;3)$ là một vecto pháp tuyến của mặt phẳng song song với hai đường thẳng $AB$ và $OC$.
+            <label><input name="q9d" type="radio" value='True'/> True</label>
+            <label><input name="q9d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q9', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q9',[\"True\",\"False\",\"True\",\"False\"])">✅ Kiểm tra</button>
         <span id="result-q9"></span>
+    </div>
+    <button onclick="toggleSolution('q9')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q9" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 9</div>
+        <div class="solution-content">
+            <p>a) Đúng: Ta có một vecto pháp tuyến của mặt phẳng $(ABC)$ là $[\vec{AB}</p>
+        </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q10">
-    <p class="question-title"><strong>Câu 10.</strong> Giá trị nhỏ nhất của hàm số $f(x)=-x^3-x+2$ trên đoạn $[-2;0]$ bằng?</p>
+    <p class="question-title"><strong>Câu 10.</strong> Cho các điểm $A(1;-2;0); B(2;-1;1); C(1;1;2)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q10" value="A" id="q10A">
-            <label for="q10A">A. 2</label>
-            <span class="option-icon" id="icon-q10-A"></span>
+        <div class="option-row">a) Phương trình mặt phẳng $(ABC)$ là $x+2y-3z-3=0$.
+            <label><input name="q10a" type="radio" value='True'/> True</label>
+            <label><input name="q10a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="B" id="q10B">
-            <label for="q10B">B. -2</label>
-            <span class="option-icon" id="icon-q10-B"></span>
+        <div class="option-row">b) Phương trình mặt phẳng $(\alpha)$ qua $A$ và vuông góc với $BC$ là $x−2y−z-5 = 0$.
+            <label><input name="q10b" type="radio" value='True'/> True</label>
+            <label><input name="q10b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="C" id="q10C">
-            <label for="q10C">C. 0</label>
-            <span class="option-icon" id="icon-q10-C"></span>
+        <div class="option-row">c) Phương trình mặt phẳng trung trực $(\beta)$ của đoạn $AC$ là $6y+4z-1=0$.
+            <label><input name="q10c" type="radio" value='True'/> True</label>
+            <label><input name="q10c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="D" id="q10D">
-            <label for="q10D">D. -8</label>
-            <span class="option-icon" id="icon-q10-D"></span>
+        <div class="option-row">d) Phương trình mặt phẳng $(\gamma)$ chứa trục $Ox$ và điểm $C$ là $2y + z = 0$.
+            <label><input name="q10d" type="radio" value='True'/> True</label>
+            <label><input name="q10d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q10', 'A')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q10',[\"False\",\"True\",\"True\",\"False\"])">✅ Kiểm tra</button>
         <span id="result-q10"></span>
     </div>
     <button onclick="toggleSolution('q10')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q10" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 10</div>
         <div class="solution-content">
-            Chọn A<br>Ta có $f'(x)=-3x^2-1<0, \forall x$. Ta có bảng biến thiên
-            \[
-            \begin{array}{|c|ccccc|}
-            \hline
-            x & -2 & & & 0 \\
-            \hline
-            f'(x) & & - & & \\
-            \hline
-            f(x) & 12 & & & 2 \\
-            & & \searrow & & \\
-            \hline
-            \end{array}
-            \]
-            Từ bảng biến thiên, ta có $\min_{[-2;0]} f(x) = f(0) = 2$.
+            <p>a) Sai: Ta có $\vec{AB}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q11">
-    <p class="question-title"><strong>Câu 11.</strong> Cho hàm số $y = \frac{2x^2-x+7}{x-1}$ có đồ thị (C). Biết rằng (C) có hai điểm cực trị, tính khoảng cách từ điểm $O$ đến đường thẳng đi qua hai điểm cực trị đó.</p>
+    <p class="question-title"><strong>Câu 11.</strong> Trong không gian $Oxyz$, Cho tam giác $ABC$ với $A(1;1;1), B(1;2;2), C(4;1;0)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q11" value="A" id="q11A">
-            <label for="q11A">A. $\frac{1}{5}$</label>
-            <span class="option-icon" id="icon-q11-A"></span>
+        <div class="option-row">a) $\vec{AB} = (0;1;1)$.
+            <label><input name="q11a" type="radio" value='True'/> True</label>
+            <label><input name="q11a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="B" id="q11B">
-            <label for="q11B">B. $\frac{1}{3}$</label>
-            <span class="option-icon" id="icon-q11-B"></span>
+        <div class="option-row">b) Tích có hướng của hai vectơ $\vec{AB}, \vec{AC}$ là $\vec{a} = (-1;3;-3)$.
+            <label><input name="q11b" type="radio" value='True'/> True</label>
+            <label><input name="q11b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="C" id="q11C">
-            <label for="q11C">C. $\frac{\sqrt{17}}{17}$</label>
-            <span class="option-icon" id="icon-q11-C"></span>
+        <div class="option-row">c) $\vec{BC}, \vec{b} = (6;-2;-4)$ là cặp vectơ chỉ phương của mặt phẳng $(ABC)$.
+            <label><input name="q11c" type="radio" value='True'/> True</label>
+            <label><input name="q11c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="D" id="q11D">
-            <label for="q11D">D. $\frac{\sqrt{10}}{10}$</label>
-            <span class="option-icon" id="icon-q11-D"></span>
+        <div class="option-row">d) Vectơ pháp tuyến của mặt phẳng $(AOB)$ là: $\vec{n} = (1;1;2)$.
+            <label><input name="q11d" type="radio" value='True'/> True</label>
+            <label><input name="q11d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q11', 'C')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q11',[\"True\",\"True\",\"False\",\"False\"])">✅ Kiểm tra</button>
         <span id="result-q11"></span>
+    </div>
+    <button onclick="toggleSolution('q11')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q11" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 11</div>
+        <div class="solution-content">
+            <p>a) Đúng: $\vec{AB}</p>
+        </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q12">
-    <p class="question-title"><strong>Câu 12.</strong> Trong không gian với hệ trục tọa độ $Oxyz$, cho $\vec{a} = (2;-3;3)$, $\vec{b} = (0;2;-1)$, $\vec{c} = (3;-1;5)$. Tọa độ của véctơ $\vec{u} = 2\vec{a} + 3\vec{b} - 2\vec{c}$ là:</p>
+    <p class="question-title"><strong>Câu 12.</strong> Trong không gian $Oxyz$, Cho các điểm $A(1;-2;-1), B(4;1;2), C(2;3;1)$. Xét tính đúng sai của các khẳng định sau:</p>
     <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q12" value="A" id="q12A">
-            <label for="q12A">A. $(-2;-2;7)$</label>
-            <span class="option-icon" id="icon-q12-A"></span>
+        <div class="option-row">a) $\vec{AB} = (3;3;3)$.
+            <label><input name="q12a" type="radio" value='True'/> True</label>
+            <label><input name="q12a" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="B" id="q12B">
-            <label for="q12B">B. $(10;-2;13)$</label>
-            <span class="option-icon" id="icon-q12-B"></span>
+        <div class="option-row">b) Ba điểm $A, B, C$ không thẳng hàng.
+            <label><input name="q12b" type="radio" value='True'/> True</label>
+            <label><input name="q12b" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="C" id="q12C">
-            <label for="q12C">C. $(-2;2;-7)$</label>
-            <span class="option-icon" id="icon-q12-C"></span>
+        <div class="option-row">c) Mặt phẳng đi qua 3 điểm $A,B,C$ có vectơ pháp tuyến là: $\vec{a} = (3;1;-4)$.
+            <label><input name="q12c" type="radio" value='True'/> True</label>
+            <label><input name="q12c" type="radio" value="False"/> False</label>
         </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="D" id="q12D">
-            <label for="q12D">D. $(-2;2;7)$</label>
-            <span class="option-icon" id="icon-q12-D"></span>
+        <div class="option-row">d) Mặt phẳng $(\alpha)$ đi qua $A$ đồng thời song song với $Oy$ và đường thẳng $BC$ có vectơ pháp tuyến là: $\vec{n} = (1;0;2)$.
+            <label><input name="q12d" type="radio" value='True'/> True</label>
+            <label><input name="q12d" type="radio" value="False"/> False</label>
         </div>
     </div>
     <div class="answer-check">
-        <button onclick="checkAnswer('q12', 'C')">✅ Kiểm tra</button>
+        <button onclick="checkTrueFalseAnswer('q12',[\"True\",\"True\",\"True\",\"False\"])">✅ Kiểm tra</button>
         <span id="result-q12"></span>
     </div>
     <button onclick="toggleSolution('q12')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
     <div id="solution-q12" class="solution-box" style="display: none;">
         <div class="solution-title">Hướng dẫn giải Câu 12</div>
         <div class="solution-content">
-            Ta có: $2\vec{a} = (4;-6;6)$
-            $3\vec{b} = (0;6;-3)$
-            $2\vec{c} = (6;-2;10)$
-            $\vec{u} = 2\vec{a} + 3\vec{b} - 2\vec{c} = (4+0-6; -6+6-(-2); 6-3-10) = (-2; 2; -7)$.
+            <p>a) Đúng: $\vec{AB}</p>
         </div>
     </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q13">
-<p class="question-title"><strong>Câu 13.</strong> Cho hàm số $y=f(x)$ có bảng biến thiên như hình vẽ bên. Xét tính đúng, sai của các khẳng định sau:</p>
-<img src="data/im/f16.png">
-<div class="options">
-    <div class="option-row">a) Hàm số $f(x)$ đạt cực tiểu tại $x=-2$
-        <label><input name="q13a" type="radio" value="True"/> True</label>
-        <label><input name="q13a" type="radio" value="False"/> False</label>
+    <p class="question-title"><strong>Câu 13.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho 3 điểm $A(a;0;0)$, $B(0;b;0)$, $C(0;0;c)$ với $a, b, c$ đều dương. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Mặt phẳng $(ABC)$ có phương trình $\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1$
+            <label><input name="q13a" type="radio" value='True'/> True</label>
+            <label><input name="q13a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Mặt phẳng $(ABC)$ đi qua điểm $G(1;2;3)$ sao cho $G$ là trọng tâm của $\triangle ABC$ là $6x+3y+2z+18=0$
+            <label><input name="q13b" type="radio" value='True'/> True</label>
+            <label><input name="q13b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Mặt phẳng $(ABC)$ đi qua điểm $H(1;1;1)$ sao cho $H$ là trực tâm $\triangle ABC$ là $x+y+z-3=0$
+            <label><input name="q13c" type="radio" value='True'/> True</label>
+            <label><input name="q13c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Mặt phẳng $(ABC)$ đi qua điểm $M (2;-2;3)$ sao cho độ dài $OA, OB, OC$ theo thứ tự tạo thành cấp số cộng có công sai bằng $2$. Khoảng cách từ gốc tọa độ $O$ tới mặt phẳng $(\alpha)$ bằng $\frac{m}{n}$ với $\frac{m}{n}$ là phân số tối giản, khi đó $T = m + n = 19$.
+            <label><input name="q13d" type="radio" value='True'/> True</label>
+            <label><input name="q13d" type="radio" value="False"/> False</label>
+        </div>
     </div>
-    <div class="option-row">b) Điểm cực tiểu của đồ thị hàm số $y=f(x)$ là $(-2;-1)$
-        <label><input name="q13b" type="radio" value="True"/> True</label>
-        <label><input name="q13b" type="radio" value="False"/> False</label>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q13',[\"True\",\"False\",\"True\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q13"></span>
     </div>
-    <div class="option-row">c) Đường thẳng $y=x+1$ đi qua hai điểm cực trị của đồ thị hàm số đã cho
-        <label><input name="q13c" type="radio" value="True"/> True</label>
-        <label><input name="q13c" type="radio" value="False"/> False</label>
+    <button onclick="toggleSolution('q13')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q13" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 13</div>
+        <div class="solution-content">
+            <p>a) Đúng: Theo phương trình mặt phẳng theo đoạn chắn ta có mặt phẳng $(ABC)$ có phương trình $\frac{x}</p>
+        </div>
     </div>
-    <div class="option-row">d) Hàm số $y=g(x)=f(2x-3)$ đạt cực tiểu tại điểm $x=\dfrac{5}{2}$
-        <label><input name="q13d" type="radio" value="True"/> True</label>
-        <label><input name="q13d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q13',['True','True','True','False'])">✅ Kiểm tra</button>
-    <span id="result-q13"></span>
-</div>
-<button onclick="toggleSolution('q13')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q13" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 13</div>
-    <div class="solution-content">
-        \begin{enumerate}[label=\textbf{\alph*)},leftmargin=*]
-        \item \textbf{Đúng}. Dựa vào bảng biến thiên, hàm số đạt cực tiểu tại $x=-2$ và giá trị cực tiểu là $-1$.
-        \item \textbf{Đúng}. Điểm cực tiểu của đồ thị hàm số là $(-2;-1)$.
-        \item \textbf{Đúng}. Hai điểm cực trị của đồ thị hàm số là $A(-2;-1)$ và $B(0;1)$.
-        Đường thẳng đi qua hai điểm $A,B$ có phương trình: $\dfrac{x-(-2)}{0-(-2)} = \dfrac{y-(-1)}{1-(-1)} \Leftrightarrow \dfrac{x+2}{2} = \dfrac{y+1}{2} \Leftrightarrow x+2=y+1 \Leftrightarrow y=x+1$.
-        \item \textbf{Sai}.
-        $g(x) = f(2x-3)$.
-        $g'(x) = 2f'(2x-3)$.
-        $g'(x) = 0 \Leftrightarrow f'(2x-3) = 0 \Leftrightarrow \begin{cases} 2x-3 = -2 \\ 2x-3 = 0 \end{cases} \Leftrightarrow \begin{cases} 2x = 1 \\ 2x = 3 \end{cases} \Leftrightarrow \begin{cases} x = \dfrac{1}{2} \\ x = \dfrac{3}{2} \end{cases}$.
-        Bảng biến thiên của $g(x)$:
-        \[
-        \begin{array}{|c|cccccccc|}
-        \hline
-        2x-3 & -\infty & & -2 & & 0 & & +\infty \\
-        \hline
-        f'(2x-3) & & + & 0 & - & 0 & + & \\
-        \hline
-        g'(x) & & + & 0 & - & 0 & + & \\
-        \hline
-        g(x) & & \nearrow & f(-2) & \searrow & f(0) & \nearrow & \\
-        \hline
-        x & -\infty & & \dfrac{1}{2} & & \dfrac{3}{2} & & +\infty \\
-        \hline
-        g'(x) & & + & 0 & - & 0 & + & \\
-        \hline
-        g(x) & & \nearrow & -1 & \searrow & 1 & \nearrow & \\
-        \hline
-        \end{array}
-        \]
-        Hàm số $y=g(x)$ đạt cực tiểu tại $x=\dfrac{1}{2}$ và $x=\dfrac{3}{2}$. Phát biểu d) sai.
-        \end{enumerate}
-    </div>
-</div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q14">
-<p class="question-title"><strong>Câu 14.</strong> Trong không gian Oxyz, cho $\vec{a} = (2;-1;3), \vec{b} = (-1;5;2)$</p>
-<div class="options">
-    <div class="option-row">a) $\vec{a}+\vec{b}=(-3;6;-1)$
-        <label><input name="q14a" type="radio" value="True"/> True</label>
-        <label><input name="q14a" type="radio" value="False"/> False</label>
+    <p class="question-title"><strong>Câu 14.</strong> Trong không gian $Oxyz$, cho ba điểm $A(1;1;1); B(1;-2;3); C(2;-1;2)$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Ba điểm $A,B,C$ đã cho thẳng hàng.
+            <label><input name="q14a" type="radio" value='True'/> True</label>
+            <label><input name="q14a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Có vô số mặt phẳng đi qua ba điểm $A,B,C$ đã cho.
+            <label><input name="q14b" type="radio" value='True'/> True</label>
+            <label><input name="q14b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Mặt phẳng $(ABC)$ có một vectơ pháp tuyến $\vec{n} = (1;2;3)$.
+            <label><input name="q14c" type="radio" value='True'/> True</label>
+            <label><input name="q14c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Mặt phẳng $(ABC)$ có phương trình là $x + 2y+3z-6=0$.
+            <label><input name="q14d" type="radio" value='True'/> True</label>
+            <label><input name="q14d" type="radio" value="False"/> False</label>
+        </div>
     </div>
-    <div class="option-row">b) $\vec{a}-\vec{b}=(3;-6;1)$
-        <label><input name="q14b" type="radio" value="True"/> True</label>
-        <label><input name="q14b" type="radio" value="False"/> False</label>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q14',[\"False\",\"False\",\"True\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q14"></span>
     </div>
-    <div class="option-row">c) $3\vec{b}=(-3;15;6)$
-        <label><input name="q14c" type="radio" value="True"/> True</label>
-        <label><input name="q14c" type="radio" value="False"/> False</label>
+    <button onclick="toggleSolution('q14')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q14" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 14</div>
+        <div class="solution-content">
+            <p>a) Sai: Ta có: $\vec{AB}</p>
+        </div>
     </div>
-    <div class="option-row">d) $2\vec{a}-\vec{b}=(5;-7;4)$
-        <label><input name="q14d" type="radio" value="True"/> True</label>
-        <label><input name="q14d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q14',['False','True','True','True'])">✅ Kiểm tra</button>
-    <span id="result-q14"></span>
-</div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q15">
-<p class="question-title"><strong>Câu 15.</strong> Trong không gian Oxyz, cho hình hộp $ABCD.A'B'C'D'$. Biết A(2;4;0), B(4;0;0) C(-1;4;-7) và D'(6;8;10).</p>
-<div class="options">
-    <div class="option-row">a) $\vec{BC} = (-5;4;-7)$
-        <label><input name="q15a" type="radio" value="True"/> True</label>
-        <label><input name="q15a" type="radio" value="False"/> False</label>
+    <p class="question-title"><strong>Câu 15.</strong> Trong không gian $Oxyz$, cho điểm $A(2;0;-3)$ và các $\vec{u} = (-1;-2;5)$, $\vec{v} = (3;-1;-2)$. Mặt phẳng $(\alpha)$ đi qua $A$ và nhận $\vec{u},\vec{v}$ làm cặp vectơ chỉ phương. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Một vectơ pháp tuyến của mặt phẳng $(\alpha)$ là $\vec{n} = (9;13;7)$.
+            <label><input name="q15a" type="radio" value='True'/> True</label>
+            <label><input name="q15a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Phương trình mặt phẳng $(\alpha): 9x +13y+7z - 2 = 0$.
+            <label><input name="q15b" type="radio" value='True'/> True</label>
+            <label><input name="q15b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Mặt phẳng $(\alpha)$ đi qua điểm $M (1;-2;-3)$.
+            <label><input name="q15c" type="radio" value='True'/> True</label>
+            <label><input name="q15c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Mặt phẳng $(R)$ đi qua $M$ song song với $(\alpha)$ có phương trình $x + 2y +5z+18=0$.
+            <label><input name="q15d" type="radio" value='True'/> True</label>
+            <label><input name="q15d" type="radio" value="False"/> False</label>
+        </div>
     </div>
-    <div class="option-row">b) $\vec{BA}-\vec{BC} = (3;0;7)$
-        <label><input name="q15b" type="radio" value="True"/> True</label>
-        <label><input name="q15b" type="radio" value="False"/> False</label>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q15',[\"True\",\"False\",\"False\",\"False\"])">✅ Kiểm tra</button>
+        <span id="result-q15"></span>
     </div>
-    <div class="option-row">c) $D(3;-8;7)$
-        <label><input name="q15c" type="radio" value="True"/> True</label>
-        <label><input name="q15c" type="radio" value="False"/> False</label>
+    <button onclick="toggleSolution('q15')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q15" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 15</div>
+        <div class="solution-content">
+            <p>a) Đúng: Mặt phẳng $(\alpha)$ nhận $\vec{u}</p>
+        </div>
     </div>
-    <div class="option-row">d) $B'(13;0;17)$
-        <label><input name="q15d" type="radio" value="True"/> True</label>
-        <label><input name="q15d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q15',['True','True','False','True'])">✅ Kiểm tra</button>
-    <span id="result-q15"></span>
-</div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q16">
-<p class="question-title"><strong>Câu 16.</strong> Quan sát quá trình sinh trưởng và phát triển của một giống cà chua mới trong 18 tuần kể từ khi trồng, các kĩ sư thuộc một trung tâm giống cây trồng nhận thấy: chiều cao thân cây sau t tuần kể từ khi trồng được tính xấp xỉ bởi hàm số $h(t)=40\log_3(2t+1)+12$ (đơn vị: centimet, $0 \le t \le 18$). Sau 9 tuần kể từ khi trồng, hoa bắt đầu kết trái. Kể từ đó, đường kính trái cà chua ở tuần thứ $t$ xấp xỉ bởi hàm số $d(t)=3^{\frac{2t-17}{t-8}}-3$ (đơn vị: centimet, $9 \le t \le 18$).</p>
-<div class="options">
-    <div class="option-row">a) Tốc độ tăng trưởng chiều cao của thân cây cà chua ở tuần thứ 7 (làm tròn đến hàng phần trăm) xấp xỉ bằng 4,85 (cm/tuần)
-        <label><input name="q16a" type="radio" value="True"/> True</label>
-        <label><input name="q16a" type="radio" value="False"/> False</label>
+    <p class="question-title"><strong>Câu 16.</strong> Trong không gian với hệ trục tọa độ $Oxyz$, cho điểm $M(-2;1;3)$. Mặt phẳng $(P)$ đi qua điểm $M$ và cắt ba trục tọa độ tại các điểm $A,B,C$ khác gốc tọa độ $O$ sao cho tam giác $ABC$ có trực tâm $M$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Hình chiếu của điểm $M$ trên trục $Ox$ là $H(-2;0;0)$.
+            <label><input name="q16a" type="radio" value='True'/> True</label>
+            <label><input name="q16a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Mặt phẳng $(P)$ có một véctơ pháp tuyến là $\vec{n} = (2;-1;3)$.
+            <label><input name="q16b" type="radio" value='True'/> True</label>
+            <label><input name="q16b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Phương trình mặt phẳng $(P)$ là $2x − y − 3z + 14 = 0$
+            <label><input name="q16c" type="radio" value='True'/> True</label>
+            <label><input name="q16c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Mặt phẳng $(Q): x−y+z-3=0$ vuông góc với $(P)$.
+            <label><input name="q16d" type="radio" value='True'/> True</label>
+            <label><input name="q16d" type="radio" value="False"/> False</label>
+        </div>
     </div>
-    <div class="option-row">b) Khi được 4 tuần tuổi, chiều cao của thân cây cà chua là 92 cm
-        <label><input name="q16b" type="radio" value="True"/> True</label>
-        <label><input name="q16b" type="radio" value="False"/> False</label>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q16',[\"True\",\"True\",\"True\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q16"></span>
     </div>
-    <div class="option-row">c) Chiều cao của thân cây cà chua liên tục tăng trong suốt 18 tuần
-        <label><input name="q16c" type="radio" value="True"/> True</label>
-        <label><input name="q16c" type="radio" value="False"/> False</label>
+    <button onclick="toggleSolution('q16')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q16" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 16</div>
+        <div class="solution-content">
+            <p>a) Đúng:</p>
+            <p>b) Đúng:</p>
+            <p>Do tứ diện $OABC$ vuông tại $O$ và $M(−2;1;3)$ là trực tâm của $\triangle ABC$ nên $\vec{OM}</p>
+        </div>
     </div>
-    <div class="option-row">d) Sau 4 tuần, kể từ khi kết trái, đường kính trái cà chua lớn hơn 12cm
-        <label><input name="q16d" type="radio" value="True"/> True</label>
-        <label><input name="q16d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q16',['True','True','True','False'])">✅ Kiểm tra</button>
-    <span id="result-q16"></span>
-</div>
-<button onclick="toggleSolution('q16')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q16" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 16</div>
-    <div class="solution-content">
-        a) \textbf{Đúng}.
-        $h'(t) = \left(40\log_3(2t+1)+12\right)' = 40 \cdot \dfrac{2}{(2t+1)\ln 3} = \dfrac{80}{(2t+1)\ln 3}$.
-        $h'(7) = \dfrac{80}{(2 \cdot 7 + 1)\ln 3} = \dfrac{80}{15\ln 3} = \dfrac{16}{3\ln 3} \approx 4,85$ (cm/tuần).
-        b) \textbf{Đúng}.
-        $h(4) = 40\log_3(2 \cdot 4 + 1) + 12 = 40\log_3 9 + 12 = 40 \cdot 2 + 12 = 80 + 12 = 92$ (cm).
-        c) \textbf{Đúng}.
-        $h'(t) = \dfrac{80}{(2t+1)\ln 3}$. Với $0 \le t \le 18$, ta có $2t+1 > 0$ và $\ln 3 > 0$, suy ra $h'(t) > 0$.
-        Vậy chiều cao của thân cây cà chua liên tục tăng trong suốt 18 tuần.
-        d) \textbf{Sai}.
-        Sau 4 tuần kể từ khi kết trái, tức là $t = 9+4=13$.
-        Đường kính trái cà chua ở tuần thứ 13 là $d(13) = 3^{\frac{2 \cdot 13 - 17}{13 - 8}} - 3 = 3^{\frac{26 - 17}{5}} - 3 = 3^{\frac{9}{5}} - 3 \approx 3^{1.8} - 3 \approx 7,5 - 3 = 4,5$ (cm).
-        Vì $4,5 < 12$ nên phát biểu d) là sai.
-    </div>
-</div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q17">
-<p class="question-title"><strong>Câu 17.</strong> Một nhà máy sản xuất x sản phẩm trong mỗi tháng. Chi phí sản xuất x sản phẩm được cho bởi hàm chi phí $C(x)=16000+500x-1,6x^2+0,004x^3$ (nghìn đồng). Biết giá bán của mỗi sản phẩm là một hàm số phụ thuộc vào số lượng sản phẩm x và được cho bởi công thức $p(x)=1700-7x$ (nghìn đồng). Hỏi mỗi tháng nhà máy nên sản xuất bao nhiêu sản phẩm để lợi nhuận thu được là lớn nhất? Biết rằng kết quả khảo sát thị trường cho thấy sản phẩm sản xuất ra sẽ tiêu thụ hết.</p>
-<div class="answer-check">
-<input id="input-q17" placeholder="Nhập kết quả (ví dụ: 100)" type="text"/>
-<button onclick="checkShortAnswer('q17','100')">✅ Kiểm tra</button>
-<span id="icon-q17"></span>
-</div>
-<div id="result-q17"></div>
-<button onclick="toggleSolution('q17')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q17" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 17</div>
-    <div class="solution-content">
-        +) Số tiền nhà máy thu được khi bán hết x sản phẩm là: $x.p(x)=1700x-7x^2$ (nghìn đồng).
-        Lợi nhuận nhà máy thu được khi sản xuất và bán hết x sản phẩm là: $L(x) = x.p(x)-C(x)=(1700x-7x^2)-(16000+500x-1,6x^2+0,004x^3) = -0,004x^3-5,4x^2+1200x-16000$ (với $x>0$).
-        +) Xét hàm số $f(x)=-0,004x^3-5,4x^2+1200x-16000$ trên $(0;+\infty)$.
-        Ta có $f'(x)=-0,012x^2-10,8x+1200; f'(x)=0 \Leftrightarrow \begin{cases} x=100 \\ x=-1000 \text{ (loại)} \end{cases}$.
-        Bảng biến thiên:
-        \[
-        \begin{array}{|c|cccc|}
-        \hline
-        x & 0 & & 100 & & +\infty \\
-        \hline
-        f'(x) & & + & 0 & - & \\
-        \hline
-        f(x) & & \nearrow & f(100) & \searrow & \\
-        \hline
-        \end{array}
-        \]
-        Lợi nhuận lớn nhất khi $x=100$.
-        <strong>Đáp số:</strong> 100
+    <p class="question-title"><strong>Câu 17.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho các điểm $A(1;1;3), B(-1;3;2), C(-1;2;3)$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Vectơ $\vec{AB}$ và $\vec{AC}$ cùng phương.
+            <label><input name="q17a" type="radio" value='True'/> True</label>
+            <label><input name="q17a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Điểm $G \left(-\frac{1}{3};2;\frac{8}{3}\right)$ là trọng tâm tam giác $ABC$.
+            <label><input name="q17b" type="radio" value='True'/> True</label>
+            <label><input name="q17b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Mặt phẳng $(ABC)$ có phương trình là: $x + ay + bz + c = 0$. Khi đó $a + b + c = 4$
+            <label><input name="q17c" type="radio" value='True'/> True</label>
+            <label><input name="q17c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Điểm $M (1;2;3)$ thuộc mặt phẳng $(ABC)$.
+            <label><input name="q17d" type="radio" value='True'/> True</label>
+            <label><input name="q17d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q17',[\"False\",\"True\",\"False\",\"False\"])">✅ Kiểm tra</button>
+        <span id="result-q17"></span>
+    </div>
+    <button onclick="toggleSolution('q17')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q17" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 17</div>
+        <div class="solution-content">
+            <p>a) Sai: $\vec{AB}</p>
+        </div>
     </div>
 </div>
-</div>
 </section>
-
 <section>
 <div class="question" id="q18">
-<p class="question-title"><strong>Câu 18.</strong> Cho hình chóp S.ABCD có đáy là hình vuông cạnh bằng 5, $SA = 2$ và $SA \perp (ABCD)$. Chọn hệ trục Oxyz có gốc toạ độ tại A; các điểm B, D, S lần lượt trên các tia Ox, Oy, Oz. Tọa độ điểm $C(x;y;z)$. Tính $P = x^3+y^3+z^3$.</p>
-<div class="answer-check">
-<input id="input-q18" placeholder="Nhập kết quả (ví dụ: 250)" type="text"/>
-<button onclick="checkShortAnswer('q18','250')">✅ Kiểm tra</button>
-<span id="icon-q18"></span>
-</div>
-<div id="result-q18"></div>
-</div>
-</section>
-
-<section>
-<div class="question" id="q19">
-<p class="question-title"><strong>Câu 19.</strong> Một máy bay trình diễn có đường bay gắn với hệ trục $Oxy$ được mô phỏng như hình vẽ, trục $Ox$ gắn với mặt đất.<br>Đường bay có dạng là một phần của đồ thị hàm phân thức bậc hai trên bậc nhất $y=f(x)$ có đường tiệm cận đứng là $x=2$. Điểm $G$ là giao điểm của đường tiệm cận xiên của đồ thị hàm số $y=f(x)$ và trục $Ox$ được gọi là điểm giới hạn. Biết máy bay bay từ vị trí $A$ cách tọa tọa độ $O$ một khoảng 2,5 đơn vị và máy bay khi ở vị trí cao nhất cũng là điểm cực đại của hàm số cách điểm xuất phát 1,5 đơn vị theo phương song song với trục $Ox$ và cách mặt đất 4,5 đơn vị. Vị trí máy bay tiếp đất cách điểm giới hạn một khoảng bằng bao nhiêu?</p>
-<img src="data/im/e-080.png">
-<div class="answer-check">
-<input id="input-q19" placeholder="Nhập kết quả (ví dụ: 0.5)" type="text"/>
-<button onclick="checkShortAnswer('q19','0.5')">✅ Kiểm tra</button>
-<span id="icon-q19"></span>
-</div>
-<div id="result-q19"></div>
-</div>
-</section>
-
-<section>
-<div class="question" id="q20">
-<p class="question-title"><strong>Câu 20.</strong> Nhà máy A chuyên sản xuất một loại sản phẩm cho nhà máy B. Hai nhà máy thỏa thuận, mỗi tháng A cung cấp cho B tối đa 45 tấn sản phẩm và nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm là $P(x)=60-0,01x^2$ (triệu đồng). Chi phí để nhà máy A sản xuất x tấn sản phẩm trong một tháng là $C(x)=150+33x$ (triệu đồng) (gồm 150 triệu đồng chi phí cố định và 33 triệu đồng cho mỗi tấn sản phẩm). Để mỗi tháng thu được lợi nhuận lớn nhất thì A cần bán cho B bao nhiêu tấn sản phẩm?</p>
-<div class="answer-check">
-<input id="input-q20" placeholder="Nhập kết quả (ví dụ: 30)" type="text"/>
-<button onclick="checkShortAnswer('q20','30')">✅ Kiểm tra</button>
-<span id="icon-q20"></span>
-</div>
-<div id="result-q20"></div>
-<button onclick="toggleSolution('q20')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q20" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 20</div>
-    <div class="solution-content">
-        Doanh thu là $D(x)=x(60-0,01x^2)=60x-0,01x^3$ ($x>0$)
-        Lợi nhuận thu được là $L(x)=D(x)-C(x)=60x-0,01x^3-(150+33x)=-0,01x^3+27x-150$.
-        Ta có $L'(x)=-0,03x^2+27=0 \Leftrightarrow x^2=900 \Leftrightarrow \begin{cases} x=30 \\ x=-30 \text{ (loại)} \end{cases}$.
-        Doanh thu là $D(x)=x(60-0,01x^2)=60x-0,01x^3$ ($x>0$)
-        Bảng biến thiên:
-        \[
-        \begin{array}{|c|ccccc|}
-        \hline
-        x & 0 & & 30 & & 45 \\
-        \hline
-        L'(x) & & + & 0 & - & \\
-        \hline
-        L(x) & & \nearrow & L(30) & \searrow & \\
-        \hline
-        \end{array}
-        \]
-        $L(30) = -0,01(30)^3 + 27(30) - 150 = -270 + 810 - 150 = 390$.
-        $L(45) = -0,01(45)^3 + 27(45) - 150 = -911.25 + 1215 - 150 = 153.75$.
-        Giá trị lớn nhất của L(x) là 390 khi x = 30.
-        <strong>Đáp số:</strong> 30
+    <p class="question-title"><strong>Câu 18.</strong> Trong không gian $Oxyz$, cho điểm $A(2;-3;1)$ và mặt phẳng $(\alpha):x+2y-z+1=0$. $(P)$ là mặt phẳng đi qua $A$ và song song với $(\alpha)$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Mọi mặt phẳng có pt dạng $x + 2y - z + m = 0$ ($m$ là tham số thực) đều song song với $(\alpha)$.
+            <label><input name="q18a" type="radio" value='True'/> True</label>
+            <label><input name="q18a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) $(P)$ vuông góc với mặt phẳng $(Q): 2x – 3y - 4z = 0$.
+            <label><input name="q18b" type="radio" value='True'/> True</label>
+            <label><input name="q18b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) $(P)$ có phương trình dạng $ax + by + cz + d = 0$ với $\frac{a}{d} = \frac{1}{5}$.
+            <label><input name="q18c" type="radio" value='True'/> True</label>
+            <label><input name="q18c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) $(P)$ đi qua điểm $M (1;2;-1)$.
+            <label><input name="q18d" type="radio" value='True'/> True</label>
+            <label><input name="q18d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q18',[\"False\",\"True\",\"True\",\"False\"])">✅ Kiểm tra</button>
+        <span id="result-q18"></span>
+    </div>
+    <button onclick="toggleSolution('q18')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q18" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 18</div>
+        <div class="solution-content">
+            <p>a) Sai: Nếu $m = 1$ thì mặt phẳng đó sẽ trùng với mặt phẳng $(\alpha)$.</p>
+            <p>b) Đúng: Do $(P)//(\alpha) \Rightarrow$ Vectơ pháp tuyến lần lượt là $\vec{n_P}</p>
+        </div>
     </div>
 </div>
+</section>
+<section>
+<div class="question" id="q19">
+    <p class="question-title"><strong>Câu 19.</strong> Trong không gian $Oxyz$, cho điểm $A(0;2;-2)$ và các mặt phẳng $(\alpha):x+2y-2z-1=0$, $(\beta) : x + 2y - 2z + 5 = 0$.</p>
+    <div class="options">
+        <div class="option-row">a) Gọi $(P)$ là mặt phẳng đi qua điểm $A$ và song song với $(\alpha)$. Giao điểm của $(P)$ và trục $Ox$ là $I(8;0;0)$.
+            <label><input name="q19a" type="radio" value='True'/> True</label>
+            <label><input name="q19a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Mặt phẳng song song và cách đều 2 mặt phẳng $(\alpha), (\beta)$ có phương trình là $x + 2y-2z + 2 = 0$.
+            <label><input name="q19b" type="radio" value='True'/> True</label>
+            <label><input name="q19b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Mặt phẳng đối xứng với mặt phẳng $(\alpha)$ qua mặt phẳng $(\beta)$ có phương trình là $x+2y-2z+11=0$.
+            <label><input name="q19c" type="radio" value='True'/> True</label>
+            <label><input name="q19c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Gọi $H$ là hình chiếu của điểm $A$ trên mặt phẳng $(\alpha)$. Mặt phẳng đi qua điểm $H$ và song song với mặt phẳng $(Oyz)$ có phương trình là $9x + 7 = 0$.
+            <label><input name="q19d" type="radio" value='True'/> True</label>
+            <label><input name="q19d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q19',[\"True\",\"True\",\"True\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q19"></span>
+    </div>
+    <button onclick="toggleSolution('q19')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q19" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 19</div>
+        <div class="solution-content">
+            <p>a) Đúng: $(P)$ song song với $(\alpha)$ nên có VTPT $\vec{n_P}</p>
+        </div>
+    </div>
 </div>
 </section>
-
+<section>
+<div class="question" id="q20">
+    <p class="question-title"><strong>Câu 20.</strong> Trong không gian với hệ toạ độ $Oxyz$, cho mặt phẳng $(P): x - 2y+2z-5 = 0$ và hai điểm $A(-3;0;1), B(0;-1;3)$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Vectơ pháp tuyến của mặt phẳng $(P)$ là $\vec{n} = (-1;2;-2)$.
+            <label><input name="q20a" type="radio" value='True'/> True</label>
+            <label><input name="q20a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Điểm $A, B$ nằm về cùng phía của mặt phẳng $(P)$.
+            <label><input name="q20b" type="radio" value='True'/> True</label>
+            <label><input name="q20b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Mặt phẳng $(Q)$ chứa $A, B$ và vuông góc với mặt phẳng $(P)$ đi qua điểm $M (-2;-2;3)$.
+            <label><input name="q20c" type="radio" value='True'/> True</label>
+            <label><input name="q20c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Mặt phẳng $(R)$ đi qua $A$ song song với $(P)$ có phương trình $x - 2y+2z-1=0$.
+            <label><input name="q20d" type="radio" value='True'/> True</label>
+            <label><input name="q20d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q20',[\"True\",\"False\",\"True\",\"False\"])">✅ Kiểm tra</button>
+        <span id="result-q20"></span>
+    </div>
+    <button onclick="toggleSolution('q20')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q20" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 20</div>
+        <div class="solution-content">
+            <p>a) Đúng: Từ phương trình mặt phẳng $(P): x - 2y + 2z - 5 = 0$ suy ra một vectơ pháp tuyến của $(P)$ là $\vec{n_P}</p>
+        </div>
+    </div>
+</div>
+</section>
 <section>
 <div class="question" id="q21">
-<p class="question-title"><strong>Câu 21.</strong> Trong không gian Oxyz, cho hình chóp S.ABCD có đáy ABCD là hình thoi cạnh bằng 5, giao điểm hai đường chéo AC và BD trùng với gốc O. Các vectơ $\vec{OB}, \vec{OC}, \vec{OS}$ lần lượt cùng hướng với $\vec{i}, \vec{j}, \vec{k}$ và $OA = OS=4$ như hình bên dưới. Toạ độ vectơ $\vec{AM} = (a;b;c)$ với M là trung điểm của cạnh SC, khi đó $a+b+c$ bằng bao nhiêu?</p>
-<img src="data/im/e-067.png">
-<div class="answer-check">
-<input id="input-q21" placeholder="Nhập kết quả (ví dụ: 8)" type="text"/>
-<button onclick="checkShortAnswer('q21','8')">✅ Kiểm tra</button>
-<span id="icon-q21"></span>
-</div>
-<div id="result-q21"></div>
+    <p class="question-title"><strong>Câu 21.</strong> Phần mềm điều khiển máy in 3D cho biết đầu in phun của máy đang đặt tại điểm $M(13;5;8)$ (đơn vị cm). Tính khoảng cách từ đầu in đến khay đặt vật in có phương trình $x - 3 = 0$ ?</p>
+    <div class="answer-check">
+        <input type="text" id="input-q21" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q21','10')">✅ Kiểm tra</button>
+        <span id="icon-q21"></span>
+    </div>
+    <div id="result-q21"></div>
+    <button onclick="toggleSolution('q21')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q21" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 21</div>
+        <div class="solution-content">
+            <p>Ta có phương trình mặt phẳng là $(P): x-3= 0</p>
+            <p>Khoảng cách từ đầu in đến khay đặt vật là: $d(M;(P)) = \frac{|13-3|}</p>
+        </div>
+    </div>
 </div>
 </section>
-
 <section>
 <div class="question" id="q22">
-<p class="question-title"><strong>Câu 22.</strong> Một chiếc ô tô được đặt trên mặt đáy dưới của một khung sắt có dạng hình hộp chữ nhật với đáy trên là hình chữ nhật $ABCD$, mặt phẳng $(ABCD)$ song song với mặt phẳng nằm ngang. Khung sắt đó được buộc vào móc $E$ của chiếc cần cẩu sao cho các đoạn dây cáp $EA, EB, EC, ED$ có độ dài bằng nhau và cùng tạo với mặt phẳng $(ABCD)$ một góc bằng 60° (hình vẽ).
-	
-	Chiếc cần cẩu kéo khung sắt lên theo phương thẳng đứng. Trọng lượng của chiếc xe ô tô bằng bao nhiêu Niutơn? (làm tròn đến hàng đơn vị), biết rằng các lực căng $\vec{F_1}, \vec{F_2}, \vec{F_3}, \vec{F_4}$ đều có cường độ là 3500N và trọng lượng của khung sắt là 2500N.</p>
-<img src="data/im/e-010.png">
-<div class="answer-check">
-<input id="input-q22" placeholder="Nhập kết quả (ví dụ: 9624)" type="text"/>
-<button onclick="checkShortAnswer('q22','9624')">✅ Kiểm tra</button>
-<span id="icon-q22"></span>
+    <p class="question-title"><strong>Câu 22.</strong> Trong giờ thể dục học về kỹ thuật chuyền bóng hơi, Bình và An tập chuyền bóng cho nhau. Ở một động tác Bình chuyền bóng cho An, quả bóng bay lên cao nhưng lại lệch sang bên trái của An và rơi xuống vị trí cách chỗ An đứng 0,5m và cách chỗ Bình 4,5m. Chọn hệ trục tọa độ $Oxyz$ sao cho gốc tọa độ $O$ tại vị trí của Bình, vị trí của An nằm trên tia $Ox$ và mặt phẳng $Oxy$ là mặt đất (tham khảo hình vẽ)
+    
+    Biết rằng quỹ đạo của quả bóng nằm trong mặt phẳng $(\alpha):x+by+cz+d=0$ và $(\alpha)$ vuông góc với mặt đất. Khi đó, giá trị của $-5b^2 – c^2 +3d^2$ bằng bao nhiêu?</p>
+    <img src="data/im/ptmptt-c2.png">
+    <div class="answer-check">
+        <input type="text" id="input-q22" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q22','-400.')">✅ Kiểm tra</button>
+        <span id="icon-q22"></span>
+    </div>
+    <div id="result-q22"></div>
+    <button onclick="toggleSolution('q22')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q22" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 22</div>
+        <div class="solution-content">
+            <p>Quả bóng rơi xuống tại điểm $A(\sqrt{20}</p>
+        </div>
+    </div>
 </div>
-<div id="result-q22"></div>
+</section>
+<section>
+<div class="question" id="q23">
+    <p class="question-title"><strong>Câu 23.</strong> Hình vẽ bên minh họa hình ảnh một tòa nhà trong không gian với hệ tọa độ $Oxyz$ (đơn vị trên mỗi trục tọa độ là mét). Biết $OABC.DEFG$ là hình chóp cụt có hai đáy nằm trên hai mặt phẳng song song, $OABC$ là hình chữ nhật nằm trong mặt phẳng $(Oxy)$, $OA=100m$, $OC = 60m$ và điểm $D(10;10;8)$. Khoảng cách từ $B$ đến mặt phẳng $(OCGD)$ bằng bao nhiêu mét? (kết quả làm tròn đến hàng phần chục)?</p>
+    <img src="data/im/ptmptt-c3.png">
+    <div class="answer-check">
+        <input type="text" id="input-q23" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q23','62,5.')">✅ Kiểm tra</button>
+        <span id="icon-q23"></span>
+    </div>
+    <div id="result-q23"></div>
+    <button onclick="toggleSolution('q23')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q23" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 23</div>
+        <div class="solution-content">
+            <p>Từ hình vẽ ta có $B(100;60;0), C(0;60;0).</p>
+            <p>Khi đó $\vec{OC}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q24">
+    <p class="question-title"><strong>Câu 24.</strong> Trong không gian $Oxyz$ (đơn vị trên mỗi trục tọa độ là mét), một ngôi nhà như hình vẽ dưới đây có sàn nhà nằm ngang trên mặt phẳng $(\alpha): 2x+y-3z+18=0$. Hai mái nhà lần lượt nằm trên các mặt phẳng $(P):x−y=0$, $(Q): x+y-2z = 0 $. Hỏi chiều cao của ngôi nhà tính từ sàn nhà đến nóc nhà (điểm cao nhất của mái nhà) là bao nhiêu? (làm tròn đến hàng phần chục)</p>
+    <img src="data/im/ptmptt-c4.png">
+    <div class="answer-check">
+        <input type="text" id="input-q24" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q24','4,8.')">✅ Kiểm tra</button>
+        <span id="icon-q24"></span>
+    </div>
+    <div id="result-q24"></div>
+    <button onclick="toggleSolution('q24')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q24" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 24</div>
+        <div class="solution-content">
+            <p>Cần tìm tọa độ một điểm thuộc đường thẳng giao tuyến của hai mặt phẳng $(P)$ và $(Q)</p>
+            <p>Cho $y = 0$, ta giải hệ phương trình:</p>
+            <p>$\begin{cases}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q25">
+    <p class="question-title"><strong>Câu 25.</strong> Trong không gian ba chiều $Oxyz$, tọa độ các khu vực được xác định như sau:
+    
+    Khu vực $A(30;20;0)$ nằm trên mặt đất, cách trung tâm thành phố $3km$.
+    Khu vực $B(70;50;40)$ nằm trên tòa nhà cao tầng và ở độ cao $40m$.
+    Khu vực $C(50;80;70)$ nằm trên một đỉnh đồi ở độ cao $70m$.
+    Gọi vị trí lắp đặt trạm phát sóng là $D(a;b;c)$ sao cho khoảng cách từ $D$ đến ba khu vực kể trên là bằng nhau và có khoảng cách đến chúng là nhỏ nhất. Tính $T =a+b+c$ (Kết quả làm tròn đến hàng đơn vị).</p>
+    <img src="data/im/ptmptt-c5.png">
+    <div class="answer-check">
+        <input type="text" id="input-q25" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q25','110.')">✅ Kiểm tra</button>
+        <span id="icon-q25"></span>
+    </div>
+    <div id="result-q25"></div>
+    <button onclick="toggleSolution('q25')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q25" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 25</div>
+        <div class="solution-content">
+            <p>Do $D(a;b;c)$ sao cho khoảng cách từ $D$ đến ba khu vực kể trên là bằng nhau và có khoảng cách đến chúng là nhỏ nhất nên $D$ là tâm đường tròn ngoại tiếp tam giác $ABC$.</p>
+            <p>Có $\frac{1}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q26">
+    <p class="question-title"><strong>Câu 26.</strong> Trong hệ toạ độ $Oxy$ (đơn vị độ dài trên mỗi trục tính là mét), một vườn hoa nằm trên mặt phẳng $(P): 2x+2y-z-12=0$. Có hai bóng đèn chiếu sáng cố định được đặt tại các điểm $A(40; -40;12)$, $B(-40;50;38)$. Để đảm bảo kĩ thuật chiếu sáng, các kỹ sư muốn thiết kế trên mặt vườn một đường ray để lắp đặt một đèn chiếu sáng $M$ di động trên đường ray ấy. Yêu cầu kĩ thuật đặt ra là góc tạo bởi $MA$ với mặt vườn và góc tạo bởi $MB$ với mặt vườn phải luôn bằng nhau. Độ dài đường ray là bao nhiêu mét? (kết quả làm tròn đến hàng đơn vị).</p>
+    <img src="data/im/ptmptt-c6.png">
+    <div class="answer-check">
+        <input type="text" id="input-q26" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q26','1720')">✅ Kiểm tra</button>
+        <span id="icon-q26"></span>
+    </div>
+    <div id="result-q26"></div>
+    <button onclick="toggleSolution('q26')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q26" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 26</div>
+        <div class="solution-content">
+            <p>Gọi $A_1, B_1$ lần lượt là hình chiếu vuông góc của $A,B$ lên mặt phẳng $(P)$</p>
+            <p>Khi đó yêu cầu bài toán đặt ra $\widehat{AMA_1}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q27">
+    <p class="question-title"><strong>Câu 27.</strong> Mô phỏng trong không gian với hệ tọa độ $Oxyz$ (đơn vị trên mỗi trục số là kilômét), một máy bay đang ở vị trí $A(6;−8;-1)$ và sẽ hạ cánh ở điểm có tọa độ $O(0;0;0)$ trên đường băng. Có một lớp mây mỏng được mô phỏng bởi một mặt phẳng đi qua ba điểm $P(12;0;0),Q(0;-12;0)$ và $R(0;0;1,2)$. Tính khoảng cách giữa máy bay và đường băng ngay khi máy bay bay xuyên qua lớp mây (kết quả làm tròn đến hàng phần trăm của kilômét).</p>
+    <img src="data/im/ptmptt-c7.png">
+    <div class="answer-check">
+        <input type="text" id="input-q27" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q27','5,02.')">✅ Kiểm tra</button>
+        <span id="icon-q27"></span>
+    </div>
+    <div id="result-q27"></div>
+    <button onclick="toggleSolution('q27')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q27" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 27</div>
+        <div class="solution-content">
+            <p>Mặt phẳng $(PQR)$ đi qua ba điểm $P(12;0;0),Q(0;-12;0), R(0;0;1,2)$ nên phương trình đoạn chắn của mặt phẳng $(PQR)$ là $\frac{x}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q28">
+    <p class="question-title"><strong>Câu 28.</strong> Trong một trò chơi mô phỏng bắn súng, một người chơi đặt điểm ngắm tại điểm $O$ là giao điểm của $AC$ và $BD$ trong căn phòng hình hộp chữ nhật $ABCD.A'B'C'D'$ có kích thước $AB = 15(m)$, $AD = 20(m)$, $AA' = 25(m)$. Người chơi di chuyển trên đoạn $BD$ có nhiệm vụ bắn trúng một mục tiêu di động trên mặt phẳng $(CB'D')$ Tính khoảng cách ngắn nhất từ điểm ngắm đó đến mục tiêu (làm tròn đến chữ số thập phân thứ 2).</p>
+    <img src="data/im/ptmptt-c8.png">
+    <div class="answer-check">
+        <input type="text" id="input-q28" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q28','10,8')">✅ Kiểm tra</button>
+        <span id="icon-q28"></span>
+    </div>
+    <div id="result-q28"></div>
+    <button onclick="toggleSolution('q28')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q28" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 28</div>
+        <div class="solution-content">
+            <p>Chọn hệ trục tọa độ như hình vẽ, ta có $B' (20;0;0), D' (0;15;0), C(0;0;25)$ và $B(20;0;25)</p>
+            <p>Phương trình mặt phẳng $(B'CD')$ là: $\frac{x}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q29">
+    <p class="question-title"><strong>Câu 29.</strong> Một nhóm chuyên gia đang nghiên cứu dựng một tấm kính cường lực hình tam giác để đặt vào một góc tường. Biết ba mặt của góc tường đôi một vuông góc và giao tuyến của chúng lần lượt là các tia Ox, Oy, Oz sao cho (Oxy) trùng với mặt phẳng sàn nhà, mỗi đơn vị trong hệ trục tọa độ ứng với 1m thực tế. Mặt phẳng kính luôn đi qua điểm $I$, điểm này cách các mặt phẳng (Oxy), (Oyz), (Oxz) lần lượt là 1m, 3m, 2m. Khi khoảng cách từ chiếc đèn có tọa độ $D(4;5;6)$ tới mặt phẳng kính lớn nhất, tính diện tích tấm kính cường lực theo m² (kết quả làm tròn đến hàng phần chục)?</p>
+    <img src="data/im/ptmptt-c9.png">
+    <div class="answer-check">
+        <input type="text" id="input-q29" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q29','77,3')">✅ Kiểm tra</button>
+        <span id="icon-q29"></span>
+    </div>
+    <div id="result-q29"></div>
+    <button onclick="toggleSolution('q29')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q29" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 29</div>
+        <div class="solution-content">
+            <p>Từ giả thiết: điểm $I$ cách các mặt phẳng $(Oxy), (Oyz), (Oxz)$ lần lượt là $1m, 3m, 2m$.</p>
+            <p>$\Rightarrow$Điểm $I$ có tọa độ $I (3;2;1)$.</p>
+            <p>Giả sử $A,B,C$ lần lượt là giao điểm của mặt phẳng chứa kính cường lực $(P)$ với các tia $Ox, Oy, Oz$.</p>
+            <p>Gọi $H$ là hình chiếu vuông góc của điểm $D$ trên mặt phẳng $(P)$.</p>
+            <p>Ta có: $DH \le ID = \sqrt{35}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q30">
+    <p class="question-title"><strong>Câu 30.</strong> Trong một quảng trường, có hai bức tượng nghệ thuật được đặt cố định tại các vị trí $A(1;2; −1)$ và $B(-2;1;0)$.
+    Một trụ đèn chiếu sáng thông minh được lắp đặt trên một tấm kính lớn cố định, có phương trình: $(P):x-2y+z+4=0$. Gọi tọa độ điểm đặt trụ đèn là $M(a;b; c)$.
+    Để tạo hiệu ứng ánh sáng đối xứng hoàn hảo giữa hai bức tượng, qua tính toán người thiết kế yêu cầu trụ đèn phải cách đều hai điểm $A$ và $B$ sao cho $MA^2 = MB^2 = 2,75$
+    Tính giá trị của $a + b + c $.</p>
+    <img src="data/im/ptmptt-c10.png">
+    <div class="answer-check">
+        <input type="text" id="input-q30" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q30','0,5')">✅ Kiểm tra</button>
+        <span id="icon-q30"></span>
+    </div>
+    <div id="result-q30"></div>
+    <button onclick="toggleSolution('q30')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q30" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 30</div>
+        <div class="solution-content">
+            <p>Đưa bài toán về thuần $Oxyz$ ta được: cho $A(1;2;-1), B(-2;1;0)$ điểm $M(a;b;c)$ thuộc mặt phẳng $(P):x-2y+z+4=0$ sao cho $MA = MB = \frac{\sqrt{11}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q31">
+    <p class="question-title"><strong>Câu 31.</strong> Khối rubik được gắn với hệ toạ độ $Oxyz$ có đơn vị bằng độ dài cạnh của hình lập phương nhỏ (hình vẽ). Xét bốn điểm $A(3;0;0), B(0; 3; 0), C(0; 0; 2), D(3k;3k;2k)$ với $k > 0$ đồng phẳng. Biết rằng tọa độ điểm $D(a;b;c)$. Khi đó giá trị $a + 2b+3c$ bằng bao nhiêu?</p>
+    <img src="data/im/ptmptt-c11.png">
+    <div class="answer-check">
+        <input type="text" id="input-q31" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q31','5')">✅ Kiểm tra</button>
+        <span id="icon-q31"></span>
+    </div>
+    <div id="result-q31"></div>
+    <button onclick="toggleSolution('q31')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q31" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 31</div>
+        <div class="solution-content">
+            <p>Phương trình mặt phẳng $(ABC)$ là: $\frac{x}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q32">
+    <p class="question-title"><strong>Câu 32.</strong> Hình vẽ minh họa một khu nhà đang xây dựng được gắn hệ trục tọa độ $Oxyz$ (đơn vị trên các trục là mét). Mỗi cột bê tông có dạng hình lăng trụ tứ giác đều và tâm của mặt đáy trên lần lượt là các điểm $A(2;1; 3)$, $B(4; 3; 3)$, $C(6;3; 2,5)$, $D(4k; 0;3k)$. Biết rằng 4 điểm $A,B,C,D$ đồng phẳng, tính giá trị của $k$ (viết kết quả làm tròn đến hàng phần mười).</p>
+    <img src="data/im/ptmptt-c12.png">
+    <div class="answer-check">
+        <input type="text" id="input-q32" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q32','0,8.')">✅ Kiểm tra</button>
+        <span id="icon-q32"></span>
+    </div>
+    <div id="result-q32"></div>
+    <button onclick="toggleSolution('q32')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q32" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 32</div>
+        <div class="solution-content">
+            <p>Ta có: $\vec{AB}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q33">
+    <p class="question-title"><strong>Câu 33.</strong> Hình ảnh bên minh hoạ một cánh cửa hình chữ nhật có chiều rộng 1 m và chiều cao 2 m khi đang mở. Chọn hệ toạ độ như hình vẽ, biết cánh cửa tạo với bức tường một góc 30°, bờ tường vuông góc với mặt sàn. Bỏ qua bề dày của cánh cửa thì phương trình mặt phẳng chứa cánh cửa là $x+by+cz + d = 0 $. Tính giá trị $9b^2 +3c^2 + d $.</p>
+    <img src="data/im/ptmptt-c13.png">
+    <div class="answer-check">
+        <input type="text" id="input-q33" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q33','3.')">✅ Kiểm tra</button>
+        <span id="icon-q33"></span>
+    </div>
+    <div id="result-q33"></div>
+    <button onclick="toggleSolution('q33')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q33" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 33</div>
+        <div class="solution-content">
+            <p>Vì ta đã có dạng của phương trình mặt phẳng chứa cánh cửa (chứa 3 ẩn $b,c,d$) nên để viết được phương trình mặt phẳng $(H)$, ta cần đi tìm được 3 điểm thuộc mặt phẳng đó.</p>
+            <p>Ta vẽ lại hình như và kí hiệu các điểm như hình sau:</p>
+            <p>\noteImage[width=0.45\linewidth]{data//im/ptmptt-c13_1.png}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q34">
+    <p class="question-title"><strong>Câu 34.</strong> Một sân vận động được xây dựng theo mô hình là hình chóp cụt $OAGD.BCFE$ có hai đáy song song với nhau. Mặt sân $OAGD$ là hình chữ nhật và được gắn hệ trục $Oxyz$ như hình vẽ (đơn vị trên mỗi trục tọa độ là mét). Mặt sân $OAGD$ có chiều dài $OA =100m$, chiều rộng $OD = 60m$ và tọa độ điểm $B(10;10;8)$. Giả sử phương trình tổng quát của mặt phẳng $(OACB)$ có dạng $ax + y + cz + d = 0 $. Tính giá trị biểu thức $4(a+c+d)$.</p>
+    <img src="data/im/ptmptt-c14.png">
+    <div class="answer-check">
+        <input type="text" id="input-q34" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q34','-5.')">✅ Kiểm tra</button>
+        <span id="icon-q34"></span>
+    </div>
+    <div id="result-q34"></div>
+    <button onclick="toggleSolution('q34')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q34" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 34</div>
+        <div class="solution-content">
+            <p>Từ giả thiết, ta có $O(0;0;0); B(10;10;8);$</p>
+            <p>$\begin{cases}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q35">
+    <p class="question-title"><strong>Câu 35.</strong> Trong không gian với hệ trục tọa độ $Oxyz$ (đơn vị trên mỗi trục tọa độ là kilômét), một máy bay đang ở vị trí $A(3;-2;1)$ và sẽ hạ cánh ở vị trí $B(4;6,5;0)$ trên đường băng (như hình vẽ). Có một lớp mây được mô phỏng bởi mặt phẳng $(\alpha)$ đi qua ba điểm $M (8; 0; 0); N(0; −8;0); P(0; 0; 0, 8) $. Độ cao của máy bay khi máy bay xuyên qua đám mây để hạ cánh là bao nhiêu km (làm tròn đến chữ số thập phân thứ hai).</p>
+    <img src="data/im/ptmptt-c15.png">
+    <div class="answer-check">
+        <input type="text" id="input-q35" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q35','0,60.')">✅ Kiểm tra</button>
+        <span id="icon-q35"></span>
+    </div>
+    <div id="result-q35"></div>
+    <button onclick="toggleSolution('q35')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q35" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 35</div>
+        <div class="solution-content">
+            <p>Giả sử $C(x_C;y_C;z_C)$ là vị trí mà máy bay xuyên qua đám mấy để hạ cánh $\Rightarrow C\in (\alpha)$</p>
+            <p>Mặt phẳng $(\alpha)$ có phương trình là $\frac{x}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q36">
+    <p class="question-title"><strong>Câu 36.</strong> Trong một khung lưới ô vuông gồm các hình lập phương, người ta đưa ra một cách kiểm tra bốn nút lưới (đỉnh hình lập phương) bất kì có đồng phẳng hay không bằng cách gắn hệ trục toạ độ $Oxyz$ vào khung lưới ô vuông và lập phương trình mặt phẳng đi qua ba nút lưới trong bốn nút lưới đã cho. Giả sử có ba nút lưới mà toạ độ lần lượt là $(1;1;10)$, $(4; 3; 1)$, $(3; 2; 5)$ và mặt phẳng đi qua ba nút lưới đó có phương trình $x+my+nz + p = 0$. Giá trị của $m + n + p$ là bao nhiêu?</p>
+    <div class="answer-check">
+        <input type="text" id="input-q36" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q36','-10')">✅ Kiểm tra</button>
+        <span id="icon-q36"></span>
+    </div>
+    <div id="result-q36"></div>
+    <button onclick="toggleSolution('q36')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q36" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 36</div>
+        <div class="solution-content">
+            <p>Xét các điểm $A(1;1;10), B(4;3;1), C(3; 2; 5) $.</p>
+            <p>Khi đó, ta có $\begin{cases}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q37">
+    <p class="question-title"><strong>Câu 37.</strong> Một phần sân trường được định vị bởi các điểm $A, B, C, D$, như hình vẽ.
+    
+    Bước đầu chúng được lấy “ thăng bằng” để có cùng độ cao. Biết $ABCD$ là hình thang vuông ở $A$ và $B$ với độ dài $AB = 25m$, $AD =15m$, $BC =18m$. Do yêu cầu kĩ thuật, khi lát phẳng phần sân trường phải thoát nước về góc sân ở $C$ nên người ta lấy độ cao ở các điểm $B, C, D$ xuống thấp hơn so với độ cao ở $A$ lần lượt là $10cm$, $acm$, $6cm$ tương ứng sao cho bốn điểm $A, B', C', D'$ đồng phẳng. Giá trị của $a$ là</p>
+    <img src="data/im/ptmptt-c17.png">
+    <div class="answer-check">
+        <input type="text" id="input-q37" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q37','17,2')">✅ Kiểm tra</button>
+        <span id="icon-q37"></span>
+    </div>
+    <div id="result-q37"></div>
+    <button onclick="toggleSolution('q37')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q37" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 37</div>
+        <div class="solution-content">
+            <p>Chọn hệ trục tọa độ $Oxyz$ sao cho: $O\equiv A$, tia $Ox = AD$; tia $Oy = AB$.</p>
+            <p>Khi đó, $A(0;0;0); B(0;2500;0); C(1800; 2500;0) ; D(1500;0;0)$.</p>
+            <p>Khi hạ độ cao các điểm ở các điểm $B, C, D$ xuống thấp hơn so với độ cao ở $A$ là $10cm$, $a$ cm, $6cm$ tương ứng ta có các điểm mới $B' (0;2500;-10); C'(1800;2500;-a); D'(1500;0;-6)$.</p>
+            <p>Theo bài ra có bốn điểm $A ; B'; C'; D'$ đồng phẳng.</p>
+            <p>Phương trình mặt phẳng $(AB'D')$ : $x + y + 250z = 0 $.</p>
+            <p>Do $C'(1800; 2500;− a) \in (AB'D')$ nên có: $1800 + 2500 – 250a = 0 \Leftrightarrow a = 17,2$.</p>
+            <p>Vậy $a = 17,2cm$.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q38">
+    <p class="question-title"><strong>Câu 38.</strong> Một công trình đang xây dựng được gắn hệ trục $Oxyz$ (đơn vị trên các trục là mét). Ba bức tường lần lượt thuộc các mặt phẳng $(P)$, $(Q)$, $(R)$ (như hình vẽ) của tòa nhà lần lượt có phương trình: $(P) : 2x+2y-4z+15=0$, $(Q) : x + y + z −12 = 0$, $(R) : x + y − 2z = 0$.
+    
+    Độ rộng của bức tường thuộc mặt phẳng $(Q)$ của tòa nhà bằng bao nhiêu mét? (Làm tròn kết quả đến chữ số hàng phần chục).</p>
+    <img src="data/im/ptmptt-c18.png">
+    <div class="answer-check">
+        <input type="text" id="input-q38" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q38','3,1')">✅ Kiểm tra</button>
+        <span id="icon-q38"></span>
+    </div>
+    <div id="result-q38"></div>
+    <button onclick="toggleSolution('q38')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q38" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 38</div>
+        <div class="solution-content">
+            <p>Ta có:</p>
+            <p>$(P): 2x+2y-4z+15=0$ có vectơ pháp tuyến là $\vec{n}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q39">
+    <p class="question-title"><strong>Câu 39.</strong> Biết góc quan sát ngang của một camera là 116°. Trong không gian $Oxyz$, camera được đặt tại điểm $A(2;1;5)$ và chiếu thẳng về phía mặt phẳng $(P): 2x−y−2z+13 = 0 $. Hỏi vùng quan sát được trên mặt phẳng $(P)$ của camera là hình tròn có diện tích bằng bao nhiêu? (Làm tròn kết quả đến chữ số hàng phần chục).</p>
+    <img src="data/im/ptmptt-c19.png">
+    <div class="answer-check">
+        <input type="text" id="input-q39" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q39','32,2')">✅ Kiểm tra</button>
+        <span id="icon-q39"></span>
+    </div>
+    <div id="result-q39"></div>
+    <button onclick="toggleSolution('q39')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q39" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 39</div>
+        <div class="solution-content">
+            <p>Gọi $A,B,C$ là các điểm như hình vẽ bên dưới và $H$ là hình chiếu vuông góc của $A$ lên mặt phẳng $(P)$.</p>
+            <p>Hình vẽ</p>
+            <p>\noteImage[width=0.45\linewidth]{data//im/ptmptt-c19_1.png}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q40">
+    <p class="question-title"><strong>Câu 40.</strong> Một nắp bể nước hình chữ nhật $ABCD$ nằm cạnh bờ tường có kích thước $9dm\times12dm$ được kéo dài ra từ mặt sàn, do tác dụng của trọng lực nên nắp bể không thể mở ra được nếu không có người giữ. Người ta dùng một sợi dây xích dài $15$ dm và kéo căng nối đỉnh $C$ của hình chữ nhật với điểm $M$ nằm phía trên bờ tường sao cho $AM =9dm$ và $AM$ vuông góc với mặt sàn. Chọn hệ trục $Oxyz$ như hình vẽ, khi đó nắp bể mở ra và tạo với mặt sàn một góc $\alpha$ (đơn vị trên mỗi trục tọa độ tính bằng dm). Bỏ qua độ dày của nắp bể. Phương trình mặt phẳng chứa nắp bể sau khi kéo lên là $x + by + cz + d = 0 $. Tính $b + c^2 – 2d = ?$</p>
+    <img src="data/im/ptmptt-c20.png">
+    <div class="answer-check">
+        <input type="text" id="input-q40" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q40','3.')">✅ Kiểm tra</button>
+        <span id="icon-q40"></span>
+    </div>
+    <div id="result-q40"></div>
+    <button onclick="toggleSolution('q40')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q40" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 40</div>
+        <div class="solution-content">
+            <p>Điểm $M$ nằm trên mặt phẳng $(Oyz)$ với $AM = 9dm\Rightarrow M (0;0;9)$ $z \ne 0$.</p>
+            <p>Chiếu $C$ lần lượt lên các mặt phẳng ta được $C(9\cos\alpha;12;9\sin\alpha)$.</p>
+            <p>Ta có: $CM =15\Leftrightarrow CM^2 = 15^2 \Leftrightarrow (9\cos\alpha)^2 +12^2 + (9\sin\alpha-9)^2 = 15^2</p>
+            <p>$\Leftrightarrow 81\cos^2\alpha+144+81\sin^2\alpha-162\sin\alpha+81=225 \Leftrightarrow \cos^2\alpha + \sin^2\alpha – 2\sin\alpha+1=1</p>
+            <p>$\Leftrightarrow 1-2\sin\alpha+1=1\Leftrightarrow \sin\alpha =\frac{1}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q41">
+    <p class="question-title"><strong>Câu 41.</strong> Trên sườn dốc $E$ được xác định bởi các điểm $A(12;0;5)$, $B(12;10; 0)$, $C(0;10;0)$ và $D(0;0;5)$, tại điểm $P(4;8;1)$ có đặt một ăng-ten.
+    
+    Tại điểm $S(4;8;6)$ sẽ lắp một thanh chống, sao cho thanh này vuông góc và chạm vào sườn dốc tại điểm $F$.
+    Hãy tính chiều dài của thanh chống đó (làm tròn kết quả đến hàng phần trăm)</p>
+    <img src="data/im/ptmptt-c21.png">
+    <div class="answer-check">
+        <input type="text" id="input-q41" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q41','4,47')">✅ Kiểm tra</button>
+        <span id="icon-q41"></span>
+    </div>
+    <div id="result-q41"></div>
+    <button onclick="toggleSolution('q41')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q41" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 41</div>
+        <div class="solution-content">
+            <p>Vì $A(12;0;5), D(0;0;5)$ (cùng $y = 0 \Rightarrow z = 5 $) và $B(12;10;0), C(0;10;0)$ (cùng $y=10\Rightarrow z = 0 $), suy ra phương trình mặt phẳng $E:2z+y-10=0$ ($\vec{n}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q42">
+    <p class="question-title"><strong>Câu 42.</strong> Một chiếc thuyền máy di chuyển trong một vùng nước có mặt đáy phẳng nhưng hơi dốc lên. Các điểm $P(0;0; -20)$, $Q(50; 50; -15)$ và $R(0;50;−15)$ là các điểm thuộc mặt đáy. Trên thuyền có một cảm biến đo tiếng vọng đặt ở mặt nước. Khoảng cách từ cảm biến đến mặt đáy là bao nhiêu khi cảm biến ở điểm $A(50;50;0)$? (làm tròn kết quả đến hàng phần vị)</p>
+    <img src="data/im/ptmptt-c22.png">
+    <div class="answer-check">
+        <input type="text" id="input-q42" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q42','15')">✅ Kiểm tra</button>
+        <span id="icon-q42"></span>
+    </div>
+    <div id="result-q42"></div>
+    <button onclick="toggleSolution('q42')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q42" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 42</div>
+        <div class="solution-content">
+            <p>Phương trình mặt đáy $\vec{PQ}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q43">
+    <p class="question-title"><strong>Câu 43.</strong> Một buổi biểu diễn sân khấu diễn ra trên một sân khấu nghiêng về phía khán giả.
+    
+    Cuối buổi biểu diễn, nữ diễn viên chính rời sân khấu trong một chiếc ghế treo trên dây, di chuyển từ điểm $A(8;0;0)$ đến điểm $B(0;20;10)$. Sau khi đi được $\frac{3}{4}$ quãng đường, cô ấy dừng lại để thực hiện động tác cuối. Hãy tính khoảng cách của cô ấy đến mặt phẳng sân khấu tại thời điểm đó (làm tròn kết quả đến hàng phần trăm)</p>
+    <img src="data/im/ptmptt-c23.png">
+    <div class="answer-check">
+        <input type="text" id="input-q43" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q43','5,82')">✅ Kiểm tra</button>
+        <span id="icon-q43"></span>
+    </div>
+    <div id="result-q43"></div>
+    <button onclick="toggleSolution('q43')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q43" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 43</div>
+        <div class="solution-content">
+            <p>Gắn hệ trục tọa độ $Oxyz$ như hình vẽ, ta có: $A(8;0;0)$, $D(8;20;0)$ và $E (0;20;2)</p>
+            <p>Mặt phẳng sân khấu</p>
+            <p>Vectơ pháp tuyến $\vec{n}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q44">
+    <p class="question-title"><strong>Câu 44.</strong> Trong một trò chơi mô phỏng bắn súng, một người chơi đặt điểm ngắm tại điểm $O$ là giao điểm của $AC$ và $BD$ trong căn phòng hình hộp chữ nhật $ABCD.A'B'C'D'$ có kích thước $AB = 15(m)$, $AD = 20(m)$, $AA' = 25(m)$. Người chơi di chuyển trên đoạn $BD$ có nhiệm vụ bắn trúng một mục tiêu di động trên mặt phẳng $(CB'D')$ Tính khoảng cách ngắn nhất từ điểm ngắm đó đến mục tiêu (làm tròn đến chữ số thập phân thứ 2).
+    
+    Xét một khối lập phương pyrit cạnh 3 cm, bị mất một góc dưới dạng hình chóp tam giác đều có các cạnh bên dài 1 cm. Phương trình của mặt phẳng vỡ có dạng $ax + by + cz + 2 = 0 $. Tìm $a+b+c$</p>
+    <img src="data/im/ptmptt-c24.png">
+    <div class="answer-check">
+        <input type="text" id="input-q44" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q44','-1')">✅ Kiểm tra</button>
+        <span id="icon-q44"></span>
+    </div>
+    <div id="result-q44"></div>
+    <button onclick="toggleSolution('q44')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q44" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 44</div>
+        <div class="solution-content">
+            <p>Ta có $A(3;2;3), B(2;3;3), C (3;3; 2)</p>
+            <p>$\vec{AB}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q45">
+    <p class="question-title"><strong>Câu 45.</strong> Trong quá trình ông An xây nhà thì phải đổ bê tông cho một mái vát để lợp ngói. Ông tính toán việc ghép cốt pha đi qua điểm B trên một chân tường và điểm C trên cột góc nhà và tận dụng một chiếc cột có sẵn cách đều hai bức tường 1m và chiều cao 1m ( đỉnh cột là điểm M) để chống mặt ghép, đồng thời mặt ghép cốt pha phải đi qua điểm A trên một chân tường còn lại cách điểm O một khoảng 4m (tham khảo hình vẽ). Biết rằng hai bức tường được xây vuông góc với nhau, mỗi bức tường đều vuông góc với sàn mái nhà. Diện tích nhỏ nhất của khung ghép cốt pha ABC là bao nhiêu mét vuông (kết quả làm tròn đến hàng phần trăm)?</p>
+    <img src="data/im/ptmptt-c25.png">
+    <div class="answer-check">
+        <input type="text" id="input-q45" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q45','8,34')">✅ Kiểm tra</button>
+        <span id="icon-q45"></span>
+    </div>
+    <div id="result-q45"></div>
+    <button onclick="toggleSolution('q45')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q45" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 45</div>
+        <div class="solution-content">
+            <p>Gọi mặt phẳng đi qua $A(4;0;0), B(0;b;0),C(0;0;c);b,c>0$ có phương trình là</p>
+            <p>$\frac{x}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q46">
+    <p class="question-title"><strong>Câu 46.</strong> Trong hoạt động quay phim và chụp ảnh chuyên nghiệp, tấm hắt sáng là một công cụ không thể thiếu. Một ê-kíp nhận dự án chụp hình cho một căn hộ phục vụ cho mục đích quảng quảng. Tấm hắt sáng được đặt trên một bề mặt gỗ mỏng hình tam giác, mỗi đỉnh của mặt gỗ đặt trên một chiếc cọc lần lượt cao 2m, 1m và 0,5m. Cọc cao nhất đặt ở góc tường, cọc cao 1m sẽ đặt ở tường sau nhà, cách tường trái 2m, cọc còn lại đặt ở tường bên trái, cách tường sau 1m. Để đảm bảo sự chắc chắn, người ta chống một chiếc cọc vuông góc mặt đất và đỡ phía dưới mặt gỗ, cách mỗi bức tường 0,5m (chân cọc chống đỡ ở mặt đất). Hỏi chiếc cọc chống đỡ này có chiều dài bao nhiêu mét?</p>
+    <img src="data/im/ptmptt-c26.png">
+    <div class="answer-check">
+        <input type="text" id="input-q46" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q46','1')">✅ Kiểm tra</button>
+        <span id="icon-q46"></span>
+    </div>
+    <div id="result-q46"></div>
+    <button onclick="toggleSolution('q46')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q46" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 46</div>
+        <div class="solution-content">
+            <p>Gắn hệ tọa độ $Oxyz$ vào phía góc tường, điểm $O(0;0;0)$ trùng với góc tường, trục cao $Oz$ trùng với cọc cao nhất và hai trục $Ox, Oy$ lần lượt là hai đường chân tường. Mỗi đơn vị ứng với 1 mét thực tế.</p>
+            <p>Đỉnh của các cọc có chiều cao giảm dần lần lượt là các điểm $A, C, B$. Chiếc cọc chống đặt tại điểm $E$ và điểm tiếp xúc giữa mặt gỗ và cọc chống là điểm $H$.</p>
+            <p>\noteImage[width=0.45\linewidth]{data//im/ptmptt-c26_1.png}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q47">
+    <p class="question-title"><strong>Câu 47.</strong> Cho tờ giấy có hình dạng như sau: một hình vuông $ABCD$ có cạnh bằng 8, ở hai cạnh đối diện $AB$ và $CD$ lần lượt gắn hai nửa đường tròn có đường kính là mỗi cạnh ấy. Trên cung tròn $AB$ , lấy 2 điểm chia thành ba đoạn bằng nhau, lấy điểm gần $B$ là $P$. Trên cung tròn $CD$, lấy điểm $Q$ chia thành hai đoạn bằng nhau. Gấp tờ giấy lên theo hai đường thẳng $AB$ và $CD$ sao cho hai nửa đường tròn dựng đứng (cùng phía) lên khỏi mặt phẳng $ABCD$. Khi đó, từ hai điểm $P$ và $Q$ ta hạ các đường vuông góc xuống mặt phẳng $(ABCD)$ được các hình chiếu là $G$ và $H$.
+    
+    Người ta cho biết $G$ và $H$ nằm bên trong hình vuông $ABCD$ sao cho $PG = \sqrt{3};QH = 2\sqrt{3}$. Gọi $\theta$ là góc giữa mặt phẳng $(PCQ)$ và mặt phẳng $(ABCD)$. Hỏi giá trị của $70 \cos^2 \theta$ bằng bao nhiêu?</p>
+    <img src="data/im/ptmptt-c27.png">
+    <div class="answer-check">
+        <input type="text" id="input-q47" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q47','40')">✅ Kiểm tra</button>
+        <span id="icon-q47"></span>
+    </div>
+    <div id="result-q47"></div>
+    <button onclick="toggleSolution('q47')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q47" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 47</div>
+        <div class="solution-content">
+            <p>Gắn hệ trục tọa độ $Oxyz$, sao cho $O = C(0;0;0)$, tia $Ox = CD$, tia $Oy = CB$, tia $Oz$ thẳng đứng lên.</p>
+            <p>Gọi $E (4;0;0)$ là trung điểm của $CD$, khi đó $QE = 4$, $EH = \sqrt{QE^2 – QH^2}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q48">
+    <p class="question-title"><strong>Câu 48.</strong> Trong không gian Oxyz, cho đường thẳng d : $\frac{x+4}{3} = \frac{y-5}{-4} = \frac{z+2}{1}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Điểm M (3; −4;1) nằm trên đường thẳng d.
+            <label><input name="q48a" type="radio" value='True'/> True</label>
+            <label><input name="q48a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Một vectơ chỉ phương của d là $\vec{u} = (-3;4;-1)$
+            <label><input name="q48b" type="radio" value='True'/> True</label>
+            <label><input name="q48b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đường thẳng d song song với đườn thẳng $\Delta : \begin{cases} x = -4+3t \\ y = 5 – 4t \\ z = -2+t \end{cases}$
+            <label><input name="q48c" type="radio" value='True'/> True</label>
+            <label><input name="q48c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Đường thẳng $\Delta$ song song với d và cắt cả hai đường thẳng $d_1 : \frac{x-1}{3} = \frac{y+1}{1} = \frac{z-2}{2}$ và $d_2 : \frac{x+2}{2} = \frac{y-3}{4} = \frac{z}{1}$ có phương trình là $\Delta : \frac{x+4}{3} = \frac{y+1}{-4} = \frac{z+1}{1}$
+            <label><input name="q48d" type="radio" value='True'/> True</label>
+            <label><input name="q48d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q48',[\"False\",\"True\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q48"></span>
+    </div>
+    <button onclick="toggleSolution('q48')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q48" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 48</div>
+        <div class="solution-content">
+            <p>a) Sai: Tọa độ điểm M (3; −4;1) không thỏa mãn phương trình d.</p>
+            <p>b) Đúng: Ta có $\vec{u}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q49">
+    <p class="question-title"><strong>Câu 49.</strong> Trong không gian Oxyz, cho M (2;1;0) và đường thẳng d: $\frac{x-1}{2} = \frac{y+1}{1} = \frac{z}{-1}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Điểm M (1;-1;1) nằm trên đường thẳng d.
+            <label><input name="q49a" type="radio" value='True'/> True</label>
+            <label><input name="q49a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Một vectơ chỉ phương của d là $\vec{u} = (2;1;-1)$
+            <label><input name="q49b" type="radio" value='True'/> True</label>
+            <label><input name="q49b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đường thẳng d song song với đường thẳng $\Delta : \begin{cases} x = 1+ 2t \\ y = -1 + t \\ z = -t \end{cases}$
+            <label><input name="q49c" type="radio" value='True'/> True</label>
+            <label><input name="q49c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Gọi $\Delta$ là đường thẳng đi qua M, cắt và vuông góc với d thì phương trình đường thẳng $\Delta$ là $\begin{cases} x=2+t \\ y = 1-4t \\ z = -2t \end{cases}$
+            <label><input name="q49d" type="radio" value='True'/> True</label>
+            <label><input name="q49d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q49',[\"False\",\"True\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q49"></span>
+    </div>
+    <button onclick="toggleSolution('q49')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q49" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 49</div>
+        <div class="solution-content">
+            <p>a) Sai: Tọa độ điểm M (1;-1;1) không thỏa mãn phương trình d.</p>
+            <p>b) Đúng: Một vectơ chỉ phương của d là $\vec{u}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q50">
+    <p class="question-title"><strong>Câu 50.</strong> Trong hệ tọa độ Oxyz, cho đường thẳng d : $\frac{x-1}{1} = \frac{y-3}{-1} = \frac{z-2}{2}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Điểm M (1;3;-2) nằm trên đường thẳng d.
+            <label><input name="q50a" type="radio" value='True'/> True</label>
+            <label><input name="q50a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Một vectơ chỉ phương của d là $\vec{u} = (−1; 1; 2) $.
+            <label><input name="q50b" type="radio" value='True'/> True</label>
+            <label><input name="q50b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đường thẳng d song song với đườn thẳng $\Delta : \begin{cases} x=1+t \\ y=3-t \\ z = 2+ 2t \end{cases}$
+            <label><input name="q50c" type="radio" value='True'/> True</label>
+            <label><input name="q50c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình đường vuông góc chung của d và đường thẳng $d_2: \begin{cases} x = -3t \\ y=t \\ z=-1-3t \end{cases}$ là $\frac{x-2}{1} = \frac{y-2}{-3} = \frac{z-4}{-2}$.
+            <label><input name="q50d" type="radio" value='True'/> True</label>
+            <label><input name="q50d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q50',[\"False\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q50"></span>
+    </div>
+    <button onclick="toggleSolution('q50')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q50" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 50</div>
+        <div class="solution-content">
+            <p>a) Sai: Tọa độ điểm M (1;3;-2) không thỏa mãn phương trình d.</p>
+            <p>b) Sai: $\vec{u}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q51">
+    <p class="question-title"><strong>Câu 51.</strong> Trong Oxyz, cho mặt phẳng (P) : $x + 2y + z − 4 = 0$ và đường thẳng d : $\frac{x+1}{2} = \frac{y}{1} = \frac{z+2}{3}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Đường thẳng d có vectơ chỉ phương $\vec{u_d} = (-1;0;-2)$.
+            <label><input name="q51a" type="radio" value='True'/> True</label>
+            <label><input name="q51a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Đường thẳng (d) và mặt phẳng (P) cắt nhau.
+            <label><input name="q51b" type="radio" value='True'/> True</label>
+            <label><input name="q51b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Gọi H = d∩(P) $\Rightarrow$ H = (1;-1;1).
+            <label><input name="q51c" type="radio" value='True'/> True</label>
+            <label><input name="q51c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Đường thẳng $\Delta$ nằm trong mặt phẳng (P) đồng thời cắt và vuông góc với đường thẳng d có phương trình là $\frac{x-1}{5} = \frac{y-1}{-1} = \frac{z-1}{-3}$
+            <label><input name="q51d" type="radio" value='True'/> True</label>
+            <label><input name="q51d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q51',[\"False\",\"True\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q51"></span>
+    </div>
+    <button onclick="toggleSolution('q51')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q51" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 51</div>
+        <div class="solution-content">
+            <p>a) Sai: Mặt phẳng (P) có vectơ pháp tuyến $\vec{n_p}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q52">
+    <p class="question-title"><strong>Câu 52.</strong> Trong không gian với hệ tọa độ Oxyz cho điểm A(1;0;2) và đường thẳng d có phương trình: $\frac{x-1}{1} = \frac{y}{1} = \frac{z+1}{2}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Đường thẳng d có một véc tơ chỉ phương là $\vec{u} (1;1;2)$.
+            <label><input name="q52a" type="radio" value='True'/> True</label>
+            <label><input name="q52a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Mặt phẳng (P) đi qua điểm A và vuông góc với d có phương trình tổng quát là $x+y+2z-1 = 0$.
+            <label><input name="q52b" type="radio" value='True'/> True</label>
+            <label><input name="q52b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Hình chiếu vuông góc của A trên đường thẳng d là điểm H(1;0;−1).
+            <label><input name="q52c" type="radio" value='True'/> True</label>
+            <label><input name="q52c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình đường thẳng $\Delta$ đi qua A, vuông góc và cắt d có dạng: $\frac{x-1}{1} = \frac{y}{1} = \frac{z-2}{-1}$
+            <label><input name="q52d" type="radio" value='True'/> True</label>
+            <label><input name="q52d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q52',[\"True\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q52"></span>
+    </div>
+    <button onclick="toggleSolution('q52')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q52" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 52</div>
+        <div class="solution-content">
+            <p>a) Đúng: Đường thẳng d có một véc tơ chỉ phương là $\vec{u}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q53">
+    <p class="question-title"><strong>Câu 53.</strong> Trong không gian Oxyz, cho điểm M (2;1;0) và đường thẳng d: $\frac{x-1}{2} = \frac{y+1}{1} = \frac{z}{-1}$. Xét tính đúng sai của các mệnh đề sau:</p>
+    <div class="options">
+        <div class="option-row">a) Đường thẳng d có một véc tơ chỉ phương là $\vec{u} = (2;1;-1)$.
+            <label><input name="q53a" type="radio" value='True'/> True</label>
+            <label><input name="q53a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Mặt phẳng (P) đi qua điểm M và vuông góc với d có phương trình tổng quát là $2x + by + cz + d = 0$. Khi đó $b + c + d = −5$.
+            <label><input name="q53b" type="radio" value='True'/> True</label>
+            <label><input name="q53b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Gọi M' là điểm đối xứng với M qua d. Khi đó M'(1;0;-2).
+            <label><input name="q53c" type="radio" value='True'/> True</label>
+            <label><input name="q53c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình đường thẳng $\Delta$ đi qua điểm M cắt và vuông góc với đường thẳng d. $\frac{x-2}{1} = \frac{y-1}{a} = \frac{z}{b}$. Khi đó $a + b = −6$.
+            <label><input name="q53d" type="radio" value='True'/> True</label>
+            <label><input name="q53d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q53',[\"True\",\"True\",\"False\",\"False\"])">✅ Kiểm tra</button>
+        <span id="result-q53"></span>
+    </div>
+    <button onclick="toggleSolution('q53')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q53" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 53</div>
+        <div class="solution-content">
+            <p>a) Đúng: Đường thẳng d có một véc tơ chỉ phương là $\vec{u}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q54">
+    <p class="question-title"><strong>Câu 54.</strong> Trong không gian Oxyz, cho mặt phẳng $(\alpha):x+y-z+6= 0$ và đường thẳng d: $\frac{x-1}{2} = \frac{y+4}{3} = \frac{z}{5}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Măt phẳng $(\alpha): x + y − z + 6 = 0$ có vectơ pháp tuyến $\vec{n} = (1;1; −1)$.
+            <label><input name="q54a" type="radio" value='True'/> True</label>
+            <label><input name="q54a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Đường thẳng d : $\frac{x-1}{2} = \frac{y+4}{3} = \frac{z}{5}$ có vectơ chỉ phương $\vec{u} = (1;−4;0)$.
+            <label><input name="q54b" type="radio" value='True'/> True</label>
+            <label><input name="q54b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đường thẳng d cắt $(\alpha)$.
+            <label><input name="q54c" type="radio" value='True'/> True</label>
+            <label><input name="q54c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Hình chiếu vuông góc của d trên $(\alpha)$ có phương trình là $\frac{x}{2} = \frac{y+5}{3} = \frac{z-1}{5}$
+            <label><input name="q54d" type="radio" value='True'/> True</label>
+            <label><input name="q54d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q54',[\"True\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q54"></span>
+    </div>
+    <button onclick="toggleSolution('q54')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q54" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 54</div>
+        <div class="solution-content">
+            <p>a) Đúng: Mặt phẳng $(\alpha): x + y − z + 6 = 0$ có vectơ pháp tuyến $\vec{n}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q55">
+    <p class="question-title"><strong>Câu 55.</strong> Trong không gian với hê toa độ Oxyz, cho măt phẳng (P):$x+y-z-1=0$ và đường thẳng d: $\frac{x+2}{2} = \frac{y-4}{-2} = \frac{z+1}{1}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Điểm N(0;2;0) thuộc đường thẳng d.
+            <label><input name="q55a" type="radio" value='True'/> True</label>
+            <label><input name="q55a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Đường thẳng d song song với mặt phẳng (P).
+            <label><input name="q55b" type="radio" value='True'/> True</label>
+            <label><input name="q55b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Phương trình tham số của d là $\begin{cases} x = -2+2t \\ y = -4-2t,t \in \mathbb{R} \\ z = -1+t \end{cases}$
+            <label><input name="q55c" type="radio" value='True'/> True</label>
+            <label><input name="q55c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình đường thẳng d' là hình chiếu vuông góc của d trên (P) có phương trình là d': $\frac{x-2}{7} = \frac{y}{-5} = \frac{z-1}{2}$
+            <label><input name="q55d" type="radio" value='True'/> True</label>
+            <label><input name="q55d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q55',[\"True\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q55"></span>
+    </div>
+    <button onclick="toggleSolution('q55')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q55" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 55</div>
+        <div class="solution-content">
+            <p>a) Đúng: Thay tọa độ N(0;2;0) vào d thỏa mãn phương trình đường thẳng d.</p>
+            <p>b) Sai: Ta có $\vec{n_p}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q56">
+    <p class="question-title"><strong>Câu 56.</strong> Trong không gian Oxyz, cho hai điểm A(1;3;3) và B(3;5;9). Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Một vectơ chỉ phương của đường thẳng AB là: $\vec{u} = (1;1;3)$.
+            <label><input name="q56a" type="radio" value='True'/> True</label>
+            <label><input name="q56a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Phương trình tham số của đường thẳng AB là: $\begin{cases} x=3+t \\ y = 5 + 3t (t \in \mathbb{R}) \\ z = 9+3t \end{cases}$.
+            <label><input name="q56b" type="radio" value='True'/> True</label>
+            <label><input name="q56b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Điểm M (4;6;9) thuộc đường thẳng AB.
+            <label><input name="q56c" type="radio" value='True'/> True</label>
+            <label><input name="q56c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Phương trình đường thẳng d đi qua điểm C(2;0;-3) và song song với đường thẳng AB là: $\frac{x-4}{1} = \frac{y-2}{1} = \frac{z-3}{3}$.
+            <label><input name="q56d" type="radio" value='True'/> True</label>
+            <label><input name="q56d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q56',[\"True\",\"False\",\"False\",\"True\"])">✅ Kiểm tra</button>
+        <span id="result-q56"></span>
+    </div>
+    <button onclick="toggleSolution('q56')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q56" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 56</div>
+        <div class="solution-content">
+            <p>a) Đúng: $\vec{AB}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q57">
+    <p class="question-title"><strong>Câu 57.</strong> Trong không gian Oxyz, cho đường thẳng d: $\frac{x-2}{1} = \frac{y-1}{2} = \frac{z+3}{2}$. Xét tính đúng sai của các khẳng định sau:</p>
+    <div class="options">
+        <div class="option-row">a) Đường thẳng d qua điểm M (1;2;2).
+            <label><input name="q57a" type="radio" value='True'/> True</label>
+            <label><input name="q57a" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">b) Đường thẳng d có một vectơ chỉ phương $\vec{v} = (2;4;4)$.
+            <label><input name="q57b" type="radio" value='True'/> True</label>
+            <label><input name="q57b" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">c) Đường thẳng d có phương trình tham số $\begin{cases} x=2+t \\ y = 1 + 2t \\ z = -3 + 2t \end{cases}$.
+            <label><input name="q57c" type="radio" value='True'/> True</label>
+            <label><input name="q57c" type="radio" value="False"/> False</label>
+        </div>
+        <div class="option-row">d) Đường thẳng $\Delta$ song song với đường thẳng $\Delta : \begin{cases} x=3-t \\ y = 2-2t \\ z = -1-2t \end{cases}$.
+            <label><input name="q57d" type="radio" value='True'/> True</label>
+            <label><input name="q57d" type="radio" value="False"/> False</label>
+        </div>
+    </div>
+    <div class="answer-check">
+        <button onclick="checkTrueFalseAnswer('q57',[\"False\",\"True\",\"True\",\"False\"])">✅ Kiểm tra</button>
+        <span id="result-q57"></span>
+    </div>
+    <button onclick="toggleSolution('q57')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q57" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 57</div>
+        <div class="solution-content">
+            <p>a) Sai: Thay M (1;2;0) vào đường thẳng d, ta có $\frac{1-2}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q58">
+    <p class="question-title"><strong>Câu 58.</strong> Một máy bay cất cánh tại một sân bay, sau khi bắt đầu cất cánh trong thời gian ngắn máy bay sẽ bay theo một đường thẳng và sân bay nơi máy bay cất cánh được coi là một mặt phẳng. Chọn hệ tọa độ $Oxyz$, đơn vị độ dài trên mỗi trục là 1 km. Biết rằng, máy bay bắt đầu cất cánh tại điểm $O(0;0;0)$ và sau một thời gian ngắn máy bay bay đến điểm $A(2;5;1,2)$ và sân bay máy bay cất cánh nằm trên mặt phẳng $(Oxy)$. Góc tạo bởi đường bay của máy bay cất cánh và sân bay bằng bao nhiêu (làm tròn kết quả đến hàng đơn vị theo đơn vị độ là độ)?</p>
+    <img src="data/im/ptdttt-c1.png">
+    <div class="answer-check">
+        <input type="text" id="input-q58" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q58','14')">✅ Kiểm tra</button>
+        <span id="icon-q58"></span>
+    </div>
+    <div id="result-q58"></div>
+    <button onclick="toggleSolution('q58')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q58" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 58</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp số: 14.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q59">
+    <p class="question-title"><strong>Câu 59.</strong> Trong không gian $Oxyz$, một khinh khí cầu ở tọa độ $A(-16;-10;10)$ bắt đầu bay với vectơ vận tốc không đổi $\vec{v}=(4;3;-1)$ (đơn vị vận tốc là km/h) và dự kiến bay trong thời gian 10 giờ. Biết trạm kiểm soát không lưu đặt ở vị trí gốc tọa độ $O$ kiểm soát được các vật thể cách trạm một khoảng tối đa bằng 12km. Thời gian kể từ khi trạm kiểm soát không lưu phát hiện ra khinh khí cầu đến khi khinh khí cầu ra khỏi vùng kiểm soát là bao nhiêu phút?</p>
+    <img src="data/im/ptdttt-c2.png">
+    <div class="answer-check">
+        <input type="text" id="input-q59" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q59','240')">✅ Kiểm tra</button>
+        <span id="icon-q59"></span>
+    </div>
+    <div id="result-q59"></div>
+    <button onclick="toggleSolution('q59')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q59" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 59</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 240.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q60">
+    <p class="question-title"><strong>Câu 60.</strong> Khi gắn hệ tọa độ $Oxyz$ (đơn vị trên mỗi trục tính theo kilômét) vào một sân bay, mặt phẳng $(Oxy)$ trùng với mặt sân bay. Một máy bay bay theo đường thẳng từ vị trí $A(5; 0; 5)$ đến vị trí $B(10; 10; 3)$ và hạ cánh tại vị trí $M (a; b; 0)$. Giá trị của $a + b$ bằng bao nhiêu (viết kết quả dưới dạng số thập phân)?</p>
+    <img src="data/im/ptdttt-c3.png">
+    <div class="answer-check">
+        <input type="text" id="input-q60" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q60','42,5')">✅ Kiểm tra</button>
+        <span id="icon-q60"></span>
+    </div>
+    <div id="result-q60"></div>
+    <button onclick="toggleSolution('q60')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q60" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 60</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 42,5.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q61">
+    <p class="question-title"><strong>Câu 61.</strong> Trong không gian với hệ trục tọa độ $Oxyz$, mỗi đơn vị trên hệ trục ứng với 10 km, trạm kiểm soát không lưu đang theo dõi hai máy bay. Máy bay thứ nhất ban đầu ở tọa độ $A(25;-10;1)$ và bay theo hướng vectơ $\vec{v_1} = (-3;-4;0)$ với tốc độ không đổi là 750 km/h. Máy bay thứ hai ban đầu ở tọa độ $B(30;-25;1,1)$ và bay theo hướng vectơ $\vec{v_2} =(-4;3;0)$ với tốc độ không đổi là 900 km/h. Trên máy bay thứ nhất có gắn radar tránh va chạm với bán kính hoạt động là 50 km. Hỏi thời gian máy bay thứ hai xuất hiện trên màn hình của radar máy bay thứ nhất là bao nhiêu phút (làm tròn kết quả đến hàng phần trăm)?</p>
+    <img src="data/im/ptdttt-c4.png">
+    <div class="answer-check">
+        <input type="text" id="input-q61" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q61','4,91')">✅ Kiểm tra</button>
+        <span id="icon-q61"></span>
+    </div>
+    <div id="result-q61"></div>
+    <button onclick="toggleSolution('q61')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q61" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 61</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 4,91.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q62">
+    <p class="question-title"><strong>Câu 62.</strong> Kim tự tháp Giza ở Ai Cập có dạng một hình chóp tứ giác đều. Biết rằng cạnh đáy của kim tự tháp dài 230 m và chiều cao của kim tự tháp là 146,6m. Tính độ dốc của mặt bên kim tự tháp so với mặt phẳng nằm ngang (kết quả làm tròn đến hàng đơn vị của độ).</p>
+    <img src="data/im/ptdttt-c5.png">
+    <img src="data/im/ptdttt-c5_sol.png">
+    <div class="answer-check">
+        <input type="text" id="input-q62" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q62','49')">✅ Kiểm tra</button>
+        <span id="icon-q62"></span>
+    </div>
+    <div id="result-q62"></div>
+    <button onclick="toggleSolution('q62')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q62" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 62</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 49.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q63">
+    <p class="question-title"><strong>Câu 63.</strong> Một phần mềm mô phỏng vận động viên tập bắn bia mục tiêu có kích thước nhỏ $(42cm\times42cm)$ trong không gian $Oxyz$ (giả sử $|\vec{i}| = |\vec{j}| = |\vec{k}| = 1cm $). Cho biết vận động viên đó sử dụng thước ngắm 3 và đứng cách xa bia mục tiêu là 100 m, trục $d$ của nòng súng và cọc đỡ bia $d'$ lần lượt có phương trình $d : \begin{cases} x=t <br> y=2 <br> z=4 \end{cases}$ và $d' : \begin{cases} x=1 <br> y=2 <br> z=1+3t' \end{cases}$. Để bắn trúng hồng tâm (thang điểm 10) thì vận động viên phải ngắm bắn vào điểm $N(a;b;c)\in d'$ và cách giao điểm của $d$ và $d'$ một khoảng 6 cm. Khi $c < 0$, tính giá trị biểu thức $2a - b + 3c$.</p>
+    <img src="data/im/ptdttt-c6.png">
+    <div class="answer-check">
+        <input type="text" id="input-q63" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q63','-6')">✅ Kiểm tra</button>
+        <span id="icon-q63"></span>
+    </div>
+    <div id="result-q63"></div>
+    <button onclick="toggleSolution('q63')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q63" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 63</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: -6.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q64">
+    <p class="question-title"><strong>Câu 64.</strong> Xét trong không gian $Oxyz$, đài kiểm soát không lưu sân bay đặt ở gốc toạ độ $O(0;0;0)$, đơn vị trên mỗi trục là ki-lô-mét. Một máy bay chuyển động theo đường thẳng, bay qua hai vị trí $A(-500;-300;500)$ và $B(-200;-200;450)$. Khi máy bay ở gần đài kiểm soát không lưu nhất, toạ độ máy bay là $(a;b;c)$. Tính giá trị của biểu thức $P = a + b +c$.</p>
+    <img src="data/im/ptdttt-c7.png">
+    <div class="answer-check">
+        <input type="text" id="input-q64" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q64','400')">✅ Kiểm tra</button>
+        <span id="icon-q64"></span>
+    </div>
+    <div id="result-q64"></div>
+    <button onclick="toggleSolution('q64')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q64" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 64</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 400.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q65">
+    <p class="question-title"><strong>Câu 65.</strong> Khi khắc phục hậu quả của thiên tai, bão lũ, một trong những giải pháp nhằm tiếp tế hàng cứu trợ đến những nơi khó tiếp cận là sử dụng flycam để xác định vị trí chính xác của người cần cứu trợ, sau đó sử dụng drone để vận chuyển các vật dụng thiết yếu thả xuống cho người này, giúp họ có thể cầm cự trong khi chờ đợi lực lượng cứu hộ đến nơi. Hai chiếc drone làm nhiệm vụ chuyển hàng cứu trợ bay lên từ cùng một địa điểm. Chiếc thứ nhất bay đến điểm cách điểm xuất phát 2,5km về phía nam và 1,5km về phía đông, đồng thời cách mặt đất 60m. Chiếc thứ hai bay đến điểm cách điểm xuất phát 3km về phía bắc và 2,5km về phía tây, đồng thời cách mặt đất 40m.Trong không gian, xét hệ tọa độ $Oxyz$ với gốc tọa độ $O$ đặt tại điểm xuất phát của hai chiếc drone, mặt phẳng $(Oxy)$ trùng với mặt đất (được coi là mặt phẳng). Giả sử trong trường hợp khẩn cấp cần tìm một vị trí trên mặt đất để tiếp nhiên liệu và các vật dụng cứu trợ cho hai drone sao cho tổng khoảng cách từ vị trí tiếp nhiên liệu tới hai drone nhỏ nhất. Vị trí cần tìm cách gốc tọa độ $a$ km theo hướng bắc và $b$ km theo hướng tây. Khi đó $a + b$ bằng bao nhiêu?</p>
+    <div class="answer-check">
+        <input type="text" id="input-q65" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q65','1,7')">✅ Kiểm tra</button>
+        <span id="icon-q65"></span>
+    </div>
+    <div id="result-q65"></div>
+    <button onclick="toggleSolution('q65')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q65" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 65</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 1,7.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q66">
+    <p class="question-title"><strong>Câu 66.</strong> Đường ống dẫn trên không là hệ thống đường ống được treo trên các giá đỡ hoặc cột cao, dùng để vận chuyển dầu thô hoặc các sản phầm dầu mỏ từ nơi này đến nơi khác mà không cần chôn dưới lòng đất. Hệ thống này thường được sử dụng trong các khu vực có địa hình khó khăn, vùng băng giá, rừng rậm,... những nơi mà việc đào đường ống ngầm không khả thi.
+    
+    Với hệ trục tọa độ $Oxyz$ thích hợp, đơn vị trên mỗi trục là mét, người ta thiết lập một đường ống dẫn dầu trên không dọc theo đường thẳng $d: \begin{cases} x=t <br> y=0 \end{cases}$ ($t$ là tham số). Vì địa hình phức tạp, $z=16$
+    người ta đành chọn điểm $A(12;10;15)$ cạnh vách núi để làm điểm trung chuyển từ mặt đất (mặt phẳng $Oxy$ ) đến đường ống này. Dựa vào kinh nghiệm của mình họ phải chọn vị trí $B$ thuộc đường ống và vị trí $C$ thuộc mặt đất sao cho tổng độ dài các đoạn đường $AB, BC, AC$ là bé nhất, tìm giá trị bé nhất đó theo đơn vị mét, làm tròn đến hàng phần chục.</p>
+    <img src="data/im/ptdttt-c9.png">
+    <div class="answer-check">
+        <input type="text" id="input-q66" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q66','42,6')">✅ Kiểm tra</button>
+        <span id="icon-q66"></span>
+    </div>
+    <div id="result-q66"></div>
+    <button onclick="toggleSolution('q66')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q66" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 66</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 42,6.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q67">
+    <p class="question-title"><strong>Câu 67.</strong> Trong một khu du lịch, người ta cho du khách trải nghiệm thiên nhiên bằng cách đu theo đường trượt zipline từ vị trí $A$ cao 15 m của tháp 1 này sang vị trí $B$ cao 10 m của tháp 2 trong khung cảnh tuyệt đẹp xung quanh.
+    
+    Với hệ trục toạ độ $Oxyz$ cho trước (đơn vị: mét), toạ độ của $A$ và $B$ lần lượt là $A(3;2,5;15)$ và $B(21;27,5;10)$. Khi du khách khi ở độ cao 12 mét thì tọa độ của du khách lúc đó là $M(a;b;c)$. Tính giá trị của biểu thức $T = a + b+c$.</p>
+    <img src="data/im/ptdttt-c10.png">
+    <div class="answer-check">
+        <input type="text" id="input-q67" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q67','43,3')">✅ Kiểm tra</button>
+        <span id="icon-q67"></span>
+    </div>
+    <div id="result-q67"></div>
+    <button onclick="toggleSolution('q67')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q67" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 67</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 43,3.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q68">
+    <p class="question-title"><strong>Câu 68.</strong> Trong không gian $Oxyz$, mắt một người quan sát đặt tại điểm $M (1;2;3)$ và vật cần quan sát đặt tại điểm $N (2;3;-12)$. Một tấm bìa cứng có dạng hình tròn thuộc mặt phăng $Oxy$ tâm đặt tại gốc tọa độ, bán kính $R$ che khuất tầm nhìn của người quan sát. Khi đó bán kính của tấm bìa nhỏ nhất là bao nhiêu? (làm tròn kết quả đến hàng phần trăm)</p>
+    <img src="data/im/ptdttt-c11.png">
+    <div class="answer-check">
+        <input type="text" id="input-q68" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q68','2,51')">✅ Kiểm tra</button>
+        <span id="icon-q68"></span>
+    </div>
+    <div id="result-q68"></div>
+    <button onclick="toggleSolution('q68')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q68" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 68</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 2,51.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q69">
+    <p class="question-title"><strong>Câu 69.</strong> Trong một đợt diễn tập quốc phòng, hai người ở vị trí khác nhau cùng ngắm bắn một mục tiêu cố định trên không. Người ta gắn một hệ trục tọa độ $Oxyz$ (đơn vị trên mỗi trục tính theo mét), mặt phẳng $(Oxy)$ trùng với mặt đất. Người thứ nhất bắn một viên đạn đi qua hai điểm $A(5;7;10)$ và $B(6;9;12)$. Người thứ hai bắn một viên đạn đi qua hai điểm $C(15;17;5)$ và $D$ (điểm $D$ ở độ cao 26 m so với mặt đất). Biết rằng sau một thời gian rời khỏi nòng súng, hai viên đạn chạm với nhau tại vị trí cách điểm $A$ một khoảng 150 m (tham khảo hình vẽ)
+    
+    Hỏi $D$ cách $C$ một khoảng bao nhiêu mét? (Kết quả làm tròn đến hàng phần chục.</p>
+    <img src="data/im/ptdttt-c12.png">
+    <div class="answer-check">
+        <input type="text" id="input-q69" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q69','28,8')">✅ Kiểm tra</button>
+        <span id="icon-q69"></span>
+    </div>
+    <div id="result-q69"></div>
+    <button onclick="toggleSolution('q69')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q69" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 69</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp số: 28,8</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q70">
+    <p class="question-title"><strong>Câu 70.</strong> Một hộ gia đình muốn làm chiếc lều như hình vẽ. Đáy nằm trên nền đất phẳng, các cột vuông góc với đáy có chiều cao $AA'=DD' =1,5m, BB' = CC' = 2m$, đáy là hình chữ nhật có $AB = 2m, AD = 1,5m$ (Tham khảo hình vẽ minh hoạ). Góc tạo bởi mái nhà và nền nhà là bao nhiêu độ (làm tròn đến hàng đơn vị)</p>
+    <img src="data/im/ptdttt-c13.png">
+    <img src="data/im/ptdttt-c13_sol.png">
+    <div class="answer-check">
+        <input type="text" id="input-q70" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q70','14')">✅ Kiểm tra</button>
+        <span id="icon-q70"></span>
+    </div>
+    <div id="result-q70"></div>
+    <button onclick="toggleSolution('q70')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q70" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 70</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp số: 14</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q71">
+    <p class="question-title"><strong>Câu 71.</strong> Khi gắn hệ trục toạ độ $Oxyz$ (đơn vị trên mỗi trục tính theo mét) vào một căn nhà sao cho nền nhà thuộc mặt phẳng $(Oxy)$, người ta coi mỗi mái nhà là một phần của mặt phẳng và thấy ba vị trí $A, B, C$ ở mái nhà bên trái lần lượt có toạ độ $(2;0;4),(4;0;3)$ và $(4;9;3)$. Góc giữa mái nhà bên trái và nền nhà bằng bao nhiêu độ (làm tròn kết quả đến hàng đơn vị)?</p>
+    <img src="data/im/ptdttt-c14.png">
+    <div class="answer-check">
+        <input type="text" id="input-q71" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q71','27')">✅ Kiểm tra</button>
+        <span id="icon-q71"></span>
+    </div>
+    <div id="result-q71"></div>
+    <button onclick="toggleSolution('q71')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q71" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 71</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 27</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q72">
+    <p class="question-title"><strong>Câu 72.</strong> Khi gắn hệ trục toạ độ $Oxyz$ (đơn vị trên mỗi trục tính theo kilomét) vào một sân bay, mặt phẳng $(Oxy)$ trùng với mặt sân bay. Một máy bay ở vị trí $A(3;2;-3)$ sẽ hạ cánh tới vị trí $B(8;8;0)$. Góc giữa đường bay (một phần của đường thẳng $AB$ ) và sân bay (một phần của mặt phẳng $(Oxy)$) bằng bao nhiêu độ (làm tròn kết quả đến hàng đơn vị)?</p>
+    <img src="data/im/ptdttt-c15.png">
+    <div class="answer-check">
+        <input type="text" id="input-q72" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q72','21')">✅ Kiểm tra</button>
+        <span id="icon-q72"></span>
+    </div>
+    <div id="result-q72"></div>
+    <button onclick="toggleSolution('q72')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q72" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 72</div>
+        <div class="solution-content">
+            <p>\textbf{Trả lời: 21</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q73">
+    <p class="question-title"><strong>Câu 73.</strong> Khi gắn hệ tọa độ $Oxyz$ (đơn vị trên mỗi trục tính theo kilômét) vào một sân bay, mặt phẳng $(Oxy)$ trùng với mặt sân bay. Một máy bay bay theo đường thẳng từ vị trí $A(5;0;5)$ đến vị trí $B(10;10;3)$ và hạ cánh tại vị trí $M(a;b;0)$. Giá trị của $a + b$ bằng bao nhiêu (làm tròn đến hàng phần chục)?</p>
+    <img src="data/im/ptdttt-c16.png">
+    <div class="answer-check">
+        <input type="text" id="input-q73" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q73','42,5')">✅ Kiểm tra</button>
+        <span id="icon-q73"></span>
+    </div>
+    <div id="result-q73"></div>
+    <button onclick="toggleSolution('q73')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q73" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 73</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp số: 42,5.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q74">
+    <p class="question-title"><strong>Câu 74.</strong> Người ta muốn dựng một cột ăngten trên một sườn đồi. Ăngten được dựng thẳng đứng trong không gian $Oxyz$ với độ dài đơn vị trên mỗi trục bằng 1m. Gọi $O$ là gốc cột, $A$ là điểm buộc dây cáp vào cột ăngten và $M, N$ là hai điểm neo dây cáp xuống mặt sườn đồi (hình vẽ).
+    
+    Cho biết tọa độ các điểm nói trên lần lượt là $O(0;0;0), A(0;0;8), M(4;-6;3), N(-4;-3; 2)$. Góc tạo bởi sợi dây cáp $MA$ với mặt phẳng sườn đồi (Làm tròn đến hàng đơn vị, đơn vị độ).</p>
+    <img src="data/im/ptdttt-c17.png">
+    <div class="answer-check">
+        <input type="text" id="input-q74" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q74','53')">✅ Kiểm tra</button>
+        <span id="icon-q74"></span>
+    </div>
+    <div id="result-q74"></div>
+    <button onclick="toggleSolution('q74')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q74" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 74</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 53</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q75">
+    <p class="question-title"><strong>Câu 75.</strong> Trong không gian với hệ tọa độ $Oxyz$, một cabin cáp treo xuất phát từ điểm $A(10,3;0)$ và chuyển động đều theo đường cáp có vectơ chỉ phương $\vec{u} =(-8;-6;0)$ với tốc độ là $10m/s$ (Đơn vị trên mỗi trục tọa độ là mét).
+    Giả sử sau $t(s)$ kể từ lúc xuất phát ($t\ge0$), cabin đến điểm $N$. Một người đứng tại điểm $O(0;0;0)$ quan sát cabin chạy trên cáp treo, sau thời gian bao nhiêu giây thì khoảng cách giữa người quan sát và cabin gần nhau nhất (đơn vị giây)?</p>
+    <img src="data/im/ptdttt-c18.png">
+    <div class="answer-check">
+        <input type="text" id="input-q75" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q75','0,98')">✅ Kiểm tra</button>
+        <span id="icon-q75"></span>
+    </div>
+    <div id="result-q75"></div>
+    <button onclick="toggleSolution('q75')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q75" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 75</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 0,98</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q76">
+    <p class="question-title"><strong>Câu 76.</strong> Cầu Cổng Vàng (The Golden Gate Bridge) ở Mỹ. Xét hệ trục toạ độ $Oxyz$ với $O$ là bệ của chân cột trụ tại mặt nước, trục $Oz$ trùng với cột trụ, mặt phẳng $(Oxy)$ là mặt nước và xem như trục $Oy$ cùng phương với cầu như hình vẽ.
+    
+    Dây cáp $AD$ (xem như là một đoạn thẳng) đi qua đỉnh $D$ thuộc trục $Oz$ và điểm $A$ thuộc mặt phẳng $(Oxy)$, trong đó điểm $D$ là đỉnh cột trụ cách mặt nước 326m, điểm $A$ cách mặt nước 82m và cách trục $Oz$ 352m.Giả sử ta dùng một đoạn dây nối điểm $N$ trên dây cáp $AD$ và điểm $M$ trên thành cầu, biết $M$ cách mặt nước 82m và $MN$ song song với cột trụ. Tính độ dài đoạn $MN$, biết điểm $M$ cách trục $Oz$ một khoảng bằng 250m (Kết quả làm tròn đến hàng phần đơn chục).</p>
+    <img src="data/im/ptdttt-c19.png">
+    <div class="answer-check">
+        <input type="text" id="input-q76" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q76','70,7')">✅ Kiểm tra</button>
+        <span id="icon-q76"></span>
+    </div>
+    <div id="result-q76"></div>
+    <button onclick="toggleSolution('q76')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q76" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 76</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 70,7</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q77">
+    <p class="question-title"><strong>Câu 77.</strong> Chuẩn bị đến ngày sinh nhật, bạn Bình muốn trang trí căn phòng trọ của mình đẹp hơn. Trước khi trang trí, Bình gắn 2 móc treo vào các vị trí $P, Q$, rồi căng một sợi dây từ $P$ đến $Q$. Tiếp theo, bạn gắn 2 móc treo vào các vị trí $A$ và $B$, sau đó lấy một điểm $M$ nằm giữa đoạn thẳng $PQ$ rồi tiếp tục căng dây từ $M$ đến $A$ và từ $M$ đến $B$. Xét một hệ trục tọa độ $Oxyz$ sao cho $P(1;1;0), Q(3;0;1) A(1;0;-1), B(2;1;1)$ đơn vị trên mỗi trục là mét. Khi tổng độ dài các đoạn dây mà Bình sử dụng là ngắn nhất thì khoảng cách từ $M$ đến $P$ bằng bao nhiêu mét? (Làm tròn kết quả đến hàng phần chục).</p>
+    <img src="data/im/ptdttt-c20.png">
+    <div class="answer-check">
+        <input type="text" id="input-q77" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q77','0,8')">✅ Kiểm tra</button>
+        <span id="icon-q77"></span>
+    </div>
+    <div id="result-q77"></div>
+    <button onclick="toggleSolution('q77')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q77" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 77</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 0,8.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q78">
+    <p class="question-title"><strong>Câu 78.</strong> Người ta thiết kế một dây cáp chạy thẳng từ điểm $X$ ở trên mặt đất tới đỉnh $T$ của một tòa tháp. Giả sử tọa độ của các điểm là $T (40;60;150)$ và $X (100;-40;0)$ trong hệ tọa độ không gian $Oxyz$, với $O$ là gốc tọa độ đặt tại mặt đất. Người ta muốn nối điểm $A(40;30;-20)$ nằm dưới một cái hố tới một điểm $M (a;b;c)$ nằm trên dây cáp sao khoảng cách $MA$ này là nhỏ nhất. Tính $a+b+c$.</p>
+    <img src="data/im/ptdttt-c21.png">
+    <div class="answer-check">
+        <input type="text" id="input-q78" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q78','100')">✅ Kiểm tra</button>
+        <span id="icon-q78"></span>
+    </div>
+    <div id="result-q78"></div>
+    <button onclick="toggleSolution('q78')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q78" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 78</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 100.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q79">
+    <p class="question-title"><strong>Câu 79.</strong> Trong không gian với hệ trục tọa độ $Oxyz$, xét mô hình phòng không như sau: rada đặt tại gốc tọa độ $O(0;0;0)$, tên lửa phòng không đặt tại điểm $M (0;50;0)$, mỗi đơn vị tương ứng với 10m, mặt phẳng $(Oxy)$ trùng với mặt đất, trục $Oz$ vuông góc mặt đất và hướng lên. Già sử mọi UAV (phương tiện bay không người lái) và tên lửa đều chuyển động thẳng đều. Tại thời điểm $t = 0(s)$, rađa phát hiện ra UAV $A$ ở toạ độ $A_0(1100,0,15)$. Tại thời điểm $t = 1s$, rađa theo dõi thấy UAV $A$ ở tọa độ $A_1(1095;1;14,5)$ trên đường thẳng $d$. Tại thời điềm $t = 6(s)$, một tên lửa được phóng lên và chuyển động thẳng đều với vận tốc 1300(m/s), va chạm và phá huỷ UAV $A$ tại điểm $B$ trên $d$. Hỏi sau bao nhiêu giây kể từ lúc được phóng lên thì tên lửa va chạm với UAV (làm tròn kết quả đến hàng phần trăm của giây)?</p>
+    <img src="data/im/ptdttt-c22.png">
+    <div class="answer-check">
+        <input type="text" id="input-q79" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q79','7,93')">✅ Kiểm tra</button>
+        <span id="icon-q79"></span>
+    </div>
+    <div id="result-q79"></div>
+    <button onclick="toggleSolution('q79')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q79" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 79</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 7,93.</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q80">
+    <p class="question-title"><strong>Câu 80.</strong> Trong một trung tâm nghiên cứu robot bay, người ta bố trí một thiết bị định vị tại điểm cố định $A(1;0;2)$ trong không gian ba chiều với hệ toạ độ $Oxyz$ (các đơn vị tọa độ được tính bằng mét). Thiết bị này giao tiếp đồng thời với hai cảm biến: Cảm biến thứ nhất di chuyển dọc theo đường thẳng $\Delta: \frac{x-3}{1}=\frac{y+1}{-1}=\frac{z-4}{2}$, cảm biến thứ hai được gắn trên mặt phẳng $(\alpha): 2x - y + z + 1 = 0 $. Giữa hai cảm biến được kết nối bằng một đường truyền $BC$, trong đó $B$ nằm trên đường thẳng $\Delta$, $C$ nằm trên mặt phẳng $(\alpha)$ và thiết bị định vị tại $A$ là trung điểm của đoạn $BC$. Biết rằng đường thẳng $BC$ có một véc tơ chỉ phương $\vec{u} = (-2;a;b)$, hãy tính giá trị $a + 2b$.</p>
+    <img src="data/im/ptdttt-c23.png">
+    <div class="answer-check">
+        <input type="text" id="input-q80" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q80','-1,5')">✅ Kiểm tra</button>
+        <span id="icon-q80"></span>
+    </div>
+    <div id="result-q80"></div>
+    <button onclick="toggleSolution('q80')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q80" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 80</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: -1,5</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q81">
+    <p class="question-title"><strong>Câu 81.</strong> Tại một sân bay, người ta chọn hệ tọa độ $Oxyz$ có gốc $O$ tại vị trí chân của đài quan sát, mặt phẳng $(Oxy)$ trùng với mặt sân bay (đơn vị trên mỗi trục tọa độ tính theo kilomét). Trên màn hình Rađa người ta quan sát một máy bay đang hạ cánh theo đường thẳng từ vị trí $A(4;0;10)$ đến vị trí $B(5; 5; 6)$ và tiếp đất tại vị trí $C(a; b; 0)$. Hỏi vị trí tiếp đất của máy bay cách chân đài quan sát bao nhiêu kilômét? (kết quả làm tròn một chữ số thập phân)</p>
+    <img src="data/im/ptdttt-c24.png">
+    <div class="answer-check">
+        <input type="text" id="input-q81" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q81','14,1')">✅ Kiểm tra</button>
+        <span id="icon-q81"></span>
+    </div>
+    <div id="result-q81"></div>
+    <button onclick="toggleSolution('q81')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q81" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 81</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 14,1</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q82">
+    <p class="question-title"><strong>Câu 82.</strong> Một chiếc bàn gấp gọn đã được thiết lập hệ tọa độ $Oxyz$. Điểm $A$ là chân bàn tiếp xúc với mặt đất thuộc đường thẳng $a: \begin{cases} x=-3+t <br> y=1+t <br> z=-2+4t \end{cases}$ cắt mặt bàn $(P):x+y-2z+6=0$ tại điểm $F$. Độ dài chân bàn $FA=40\sqrt{3}cm$, khi đó độ cao của mặt bàn tính từ mặt đất là là bao nhiêu cm ?</p>
+    <img src="data/im/ptdttt-c25.png">
+    <div class="answer-check">
+        <input type="text" id="input-q82" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q82','40')">✅ Kiểm tra</button>
+        <span id="icon-q82"></span>
+    </div>
+    <div id="result-q82"></div>
+    <button onclick="toggleSolution('q82')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q82" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 82</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 40</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q83">
+    <p class="question-title"><strong>Câu 83.</strong> Một công ty logistics đang thử nghiệm hệ thống giao hàng tự động bằng máy bay không người lái (drone).
+    Trong không gian $Oxyz$, mỗi đơn vị trên các trục tương ứng với 1 mét trên thực tế. Mặt ngoài của một tòa nhà cao tầng được xem là một phần của mặt phẳng $(P)$ thẳng đứng, đi qua hai điểm $C(10;50;0)$ và $D(30;10;0)$. Vị trí giao hàng là điểm $B$ nằm trên mặt phẳng $(P)$. Drone bắt đầu bay từ kho hàng tại gốc tọa độ $O(0;0;0)$. Ban đầu, nó bay theo một đường thẳng đến vị trí $A(30;40;120)$. Từ vị trí $A$, drone thay đổi đường bay, di chuyển theo phương vuông góc với mặt phẳng $(P)$ đến vị trí giao hàng $B$. Tính khoảng cách từ $O$ đến $B$ (làm tròn đến hàng đơn vị).</p>
+    <img src="data/im/ptdttt-c26.png">
+    <div class="answer-check">
+        <input type="text" id="input-q83" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q83','126')">✅ Kiểm tra</button>
+        <span id="icon-q83"></span>
+    </div>
+    <div id="result-q83"></div>
+    <button onclick="toggleSolution('q83')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q83" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 83</div>
+        <div class="solution-content">
+            <p>\textbf{Đán án: 126</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q84">
+    <p class="question-title"><strong>Câu 84.</strong> Trạm tàu cứu hộ được đặt tại vị trí $A(5;0;0)$ trên một hòn đảo nhỏ trong không gian $Oxyz$ (đơn vị trên mỗi trục được tính bằng km), được sử dụng làm trạm cứu hộ, cứu nạn trên biển.
+    
+    Tàu du lịch $B$ đang di chuyển (vận tốc không đổi) trên tuyến đường được mô tả bởi đường thẳng $d_1 : \begin{cases} x=2+t <br> y=1-2t <br> z=0 \end{cases}$. Tàu chở hàng $C$ đang di chuyển (vận tốc không đổi) trên tuyến đường vận tải được mô tả bởi đường thẳng $d_2 : \begin{cases} x=2-s <br> y=11+s <br> z=0 \end{cases}$. Do thời tiết xấu, nên hai tàu $B$ và $C$ gặp sự cố và cần được tiếp cận khẩn cấp. Trạm cứu hộ điều một tàu cứu hộ xuất phát từ $A$ để lần lượt tiếp cận tàu du lịch $B$ trước, sau đó đến tàu chở hàng $C$. Xét vị trí tối ưu của tàu du lịch $B$ dừng lại và tàu chở hàng $C$ dừng lại sao cho tổng quãng đường tàu cứu hộ cần đi $T = AB + BC + CA$ là nhỏ nhất. Khi đó $P_{min} = \sqrt{a}$ (km), hãy tính $a + 2025$?</p>
+    <img src="data/im/ptdttt-c27.png">
+    <div class="answer-check">
+        <input type="text" id="input-q84" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q84','2269')">✅ Kiểm tra</button>
+        <span id="icon-q84"></span>
+    </div>
+    <div id="result-q84"></div>
+    <button onclick="toggleSolution('q84')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q84" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 84</div>
+        <div class="solution-content">
+            <p>Chúng ta cần tìm vị trí tối ưu của tàu du lịch $B$ (tương ứng với điểm $B$ ) và tàu chở hàng $C$ (tương</p>
+            <p>ứng với điểm $C$ ) sao cho tổng quãng đường cứu hộ $T = AB + BC + CA$ là nhỏ nhất.</p>
+            <p>Trong không gian $Oxyz$, ta có:</p>
+            <p>+ Hai đường thẳng $d_1, d_2$ cùng nằm trong mặt phẳng $(\alpha):z=0$ và $A\in(\alpha)$.</p>
+            <p>+ $d_1$ có một véc tơ chỉ phương $\vec{u_1}</p>
+        </div>
+    </div>
+</div>
+</section>
+<section>
+<div class="question" id="q85">
+    <p class="question-title"><strong>Câu 85.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho hai lớp kính lần lượt là hai mặt phẳng có phương trình $(\alpha): 2x - 2y− z + 3\sqrt{3} = 0, (\beta) : −4x + 4y + 2z +12\sqrt{3} = 0$. Một nguồn sáng được chiếu vào hai tấm kính là tập hợp các đường thẳng có vectơ chỉ phương là $\vec{u} = (1;1;1)$ và đi qua các điểm $M(3;0;0), N(1;1;1)$ và $P(3;5;-5)$. Biết rằng các giao điểm của các đường thẳng nói trên với hai tấm kính $(\alpha)$ và $(\beta)$ là 6 đỉnh của một khối đa diện. Thể tích $V$ của khối đa diện tạo bởi 6 điểm đó có kết quả là $a\sqrt{b}$ với $a,b$ nguyên dương và $b$ là số nguyên tố. Tính giá trị của $a + b$.</p>
+    <img src="data/im/ptdttt-c28.png">
+    <div class="answer-check">
+        <input type="text" id="input-q85" placeholder="Nhập câu trả lời">
+        <button onclick="checkShortAnswer('q85','138')">✅ Kiểm tra</button>
+        <span id="icon-q85"></span>
+    </div>
+    <div id="result-q85"></div>
+    <button onclick="toggleSolution('q85')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
+    <div id="solution-q85" class="solution-box" style="display: none;">
+        <div class="solution-title">Hướng dẫn giải Câu 85</div>
+        <div class="solution-content">
+            <p>\textbf{Đáp án: 138.</p>
+        </div>
+    </div>
 </div>
 </section>
 
@@ -2159,7 +3606,7 @@ body:-ms-fullscreen .reveal {
 <!-- === HTML TÍCH HỢP: CANVAS VẼ === -->
 <canvas id="drawCanvas"></canvas>
 <div class="toolbar" id="drawToolbar">
-    <a href="index.html" title="Về trang chủ (demo)">
+    <a href="..\index.html" title="Về trang chủ (demo)">
       <button id="homeBtn" style="font-size:22px;">🏠</button>
     </a>
     <select id="tool">

@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <title>LỚP TOÁN THẦY BÌNH - QUẢN LÝ GIÁO VIÊN</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Hệ thống quản lý lớp học - Lớp Toán Thầy Bình">
+    <meta name="keywords" content="quản lý lớp học, giáo viên, học sinh, kết quả, excel">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+    <!-- SheetJS (Excel Export) -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <style>
+        /* ===== CSS CƠ BẢN ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ===== TOPBAR ===== */
+        .topbar {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, #1a237e, #283593);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-bottom: 3px solid #3949ab;
+        }
+
+        .topbar-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-title::before {
+            content: "👨‍🏫";
+            font-size: 1.8rem;
+        }
+
+        .topbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar-controls button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .topbar-controls button:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1a237e;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ===== TABLE STYLES ===== */
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 10px;
+            border: 2px solid #f0f0f0;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            color: #333;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: white;
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+
+        tr:hover {
+            background: #e8eaff;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #000;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* ===== MODAL STYLES ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: modalAppear 0.4s ease;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-lg {
+            max-width: 900px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-content h3 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        /* ===== NOTIFICATION ===== */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 100000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.4s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #000;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+        }
+
+        /* ===== FIREBASE STATUS ===== */
+        .firebase-status {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            z-index: 10001;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .firebase-connected {
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+        }
+
+        .firebase-disconnected {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .topbar-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+
+        /* ===== LOADING SPINNER ===== */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1a237e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== DETAIL RESULTS ===== */
+        .results-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-top: 25px;
+        }
+
+        .student-info {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1a237e;
+        }
+
+        .answer-details {
+            margin-top: 15px;
+        }
+
+        .answer-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            background: #f8f9fa;
+        }
+
+        .answer-item.correct {
+            border-left: 4px solid #28a745;
+            background: #d4edda;
+        }
+
+        .answer-item.incorrect {
+            border-left: 4px solid #dc3545;
+            background: #f8d7da;
+        }
+
+        .answer-item.partial {
+            border-left: 4px solid #ffc107;
+            background: #fff3cd;
+        }
+
+        .question-detail {
+            margin-top: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .time-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .test-name {
+            font-weight: bold;
+            color: #1a237e;
+            background: #e8eaff;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* ===== SEARCH AND FILTER ===== */
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-filter input,
+        .search-filter select {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 200px;
+        }
+
+        .search-filter input:focus,
+        .search-filter select:focus {
+            outline: none;
+            border-color: #1a237e;
+        }
+    </style>
+</head>
+<body>
+    <!-- Firebase Status Indicator -->
+    <div id="firebaseStatus" class="firebase-status firebase-disconnected">
+        <span class="loading-spinner"></span> Đang kết nối...
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="topbar-title">LỚP TOÁN THẦY BÌNH - QUẢN LÝ GIÁO VIÊN</div>
+        <div class="topbar-controls">
+            <button id="loginBtn" class="btn btn-primary">🔑 Đăng nhập</button>
+            <button id="refreshBtn" class="btn btn-info">🔄 Làm mới</button>
+            <button id="exportAllBtn" class="btn btn-success">📊 Xuất Excel</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Thống kê tổng quan -->
+        <div class="dashboard-card">
+            <h2>📊 Thống kê tổng quan</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalClasses">0</div>
+                    <div class="stat-label">Lớp học</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalStudents">0</div>
+                    <div class="stat-label">Học sinh</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalAttempts">0</div>
+                    <div class="stat-label">Bài làm</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avgScore">0.0</div>
+                    <div class="stat-label">Điểm TB</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quản lý lớp học -->
+        <div class="dashboard-card">
+            <h2>🏫 Quản lý lớp học</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button id="createClassBtn" class="btn btn-success">➕ Tạo lớp mới</button>
+                <button id="manageClassesBtn" class="btn btn-primary">📚 Quản lý lớp</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên lớp</th>
+                            <th>Mã lớp</th>
+                            <th>Số HS</th>
+                            <th>Ngày tạo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classesTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải danh sách lớp...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quản lý học sinh -->
+        <div class="dashboard-card">
+            <h2>👥 Quản lý học sinh</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button id="assignStudentBtn" class="btn btn-success">🎓 Cấp mã HS</button>
+                <button id="viewStudentCodesBtn" class="btn btn-info">📋 DS Mã HS</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã HS</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải danh sách học sinh...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Kết quả bài làm -->
+        <div class="dashboard-card">
+            <h2>📝 Kết quả bài làm</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button id="viewResultsBtn" class="btn btn-primary">📊 Xem kết quả</button>
+                <button id="exportResultsBtn" class="btn btn-success">📤 Xuất Excel</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Học sinh</th>
+                            <th>Đề thi</th>
+                            <th>Điểm</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải kết quả...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chi tiết kết quả học sinh -->
+    <div class="results-container" id="studentResultsDetail" style="display: none;">
+        <h2>📋 Chi tiết kết quả học sinh</h2>
+        <div class="student-info" id="studentInfo"></div>
+        <div class="answer-details" id="answerDetails"></div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="closeDetailsBtn" class="btn btn-primary">Đóng</button>
+            <button id="exportStudentResultsBtn" class="btn btn-success">📤 Xuất Excel</button>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-login-modal">×</button>
+            <h3>🔐 Đăng nhập giáo viên</h3>
+            <form id="teacher-login-form">
+                <div class="form-group">
+                    <label for="teacher-code">Mã giáo viên:</label>
+                    <input type="text" id="teacher-code" placeholder="Nhập mã giáo viên" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacher-name">Họ tên:</label>
+                    <input type="text" id="teacher-name" placeholder="Nhập họ tên" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">🚀 Đăng nhập</button>
+                    <button type="button" class="btn btn-danger" id="cancel-login">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Class Modal -->
+    <div class="modal" id="create-class-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-create-class-modal">×</button>
+            <h3>🏫 Tạo lớp mới</h3>
+            <form id="create-class-form">
+                <div class="form-group">
+                    <label for="class-name">Tên lớp:</label>
+                    <input type="text" id="class-name" placeholder="Ví dụ: 12A1, Toán Nâng cao..." required>
+                </div>
+                <div class="form-group">
+                    <label for="class-description">Mô tả:</label>
+                    <textarea id="class-description" placeholder="Mô tả về lớp học..." rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">🏫 Tạo Lớp</button>
+                    <button type="button" class="btn btn-danger" id="cancel-create-class">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assign Student Modal -->
+    <div class="modal" id="assign-student-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-assign-student-modal">×</button>
+            <h3>🎓 Cấp mã học sinh</h3>
+            <form id="assign-student-form">
+                <div class="form-group">
+                    <label for="select-class-for-student">Chọn lớp:</label>
+                    <select id="select-class-for-student" required>
+                        <option value="">-- Chọn lớp --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="student-fullname">Họ tên học sinh:</label>
+                    <input type="text" id="student-fullname" placeholder="Nhập họ tên học sinh" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-email">Email (tuỳ chọn):</label>
+                    <input type="email" id="student-email" placeholder="Nhập email học sinh">
+                </div>
+                <div class="form-group">
+                    <label>Mã học sinh sẽ được tạo:</label>
+                    <div id="generated-student-code" style="font-family: monospace; font-size: 1.2em; font-weight: bold; color: #1a237e; background: #f8f9fa; padding: 10px; border-radius: 6px; text-align: center;">
+                        HS_XXXXXX
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="generate-student-code-btn" class="btn btn-info">🎲 Tạo Mã</button>
+                    <button type="submit" class="btn btn-success">✅ Cấp Mã</button>
+                    <button type="button" class="btn btn-danger" id="cancel-assign-student">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Codes Modal -->
+    <div class="modal" id="student-codes-modal">
+        <div class="modal-content modal-lg">
+            <button class="modal-close" id="close-student-codes-modal">×</button>
+            <h3>📋 Danh sách mã học sinh</h3>
+            <div class="search-filter">
+                <select id="filter-class-codes">
+                    <option value="all">Tất cả lớp</option>
+                </select>
+                <input type="text" id="search-student-codes" placeholder="🔍 Tìm học sinh...">
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã HS</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Ngày cấp</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-codes-list">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                                Đang tải danh sách mã học sinh...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="export-codes-btn" class="btn btn-success">📤 Xuất Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal" id="results-modal">
+        <div class="modal-content modal-lg">
+            <button class="modal-close" id="close-results-modal">×</button>
+            <h3>📊 Kết quả bài làm chi tiết</h3>
+            <div class="search-filter">
+                <input type="text" id="search-student-results" placeholder="🔍 Tìm học sinh...">
+                <select id="filter-class-results">
+                    <option value="all">Tất cả lớp</option>
+                </select>
+                <select id="filter-test-results">
+                    <option value="all">Tất cả đề</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Học sinh</th>
+                            <th>Lớp</th>
+                            <th>Đề thi</th>
+                            <th>Điểm</th>
+                            <th>Thời gian</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailed-results-list">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                                Đang tải kết quả chi tiết...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="export-detailed-results-btn" class="btn btn-success">📤 Xuất Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== FIREBASE CONFIGURATION =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+            authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+            databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "daytoantructuyen-149d9",
+            storageBucket: "daytoantructuyen-149d9.firebasestorage.app",
+            messagingSenderId: "258454714393",
+            appId: "1:258454714393:web:bcf66624668e516934d288"
+        };
+
+        // ===== GLOBAL VARIABLES =====
+        let db = null;
+        let auth = null;
+        let isTeacherLoggedIn = false;
+        let currentUser = null;
+
+        // ===== TEST NAME MAPPING =====
+        const testNames = {
+            'gk1de1.html': 'Đề 1: Giữa HK1',
+            'gk1de2.html': 'Đề 2: Giữa HK1',
+            'gk2de1.html': 'Đề 1: Giữa HK2',
+            'hk1de1.html': 'Đề 1: HK1',
+            'hk2de1.html': 'Đề 1: HK2'
+        };
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            if (initializeFirebase()) {
+                setupAuthentication();
+                setupEventListeners();
+                setupModalSystem();
+                showNotification('Hệ thống đã sẵn sàng! Vui lòng đăng nhập.', 'info');
+            } else {
+                showNotification('Không thể kết nối đến cơ sở dữ liệu.', 'error');
+            }
+        });
+
+        function initializeFirebase() {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+                auth = firebase.auth();
+                console.log("✅ Firebase initialized successfully");
+                
+                db.ref('.info/connected').on('value', snap => {
+                    const statusElement = document.getElementById('firebaseStatus');
+                    if (snap.val() === true) {
+                        statusElement.innerHTML = "✅ Firebase: Đã kết nối";
+                        statusElement.className = "firebase-status firebase-connected";
+                    } else {
+                        statusElement.innerHTML = '<span class="loading-spinner"></span> Firebase: Đang kết nối...';
+                        statusElement.className = "firebase-status firebase-disconnected";
+                    }
+                });
+                return true;
+            } catch (error) {
+                console.error("❌ Firebase initialization failed:", error);
+                showNotification('Lỗi khởi tạo Firebase: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        // ===== AUTHENTICATION =====
+        function setupAuthentication() {
+            document.getElementById('teacher-login-form').addEventListener('submit', async e => {
+                e.preventDefault();
+                const code = document.getElementById('teacher-code').value.trim();
+                const name = document.getElementById('teacher-name').value.trim();
+                
+                if (!code || !name) {
+                    showNotification('Vui lòng nhập đầy đủ thông tin!', 'error');
+                    return;
+                }
+
+                if (code === 'admin79') {
+                    await loginAsTeacher(name);
+                } else {
+                    showNotification('Mã giáo viên không hợp lệ!', 'error');
+                }
+            });
+
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                showModal('login-modal');
+            });
+
+            document.getElementById('cancel-login').addEventListener('click', () => {
+                hideModal('login-modal');
+            });
+
+            document.getElementById('close-login-modal').addEventListener('click', () => {
+                hideModal('login-modal');
+            });
+        }
+
+        async function loginAsTeacher(name) {
+            try {
+                isTeacherLoggedIn = true;
+                currentUser = { uid: 'teacher_admin_79', name, role: 'teacher', code: 'admin79' };
+                
+                await db.ref('users/' + currentUser.uid).set({ 
+                    name, 
+                    role: 'teacher', 
+                    lastLogin: firebase.database.ServerValue.TIMESTAMP 
+                });
+                
+                showNotification(`✅ Đăng nhập thành công - GV: ${name}`, 'success');
+                hideModal('login-modal');
+                updateUIAfterLogin();
+                loadAllData();
+                
+            } catch (error) {
+                console.error('Teacher login error:', error);
+                showNotification('Lỗi đăng nhập: ' + error.message, 'error');
+            }
+        }
+
+        function updateUIAfterLogin() {
+            document.getElementById('loginBtn').innerHTML = '👨‍🏫 ' + currentUser.name;
+            document.getElementById('loginBtn').style.background = '#28a745';
+        }
+
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Refresh button
+            document.getElementById('refreshBtn').addEventListener('click', loadAllData);
+            
+            // Class management
+            document.getElementById('createClassBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                showModal('create-class-modal');
+            });
+            
+            document.getElementById('manageClassesBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                loadClassesList();
+            });
+            
+            // Student management
+            document.getElementById('assignStudentBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                showModal('assign-student-modal');
+                loadClassesForAssignment();
+                generateStudentCode();
+            });
+            
+            document.getElementById('viewStudentCodesBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                showModal('student-codes-modal');
+                loadStudentCodesList();
+            });
+            
+            // Results management
+            document.getElementById('viewResultsBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                showModal('results-modal');
+                loadDetailedResults();
+            });
+            
+            document.getElementById('exportResultsBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                exportResultsToExcel();
+            });
+            
+            document.getElementById('exportAllBtn').addEventListener('click', () => {
+                if (!checkLogin()) return;
+                exportAllDataToExcel();
+            });
+            
+            // Form submissions
+            document.getElementById('create-class-form').addEventListener('submit', createNewClass);
+            document.getElementById('assign-student-form').addEventListener('submit', assignStudentCode);
+            
+            // Generate student code
+            document.getElementById('generate-student-code-btn').addEventListener('click', generateStudentCode);
+            
+            // Export buttons
+            document.getElementById('export-codes-btn').addEventListener('click', exportStudentCodesToExcel);
+            document.getElementById('export-detailed-results-btn').addEventListener('click', exportDetailedResultsToExcel);
+            document.getElementById('exportStudentResultsBtn').addEventListener('click', exportStudentDetailToExcel);
+            
+            // Close buttons
+            document.getElementById('close-create-class-modal').addEventListener('click', () => hideModal('create-class-modal'));
+            document.getElementById('close-assign-student-modal').addEventListener('click', () => hideModal('assign-student-modal'));
+            document.getElementById('close-student-codes-modal').addEventListener('click', () => hideModal('student-codes-modal'));
+            document.getElementById('close-results-modal').addEventListener('click', () => hideModal('results-modal'));
+            document.getElementById('cancel-create-class').addEventListener('click', () => hideModal('create-class-modal'));
+            document.getElementById('cancel-assign-student').addEventListener('click', () => hideModal('assign-student-modal'));
+            document.getElementById('closeDetailsBtn').addEventListener('click', () => {
+                document.getElementById('studentResultsDetail').style.display = 'none';
+            });
+            
+            // Search and filter
+            document.getElementById('search-student-results').addEventListener('input', loadDetailedResults);
+            document.getElementById('filter-class-results').addEventListener('change', loadDetailedResults);
+            document.getElementById('filter-test-results').addEventListener('change', loadDetailedResults);
+            document.getElementById('filter-class-codes').addEventListener('change', loadStudentCodesList);
+            document.getElementById('search-student-codes').addEventListener('input', loadStudentCodesList);
+        }
+
+        function checkLogin() {
+            if (!isTeacherLoggedIn) {
+                showNotification('Vui lòng đăng nhập trước!', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        // ===== MODAL SYSTEM =====
+        function setupModalSystem() {
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        hideModal(this.id);
+                    }
+                });
+            });
+            
+            // ESC key to close modals
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        hideModal(modal.id);
+                    });
+                }
+            });
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // ===== DATA LOADING =====
+        function loadAllData() {
+            if (!checkLogin()) return;
+            
+            loadStatistics();
+            loadClassesList();
+            loadStudentsList();
+            loadResultsList();
+        }
+
+        async function loadStatistics() {
+            try {
+                // Load classes
+                const classesSnapshot = await db.ref('classes').once('value');
+                const classesData = classesSnapshot.val() || {};
+                
+                // Filter classes for current teacher
+                const teacherClasses = {};
+                Object.entries(classesData).forEach(([classCode, classData]) => {
+                    if (classData.teacherId === currentUser.uid) {
+                        teacherClasses[classCode] = classData;
+                    }
+                });
+                
+                // Load student codes
+                const codesSnapshot = await db.ref('studentCodes').once('value');
+                const codesData = codesSnapshot.val() || {};
+                
+                // Filter student codes for current teacher
+                const teacherStudents = {};
+                Object.entries(codesData).forEach(([code, studentData]) => {
+                    if (studentData.teacherId === currentUser.uid) {
+                        teacherStudents[code] = studentData;
+                    }
+                });
+                
+                // Load results from attempts
+                const attemptsSnapshot = await db.ref('attempts').once('value');
+                const attemptsData = attemptsSnapshot.val() || {};
+                
+                // Filter results for current teacher's students
+                let totalScore = 0;
+                let resultCount = 0;
+                
+                Object.values(attemptsData).forEach(sessionData => {
+                    Object.values(sessionData).forEach(attempt => {
+                        if (teacherStudents[attempt.code]) {
+                            totalScore += parseFloat(attempt.score) || 0;
+                            resultCount++;
+                        }
+                    });
+                });
+                
+                // Update statistics
+                document.getElementById('totalClasses').textContent = Object.keys(teacherClasses).length;
+                document.getElementById('totalStudents').textContent = Object.keys(teacherStudents).length;
+                document.getElementById('totalAttempts').textContent = resultCount;
+                document.getElementById('avgScore').textContent = resultCount > 0 ? (totalScore / resultCount).toFixed(2) : '0.00';
+                
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+                showNotification('Lỗi khi tải thống kê!', 'error');
+            }
+        }
+
+        async function loadClassesList() {
+            try {
+                const snapshot = await db.ref('classes').once('value');
+                const classesData = snapshot.val() || {};
+                
+                const tbody = document.getElementById('classesTableBody');
+                let html = '';
+                
+                Object.entries(classesData).forEach(([classCode, classData]) => {
+                    if (classData.teacherId !== currentUser.uid) return;
+                    
+                    const createDate = classData.createdAt ? 
+                        new Date(classData.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+                    
+                    html += `
+                        <tr>
+                            <td>${classData.name}</td>
+                            <td><code>${classCode}</code></td>
+                            <td>${classData.studentCount || 0}</td>
+                            <td>${createDate}</td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = html || `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                            Chưa có lớp học nào.
+                        </td>
+                    </tr>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading classes:', error);
+                document.getElementById('classesTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #dc3545;">
+                            ❌ Lỗi khi tải danh sách lớp
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        async function loadStudentsList() {
+            try {
+                const snapshot = await db.ref('studentCodes').once('value');
+                const studentsData = snapshot.val() || {};
+                
+                const tbody = document.getElementById('studentsTableBody');
+                let html = '';
+                
+                Object.entries(studentsData).forEach(([code, studentData]) => {
+                    if (studentData.teacherId !== currentUser.uid) return;
+                    
+                    const status = studentData.status === 'active' ? 
+                        '<span style="color: #28a745;">🟢 Hoạt động</span>' : 
+                        '<span style="color: #dc3545;">🔴 Đã khóa</span>';
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${code}</strong></td>
+                            <td>${studentData.name}</td>
+                            <td>${studentData.classCode || 'Chưa có lớp'}</td>
+                            <td>${status}</td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = html || `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                            Chưa có học sinh nào.
+                        </td>
+                    </tr>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading students:', error);
+                document.getElementById('studentsTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #dc3545;">
+                            ❌ Lỗi khi tải danh sách học sinh
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        async function loadResultsList() {
+            try {
+                // Load results from attempts
+                const attemptsSnapshot = await db.ref('attempts').once('value');
+                const attemptsData = attemptsSnapshot.val() || {};
+                
+                // Get student codes for this teacher
+                const codesSnapshot = await db.ref('studentCodes').once('value');
+                const codesData = codesSnapshot.val() || {};
+                
+                const teacherStudentCodes = new Set();
+                Object.entries(codesData).forEach(([code, studentData]) => {
+                    if (studentData.teacherId === currentUser.uid) {
+                        teacherStudentCodes.add(code);
+                    }
+                });
+                
+                const tbody = document.getElementById('resultsTableBody');
+                let html = '';
+                
+                // Collect all results
+                let allResults = [];
+                
+                Object.values(attemptsData).forEach(sessionData => {
+                    Object.values(sessionData).forEach(attempt => {
+                        if (teacherStudentCodes.has(attempt.code)) {
+                            allResults.push(attempt);
+                        }
+                    });
+                });
+                
+                // Sort by timestamp (newest first)
+                allResults.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                
+                // Display latest 10 results
+                allResults.slice(0, 10).forEach(attempt => {
+                    const timestamp = attempt.createdAt ? 
+                        new Date(attempt.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+                    
+                    const testName = getTestDisplayName(attempt.testId);
+                    
+                    html += `
+                        <tr>
+                            <td>${attempt.name} (${attempt.code})</td>
+                            <td><span class="test-name">${testName}</span></td>
+                            <td style="font-weight: bold; color: ${getScoreColor(attempt.score)}">
+                                ${parseFloat(attempt.score).toFixed(2)}
+                            </td>
+                            <td>${timestamp}</td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = html || `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #666;">
+                            Chưa có kết quả nào.
+                        </td>
+                    </tr>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading results:', error);
+                document.getElementById('resultsTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: #dc3545;">
+                            ❌ Lỗi khi tải kết quả
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // ===== TEST NAME MANAGEMENT =====
+        function getTestDisplayName(testId) {
+            if (!testId) return 'Không xác định';
+            
+            // Check if testId is a full URL and extract filename
+            let filename = testId;
+            if (testId.includes('/')) {
+                filename = testId.split('/').pop();
+            }
+            
+            // Return mapped name or original filename
+            return testNames[filename] || filename;
+        }
+
+        function getTestFileName(testId) {
+            if (!testId) return 'unknown';
+            
+            // Extract filename from URL if needed
+            let filename = testId;
+            if (testId.includes('/')) {
+                filename = testId.split('/').pop();
+            }
+            
+            return filename;
+        }
+
+        // ===== CLASS MANAGEMENT =====
+        async function createNewClass(e) {
+            e.preventDefault();
+            
+            const className = document.getElementById('class-name').value.trim();
+            const classDescription = document.getElementById('class-description').value.trim();
+
+            if (!className) {
+                showNotification('Vui lòng nhập tên lớp!', 'error');
+                return;
+            }
+
+            try {
+                const classCode = generateClassCode();
+                const classData = {
+                    name: className,
+                    description: classDescription,
+                    code: classCode,
+                    teacher: currentUser.name,
+                    teacherId: currentUser.uid,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP,
+                    studentCount: 0,
+                    status: 'active'
+                };
+
+                await db.ref(`classes/${classCode}`).set(classData);
+                
+                hideModal('create-class-modal');
+                document.getElementById('create-class-form').reset();
+                
+                showNotification(`✅ Đã tạo lớp "${className}" với mã: ${classCode}`, 'success');
+                loadAllData();
+                
+            } catch (error) {
+                console.error('Error creating class:', error);
+                showNotification('❌ Lỗi khi tạo lớp!', 'error');
+            }
+        }
+
+        function generateClassCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return code;
+        }
+
+        // ===== STUDENT MANAGEMENT =====
+        async function loadClassesForAssignment() {
+            try {
+                const snapshot = await db.ref('classes').once('value');
+                const classesData = snapshot.val() || {};
+                const select = document.getElementById('select-class-for-student');
+                
+                let options = '<option value="">-- Chọn lớp --</option>';
+                
+                Object.entries(classesData).forEach(([classCode, classData]) => {
+                    if (classData.teacherId === currentUser.uid) {
+                        options += `<option value="${classCode}">${classData.name} (${classCode})</option>`;
+                    }
+                });
+                
+                select.innerHTML = options;
+                
+            } catch (error) {
+                console.error('Error loading classes for assignment:', error);
+            }
+        }
+
+        function generateStudentCode() {
+            const prefix = 'HS';
+            const randomNum = Math.floor(100000 + Math.random() * 900000);
+            const studentCode = `${prefix}${randomNum}`;
+            
+            document.getElementById('generated-student-code').textContent = studentCode;
+            return studentCode;
+        }
+
+        async function assignStudentCode(e) {
+            e.preventDefault();
+            
+            const classCode = document.getElementById('select-class-for-student').value;
+            const studentName = document.getElementById('student-fullname').value.trim();
+            const studentCode = document.getElementById('generated-student-code').textContent;
+
+            if (!classCode) {
+                showNotification('Vui lòng chọn lớp!', 'error');
+                return;
+            }
+
+            if (!studentName) {
+                showNotification('Vui lòng nhập họ tên học sinh!', 'error');
+                return;
+            }
+
+            try {
+                const classSnapshot = await db.ref(`classes/${classCode}`).once('value');
+                const classData = classSnapshot.val();
+                
+                if (!classData) {
+                    showNotification('Lớp học không tồn tại!', 'error');
+                    return;
+                }
+
+                const studentCodeData = {
+                    code: studentCode,
+                    name: studentName,
+                    classCode: classCode,
+                    className: classData.name,
+                    teacherId: currentUser.uid,
+                    teacherName: currentUser.name,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP,
+                    status: 'active'
+                };
+
+                await db.ref(`studentCodes/${studentCode}`).set(studentCodeData);
+
+                // Update student count in class
+                await updateStudentCountInClass(classCode);
+
+                showNotification(`✅ Đã cấp mã ${studentCode} cho ${studentName}`, 'success');
+                hideModal('assign-student-modal');
+                document.getElementById('assign-student-form').reset();
+                loadAllData();
+                
+            } catch (error) {
+                console.error('Error assigning student code:', error);
+                showNotification('❌ Lỗi khi cấp mã học sinh!', 'error');
+            }
+        }
+
+        async function updateStudentCountInClass(classCode) {
+            try {
+                // Count students in this class
+                const snapshot = await db.ref('studentCodes').orderByChild('classCode').equalTo(classCode).once('value');
+                const students = snapshot.val() || {};
+                const studentCount = Object.keys(students).length;
+                
+                // Update count
+                await db.ref(`classes/${classCode}/studentCount`).set(studentCount);
+            } catch (error) {
+                console.error('Error updating student count:', error);
+            }
+        }
+
+        async function loadStudentCodesList() {
+            try {
+                const snapshot = await db.ref('studentCodes').once('value');
+                const studentCodesData = snapshot.val() || {};
+                const filterClass = document.getElementById('filter-class-codes').value;
+                const searchTerm = document.getElementById('search-student-codes').value.toLowerCase();
+                
+                const tbody = document.getElementById('student-codes-list');
+                let html = '';
+                
+                Object.entries(studentCodesData).forEach(([code, data]) => {
+                    if (data.teacherId !== currentUser.uid) return;
+                    if (filterClass !== 'all' && data.classCode !== filterClass) return;
+                    if (searchTerm && !data.name.toLowerCase().includes(searchTerm) && !code.toLowerCase().includes(searchTerm)) return;
+                    
+                    const createDate = data.createdAt ? 
+                        new Date(data.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+                    
+                    const status = data.status === 'active' ? 
+                        '<span style="color: #28a745;">🟢 Hoạt động</span>' : 
+                        '<span style="color: #dc3545;">🔴 Đã khóa</span>';
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${code}</strong></td>
+                            <td>${data.name}</td>
+                            <td>${data.classCode}</td>
+                            <td>${createDate}</td>
+                            <td>${status}</td>
+                            <td>
+                                <button onclick="revokeStudentCode('${code}')" class="btn btn-danger btn-sm">
+                                    🔒 Khóa
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = html || `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                            Không tìm thấy mã học sinh nào.
+                        </td>
+                    </tr>
+                `;
+                
+                // Update class filter options
+                updateClassFilterOptions('filter-class-codes');
+                
+            } catch (error) {
+                console.error('Error loading student codes:', error);
+            }
+        }
+
+        async function revokeStudentCode(codeId) {
+            try {
+                await db.ref(`studentCodes/${codeId}/status`).set('revoked');
+                showNotification(`✅ Đã thu hồi mã ${codeId}!`, 'success');
+                loadStudentCodesList();
+                loadAllData();
+            } catch (error) {
+                console.error('Error revoking student code:', error);
+                showNotification('❌ Lỗi khi thu hồi mã!', 'error');
+            }
+        }
+
+        // ===== RESULTS MANAGEMENT =====
+        async function loadDetailedResults() {
+            try {
+                // Load results from attempts
+                const attemptsSnapshot = await db.ref('attempts').once('value');
+                const attemptsData = attemptsSnapshot.val() || {};
+                
+                // Get search and filter values
+                const searchTerm = document.getElementById('search-student-results').value.toLowerCase();
+                const filterClass = document.getElementById('filter-class-results').value;
+                const filterTest = document.getElementById('filter-test-results').value;
+                
+                // Get student codes for this teacher
+                const codesSnapshot = await db.ref('studentCodes').once('value');
+                const codesData = codesSnapshot.val() || {};
+                
+                const teacherStudents = {};
+                Object.entries(codesData).forEach(([code, studentData]) => {
+                    if (studentData.teacherId === currentUser.uid) {
+                        teacherStudents[code] = studentData;
+                    }
+                });
+                
+                const tbody = document.getElementById('detailed-results-list');
+                let html = '';
+                let testSet = new Set();
+                
+                // Collect all results
+                let allResults = [];
+                
+                Object.values(attemptsData).forEach(sessionData => {
+                    Object.values(sessionData).forEach(attempt => {
+                        if (!teacherStudents[attempt.code]) return;
+                        
+                        const student = teacherStudents[attempt.code];
+                        const testFile = getTestFileName(attempt.testId);
+                        
+                        // Apply filters
+                        if (searchTerm && 
+                            !student.name.toLowerCase().includes(searchTerm) && 
+                            !attempt.code.toLowerCase().includes(searchTerm)) {
+                            return;
+                        }
+                        
+                        if (filterClass !== 'all' && student.classCode !== filterClass) {
+                            return;
+                        }
+                        
+                        if (filterTest !== 'all' && testFile !== filterTest) {
+                            return;
+                        }
+                        
+                        // Add test to set for filter
+                        testSet.add(testFile);
+                        
+                        allResults.push({
+                            ...attempt,
+                            student: student,
+                            testFile: testFile
+                        });
+                    });
+                });
+                
+                // Sort by timestamp (newest first)
+                allResults.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                
+                // Display results
+                allResults.forEach(attempt => {
+                    const timestamp = attempt.createdAt ? 
+                        new Date(attempt.createdAt).toLocaleString('vi-VN') : 'N/A';
+                    
+                    const testName = getTestDisplayName(attempt.testId);
+                    
+                    html += `
+                        <tr>
+                            <td>${attempt.student.name} (${attempt.code})</td>
+                            <td>${attempt.student.classCode || 'N/A'}</td>
+                            <td><span class="test-name">${testName}</span></td>
+                            <td style="font-weight: bold; color: ${getScoreColor(attempt.score)}">
+                                ${parseFloat(attempt.score).toFixed(2)}
+                            </td>
+                            <td>${timestamp}</td>
+                            <td>
+                                <button onclick="viewStudentResultDetail('${attempt.code}', '${attempt.testId}', ${attempt.createdAt})" class="btn btn-info btn-sm">
+                                    👁️ Xem
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = html || `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                            Không tìm thấy kết quả nào.
+                        </td>
+                    </tr>
+                `;
+                
+                // Update filter options
+                updateClassFilterOptions('filter-class-results');
+                updateTestFilterOptions(testSet);
+                
+            } catch (error) {
+                console.error('Error loading detailed results:', error);
+            }
+        }
+
+        async function viewStudentResultDetail(studentCode, testId, timestamp) {
+            try {
+                // Load student info
+                const studentSnapshot = await db.ref(`studentCodes/${studentCode}`).once('value');
+                const studentData = studentSnapshot.val();
+                
+                if (!studentData) {
+                    showNotification('Không tìm thấy thông tin học sinh!', 'error');
+                    return;
+                }
+                
+                // Load attempts data to find the specific attempt
+                const attemptsSnapshot = await db.ref('attempts').once('value');
+                const attemptsData = attemptsSnapshot.val() || {};
+                
+                let attemptData = null;
+                
+                // Find the specific attempt
+                Object.values(attemptsData).forEach(sessionData => {
+                    Object.values(sessionData).forEach(attempt => {
+                        if (attempt.code === studentCode && attempt.testId === testId && attempt.createdAt === timestamp) {
+                            attemptData = attempt;
+                        }
+                    });
+                });
+                
+                if (!attemptData) {
+                    showNotification('Không tìm thấy dữ liệu bài làm!', 'error');
+                    return;
+                }
+                
+                const testName = getTestDisplayName(testId);
+                
+                // Display student info
+                document.getElementById('studentInfo').innerHTML = `
+                    <h3>Thông tin học sinh</h3>
+                    <p><strong>Họ tên:</strong> ${studentData.name}</p>
+                    <p><strong>Mã học sinh:</strong> ${studentCode}</p>
+                    <p><strong>Lớp:</strong> ${studentData.classCode || 'N/A'}</p>
+                    <p><strong>Đề thi:</strong> <span class="test-name">${testName}</span></p>
+                    <p><strong>Điểm số:</strong> <span style="font-weight: bold; color: ${getScoreColor(attemptData.score)}">${parseFloat(attemptData.score).toFixed(2)}</span></p>
+                    <p><strong>Thời gian làm bài:</strong> ${timestamp ? new Date(timestamp).toLocaleString('vi-VN') : 'N/A'}</p>
+                `;
+                
+                // Display answer details
+                let answersHTML = '<h3>Chi tiết bài làm</h3>';
+                
+                if (attemptData.answers) {
+                    Object.entries(attemptData.answers).forEach(([questionId, answer]) => {
+                        const isCorrect = checkAnswerCorrectness(questionId, answer, attemptData.correctAnswers);
+                        const answerClass = isCorrect === 'correct' ? 'correct' : 
+                                           isCorrect === 'partial' ? 'partial' : 'incorrect';
+                        
+                        answersHTML += `
+                            <div class="answer-item ${answerClass}">
+                                <p><strong>Câu ${questionId}:</strong> ${formatAnswer(answer)}</p>
+                                ${isCorrect !== 'correct' && attemptData.correctAnswers && attemptData.correctAnswers[questionId] ? 
+                                    `<div class="question-detail">
+                                        <strong>Đáp án đúng:</strong> ${formatAnswer(attemptData.correctAnswers[questionId])}
+                                    </div>` : ''}
+                                <div class="time-info">
+                                    Trạng thái: ${isCorrect === 'correct' ? '✅ Đúng' : isCorrect === 'partial' ? '⚠️ Một phần' : '❌ Sai'}
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    answersHTML += '<p>Không có dữ liệu chi tiết về bài làm.</p>';
+                }
+                
+                document.getElementById('answerDetails').innerHTML = answersHTML;
+                
+                // Store current result for export
+                window.currentStudentResult = {
+                    ...attemptData,
+                    studentCode: studentCode,
+                    testId: testId,
+                    timestamp: timestamp,
+                    testName: testName
+                };
+                window.currentStudentInfo = studentData;
+                
+                // Show details section
+                document.getElementById('studentResultsDetail').style.display = 'block';
+                hideModal('results-modal');
+                
+            } catch (error) {
+                console.error('Error viewing student result:', error);
+                showNotification('❌ Lỗi khi tải chi tiết kết quả!', 'error');
+            }
+        }
+
+        function checkAnswerCorrectness(questionId, studentAnswer, correctAnswers) {
+            if (!correctAnswers || !correctAnswers[questionId]) return 'unknown';
+            
+            const correctAnswer = correctAnswers[questionId];
+            
+            if (Array.isArray(studentAnswer) && Array.isArray(correctAnswer)) {
+                // For True/False questions
+                let correctCount = 0;
+                for (let i = 0; i < studentAnswer.length; i++) {
+                    if (studentAnswer[i] === correctAnswer[i]) {
+                        correctCount++;
+                    }
+                }
+                
+                if (correctCount === studentAnswer.length) return 'correct';
+                if (correctCount > 0) return 'partial';
+                return 'incorrect';
+            } else {
+                // For single answer questions
+                return studentAnswer === correctAnswer ? 'correct' : 'incorrect';
+            }
+        }
+
+        function formatAnswer(answer) {
+            if (Array.isArray(answer)) {
+                return answer.map((a, i) => {
+                    const letter = String.fromCharCode(97 + i);
+                    return `${letter}) ${a || 'Chưa trả lời'}`;
+                }).join('; ');
+            }
+            return answer || 'Chưa trả lời';
+        }
+
+        function getScoreColor(score) {
+            if (score >= 8) return '#28a745';
+            if (score >= 5) return '#ffc107';
+            return '#dc3545';
+        }
+
+        // ===== FILTER MANAGEMENT =====
+        async function updateClassFilterOptions(filterId) {
+            try {
+                const snapshot = await db.ref('classes').once('value');
+                const classesData = snapshot.val() || {};
+                const select = document.getElementById(filterId);
+                
+                let options = '<option value="all">Tất cả lớp</option>';
+                
+                Object.entries(classesData).forEach(([classCode, classData]) => {
+                    if (classData.teacherId === currentUser.uid) {
+                        options += `<option value="${classCode}">${classData.name} (${classCode})</option>`;
+                    }
+                });
+                
+                // Preserve current selection
+                const currentValue = select.value;
+                select.innerHTML = options;
+                if (currentValue) {
+                    select.value = currentValue;
+                }
+                
+            } catch (error) {
+                console.error('Error updating class filter:', error);
+            }
+        }
+
+        function updateTestFilterOptions(testSet) {
+            const select = document.getElementById('filter-test-results');
+            let options = '<option value="all">Tất cả đề</option>';
+            
+            testSet.forEach(test => {
+                if (test && test !== 'undefined') {
+                    const displayName = getTestDisplayName(test);
+                    options += `<option value="${test}">${displayName}</option>`;
+                }
+            });
+            
+            // Preserve current selection
+            const currentValue = select.value;
+            select.innerHTML = options;
+            if (currentValue) {
+                select.value = currentValue;
+            }
+        }
+
+        // ===== EXPORT FUNCTIONS =====
+        function exportStudentCodesToExcel() {
+            try {
+                const codesSnapshot = db.ref('studentCodes').once('value').then(snapshot => {
+                    const codesData = snapshot.val() || {};
+                    const filterClass = document.getElementById('filter-class-codes').value;
+                    const searchTerm = document.getElementById('search-student-codes').value.toLowerCase();
+                    
+                    const data = [];
+                    data.push(['Mã HS', 'Họ tên', 'Lớp', 'Ngày cấp', 'Trạng thái']);
+                    
+                    Object.entries(codesData).forEach(([code, studentData]) => {
+                        if (studentData.teacherId !== currentUser.uid) return;
+                        if (filterClass !== 'all' && studentData.classCode !== filterClass) return;
+                        if (searchTerm && !studentData.name.toLowerCase().includes(searchTerm) && !code.toLowerCase().includes(searchTerm)) return;
+                        
+                        const createDate = studentData.createdAt ? 
+                            new Date(studentData.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+                        
+                        data.push([
+                            code,
+                            studentData.name,
+                            studentData.classCode || 'N/A',
+                            createDate,
+                            studentData.status === 'active' ? 'Hoạt động' : 'Đã khóa'
+                        ]);
+                    });
+                    
+                    const ws = XLSX.utils.aoa_to_sheet(data);
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, ws, 'Mã học sinh');
+                    XLSX.writeFile(wb, `MaHocSinh_${new Date().toISOString().split('T')[0]}.xlsx`);
+                    
+                    showNotification('✅ Đã xuất danh sách mã học sinh!', 'success');
+                });
+            } catch (error) {
+                console.error('Error exporting student codes:', error);
+                showNotification('❌ Lỗi khi xuất danh sách mã học sinh!', 'error');
+            }
+        }
+
+        function exportDetailedResultsToExcel() {
+            try {
+                const attemptsSnapshot = db.ref('attempts').once('value').then(snapshot => {
+                    const attemptsData = snapshot.val() || {};
+                    
+                    // Get student codes for this teacher
+                    const codesSnapshot = db.ref('studentCodes').once('value').then(codesSnapshot => {
+                        const codesData = codesSnapshot.val() || {};
+                        
+                        const teacherStudents = {};
+                        Object.entries(codesData).forEach(([code, studentData]) => {
+                            if (studentData.teacherId === currentUser.uid) {
+                                teacherStudents[code] = studentData;
+                            }
+                        });
+                        
+                        const data = [];
+                        data.push(['Học sinh', 'Mã HS', 'Lớp', 'Đề thi', 'Điểm', 'Thời gian làm bài']);
+                        
+                        Object.values(attemptsData).forEach(sessionData => {
+                            Object.values(sessionData).forEach(attempt => {
+                                if (!teacherStudents[attempt.code]) return;
+                                
+                                const student = teacherStudents[attempt.code];
+                                const timestamp = attempt.createdAt ? 
+                                    new Date(attempt.createdAt).toLocaleString('vi-VN') : 'N/A';
+                                const testName = getTestDisplayName(attempt.testId);
+                                
+                                data.push([
+                                    student.name,
+                                    attempt.code,
+                                    student.classCode || 'N/A',
+                                    testName,
+                                    parseFloat(attempt.score).toFixed(2),
+                                    timestamp
+                                ]);
+                            });
+                        });
+                        
+                        const ws = XLSX.utils.aoa_to_sheet(data);
+                        const wb = XLSX.utils.book_new();
+                        XLSX.utils.book_append_sheet(wb, ws, 'Kết quả bài làm');
+                        XLSX.writeFile(wb, `KetQuaBaiLam_${new Date().toISOString().split('T')[0]}.xlsx`);
+                        
+                        showNotification('✅ Đã xuất kết quả bài làm!', 'success');
+                    });
+                });
+            } catch (error) {
+                console.error('Error exporting results:', error);
+                showNotification('❌ Lỗi khi xuất kết quả bài làm!', 'error');
+            }
+        }
+
+        function exportStudentDetailToExcel() {
+            try {
+                if (!window.currentStudentResult || !window.currentStudentInfo) {
+                    showNotification('Không có dữ liệu để xuất!', 'error');
+                    return;
+                }
+                
+                const resultData = window.currentStudentResult;
+                const studentData = window.currentStudentInfo;
+                
+                const data = [];
+                data.push(['THÔNG TIN HỌC SINH VÀ KẾT QUẢ BÀI LÀM']);
+                data.push([]);
+                data.push(['Họ tên:', studentData.name]);
+                data.push(['Mã học sinh:', resultData.studentCode]);
+                data.push(['Lớp:', studentData.classCode || 'N/A']);
+                data.push(['Đề thi:', resultData.testName]);
+                data.push(['Điểm số:', parseFloat(resultData.score).toFixed(2)]);
+                data.push(['Thời gian làm bài:', resultData.timestamp ? new Date(resultData.timestamp).toLocaleString('vi-VN') : 'N/A']);
+                data.push([]);
+                data.push(['CHI TIẾT BÀI LÀM']);
+                data.push(['Câu hỏi', 'Đáp án học sinh', 'Đáp án đúng', 'Kết quả']);
+                
+                if (resultData.answers) {
+                    Object.entries(resultData.answers).forEach(([questionId, answer]) => {
+                        const correctAnswer = resultData.correctAnswers ? resultData.correctAnswers[questionId] : 'Không xác định';
+                        const isCorrect = checkAnswerCorrectness(questionId, answer, resultData.correctAnswers);
+                        const resultText = isCorrect === 'correct' ? 'Đúng' : 
+                                          isCorrect === 'partial' ? 'Một phần' : 'Sai';
+                        
+                        data.push([
+                            `Câu ${questionId}`,
+                            formatAnswer(answer),
+                            formatAnswer(correctAnswer),
+                            resultText
+                        ]);
+                    });
+                }
+                
+                const ws = XLSX.utils.aoa_to_sheet(data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Chi tiết bài làm');
+                XLSX.writeFile(wb, `ChiTietBaiLam_${resultData.studentCode}_${new Date().toISOString().split('T')[0]}.xlsx`);
+                
+                showNotification('✅ Đã xuất chi tiết bài làm!', 'success');
+            } catch (error) {
+                console.error('Error exporting student detail:', error);
+                showNotification('❌ Lỗi khi xuất chi tiết bài làm!', 'error');
+            }
+        }
+
+        function exportResultsToExcel() {
+            exportDetailedResultsToExcel();
+        }
+
+        function exportAllDataToExcel() {
+            try {
+                // Create a new workbook
+                const wb = XLSX.utils.book_new();
+                
+                // Export classes
+                const classesSnapshot = db.ref('classes').once('value').then(snapshot => {
+                    const classesData = snapshot.val() || {};
+                    
+                    const classData = [];
+                    classData.push(['Mã lớp', 'Tên lớp', 'Số học sinh', 'Ngày tạo', 'Mô tả']);
+                    
+                    Object.entries(classesData).forEach(([classCode, classDataItem]) => {
+                        if (classDataItem.teacherId !== currentUser.uid) return;
+                        
+                        const createDate = classDataItem.createdAt ? 
+                            new Date(classDataItem.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+                        
+                        classData.push([
+                            classCode,
+                            classDataItem.name,
+                            classDataItem.studentCount || 0,
+                            createDate,
+                            classDataItem.description || ''
+                        ]);
+                    });
+                    
+                    const classWs = XLSX.utils.aoa_to_sheet(classData);
+                    XLSX.utils.book_append_sheet(wb, classWs, 'Lớp học');
+                    
+                    // Export student codes
+                    return db.ref('studentCodes').once('value');
+                }).then(snapshot => {
+                    const codesData = snapshot.val() || {};
+                    
+                    const studentData = [];
+                    studentData.push(['Mã HS', 'Họ tên', 'Lớp', 'Ngày cấp', 'Trạng thái']);
+                    
+                    Object.entries(codesData).forEach(([code, studentDataItem]) => {
+                        if (studentDataItem.teacherId !== currentUser.uid) return;
+                        
+                        const createDate = studentDataItem.createdAt ? 
+                            new Date(studentDataItem.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+                        
+                        studentData.push([
+                            code,
+                            studentDataItem.name,
+                            studentDataItem.classCode || 'N/A',
+                            createDate,
+                            studentDataItem.status === 'active' ? 'Hoạt động' : 'Đã khóa'
+                        ]);
+                    });
+                    
+                    const studentWs = XLSX.utils.aoa_to_sheet(studentData);
+                    XLSX.utils.book_append_sheet(wb, studentWs, 'Học sinh');
+                    
+                    // Export results
+                    return db.ref('attempts').once('value');
+                }).then(snapshot => {
+                    const attemptsData = snapshot.val() || {};
+                    
+                    // Get student codes for this teacher
+                    return db.ref('studentCodes').once('value').then(codesSnapshot => {
+                        const codesData = codesSnapshot.val() || {};
+                        
+                        const teacherStudents = {};
+                        Object.entries(codesData).forEach(([code, studentData]) => {
+                            if (studentData.teacherId === currentUser.uid) {
+                                teacherStudents[code] = studentData;
+                            }
+                        });
+                        
+                        const resultData = [];
+                        resultData.push(['Học sinh', 'Mã HS', 'Lớp', 'Đề thi', 'Điểm', 'Thời gian làm bài']);
+                        
+                        Object.values(attemptsData).forEach(sessionData => {
+                            Object.values(sessionData).forEach(attempt => {
+                                if (!teacherStudents[attempt.code]) return;
+                                
+                                const student = teacherStudents[attempt.code];
+                                const timestamp = attempt.createdAt ? 
+                                    new Date(attempt.createdAt).toLocaleString('vi-VN') : 'N/A';
+                                const testName = getTestDisplayName(attempt.testId);
+                                
+                                resultData.push([
+                                    student.name,
+                                    attempt.code,
+                                    student.classCode || 'N/A',
+                                    testName,
+                                    parseFloat(attempt.score).toFixed(2),
+                                    timestamp
+                                ]);
+                            });
+                        });
+                        
+                        const resultWs = XLSX.utils.aoa_to_sheet(resultData);
+                        XLSX.utils.book_append_sheet(wb, resultWs, 'Kết quả bài làm');
+                        
+                        // Save the workbook
+                        XLSX.writeFile(wb, `BaoCaoToanBo_${new Date().toISOString().split('T')[0]}.xlsx`);
+                        
+                        showNotification('✅ Đã xuất toàn bộ dữ liệu!', 'success');
+                    });
+                });
+            } catch (error) {
+                console.error('Error exporting all data:', error);
+                showNotification('❌ Lỗi khi xuất toàn bộ dữ liệu!', 'error');
+            }
+        }
+
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            setTimeout(() => { notification.classList.remove('show'); }, 5000);
+        }
+
+        // Make functions available globally
+        window.revokeStudentCode = revokeStudentCode;
+        window.viewStudentResultDetail = viewStudentResultDetail;
+    </script>
+</body>
+</html>
