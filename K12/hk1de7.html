@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"/>
-<title>GIỮA KỲ 1 ĐỀ 1 </title>
+<title>LỚP TOÁN THẦY BÌNH </title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Hệ thống dạy học Toán trực tuyến đầy đủ tính năng - Lớp Toán Thầy Bình">
 <meta name="keywords" content="toán, học trực tuyến, lớp 12, ôn thi, firebase, real-time, canvas, bảng vẽ">
@@ -1290,7 +1290,7 @@ body:-ms-fullscreen .reveal {
     visibility: hidden !important;
 }
 /* ẨN HOÀN TOÀN TẤT CẢ LỜI GIẢI KHI MỞ TRANG */
-.solution-box {
+/*.solution-box {
     display: none !important;
 }
 /* === FIX ĐIỆN THOẠI === */
@@ -1324,6 +1324,58 @@ body:-ms-fullscreen .reveal {
         font-size: 16px !important;
     }
 }
+/* Giải pháp đơn giản nhất - chỉ cần thêm đoạn CSS này */
+.option-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #17a2b8;
+    line-height: 1.6;
+}
+
+.option-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .option-row {
+        flex-direction: column;
+    }
+    
+    .option-row label {
+        align-self: flex-start;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+/* Thêm hiệu ứng đẹp */
+.option-row:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+.option-row label:hover {
+    background: #f8f9fa;
+    border-color: #17a2b8;
+}
+
 </style>
 
 </head>
@@ -1336,10 +1388,11 @@ body:-ms-fullscreen .reveal {
         <button id="slideMenuBtn">📋 DS Slide</button>
         <select id="selectExam">
             <option value="mm">-- Chọn đề --</option>
-            <option value="gk1de1.html">Đề 1: Giữa HK1</option>
-            <option value="gk1de2.html">Đề 2:Giữa HK1</option>
-            <option value="PTMPDT.html">PTMP:DS</option>
-            <option value="hk1de7.html">Đề 7: HK1</option>
+            <option value="hk1de7.html">Đề 7:  HK1</option>
+            <option value="CK102.html">Đề 2:HK1</option>
+            <option value="CK103.html">Đề 3: HK1</option>
+            <option value="CK104.html">Đề 4: HK1</option>
+            <option value="CK105.html">Đề 5: HK1</option>
         </select>
         <button id="studentInteractBtn">🎮 Tương tác</button>
         <button id="teacherMonitorBtn">👁️ Theo dõi</button>
@@ -1370,7 +1423,7 @@ body:-ms-fullscreen .reveal {
     <h1 style="color: white; border: none; font-size: 3em;">🧮 LỚP TOÁN THẦY BÌNH</h1>
     <h3 style="color: white;">Hệ Thống Dạy Học Trực Tuyến Toàn Diện</h3>
     <div style="margin-top: 50px;">
-        <p>📍 <strong>KIỂM TRA GIỮA KỲ I:</strong> Môn Toán Lớp 12A1</p>
+        <p>📍 <strong>KIỂM TRA cuối KỲ I:</strong> Môn Toán Lớp 12</p>
         <p>⏰ <strong>Thời gian:</strong> 90 phút</p>
     </div>
     <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
@@ -1380,762 +1433,1077 @@ body:-ms-fullscreen .reveal {
 <!--@@ -->
 <!-- SLIDE TÓM TẮT CÔNG THỨC THỐNG KÊ -->
 <section>
-<div class="question" id="q1">
-    <p class="question-title"><strong>Câu 1.</strong> Giá trị lớn nhất của hàm số $y = x(1 - x^2)$ trên khoảng $(0;1)$ là:</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q1" value="A" id="q1A">
-            <label for="q1A">A. $\dfrac{1}{9}$</label>
-            <span class="option-icon" id="icon-q1-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="B" id="q1B">
-            <label for="q1B">B. $\dfrac{1}{\sqrt{3}}$</label>
-            <span class="option-icon" id="icon-q1-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="C" id="q1C">
-            <label for="q1C">C. $0$</label>
-            <span class="option-icon" id="icon-q1-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q1" value="D" id="q1D">
-            <label for="q1D">D. $\dfrac{2\sqrt{3}}{9}$</label>
-            <span class="option-icon" id="icon-q1-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q1', 'D')">✅ Kiểm tra</button>
-        <span id="result-q1"></span>
-    </div>
-    <button onclick="toggleSolution('q1')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q1" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 1</div>
-        <div class="solution-content">
-            $y = x - x^3$, $y' = 1 - 3x^2 = 0 \Leftrightarrow x = \dfrac{1}{\sqrt{3}}$.
-            Trên khoảng $(0;1)$, hàm số đạt giá trị lớn nhất tại $x = \dfrac{1}{\sqrt{3}}$.
-            $y\left(\dfrac{1}{\sqrt{3}}\right) = \dfrac{1}{\sqrt{3}}\left(1 - \left(\dfrac{1}{\sqrt{3}}\right)^2\right) = \dfrac{1}{\sqrt{3}}\left(1 - \dfrac{1}{3}\right) = \dfrac{1}{\sqrt{3}} \cdot \dfrac{2}{3} = \dfrac{2\sqrt{3}}{9}$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q1">
+  <p class="question-title">
+   <strong>
+    Câu 1.
+   </strong>
+   Cho hàm số $y = f(x)$ có đồ thị như hình bên. Điểm cực tiểu của hàm số đã cho là
+  </p>
+  <img src="data/im/hk1d7-c1.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q1A" name="q1" type="radio" value="A"/>
+    <label for="q1A">
+     A. -1.
+    </label>
+    <span class="option-icon" id="icon-q1-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q1B" name="q1" type="radio" value="B"/>
+    <label for="q1B">
+     B. 1.
+    </label>
+    <span class="option-icon" id="icon-q1-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q1C" name="q1" type="radio" value="C"/>
+    <label for="q1C">
+     C. 2.
+    </label>
+    <span class="option-icon" id="icon-q1-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q1D" name="q1" type="radio" value="D"/>
+    <label for="q1D">
+     D. -4.
+    </label>
+    <span class="option-icon" id="icon-q1-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q1', 'D')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q1">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q2">
-    <p class="question-title"><strong>Câu 2.</strong> Cho hình hộp ABCD.A'B'C'D' . Phát biểu nào sau đây là đúng?</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q2" value="A" id="q2A">
-            <label for="q2A">A. $\vec{AB}+ \vec{AA'} + \vec{AD} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="B" id="q2B">
-            <label for="q2B">B. $\vec{AB} + \vec{BB'} + \vec{B'A'} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="C" id="q2C">
-            <label for="q2C">C. $\vec{AB}+\vec{BC'} +\vec{C'D'} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q2" value="D" id="q2D">
-            <label for="q2D">D. $\vec{AB}+ \vec{AC} + \vec{AA'} = \vec{AC'}$</label>
-            <span class="option-icon" id="icon-q2-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q2', 'A')">✅ Kiểm tra</button>
-        <span id="result-q2"></span>
-    </div>
-    <button onclick="toggleSolution('q2')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q2" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 2</div>
-        <div class="solution-content">
-            Theo quy tắc hình hộp ta có $\vec{AB} + \vec{AD} + \vec{AA'} = \vec{AC'}$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q2">
+  <p class="question-title">
+   <strong>
+    Câu 2.
+   </strong>
+   Cho hàm số $y = f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ dưới đây. Khẳng định nào sau đây đúng?
+  </p>
+  <img src="data/im/hk1d7-c2.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q2A" name="q2" type="radio" value="A"/>
+    <label for="q2A">
+     A. $\max \limits_{[-1;3]} f(x) = f (0) $.
+    </label>
+    <span class="option-icon" id="icon-q2-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q2B" name="q2" type="radio" value="B"/>
+    <label for="q2B">
+     B. $\max \limits_{[-1;3]} f(x) = f (3)$.
+    </label>
+    <span class="option-icon" id="icon-q2-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q2C" name="q2" type="radio" value="C"/>
+    <label for="q2C">
+     C. $\max \limits_{[-1;3]} f (x) = f (2)$.
+    </label>
+    <span class="option-icon" id="icon-q2-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q2D" name="q2" type="radio" value="D"/>
+    <label for="q2D">
+     D. $\max \limits_{[-1;3]} f(x) = f(−1) $.
+    </label>
+    <span class="option-icon" id="icon-q2-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q2', 'D')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q2">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q3">
-    <p class="question-title"><strong>Câu 3.</strong> Trong không gian với hệ tọa độ $Oxyz$, cho tam giác $ABC$ biết $A(5; -2; 0), B(-2; 3; 0), C(0; 2; 3)$. Tìm toạ độ trọng tâm $G$ của tam giác $ABC$.</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q3" value="A" id="q3A">
-            <label for="q3A">A. $(1; 1; 1)$</label>
-            <span class="option-icon" id="icon-q3-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="B" id="q3B">
-            <label for="q3B">B. $(2; 0; -1)$</label>
-            <span class="option-icon" id="icon-q3-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="C" id="q3C">
-            <label for="q3C">C. $(1; 1; -2)$</label>
-            <span class="option-icon" id="icon-q3-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q3" value="D" id="q3D">
-            <label for="q3D">D. $(1; 2; 1)$</label>
-            <span class="option-icon" id="icon-q3-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q3', 'A')">✅ Kiểm tra</button>
-        <span id="result-q3"></span>
-    </div>
-    <button onclick="toggleSolution('q3')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q3" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 3</div>
-        <div class="solution-content">
-            Tọa độ trọng tâm $G$ của tam giác $ABC$ là $G\left(\dfrac{5+(-2)+0}{3}; \dfrac{-2+3+2}{3}; \dfrac{0+0+3}{3}\right) = (1;1;1)$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q3">
+  <p class="question-title">
+   <strong>
+    Câu 3.
+   </strong>
+   Cho hàm số $y = f(x)$ có đồ thị như hình bên. Đường thẳng nào sau đây là đường tiệm cận ngang của đồ thị hàm số đã cho?
+  </p>
+  <img src="data/im/hk1de7-c3.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q3A" name="q3" type="radio" value="A"/>
+    <label for="q3A">
+     A. $x = 1$.
+    </label>
+    <span class="option-icon" id="icon-q3-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q3B" name="q3" type="radio" value="B"/>
+    <label for="q3B">
+     B. $x = -1$.
+    </label>
+    <span class="option-icon" id="icon-q3-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q3C" name="q3" type="radio" value="C"/>
+    <label for="q3C">
+     C. $y=1$.
+    </label>
+    <span class="option-icon" id="icon-q3-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q3D" name="q3" type="radio" value="D"/>
+    <label for="q3D">
+     D. $y = −1$.
+    </label>
+    <span class="option-icon" id="icon-q3-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q3', 'D')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q3">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q4">
-    <p class="question-title"><strong>Câu 4.</strong> Trong không gian với hệ tọa độ Oxyz cho hai điểm $A(4;2;1), B(-2;-1;4)$. Tìm tọa độ điểm M thỏa mãn đẳng thức $\vec{AM}=2\vec{MB}$.</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q4" value="A" id="q4A">
-            <label for="q4A">A. $M(0;0;3)$</label>
-            <span class="option-icon" id="icon-q4-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="B" id="q4B">
-            <label for="q4B">B. $M(0;0;-3)$</label>
-            <span class="option-icon" id="icon-q4-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="C" id="q4C">
-            <label for="q4C">C. $M(-8;-4;7)$</label>
-            <span class="option-icon" id="icon-q4-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q4" value="D" id="q4D">
-            <label for="q4D">D. $M(8;4;-7)$</label>
-            <span class="option-icon" id="icon-q4-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q4', 'A')">✅ Kiểm tra</button>
-        <span id="result-q4"></span>
-    </div>
-</div>
+ <div class="question" id="q4">
+  <p class="question-title">
+   <strong>
+    Câu 4.
+   </strong>
+   Hình vẽ bên có thể là đồ thị của hàm số nào?
+  </p>
+  <img src="data/im/hk1de7-c4.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q4A" name="q4" type="radio" value="A"/>
+    <label for="q4A">
+     A. $y = x^3-3x+2$.
+    </label>
+    <span class="option-icon" id="icon-q4-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q4B" name="q4" type="radio" value="B"/>
+    <label for="q4B">
+     B. $y = -x^3 +3x-2$.
+    </label>
+    <span class="option-icon" id="icon-q4-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q4C" name="q4" type="radio" value="C"/>
+    <label for="q4C">
+     C. $y = x^3 - 3x−2$.
+    </label>
+    <span class="option-icon" id="icon-q4-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q4D" name="q4" type="radio" value="D"/>
+    <label for="q4D">
+     D. $y=\dfrac{1}{3}x^3-\dfrac{7}{3}x-2$.
+    </label>
+    <span class="option-icon" id="icon-q4-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q4', 'A')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q4">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q5">
-    <p class="question-title"><strong>Câu 5.</strong> Tiệm cận ngang của đồ thị hàm số $y=\dfrac{x-2}{x+1}$ là</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q5" value="A" id="q5A">
-            <label for="q5A">A. $y=-2$</label>
-            <span class="option-icon" id="icon-q5-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="B" id="q5B">
-            <label for="q5B">B. $x=2$</label>
-            <span class="option-icon" id="icon-q5-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="C" id="q5C">
-            <label for="q5C">C. $x=-1$</label>
-            <span class="option-icon" id="icon-q5-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q5" value="D" id="q5D">
-            <label for="q5D">D. $y=1$</label>
-            <span class="option-icon" id="icon-q5-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q5', 'D')">✅ Kiểm tra</button>
-        <span id="result-q5"></span>
-    </div>
-    <button onclick="toggleSolution('q5')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q5" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 5</div>
-        <div class="solution-content">
-            Chọn D
-            Ta có $\lim_{x \to \pm\infty} \dfrac{x-2}{x+1} = \lim_{x \to \pm\infty} \dfrac{1 - \frac{2}{x}}{1 + \frac{1}{x}} = 1$.
-            Vậy tiệm cận ngang của đồ thị hàm số là $y=1$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q5">
+  <p class="question-title">
+   <strong>
+    Câu 5.
+   </strong>
+   Trong không gian $Oxyz$, toạ độ của vectơ $\vec{u} = 2\vec{k} −3\vec{j}+4\vec{i}$ là
+  </p>
+  <div class="options">
+   <div class="option-row">
+    <input id="q5A" name="q5" type="radio" value="A"/>
+    <label for="q5A">
+     A. $(2;-3; 4)$.
+    </label>
+    <span class="option-icon" id="icon-q5-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q5B" name="q5" type="radio" value="B"/>
+    <label for="q5B">
+     B. $(2;3; 4)$.
+    </label>
+    <span class="option-icon" id="icon-q5-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q5C" name="q5" type="radio" value="C"/>
+    <label for="q5C">
+     C. $(4;3;2)$.
+    </label>
+    <span class="option-icon" id="icon-q5-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q5D" name="q5" type="radio" value="D"/>
+    <label for="q5D">
+     D. $(4;-3; 2)$.
+    </label>
+    <span class="option-icon" id="icon-q5-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q5', 'D')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q5">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q6">
-    <p class="question-title"><strong>Câu 6.</strong> Cho hình lập phương ABCD.A'B'C'D' cạnh a. Khi đó $|\vec{AA'} + \vec{AD}|$ bằng</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q6" value="A" id="q6A">
-            <label for="q6A">A. 2a</label>
-            <span class="option-icon" id="icon-q6-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="B" id="q6B">
-            <label for="q6B">B. $\dfrac{a\sqrt{2}}{2}$</label>
-            <span class="option-icon" id="icon-q6-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="C" id="q6C">
-            <label for="q6C">C. $a\sqrt{2}$</label>
-            <span class="option-icon" id="icon-q6-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q6" value="D" id="q6D">
-            <label for="q6D">D. $a\sqrt{6}$</label>
-            <span class="option-icon" id="icon-q6-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q6', 'C')">✅ Kiểm tra</button>
-        <span id="result-q6"></span>
-    </div>
-    <button onclick="toggleSolution('q6')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q6" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 6</div>
-        <div class="solution-content">
-            $|\vec{AA'} + \vec{AD}| = |\vec{AD'}|\text{ (theo quy tắc hình bình hành)} = \sqrt{AD^2+AA'^2} = \sqrt{a^2+a^2} = a\sqrt{2}$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q6">
+  <p class="question-title">
+   <strong>
+    Câu 6.
+   </strong>
+   Trong không gian $Oxyz$, cho hai vectơ $\vec{u}_1 = (x_1; y_1; z_1),\vec{u}_2 = (x_2; y_2; z_2 )$. Vectơ $\vec{u}_1 +\vec{u}_2$ có toạ độ là
+  </p>
+  <div class="options">
+   <div class="option-row">
+    <input id="q6A" name="q6" type="radio" value="A"/>
+    <label for="q6A">
+     A. $(x_1 - x_2; y_1 - y_2; z_1 - z_2 )$.
+    </label>
+    <span class="option-icon" id="icon-q6-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q6B" name="q6" type="radio" value="B"/>
+    <label for="q6B">
+     B. $(x_1 + x_2; y_1 + y_2; z_1+z_2)$.
+    </label>
+    <span class="option-icon" id="icon-q6-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q6C" name="q6" type="radio" value="C"/>
+    <label for="q6C">
+     C. $(x_2 - x_1; y_2 - y_1; z_2 - z_1)$.
+    </label>
+    <span class="option-icon" id="icon-q6-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q6D" name="q6" type="radio" value="D"/>
+    <label for="q6D">
+     D. $(x_1 - x_2; y_1 + y_2; z_1 - z_2)$.
+    </label>
+    <span class="option-icon" id="icon-q6-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q6', 'B')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q6">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q7">
-    <p class="question-title"><strong>Câu 7.</strong> Trong không gian với hệ trục tọa độ Oxyz cho $M(4;5;6)$. Hình chiếu của M xuống mặt phẳng (Oxy) là $M'$. Xác định tọa độ $M'$.</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q7" value="A" id="q7A">
-            <label for="q7A">A. $M'(4;5;0)$</label>
-            <span class="option-icon" id="icon-q7-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="B" id="q7B">
-            <label for="q7B">B. $M'(4;0;6)$</label>
-            <span class="option-icon" id="icon-q7-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="C" id="q7C">
-            <label for="q7C">C. $M'(4;0;0)$</label>
-            <span class="option-icon" id="icon-q7-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q7" value="D" id="q7D">
-            <label for="q7D">D. $M'(0;5;6)$</label>
-            <span class="option-icon" id="icon-q7-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q7', 'A')">✅ Kiểm tra</button>
-        <span id="result-q7"></span>
-    </div>
-</div>
+ <div class="question" id="q7">
+  <p class="question-title">
+   <strong>
+    Câu 7.
+   </strong>
+   Xét mẫu số liệu ghép nhóm cho bởi bảng sau:
+    
+    Biết $n \cdot n_m \neq 0$. Khoảng biến thiên của mẫu số liệu ghép nhóm trên bằng
+  </p>
+  <img src="data/im/hk1de7-c7.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q7A" name="q7" type="radio" value="A"/>
+    <label for="q7A">
+     A. $a_{m+1}-a_1$.
+    </label>
+    <span class="option-icon" id="icon-q7-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q7B" name="q7" type="radio" value="B"/>
+    <label for="q7B">
+     B. $a_{m+1} -a_m $.
+    </label>
+    <span class="option-icon" id="icon-q7-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q7C" name="q7" type="radio" value="C"/>
+    <label for="q7C">
+     C. $n_m-n_1$.
+    </label>
+    <span class="option-icon" id="icon-q7-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q7D" name="q7" type="radio" value="D"/>
+    <label for="q7D">
+     D. $n-n_m$.
+    </label>
+    <span class="option-icon" id="icon-q7-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q7', 'A')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q7">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q8">
-    <p class="question-title"><strong>Câu 8.</strong> Cho đồ thị hàm số $y=\dfrac{2x^2+x-5}{x+3}$ có đường tiệm cận xiên là đường thẳng $\Delta: y=ax+b$ với $a,b \in \mathbb{R}, a \ne 0$. Giá trị của tổng $a+b$ bằng</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q8" value="A" id="q8A">
-            <label for="q8A">A. -3</label>
-            <span class="option-icon" id="icon-q8-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="B" id="q8B">
-            <label for="q8B">B. 7</label>
-            <span class="option-icon" id="icon-q8-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="C" id="q8C">
-            <label for="q8C">C. 3</label>
-            <span class="option-icon" id="icon-q8-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q8" value="D" id="q8D">
-            <label for="q8D">D. -5</label>
-            <span class="option-icon" id="icon-q8-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q8', 'A')">✅ Kiểm tra</button>
-        <span id="result-q8"></span>
-    </div>
-    <button onclick="toggleSolution('q8')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q8" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 8</div>
-        <div class="solution-content">
-            Chọn A
-            Ta xét phương trình đường tiệm cận xiên của đồ thị hàm số $y=\dfrac{2x^2+x-5}{x+3}$.
-            Ta có $y = \dfrac{2x^2+x-5}{x+3} = \dfrac{2x(x+3) - 5x - 5}{x+3} = \dfrac{2x(x+3) - 5(x+3) + 10 - 5}{x+3} = 2x - 5 + \dfrac{5}{x+3}$.
-            Suy ra đường tiệm cận xiên là $y=2x-5$.
-            Vậy $a=2, b=-5$. Tổng $a+b=2+(-5)=-3$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q8">
+  <p class="question-title">
+   <strong>
+    Câu 8.
+   </strong>
+   Xét mẫu số liệu ghép nhóm cho như sau:
+    
+    Gọi $\bar{x}$ là số trung bình cộng của mẫu số liệu ghép nhóm. Độ lệch chuẩn của mẫu số liệu ghép nhóm đó được tính bằng công thức nào trong các công thức sau?
+  </p>
+  <img src="data/im/hk1de7-c8.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q8A" name="q8" type="radio" value="A"/>
+    <label for="q8A">
+     A. $s^2 = \dfrac{n_1(x_1-\bar{x})^2+n_2(x_2-\bar{x})^2 +\ldots+n_m (x_m-\bar{x})^2}{n}$
+    </label>
+    <span class="option-icon" id="icon-q8-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q8B" name="q8" type="radio" value="B"/>
+    <label for="q8B">
+     B. $s = \sqrt{\dfrac{n_1(x_1-\bar{x})^2+n_2(x_2-\bar{x})^2 +\ldots+n_m (x_m-\bar{x})^2}{n}}$
+    </label>
+    <span class="option-icon" id="icon-q8-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q8C" name="q8" type="radio" value="C"/>
+    <label for="q8C">
+     C. $s = \sqrt{\dfrac{n_1(x_1-\bar{x})^2+n_2(x_2-\bar{x})^2 +\ldots+n_m (x_m-\bar{x})^2}{m}}$
+    </label>
+    <span class="option-icon" id="icon-q8-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q8D" name="q8" type="radio" value="D"/>
+    <label for="q8D">
+     D. $s^2 = \dfrac{n_1(x_1-\bar{x})^2+n_2(x_2-\bar{x})^2 +\ldots+n_m (x_m-\bar{x})^2}{m}$
+    </label>
+    <span class="option-icon" id="icon-q8-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q8', 'B')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q8">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q9">
-    <p class="question-title"><strong>Câu 9.</strong> Giá trị của tiểu của hàm số $y = -x^4+2x^2+2$ bằng</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q9" value="A" id="q9A">
-            <label for="q9A">A. 2</label>
-            <span class="option-icon" id="icon-q9-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="B" id="q9B">
-            <label for="q9B">B. (0;2)</label>
-            <span class="option-icon" id="icon-q9-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="C" id="q9C">
-            <label for="q9C">C. (1;3)</label>
-            <span class="option-icon" id="icon-q9-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q9" value="D" id="q9D">
-            <label for="q9D">D. 3</label>
-            <span class="option-icon" id="icon-q9-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q9', 'A')">✅ Kiểm tra</button>
-        <span id="result-q9"></span>
-    </div>
-</div>
+ <div class="question" id="q9">
+  <p class="question-title">
+   <strong>
+    Câu 9.
+   </strong>
+   Nếu hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $f(x) \ge m, \forall x \in \mathbb{R}$ và tồn tại $a \in \mathbb{R}$ sao cho $f(a) = m$ thì
+  </p>
+  <div class="options">
+   <div class="option-row">
+    <input id="q9A" name="q9" type="radio" value="A"/>
+    <label for="q9A">
+     A. Hàm số $y = f(x)$ đạt giá trị lớn nhất bằng $m$.
+    </label>
+    <span class="option-icon" id="icon-q9-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q9B" name="q9" type="radio" value="B"/>
+    <label for="q9B">
+     B. Hàm số $y = f(x)$ đạt giá trị cực tiểu bằng $m$.
+    </label>
+    <span class="option-icon" id="icon-q9-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q9C" name="q9" type="radio" value="C"/>
+    <label for="q9C">
+     C. Hàm số $y = f(x)$ đạt giá trị nhỏ nhất bằng $m$.
+    </label>
+    <span class="option-icon" id="icon-q9-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q9D" name="q9" type="radio" value="D"/>
+    <label for="q9D">
+     D. Hàm số $y = f(x)$ đạt giá trị cực đại bằng $m$.
+    </label>
+    <span class="option-icon" id="icon-q9-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q9', 'C')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q9">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q10">
-    <p class="question-title"><strong>Câu 10.</strong> Giá trị nhỏ nhất của hàm số $f(x)=-x^3-x+2$ trên đoạn $[-2;0]$ bằng?</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q10" value="A" id="q10A">
-            <label for="q10A">A. 2</label>
-            <span class="option-icon" id="icon-q10-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="B" id="q10B">
-            <label for="q10B">B. -2</label>
-            <span class="option-icon" id="icon-q10-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="C" id="q10C">
-            <label for="q10C">C. 0</label>
-            <span class="option-icon" id="icon-q10-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q10" value="D" id="q10D">
-            <label for="q10D">D. -8</label>
-            <span class="option-icon" id="icon-q10-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q10', 'A')">✅ Kiểm tra</button>
-        <span id="result-q10"></span>
-    </div>
-    <button onclick="toggleSolution('q10')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q10" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 10</div>
-        <div class="solution-content">
-            Chọn A<br>Ta có $f'(x)=-3x^2-1<0, \forall x$. Ta có bảng biến thiên
-            \[
-            \begin{array}{|c|ccccc|}
-            \hline
-            x & -2 & & & 0 \\
-            \hline
-            f'(x) & & - & & \\
-            \hline
-            f(x) & 12 & & & 2 \\
-            & & \searrow & & \\
-            \hline
-            \end{array}
-            \]
-            Từ bảng biến thiên, ta có $\min_{[-2;0]} f(x) = f(0) = 2$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q10">
+  <p class="question-title">
+   <strong>
+    Câu 10.
+   </strong>
+   Một chất điểm chuyển động theo quy luật $s(t) = −t^3 + 6t^2$ với $t$ là thời gian tính từ lúc bắt đầu chuyển động ( $t$ tính theo đơn vị giây), $s(t)$ là quãng đường đi được trong khoảng thời gian $t(s(t)$ tính theo đơn vị mét). Tính vận tốc chất điểm đạt được tại thời điểm $t = 2$ giây.
+  </p>
+  <div class="options">
+   <div class="option-row">
+    <input id="q10A" name="q10" type="radio" value="A"/>
+    <label for="q10A">
+     A. $\dfrac{21}{4}$ m/s.
+    </label>
+    <span class="option-icon" id="icon-q10-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q10B" name="q10" type="radio" value="B"/>
+    <label for="q10B">
+     B. $\dfrac{45}{4}$ m/s.
+    </label>
+    <span class="option-icon" id="icon-q10-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q10C" name="q10" type="radio" value="C"/>
+    <label for="q10C">
+     C. $9$ m/s.
+    </label>
+    <span class="option-icon" id="icon-q10-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q10D" name="q10" type="radio" value="D"/>
+    <label for="q10D">
+     D. $12$ m/s.
+    </label>
+    <span class="option-icon" id="icon-q10-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q10', 'D')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q10">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q11">
-    <p class="question-title"><strong>Câu 11.</strong> Cho hàm số $y = \frac{2x^2-x+7}{x-1}$ có đồ thị (C). Biết rằng (C) có hai điểm cực trị, tính khoảng cách từ điểm $O$ đến đường thẳng đi qua hai điểm cực trị đó.</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q11" value="A" id="q11A">
-            <label for="q11A">A. $\frac{1}{5}$</label>
-            <span class="option-icon" id="icon-q11-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="B" id="q11B">
-            <label for="q11B">B. $\frac{1}{3}$</label>
-            <span class="option-icon" id="icon-q11-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="C" id="q11C">
-            <label for="q11C">C. $\frac{\sqrt{17}}{17}$</label>
-            <span class="option-icon" id="icon-q11-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q11" value="D" id="q11D">
-            <label for="q11D">D. $\frac{\sqrt{10}}{10}$</label>
-            <span class="option-icon" id="icon-q11-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q11', 'C')">✅ Kiểm tra</button>
-        <span id="result-q11"></span>
-    </div>
-</div>
+ <div class="question" id="q11">
+  <p class="question-title">
+   <strong>
+    Câu 11.
+   </strong>
+   Cho hàm số $f(x)$ liên tục trên đoạn $[-2;3]$ có đồ thị như hình vẽ bên. Gọi $m, M$ lần lượt là giá trị nhỏ nhất và giá trị lớn nhất của hàm số trên đoạn $[-2;3]$. Giá trị của $2m-3M$ bằng
+  </p>
+  <img src="data/im/hk1de7-c11.png"/>
+  <div class="options">
+   <div class="option-row">
+    <input id="q11A" name="q11" type="radio" value="A"/>
+    <label for="q11A">
+     A. $-13$.
+    </label>
+    <span class="option-icon" id="icon-q11-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q11B" name="q11" type="radio" value="B"/>
+    <label for="q11B">
+     B. $-18$.
+    </label>
+    <span class="option-icon" id="icon-q11-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q11C" name="q11" type="radio" value="C"/>
+    <label for="q11C">
+     C. $-16$.
+    </label>
+    <span class="option-icon" id="icon-q11-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q11D" name="q11" type="radio" value="D"/>
+    <label for="q11D">
+     D. $-15$.
+    </label>
+    <span class="option-icon" id="icon-q11-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q11', 'C')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q11">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q12">
-    <p class="question-title"><strong>Câu 12.</strong> Trong không gian với hệ trục tọa độ $Oxyz$, cho $\vec{a} = (2;-3;3)$, $\vec{b} = (0;2;-1)$, $\vec{c} = (3;-1;5)$. Tọa độ của véctơ $\vec{u} = 2\vec{a} + 3\vec{b} - 2\vec{c}$ là:</p>
-    <div class="options">
-        <div class="option-row">
-            <input type="radio" name="q12" value="A" id="q12A">
-            <label for="q12A">A. $(-2;-2;7)$</label>
-            <span class="option-icon" id="icon-q12-A"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="B" id="q12B">
-            <label for="q12B">B. $(10;-2;13)$</label>
-            <span class="option-icon" id="icon-q12-B"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="C" id="q12C">
-            <label for="q12C">C. $(-2;2;-7)$</label>
-            <span class="option-icon" id="icon-q12-C"></span>
-        </div>
-        <div class="option-row">
-            <input type="radio" name="q12" value="D" id="q12D">
-            <label for="q12D">D. $(-2;2;7)$</label>
-            <span class="option-icon" id="icon-q12-D"></span>
-        </div>
-    </div>
-    <div class="answer-check">
-        <button onclick="checkAnswer('q12', 'C')">✅ Kiểm tra</button>
-        <span id="result-q12"></span>
-    </div>
-    <button onclick="toggleSolution('q12')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-    <div id="solution-q12" class="solution-box" style="display: none;">
-        <div class="solution-title">Hướng dẫn giải Câu 12</div>
-        <div class="solution-content">
-            Ta có: $2\vec{a} = (4;-6;6)$
-            $3\vec{b} = (0;6;-3)$
-            $2\vec{c} = (6;-2;10)$
-            $\vec{u} = 2\vec{a} + 3\vec{b} - 2\vec{c} = (4+0-6; -6+6-(-2); 6-3-10) = (-2; 2; -7)$.
-        </div>
-    </div>
-</div>
+ <div class="question" id="q12">
+  <p class="question-title">
+   <strong>
+    Câu 12.
+   </strong>
+   Cho hai vectơ $\vec{a}$ và $\vec{b}$ thỏa mãn điều kiện $|\vec{a}|=|\vec{b}|=1$ và $\vec{a}\cdot\vec{b} = 3$. Độ dài vectơ $3\vec{a} +5\vec{b}$ bằng
+  </p>
+  <div class="options">
+   <div class="option-row">
+    <input id="q12A" name="q12" type="radio" value="A"/>
+    <label for="q12A">
+     A. $5\sqrt{5}$.
+    </label>
+    <span class="option-icon" id="icon-q12-A">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q12B" name="q12" type="radio" value="B"/>
+    <label for="q12B">
+     B. $\sqrt{124}$.
+    </label>
+    <span class="option-icon" id="icon-q12-B">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q12C" name="q12" type="radio" value="C"/>
+    <label for="q12C">
+     C. $8$.
+    </label>
+    <span class="option-icon" id="icon-q12-C">
+    </span>
+   </div>
+   <div class="option-row">
+    <input id="q12D" name="q12" type="radio" value="D"/>
+    <label for="q12D">
+     D. $124$.
+    </label>
+    <span class="option-icon" id="icon-q12-D">
+    </span>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkAnswer('q12', 'B')">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q12">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q13">
-<p class="question-title"><strong>Câu 13.</strong> Cho hàm số $y=f(x)$ có bảng biến thiên như hình vẽ bên. Xét tính đúng, sai của các khẳng định sau:</p>
-<img src="data/im/f16.png">
-<div class="options">
-    <div class="option-row">a) Hàm số $f(x)$ đạt cực tiểu tại $x=-2$
-        <label><input name="q13a" type="radio" value="True"/> True</label>
-        <label><input name="q13a" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">b) Điểm cực tiểu của đồ thị hàm số $y=f(x)$ là $(-2;-1)$
-        <label><input name="q13b" type="radio" value="True"/> True</label>
-        <label><input name="q13b" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">c) Đường thẳng $y=x+1$ đi qua hai điểm cực trị của đồ thị hàm số đã cho
-        <label><input name="q13c" type="radio" value="True"/> True</label>
-        <label><input name="q13c" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">d) Hàm số $y=g(x)=f(2x-3)$ đạt cực tiểu tại điểm $x=\dfrac{5}{2}$
-        <label><input name="q13d" type="radio" value="True"/> True</label>
-        <label><input name="q13d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q13',['True','True','True','False'])">✅ Kiểm tra</button>
-    <span id="result-q13"></span>
-</div>
-<button onclick="toggleSolution('q13')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q13" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 13</div>
-    <div class="solution-content">
-        \begin{enumerate}[label=\textbf{\alph*)},leftmargin=*]
-        \item \textbf{Đúng}. Dựa vào bảng biến thiên, hàm số đạt cực tiểu tại $x=-2$ và giá trị cực tiểu là $-1$.
-        \item \textbf{Đúng}. Điểm cực tiểu của đồ thị hàm số là $(-2;-1)$.
-        \item \textbf{Đúng}. Hai điểm cực trị của đồ thị hàm số là $A(-2;-1)$ và $B(0;1)$.
-        Đường thẳng đi qua hai điểm $A,B$ có phương trình: $\dfrac{x-(-2)}{0-(-2)} = \dfrac{y-(-1)}{1-(-1)} \Leftrightarrow \dfrac{x+2}{2} = \dfrac{y+1}{2} \Leftrightarrow x+2=y+1 \Leftrightarrow y=x+1$.
-        \item \textbf{Sai}.
-        $g(x) = f(2x-3)$.
-        $g'(x) = 2f'(2x-3)$.
-        $g'(x) = 0 \Leftrightarrow f'(2x-3) = 0 \Leftrightarrow \begin{cases} 2x-3 = -2 \\ 2x-3 = 0 \end{cases} \Leftrightarrow \begin{cases} 2x = 1 \\ 2x = 3 \end{cases} \Leftrightarrow \begin{cases} x = \dfrac{1}{2} \\ x = \dfrac{3}{2} \end{cases}$.
-        Bảng biến thiên của $g(x)$:
-        \[
-        \begin{array}{|c|cccccccc|}
-        \hline
-        2x-3 & -\infty & & -2 & & 0 & & +\infty \\
-        \hline
-        f'(2x-3) & & + & 0 & - & 0 & + & \\
-        \hline
-        g'(x) & & + & 0 & - & 0 & + & \\
-        \hline
-        g(x) & & \nearrow & f(-2) & \searrow & f(0) & \nearrow & \\
-        \hline
-        x & -\infty & & \dfrac{1}{2} & & \dfrac{3}{2} & & +\infty \\
-        \hline
-        g'(x) & & + & 0 & - & 0 & + & \\
-        \hline
-        g(x) & & \nearrow & -1 & \searrow & 1 & \nearrow & \\
-        \hline
-        \end{array}
-        \]
-        Hàm số $y=g(x)$ đạt cực tiểu tại $x=\dfrac{1}{2}$ và $x=\dfrac{3}{2}$. Phát biểu d) sai.
-        \end{enumerate}
-    </div>
-</div>
-</div>
+ <div class="question" id="q13">
+  <p class="question-title">
+   <strong>
+    Câu 13.
+   </strong>
+   Cho hàm số $y = f (x) = x^4 −2x^2 -2 $.
+  </p>
+  <div class="options">
+   <div class="option-row">
+    a) a) Hàm số $y = f(x)$ nghịch biến trên $(-\infty;-1)$ và $(1;+\infty)$.
+    <label>
+     <input name="q13a" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q13a" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    b) b) Hàm số $y = f(x)$ đạt giá trị cực đại tại $x = 0$.
+    <label>
+     <input name="q13b" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q13b" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    c) c) Giá trị lớn nhất của hàm số $y = f(x)$ trên khoảng $(−1;+\infty)$ bằng -2.
+    <label>
+     <input name="q13c" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q13c" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    d) d) Phương trình $-x^4 + 2x^2 + m = 0$ có bốn nghiệm phân biệt khi $m\in (−1; 0)$.
+    <label>
+     <input name="q13d" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q13d" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkTrueFalseAnswer('q13',['False','True','False','True'])">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q13">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q14">
-<p class="question-title"><strong>Câu 14.</strong> Trong không gian Oxyz, cho $\vec{a} = (2;-1;3), \vec{b} = (-1;5;2)$</p>
-<div class="options">
-    <div class="option-row">a) $\vec{a}+\vec{b}=(-3;6;-1)$
-        <label><input name="q14a" type="radio" value="True"/> True</label>
-        <label><input name="q14a" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">b) $\vec{a}-\vec{b}=(3;-6;1)$
-        <label><input name="q14b" type="radio" value="True"/> True</label>
-        <label><input name="q14b" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">c) $3\vec{b}=(-3;15;6)$
-        <label><input name="q14c" type="radio" value="True"/> True</label>
-        <label><input name="q14c" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">d) $2\vec{a}-\vec{b}=(5;-7;4)$
-        <label><input name="q14d" type="radio" value="True"/> True</label>
-        <label><input name="q14d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q14',['False','True','True','True'])">✅ Kiểm tra</button>
-    <span id="result-q14"></span>
-</div>
-</div>
+ <div class="question" id="q14">
+  <p class="question-title">
+   <strong>
+    Câu 14.
+   </strong>
+   Cho hàm số bậc ba $y = f(x) = ax^3 +bx^2 +cx+d$ có đồ thị là đường cong hình bên.
+  </p>
+  <img src="data/im/hk1de7-c14.png"/>
+  <div class="options">
+   <div class="option-row">
+    a) a) Hàm số $y = f(x)$ đồng biến trên $(-\infty;-1)$ và $(1;+\infty)$.
+    <label>
+     <input name="q14a" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q14a" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    b) b) $y_{CĐ} + y_{CT} = 4$.
+    <label>
+     <input name="q14b" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q14b" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    c) c) Giá trị biểu thức $a+b-c+d = −6$.
+    <label>
+     <input name="q14c" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q14c" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    d) d) Đồ thị hàm số $g(x) = \dfrac{(x-1)(x^2−1)}{f(x)-2f(x)}$ có tất cả 5 đường tiệm cận đứng.
+    <label>
+     <input name="q14d" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q14d" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkTrueFalseAnswer('q14',['False','False','False','False'])">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q14">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q15">
-<p class="question-title"><strong>Câu 15.</strong> Trong không gian Oxyz, cho hình hộp $ABCD.A'B'C'D'$. Biết A(2;4;0), B(4;0;0) C(-1;4;-7) và D'(6;8;10).</p>
-<div class="options">
-    <div class="option-row">a) $\vec{BC} = (-5;4;-7)$
-        <label><input name="q15a" type="radio" value="True"/> True</label>
-        <label><input name="q15a" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">b) $\vec{BA}-\vec{BC} = (3;0;7)$
-        <label><input name="q15b" type="radio" value="True"/> True</label>
-        <label><input name="q15b" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">c) $D(3;-8;7)$
-        <label><input name="q15c" type="radio" value="True"/> True</label>
-        <label><input name="q15c" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">d) $B'(13;0;17)$
-        <label><input name="q15d" type="radio" value="True"/> True</label>
-        <label><input name="q15d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q15',['True','True','False','True'])">✅ Kiểm tra</button>
-    <span id="result-q15"></span>
-</div>
-</div>
+ <div class="question" id="q15">
+  <p class="question-title">
+   <strong>
+    Câu 15.
+   </strong>
+   Trong không gian $Oxyz$, với ba điểm $M,N,P$ tùy ý.
+  </p>
+  <div class="options">
+   <div class="option-row">
+    a) a) $\vec{MN} = \vec{MQ}+\vec{QN}$.
+    <label>
+     <input name="q15a" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q15a" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    b) b) Nếu $\vec{OM} = 2\vec{i} – \vec{j} +3\vec{k}$ thì $M(2;1;3)$.
+    <label>
+     <input name="q15b" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q15b" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    c) c) Nếu $M (3;2;1), N(0;-1;2)$ thì $\vec{MN} = (3;3; −1)$.
+    <label>
+     <input name="q15c" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q15c" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    d) d) Hai vectơ $\vec{a} = (3;3;1)$ và $\vec{b} = (-3;-3;-1)$ cùng phương.
+    <label>
+     <input name="q15d" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q15d" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkTrueFalseAnswer('q15',['True','False','False','True'])">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q15">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q16">
-<p class="question-title"><strong>Câu 16.</strong> Quan sát quá trình sinh trưởng và phát triển của một giống cà chua mới trong 18 tuần kể từ khi trồng, các kĩ sư thuộc một trung tâm giống cây trồng nhận thấy: chiều cao thân cây sau t tuần kể từ khi trồng được tính xấp xỉ bởi hàm số $h(t)=40\log_3(2t+1)+12$ (đơn vị: centimet, $0 \le t \le 18$). Sau 9 tuần kể từ khi trồng, hoa bắt đầu kết trái. Kể từ đó, đường kính trái cà chua ở tuần thứ $t$ xấp xỉ bởi hàm số $d(t)=3^{\frac{2t-17}{t-8}}-3$ (đơn vị: centimet, $9 \le t \le 18$).</p>
-<div class="options">
-    <div class="option-row">a) Tốc độ tăng trưởng chiều cao của thân cây cà chua ở tuần thứ 7 (làm tròn đến hàng phần trăm) xấp xỉ bằng 4,85 (cm/tuần)
-        <label><input name="q16a" type="radio" value="True"/> True</label>
-        <label><input name="q16a" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">b) Khi được 4 tuần tuổi, chiều cao của thân cây cà chua là 92 cm
-        <label><input name="q16b" type="radio" value="True"/> True</label>
-        <label><input name="q16b" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">c) Chiều cao của thân cây cà chua liên tục tăng trong suốt 18 tuần
-        <label><input name="q16c" type="radio" value="True"/> True</label>
-        <label><input name="q16c" type="radio" value="False"/> False</label>
-    </div>
-    <div class="option-row">d) Sau 4 tuần, kể từ khi kết trái, đường kính trái cà chua lớn hơn 12cm
-        <label><input name="q16d" type="radio" value="True"/> True</label>
-        <label><input name="q16d" type="radio" value="False"/> False</label>
-    </div>
-</div>
-<div class="answer-check">
-    <button onclick="checkTrueFalseAnswer('q16',['True','True','True','False'])">✅ Kiểm tra</button>
-    <span id="result-q16"></span>
-</div>
-<button onclick="toggleSolution('q16')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q16" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 16</div>
-    <div class="solution-content">
-        a) \textbf{Đúng}.
-        $h'(t) = \left(40\log_3(2t+1)+12\right)' = 40 \cdot \dfrac{2}{(2t+1)\ln 3} = \dfrac{80}{(2t+1)\ln 3}$.
-        $h'(7) = \dfrac{80}{(2 \cdot 7 + 1)\ln 3} = \dfrac{80}{15\ln 3} = \dfrac{16}{3\ln 3} \approx 4,85$ (cm/tuần).
-        b) \textbf{Đúng}.
-        $h(4) = 40\log_3(2 \cdot 4 + 1) + 12 = 40\log_3 9 + 12 = 40 \cdot 2 + 12 = 80 + 12 = 92$ (cm).
-        c) \textbf{Đúng}.
-        $h'(t) = \dfrac{80}{(2t+1)\ln 3}$. Với $0 \le t \le 18$, ta có $2t+1 > 0$ và $\ln 3 > 0$, suy ra $h'(t) > 0$.
-        Vậy chiều cao của thân cây cà chua liên tục tăng trong suốt 18 tuần.
-        d) \textbf{Sai}.
-        Sau 4 tuần kể từ khi kết trái, tức là $t = 9+4=13$.
-        Đường kính trái cà chua ở tuần thứ 13 là $d(13) = 3^{\frac{2 \cdot 13 - 17}{13 - 8}} - 3 = 3^{\frac{26 - 17}{5}} - 3 = 3^{\frac{9}{5}} - 3 \approx 3^{1.8} - 3 \approx 7,5 - 3 = 4,5$ (cm).
-        Vì $4,5 < 12$ nên phát biểu d) là sai.
-    </div>
-</div>
-</div>
+ <div class="question" id="q16">
+  <p class="question-title">
+   <strong>
+    Câu 16.
+   </strong>
+   Bảng thống kê sau đây cho biết tổng lượng khách hàng (đơn vị người) đến cửa hàng WINMART vào tháng 8 từ năm 2000 dến 2024 đặt ở Vĩnh Phúc.
+    \begin{itemize}
+        \item 143 273 543 343 423
+        \item 584 296 477 403 202
+        \item 638 339 413 530 252
+        \item 303 243 524 614 414
+        \item 188 389 557 434 289
+    \end{itemize}
+  </p>
+  <div class="options">
+   <div class="option-row">
+    a) a) Nếu nhóm đầu tiên là $[140;240 )$ với độ dài mỗi nhóm là 100 thì mẫu số liệu trên được chia thành 4 nhóm.
+    <label>
+     <input name="q16a" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q16a" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    b) b) Khoảng biến thiên của mẫu số liệu ghép nhóm trên là 450 mm.
+    <label>
+     <input name="q16b" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q16b" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    c) c) Theo mẫu số liệu ghép nhóm trên thì $A_o = \dfrac{4450}{21}$.
+    <label>
+     <input name="q16c" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q16c" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+   <div class="option-row">
+    d) d) Độ lệch chuẩn của mẫu số liệu ghép nhóm trên khoảng 130.
+    <label>
+     <input name="q16d" type="radio" value="True"/>
+     Đúng
+    </label>
+    <label>
+     <input name="q16d" type="radio" value="False"/>
+     Sai
+    </label>
+   </div>
+  </div>
+  <div class="answer-check">
+   <button onclick="checkTrueFalseAnswer('q16',['False','False','False','True'])">
+    ✅ Kiểm tra
+   </button>
+   <span id="result-q16">
+   </span>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q17">
-<p class="question-title"><strong>Câu 17.</strong> Một nhà máy sản xuất x sản phẩm trong mỗi tháng. Chi phí sản xuất x sản phẩm được cho bởi hàm chi phí $C(x)=16000+500x-1,6x^2+0,004x^3$ (nghìn đồng). Biết giá bán của mỗi sản phẩm là một hàm số phụ thuộc vào số lượng sản phẩm x và được cho bởi công thức $p(x)=1700-7x$ (nghìn đồng). Hỏi mỗi tháng nhà máy nên sản xuất bao nhiêu sản phẩm để lợi nhuận thu được là lớn nhất? Biết rằng kết quả khảo sát thị trường cho thấy sản phẩm sản xuất ra sẽ tiêu thụ hết.</p>
-<div class="answer-check">
-<input id="input-q17" placeholder="Nhập kết quả (ví dụ: 100)" type="text"/>
-<button onclick="checkShortAnswer('q17','100')">✅ Kiểm tra</button>
-<span id="icon-q17"></span>
-</div>
-<div id="result-q17"></div>
-<button onclick="toggleSolution('q17')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q17" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 17</div>
-    <div class="solution-content">
-        +) Số tiền nhà máy thu được khi bán hết x sản phẩm là: $x.p(x)=1700x-7x^2$ (nghìn đồng).
-        Lợi nhuận nhà máy thu được khi sản xuất và bán hết x sản phẩm là: $L(x) = x.p(x)-C(x)=(1700x-7x^2)-(16000+500x-1,6x^2+0,004x^3) = -0,004x^3-5,4x^2+1200x-16000$ (với $x>0$).
-        +) Xét hàm số $f(x)=-0,004x^3-5,4x^2+1200x-16000$ trên $(0;+\infty)$.
-        Ta có $f'(x)=-0,012x^2-10,8x+1200; f'(x)=0 \Leftrightarrow \begin{cases} x=100 \\ x=-1000 \text{ (loại)} \end{cases}$.
-        Bảng biến thiên:
-        \[
-        \begin{array}{|c|cccc|}
-        \hline
-        x & 0 & & 100 & & +\infty \\
-        \hline
-        f'(x) & & + & 0 & - & \\
-        \hline
-        f(x) & & \nearrow & f(100) & \searrow & \\
-        \hline
-        \end{array}
-        \]
-        Lợi nhuận lớn nhất khi $x=100$.
-        <strong>Đáp số:</strong> 100
-    </div>
-</div>
-</div>
+ <h2>
+  📘 PHẦN TRẢ LỜN NGẮN
+ </h2>
+ <div class="question" id="q17">
+  <p class="question-title">
+   <strong>
+    Câu 17.
+   </strong>
+   Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(0;0;0)$, $B(3; 0; 0)$, $D(0;3; 0)$, $D'(0;3;-3)$. Gọi $G$ là trọng tâm tam giác $A'B'C$. Biết tọa độ vectơ $\vec{AG} = (a;b; c) $. Tính $S=a+b+c$.
+  </p>
+  <div class="answer-check">
+   <input id="input-q17" placeholder="Nhập câu trả lời" type="text"/>
+   <button onclick="checkShortAnswer('q17','1')">
+    ✅ Kiểm tra
+   </button>
+   <span id="icon-q17">
+   </span>
+  </div>
+  <div id="result-q17">
+  </div>
+  <button onclick="toggleSolution('q17')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+   👁️ Xem giải
+  </button>
+  <div class="solution-box" id="solution-q17" style="display: none;">
+   <div class="solution-title">
+    Hướng dẫn giải Câu 17
+   </div>
+   <div class="solution-content">
+    Lời giải
+   </div>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q18">
-<p class="question-title"><strong>Câu 18.</strong> Cho hình chóp S.ABCD có đáy là hình vuông cạnh bằng 5, $SA = 2$ và $SA \perp (ABCD)$. Chọn hệ trục Oxyz có gốc toạ độ tại A; các điểm B, D, S lần lượt trên các tia Ox, Oy, Oz. Tọa độ điểm $C(x;y;z)$. Tính $P = x^3+y^3+z^3$.</p>
-<div class="answer-check">
-<input id="input-q18" placeholder="Nhập kết quả (ví dụ: 250)" type="text"/>
-<button onclick="checkShortAnswer('q18','250')">✅ Kiểm tra</button>
-<span id="icon-q18"></span>
-</div>
-<div id="result-q18"></div>
-</div>
+ <div class="question" id="q18">
+  <p class="question-title">
+   <strong>
+    Câu 18.
+   </strong>
+   Cho hình chóp $SABC$ có đáy $ABC$ là tam giác vuông tại $B$ với $AB = 2a, BC = a\sqrt{5}$, cạnh bên $SA = a\sqrt{5}$ và vuông góc với mặt phẳng $(ABC)$. Mặt phẳng $(P)$ đi qua trung điểm $M$ của $AB$ và vuông góc với $SB$ cắt $AC, SC, SB$ lần lượt tại $N,P,Q$. Biết diện tích của tứ giác $MNPQ$ bằng $m a^2$. Tính $m$ (kết quả để ở dạng thập phân, làm tròn đến hàng phần trăm).
+  </p>
+  <div class="answer-check">
+   <input id="input-q18" placeholder="Nhập câu trả lời" type="text"/>
+   <button onclick="checkShortAnswer('q18','1,06')">
+    ✅ Kiểm tra
+   </button>
+   <span id="icon-q18">
+   </span>
+  </div>
+  <div id="result-q18">
+  </div>
+  <button onclick="toggleSolution('q18')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+   👁️ Xem giải
+  </button>
+  <div class="solution-box" id="solution-q18" style="display: none;">
+   <div class="solution-title">
+    Hướng dẫn giải Câu 18
+   </div>
+   <div class="solution-content">
+    Lời giải
+   </div>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q19">
-<p class="question-title"><strong>Câu 19.</strong> Một máy bay trình diễn có đường bay gắn với hệ trục $Oxy$ được mô phỏng như hình vẽ, trục $Ox$ gắn với mặt đất.<br>Đường bay có dạng là một phần của đồ thị hàm phân thức bậc hai trên bậc nhất $y=f(x)$ có đường tiệm cận đứng là $x=2$. Điểm $G$ là giao điểm của đường tiệm cận xiên của đồ thị hàm số $y=f(x)$ và trục $Ox$ được gọi là điểm giới hạn. Biết máy bay bay từ vị trí $A$ cách tọa tọa độ $O$ một khoảng 2,5 đơn vị và máy bay khi ở vị trí cao nhất cũng là điểm cực đại của hàm số cách điểm xuất phát 1,5 đơn vị theo phương song song với trục $Ox$ và cách mặt đất 4,5 đơn vị. Vị trí máy bay tiếp đất cách điểm giới hạn một khoảng bằng bao nhiêu?</p>
-<img src="data/im/e-080.png">
-<div class="answer-check">
-<input id="input-q19" placeholder="Nhập kết quả (ví dụ: 0.5)" type="text"/>
-<button onclick="checkShortAnswer('q19','0.5')">✅ Kiểm tra</button>
-<span id="icon-q19"></span>
-</div>
-<div id="result-q19"></div>
-</div>
+ <div class="question" id="q19">
+  <p class="question-title">
+   <strong>
+    Câu 19.
+   </strong>
+   Một hộ làm nghề dệt vài lụa tơ tằm sản suất mỗi ngày được $x$ mét vải lụa ($1\le x\le 18$). Tổng chi phí sản xuất $x$ mét vài lụa, tính bằng nghìn đồng, cho bởi hàm chi phí $C(x) = x^3 -3x^2 - 20x+500$ Giả sử hộ làm nghề dệt này bán hết sản phẩm mỗi ngày với giá 220 nghìn đồng/mét. Gọi $L(x)$ là lợi nhuận thu được khi bán $x$ mét vài lụa. Hỏi lợi nhuận tối đa của hộ làm nghề dệt vài lụa tơ tằm trong một ngày?
+  </p>
+  <div class="answer-check">
+   <input id="input-q19" placeholder="Nhập câu trả lời" type="text"/>
+   <button onclick="checkShortAnswer('q19','1200')">
+    ✅ Kiểm tra
+   </button>
+   <span id="icon-q19">
+   </span>
+  </div>
+  <div id="result-q19">
+  </div>
+  <button onclick="toggleSolution('q19')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+   👁️ Xem giải
+  </button>
+  <div class="solution-box" id="solution-q19" style="display: none;">
+   <div class="solution-title">
+    Hướng dẫn giải Câu 19
+   </div>
+   <div class="solution-content">
+    Lời giải
+   </div>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q20">
-<p class="question-title"><strong>Câu 20.</strong> Nhà máy A chuyên sản xuất một loại sản phẩm cho nhà máy B. Hai nhà máy thỏa thuận, mỗi tháng A cung cấp cho B tối đa 45 tấn sản phẩm và nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm là $P(x)=60-0,01x^2$ (triệu đồng). Chi phí để nhà máy A sản xuất x tấn sản phẩm trong một tháng là $C(x)=150+33x$ (triệu đồng) (gồm 150 triệu đồng chi phí cố định và 33 triệu đồng cho mỗi tấn sản phẩm). Để mỗi tháng thu được lợi nhuận lớn nhất thì A cần bán cho B bao nhiêu tấn sản phẩm?</p>
-<div class="answer-check">
-<input id="input-q20" placeholder="Nhập kết quả (ví dụ: 30)" type="text"/>
-<button onclick="checkShortAnswer('q20','30')">✅ Kiểm tra</button>
-<span id="icon-q20"></span>
-</div>
-<div id="result-q20"></div>
-<button onclick="toggleSolution('q20')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">👁️ Xem giải</button>
-<div id="solution-q20" class="solution-box" style="display: none;">
-    <div class="solution-title">Hướng dẫn giải Câu 20</div>
-    <div class="solution-content">
-        Doanh thu là $D(x)=x(60-0,01x^2)=60x-0,01x^3$ ($x>0$)
-        Lợi nhuận thu được là $L(x)=D(x)-C(x)=60x-0,01x^3-(150+33x)=-0,01x^3+27x-150$.
-        Ta có $L'(x)=-0,03x^2+27=0 \Leftrightarrow x^2=900 \Leftrightarrow \begin{cases} x=30 \\ x=-30 \text{ (loại)} \end{cases}$.
-        Doanh thu là $D(x)=x(60-0,01x^2)=60x-0,01x^3$ ($x>0$)
-        Bảng biến thiên:
-        \[
-        \begin{array}{|c|ccccc|}
-        \hline
-        x & 0 & & 30 & & 45 \\
-        \hline
-        L'(x) & & + & 0 & - & \\
-        \hline
-        L(x) & & \nearrow & L(30) & \searrow & \\
-        \hline
-        \end{array}
-        \]
-        $L(30) = -0,01(30)^3 + 27(30) - 150 = -270 + 810 - 150 = 390$.
-        $L(45) = -0,01(45)^3 + 27(45) - 150 = -911.25 + 1215 - 150 = 153.75$.
-        Giá trị lớn nhất của L(x) là 390 khi x = 30.
-        <strong>Đáp số:</strong> 30
-    </div>
-</div>
-</div>
+ <div class="question" id="q20">
+  <p class="question-title">
+   <strong>
+    Câu 20.
+   </strong>
+   Có bao nhiêu giá trị nguyên của $m$ để hàm số $y = (m^2 −1)x^4 + (m-1)x^2 − x + 4$ nghịch biến trên khoảng $(-\infty;+\infty) $.
+  </p>
+  <div class="answer-check">
+   <input id="input-q20" placeholder="Nhập câu trả lời" type="text"/>
+   <button onclick="checkShortAnswer('q20','2')">
+    ✅ Kiểm tra
+   </button>
+   <span id="icon-q20">
+   </span>
+  </div>
+  <div id="result-q20">
+  </div>
+  <button onclick="toggleSolution('q20')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+   👁️ Xem giải
+  </button>
+  <div class="solution-box" id="solution-q20" style="display: none;">
+   <div class="solution-title">
+    Hướng dẫn giải Câu 20
+   </div>
+   <div class="solution-content">
+    Lời giải
+   </div>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q21">
-<p class="question-title"><strong>Câu 21.</strong> Trong không gian Oxyz, cho hình chóp S.ABCD có đáy ABCD là hình thoi cạnh bằng 5, giao điểm hai đường chéo AC và BD trùng với gốc O. Các vectơ $\vec{OB}, \vec{OC}, \vec{OS}$ lần lượt cùng hướng với $\vec{i}, \vec{j}, \vec{k}$ và $OA = OS=4$ như hình bên dưới. Toạ độ vectơ $\vec{AM} = (a;b;c)$ với M là trung điểm của cạnh SC, khi đó $a+b+c$ bằng bao nhiêu?</p>
-<img src="data/im/e-067.png">
-<div class="answer-check">
-<input id="input-q21" placeholder="Nhập kết quả (ví dụ: 8)" type="text"/>
-<button onclick="checkShortAnswer('q21','8')">✅ Kiểm tra</button>
-<span id="icon-q21"></span>
-</div>
-<div id="result-q21"></div>
-</div>
+ <div class="question" id="q21">
+  <p class="question-title">
+   <strong>
+    Câu 21.
+   </strong>
+   Ông Thanh dự định sử dụng hết $7\text{m}^2$ kính để làm bể cá bằng kính có dạng hình hộp chữ nhật không nắp, chiều dài gấp đôi chiều rộng. Bể cá có thể tích lớn nhất bằng bao nhiêu $\text{m}^3$ (làm tròn kết quả đến hàng phần trăm)?
+  </p>
+  <div class="answer-check">
+   <input id="input-q21" placeholder="Nhập câu trả lời" type="text"/>
+   <button onclick="checkShortAnswer('q21','1,68')">
+    ✅ Kiểm tra
+   </button>
+   <span id="icon-q21">
+   </span>
+  </div>
+  <div id="result-q21">
+  </div>
+  <button onclick="toggleSolution('q21')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+   👁️ Xem giải
+  </button>
+  <div class="solution-box" id="solution-q21" style="display: none;">
+   <div class="solution-title">
+    Hướng dẫn giải Câu 21
+   </div>
+   <div class="solution-content">
+    Lời giải
+   </div>
+  </div>
+ </div>
 </section>
-
 <section>
-<div class="question" id="q22">
-<p class="question-title"><strong>Câu 22.</strong> Một chiếc ô tô được đặt trên mặt đáy dưới của một khung sắt có dạng hình hộp chữ nhật với đáy trên là hình chữ nhật $ABCD$, mặt phẳng $(ABCD)$ song song với mặt phẳng nằm ngang. Khung sắt đó được buộc vào móc $E$ của chiếc cần cẩu sao cho các đoạn dây cáp $EA, EB, EC, ED$ có độ dài bằng nhau và cùng tạo với mặt phẳng $(ABCD)$ một góc bằng 60° (hình vẽ).
-	
-	Chiếc cần cẩu kéo khung sắt lên theo phương thẳng đứng. Trọng lượng của chiếc xe ô tô bằng bao nhiêu Niutơn? (làm tròn đến hàng đơn vị), biết rằng các lực căng $\vec{F_1}, \vec{F_2}, \vec{F_3}, \vec{F_4}$ đều có cường độ là 3500N và trọng lượng của khung sắt là 2500N.</p>
-<img src="data/im/e-010.png">
-<div class="answer-check">
-<input id="input-q22" placeholder="Nhập kết quả (ví dụ: 9624)" type="text"/>
-<button onclick="checkShortAnswer('q22','9624')">✅ Kiểm tra</button>
-<span id="icon-q22"></span>
-</div>
-<div id="result-q22"></div>
-</div>
+ <div class="question" id="q22">
+  <p class="question-title">
+   <strong>
+    Câu 22.
+   </strong>
+   Hình bên minh hoạ sơ đồ một ngôi nhà trong hệ trục tọa độ $Oxyz$, trong đó nền nhà, bốn bức tường và hai mái nhà đều là hình chữ nhật. Tính góc dốc của mái nhà, tức là tìm số đo của góc nhị diện có cạnh là đường thẳng $FG$, hai mặt lần lượt là $(FGQP)$ và $(FGHE)$ (làm tròn kết quả đến hàng phần mười của đơn vị độ).
+  </p>
+  <img src="data/im/hk1de7-c22.png"/>
+  <div class="answer-check">
+   <input id="input-q22" placeholder="Nhập câu trả lời" type="text"/>
+   <button onclick="checkShortAnswer('q22','26,6')">
+    ✅ Kiểm tra
+   </button>
+   <span id="icon-q22">
+   </span>
+  </div>
+  <div id="result-q22">
+  </div>
+  <button onclick="toggleSolution('q22')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+   👁️ Xem giải
+  </button>
+  <div class="solution-box" id="solution-q22" style="display: none;">
+   <div class="solution-title">
+    Hướng dẫn giải Câu 22
+   </div>
+   <div class="solution-content">
+    Lời giải
+   </div>
+  </div>
+ </div>
 </section>
 
 <!-- KẾT THÚC -->
@@ -2161,7 +2529,7 @@ body:-ms-fullscreen .reveal {
 <!-- === HTML TÍCH HỢP: CANVAS VẼ === -->
 <canvas id="drawCanvas"></canvas>
 <div class="toolbar" id="drawToolbar">
-    <a href="index.html" title="Về trang chủ (demo)">
+    <a href="..\index.html" title="Về trang chủ (demo)">
       <button id="homeBtn" style="font-size:22px;">🏠</button>
     </a>
     <select id="tool">
