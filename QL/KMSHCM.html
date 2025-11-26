@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên đề Môn Lịch sử - Cụm 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a5fb4, #3584e4);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        header h2 {
+            font-size: 20px;
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #1a5fb4;
+            border-bottom: 2px solid #1a5fb4;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .greeting {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-left: 4px solid #1a5fb4;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .topic {
+            background-color: #e6f2ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #1a5fb4;
+        }
+        
+        .discussion-points {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .discussion-points ul {
+            padding-left: 20px;
+        }
+        
+        .discussion-points li {
+            margin-bottom: 8px;
+        }
+        
+        .conclusion {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab.active {
+            background-color: white;
+            color: #1a5fb4;
+            border-bottom: 3px solid #1a5fb4;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SINH HOẠT CHUYÊN ĐỀ CỤM 1 - MÔN LỊCH SỬ</h1>
+            <h2>Năm học 2025 - 2026</h2>
+            <p>Trường THPT Trần Trường Sinh</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="switchTab('opening')">Khai mạc</div>
+            <div class="nav-tab" onclick="switchTab('closing')">Bế mạc</div>
+        </div>
+        
+        <div class="content">
+            <!-- Tab Khai mạc -->
+            <div id="opening" class="tab-content active">
+                <div class="section">
+                    <div class="greeting">
+                        <p>Kính thưa quý lãnh đạo Sở Giáo dục và Đào tạo,</p>
+                        <p>Kính thưa quý thầy cô trong Hội đồng bộ môn,</p>
+                        <p>Kính thưa lãnh đạo các trường THPT trong Cụm chuyên môn THPT–1,</p>
+                        <p>Kính thưa toàn thể quý thầy cô và đại biểu tham dự!</p>
+                    </div>
+                    
+                    <p>Trước hết, tôi xin gửi đến quý đại biểu lời chào trân trọng và lời cảm ơn chân thành vì đã dành thời gian tham dự buổi sinh hoạt chuyên đề ngày hôm nay. Sự hiện diện của quý vị thể hiện tinh thần trách nhiệm, sự quan tâm sâu sắc đối với hoạt động chuyên môn chung của cụm và đối với sự phát triển của môn Lịch sử trong giai đoạn đổi mới giáo dục hiện nay.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">VAI TRÒ CỦA MÔN LỊCH SỬ</h3>
+                    
+                    <p>Lịch sử là môn học có vị trí đặc biệt trong hệ thống giáo dục. Theo định hướng của Chương trình GDPT 2018, giáo dục phổ thông hướng đến hình thành cho học sinh 5 phẩm chất chủ đạo: <strong>Yêu nước – Nhân ái – Chăm chỉ – Trung thực – Trách nhiệm</strong>. Và trong số các môn học, Lịch sử là môn học góp phần mạnh mẽ nhất, trực tiếp nhất để bồi dưỡng những phẩm chất ấy.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Lịch sử bồi dưỡng phẩm chất yêu nước</strong> bằng tri thức về truyền thống dân tộc, về hành trình giữ nước và dựng nước của cha ông.</p>
+                        <p><strong>Lịch sử nuôi dưỡng phẩm chất nhân ái</strong> qua những bài học về chiến tranh – hòa bình, về sự thấu hiểu và khoan dung.</p>
+                        <p><strong>Lịch sử rèn luyện sự chăm chỉ</strong>, bởi học sinh phải tìm kiếm, phân tích và kết nối các nguồn tư liệu để hiểu bản chất của sự kiện.</p>
+                        <p><strong>Lịch sử hình thành phẩm chất trung thực</strong>, thông qua việc tôn trọng sự thật lịch sử và tư duy dựa trên chứng cứ.</p>
+                        <p><strong>Lịch sử giúp học sinh có trách nhiệm</strong>, biết gắn kết vai trò cá nhân với vận mệnh cộng đồng và tương lai đất nước.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">THỰC TRẠNG VÀ THÁCH THỨC</h3>
+                    
+                    <p>Tuy nhiên, đi cùng với ý nghĩa sâu sắc đó là một thực trạng đáng quan tâm. Nhiều học sinh ngày nay vẫn chưa dành sự ưu tiên cần thiết cho môn Lịch sử. Nhiều học sinh cho rằng Lịch sử "khó nhớ, nhiều số liệu", thiếu sự hấp dẫn trực quan. Một bộ phận học sinh chỉ tập trung vào các môn thi tốt nghiệp và xét tuyển đại học, khiến Lịch sử bị xem là môn "thứ yếu". Một số em thiếu phương pháp học phù hợp, dẫn đến việc tiếp nhận kiến thức bị quá tải hoặc rời rạc.</p>
+                    
+                    <p>Một phần nguyên nhân đến từ tâm lý lứa tuổi và môi trường thông tin hiện đại; học sinh tiếp xúc quá nhiều thông tin nhanh, giải trí, hình ảnh… khiến các nội dung học thuật như Lịch sử bị "lép vế". Các kênh truyền thông về lịch sử chưa thực sự hiệu quả trong việc thu hút giới trẻ; một phần khác đến từ việc tổ chức dạy học chưa thật sự hấp dẫn, chưa khai thác hết tiềm năng của môn Lịch sử theo yêu cầu của chương trình mới.</p>
+                    
+                    <p>Thực trạng đó đặt ra yêu cầu cấp thiết: giáo viên không chỉ truyền đạt kiến thức, mà phải truyền được cảm hứng, phải giúp học sinh thấy rằng Lịch sử là câu chuyện của chính các em, gần gũi, sinh động và có giá trị trong việc hình thành nhân cách.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">NỖ LỰC VÀ KẾT QUẢ</h3>
+                    
+                    <p>Trong thời gian qua, thầy cô môn Lịch Sử của nhà trường đã nỗ lực không ngừng: đổi mới phương pháp, tăng cường trực quan, ứng dụng CNTT, tổ chức hoạt động trải nghiệm và đặc biệt là cải tiến công tác bồi dưỡng học sinh giỏi theo hướng phát triển năng lực.</p>
+                    
+                    <p>Những cố gắng đó tạo ra kết quả đáng ghi nhận: chất lượng học tập của học sinh ổn định hơn, nhiều em bắt đầu hứng thú với môn học, và công tác bồi dưỡng học sinh giỏi đạt kết quả tích cực qua từng năm. Đó là sự cố gắng bền bỉ và cũng là niềm tự hào của đội ngũ giáo viên nhà trường.</p>
+                </div>
+                
+                <div class="section">
+                    <div class="topic">
+                        ✨ Hôm nay, cô Phạm Thị Lý sẽ trình bày chuyên đề:<br>
+                        "Giải pháp giúp học sinh đam mê học Lịch sử và nâng cao chất lượng bồi dưỡng học sinh giỏi"
+                    </div>
+                    
+                    <p>Đây là kết quả của sự nghiên cứu nghiêm túc, tâm huyết và đúc kết từ thực tiễn giảng dạy tại nhà trường.</p>
+                    
+                    <p>Tuy vậy, chúng tôi cũng nhìn nhận một cách chân thành rằng:</p>
+                    
+                    <ul>
+                        <li>Những kết quả đạt được của Trường THPT Trần Trường Sinh có thể chưa phải là nổi bật so với nhiều đơn vị trong cụm;</li>
+                        <li>Những giải pháp được chia sẻ hôm nay có thể quý thầy cô ở các trường bạn đã và đang triển khai rất hiệu quả.</li>
+                    </ul>
+                    
+                    <p>Chính vì vậy, nhà trường xem buổi sinh hoạt hôm nay là cơ hội lắng nghe và học hỏi quý thầy cô để tiếp tục hoàn thiện hoạt động chuyên môn.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">MONG ĐỢI VÀ THẢO LUẬN</h3>
+                    
+                    <p>Và với tinh thần cầu thị ấy, chúng tôi mong muốn nhận được:</p>
+                    
+                    <ul>
+                        <li>Những góp ý sâu sắc và thẳng thắn,</li>
+                        <li>Những kinh nghiệm hay, những mô hình hiệu quả mà quý đơn vị đã áp dụng,</li>
+                        <li>Những vấn đề mới, vượt ra ngoài báo cáo, để mở rộng tầm nhìn và nâng cao chất lượng chuyên môn của cụm.</li>
+                    </ul>
+                    
+                    <div class="discussion-points">
+                        <p><strong>Về thảo luận chúng ta sẽ không giới hạn trong phạm vi nội dung chuyên đề, mà còn mở rộng ở các vấn đề như:</strong></p>
+                        <ul>
+                            <li>Khó khăn thực tế trong dạy học Lịch sử theo chương trình GDPT 2018,</li>
+                            <li>Các giải pháp đổi mới về phương pháp, kiểm tra – đánh giá, tổ chức hoạt động học,</li>
+                            <li>Ứng dụng CNTT, câu lạc bộ, trải nghiệm trong dạy Lịch sử,</li>
+                            <li>Giải pháp tạo hứng thú, nâng cao chất lượng đại trà và HSG,</li>
+                            <li>Sự phối hợp giữa giáo viên – nhà trường – phụ huynh trong giáo dục lịch sử.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="conclusion">
+                    <p>Với tinh thần chia sẻ, hợp tác và cùng phát triển, Hy vọng rằng buổi sinh hoạt sẽ thực sự là diễn đàn chia sẻ kinh nghiệm thật – vấn đề thật – giải pháp thật, vì mục tiêu nâng cao chất lượng chuyên môn của toàn cụm. Kính chúc chương trình thành công tốt đẹp.</p>
+                    <p class="signature">Xin trân trọng cảm ơn quý lãnh đạo và quý thầy cô!</p>
+                </div>
+            </div>
+            
+            <!-- Tab Bế mạc -->
+            <div id="closing" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">BÀI PHÁT BIỂU BẾ MẠC</h2>
+                    <h3 style="text-align: center; margin-bottom: 20px;">Sinh hoạt Chuyên đề Cụm 1 – Môn Lịch sử<br>Năm học 2025–2026</h3>
+                    
+                    <div class="greeting">
+                        <p>Kính thưa quý lãnh đạo Sở Giáo dục và Đào tạo,</p>
+                        <p>Kính thưa quý thầy cô trong Hội đồng bộ môn,</p>
+                        <p>Kính thưa lãnh đạo các trường THPT thuộc Cụm chuyên môn THPT–1,</p>
+                        <p>Kính thưa toàn thể quý thầy cô!</p>
+                    </div>
+                    
+                    <p>Sau thời gian làm việc nghiêm túc, trách nhiệm và đầy sôi nổi, buổi sinh hoạt chuyên đề môn Lịch sử Cụm 1 đã diễn ra thành công tốt đẹp. Thay mặt Ban Giám hiệu Trường THPT Trần Trường Sinh, tôi xin trân trọng cảm ơn sự hiện diện và sự tham gia tích cực của quý lãnh đạo, quý thầy cô trong suốt chương trình.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">1. GHI NHẬN VÀ TRÂN TRỌNG TIẾP THU CÁC Ý KIẾN ĐÓNG GÓP</h3>
+                    
+                    <p>Trong buổi sinh hoạt hôm nay, chúng tôi đã nhận được nhiều ý kiến trao đổi, góp ý rất thực tiễn và có chiều sâu. Các đơn vị đã chia sẻ:</p>
+                    
+                    <ul>
+                        <li>Những kinh nghiệm quý trong đổi mới phương pháp dạy học,</li>
+                        <li>Các mô hình hay trong tổ chức hoạt động trải nghiệm, câu lạc bộ,</li>
+                        <li>Các giải pháp nâng cao chất lượng đại trà và bồi dưỡng học sinh giỏi,</li>
+                        <li>Những khó khăn thực tế và cách thức tháo gỡ tại cơ sở.</li>
+                    </ul>
+                    
+                    <p>Những ý kiến này giúp mở rộng góc nhìn, giúp chuyên đề của nhà trường được hoàn thiện hơn, đồng thời mang lại giá trị tham khảo thiết thực cho toàn cụm.</p>
+                    
+                    <p>Nhà trường xin tiếp thu đầy đủ và xem đó là nguồn tư liệu quan trọng để cải tiến hoạt động chuyên môn trong thời gian tới.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">2. TIẾP THU SỰ CHỈ ĐẠO CỦA LÃNH ĐẠO SỞ GIÁO DỤC VÀ ĐÀO TẠO</h3>
+                    
+                    <p>Chúng tôi đặc biệt trân trọng cảm ơn những định hướng, chỉ đạo sâu sắc từ lãnh đạo Sở GD&ĐT trong buổi sinh hoạt hôm nay. Các ý kiến chỉ đạo về:</p>
+                    
+                    <ul>
+                        <li>Công tác bồi dưỡng học sinh giỏi,</li>
+                        <li>Đổi mới phương pháp theo Chương trình GDPT 2018,</li>
+                        <li>Tăng cường hiệu quả sinh hoạt chuyên môn theo cụm trường,</li>
+                        <li>Trách nhiệm của mỗi đơn vị trong việc nâng cao chất lượng giáo dục môn Lịch sử,</li>
+                    </ul>
+                    
+                    <p>là cơ sở để nhà trường và các đơn vị trong cụm điều chỉnh kế hoạch và triển khai hiệu quả hơn trong thời gian tới.</p>
+                    
+                    <p>Chúng tôi cam kết nghiêm túc triển khai theo tinh thần chỉ đạo của Sở.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">3. CHỈ ĐẠO ĐỐI VỚI GIÁO VIÊN MÔN LỊCH SỬ</h3>
+                    
+                    <p>Trên cơ sở những góp ý và chỉ đạo nhận được tại buổi sinh hoạt chuyên đề, Ban Giám hiệu nhà trường yêu cầu:</p>
+                    
+                    <ul>
+                        <li>Giáo viên môn Lịch sử cần chủ động rà soát lại kế hoạch dạy học, điều chỉnh cho phù hợp với chương trình mới và hướng dẫn của Sở.</li>
+                        <li>Tăng cường ứng dụng CNTT, đổi mới phương pháp, chú trọng phát triển phẩm chất và năng lực học sinh theo yêu cầu của Chương trình 2018.</li>
+                        <li>Hoàn thiện lại chuyên đề, bổ sung các ý kiến góp ý và tiếp tục triển khai trong tổ chuyên môn.</li>
+                        <li>Nâng cao chất lượng bồi dưỡng học sinh giỏi, xây dựng kế hoạch rõ ràng, ổn định và dài hơi hơn.</li>
+                        <li>Tích cực phối hợp với các trường trong cụm, học hỏi những mô hình hay, giải pháp hiệu quả mà các đơn vị đã chia sẻ.</li>
+                    </ul>
+                    
+                    <p>Tôi tin rằng, với tinh thần trách nhiệm và sự quyết tâm của đội ngũ giáo viên Lịch sử, những định hướng này sẽ được thực hiện nghiêm túc và mang lại hiệu quả rõ rệt.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">4. LỜI CẢM ƠN VÀ BẾ MẠC</h3>
+                    
+                    <p>Một lần nữa, xin trân trọng cảm ơn:</p>
+                    
+                    <ul>
+                        <li>Quý lãnh đạo Sở GD&ĐT đã đến dự và chỉ đạo buổi sinh hoạt,</li>
+                        <li>Quý lãnh đạo các trường và quý thầy cô đã chia sẻ, góp ý chân thành,</li>
+                        <li>Tổ Sử – Địa – GDKTPL và các bộ phận của nhà trường đã chuẩn bị chu đáo để buổi sinh hoạt diễn ra thuận lợi.</li>
+                    </ul>
+                    
+                    <div class="topic">
+                        📢 Tôi xin tuyên bố bế mạc buổi Sinh hoạt Chuyên đề Cụm 1 – Môn Lịch sử năm học 2025–2026.
+                    </div>
+                    
+                    <p class="signature">Kính chúc quý lãnh đạo, quý thầy cô sức khỏe và thành công trong công tác.<br>Xin trân trọng cảm ơn!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Ẩn tất cả các tab
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Hiển thị tab được chọn
+            document.getElementById(tabName).classList.add('active');
+            
+            // Cập nhật trạng thái active của các nút tab
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
