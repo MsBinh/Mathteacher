@@ -1,0 +1,1333 @@
+/* ===== CSS CƠ BẢN ===== */
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+}
+
+/* ===== TOPBAR ĐƯỢC TỐI ƯU ===== */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    z-index: 10000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-bottom: 3px solid #3949ab;
+}
+
+.topbar-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-title::before {
+    content: "🧮";
+    font-size: 1.6rem;
+}
+
+.topbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-controls select,
+.topbar-controls button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.topbar-controls select:hover,
+.topbar-controls button:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.topbar-controls select option {
+    background: #283593;
+    color: white;
+}
+
+/* Đồng hồ */
+.clock {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== REVEAL.JS SLIDES ===== */
+.reveal {
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+}
+
+.reveal .slides {
+    text-align: left;
+    font-size: 1.8rem;
+    color: #2c3e50;
+}
+
+.reveal .slides section {
+    padding: 30px 40px;
+    height: 100%;
+    overflow-y: auto;
+    background: white;
+}
+
+.reveal h2 {
+    color: #1a237e;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #1a237e;
+    padding-bottom: 15px;
+    font-weight: 700;
+}
+
+.reveal h3 {
+    color: #3949ab;
+    margin: 20px 0 15px 0;
+    font-weight: 600;
+}
+
+.reveal p, .reveal li {
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.reveal ul, .reveal ol {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+/* ===== CÂU HỎI ===== */
+.question {
+    margin: 25px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    border-radius: 15px;
+    border-left: 6px solid #1a237e;
+    color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.question:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.question-title {
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #1a237e;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.option-row {
+    margin: 12px 0;
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    color: #2c3e50;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.option-row:hover {
+    background: rgba(255,255,255,1);
+    border-color: #1a237e;
+    transform: translateX(5px);
+}
+
+.option-row label {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.option-row input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+}
+
+.answer-check {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.answer-check input {
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    color: #2c3e50;
+    width: 250px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.answer-check input:focus {
+    outline: none;
+    border-color: #1a237e;
+    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+}
+
+.answer-check button {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.answer-check button:hover {
+    background: linear-gradient(135deg, #3949ab, #1a237e);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
+}
+
+/* === SLIDE MENU === */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+    z-index: 11000;
+    transition: left 0.4s ease;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.slide-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    padding: 25px;
+    background: rgba(0,0,0,0.2);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.menu-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.menu-content {
+    padding: 20px;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.slide-item {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.slide-item:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(10px);
+}
+
+.slide-item.active {
+    background: rgba(255,255,255,0.25);
+    border-left: 5px solid #ffd54f;
+    font-weight: 600;
+}
+
+.slide-number {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    margin-right: 15px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 10500;
+    display: none;
+    backdrop-filter: blur(5px);
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+/* === CANVAS VẼ === */
+#drawCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9000;
+    display: none;
+    pointer-events: none; /* không chặn bấm slide */
+    background: transparent; /* trong suốt để thấy nội dung */
+}
+
+
+.toolbar {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: none;
+    align-items: center;
+    gap: 15px;
+    z-index: 9100;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.toolbar select,
+.toolbar input,
+.toolbar button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.toolbar select:hover,
+.toolbar input:hover,
+.toolbar button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.toolbar input[type="color"] {
+    padding: 4px;
+    height: 40px;
+    width: 60px;
+}
+
+.toolbar input[type="range"] {
+    width: 100px;
+}
+
+/* ===== MODAL SYSTEM CẢI TIẾN ===== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 12000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    color: #333;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    animation: modalAppear 0.4s ease;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content-scrollable {
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow-y: hidden; 
+}
+
+.modal-content-scrollable .table-container {
+    flex: 1;
+    min-height: 150px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-content h3 {
+    color: #1a237e;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    padding-right: 30px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: #1a237e;
+}
+
+.modal-content button {
+    padding: 12px 25px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.modal-content button[type="submit"] {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: white;
+}
+
+.modal-content button[type="submit"]:hover {
+    background: linear-gradient(135deg, #3949ab, #1a237e);
+    transform: translateY(-2px);
+}
+
+/* ===== TEACHER MONITOR ===== */
+#teacher-monitor {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+    z-index: 20000;
+    width: 95vw;
+    height: 85vh;
+    overflow: auto;
+    color: #333;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ===== BẢNG ĐẸP VỚI STICKY HEADER ===== */
+.table-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 15px;
+    border: 2px solid #f0f0f0;
+    position: relative;
+}
+
+/* Custom scrollbar đẹp */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    color: #333;
+}
+
+th {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: white;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+    z-index: 10;
+}
+
+tr:nth-child(even) {
+    background: #f8f9ff;
+}
+
+tr:hover {
+    background: #e8eaff;
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .topbar {
+        padding: 0 10px;
+        height: auto;
+        flex-direction: column;
+    }
+    .topbar-title {
+        font-size: 1.1rem;
+        padding: 5px 0;
+    }
+    .topbar-controls {
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .topbar-controls button, .topbar-controls select {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+    .reveal {
+        margin-top: 110px;
+        height: calc(100vh - 110px);
+    }
+    .slide-menu { width: 300px; left: -300px; }
+    .reveal .slides { font-size: 1.5rem; }
+    .reveal .slides section { padding: 20px; }
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    .modal-content-scrollable {
+        max-width: 95%;
+    }
+}
+
+/* Nút tương tác học sinh */
+#studentInteractBtn {
+    display: none;
+}
+
+/* Teacher controls */
+#teacher-controls {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 30px;
+    z-index: 22000;
+    gap: 10px;
+    flex-direction: column;
+    background: rgba(255,255,255,0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+#teacher-controls button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#create-session-btn {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: #fff;
+}
+
+#start-poll-btn {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #000;
+}
+
+#view-poll-results-btn {
+    background: linear-gradient(135deg, #6f42c1, #5a2d91);
+    color: #fff;
+}
+
+#teacher-controls button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Firebase status indicator */
+.firebase-status {
+    position: fixed;
+    top: 75px;
+    right: 15px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    z-index: 10001;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.firebase-connected {
+    background: rgba(40, 167, 69, 0.9);
+    color: white;
+}
+
+.firebase-disconnected {
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+}
+
+/* Poll options */
+.poll-option {
+    padding: 15px;
+    margin: 10px 0;
+    background: #f8f9fa;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.poll-option:hover {
+    background: #e9ecef;
+    transform: translateX(10px);
+}
+
+.poll-option.selected {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border-color: #0056b3;
+    transform: translateX(15px);
+}
+
+/* Status indicators */
+.status-active, .status-finished, .status-not-started {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+.status-active {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+    border-color: #c3e6cb;
+}
+.status-finished {
+    background: linear-gradient(135deg, #cce5ff, #b8daff);
+    color: #004085;
+    border-color: #b8daff;
+}
+.status-not-started {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Solution Box */
+.solution-box {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border-left: 6px solid #1976d2;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.1);
+}
+
+.solution-title {
+    color: #1976d2;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.solution-title::before {
+    content: "💡";
+    font-size: 1.2em;
+}
+
+.solution-content {
+    color: #1565c0;
+    line-height: 1.6;
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #1a237e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notification system */
+.notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    z-index: 100000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transform: translateX(400px);
+    transition: transform 0.4s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #000;
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+}
+
+/* CSS cho icon đáp án */
+.option-icon {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+    min-width: 20px;
+    display: inline-block;
+}
+
+.option-row {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    color: #2c3e50;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.option-row:hover {
+    background: rgba(255,255,255,1);
+    border-color: #1a237e;
+    transform: translateX(5px);
+}
+
+.option-row label {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    flex: 1;
+}
+
+.option-row input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* Confirm Modal */
+.confirm-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 13000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.confirm-modal.active {
+    display: flex;
+}
+
+.confirm-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.confirm-content h3 {
+    color: #1a237e;
+    margin-bottom: 15px;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.confirm-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.confirm-yes {
+    background: #dc3545;
+    color: white;
+}
+
+.confirm-no {
+    background: #6c757d;
+    color: white;
+}
+
+.confirm-yes:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.confirm-no:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+/* ===== SỬA LỖI GIAO DIỆN DANH SÁCH HỌC SINH ===== */
+#class-management-modal .modal-content-scrollable {
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+}
+
+#class-management-modal .table-container {
+    max-height: 400px !important;
+    overflow-y: auto !important;
+}
+
+/* Đảm bảo modal không bị che */
+.modal-content {
+    z-index: 12001 !important;
+}
+
+.modal {
+    z-index: 12000 !important;
+}
+
+/* Sửa lỗi sticky header */
+.table-container thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+}
+
+/* Đảm bảo nội dung hiển thị đầy đủ */
+#students-list-body tr {
+    height: auto !important;
+    min-height: 60px !important;
+}
+
+#students-list-body td {
+    padding: 12px 8px !important;
+    vertical-align: middle !important;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    #class-management-modal .modal-content-scrollable {
+        max-height: 90vh !important;
+        padding: 15px !important;
+    }
+    
+    #class-management-modal .table-container {
+        max-height: 300px !important;
+        font-size: 12px !important;
+    }
+    
+    #students-list-body td {
+        padding: 8px 4px !important;
+        font-size: 11px !important;
+    }
+    
+    #students-list-body button {
+        padding: 4px 8px !important;
+        font-size: 10px !important;
+        margin: 1px !important;
+    }
+}
+
+/* Scrollbar tùy chỉnh */
+#class-management-modal .modal-content-scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+#class-management-modal .modal-content-scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#class-management-modal .modal-content-scrollable::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+#class-management-modal .modal-content-scrollable::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+#teacherMonitorBtn {
+    display: none !important;
+}
+.poll-class-item:hover {
+    background: #e3f2fd !important;
+    border-color: #2196f3 !important;
+    transform: translateY(-2px);
+}
+
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+.interaction-item:hover {
+    background: #e3f2fd !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.class-interactions-section {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+/* ===== DARK MODE ===== */
+.dark-mode body,
+.dark-mode .reveal,
+.dark-mode .reveal .slides section {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.dark-mode .reveal h1,
+.dark-mode .reveal h2,
+.dark-mode .reveal h3,
+.dark-mode .reveal p,
+.dark-mode .reveal li,
+.dark-mode .reveal strong {
+    color: #fff !important;
+    font-weight: 700 !important;
+}
+
+.dark-mode .question {
+    background: rgba(20, 20, 20, 0.9) !important;
+    color: #fff !important;
+    border-left: 6px solid #00bcd4 !important;
+}
+
+.dark-mode .solution-box {
+    background: rgba(33, 33, 33, 0.9) !important;
+    color: #e0e0e0 !important;
+    border-left: 6px solid #4caf50 !important;
+}
+
+.dark-mode .option-row {
+    background: rgba(40,40,40,0.9) !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+.dark-mode .option-row:hover {
+    background: rgba(80,80,80,1) !important;
+}
+
+.dark-mode .topbar {
+    background: linear-gradient(135deg, #000, #333) !important;
+}
+
+.dark-mode .topbar-controls button {
+    background: rgba(255,255,255,0.15) !important;
+    color: #fff !important;
+}
+
+.dark-mode .slide-menu {
+    background: #111 !important;
+}
+
+.dark-mode img {
+    filter: brightness(0.8) contrast(1.2);
+}
+
+.dark-mode .MathJax {
+    color: #fff !important;
+}
+
+.dark-mode #toggleStyleBtn {
+    background: linear-gradient(135deg, #4caf50, #2e7d32) !important;
+    color: #fff !important;
+}
+
+</style>
+<style>
+/* CSS cho TẤT CẢ các bảng trong đề thi - KHÔNG CẦN ĐỔI CODE */
+.reveal .slides section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    background: #000 !important;
+    color: #fff !important;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.reveal .slides section table th {
+    background: linear-gradient(135deg, #1a237e, #3949ab) !important;
+    color: #fff !important;
+    padding: 15px 12px !important;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 700;
+    border: 2px solid #3949ab !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.reveal .slides section table td {
+    padding: 14px 12px !important;
+    text-align: center;
+    border: 2px solid #333 !important;
+    background: #111 !important;
+    color: #fff !important;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.reveal .slides section table tr:hover td {
+    background: #222 !important;
+    transform: scale(1.02);
+}
+
+.reveal .slides section table tr:nth-child(even) td {
+    background: #1a1a1a !important;
+}
+
+.reveal .slides section table tr:nth-child(even):hover td {
+    background: #2a2a2a !important;
+}
+
+/* Đảm bảo override mọi inline style */
+.reveal .slides section table[style*="border-collapse"],
+.reveal .slides section table[style*="width"],
+.reveal .slides section table[style*="margin"] {
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+}
+
+.reveal .slides section table th[style*="border"],
+.reveal .slides section table td[style*="border"] {
+    border: 2px solid #333 !important;
+    background: #111 !important;
+    color: #fff !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reveal .slides section table {
+        font-size: 1em !important;
+    }
+}
+/* Fullscreen Button */
+#fullscreenBtn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+#fullscreenBtn:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+}
+
+/* Fullscreen mode */
+body:fullscreen .topbar,
+body:-webkit-full-screen .topbar,
+body:-moz-full-screen .topbar,
+body:-ms-fullscreen .topbar {
+    display: none;
+}
+
+body:fullscreen .reveal,
+body:-webkit-full-screen .reveal,
+body:-moz-full-screen .reveal,
+body:-ms-fullscreen .reveal {
+    margin-top: 0;
+    height: 100vh;
+    border-radius: 0;
+}
+
+.answer-check input[type="text"]::placeholder {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+/* ẨN HOÀN TOÀN TẤT CẢ LỜI GIẢI KHI MỞ TRANG */
+/*.solution-box {
+    display: none !important;
+}
+/* === FIX ĐIỆN THOẠI === */
+@media (max-width: 768px) {
+    .reveal .slides section {
+        padding: 15px !important;
+        height: auto !important;
+        min-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .question {
+        margin: 15px 0 !important;
+        padding: 15px !important;
+    }
+    
+    .reveal .slides {
+        font-size: 1.4rem !important;
+        height: auto !important;
+    }
+    
+    /* Cho phép cuộn nội dung dài */
+    .question-title, .solution-content {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* Đảm bảo input không bị zoom */
+    input[type="text"], input[type="email"] {
+        font-size: 16px !important;
+    }
+}
+/* Giải pháp đơn giản nhất - chỉ cần thêm đoạn CSS này */
+.option-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #17a2b8;
+    line-height: 1.6;
+}
+
+.option-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .option-row {
+        flex-direction: column;
+    }
+    
+    .option-row label {
+        align-self: flex-start;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+/* Thêm hiệu ứng đẹp */
+.option-row:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+.option-row label:hover {
+    background: #f8f9fa;
+    border-color: #17a2b8;
+}

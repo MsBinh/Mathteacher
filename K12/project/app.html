@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title>BÀI GIẢNG TOÁN - CHUYÊN ĐỀ</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Trang bài giảng Toán chuyên đề - Lớp Toán Thầy Bình">
+<meta name="keywords" content="toán, bài giảng, chuyên đề, lớp 12, ôn thi">
+
+<!-- MathJax -->
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global' },
+      startup: {
+        ready: function () {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            console.log('MathJax ready');
+          });
+        }
+      }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    z-index: 10000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-bottom: 3px solid #3949ab;
+}
+
+.topbar-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-title::before {
+    content: "🧮";
+    font-size: 1.6rem;
+}
+
+.topbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-controls select,
+.topbar-controls button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.topbar-controls select:hover,
+.topbar-controls button:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.topbar-controls select option {
+    background: #283593;
+    color: white;
+}
+
+/* ===== SCROLL PROGRESS ===== */
+.scroll-progress {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #e0e0e0;
+    z-index: 9999;
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* ===== PAGE CONTAINER ===== */
+.page-container {
+    position: fixed;
+    top: 73px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    padding: 20px;
+    z-index: 1;
+}
+
+/* ===== SLIDES CONTAINER ===== */
+.slides {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+/* ===== SLIDE SECTIONS ===== */
+.slide-section {
+    padding: 30px 40px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    min-height: 200px;
+}
+
+.slide-section.active-section {
+    background: linear-gradient(135deg, #f0f2ff 0%, #e6e9ff 100%);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    border-left: 6px solid #ffd54f;
+    transform: translateY(-2px);
+}
+
+.slide-section h2 {
+    color: #1a237e;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #1a237e;
+    padding-bottom: 15px;
+    font-weight: 700;
+}
+
+.slide-section h3 {
+    color: #3949ab;
+    margin: 20px 0 15px 0;
+    font-weight: 600;
+}
+
+.slide-section h4 {
+    color: #4d5cb6;
+    margin: 15px 0 10px 0;
+    font-weight: 600;
+}
+
+.slide-section p, .slide-section li {
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.slide-section ul, .slide-section ol {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+/* ===== QUESTION STYLES ===== */
+.question {
+    margin: 25px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-radius: 15px;
+    border-left: 6px solid #1a237e;
+    color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.question:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.question-title {
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #1a237e;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* ===== OPTION STYLES ===== */
+.option-row {
+    margin: 12px 0;
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    color: #2c3e50;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.option-row:hover {
+    background: rgba(255,255,255,1);
+    border-color: #1a237e;
+    transform: translateX(5px);
+}
+
+.option-row label {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    flex: 1;
+}
+
+.option-row input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.option-row input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #1a237e;
+}
+
+/* ===== ANSWER CHECK ===== */
+.answer-check {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.answer-check input {
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    color: #2c3e50;
+    width: 250px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.answer-check input:focus {
+    outline: none;
+    border-color: #1a237e;
+    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+}
+
+.answer-check button {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.answer-check button:hover {
+    background: linear-gradient(135deg, #3949ab, #1a237e);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
+}
+
+/* ===== SLIDE MENU ===== */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+    z-index: 11000;
+    transition: left 0.4s ease;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.slide-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    padding: 25px;
+    background: rgba(0,0,0,0.2);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.menu-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.menu-content {
+    padding: 20px;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.slide-item {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.slide-item:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(10px);
+}
+
+.slide-item.active {
+    background: rgba(255,255,255,0.25);
+    border-left: 5px solid #ffd54f;
+    font-weight: 600;
+}
+
+.slide-number {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    margin-right: 15px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 10500;
+    display: none;
+    backdrop-filter: blur(5px);
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+/* ===== CANVAS DRAWING ===== */
+#drawCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9000;
+    display: none;
+    pointer-events: auto;
+    background: transparent;
+}
+
+.toolbar {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: none;
+    align-items: center;
+    gap: 15px;
+    z-index: 9100;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.toolbar select,
+.toolbar input,
+.toolbar button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.toolbar select:hover,
+.toolbar input:hover,
+.toolbar button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.toolbar input[type="color"] {
+    padding: 4px;
+    height: 40px;
+    width: 60px;
+}
+
+.toolbar input[type="range"] {
+    width: 100px;
+}
+
+/* ===== NOTIFICATION ===== */
+.notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    z-index: 100000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transform: translateX(400px);
+    transition: transform 0.4s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #000;
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+}
+
+/* ===== SOLUTION BOX ===== */
+.solution-title {
+    color: #1976d2;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.solution-title::before {
+    content: "💡";
+    font-size: 1.2em;
+}
+
+.solution-content {
+    color: #1565c0;
+    line-height: 1.6;
+}
+
+.solution-box { 
+    display: none; 
+    margin-top: 20px;
+    padding: 20px;
+    background: #e8f4f8;
+    border-radius: 10px;
+    border-left: 4px solid #17a2b8;
+}
+
+/* ===== SPECIAL CONTENT STYLES ===== */
+.theory-box {
+    margin: 25px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, #f0f7ff, #e6f0ff);
+    border-radius: 15px;
+    border-left: 5px solid #4dabf7;
+}
+
+.method-step {
+    margin: 15px 0;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+}
+
+.example-box {
+    margin: 20px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border-radius: 12px;
+    border: 2px solid #ffc107;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .topbar {
+        padding: 0 15px;
+        height: 60px;
+    }
+    
+    .topbar-title {
+        font-size: 1.1rem;
+    }
+    
+    .topbar-controls button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .page-container {
+        top: 63px;
+        padding: 15px;
+    }
+    
+    .scroll-progress {
+        top: 60px;
+    }
+    
+    .slide-section {
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .slide-menu {
+        width: 300px;
+        left: -300px;
+    }
+    
+    .toolbar {
+        bottom: 20px;
+        padding: 12px 20px;
+        gap: 10px;
+        flex-wrap: wrap;
+        width: 95vw;
+    }
+}
+
+/* ===== DARK MODE ===== */
+.dark-mode body {
+    background: #121212 !important;
+}
+
+.dark-mode .page-container {
+    background: #1e1e1e !important;
+    color: #fff !important;
+}
+
+.dark-mode .slide-section {
+    background: #2d2d2d !important;
+    color: #fff !important;
+    border-left: 4px solid #00bcd4 !important;
+}
+
+.dark-mode .question {
+    background: #333333 !important;
+    color: #fff !important;
+    border-left: 6px solid #00bcd4 !important;
+}
+
+.dark-mode .option-row {
+    background: #3a3a3a !important;
+    color: #fff !important;
+}
+
+.dark-mode .topbar {
+    background: linear-gradient(135deg, #000, #333) !important;
+}
+
+/* ===== LOADING SPINNER ===== */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #1a237e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+    <div class="topbar-title">📚 BÀI GIẢNG TOÁN CHUYÊN ĐỀ</div>
+    <div class="topbar-controls">
+        <button id="slideMenuBtn">📋 Danh sách bài</button>
+        <button id="loadLessonBtn">📥 Tải bài giảng</button>
+        <button id="toggleCanvasBtn">✏️ Bảng vẽ</button>
+        <button id="toggleDarkModeBtn">🌙 Chế độ tối</button>
+        <button id="printBtn">🖨️ In bài</button>
+    </div>
+</div>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress">
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+</div>
+
+<!-- Notification -->
+<div id="notification" class="notification"></div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="page-container">
+    <div class="slides" id="slides-container">
+        <section class="slide-section active-section" id="section-0">
+            <h2 style="text-align: center; color: #666; margin-top: 50px;">
+                🧮 BÀI GIẢNG TOÁN CHUYÊN ĐỀ
+            </h2>
+            <p style="text-align: center; color: #888; font-size: 1.2em;">
+                Chọn "Tải bài giảng" để bắt đầu học hoặc dán JSON bài giảng vào ô bên dưới
+            </p>
+            
+            <div style="max-width: 600px; margin: 40px auto; padding: 25px; background: #f8f9fa; border-radius: 15px;">
+                <h4 style="color: #1a237e; margin-bottom: 15px;">📥 Tải bài giảng từ file JSON</h4>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Chọn file JSON:</label>
+                    <input type="file" id="jsonFileInput" accept=".json" style="width: 100%; padding: 12px; border: 2px dashed #ddd; border-radius: 10px; background: white;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Hoặc dán JSON trực tiếp:</label>
+                    <textarea id="jsonTextInput" placeholder="Dán nội dung JSON bài giảng tại đây..." 
+                              style="width: 100%; height: 150px; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-family: monospace; font-size: 14px;"></textarea>
+                </div>
+                
+                <button id="loadJsonBtn" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 1.1em;">
+                    🚀 Tải bài giảng
+                </button>
+            </div>
+            
+            <div style="max-width: 800px; margin: 40px auto; padding: 25px; background: linear-gradient(135deg, #f0f7ff, #e6f0ff); border-radius: 15px;">
+                <h4 style="color: #1a237e; margin-bottom: 15px;">📚 Mẫu JSON bài giảng</h4>
+                <pre style="background: #f8f9fa; padding: 15px; border-radius: 10px; font-size: 12px; overflow-x: auto; color: #333;">
+{
+  "type": "lesson_collection",
+  "title": "CHUYÊN ĐỀ TOÁN 12",
+  "description": "Ứng dụng đạo hàm",
+  "author": "Lớp Toán Thầy Bình",
+  "sections": [
+    {
+      "title": "Chương 1: Đạo hàm",
+      "content": [
+        {
+          "type": "definition",
+          "title": "Định nghĩa đạo hàm",
+          "content": "Cho hàm số $y = f(x)$ xác định trên khoảng $(a, b)$..."
+        },
+        {
+          "type": "true_false_quiz",
+          "title": "Câu hỏi đúng/sai",
+          "questions": [
+            {
+              "statement": "Nếu hàm số có đạo hàm tại $x_0$ thì liên tục tại $x_0$.",
+              "answer": true,
+              "explanation": "ĐÚNG. Đây là định lý cơ bản..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</pre>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== SLIDE MENU ===== -->
+<div class="slide-menu" id="slideMenu">
+    <div class="menu-header">
+        <h3>📋 Danh sách Bài</h3>
+        <button class="close-btn" id="closeSlideMenu">×</button>
+    </div>
+    <div class="menu-content">
+        <div class="slide-list" id="slideList">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<!-- ===== CANVAS ===== -->
+<canvas id="drawCanvas"></canvas>
+<div class="toolbar" id="drawToolbar">
+    <select id="tool">
+        <option value="pen">✏️ Bút</option>
+        <option value="line">📏 Đường</option>
+        <option value="rect">⬛ Chữ nhật</option>
+        <option value="circle">⚪ Tròn</option>
+        <option value="text">A Văn bản</option>
+        <option value="eraser">🧹 Xóa</option>
+    </select>
+    <input id="draw-width" max="10" min="1" type="range" value="2"/>
+    <input id="colorPicker" type="color" value="#6b21a8">
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearBtn">🗑️ Xoá</button>
+    <button id="saveBtn">💾 Lưu ảnh</button>
+    <button id="exitCanvasBtn">❌ Thoát</button>
+</div>
+
+<script>
+// ===== GLOBAL VARIABLES =====
+let currentLesson = null;
+let scrollObserver = null;
+
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("🚀 Trang bài giảng Toán chuyên đề khởi động...");
+    
+    setupEventListeners();
+    setupScrollTracking();
+    setupCanvas();
+    
+    showNotification('✅ Hệ thống đã sẵn sàng! Tải bài giảng để bắt đầu.', 'info');
+});
+
+// ===== EVENT LISTENERS =====
+function setupEventListeners() {
+    // Load lesson buttons
+    document.getElementById('loadJsonBtn').addEventListener('click', loadLessonFromInput);
+    document.getElementById('jsonFileInput').addEventListener('change', handleFileUpload);
+    
+    // Slide menu
+    document.getElementById('slideMenuBtn').addEventListener('click', toggleSlideMenu);
+    document.getElementById('closeSlideMenu').addEventListener('click', toggleSlideMenu);
+    document.getElementById('menuOverlay').addEventListener('click', toggleSlideMenu);
+    
+    // Other controls
+    document.getElementById('toggleCanvasBtn').addEventListener('click', toggleCanvas);
+    document.getElementById('toggleDarkModeBtn').addEventListener('click', toggleDarkMode);
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    
+    // Canvas controls
+    document.getElementById('exitCanvasBtn').addEventListener('click', toggleCanvas);
+}
+
+// ===== LOAD LESSON FUNCTIONS =====
+async function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    if (!file.name.endsWith('.json')) {
+        showNotification('❌ Vui lòng chọn file JSON', 'error');
+        return;
+    }
+    
+    try {
+        const text = await file.text();
+        document.getElementById('jsonTextInput').value = text;
+        loadLessonFromJSON(text);
+    } catch (error) {
+        showNotification('❌ Lỗi đọc file: ' + error.message, 'error');
+    }
+}
+
+function loadLessonFromInput() {
+    const jsonText = document.getElementById('jsonTextInput').value.trim();
+    const fileInput = document.getElementById('jsonFileInput');
+    
+    if (!jsonText && (!fileInput.files || fileInput.files.length === 0)) {
+        showNotification('❌ Vui lòng chọn file hoặc dán JSON', 'error');
+        return;
+    }
+    
+    if (jsonText) {
+        loadLessonFromJSON(jsonText);
+    }
+}
+
+function loadLessonFromJSON(jsonText) {
+    try {
+        const lessonData = JSON.parse(jsonText);
+        currentLesson = lessonData;
+        renderLesson(lessonData);
+        showNotification('✅ Đã tải bài giảng thành công!', 'success');
+    } catch (error) {
+        showNotification('❌ Lỗi JSON: ' + error.message, 'error');
+        console.error('JSON Parse Error:', error);
+    }
+}
+
+// ===== RENDER FUNCTIONS =====
+function renderLesson(lessonData) {
+    const slidesContainer = document.getElementById('slides-container');
+    slidesContainer.innerHTML = '';
+    
+    // Cover page
+    const coverSection = document.createElement('section');
+    coverSection.className = 'slide-section active-section';
+    coverSection.id = 'section-0';
+    
+    coverSection.innerHTML = `
+        <div style="text-align: center; padding: 40px 20px;">
+            <h1 style="color: #1a237e; border: none; font-size: 2.5em; margin-bottom: 20px;">
+                ${lessonData.title || 'BÀI GIẢNG TOÁN'}
+            </h1>
+            <h3 style="color: #3949ab; margin-bottom: 30px;">
+                ${lessonData.description || ''}
+            </h3>
+            
+            ${lessonData.author ? `
+                <div style="margin: 30px 0; padding: 15px; background: #f8f9fa; border-radius: 10px; display: inline-block;">
+                    <strong>👨‍🏫 Tác giả:</strong> ${lessonData.author}
+                </div>
+            ` : ''}
+            
+            <div style="margin-top: 40px;">
+                <button onclick="scrollToSection(1)" style="padding: 15px 30px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 10px; font-size: 1.1em; font-weight: bold; cursor: pointer;">
+                    🚀 Bắt đầu học
+                </button>
+            </div>
+        </div>
+    `;
+    
+    slidesContainer.appendChild(coverSection);
+    
+    // Render sections
+    if (lessonData.sections && Array.isArray(lessonData.sections)) {
+        lessonData.sections.forEach((section, sectionIndex) => {
+            renderSection(section, sectionIndex + 1);
+        });
+    }
+    
+    // Initialize systems
+    setTimeout(() => {
+        createSlideList();
+        MathJax.typesetPromise();
+    }, 100);
+}
+
+function renderSection(sectionData, sectionNumber) {
+    const slidesContainer = document.getElementById('slides-container');
+    
+    const section = document.createElement('section');
+    section.className = 'slide-section';
+    section.id = `section-${sectionNumber}`;
+    
+    let html = `
+        <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+            <h2 style="color: #1a237e; border-bottom: 3px solid #1a237e; padding-bottom: 10px;">
+                ${sectionNumber}. ${sectionData.title || `Chương ${sectionNumber}`}
+            </h2>
+            ${sectionData.description ? `<p style="color: #666; font-size: 1.1em; margin-top: 10px;">${sectionData.description}</p>` : ''}
+        </div>
+    `;
+    
+    // Render content items
+    if (sectionData.content && Array.isArray(sectionData.content)) {
+        sectionData.content.forEach((item, itemIndex) => {
+            html += renderContentItem(item, sectionNumber, itemIndex);
+        });
+    }
+    
+    section.innerHTML = html;
+    slidesContainer.appendChild(section);
+}
+
+function renderContentItem(item, sectionNum, itemIndex) {
+    const uniqueId = `s${sectionNum}-i${itemIndex}`;
+    
+    switch(item.type) {
+        case 'definition':
+            return renderDefinition(item, uniqueId);
+        case 'theorem':
+            return renderTheorem(item, uniqueId);
+        case 'true_false_quiz':
+            return renderTrueFalseQuiz(item, uniqueId);
+        case 'multiple_choice':
+            return renderMultipleChoice(item, uniqueId);
+        case 'short_answer':
+            return renderShortAnswer(item, uniqueId);
+        case 'method':
+            return renderMethod(item, uniqueId);
+        case 'example':
+            return renderExample(item, uniqueId);
+        case 'note':
+            return renderNote(item, uniqueId);
+        default:
+            return `<div style="padding: 20px; background: #f8f9fa; border-radius: 10px; margin: 15px 0;">
+                <p>${JSON.stringify(item)}</p>
+            </div>`;
+    }
+}
+
+// ===== CONTENT RENDERERS =====
+function renderDefinition(item, uniqueId) {
+    return `
+        <div class="theory-box">
+            <h4 style="color: #17a2b8; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <span>📘</span> ${item.title || 'Định nghĩa'}
+            </h4>
+            <div style="line-height: 1.6;">
+                ${item.content || ''}
+                ${item.formula ? `<div style="text-align: center; margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">${item.formula}</div>` : ''}
+                ${item.note ? `<div style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 8px;"><strong>Chú ý:</strong> ${item.note}</div>` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function renderTheorem(item, uniqueId) {
+    return `
+        <div class="theory-box">
+            <h4 style="color: #1c7ed6; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <span>📖</span> ${item.title || 'Định lý'}
+            </h4>
+            <div style="line-height: 1.6;">
+                ${item.content || ''}
+                
+                ${item.statements && Array.isArray(item.statements) ? `
+                    <div style="margin: 20px 0;">
+                        ${item.statements.map((stmt, idx) => `
+                            <div style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px;">
+                                <strong>${idx + 1}.</strong> ${stmt.content}
+                                ${stmt.proof ? `
+                                    <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 8px;">
+                                        <em>Chứng minh:</em> ${stmt.proof}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${item.note ? `<div style="margin-top: 20px; padding: 15px; background: #e8f4f8; border-radius: 8px;"><strong>Nhận xét:</strong> ${item.note}</div>` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function renderTrueFalseQuiz(item, uniqueId) {
+    let questionsHtml = '';
+    
+    if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach((q, qIndex) => {
+            questionsHtml += `
+                <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${qIndex + 1}
+                        </span>
+                        <div style="flex: 1; font-size: 1.05em;">
+                            ${q.statement}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-left: 50px; display: flex; gap: 20px;">
+                        <label class="option-row" style="margin: 0; width: auto;">
+                            <input type="radio" name="tf-${uniqueId}-${q.id || qIndex}" value="true">
+                            <label>✅ ĐÚNG</label>
+                        </label>
+                        <label class="option-row" style="margin: 0; width: auto;">
+                            <input type="radio" name="tf-${uniqueId}-${q.id || qIndex}" value="false">
+                            <label>❌ SAI</label>
+                        </label>
+                        <button onclick="checkTrueFalseQuestion('${uniqueId}', ${qIndex}, ${q.answer})" 
+                                style="margin-left: auto; padding: 8px 20px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                            Kiểm tra
+                        </button>
+                    </div>
+                    
+                    <div id="result-tf-${uniqueId}-${q.id || qIndex}" style="margin-top: 15px; margin-left: 50px; min-height: 24px;"></div>
+                    
+                    ${q.explanation ? `
+                        <div id="explain-tf-${uniqueId}-${q.id || qIndex}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📝 Giải thích:</div>
+                            <div>${q.explanation}</div>
+                            ${q.proof ? `<div style="margin-top: 10px;"><em>Chứng minh:</em> ${q.proof}</div>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+    }
+    
+    return `
+        <div class="question">
+            <div style="background: linear-gradient(135deg, #f0f7ff, #e6f0ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>❓</span> ${item.title || 'Câu hỏi đúng/sai'}
+                </h4>
+                ${item.instructions ? `<p style="color: #666;">${item.instructions}</p>` : ''}
+            </div>
+            
+            ${questionsHtml}
+            
+            ${item.scoring ? `
+                <div style="margin-top: 20px; text-align: center; color: #666;">
+                    <em>${item.scoring.points_per_correct ? `Điểm: ${item.scoring.points_per_correct}/câu đúng` : ''}</em>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+function renderMultipleChoice(item, uniqueId) {
+    let questionsHtml = '';
+    
+    if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach((q, qIndex) => {
+            let optionsHtml = '';
+            if (q.options && typeof q.options === 'object') {
+                Object.entries(q.options).forEach(([key, value]) => {
+                    optionsHtml += `
+                        <div class="option-row" onclick="selectMCOption(this, '${uniqueId}-${q.id || qIndex}', '${key}')">
+                            <input type="radio" name="mc-${uniqueId}-${q.id || qIndex}" value="${key}" style="display: none;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="background: #f0f0f0; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                    ${key}
+                                </span>
+                                <span>${value}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            questionsHtml += `
+                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${qIndex + 1}
+                        </span>
+                        <div style="flex: 1; font-size: 1.05em;">
+                            ${q.question}
+                            ${q.difficulty ? `<span style="font-size: 0.8em; padding: 2px 8px; background: ${getDifficultyColor(q.difficulty)}; color: white; border-radius: 10px; margin-left: 10px;">${q.difficulty}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-left: 50px;">
+                        ${optionsHtml}
+                    </div>
+                    
+                    <div style="margin-top: 15px; margin-left: 50px; display: flex; gap: 10px; align-items: center;">
+                        <button onclick="checkMCQuestion('${uniqueId}-${q.id || qIndex}', '${q.correct}', '${q.solution || ''}')"
+                                style="padding: 8px 20px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                            Kiểm tra
+                        </button>
+                        <span id="result-mc-${uniqueId}-${q.id || qIndex}" style="margin-left: 10px;"></span>
+                    </div>
+                    
+                    ${q.solution ? `
+                        <div id="solution-mc-${uniqueId}-${q.id || qIndex}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Hướng dẫn giải:</div>
+                            <div>${q.solution}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+    }
+    
+    return `
+        <div class="question">
+            <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>📝</span> ${item.title || 'Bài tập trắc nghiệm'}
+                </h4>
+            </div>
+            
+            ${questionsHtml}
+        </div>
+    `;
+}
+
+function renderShortAnswer(item, uniqueId) {
+    let questionsHtml = '';
+    
+    if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach((q, qIndex) => {
+            questionsHtml += `
+                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${qIndex + 1}
+                        </span>
+                        <div style="flex: 1; font-size: 1.05em;">
+                            ${q.question}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-left: 50px;">
+                        <input type="text" id="input-${uniqueId}-${q.id || qIndex}" 
+                               placeholder="${q.placeholder || 'Nhập câu trả lời...'}"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em;">
+                        
+                        ${q.hint ? `
+                            <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 6px; color: #856404;">
+                                <strong>💡 Gợi ý:</strong> ${q.hint}
+                            </div>
+                        ` : ''}
+                        
+                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                            <button onclick="checkSAQuestion('${uniqueId}-${q.id || qIndex}', '${q.answer}', ${JSON.stringify(q.accept_variations || [])}, '${q.solution || ''}')"
+                                    style="padding: 10px 25px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                Kiểm tra
+                            </button>
+                            <span id="result-sa-${uniqueId}-${q.id || qIndex}" style="margin-left: 10px;"></span>
+                        </div>
+                    </div>
+                    
+                    ${q.solution ? `
+                        <div id="solution-sa-${uniqueId}-${q.id || qIndex}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Lời giải:</div>
+                            <div>${q.solution}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+    }
+    
+    return `
+        <div class="question">
+            <div style="background: linear-gradient(135deg, #f0f7ff, #e6f0ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>✍️</span> ${item.title || 'Bài tập tự luận ngắn'}
+                </h4>
+            </div>
+            
+            ${questionsHtml}
+        </div>
+    `;
+}
+
+function renderMethod(item, uniqueId) {
+    let stepsHtml = '';
+    
+    if (item.steps && Array.isArray(item.steps)) {
+        item.steps.forEach((step, idx) => {
+            stepsHtml += `
+                <div class="method-step">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="background: #4dabf7; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${idx + 1}
+                        </span>
+                        <strong style="color: #1a237e;">${step.title}</strong>
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <div><strong>Công thức/bước:</strong> ${step.content}</div>
+                        ${step.explanation ? `<div style="margin-top: 8px; color: #666;">${step.explanation}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    return `
+        <div class="theory-box">
+            <h4 style="color: #1a237e; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <span>🔧</span> ${item.title || 'Phương pháp giải'}
+            </h4>
+            
+            ${item.problem_type ? `
+                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <strong>Dạng toán:</strong> ${item.problem_type}
+                </div>
+            ` : ''}
+            
+            <div style="margin: 20px 0;">
+                <h5 style="color: #3949ab; margin-bottom: 15px;">📋 Các bước giải:</h5>
+                ${stepsHtml}
+            </div>
+        </div>
+    `;
+}
+
+// ===== HELPER FUNCTIONS =====
+function getDifficultyColor(difficulty) {
+    switch(difficulty?.toLowerCase()) {
+        case 'easy': return '#28a745';
+        case 'medium': return '#ffc107';
+        case 'hard': return '#dc3545';
+        default: return '#6c757d';
+    }
+}
+
+// ===== ANSWER CHECKING FUNCTIONS =====
+window.checkTrueFalseQuestion = function(uniqueId, questionIndex, correctAnswer) {
+    const radioName = `tf-${uniqueId}-${questionIndex}`;
+    const selected = document.querySelector(`input[name="${radioName}"]:checked`);
+    const resultEl = document.getElementById(`result-tf-${uniqueId}-${questionIndex}`);
+    const explainEl = document.getElementById(`explain-tf-${uniqueId}-${questionIndex}`);
+    
+    if (!selected) {
+        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy chọn Đúng hoặc Sai</span>';
+        return;
+    }
+    
+    const userAnswer = selected.value === 'true';
+    const isCorrect = userAnswer === correctAnswer;
+    
+    if (isCorrect) {
+        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
+        selected.parentElement.style.background = '#d4edda';
+        selected.parentElement.style.borderColor = '#28a745';
+    } else {
+        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer ? 'ĐÚNG' : 'SAI'}</span>`;
+        selected.parentElement.style.background = '#f8d7da';
+        selected.parentElement.style.borderColor = '#dc3545';
+    }
+    
+    if (explainEl) {
+        explainEl.style.display = 'block';
+    }
+    
+    // Disable all radios in this question
+    document.querySelectorAll(`input[name="${radioName}"]`).forEach(radio => {
+        radio.disabled = true;
+        radio.parentElement.style.cursor = 'default';
+    });
+    
+    playSound(isCorrect ? 'correct' : 'wrong');
+};
+
+window.selectMCOption = function(element, questionId, optionKey) {
+    // Remove selection from all options in this question
+    const questionContainer = element.closest('.question');
+    questionContainer.querySelectorAll(`[onclick*="${questionId}"]`).forEach(opt => {
+        opt.style.background = '';
+        opt.style.borderColor = '';
+    });
+    
+    // Select current option
+    element.style.background = '#e8f4f8';
+    element.style.borderColor = '#17a2b8';
+    
+    // Update hidden radio
+    const radio = element.querySelector('input[type="radio"]');
+    if (radio) radio.checked = true;
+    
+    // Store selection
+    window.selectedMCAnswers = window.selectedMCAnswers || {};
+    window.selectedMCAnswers[questionId] = optionKey;
+};
+
+window.checkMCQuestion = function(questionId, correctAnswer, solution) {
+    const userAnswer = window.selectedMCAnswers?.[questionId];
+    const resultEl = document.getElementById(`result-mc-${questionId}`);
+    const solutionEl = document.getElementById(`solution-mc-${questionId}`);
+    
+    if (!userAnswer) {
+        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy chọn một đáp án</span>';
+        return;
+    }
+    
+    const isCorrect = userAnswer === correctAnswer;
+    
+    // Highlight all options
+    const questionContainer = document.querySelector(`[onclick*="${questionId}"]`).closest('.question');
+    questionContainer.querySelectorAll(`[onclick*="${questionId}"]`).forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        if (radio) {
+            const value = radio.value;
+            if (value === correctAnswer) {
+                opt.style.background = '#d4edda';
+                opt.style.borderColor = '#28a745';
+            } else if (value === userAnswer && !isCorrect) {
+                opt.style.background = '#f8d7da';
+                opt.style.borderColor = '#dc3545';
+            }
+            opt.style.cursor = 'default';
+            radio.disabled = true;
+        }
+    });
+    
+    // Show result
+    if (isCorrect) {
+        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
+    } else {
+        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer}</span>`;
+    }
+    
+    // Show solution
+    if (solutionEl && solution) {
+        solutionEl.innerHTML = solution;
+        solutionEl.style.display = 'block';
+    }
+    
+    playSound(isCorrect ? 'correct' : 'wrong');
+};
+
+window.checkSAQuestion = function(questionId, correctAnswer, acceptVariations = [], solution = '') {
+    const inputEl = document.getElementById(`input-${questionId}`);
+    const resultEl = document.getElementById(`result-sa-${questionId}`);
+    const solutionEl = document.getElementById(`solution-sa-${questionId}`);
+    
+    if (!inputEl) return;
+    
+    const userAnswer = inputEl.value.trim();
+    
+    if (!userAnswer) {
+        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy nhập câu trả lời</span>';
+        return;
+    }
+    
+    // Normalize answers for comparison
+    const normalizeAnswer = (ans) => {
+        return ans.toLowerCase()
+            .replace(/\s+/g, '')
+            .replace(/[^a-z0-9\-\+\*\/\.\(\)]/g, '');
+    };
+    
+    const normalizedCorrect = normalizeAnswer(correctAnswer);
+    const normalizedUser = normalizeAnswer(userAnswer);
+    
+    // Check if answer is correct
+    let isCorrect = normalizedUser === normalizedCorrect;
+    
+    // Check variations if not correct
+    if (!isCorrect && acceptVariations && acceptVariations.length > 0) {
+        for (const variation of acceptVariations) {
+            if (normalizeAnswer(variation) === normalizedUser) {
+                isCorrect = true;
+                break;
+            }
+        }
+    }
+    
+    // Update UI
+    if (isCorrect) {
+        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
+        inputEl.style.borderColor = '#28a745';
+        inputEl.style.background = '#d4edda';
+    } else {
+        resultEl.innerHTML = '<span style="color: #dc3545;">❌ Chưa chính xác</span>';
+        inputEl.style.borderColor = '#dc3545';
+        inputEl.style.background = '#f8d7da';
+        
+        // Show correct answer after delay
+        setTimeout(() => {
+            if (resultEl) {
+                resultEl.innerHTML += `<br><small>Đáp án: <code style="color: #28a745;">${correctAnswer}</code></small>`;
+            }
+        }, 1000);
+    }
+    
+    // Show solution
+    if (solutionEl && solution) {
+        solutionEl.innerHTML = solution;
+        solutionEl.style.display = 'block';
+    }
+    
+    // Disable input
+    inputEl.disabled = true;
+    
+    playSound(isCorrect ? 'correct' : 'wrong');
+};
+
+// ===== SLIDE MANAGEMENT =====
+function setupScrollTracking() {
+    scrollObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.slide-section').forEach(section => {
+                        section.classList.remove('active-section');
+                    });
+                    entry.target.classList.add('active-section');
+                    updateActiveSlideInMenu(entry.target);
+                    updateScrollProgress();
+                }
+            });
+        },
+        {
+            root: document.querySelector('.page-container'),
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0.1
+        }
+    );
+    
+    const pageContainer = document.querySelector('.page-container');
+    if (pageContainer) {
+        pageContainer.addEventListener('scroll', updateScrollProgress);
+    }
+}
+
+function updateScrollProgress() {
+    const pageContainer = document.querySelector('.page-container');
+    if (!pageContainer) return;
+    
+    const scrollTop = pageContainer.scrollTop;
+    const scrollHeight = pageContainer.scrollHeight - pageContainer.clientHeight;
+    const scrollPercentage = (scrollTop / scrollHeight) * 100;
+    
+    document.getElementById('scrollProgress').style.width = scrollPercentage + '%';
+}
+
+function createSlideList() {
+    const slideList = document.getElementById('slideList');
+    const sections = document.querySelectorAll('.slide-section');
+    
+    if (sections.length === 0) {
+        slideList.innerHTML = `<div class="slide-item">Chưa có nội dung</div>`;
+        return;
+    }
+    
+    slideList.innerHTML = Array.from(sections).map((section, index) => {
+        const title = section.querySelector('h1, h2, h3, h4')?.textContent.substring(0, 40) || 
+                     section.querySelector('p')?.textContent.substring(0, 40) || 
+                     `Bài ${index + 1}`;
+        return `<div class="slide-item" data-section-index="${index}">
+                    <span class="slide-number">${index + 1}</span>${title}
+                </div>`;
+    }).join('');
+
+    slideList.querySelectorAll('.slide-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const sectionIndex = parseInt(item.dataset.sectionIndex);
+            scrollToSection(sectionIndex);
+            toggleSlideMenu();
+        });
+    });
+    
+    updateActiveSlideInMenu();
+}
+
+function updateActiveSlideInMenu(section = null) {
+    if (!section) {
+        section = document.querySelector('.slide-section.active-section');
+    }
+    
+    if (!section) return;
+    
+    const sectionIndex = Array.from(document.querySelectorAll('.slide-section')).indexOf(section);
+    
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        item.classList.toggle('active', index === sectionIndex);
+    });
+}
+
+function toggleSlideMenu() {
+    const slideMenu = document.getElementById('slideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    slideMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+}
+
+window.scrollToSection = function(sectionIndex) {
+    const section = document.getElementById(`section-${sectionIndex}`);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+};
+
+// ===== CANVAS FUNCTIONS =====
+function setupCanvas() {
+    const canvas = document.getElementById("drawCanvas");
+    const ctx = canvas.getContext("2d");
+    const toolbar = document.getElementById("drawToolbar");
+    
+    let isDrawing = false;
+    let currentTool = "pen";
+    let startX, startY, lastX, lastY;
+    let history = [];
+    let imageBeforeShape;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Tool selection
+    document.getElementById("tool").addEventListener("change", e => currentTool = e.target.value);
+    
+    // Clear button
+    document.getElementById("clearBtn").addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        history = [];
+    });
+    
+    // Undo button
+    document.getElementById("undoBtn").addEventListener("click", () => {
+        if (history.length > 0) ctx.putImageData(history.pop(), 0, 0);
+    });
+    
+    // Save button
+    document.getElementById("saveBtn").addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = "bai_giang_viet.png";
+        link.href = canvas.toDataURL();
+        link.click();
+        showNotification("✅ Đã lưu ảnh thành công!", "success");
+    });
+
+    const getPos = e => {
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches && e.touches[0];
+        const clientX = touch ? touch.clientX : e.clientX;
+        const clientY = touch ? touch.clientY : e.clientY;
+        return { 
+            x: (clientX - rect.left) * (canvas.width / rect.width), 
+            y: (clientY - rect.top) * (canvas.height / rect.height) 
+        };
+    };
+
+    const startDraw = e => {
+        e.preventDefault();
+        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        isDrawing = true;
+        const pos = getPos(e);
+        startX = lastX = pos.x;
+        startY = lastY = pos.y;
+        if (currentTool !== 'pen' && currentTool !== 'eraser') {
+            imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        }
+        ctx.beginPath();
+    };
+
+    const drawMove = e => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        
+        ctx.strokeStyle = currentTool === 'eraser' ? 'white' : document.getElementById("colorPicker").value;
+        ctx.lineWidth = document.getElementById("draw-width").value;
+        const pos = getPos(e);
+        
+        if (currentTool !== "pen" && currentTool !== "eraser" && imageBeforeShape) {
+            ctx.putImageData(imageBeforeShape, 0, 0);
+        }
+
+        ctx.beginPath();
+        switch (currentTool) {
+            case "pen":
+            case "eraser":
+                ctx.moveTo(lastX, lastY); 
+                ctx.lineTo(pos.x, pos.y); 
+                ctx.stroke();
+                [lastX, lastY] = [pos.x, pos.y];
+                break;
+            case "line":
+                ctx.moveTo(startX, startY); 
+                ctx.lineTo(pos.x, pos.y); 
+                ctx.stroke();
+                break;
+            case "rect":
+                ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                break;
+            case "circle":
+                const radius = Math.hypot(pos.x - startX, pos.y - startY);
+                ctx.arc(startX, startY, radius, 0, Math.PI * 2); 
+                ctx.stroke();
+                break;
+            case "text":
+                // Simple text drawing
+                if (Math.abs(pos.x - startX) > 10 || Math.abs(pos.y - startY) > 10) {
+                    ctx.font = `${ctx.lineWidth * 5}px Arial`;
+                    ctx.fillText("Văn bản", startX, startY);
+                }
+                break;
+        }
+    };
+
+    const endDraw = () => { 
+        if(isDrawing) { 
+            isDrawing = false; 
+            ctx.beginPath();
+        }
+    };
+
+    // Event listeners
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("mousemove", drawMove);
+    canvas.addEventListener("mouseup", endDraw);
+    canvas.addEventListener("mouseleave", endDraw);
+    canvas.addEventListener("touchstart", startDraw, { passive: false });
+    canvas.addEventListener("touchmove", drawMove, { passive: false });
+    canvas.addEventListener("touchend", endDraw);
+}
+
+function toggleCanvas() {
+    const canvas = document.getElementById("drawCanvas");
+    const toolbar = document.getElementById("drawToolbar");
+    const isActive = canvas.style.display === "block";
+    
+    if (isActive) {
+        canvas.style.display = "none";
+        toolbar.style.display = "none";
+        showNotification("✏️ Đã tắt bảng vẽ", "info");
+    } else {
+        canvas.style.display = "block";
+        toolbar.style.display = "flex";
+        showNotification("✏️ Bảng vẽ đã bật - Vẽ trực tiếp lên bài giảng", "success");
+    }
+}
+
+// ===== UTILITY FUNCTIONS =====
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    notification.innerHTML = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
+    setTimeout(() => { notification.classList.remove('show'); }, 5000);
+}
+
+function playSound(type) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = type === 'correct' ? 'Chính xác!' : 'Sai rồi!';
+        utterance.lang = 'vi-VN';
+        utterance.volume = 0.5;
+        utterance.rate = 1.2;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    document.getElementById('toggleDarkModeBtn').innerHTML = isDark ? '☀️ Chế độ sáng' : '🌙 Chế độ tối';
+    showNotification(isDark ? '🌙 Đã bật chế độ tối' : '☀️ Đã bật chế độ sáng', 'info');
+    
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+</script>
+</body>
+</html>

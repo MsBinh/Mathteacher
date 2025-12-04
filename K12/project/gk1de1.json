@@ -1,0 +1,61 @@
+[
+  {
+    "type": "welcome",
+    "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    "color": "white",
+    "title": "🧮 LỚP TOÁN THẦY BÌNH",
+    "subtitle": "Hệ Thống Dạy Học Trực Tuyến Toàn Diện",
+    "content": "<p>📍 <strong>KIỂM TRA GIỮA KỲ I:</strong> Môn Toán Lớp 12A1</p><p>⏰ <strong>Thời gian:</strong> 90 phút</p>"
+  },
+  {
+    "type": "multiple_choice",
+    "id": "q1",
+    "title": "Câu 1.",
+    "text": "Giá trị lớn nhất của hàm số $y = x(1 - x^2)$ trên khoảng $(0;1)$ là:",
+    "options": {
+      "A": "$\\dfrac{1}{9}$",
+      "B": "$\\dfrac{1}{\\sqrt{3}}$",
+      "C": "$0$",
+      "D": "$\\dfrac{2\\sqrt{3}}{9}$"
+    },
+    "correct": "D",
+    "solution": "$y = x - x^3$, $y' = 1 - 3x^2 = 0 \\Leftrightarrow x = \\dfrac{1}{\\sqrt{3}}$.<br>Trên khoảng $(0;1)$, hàm số đạt giá trị lớn nhất tại $x = \\dfrac{1}{\\sqrt{3}}$.<br>$y\\left(\\dfrac{1}{\\sqrt{3}}\\right) = \\dfrac{1}{\\sqrt{3}}\\left(1 - \\left(\\dfrac{1}{\\sqrt{3}}\\right)^2\\right) = \\dfrac{1}{\\sqrt{3}}\\left(1 - \\dfrac{1}{3}\\right) = \\dfrac{1}{\\sqrt{3}} \\cdot \\dfrac{2}{3} = \\dfrac{2\\sqrt{3}}{9}$."
+  },
+  {
+    "type": "multiple_choice",
+    "id": "q2",
+    "title": "Câu 2.",
+    "text": "Cho hình hộp ABCD.A'B'C'D' . Phát biểu nào sau đây là đúng?",
+    "options": {
+      "A": "$\\vec{AB}+ \\vec{AA'} + \\vec{AD} = \\vec{AC'}$",
+      "B": "$\\vec{AB} + \\vec{BB'} + \\vec{B'A'} = \\vec{AC'}$",
+      "C": "$\\vec{AB}+\\vec{BC'} +\\vec{C'D'} = \\vec{AC'}$",
+      "D": "$\\vec{AB}+ \\vec{AC} + \\vec{AA'} = \\vec{AC'}$"
+    },
+    "correct": "A",
+    "solution": "Theo quy tắc hình hộp ta có $\\vec{AB} + \\vec{AD} + \\vec{AA'} = \\vec{AC'}$."
+  },
+  {
+    "type": "true_false",
+    "id": "q13",
+    "title": "Câu 13.",
+    "text": "Cho hàm số $y=f(x)$ có bảng biến thiên như hình vẽ. Xét tính đúng, sai của các khẳng định sau:",
+    "image": "data/im/f16.png",
+    "statements": [
+      "Hàm số $f(x)$ đạt cực tiểu tại $x=-2$",
+      "Điểm cực tiểu của đồ thị hàm số $y=f(x)$ là $(-2;-1)$",
+      "Đường thẳng $y=x+1$ đi qua hai điểm cực trị của đồ thị hàm số đã cho",
+      "Hàm số $y=g(x)=f(2x-3)$ đạt cực tiểu tại điểm $x=\\dfrac{5}{2}$"
+    ],
+    "answers": ["True", "True", "True", "False"],
+    "solution": "Dựa vào bảng biến thiên, hàm số đạt cực tiểu tại $x=-2$..."
+  },
+  {
+  "id": "sa_test",
+  "type": "short_answer",
+  "question": "Tính đạo hàm của hàm số: $y = x^2$",
+  "answer": "2x",
+  "solution": "Đạo hàm của $x^2$ là $2x$."
+}
+
+]
