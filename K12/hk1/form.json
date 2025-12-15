@@ -1,0 +1,310 @@
+{
+  "type": "lesson_collection",
+  "title": "CHUYÊN ĐỀ TOÁN 12 - ÔN THI THPT",
+  "description": "Tổng hợp đầy đủ các dạng toán lớp 12",
+  "author": "Lớp Toán Thầy Bình",
+  "version": "1.0",
+  "created": "2024-01-15",
+  "sections": [
+    {
+      "id": "section-1",
+      "type": "chapter",
+      "title": "Chương 1: ỨNG DỤNG ĐẠO HÀM",
+      "description": "Khảo sát hàm số và ứng dụng",
+      "content": [
+        {
+          "id": "cd1-1",
+          "type": "definition",
+          "title": "Định nghĩa đạo hàm",
+          "content": "Cho hàm số $y = f(x)$ xác định trên khoảng $(a, b)$ và $x_0 \\in (a, b)$. Giới hạn hữu hạn (nếu có) của tỉ số $\\frac{f(x) - f(x_0)}{x - x_0}$ khi $x \\to x_0$ được gọi là đạo hàm của hàm số tại $x_0$.",
+          "formula": "$$f'(x_0) = \\lim_{x \\to x_0} \\frac{f(x) - f(x_0)}{x - x_0}$$",
+          "note": "Ký hiệu: $f'(x_0)$, $y'(x_0)$, $\\frac{df}{dx}(x_0)$"
+        },
+        {
+          "id": "cd1-2",
+          "type": "theorem",
+          "title": "Định lý về mối liên hệ giữa đạo hàm và tính đơn điệu",
+          "statements": [
+            {
+              "content": "Nếu $f'(x) > 0$ với mọi $x \\in (a, b)$ thì hàm số $f$ đồng biến trên $(a, b)$.",
+              "proof": "Áp dụng định lý Lagrange"
+            },
+            {
+              "content": "Nếu $f'(x) < 0$ với mọi $x \\in (a, b)$ thì hàm số $f$ nghịch biến trên $(a, b)$.",
+              "proof": "Tương tự định lý trên"
+            }
+          ],
+          "note": "Điều ngược lại không đúng: Hàm đồng biến có thể có đạo hàm bằng 0 tại một số điểm rời rạc."
+        },
+        {
+          "id": "cd1-3",
+          "type": "true_false_quiz",
+          "title": "Câu hỏi đúng/sai về đạo hàm",
+          "instructions": "Xác định tính đúng/sai của các mệnh đề sau:",
+          "questions": [
+            {
+              "id": "tf1",
+              "statement": "Nếu hàm số $f(x)$ có đạo hàm tại $x_0$ thì $f(x)$ liên tục tại $x_0$.",
+              "answer": true,
+              "explanation": "ĐÚNG. Đây là định lý cơ bản: Tính khả vi ⇒ Tính liên tục.",
+              "proof": "$\\lim_{x \\to x_0} [f(x) - f(x_0)] = \\lim_{x \\to x_0} \\frac{f(x) - f(x_0)}{x - x_0} \\cdot (x - x_0) = f'(x_0) \\cdot 0 = 0$"
+            },
+            {
+              "id": "tf2", 
+              "statement": "Hàm số $y = |x|$ có đạo hàm tại $x = 0$.",
+              "answer": false,
+              "explanation": "SAI. Tại $x=0$, đạo hàm trái = -1, đạo hàm phải = 1 ⇒ Không tồn tại đạo hàm.",
+              "graph_note": "Đồ thị có góc nhọn tại gốc tọa độ."
+            },
+            {
+              "id": "tf3",
+              "statement": "Nếu $f'(x_0) = 0$ thì $x_0$ là điểm cực trị của hàm số.",
+              "answer": false,
+              "explanation": "SAI. Ví dụ: $f(x) = x^3$ có $f'(0) = 0$ nhưng $x=0$ không là cực trị.",
+              "counterexample": "$f(x) = x^3$, $f'(x) = 3x^2$, $f'(0)=0$ nhưng hàm đồng biến trên $\\mathbb{R}$."
+            },
+            {
+              "id": "tf4",
+              "statement": "Đạo hàm của hàm số $y = \\sin(2x+1)$ là $y' = 2\\cos(2x+1)$.",
+              "answer": true,
+              "explanation": "ĐÚNG. Áp dụng công thức đạo hàm hàm hợp: $(\\sin u)' = u'\\cos u$.",
+              "calculation": "$u = 2x+1$, $u' = 2$ ⇒ $y' = 2\\cos(2x+1)$"
+            }
+          ],
+          "scoring": {
+            "points_per_correct": 0.25,
+            "total_points": 1.0,
+            "show_solution_after_answer": false
+          }
+        },
+        {
+          "id": "cd1-4",
+          "type": "multiple_choice",
+          "title": "Bài tập trắc nghiệm",
+          "questions": [
+            {
+              "id": "mc1",
+              "question": "Hàm số $y = x^3 - 3x + 1$ đồng biến trên khoảng nào?",
+              "options": {
+                "A": "$(-\\infty, -1)$",
+                "B": "$(-1, 1)$",
+                "C": "$(1, +\\infty)$",
+                "D": "$(-\\infty, -1) \\cup (1, +\\infty)$"
+              },
+              "correct": "D",
+              "solution": "$y' = 3x^2 - 3 = 3(x^2 - 1)$. $y' > 0$ khi $x^2 > 1 \\Leftrightarrow x < -1$ hoặc $x > 1$.",
+              "difficulty": "medium"
+            },
+            {
+              "id": "mc2",
+              "question": "Giá trị cực tiểu của hàm số $y = x^3 - 3x^2 + 4$ là:",
+              "options": {
+                "A": "$0$",
+                "B": "$2$", 
+                "C": "$4$",
+                "D": "Không có cực tiểu"
+              },
+              "correct": "A",
+              "solution": "$y' = 3x^2 - 6x = 3x(x-2)$. Bảng biến thiên: Hàm đạt cực tiểu tại $x=2$, $y_{CT} = 2^3 - 3\\cdot2^2 + 4 = 0$.",
+              "step_by_step": [
+                "1. $y' = 3x^2 - 6x = 3x(x-2)$",
+                "2. $y' = 0 \\Leftrightarrow x = 0$ hoặc $x = 2$",
+                "3. Bảng biến thiên:",
+                "   - $(-\\infty, 0)$: $y' > 0$ ⇒ đồng biến",
+                "   - $(0, 2)$: $y' < 0$ ⇒ nghịch biến", 
+                "   - $(2, +\\infty)$: $y' > 0$ ⇒ đồng biến",
+                "4. Cực tiểu tại $x=2$, $y_{CT} = 0$"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cd1-5",
+          "type": "short_answer",
+          "title": "Bài tập tự luận ngắn",
+          "questions": [
+            {
+              "id": "sa1",
+              "question": "Tìm đạo hàm của hàm số: $y = e^{3x} \\cdot \\ln x$",
+              "answer": "$3e^{3x}\\ln x + \\frac{e^{3x}}{x}$",
+              "placeholder": "Nhập kết quả dạng: a*e^(bx)*ln x + c*e^(dx)/x",
+              "hint": "Sử dụng công thức đạo hàm của tích: $(uv)' = u'v + uv'$",
+              "solution": "Đặt $u = e^{3x}$, $v = \\ln x$:\n$u' = 3e^{3x}$, $v' = \\frac{1}{x}$\n$y' = u'v + uv' = 3e^{3x}\\ln x + e^{3x}\\cdot\\frac{1}{x}$\n$= e^{3x}\\left(3\\ln x + \\frac{1}{x}\\right)$",
+              "accept_variations": [
+                "e^(3x)*(3*ln x + 1/x)",
+                "exp(3x)*(3*log(x) + 1/x)",
+                "3e^{3x}ln x + e^{3x}/x"
+              ]
+            },
+            {
+              "id": "sa2",
+              "question": "Tính giới hạn: $\\lim_{x \\to 0} \\frac{\\sin 3x}{5x}$",
+              "answer": "$\\frac{3}{5}$",
+              "placeholder": "Nhập kết quả dạng phân số a/b hoặc số thập phân",
+              "hint": "Sử dụng giới hạn cơ bản: $\\lim_{t \\to 0} \\frac{\\sin t}{t} = 1$",
+              "solution": "$\\lim_{x \\to 0} \\frac{\\sin 3x}{5x} = \\lim_{x \\to 0} \\frac{3}{5} \\cdot \\frac{\\sin 3x}{3x} = \\frac{3}{5} \\cdot 1 = \\frac{3}{5}$",
+              "accept_variations": ["0.6", "3/5", "0.6"]
+            }
+          ]
+        },
+        {
+          "id": "cd1-6",
+          "type": "method",
+          "title": "Phương pháp giải: Khảo sát hàm số bậc 3",
+          "problem_type": "Khảo sát và vẽ đồ thị hàm số $y = ax^3 + bx^2 + cx + d$",
+          "steps": [
+            {
+              "step": 1,
+              "title": "Tìm tập xác định",
+              "content": "$D = \\mathbb{R}$",
+              "explanation": "Hàm đa thức xác định với mọi $x \\in \\mathbb{R}$"
+            },
+            {
+              "step": 2,
+              "title": "Tính đạo hàm",
+              "content": "$y' = 3ax^2 + 2bx + c$",
+              "explanation": "Tính đạo hàm bậc nhất để xét tính đơn điệu"
+            },
+            {
+              "step": 3,
+              "title": "Xét dấu đạo hàm",
+              "content": "Giải $y' = 0$",
+              "explanation": "Tìm nghiệm phương trình $3ax^2 + 2bx + c = 0$\n• $\\Delta' > 0$: 2 nghiệm → 2 cực trị\n• $\\Delta' = 0$: nghiệm kép → không cực trị\n• $\\Delta' < 0$: vô nghiệm → không cực trị"
+            },
+            {
+              "step": 4,
+              "title": "Lập bảng biến thiên",
+              "content": "Dựa vào dấu của $y'$",
+              "explanation": "Khoảng $y' > 0$: đồng biến\nKhoảng $y' < 0$: nghịch biến\nĐiểm $y' = 0$: cực trị (nếu đổi dấu)"
+            },
+            {
+              "step": 5,
+              "title": "Tính đạo hàm cấp 2 (tùy chọn)",
+              "content": "$y'' = 6ax + 2b$",
+              "explanation": "Tìm điểm uốn: $y'' = 0 \\Leftrightarrow x = -\\frac{b}{3a}$"
+            },
+            {
+              "step": 6,
+              "title": "Vẽ đồ thị",
+              "content": "Xác định các điểm đặc biệt",
+              "explanation": "1. Điểm cực trị (nếu có)\n2. Điểm uốn\n3. Giao với trục Ox, Oy\n4. Xu hướng khi $x \\to \\pm\\infty$"
+            }
+          ],
+          "example": {
+            "problem": "Khảo sát hàm số: $y = x^3 - 3x^2 + 2$",
+            "solution_steps": [
+              "1. TXĐ: $D = \\mathbb{R}$",
+              "2. $y' = 3x^2 - 6x = 3x(x-2)$",
+              "3. $y' = 0 \\Leftrightarrow \\left[\\begin{array}{l} x = 0 \\\\ x = 2 \\end{array}\\right.$",
+              "4. Bảng biến thiên:",
+              "   • $(-\\infty, 0)$: $y' > 0$ → đồng biến",
+              "   • $(0, 2)$: $y' < 0$ → nghịch biến", 
+              "   • $(2, +\\infty)$: $y' > 0$ → đồng biến",
+              "5. Cực trị:",
+              "   • CĐ tại $x=0$, $y_{CĐ}=2$",
+              "   • CT tại $x=2$, $y_{CT}=-2$",
+              "6. Điểm uốn: $y'' = 6x - 6$, $y''=0 \\Leftrightarrow x=1$, $U(1,0)$",
+              "7. Đồ thị: cắt Oy tại $(0,2)$, hình chữ S đi qua các điểm đặc biệt"
+            ],
+            "graph_characteristics": {
+              "shape": "Hình chữ S",
+              "end_behavior": "$\\lim_{x \\to -\\infty} y = -\\infty$, $\\lim_{x \\to +\\infty} y = +\\infty$",
+              "symmetry": "Không có tính chẵn/lẻ",
+              "special_points": ["CĐ(0,2)", "CT(2,-2)", "U(1,0)", "giao Oy: (0,2)"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-2", 
+      "type": "chapter",
+      "title": "Chương 2: HÀM SỐ LŨY THỪA, MŨ, LOGARIT",
+      "description": "Các hàm số đặc biệt và ứng dụng",
+      "content": [
+        {
+          "id": "cd2-1",
+          "type": "mixed_quiz",
+          "title": "Bài tập tổng hợp chương 2",
+          "questions": [
+            {
+              "type": "true_false",
+              "id": "tf-ch2-1",
+              "statement": "Hàm số $y = \\log_2(x+1)$ có tập xác định là $(-1, +\\infty)$.",
+              "answer": true,
+              "explanation": "ĐÚNG. Điều kiện: $x+1 > 0 \\Leftrightarrow x > -1$."
+            },
+            {
+              "type": "multiple_choice",
+              "id": "mc-ch2-1",
+              "question": "Tập xác định của hàm số $y = \\ln(x^2 - 4)$ là:",
+              "options": {
+                "A": "$(-\\infty, -2) \\cup (2, +\\infty)$",
+                "B": "$(-2, 2)$",
+                "C": "$\\mathbb{R}$",
+                "D": "$[-2, 2]$"
+              },
+              "correct": "A",
+              "solution": "ĐK: $x^2 - 4 > 0 \\Leftrightarrow x < -2$ hoặc $x > 2$."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-3",
+      "type": "practice_test",
+      "title": "ĐỀ LUYỆN TẬP TỔNG HỢP",
+      "description": "15 câu hỏi kiểm tra kiến thức toàn chương",
+      "time_limit": 45,
+      "total_points": 10,
+      "questions": [
+        {
+          "id": "test-q1",
+          "type": "multiple_choice",
+          "question": "Hàm số nào sau đây đồng biến trên $\\mathbb{R}$?",
+          "options": {
+            "A": "$y = x^4 - 2x^2 + 1$",
+            "B": "$y = x^3 + 2x$",
+            "C": "$y = \\frac{x+1}{x-1}$",
+            "D": "$y = \\sqrt{x^2 + 1}$"
+          },
+          "correct": "B",
+          "difficulty": "medium",
+          "topic": "tinh_don_dieu"
+        },
+        {
+          "id": "test-q2",
+          "type": "true_false_set",
+          "instructions": "Xét tính đúng sai của các mệnh đề về hàm số $y = \\frac{x^2 + 1}{x}$:",
+          "statements": [
+            "Hàm số có tập xác định $\\mathbb{R}\\setminus\\{0\\}$",
+            "Hàm số có đạo hàm $y' = 1 - \\frac{1}{x^2}$",
+            "Hàm số đồng biến trên $(-\\infty, -1)$ và $(1, +\\infty)$"
+          ],
+          "answers": [true, true, true],
+          "solution": "1. Đúng (mẫu ≠ 0)\n2. Đúng ($y = x + \\frac{1}{x}$ ⇒ $y' = 1 - \\frac{1}{x^2}$)\n3. Đúng ($y' > 0$ khi $|x| > 1$)"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "total_questions": 25,
+    "question_types": {
+      "definition": 2,
+      "theorem": 1,
+      "true_false": 8,
+      "multiple_choice": 6,
+      "short_answer": 4,
+      "method": 2,
+      "mixed_quiz": 2
+    },
+    "difficulty_distribution": {
+      "easy": 8,
+      "medium": 12,
+      "hard": 5
+    },
+    "estimated_completion_time": "120 phút",
+    "target_audience": "Học sinh lớp 12 ôn thi THPT"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "type": "lesson_collection",
+  "id": "nguyen-ham-cua-mot-ham-so-lesson",
+  "slug": "nguyen-ham-cua-mot-ham-so-lesson",
+  "version": "1.0.0",
+  "title": "Nguyên Hàm Của Một Hàm Số",
+  "description": "Lý thuyết về nguyên hàm của một hàm số, các định nghĩa và tính chất cơ bản.",
+  "subject": "Toán",
+  "chapter": 1,
+  "grade": "12",
+  "author": "AI Assistant",
+  "created_date": "2023-10-27",
+  "updated_date": "2023-10-27",
+  "tags": [
+    "nguyen-ham",
+    "giai-tich",
+    "antiderivative"
+  ],
+  "sections": [
+    {
+      "type": "theory_section",
+      "id": "nguyen-ham-cua-mot-ham-so-theory",
+      "title": "Nguyên Hàm Của Một Hàm Số",
+      "content": [
+        {
+          "type": "definition",
+          "id": "dinh-nghia-nguyen-ham",
+          "title": "Nguyên Hàm Của Một Hàm Số",
+          "content": "Cho hàm số $f \\left( x \\right)$ xác định trên một khoảng $K$ (hoặc một đoạn hoặc một nửa khoảng). Hàm số $F \\left( x \\right)$ được gọi là nguyên hàm của hàm số $f \\left( x \\right)$trên $K$ nếu $F' \\left( x \\right) = f \\left( x \\right)$ với mọi $x$ thuộc $K$."
+        },
+        {
+          "type": "note",
+          "id": "nguyen-ham-chu-y-1",
+          "title": "Chú ý.",
+          "content": "Trường hợp $K = \\left[ a;b \\right]$ thì các đẳng thức $F' \\left( a \\right) = f \\left( a \\right)$ và $F' \\left( b \\right) = f \\left( b \\right)$ được hiểu là đạo hàm bên phải tại điểm $x = a$ và đạo hàm bên trái tại điểm $x = b$ của hàm số $F \\left( x \\right)$, tức là\n $\\lim_{x \\to a^+} \\frac{F \\left( x \\right) - F \\left( a \\right)}{x - a} = f \\left( a \\right)$ và $\\lim_{x \\to b^-} \\frac{F \\left( x \\right) - F \\left( b \\right)}{x - b} = f \\left( b \\right)$."
+        },
+        {
+          "type": "note",
+          "id": "nguyen-ham-tinh-chat-ho-nguyen-ham",
+           "title": "Chú ý.",
+          "content": "Giả sử hàm số $F \\left( x \\right)$ là một nguyên hàm của $f \\left( x \\right)$ trên $K$. Khi đó:\n a) Với mỗi hằng số $C$, hàm số $F \\left( x \\right) + C$ cũng là một nguyên hàm của $f \\left( x \\right)$ trên $K$;\n b) Nếu hàm số $G \\left( x \\right)$ là một nguyên hàm của $f \\left( x \\right)$ trên $K$ thì tồn tại một hằng số $C$ sao cho $G \\left( x \\right) = F \\left( x \\right) + C$ với mọi $x \\in K$.\n Như vậy, nếu $F \\left( x \\right)$ là một nguyên hàm của $f \\left( x \\right)$ trên $K$ thì mọi nguyên hàm của hàm số $f \\left( x \\right)$ trên $K$ đều có dạng $F \\left( x \\right) + C$. Ta gọi $F \\left( x \\right) + C$ là họ các nguyên hàm của $f \\left( x \\right)$ trên $K$ ký hiệu bởi $\\int f \\left( x \\right) dx = F \\left( x \\right) + C$."
+        },
+        {
+          "type": "note",
+          "id": "nguyen-ham-chu-y-2",
+          "title": "Chú ý:",
+          "content": "a) Để tìm họ các nguyên hàm (gọi tắt là tìm nguyên hàm) của hàm số $f \\left( x \\right)$ trên $K$, ta chỉ cần tìm một nguyên hàm $F \\left( x \\right)$ của $f \\left( x \\right)$ trên $K$ và khi đó $\\int f \\left( x \\right) dx = F \\left( x \\right) + C$, $C$ là hằng số.\n b) Người ta chứng minh được rằng, nếu hàm số $f \\left( x \\right)$ liên tục trên khoảng $K$ thì $f \\left( x \\right)$ có nguyên hàm trên khoảng đó.\n c) Biểu thức $f \\left( x \\right) dx$ gọi là vi phân của nguyên hàm $F \\left( x \\right)$, kí hiệu là $dF \\left( x \\right)$. Vậy $dF \\left( x \\right) = F' \\left( x \\right) dx = f \\left( x \\right) dx$.\n d) Khi tìm nguyên hàm của một hàm số mà không chỉ rõ tập $K$, ta hiểu là tìm nguyên hàm của hàm số đó trên tập xác định của nó."
+        }
+      ]
+    }
+  ]
+}

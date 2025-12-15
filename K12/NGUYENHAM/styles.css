@@ -12,45 +12,132 @@ body {
     min-height: 100vh;
 }
 
-/* ===== TOPBAR ===== */
+/* ===== MOBILE TOPBAR (HAMBURGER) ===== */
+/* ===== MOBILE TOPBAR (HAMBURGER) - SỬA LẠI ===== */
 .topbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px;
+    height: 60px;
     background: linear-gradient(135deg, #1a237e, #283593);
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
+    padding: 0 15px;
     z-index: 10000;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     border-bottom: 3px solid #3949ab;
 }
 
-.topbar-title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    white-space: nowrap;
+/* Hamburger button - LUÔN HIỂN THỊ TRÊN MOBILE */
+.hamburger-menu {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: none; /* Mặc định ẩn */
+}
+
+.hamburger-menu:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* Mobile controls dropdown */
+.mobile-controls {
+    display: none;
+    position: fixed; /* Đổi từ absolute sang fixed */
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #1a237e, #283593);
+    z-index: 10001;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-direction: column;
+    gap: 10px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.mobile-controls.active {
     display: flex;
+}
+
+/* Nút hiển thị trên topbar mobile */
+.mobile-topbar-actions {
+    display: none;
     align-items: center;
     gap: 10px;
+    margin-left: auto;
 }
 
-.topbar-title::before {
-    content: "🧮";
-    font-size: 1.6rem;
+#mobileLoginBtn, 
+#mobileExamSelect {
+    padding: 8px 12px !important;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    min-height: 40px;
 }
 
-/* DESKTOP CONTROLS */
-.desktop-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+#mobileLoginBtn:hover, 
+#mobileExamSelect:hover {
+    background: rgba(255,255,255,0.25);
 }
 
+#mobileExamSelect option {
+    background: #283593;
+    color: white;
+}
+
+/* ===== RESPONSIVE MOBILE - SỬA LẠI ===== */
+@media (max-width: 768px) {
+    .topbar {
+        height: 60px;
+        padding: 0 15px;
+    }
+    
+    .topbar-title {
+        font-size: 1.1rem;
+        flex: 1;
+    }
+    
+    /* HIỂN THỊ HAMBURGER TRÊN MOBILE */
+    .hamburger-menu {
+        display: block !important;
+    }
+    
+    /* HIỂN THỊ 2 NÚT TRÊN TOPBAR */
+    .mobile-topbar-actions {
+        display: flex !important;
+    }
+    
+    /* ẨN DESKTOP CONTROLS */
+    .desktop-controls {
+        display: none !important;
+    }
+    
+    /* Điều chỉnh scroll progress */
+    .scroll-progress {
+        top: 60px;
+    }
+    
+    .page-container {
+        top: 63px;
+    }
+}
+/* ===== TOPBAR DESKTOP ===== */
 .desktop-controls select,
 .desktop-controls button {
     padding: 8px 16px;
@@ -76,84 +163,10 @@ body {
     color: white;
 }
 
-/* ===== MOBILE TOPBAR (HAMBURGER) ===== */
-.hamburger-menu {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-.hamburger-menu:hover {
-    background: rgba(255,255,255,0.1);
-}
-
-.mobile-topbar-actions {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    margin-left: auto;
-}
-
-#mobileLoginBtn, 
-#mobileExamSelect {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
-    min-height: 40px;
-}
-
-#mobileExamSelect option {
-    background: #283593;
-    color: white;
-}
-
-.mobile-controls {
-    display: none;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #1a237e, #283593);
-    z-index: 10001;
-    padding: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    flex-direction: column;
-    gap: 10px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.mobile-controls.active {
-    display: flex;
-}
-
-.mobile-controls button {
-    padding: 12px 15px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    text-align: left;
-    cursor: pointer;
-    font-weight: 500;
-}
-
 /* ===== SCROLL PROGRESS ===== */
 .scroll-progress {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 0;
     width: 100%;
     height: 3px;
@@ -171,7 +184,7 @@ body {
 /* ===== PAGE CONTAINER (SCROLL MODE) ===== */
 .page-container {
     position: fixed;
-    top: 73px;
+    top: 63px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -334,7 +347,7 @@ body {
     box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
 }
 
-/* ===== SOLUTION BOX (ORIGINAL - FIXED FOR MATHJAX) ===== */
+/* ===== SOLUTION BOX IMPROVED (MATHJAX FRIENDLY) ===== */
 .solution-title {
     color: #1976d2;
     font-weight: 700;
@@ -352,12 +365,49 @@ body {
 .solution-content {
     color: #1565c0;
     line-height: 1.6;
-    overflow-x: auto; /* FIX: Thêm scroll ngang cho MathJax dài */
-    max-width: 100%;  /* FIX: Không tràn ra ngoài */
+    padding: 15px;
+    background: #f8f9ff;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    overflow-x: auto;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.solution-content::-webkit-scrollbar {
+    height: 6px;
+}
+
+.solution-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.solution-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.solution-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* MathJax specific adjustments */
+.solution-content .MathJax,
+.solution-content mjx-container {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    display: block !important;
+}
+
+.solution-content mjx-container[jax="CHTML"] {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
 }
 
 .solution-box { 
     display: none; 
+    margin-top: 15px;
 }
 
 /* ===== SLIDE MENU ===== */
@@ -681,7 +731,7 @@ tr:hover {
 /* ===== FIREBASE STATUS ===== */
 .firebase-status {
     position: fixed;
-    top: 75px;
+    top: 65px;
     right: 15px;
     padding: 8px 15px;
     border-radius: 20px;
@@ -705,7 +755,7 @@ tr:hover {
 /* ===== NOTIFICATION SYSTEM ===== */
 .notification {
     position: fixed;
-    top: 80px;
+    top: 70px;
     right: 20px;
     padding: 15px 25px;
     border-radius: 10px;
@@ -974,7 +1024,30 @@ body:-ms-fullscreen .scroll-progress {
     top: 0;
 }
 
-/* ===== RESPONSIVE MOBILE ===== */
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .slides {
+        font-size: 1.3rem !important;
+    }
+    .slide-section {
+        padding: 15px 20px !important;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+    .hamburger-menu {
+        display: none !important;
+    }
+    .mobile-controls {
+        display: none !important;
+    }
+    .desktop-controls {
+        display: flex !important;
+    }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
     .topbar {
         height: 60px;
@@ -985,24 +1058,26 @@ body:-ms-fullscreen .scroll-progress {
         font-size: 1.1rem;
     }
     
-    /* HAMBURGER MENU */
     .hamburger-menu {
         display: block;
     }
     
-    /* 2 NÚT TRÊN TOPBAR MOBILE */
-    .mobile-topbar-actions {
-        display: flex;
-    }
-    
-    /* ẨN DESKTOP CONTROLS */
     .desktop-controls {
         display: none !important;
     }
     
-    /* ĐIỀU CHỈNH LẠI VỊ TRÍ */
-    .scroll-progress {
-        top: 60px;
+    /* Hiển thị chỉ 2 nút trên mobile */
+    .mobile-topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    #loginBtn, 
+    #mobileExamSelect {
+        display: inline-block !important;
+        padding: 8px 12px;
+        font-size: 0.9rem;
     }
     
     .page-container {
@@ -1011,39 +1086,194 @@ body:-ms-fullscreen .scroll-progress {
         border-radius: 0;
     }
     
+    .scroll-progress {
+        top: 60px;
+    }
+    
     .slide-section {
         padding: 20px 15px !important;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+    
+    .slide-section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .slide-section h3 {
+        font-size: 1.1rem;
+        margin: 15px 0 10px;
     }
     
     .question {
         padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .question-title {
+        font-size: 1rem;
+    }
+    
+    .option-row {
+        padding: 10px;
+        margin: 8px 0;
+    }
+    
+    .option-row label {
+        font-size: 0.95rem;
     }
     
     .answer-check {
         flex-direction: column;
+        gap: 10px;
     }
     
     .answer-check input {
         width: 100% !important;
     }
+    
+    .answer-check button {
+        width: 100%;
+    }
+    
+    .slide-menu { 
+        width: 85vw !important;
+        max-width: 320px;
+        left: -85vw;
+    }
+    
+    .slide-item {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .modal-content {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        padding: 20px 15px;
+    }
+    
+    .solution-content {
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+        min-width: 600px;
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 480px) {
+    .topbar-title {
+        font-size: 1rem;
+    }
+    
+    .slides {
+        font-size: 1.1rem !important;
+    }
+    
+    .slide-section h2 {
+        font-size: 1.2rem;
+    }
+    
     .mobile-topbar-actions button {
         padding: 6px 10px;
         font-size: 0.85rem;
+        min-width: 44px;
+    }
+    
+    .solution-content {
+        font-size: 0.9rem;
+    }
+    
+    /* Hide non-essential buttons */
+    #fullscreenBtn,
+    #toggleStyleBtn,
+    #classManagementBtn,
+    #teacherMonitorBtn {
+        display: none !important;
     }
 }
 
-/* THÊM SCROLLBAR CHO MATHJAX TRÊN MOBILE */
+/* Mobile gestures */
 @media (hover: none) and (pointer: coarse) {
+    button:active,
+    .option-row:active,
+    .slide-item:active {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+    
+    .option-row:hover {
+        transform: none;
+        background: inherit;
+    }
+    
+    /* Đảm bảo MathJax scrollable trên mobile */
     .solution-content mjx-container {
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch !important;
     }
 }
-/* ===== SUPER SHORT MOBILE FONT ===== */
-@media (max-width: 768px) {
-    .slides, .slide-section, .question, .solution-content {
-        font-size: 90% !important;
+
+/* Landscape mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .topbar {
+        height: 50px;
     }
+    
+    .page-container {
+        top: 53px;
+    }
+    
+    .scroll-progress {
+        top: 50px;
+    }
+    
+    .solution-content {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+}
+
+/* Safe area for iPhone */
+@supports (padding: max(0px)) {
+    .topbar,
+    .page-container {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+    }
+    
+    .topbar {
+        padding-top: max(5px, env(safe-area-inset-top));
+    }
+}
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.table-responsive table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-responsive th,
+.table-responsive td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table-responsive th {
+    background-color: #f8f9fa;
+    font-weight: 600;
 }

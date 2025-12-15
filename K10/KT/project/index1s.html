@@ -1,0 +1,4021 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title>GIỮA KỲ 1 ĐỀ 1</title>
+<link rel="stylesheet" href="styles.css">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Hệ thống dạy học Toán trực tuyến đầy đủ tính năng - Lớp Toán Thầy Bình">
+<meta name="keywords" content="toán, học trực tuyến, lớp 12, ôn thi, firebase, real-time, canvas, bảng vẽ">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+<!-- MathJax -->
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      svg: { fontCache: 'global' },
+      startup: {
+        ready: function () {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            console.log('MathJax ready');
+          });
+        }
+      }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body class="not-logged-in">
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+    <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+    <div class="desktop-controls">
+        <button id="slideMenuBtn">📋 DS Bài</button>
+        <select id="selectExam">
+            <option value="mm">-- Chọn đề --</option>
+            <option value="gk1de1.html">Đề 1: Giữa HK1</option>
+            <option value="gk1de2.html">Đề 2:Giữa HK1</option>
+            <option value="PTMPDT.html">PTMP:DS</option>
+            <option value="hk1de7.html">Đề 7: HK1</option>
+        </select>
+        <button id="studentInteractBtn">🎮 Tương tác</button>
+        <button id="teacherMonitorBtn">👁️ Theo dõi</button>
+        <button id="loginBtn">🔑 Đăng nhập</button>
+        <button id="scoreBtn">📊 Tính điểm</button>
+        <button id="toggleMenu">✏️ Bảng vẽ</button>
+        <button id="classManagementBtn">🏫 Quản lý Lớp</button>
+        <button id="toggleStyleBtn">🌙 Chế độ tối</button>
+        <button id="fullscreenBtn">📺 Fullscreen</button>
+    </div>
+</div>
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress">
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+</div>
+
+<!-- Firebase Status -->
+<div id="firebaseStatus" class="firebase-status firebase-disconnected">
+    <span class="loading-spinner"></span> Đang kết nối...
+</div>
+
+<!-- Notification -->
+<div id="notification" class="notification"></div>
+
+<!-- ===== MAIN CONTENT (SCROLL MODE) ===== -->
+<div class="page-container">
+    <div class="slides" id="slides-container">
+        <section class="slide-section active-section" id="section-0">
+            <h2 style="text-align: center; color: #666; margin-top: 50px;">
+                🧮 LỚP TOÁN THẦY BÌNH
+            </h2>
+            <p style="text-align: center; color: #888; font-size: 1.2em;">
+                Vui lòng đăng nhập và chọn một đề từ menu để bắt đầu.
+            </p>
+        </section>
+    </div>
+</div>
+
+<!-- ===== SLIDE MENU ===== -->
+<div class="slide-menu" id="slideMenu">
+    <div class="menu-header">
+        <h3>📋 Danh sách Bài</h3>
+        <button class="close-btn" id="closeSlideMenu">×</button>
+    </div>
+    <div class="menu-content">
+        <div class="slide-list" id="slideList">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<!-- ===== CANVAS ===== -->
+<canvas id="drawCanvas"></canvas>
+<div class="toolbar" id="drawToolbar">
+    <a href="index.html" title="Về trang chủ">
+        <button id="homeBtn" style="font-size:22px;">🏠</button>
+    </a>
+    <select id="tool">
+        <option value="pen">✏️ Bút</option>
+        <option value="line">📏 Đường</option>
+        <option value="rect">⬛ Chữ nhật</option>
+        <option value="parallelogram">▱ Bình hành</option>
+        <option value="circle">⚪ Tròn</option>
+        <option value="dashedLineBtn">– –</option>
+        <option value="ellipseBtn">⬭ Elip</option>
+        <option value="box">📦 Hộp 3D</option>
+        <option value="pyramid3">🔺 Chóp tam giác</option>
+        <option value="pyramid4">🔲 Chóp tứ giác</option>
+        <option value="sphere">⚽ Cầu</option>
+    </select>
+    <input id="draw-width" max="10" min="1" type="range" value="2"/>
+    <input id="colorPicker" type="color" value="#6b21a8">
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearBtn">🧹 Xoá</button>
+    <button id="saveBtn">💾 Lưu</button>
+    <button id="exitBtn">❌ Thoát</button>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Login Modal -->
+<div class="modal" id="login-modal">
+    <div class="modal-content">
+        <button class="modal-close" id="close-modal">×</button>
+        <h3>🔐 Đăng nhập hệ thống</h3>
+        <form id="code-login-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Mã đăng nhập:</label>
+                <input id="login-code" placeholder="Nhập mã học sinh/giáo viên" required type="text"/>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Họ tên:</label>
+                <input id="student-name" placeholder="Nhập họ tên của bạn" type="text"/>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+                <button type="submit" style="flex: 1;">🚀 Đăng nhập</button>
+            </div>
+        </form>
+        <div id="auth-status" style="margin-top: 15px;"></div>
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+            <p style="margin: 0; font-size: 0.9em; color: #666;">
+                <strong>Hướng dẫn:</strong><br>
+                • Giáo viên: cấp mã gồm mã và họ tên<br>
+                • Học sinh nhập chính xác cả 2
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Class Management Modal -->
+<div class="modal" id="class-management-modal">
+    <div class="modal-content modal-content-scrollable">
+        <button class="modal-close" id="close-class-management">×</button>
+        <h3>🏫 Quản lý Lớp và Học sinh</h3>
+        
+        <div style="display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap;">
+            <button id="create-class-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                ➕ Tạo Lớp Mới
+            </button>
+            <button id="assign-student-btn-main" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                🎓 Cấp Mã HS
+            </button>
+            <button id="view-student-codes-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #6f42c1, #5a2d91); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                📋 DS Mã HS
+            </button>
+            <button id="refresh-classes-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #ffc107, #e0a800); color: #000; border: none; border-radius: 10px; font-weight: 600;">
+                🔄 Làm mới
+            </button>
+            <button id="class-poll-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #ffc107, #e0a800); color: #000; border: none; border-radius: 10px; font-weight: 600;">
+                🗳️ Poll Lớp
+            </button>
+            <button id="class-sync-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #6f42c1, #5a2d91); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                🔄 Đồng bộ Slide
+            </button>
+            <button id="view-poll-results-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                📊 Xem Kết quả Poll
+            </button>
+            <button id="view-interactions-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #fd7e14, #e55a00); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                💬 Xem Tương tác
+            </button>
+        </div>
+
+        <!-- Class List -->
+        <div style="margin-bottom: 25px;">
+            <h4 style="color: #1a237e; margin-bottom: 15px;">📚 Danh sách Lớp học</h4>
+            <div class="table-container" style="max-height: 300px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Lớp</th>
+                            <th>Mã Lớp</th>
+                            <th>Số HS</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classes-list-body">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải danh sách lớp...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Student List -->
+        <div>
+            <h4 style="color: #1a237e; margin-bottom: 15px;">👥 Danh sách Học sinh</h4>
+            <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                <input type="text" id="search-student-global" placeholder="🔍 Tìm học sinh..." style="flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                <select id="filter-class" style="padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                    <option value="all">Tất cả lớp</option>
+                </select>
+            </div>
+            <div class="table-container" style="max-height: 400px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã HS</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Lần cuối hoạt động</th>
+                            <th>Tổng bài làm</th>
+                            <th>Điểm TB</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-list-body">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải danh sách học sinh...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Class Modal -->
+<div class="modal" id="create-class-modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" id="cancel-create-class">×</button>
+        <h3>🏫 Tạo Lớp Mới</h3>
+        <form id="create-class-form">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Tên lớp:</label>
+                <input type="text" id="class-name" placeholder="Ví dụ: 12A1, Toán Nâng cao..." required style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Mô tả:</label>
+                <textarea id="class-description" placeholder="Mô tả về lớp học..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; height: 80px;"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="submit" style="padding: 12px 25px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                    🏫 Tạo Lớp
+                </button>
+                <button type="button" id="cancel-create-class-btn" style="padding: 12px 25px; background: #6c757d; color: white; border: none; border-radius: 8px;">Hủy</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Assign Student Modal -->
+<div class="modal" id="assign-student-modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <button class="modal-close" id="cancel-assign-student">×</button>
+        <h3>🎓 Cấp Mã Học Sinh</h3>
+        
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Chọn lớp:</label>
+            <select id="select-class-for-student" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+                <option value="">-- Chọn lớp --</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Thông tin học sinh:</label>
+            <input type="text" id="student-fullname" placeholder="Họ và tên học sinh" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
+            <input type="email" id="student-email" placeholder="Email (tuỳ chọn)" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <h4 style="margin: 0 0 10px 0; color: #1a237e;">Mã học sinh sẽ được tạo:</h4>
+            <div id="generated-student-code" style="font-family: monospace; font-size: 1.2em; font-weight: bold; color: #1a237e; background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                HS_XXXXXX
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button id="generate-student-code-btn" style="padding: 12px 25px; background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                🎲 Tạo Mã
+            </button>
+            <button id="assign-student-btn" style="padding: 12px 25px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                ✅ Cấp Mã
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Student Codes Modal -->
+<div class="modal" id="student-codes-modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <button class="modal-close" id="close-student-codes">×</button>
+        <h3>📋 Danh sách Mã Học Sinh</h3>
+        
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <select id="filter-class-codes" style="flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                <option value="all">Tất cả lớp</option>
+            </select>
+            <button id="export-codes-btn" style="padding: 10px 20px; background: linear-gradient(135deg, #6f42c1, #5a2d91); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                📤 Xuất Excel
+            </button>
+        </div>
+
+        <div class="table-container" style="max-height: 500px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã HS</th>
+                        <th>Họ tên</th>
+                        <th>Lớp</th>
+                        <th>Ngày cấp</th>
+                        <th>Trạng thái</th>
+                        <th>Mật khẩu</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="student-codes-list">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: #666;">
+                            Đang tải danh sách mã học sinh...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="confirm-modal" id="confirm-delete-modal">
+    <div class="confirm-content">
+        <h3>⚠️ Xác nhận Xóa</h3>
+        <p id="confirm-delete-message">Bạn có chắc chắn muốn xóa?</p>
+        <div class="confirm-buttons">
+            <button class="confirm-yes" id="confirm-delete-yes">Xóa</button>
+            <button class="confirm-no" id="confirm-delete-no">Hủy</button>
+        </div>
+    </div>
+</div>
+
+<!-- Teacher Monitor -->
+<div id="teacher-monitor">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h3 style="margin: 0; color: #1a237e;">📊 Bảng theo dõi học sinh - REAL TIME</h3>
+        <div>
+            <button id="monitor-create-session" style="background: #17a2b8; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-right: 10px;">
+                🆔 Tạo lớp
+            </button>
+            <button id="monitor-start-poll" style="background: #ffc107; color: black; border: none; padding: 8px 15px; border-radius: 5px; margin-right: 10px;">
+                🗳️ Poll
+            </button>
+            <button id="monitor-sync-slides" style="background: #6f42c1; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-right: 10px;">
+                🔄 Đồng bộ
+            </button>
+            <button id="closeMonitor" style="background: #ff4757; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600;">
+                ✕ Đóng
+            </button>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 20px; display: flex; gap: 30px; align-items: center;">
+        <div>
+            <strong>Mã lớp:</strong> <code id="monitor-session-code" style="background: #1a237e; color: white; padding: 5px 10px; border-radius: 5px;">Chưa có</code>
+        </div>
+        <div>
+            <strong>Học sinh online:</strong> <span id="live-student-count" style="font-size: 1.2em; font-weight: bold; color: #1a237e;">0</span>
+        </div>
+    </div>
+
+    <!-- Filter -->
+    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+        <input type="text" id="search-student" placeholder="🔍 Tìm theo tên học sinh..." style="padding: 12px; border: 2px solid #ddd; border-radius: 10px; flex: 1; font-size: 1rem;">
+        <select id="filter-status" style="padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem;">
+            <option value="all">Tất cả trạng thái</option>
+            <option value="active">Đang làm bài</option>
+            <option value="finished">Đã hoàn thành</option>
+            <option value="not-started">Chưa bắt đầu</option>
+        </select>
+    </div>
+
+    <!-- Results Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Học sinh</th>
+                    <th style="text-align: center;">Trạng thái</th>
+                    <th style="text-align: center;">Điểm số</th>
+                    <th style="text-align: center;">Thời gian làm</th>
+                    <th style="text-align: center;">Tiến độ</th>
+                    <th style="text-align: center;">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody id="student-results-body">
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">📊</div>
+                        Chưa có học sinh nào tham gia lớp học
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Statistics -->
+    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%); border-radius: 15px; border: 2px solid #e0e0e0;">
+        <h4 style="margin-top: 0; color: #1a237e; margin-bottom: 20px;">📈 Thống kê tổng quan lớp học</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #17a2b8;" id="stats-total">0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Tổng số HS</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #28a745;" id="stats-completed">0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Đã hoàn thành</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #ffc107;" id="stats-average">0.0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Điểm TB</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #dc3545;" id="stats-failed">0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Dưới 5 điểm</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Poll Results Area -->
+    <div id="poll-results-area" style="display: none; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+        <h4 id="poll-results-title" style="color: #1a237e; margin-bottom: 15px;">📊 Kết quả khảo sát</h4>
+        <canvas id="pollChartInMonitor" width="700" height="300"></canvas>
+        <div id="poll-stats-in-monitor" style="margin-top: 15px;"></div>
+    </div>
+</div>
+
+<!-- Poll Modal -->
+<div class="modal" id="poll-modal">
+    <div class="modal-content">
+        <button class="modal-close" id="poll-close-btn">×</button>
+        <h3 id="poll-title">🗳️ Khảo sát nhanh</h3>
+        <div id="poll-options"></div>
+        <div style="margin-top:20px; display:flex; justify-content:space-between;">
+            <button id="poll-submit-btn" style="background:linear-gradient(135deg, #28a745, #20c997); color:#fff; font-weight: 600;">✅ Gửi phản hồi</button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Modal -->
+<div class="modal" id="custom-class-modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" onclick="hideModal(this.closest('.modal'))">×</button>
+        <div id="custom-class-content"></div>
+    </div>
+</div>
+
+<script>
+// ===== FIREBASE CONFIGURATION =====
+const firebaseConfig = {
+    apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+    authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+    databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "daytoantructuyen-149d9",
+    storageBucket: "daytoantructuyen-149d9.firebasestorage.app",
+    messagingSenderId: "258454714393",
+    appId: "1:258454714393:web:bcf66624668e516934d288"
+};
+
+// ===== GLOBAL VARIABLES =====
+let examList = [];
+let currentExam = null;
+let currentQuestions = [];
+let db = null;
+let auth = null;
+let currentSessionId = null;
+let isTeacherLoggedIn = false;
+let currentUser = null;
+let pollChart = null;
+let studentListeners = {};
+let sessionCode = '';
+
+// Score system
+window.isScoreCalculated = false;
+window.studentAnswers = {};
+window.correctAnswers = {};
+
+// Student management
+let studentCodesMap = new Map();
+let inactiveStudents = new Set();
+
+// Modal system
+let activeModal = null;
+
+// Scroll tracking
+let scrollObserver = null;
+
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("🚀 Hệ thống Lớp Toán Thầy Bình khởi động (Scroll Mode)...");
+    
+    if (initializeFirebase()) {
+        // Load exam list
+        loadExamList();
+        
+        // Setup all systems
+        setupModalSystem();
+        setupAuthentication();
+        setupSessionManagement();
+        setupPollSystem();
+        setupStudentInteraction();
+        
+        // Setup scroll tracking
+        setupScrollTracking();
+        
+        // Setup controls
+        setupModalControls();
+        setupSlideMenu();
+        setupCanvas();
+        setupFullscreen();
+        
+        // Setup class management
+        setupClassManagement();
+        setupStudentCodeManagement();
+        
+        // Setup exam selection
+        document.getElementById('selectExam').addEventListener('change', handleExamSelection);
+        
+        // Setup score button
+        document.getElementById('scoreBtn').addEventListener('click', function() {
+            window.isScoreCalculated = false;
+            window.calculateFinalScore();
+        });
+        
+        // URL session parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlSessionCode = urlParams.get('session');
+        if (urlSessionCode) {
+            sessionCode = urlSessionCode.toUpperCase();
+            document.getElementById('monitor-session-code').textContent = sessionCode;
+        }
+        
+        // Show welcome screen
+        showWelcomeScreen();
+        
+        showNotification('✅ Hệ thống đã sẵn sàng! Vui lòng đăng nhập và chọn đề thi.', 'info');
+        
+        console.log("✅ Hệ thống khởi động thành công với chế độ cuộn");
+        
+    } else {
+        showNotification('❌ Không thể kết nối đến cơ sở dữ liệu. Vui lòng thử lại sau.', 'error');
+    }
+});
+
+// ===== FIREBASE INITIALIZATION =====
+function initializeFirebase() {
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.database();
+        // KHÔNG CÓ auth = firebase.auth() ← XÓA DÒNG NÀY NẾU CÓ
+        
+        console.log("✅ Firebase initialized successfully");
+        
+        // Giữ nguyên phần connection status
+        db.ref('.info/connected').on('value', snap => {
+            const statusElement = document.getElementById('firebaseStatus');
+            if (snap.val() === true) {
+                statusElement.innerHTML = "✅ Firebase: Đã kết nối";
+                statusElement.className = "firebase-status firebase-connected";
+            } else {
+                statusElement.innerHTML = '<span class="loading-spinner"></span> Firebase: Đang kết nối...';
+                statusElement.className = "firebase-status firebase-disconnected";
+            }
+        });
+        
+        return true;
+    } catch (error) {
+        console.error("❌ Firebase initialization failed:", error);
+        showNotification('Lỗi khởi tạo Firebase: ' + error.message, 'error');
+        return false;
+    }
+}
+
+// ===== SCROLL TRACKING SYSTEM =====
+function setupScrollTracking() {
+    // IntersectionObserver to track active section
+    scrollObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active from all sections
+                    document.querySelectorAll('.slide-section').forEach(section => {
+                        section.classList.remove('active-section');
+                    });
+                    
+                    // Add active to current section
+                    entry.target.classList.add('active-section');
+                    
+                    // Update menu
+                    updateActiveSlideInMenu(entry.target);
+                    
+                    // Update scroll progress
+                    updateScrollProgress();
+                    
+                    // Update student progress
+                    if (!isTeacherLoggedIn && sessionCode && currentUser) {
+                        updateStudentProgressFromScroll(entry.target);
+                    }
+                }
+            });
+        },
+        {
+            root: document.querySelector('.page-container'),
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0.1
+        }
+    );
+    
+    // Scroll event for progress bar
+    const pageContainer = document.querySelector('.page-container');
+    if (pageContainer) {
+        pageContainer.addEventListener('scroll', updateScrollProgress);
+    }
+}
+
+function updateScrollProgress() {
+    const pageContainer = document.querySelector('.page-container');
+    if (!pageContainer) return;
+    
+    const scrollTop = pageContainer.scrollTop;
+    const scrollHeight = pageContainer.scrollHeight - pageContainer.clientHeight;
+    const scrollPercentage = (scrollTop / scrollHeight) * 100;
+    
+    document.getElementById('scrollProgress').style.width = scrollPercentage + '%';
+}
+
+function updateStudentProgressFromScroll(section) {
+    if (!sessionCode || !currentUser || isTeacherLoggedIn) return;
+    
+    const sections = document.querySelectorAll('.slide-section');
+    const sectionIndex = Array.from(sections).indexOf(section);
+    const totalSections = sections.length;
+    const progress = Math.round((sectionIndex / (totalSections - 1)) * 100);
+    
+    db.ref(`sessions/${sessionCode}/students/${currentUser.uid}`).update({
+        currentSlide: sectionIndex, 
+        progress, 
+        lastActivity: firebase.database.ServerValue.TIMESTAMP
+    });
+}
+
+// ===== EXAM MANAGEMENT =====
+async function loadExamList() {
+    try {
+        const response = await fetch('exam-list.json');
+        if (!response.ok) throw new Error('Không tìm thấy file exam-list.json');
+        
+        const data = await response.json();
+        examList = data.exams;
+        
+        const selectMenu = document.getElementById('selectExam');
+        selectMenu.innerHTML = '<option value="">-- Chọn đề --</option>';
+        
+        examList.forEach(exam => {
+            const option = document.createElement('option');
+            option.value = exam.id;
+            option.textContent = exam.name;
+            selectMenu.appendChild(option);
+        });
+
+        console.log("✅ Đã tải danh sách đề:", examList.length, "đề");
+
+    } catch (error) {
+        console.error("❌ Lỗi tải danh sách đề:", error);
+        showNotification('Lỗi tải danh sách đề! Vui lòng kiểm tra file exam-list.json', 'error');
+    }
+}
+
+async function handleExamSelection() {
+    const selectMenu = document.getElementById('selectExam');
+    const selectedId = selectMenu.value;
+    if (!selectedId) {
+        resetToWelcomeScreen();
+        return;
+    }
+
+    currentExam = examList.find(exam => exam.id === selectedId);
+    if (!currentExam) return;
+
+    try {
+        showNotification(`📥 Đang tải đề: ${currentExam.name}...`, 'info');
+        const response = await fetch(currentExam.file);
+        if (!response.ok) throw new Error(`Không tải được file ${currentExam.file}`);
+        
+        currentQuestions = await response.json();
+        
+        // Render content
+        renderContent(currentQuestions);
+        
+        document.title = `${currentExam.name} - Lớp Toán Thầy Bình`;
+        showNotification(`✅ Đã tải đề: ${currentExam.name}`, 'success');
+
+    } catch (error) {
+        console.error("❌ Lỗi khi tải nội dung đề:", error);
+        showNotification(`Lỗi: ${error.message}`, 'error');
+        resetToWelcomeScreen();
+    }
+}
+
+// ===== CONTENT RENDERING =====
+function showWelcomeScreen() {
+    const slidesContainer = document.getElementById('slides-container');
+    if (!slidesContainer) return;
+    
+    slidesContainer.innerHTML = `
+        <section class="slide-section active-section" id="section-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; min-height: 70vh; display: flex; flex-direction: column; justify-content: center;">
+            <h1 style="color: white; border: none; font-size: 3em; margin-bottom: 20px;">🧮 LỚP TOÁN THẦY BÌNH</h1>
+            <h3 style="color: white; margin-bottom: 40px;">Hệ Thống Dạy Học Trực Tuyến Toàn Diện</h3>
+            
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; max-width: 800px; margin: 0 auto;">
+                <h4 style="color: white; margin-bottom: 20px;">📚 HƯỚNG DẪN SỬ DỤNG</h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🔑</div>
+                        <h5 style="color: white; margin-bottom: 10px;">1. Đăng nhập</h5>
+                        <p style="color: rgba(255,255,255,0.9); font-size: 0.9em;">Nhấn nút "Đăng nhập" và nhập mã học sinh/giáo viên</p>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">📝</div>
+                        <h5 style="color: white; margin-bottom: 10px;">2. Chọn đề</h5>
+                        <p style="color: rgba(255,255,255,0.9); font-size: 0.9em;">Chọn đề thi từ menu "Chọn đề" trên thanh công cụ</p>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🎯</div>
+                        <h5 style="color: white; margin-bottom: 10px;">3. Làm bài</h5>
+                        <p style="color: rgba(255,255,255,0.9); font-size: 0.9em;">Làm bài và kiểm tra đáp án trực tiếp trên hệ thống</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <p style="color: rgba(255,255,255,0.9); font-size: 0.9em;">
+                        <strong>Giáo viên:</strong> Có thể quản lý lớp, tạo poll, đồng bộ slide<br>
+                        <strong>Học sinh:</strong> Có thể tương tác, xem điểm, tham gia poll
+                    </p>
+                </div>
+            </div>
+        </section>
+    `;
+    
+    setTimeout(createSlideList, 100);
+}
+
+function resetToWelcomeScreen() {
+    const slidesContainer = document.getElementById('slides-container');
+    slidesContainer.innerHTML = `
+        <section class="slide-section active-section" id="section-0">
+            <h2 style="text-align: center; color: #666; margin-top: 50px;">
+                🧮 LỚP TOÁN THẦY BÌNH
+            </h2>
+            <p style="text-align: center; color: #888; font-size: 1.2em;">
+                Vui lòng chọn một đề từ menu để bắt đầu.
+            </p>
+        </section>
+    `;
+    
+    setTimeout(createSlideList, 100);
+}
+
+// ===== COMPLETE CONTENT RENDERER =====
+function renderContent(contentData) {
+    const slidesContainer = document.getElementById('slides-container');
+    slidesContainer.innerHTML = '';
+
+    console.log("📄 Rendering content data:", contentData);
+
+    // CASE 1: Lesson Collection (new JSON format)
+    if (contentData.type === 'lesson_collection') {
+        renderLessonCollection(contentData);
+        return;
+    }
+
+    // CASE 2: Old format (array of questions)
+    if (Array.isArray(contentData)) {
+        contentData.forEach((item, index) => {
+            const section = document.createElement('section');
+            section.className = 'slide-section';
+            section.id = `section-${index}`;
+            
+            let html = '';
+            
+            switch(item.type) {
+                case 'welcome':
+                    html = renderWelcomeSection(item);
+                    break;
+                    
+                case 'multiple_choice':
+                    html = renderMultipleChoiceQuestion(item);
+                    break;
+                    
+                case 'true_false':
+                    html = renderTrueFalseQuestion(item);
+                    break;
+                    
+                case 'short_answer':
+                    html = renderShortAnswerQuestion(item);
+                    break;
+                    
+                case 'theory':
+                    html = renderTheorySection(item);
+                    break;
+                    
+                case 'mixed_quiz':
+                    html = renderMixedQuizSection(item);
+                    break;
+                    
+                default:
+                    html = `<div style="padding: 30px; text-align: center; color: #666;">
+                        <p>Không thể hiển thị nội dung (loại: ${item.type})</p>
+                    </div>`;
+            }
+            
+            section.innerHTML = html;
+            slidesContainer.appendChild(section);
+        });
+        
+        // Register with IntersectionObserver
+        setTimeout(() => {
+            document.querySelectorAll('.slide-section').forEach(section => {
+                if (scrollObserver) {
+                    scrollObserver.observe(section);
+                }
+            });
+            
+            // Activate first section
+            const firstSection = document.querySelector('.slide-section');
+            if (firstSection) {
+                firstSection.classList.add('active-section');
+            }
+        }, 100);
+        
+        // MathJax typeset
+        if (window.MathJax) {
+            setTimeout(() => {
+                MathJax.typesetPromise();
+            }, 300);
+        }
+        
+        // Create slide menu
+        createSlideList();
+        
+        console.log(`✅ Đã render ${contentData.length} section`);
+        return;
+    }
+
+    // CASE 3: Invalid data
+    slidesContainer.innerHTML = `
+        <section class="slide-section active-section">
+            <h2 style="color: #dc3545;">⚠️ Lỗi dữ liệu</h2>
+            <p>Không thể hiển thị nội dung. Vui lòng kiểm tra định dạng file.</p>
+        </section>
+    `;
+}
+
+// ===== RENDER FUNCTIONS FOR EACH CONTENT TYPE =====
+
+function renderLessonCollection(lessonData) {
+    const slidesContainer = document.getElementById('slides-container');
+    let html = '';
+    
+    // 1. Cover Page
+    html += `
+        <section class="slide-section active-section" style="background: linear-gradient(135deg, #1a237e, #3949ab); color: white; text-align: center;">
+            <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px;">
+                <h1 style="color: white; border: none; font-size: 2.5em; margin-bottom: 20px;">
+                    ${lessonData.title || 'Chuyên đề Toán học'}
+                </h1>
+                <h3 style="color: rgba(255,255,255,0.9); font-weight: normal;">
+                    ${lessonData.description || ''}
+                </h3>
+                
+                <div style="margin-top: 40px; background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: left;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        ${lessonData.author ? `
+                        <div>
+                            <strong>👨‍🏫 Tác giả:</strong><br>
+                            ${lessonData.author}
+                        </div>
+                        ` : ''}
+                        
+                        ${lessonData.metadata?.total_questions ? `
+                        <div>
+                            <strong>📝 Số câu hỏi:</strong><br>
+                            ${lessonData.metadata.total_questions}
+                        </div>
+                        ` : ''}
+                        
+                        ${lessonData.metadata?.estimated_completion_time ? `
+                        <div>
+                            <strong>⏱️ Thời lượng:</strong><br>
+                            ${lessonData.metadata.estimated_completion_time}
+                        </div>
+                        ` : ''}
+                        
+                        ${lessonData.metadata?.target_audience ? `
+                        <div>
+                            <strong>🎯 Đối tượng:</strong><br>
+                            ${lessonData.metadata.target_audience}
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px;">
+                    <button onclick="scrollToSection(1)" style="padding: 15px 30px; background: white; color: #1a237e; border: none; border-radius: 10px; font-size: 1.1em; font-weight: bold; cursor: pointer;">
+                        🚀 Bắt đầu học
+                    </button>
+                </div>
+            </div>
+        </section>
+    `;
+    
+    // 2. Render each section
+    if (lessonData.sections && Array.isArray(lessonData.sections)) {
+        lessonData.sections.forEach((section, sectionIndex) => {
+            html += renderCollectionSection(section, sectionIndex + 1);
+        });
+    }
+    
+    slidesContainer.innerHTML = html;
+    
+    // Initialize
+    setTimeout(() => {
+        document.querySelectorAll('.slide-section').forEach(section => {
+            if (scrollObserver) {
+                scrollObserver.observe(section);
+            }
+        });
+        
+        MathJax.typesetPromise();
+        createSlideList();
+    }, 100);
+}
+
+function renderCollectionSection(section, sectionNumber) {
+    let html = `
+        <section class="slide-section" id="section-${sectionNumber}">
+            <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                <h2 style="color: #1a237e; border-bottom: 3px solid #1a237e; padding-bottom: 10px;">
+                    ${sectionNumber}. ${section.title || `Chương ${sectionNumber}`}
+                </h2>
+                ${section.description ? `<p style="color: #666; font-size: 1.1em; margin-top: 10px;">${section.description}</p>` : ''}
+            </div>
+    `;
+    
+    // Render content items
+    if (section.content && Array.isArray(section.content)) {
+        section.content.forEach((item, itemIndex) => {
+            const uniqueId = `s${sectionNumber}-i${itemIndex}`;
+            html += renderCollectionContentItem(item, uniqueId);
+        });
+    }
+    
+    html += `</section>`;
+    return html;
+}
+
+function renderCollectionContentItem(item, uniqueId) {
+    let html = '<div style="margin-bottom: 30px;">';
+    
+    switch(item.type) {
+        case 'definition':
+            html += `
+                <div class="theory-box" style="background: #e8f4f8; padding: 20px; border-radius: 12px; border-left: 5px solid #17a2b8;">
+                    <h4 style="color: #17a2b8; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span>📘</span> ${item.title || 'Định nghĩa'}
+                    </h4>
+                    <div style="line-height: 1.6;">
+                        ${item.content || ''}
+                        ${item.formula ? `<div style="text-align: center; margin: 15px 0; font-size: 1.1em;">${item.formula}</div>` : ''}
+                        ${item.note ? `<div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px; margin-top: 10px;"><strong>Chú ý:</strong> ${item.note}</div>` : ''}
+                    </div>
+                </div>
+            `;
+            break;
+            
+        case 'theorem':
+            html += `
+                <div class="theory-box" style="background: #f0f7ff; padding: 20px; border-radius: 12px; border-left: 5px solid #4dabf7;">
+                    <h4 style="color: #1c7ed6; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span>📖</span> ${item.title || 'Định lý'}
+                    </h4>
+                    ${item.content ? `<p style="margin-bottom: 15px;">${item.content}</p>` : ''}
+                    
+                    ${item.statements && Array.isArray(item.statements) ? `
+                        <div style="margin: 15px 0;">
+                            ${item.statements.map((stmt, idx) => `
+                                <div style="margin-bottom: 10px; padding: 12px; background: white; border-radius: 8px;">
+                                    <strong>${idx + 1}.</strong> ${stmt.content}
+                                    ${stmt.proof ? `<div style="margin-top: 8px; padding-left: 20px; color: #666; font-size: 0.95em;"><em>Chứng minh:</em> ${stmt.proof}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    ${item.note ? `<div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px; margin-top: 15px;"><strong>Nhận xét:</strong> ${item.note}</div>` : ''}
+                </div>
+            `;
+            break;
+            
+        case 'true_false_quiz':
+            html += renderTrueFalseQuizItem(item, uniqueId);
+            break;
+            
+        case 'multiple_choice':
+            html += renderMultipleChoiceSetItem(item, uniqueId);
+            break;
+            
+        case 'short_answer':
+            html += renderShortAnswerSetItem(item, uniqueId);
+            break;
+            
+        case 'method':
+            html += renderMethodItem(item, uniqueId);
+            break;
+            
+        case 'mixed_quiz':
+            html += renderMixedQuizItem(item, uniqueId);
+            break;
+            
+        default:
+            html += `<div style="color: #666; padding: 20px; text-align: center; background: #f8f9fa; border-radius: 10px;">
+                Không thể hiển thị loại nội dung: ${item.type}
+            </div>`;
+    }
+    
+    html += '</div>';
+    return html;
+}
+
+// ===== INDIVIDUAL RENDER FUNCTIONS =====
+
+function renderWelcomeSection(item) {
+    return `
+        <div style="text-align: center; padding: 40px 20px;">
+            <h1 style="color: ${item.color || '#1a237e'}; border: none; font-size: 2.5em;">
+                ${item.title || 'Chào mừng'}
+            </h1>
+            <h3 style="color: ${item.color || '#3949ab'};">${item.subtitle || ''}</h3>
+            <div style="margin-top: 30px; font-size: 1.1em;">
+                ${item.content || ''}
+            </div>
+            ${item.extraContent || ''}
+        </div>
+    `;
+}
+
+function renderMultipleChoiceQuestion(item) {
+    let optionsHtml = '';
+    for (const [key, value] of Object.entries(item.options || {})) {
+        optionsHtml += `
+            <div class="option-row">
+                <input type="radio" name="${item.id}" value="${key}" id="${item.id}${key}">
+                <label for="${item.id}${key}">${key}. ${value}</label>
+                <span class="option-icon" id="icon-${item.id}-${key}"></span>
+            </div>
+        `;
+    }
+    
+    let solutionHtml = '';
+    if (item.solution) {
+        solutionHtml = `
+            <button onclick="toggleSolution('${item.id}')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                👁️ Xem giải
+            </button>
+            <div id="solution-${item.id}" class="solution-box" style="display: none;">
+                <div class="solution-title">Hướng dẫn giải ${item.title}</div>
+                <div class="solution-content">${item.solution}</div>
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="question" id="${item.id}">
+            <p class="question-title"><strong>${item.title}</strong> ${item.text}</p>
+            ${item.image ? `<img src="${item.image}" style="max-width: 100%; margin: 15px 0; border-radius: 10px;">` : ''}
+            <div class="options">${optionsHtml}</div>
+            <div class="answer-check">
+                <button onclick="checkAnswer('${item.id}', '${item.correct}')">✅ Kiểm tra</button>
+                <span id="result-${item.id}"></span>
+            </div>
+            ${solutionHtml}
+        </div>
+    `;
+}
+
+function renderTrueFalseQuestion(item) {
+    // 1. Tạo danh sách mệnh đề
+    let statementsHtml = '';
+    if (Array.isArray(item.statements)) {
+        item.statements.forEach((stmt, idx) => {
+            const letter = String.fromCharCode(97 + idx); // a, b, c, d
+
+            statementsHtml += `
+                <div class="option-row">
+                    <div style="flex: 1;">
+                        <strong>${letter})</strong> ${stmt}
+                    </div>
+
+                    <div style="display: flex; gap: 15px;">
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="radio" name="${item.id}_${letter}" value="True">
+                            True
+                        </label>
+
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="radio" name="${item.id}_${letter}" value="False">
+                            False
+                        </label>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // 2. Tạo phần xem lời giải (nếu có)
+    let solutionHtml = '';
+    if (item.solution) {
+        solutionHtml = `
+            <button onclick="toggleSolution('${item.id}')" 
+                style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; 
+                       color: white; border: none; border-radius: 5px;">
+                👁️ Xem giải
+            </button>
+
+            <div id="solution-${item.id}" class="solution-box" style="display: none;">
+                <div class="solution-title">Hướng dẫn giải ${item.title}</div>
+                <div class="solution-content">${item.solution}</div>
+            </div>
+        `;
+    }
+
+    // 3. ĐÁP ÁN: Truyền dưới dạng JSON THẬT (không dùng chuỗi!)
+    const answersArray = JSON.stringify(item.answers);  
+    // → Khi render sẽ thành: ["True","True","True","False"]
+
+    return `
+        <div class="question" id="${item.id}">
+            <p class="question-title">
+                <strong>${item.title}</strong> ${item.text}
+            </p>
+
+            ${item.image ? 
+                `<img src="${item.image}" style="max-width:100%; margin: 15px 0; border-radius:10px;" 
+                      onerror="this.style.display='none'">` 
+            : ''}
+
+            <div class="options">${statementsHtml}</div>
+
+            <div class="answer-check">
+                <button onclick='checkTrueFalseAnswer("${item.id}", ${answersArray})'>
+                    ✅ Kiểm tra
+                </button>
+                <span id="result-${item.id}"></span>
+            </div>
+
+            ${solutionHtml}
+        </div>
+    `;
+}
+
+function renderShortAnswerQuestion(item) {
+    return `
+        <div class="question" id="${item.id}">
+            <p class="question-title"><strong>${item.title}</strong> ${item.text}</p>
+            ${item.image ? `<img src="${item.image}" style="max-width: 100%; margin: 15px 0; border-radius: 10px;">` : ''}
+            <div class="answer-check">
+                <input id="input-${item.id}" placeholder="${item.placeholder || 'Nhập kết quả...'}" type="text"/>
+                <button onclick="checkShortAnswer('${item.id}', '${item.answer || ''}')">✅ Kiểm tra</button>
+                <span id="icon-${item.id}"></span>
+            </div>
+            <div id="result-${item.id}"></div>
+            ${item.solution ? `
+                <button onclick="toggleSolution('${item.id}')" style="margin-top: 10px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 5px;">
+                    👁️ Xem giải
+                </button>
+                <div id="solution-${item.id}" class="solution-box" style="display: none;">
+                    <div class="solution-title">Hướng dẫn giải ${item.title}</div>
+                    <div class="solution-content">${item.solution}</div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+function renderTheorySection(item) {
+    return `
+        <div class="question" id="${item.id}">
+            <h3 style="color: #1a237e; border-bottom: 3px solid #1a237e; padding-bottom: 10px;">
+                ${item.title}
+            </h3>
+            <div style="font-size: 1.1em; line-height: 1.6; margin-top: 20px;">
+                ${item.content}
+            </div>
+            ${item.example ? `
+                <div class="solution-box" style="margin-top: 30px;">
+                    <div class="solution-title">📚 Ví dụ minh họa</div>
+                    <div class="solution-content">${item.example}</div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// ===== NEW FORMAT RENDERERS =====
+
+function renderTrueFalseQuizItem(quizData, uniqueId) {
+    let questionsHtml = '';
+    
+    quizData.questions.forEach((q, qIndex) => {
+        questionsHtml += `
+            <div class="tf-question" style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <span style="background: #1a237e; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                ${qIndex + 1}
+                            </span>
+                            <strong style="font-size: 1.05em;">${q.statement}</strong>
+                        </div>
+                        
+                        <div style="display: flex; gap: 20px; margin: 15px 0 0 40px;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 15px; background: white; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                <input type="radio" name="tf-${uniqueId}-${q.id}" value="true" style="transform: scale(1.2);">
+                                <span style="font-weight: bold; color: #28a745;">ĐÚNG</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 15px; background: white; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                <input type="radio" name="tf-${uniqueId}-${q.id}" value="false" style="transform: scale(1.2);">
+                                <span style="font-weight: bold; color: #dc3545;">SAI</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button onclick="checkSingleTrueFalse('${uniqueId}', '${q.id}', ${q.answer})" 
+                            style="margin-left: 15px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer; white-space: nowrap;">
+                        Kiểm tra
+                    </button>
+                </div>
+                
+                <div id="tf-result-${uniqueId}-${q.id}" style="margin-top: 15px; min-height: 24px;"></div>
+                
+                <div id="tf-solution-${uniqueId}-${q.id}" style="display: none; margin-top: 15px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                    <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📝 Giải thích:</div>
+                    <div>${q.explanation}</div>
+                    ${q.proof ? `<div style="margin-top: 10px;"><em>Chứng minh:</em> ${q.proof}</div>` : ''}
+                </div>
+            </div>
+        `;
+    });
+    
+    return `
+        <div class="question" id="tf-quiz-${uniqueId}">
+            <div style="background: linear-gradient(135deg, #f0f7ff, #e6f0ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>❓</span> ${quizData.title || 'Câu hỏi đúng/sai'}
+                </h4>
+                <p style="color: #666;">${quizData.instructions || 'Xác định tính đúng/sai của các mệnh đề sau:'}</p>
+            </div>
+            
+            ${questionsHtml}
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="checkAllTrueFalse('${uniqueId}', ${JSON.stringify(quizData.questions.map(q => q.answer))})"
+                        style="padding: 12px 30px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 1.1em; cursor: pointer;">
+                    ✅ Kiểm tra tất cả (${quizData.questions.length} câu)
+                </button>
+                
+                ${quizData.scoring ? `
+                    <div style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                        <em>Điểm: ${quizData.scoring.points_per_correct}/câu đúng | Tổng: ${quizData.scoring.total_points} điểm</em>
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function renderMultipleChoiceSetItem(item, uniqueId) {
+    let html = `
+        <div class="question" id="mc-set-${uniqueId}">
+            <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>📝</span> ${item.title || 'Bài tập trắc nghiệm'}
+                </h4>
+            </div>
+    `;
+    
+    if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach((q, qIndex) => {
+            let optionsHtml = '';
+            for (const [key, value] of Object.entries(q.options || {})) {
+                optionsHtml += `
+                    <div style="margin: 8px 0; padding: 10px; background: white; border-radius: 8px; border: 2px solid #e0e0e0; cursor: pointer;"
+                         onclick="selectMCOption(this, '${uniqueId}-${q.id}', '${key}')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="background: #f0f0f0; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                ${key}
+                            </span>
+                            <span>${value}</span>
+                        </div>
+                        <span id="icon-${uniqueId}-${q.id}-${key}" style="margin-left: auto;"></span>
+                    </div>
+                `;
+            }
+            
+            html += `
+                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${qIndex + 1}
+                        </span>
+                        <div style="flex: 1; font-size: 1.05em;">
+                            ${q.question}
+                            ${q.difficulty ? `<span style="font-size: 0.8em; padding: 2px 8px; background: ${getDifficultyColor(q.difficulty)}; color: white; border-radius: 10px; margin-left: 10px;">${q.difficulty}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-left: 50px;">
+                        ${optionsHtml}
+                    </div>
+                    
+                    <div style="margin-top: 15px; margin-left: 50px;">
+                        <button onclick="checkMCQuestion('${uniqueId}-${q.id}', '${q.correct}', '${q.solution || ''}')"
+                                style="padding: 8px 20px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                            Kiểm tra câu này
+                        </button>
+                        <span id="result-${uniqueId}-${q.id}" style="margin-left: 15px;"></span>
+                    </div>
+                    
+                    ${q.solution ? `
+                        <div id="solution-${uniqueId}-${q.id}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Hướng dẫn giải:</div>
+                            <div>${q.solution}</div>
+                            ${q.step_by_step ? `
+                                <div style="margin-top: 10px;">
+                                    <strong>Các bước giải:</strong>
+                                    <ol style="margin: 5px 0 0 20px;">
+                                        ${q.step_by_step.map(step => `<li>${step}</li>`).join('')}
+                                    </ol>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+    }
+    
+    html += `</div>`;
+    return html;
+}
+
+function renderShortAnswerSetItem(item, uniqueId) {
+    let html = `
+        <div class="question" id="sa-set-${uniqueId}">
+            <div style="background: linear-gradient(135deg, #f0f7ff, #e6f0ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>✍️</span> ${item.title || 'Bài tập tự luận ngắn'}
+                </h4>
+            </div>
+    `;
+    
+    if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach((q, qIndex) => {
+            html += `
+                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${qIndex + 1}
+                        </span>
+                        <div style="flex: 1; font-size: 1.05em;">
+                            ${q.question}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-left: 50px;">
+                        <input type="text" id="input-${uniqueId}-${q.id}" 
+                               placeholder="${q.placeholder || 'Nhập câu trả lời...'}"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em;">
+                        
+                        ${q.hint ? `
+                            <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 6px; color: #856404;">
+                                <strong>💡 Gợi ý:</strong> ${q.hint}
+                            </div>
+                        ` : ''}
+                        
+                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                            <button onclick="checkSAQuestion('${uniqueId}-${q.id}', '${q.answer}', ${JSON.stringify(q.accept_variations || [])}, '${q.solution || ''}')"
+                                    style="padding: 10px 25px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                Kiểm tra
+                            </button>
+                            <span id="result-${uniqueId}-${q.id}" style="margin-left: 10px;"></span>
+                        </div>
+                    </div>
+                    
+                    ${q.solution ? `
+                        <div id="solution-${uniqueId}-${q.id}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Lời giải:</div>
+                            <div>${q.solution}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+    }
+    
+    html += `</div>`;
+    return html;
+}
+
+function renderMethodItem(item, uniqueId) {
+    let stepsHtml = '';
+    if (item.steps && Array.isArray(item.steps)) {
+        item.steps.forEach((step, idx) => {
+            stepsHtml += `
+                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #4dabf7;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="background: #4dabf7; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${idx + 1}
+                        </span>
+                        <strong style="color: #1a237e;">${step.title}</strong>
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <div><strong>Công thức/bước:</strong> ${step.content}</div>
+                        ${step.explanation ? `<div style="margin-top: 8px; color: #666;">${step.explanation}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    let exampleHtml = '';
+    if (item.example) {
+        exampleHtml = `
+            <div style="margin-top: 30px; padding: 20px; background: #e8f4f8; border-radius: 12px;">
+                <h5 style="color: #17a2b8; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>📚</span> Ví dụ minh họa
+                </h5>
+                <div style="margin-bottom: 15px;">
+                    <strong>Bài toán:</strong> ${item.example.problem}
+                </div>
+                <div>
+                    <strong>Lời giải:</strong>
+                    ${Array.isArray(item.example.solution_steps) ? 
+                        `<ol style="margin: 10px 0 0 20px;">${item.example.solution_steps.map(step => `<li>${step}</li>`).join('')}</ol>` :
+                        `<div style="margin-top: 10px;">${item.example.solution_steps}</div>`
+                    }
+                </div>
+                ${item.example.graph_characteristics ? `
+                    <div style="margin-top: 15px;">
+                        <strong>Đặc điểm đồ thị:</strong>
+                        <ul style="margin: 5px 0 0 20px;">
+                            ${Object.entries(item.example.graph_characteristics).map(([key, value]) => 
+                                `<li><strong>${key}:</strong> ${value}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="theory-box" style="background: #f0f7ff; padding: 25px; border-radius: 12px; border: 2px solid #4dabf7;">
+            <h4 style="color: #1a237e; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <span>🔧</span> ${item.title || 'Phương pháp giải'}
+            </h4>
+            
+            ${item.problem_type ? `
+                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <strong>Dạng toán:</strong> ${item.problem_type}
+                </div>
+            ` : ''}
+            
+            <div style="margin: 20px 0;">
+                <h5 style="color: #3949ab; margin-bottom: 15px;">📋 Các bước giải:</h5>
+                ${stepsHtml}
+            </div>
+            
+            ${exampleHtml}
+        </div>
+    `;
+}
+
+function renderMixedQuizItem(item, uniqueId) {
+    let html = `
+        <div class="question" id="mixed-${uniqueId}">
+            <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <span>🎯</span> ${item.title || 'Bài tập tổng hợp'}
+                </h4>
+            </div>
+    `;
+    
+    if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach((q, qIndex) => {
+            if (q.type === 'true_false') {
+                html += `
+                    <div style="margin-bottom: 25px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+                        <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
+                            <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                ${qIndex + 1}
+                            </span>
+                            <div style="flex: 1; font-size: 1.05em;">
+                                ${q.statement}
+                            </div>
+                        </div>
+                        
+                        <div style="margin-left: 50px; display: flex; gap: 20px;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="radio" name="mixed-${uniqueId}-${q.id}" value="true"> Đúng
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="radio" name="mixed-${uniqueId}-${q.id}" value="false"> Sai
+                            </label>
+                            <button onclick="checkMixedTF('${uniqueId}', '${q.id}', ${q.answer})"
+                                    style="margin-left: auto; padding: 6px 15px; background: #17a2b8; color: white; border: none; border-radius: 6px;">
+                                Kiểm tra
+                            </button>
+                        </div>
+                        <div id="mixed-result-${uniqueId}-${q.id}" style="margin-top: 10px; margin-left: 50px;"></div>
+                    </div>
+                `;
+            } else if (q.type === 'multiple_choice') {
+                // Similar structure for MC
+                // ... (omitted for brevity)
+            }
+        });
+    }
+    
+    html += `</div>`;
+    return html;
+}
+
+// ===== HELPER FUNCTIONS =====
+
+function getDifficultyColor(difficulty) {
+    switch(difficulty.toLowerCase()) {
+        case 'easy': return '#28a745';
+        case 'medium': return '#ffc107';
+        case 'hard': return '#dc3545';
+        default: return '#6c757d';
+    }
+}
+
+// Scroll helper
+window.scrollToSection = function(sectionNumber) {
+    const section = document.getElementById(`section-${sectionNumber}`);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+};
+// ===== SLIDE MENU =====
+function setupSlideMenu() {
+    const slideMenu = document.getElementById('slideMenu');
+    const slideMenuBtn = document.getElementById('slideMenuBtn');
+    const closeSlideMenuBtn = document.getElementById('closeSlideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    function toggleSlideMenu() {
+        slideMenu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+    }
+    slideMenuBtn.addEventListener('click', toggleSlideMenu);
+    closeSlideMenuBtn.addEventListener('click', toggleSlideMenu);
+    menuOverlay.addEventListener('click', toggleSlideMenu);
+    
+    createSlideList();
+}
+
+function createSlideList() {
+    const slideList = document.getElementById('slideList');
+    const sections = document.querySelectorAll('.slide-section');
+    
+    if (sections.length === 0) {
+        slideList.innerHTML = `<div class="slide-item">Chưa có nội dung</div>`;
+        return;
+    }
+    
+    slideList.innerHTML = Array.from(sections).map((section, index) => {
+        const title = section.querySelector('h2, h3, .question-title')?.textContent.substring(0, 30) || 
+                     section.querySelector('p')?.textContent.substring(0, 30) || 
+                     `Bài ${index + 1}`;
+        return `<div class="slide-item" data-section-index="${index}">
+                    <span class="slide-number">${index + 1}</span>${title}
+                </div>`;
+    }).join('');
+
+    slideList.querySelectorAll('.slide-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const sectionIndex = parseInt(item.dataset.sectionIndex);
+            const section = document.getElementById(`section-${sectionIndex}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('slideMenu').classList.remove('active');
+                document.getElementById('menuOverlay').classList.remove('active');
+            }
+        });
+    });
+    
+    updateActiveSlideInMenu();
+}
+
+function updateActiveSlideInMenu(section = null) {
+    if (!section) {
+        section = document.querySelector('.slide-section.active-section');
+    }
+    
+    if (!section) return;
+    
+    const sectionIndex = Array.from(document.querySelectorAll('.slide-section')).indexOf(section);
+    
+    document.querySelectorAll('.slide-item').forEach((item, index) => {
+        item.classList.toggle('active', index === sectionIndex);
+    });
+}
+
+// ===== MODAL SYSTEM =====
+function setupModalSystem() {
+    const modals = document.querySelectorAll('.modal, .confirm-modal');
+    
+    modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideModal(this);
+            }
+        });
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && activeModal) {
+            hideModal(activeModal);
+        }
+    });
+    
+    document.querySelectorAll('.modal-close, .confirm-no').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal, .confirm-modal');
+            if (modal) hideModal(modal);
+        });
+    });
+}
+
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        if (activeModal) {
+            hideModal(activeModal);
+        }
+        
+        modal.classList.add('active');
+        activeModal = modal;
+    }
+}
+
+function hideModal(modal) {
+    if (modal) {
+        modal.classList.remove('active');
+        if (modal === activeModal) {
+            activeModal = null;
+        }
+    }
+}
+
+function hideAllModals() {
+    document.querySelectorAll('.modal.active, .confirm-modal.active').forEach(modal => {
+        hideModal(modal);
+    });
+}
+
+function setupModalControls() {
+    document.getElementById('loginBtn').addEventListener('click', () => { showModal('login-modal'); });
+    document.getElementById('teacherMonitorBtn').addEventListener('click', () => {
+        if (isTeacherLoggedIn) showModal('teacher-monitor');
+        else showNotification('Chỉ giáo viên mới có quyền truy cập!', 'error');
+    });
+    document.getElementById('closeMonitor').addEventListener('click', () => { hideModal(document.getElementById('teacher-monitor')); });
+}
+
+// ===== AUTHENTICATION =====
+// THAY TOÀN BỘ HÀM setupAuthentication() CŨ:
+function setupAuthentication() {
+    document.getElementById('code-login-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const code = document.getElementById('login-code').value.trim();
+        const name = document.getElementById('student-name').value.trim() || 'Học sinh';
+        
+        if (!code) {
+            showNotification('Vui lòng nhập mã đăng nhập', 'error');
+            return;
+        }
+
+        try {
+            if (code === 'admin79') {
+                await loginAsTeacher(name);
+            } else if (code.startsWith('HS')) {
+                await loginAsStudent(code, name);
+            } else {
+                showNotification('Mã đăng nhập không hợp lệ', 'error');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            showNotification('Lỗi đăng nhập: ' + error.message, 'error');
+        }
+    });
+}
+// THAY THẾ HÀM loginAsTeacher VÀ loginAsStudent CŨ:
+async function loginAsTeacher(name) {
+    isTeacherLoggedIn = true;
+    currentUser = { uid: 'teacher_admin_79', name, role: 'teacher', code: 'admin79' };
+    
+    try {
+        await db.ref('users/' + currentUser.uid).set({ 
+            name, 
+            role: 'teacher', 
+            lastLogin: firebase.database.ServerValue.TIMESTAMP 
+        });
+    } catch (error) {
+        console.warn("Không thể lưu teacher vào DB, vẫn tiếp tục...");
+    }
+    
+    document.body.classList.add('teacher-role');
+    document.body.classList.remove('student-role');
+    document.body.classList.remove('not-logged-in');
+    
+    showNotification(`✅ Đăng nhập thành công - GV: ${name}`, 'success');
+    updateUIAfterLogin();
+}
+
+async function loginAsStudent(code, name) {
+    try {
+        const studentSnapshot = await db.ref(`studentCodes/${code}`).once('value');
+        const studentData = studentSnapshot.val();
+        
+        if (!studentData) {
+            showNotification('Mã học sinh không tồn tại!', 'error');
+            return;
+        }
+        
+        if (studentData.name !== name) {
+            showNotification('Họ tên không khớp với mã học sinh!', 'error');
+            return;
+        }
+
+        // Cập nhật last login
+        try {
+            await db.ref(`studentCodes/${code}`).update({
+                lastLogin: firebase.database.ServerValue.TIMESTAMP
+            });
+        } catch (error) {
+            console.warn("Không thể cập nhật lastLogin");
+        }
+
+        isTeacherLoggedIn = false;
+        currentUser = { 
+            uid: 'student_' + code + '_' + Date.now(), 
+            name, 
+            role: 'student', 
+            code,
+            classCode: studentData.classCode,
+            className: studentData.className
+        };
+        
+        // Lưu vào users
+        try {
+            await db.ref('users/' + currentUser.uid).set({ 
+                name, 
+                role: 'student', 
+                code, 
+                lastLogin: firebase.database.ServerValue.TIMESTAMP 
+            });
+        } catch (error) {
+            console.warn("Không thể lưu student vào users");
+        }
+        
+        document.body.classList.add('student-role');
+        document.body.classList.remove('teacher-role');
+        document.body.classList.remove('not-logged-in');
+        
+        showNotification(`✅ Đăng nhập thành công - HS: ${name}`, 'success');
+        updateUIAfterLogin();
+        
+        // Hỏi mã lớp (giữ nguyên như cũ)
+        const sessionToJoin = prompt("Nhập mã lớp học để tham gia (bỏ trống nếu không có):");
+        if (sessionToJoin && sessionToJoin.trim() !== '') {
+            sessionCode = sessionToJoin.toUpperCase();
+            joinSessionAsStudent();
+        }
+        
+    } catch (error) {
+        console.error('Student login error:', error);
+        showNotification('Lỗi đăng nhập học sinh: ' + error.message, 'error');
+    }
+}
+function updateUIAfterLogin() {
+    hideModal(document.getElementById('login-modal'));
+    
+    const loginBtn = document.getElementById('loginBtn');
+    if (isTeacherLoggedIn) {
+        loginBtn.innerHTML = '👨‍🏫 ' + currentUser.name;
+        loginBtn.style.background = '#28a745';
+        document.getElementById('teacherMonitorBtn').style.display = 'inline-block';
+        document.getElementById('classManagementBtn').style.display = 'inline-block';
+    } else {
+        loginBtn.innerHTML = '👤 ' + currentUser.name;
+        document.getElementById('studentInteractBtn').style.display = 'inline-block';
+    }
+}
+
+// ===== SESSION MANAGEMENT =====
+function setupSessionManagement() {
+    // This function is kept for compatibility
+}
+
+function generateSessionCode() {
+    return Math.random().toString(36).substr(2, 6).toUpperCase();
+}
+
+async function createNewSession() {
+    if (!isTeacherLoggedIn) return showNotification('Chỉ giáo viên mới có thể tạo lớp học', 'error');
+    sessionCode = generateSessionCode();
+    try {
+        await db.ref('sessions/' + sessionCode).set({
+            created: firebase.database.ServerValue.TIMESTAMP,
+            teacher: currentUser.name,
+            status: 'active',
+            currentSlide: 0
+        });
+        document.getElementById('monitor-session-code').textContent = sessionCode;
+        showNotification(`✅ Đã tạo lớp học! Mã lớp: <strong>${sessionCode}</strong>`, 'success');
+        startMonitoringSession();
+    } catch (error) {
+        console.error('Error creating session:', error);
+        showNotification('Lỗi tạo lớp học: ' + error.message, 'error');
+    }
+}
+
+function joinSessionAsStudent() {
+    if (!sessionCode || !currentUser) return showNotification('Vui lòng đăng nhập và có mã lớp học', 'error');
+    const studentRef = db.ref('sessions/' + sessionCode + '/students/' + currentUser.uid);
+    studentRef.set({
+        name: currentUser.name, code: currentUser.code,
+        joined: firebase.database.ServerValue.TIMESTAMP,
+        status: 'active', score: 0, progress: 0, currentSlide: 0,
+        lastActivity: firebase.database.ServerValue.TIMESTAMP
+    }).then(() => {
+        showNotification(`✅ Đã tham gia lớp học: ${sessionCode}`, 'success');
+        listenToSessionChanges();
+    }).catch(error => {
+        console.error('Error joining session:', error);
+        showNotification('Lỗi tham gia lớp học: ' + error.message, 'error');
+    });
+}
+
+function listenToSessionChanges() {
+    db.ref('sessions/' + sessionCode + '/currentSlide').on('value', snapshot => {
+        const slideIndex = snapshot.val();
+        if (slideIndex !== null && slideIndex !== undefined) {
+            // Scroll to the section
+            const section = document.getElementById(`section-${slideIndex}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    });
+    
+    db.ref('sessions/' + sessionCode + '/poll').on('value', snapshot => {
+        const pollData = snapshot.val();
+        if (pollData && pollData.active) showPoll(pollData);
+        else hidePoll();
+    });
+}
+
+function syncSlidesWithStudents() {
+    if (!isTeacherLoggedIn || !sessionCode) return showNotification('Vui lòng tạo lớp học trước', 'error');
+    
+    // Get current active section
+    const activeSection = document.querySelector('.slide-section.active-section');
+    if (!activeSection) return;
+    
+    const sections = document.querySelectorAll('.slide-section');
+    const slideIndex = Array.from(sections).indexOf(activeSection);
+    
+    db.ref('sessions/' + sessionCode + '/currentSlide').set(slideIndex)
+        .then(() => showNotification(`✅ Đã đồng bộ bài ${slideIndex + 1}`, 'success'))
+        .catch(error => showNotification('Lỗi đồng bộ bài: ' + error.message, 'error'));
+}
+
+// ===== CLASS MANAGEMENT =====
+function setupClassManagement() {
+    console.log("🔧 Khởi tạo quản lý lớp...");
+    
+    document.getElementById('classManagementBtn').addEventListener('click', () => {
+        if (!isTeacherLoggedIn) {
+            showNotification('Chỉ giáo viên mới có quyền quản lý lớp!', 'error');
+            return;
+        }
+        showModal('class-management-modal');
+        loadClassesList();
+        loadStudentsList();
+    });
+
+    document.getElementById('create-class-btn').addEventListener('click', () => {
+        showModal('create-class-modal');
+    });
+
+    document.getElementById('create-class-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await createNewClass();
+    });
+
+    document.getElementById('refresh-classes-btn').addEventListener('click', () => {
+        loadClassesList();
+        loadStudentsList();
+    });
+
+    // Search and filter
+    document.getElementById('search-student-global').addEventListener('input', loadStudentsList);
+    document.getElementById('filter-class').addEventListener('change', loadStudentsList);
+    
+    // Additional buttons
+    document.getElementById('class-poll-btn').addEventListener('click', startClassPoll);
+    document.getElementById('class-sync-btn').addEventListener('click', syncClassSlides);
+    document.getElementById('view-poll-results-btn').addEventListener('click', viewClassPollResults);
+    document.getElementById('view-interactions-btn').addEventListener('click', viewClassInteractions);
+}
+
+async function createNewClass() {
+    const className = document.getElementById('class-name').value.trim();
+    const classDescription = document.getElementById('class-description').value.trim();
+
+    if (!className) {
+        showNotification('Vui lòng nhập tên lớp!', 'error');
+        return;
+    }
+
+    try {
+        const classCode = generateClassCode();
+        const classData = {
+            name: className,
+            description: classDescription,
+            code: classCode,
+            teacher: currentUser.name,
+            teacherId: currentUser.uid,
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            studentCount: 0,
+            status: 'active'
+        };
+
+        await db.ref(`classes/${classCode}`).set(classData);
+        
+        hideModal(document.getElementById('create-class-modal'));
+        document.getElementById('create-class-form').reset();
+        
+        showNotification(`✅ Đã tạo lớp "${className}" với mã: ${classCode}`, 'success');
+        loadClassesList();
+        
+    } catch (error) {
+        console.error('Lỗi tạo lớp:', error);
+        showNotification('❌ Lỗi khi tạo lớp!', 'error');
+    }
+}
+
+function generateClassCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return code;
+}
+
+async function loadClassesList() {
+    try {
+        const snapshot = await db.ref('classes').orderByChild('createdAt').once('value');
+        const classes = snapshot.val() || {};
+        
+        const tbody = document.getElementById('classes-list-body');
+        let html = '';
+        
+        Object.entries(classes).forEach(([classCode, classData]) => {
+            if (classData.teacherId !== currentUser.uid) return;
+            
+            const createDate = classData.createdAt ? 
+                new Date(classData.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+            
+            html += `
+                <tr>
+                    <td>
+                        <strong>${classData.name}</strong>
+                        ${classData.description ? `<br><small style="color: #666;">${classData.description}</small>` : ''}
+                    </td>
+                    <td><code style="background: #1a237e; color: white; padding: 4px 8px; border-radius: 4px;">${classCode}</code></td>
+                    <td style="text-align: center;">
+                        <span style="font-weight: bold; color: #1a237e;">${classData.studentCount || 0}</span>
+                    </td>
+                    <td>${createDate}</td>
+                    <td style="text-align: center;">
+                        <span class="status-active">🟢 Hoạt động</span>
+                    </td>
+                    <td style="text-align: center;">
+                        <button onclick="viewClassDetails('${classCode}')" style="padding: 6px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; margin: 2px;">
+                            👁️ Xem
+                        </button>
+                        <button onclick="confirmDeleteClass('${classCode}')" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; margin: 2px;">
+                            🗑️ Xóa
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        tbody.innerHTML = html || `
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                    Chưa có lớp học nào. Hãy tạo lớp đầu tiên!
+                </td>
+            </tr>
+        `;
+        
+        updateClassFilter(classes);
+        
+    } catch (error) {
+        console.error('Lỗi tải danh sách lớp:', error);
+        document.getElementById('classes-list-body').innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 30px; color: #dc3545;">
+                    ❌ Lỗi khi tải danh sách lớp
+                </td>
+            </tr>
+        `;
+    }
+}
+
+function confirmDeleteClass(classCode) {
+    document.getElementById('confirm-delete-message').textContent = 
+        `Bạn có chắc chắn muốn xóa lớp này? Hành động này không thể hoàn tác.`;
+    
+    document.getElementById('confirm-delete-yes').onclick = function() {
+        deleteClass(classCode);
+        hideModal(document.getElementById('confirm-delete-modal'));
+    };
+    
+    showModal('confirm-delete-modal');
+}
+
+async function deleteClass(classCode) {
+    try {
+        await db.ref(`classes/${classCode}`).remove();
+        showNotification('✅ Đã xóa lớp thành công!', 'success');
+        loadClassesList();
+    } catch (error) {
+        console.error('Lỗi xóa lớp:', error);
+        showNotification('❌ Lỗi khi xóa lớp!', 'error');
+    }
+}
+
+function updateClassFilter(classes) {
+    const filterSelect = document.getElementById('filter-class');
+    let options = '<option value="all">Tất cả lớp</option>';
+    
+    Object.entries(classes).forEach(([classCode, classData]) => {
+        if (classData.teacherId === currentUser.uid) {
+            options += `<option value="${classCode}">${classData.name} (${classCode})</option>`;
+        }
+    });
+    
+    filterSelect.innerHTML = options;
+}
+
+// ===== STUDENT CODE MANAGEMENT =====
+function setupStudentCodeManagement() {
+    console.log("🔧 Khởi tạo quản lý mã học sinh...");
+    
+    document.getElementById('assign-student-btn-main').addEventListener('click', () => {
+        if (!isTeacherLoggedIn) {
+            showNotification('Chỉ giáo viên mới có quyền cấp mã!', 'error');
+            return;
+        }
+        showModal('assign-student-modal');
+        loadClassesForAssignment();
+        generateStudentCode();
+    });
+
+    document.getElementById('view-student-codes-btn').addEventListener('click', () => {
+        showModal('student-codes-modal');
+        loadStudentCodesList();
+    });
+
+    document.getElementById('generate-student-code-btn').addEventListener('click', generateStudentCode);
+    document.getElementById('assign-student-btn').addEventListener('click', assignStudentCode);
+}
+
+async function loadClassesForAssignment() {
+    try {
+        const snapshot = await db.ref('classes').once('value');
+        const classes = snapshot.val() || {};
+        const select = document.getElementById('select-class-for-student');
+        
+        let options = '<option value="">-- Chọn lớp --</option>';
+        
+        Object.entries(classes).forEach(([classCode, classData]) => {
+            if (classData.teacherId === currentUser.uid) {
+                options += `<option value="${classCode}">${classData.name} (${classCode})</option>`;
+            }
+        });
+        
+        select.innerHTML = options;
+        
+    } catch (error) {
+        console.error('Lỗi tải danh sách lớp:', error);
+    }
+}
+
+function generateStudentCode() {
+    const prefix = 'HS';
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
+    const studentCode = `${prefix}${randomNum}`;
+    
+    document.getElementById('generated-student-code').textContent = studentCode;
+    return studentCode;
+}
+
+function generatePassword(length = 6) {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+        password += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return password;
+}
+
+async function assignStudentCode() {
+    const classCode = document.getElementById('select-class-for-student').value;
+    const studentName = document.getElementById('student-fullname').value.trim();
+    const studentCode = document.getElementById('generated-student-code').textContent;
+
+    if (!classCode) {
+        showNotification('Vui lòng chọn lớp!', 'error');
+        return;
+    }
+
+    if (!studentName) {
+        showNotification('Vui lòng nhập họ tên học sinh!', 'error');
+        return;
+    }
+
+    try {
+        const password = generatePassword();
+        
+        const studentCodeData = {
+            code: studentCode,
+            name: studentName,
+            classCode: classCode,
+            className: await getClassName(classCode),
+            password: password,
+            teacherId: currentUser.uid,
+            teacherName: currentUser.name,
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            status: 'active'
+        };
+
+        await db.ref(`studentCodes/${studentCode}`).set(studentCodeData);
+        await updateStudentCountInClass(classCode);
+
+        showNotification(`✅ Đã cấp mã ${studentCode} cho ${studentName} trong lớp`, 'success');
+        loadStudentCodesList();
+        loadStudentsList();
+        
+        document.getElementById('student-fullname').value = '';
+        document.getElementById('student-fullname').focus();
+        generateStudentCode();
+
+    } catch (error) {
+        console.error('Lỗi cấp mã học sinh:', error);
+        showNotification('❌ Lỗi khi cấp mã học sinh!', 'error');
+    }
+}
+
+async function getClassName(classCode) {
+    try {
+        const snapshot = await db.ref(`classes/${classCode}/name`).once('value');
+        return snapshot.val() || 'Unknown Class';
+    } catch (error) {
+        return 'Unknown Class';
+    }
+}
+
+async function updateStudentCountInClass(classCode) {
+    try {
+        const snapshot = await db.ref('studentCodes').orderByChild('classCode').equalTo(classCode).once('value');
+        const students = snapshot.val() || {};
+        const studentCount = Object.keys(students).length;
+        
+        await db.ref(`classes/${classCode}/studentCount`).set(studentCount);
+    } catch (error) {
+        console.error('Lỗi cập nhật số lượng học sinh:', error);
+    }
+}
+
+async function loadStudentCodesList() {
+    try {
+        const snapshot = await db.ref('studentCodes').once('value');
+        const studentCodes = snapshot.val() || {};
+        
+        const tbody = document.getElementById('student-codes-list');
+        let html = '';
+        
+        Object.entries(studentCodes).forEach(([code, data]) => {
+            if (data.teacherId !== currentUser.uid) return;
+            
+            const createDate = data.createdAt ? 
+                new Date(data.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+            
+            const status = '<span class="status-active">Hoạt động</span>';
+            
+            html += `
+                <tr>
+                    <td><strong>${code}</strong></td>
+                    <td>${data.name}</td>
+                    <td>${data.classCode}</td>
+                    <td>${createDate}</td>
+                    <td>${status}</td>
+                    <td>${data.password}</td>
+                    <td>
+                        <button onclick="revokeStudentCode('${code}')" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                            🔒 Khóa
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        tbody.innerHTML = html || `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: #666;">
+                    Chưa có mã học sinh nào được cấp
+                </td>
+            </tr>
+        `;
+        
+    } catch (error) {
+        console.error('Lỗi tải danh sách mã học sinh:', error);
+    }
+}
+
+async function revokeStudentCode(codeId) {
+    try {
+        await db.ref(`studentCodes/${codeId}/status`).set('revoked');
+        showNotification(`✅ Đã thu hồi mã ${codeId}!`, 'success');
+        loadStudentCodesList();
+    } catch (error) {
+        console.error('Lỗi thu hồi mã học sinh:', error);
+        showNotification('❌ Lỗi khi thu hồi mã!', 'error');
+    }
+}
+
+// ===== STUDENT LIST =====
+async function loadStudentsList() {
+    try {
+        const searchTerm = document.getElementById('search-student-global').value.toLowerCase();
+        const selectedClass = document.getElementById('filter-class').value;
+        
+        const [studentCodesSnapshot, usersSnapshot, attemptsSnapshot] = await Promise.all([
+            db.ref('studentCodes').once('value'),
+            db.ref('users').once('value'),
+            db.ref('attempts').once('value')
+        ]);
+        
+        const studentCodes = studentCodesSnapshot.val() || {};
+        const allUsers = usersSnapshot.val() || {};
+        const allAttempts = attemptsSnapshot.val() || {};
+        
+        const tbody = document.getElementById('students-list-body');
+        let html = '';
+        let studentCount = 0;
+
+        const synchronizedStudents = new Map();
+
+        // From studentCodes
+        Object.entries(studentCodes).forEach(([code, codeData]) => {
+            if (codeData.teacherId !== currentUser.uid) return;
+            
+            const studentId = `student_${code}`;
+            synchronizedStudents.set(code, {
+                code: code,
+                name: codeData.name,
+                classCode: codeData.classCode,
+                className: codeData.className || 'Chưa có lớp',
+                status: codeData.status || 'active',
+                createdAt: codeData.createdAt,
+                lastLogin: null,
+                attempts: [],
+                totalScore: 0
+            });
+        });
+
+        // From users
+        Object.entries(allUsers).forEach(([userId, userData]) => {
+            if (userData.role === 'student' && userData.code) {
+                const code = userData.code;
+                if (synchronizedStudents.has(code)) {
+                    const student = synchronizedStudents.get(code);
+                    student.lastLogin = userData.lastLogin;
+                    student.status = userData.status || student.status;
+                }
+            }
+        });
+
+        // From attempts
+        Object.values(allAttempts).forEach(sessionAttempts => {
+            Object.entries(sessionAttempts).forEach(([studentId, attempt]) => {
+                const code = attempt.code;
+                if (synchronizedStudents.has(code)) {
+                    const student = synchronizedStudents.get(code);
+                    student.attempts.push(attempt);
+                    student.totalScore += parseFloat(attempt.score) || 0;
+                    
+                    if (attempt.createdAt > (student.lastActivity || 0)) {
+                        student.lastActivity = attempt.createdAt;
+                    }
+                }
+            });
+        });
+
+        // Display
+        synchronizedStudents.forEach((student, code) => {
+            if (searchTerm && 
+                !student.name.toLowerCase().includes(searchTerm) && 
+                !student.code.toLowerCase().includes(searchTerm)) {
+                return;
+            }
+            
+            if (selectedClass !== 'all' && student.classCode !== selectedClass) {
+                return;
+            }
+            
+            studentCount++;
+            
+            const attemptCount = student.attempts.length;
+            const avgScore = attemptCount > 0 ? (student.totalScore / attemptCount).toFixed(2) : '0.00';
+            const lastActivity = student.lastActivity ? getTimeAgo(student.lastActivity) : 
+                              student.lastLogin ? getTimeAgo(student.lastLogin) : 'Chưa hoạt động';
+            
+            html += `
+                <tr>
+                    <td><strong>${student.code}</strong></td>
+                    <td>${student.name}</td>
+                    <td>
+                        ${student.classCode}
+                        ${student.className !== 'Chưa có lớp' ? `<br><small style="color: #666;">${student.className}</small>` : ''}
+                    </td>
+                    <td>${lastActivity}</td>
+                    <td style="text-align: center;">
+                        <span style="font-weight: bold; color: #1a237e;">${attemptCount}</span>
+                    </td>
+                    <td style="text-align: center;">
+                        <span style="font-weight: bold; color: ${getScoreColor(parseFloat(avgScore))}">
+                            ${avgScore}
+                        </span>
+                    </td>
+                    <td style="text-align: center;">
+                        <button onclick="viewStudentProfile('${code}')" style="padding: 6px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; margin: 2px;">
+                            📊
+                        </button>
+                        <button onclick="editStudent('${code}')" style="padding: 6px 12px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; margin: 2px;">
+                            ✏️
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        tbody.innerHTML = html || `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: #666;">
+                    Không tìm thấy học sinh nào.
+                </td>
+            </tr>
+        `;
+        
+    } catch (error) {
+        console.error('Lỗi tải danh sách học sinh:', error);
+        document.getElementById('students-list-body').innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: #dc3545;">
+                    ❌ Lỗi khi tải danh sách học sinh
+                </td>
+            </tr>
+        `;
+    }
+}
+
+function getTimeAgo(timestamp) {
+    if (!timestamp) return '--:--';
+    
+    const now = Date.now();
+    const time = typeof timestamp === 'number' ? timestamp : timestamp;
+    const diffMs = now - time;
+    const diffMins = Math.floor(diffMs / 60000);
+    
+    if (diffMins < 1) return 'Vừa xong';
+    if (diffMins < 60) return `${diffMins} phút trước`;
+    
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours} giờ trước`;
+    
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays} ngày trước`;
+}
+
+function getScoreColor(score) {
+    if (score >= 8) return '#28a745';
+    if (score >= 5) return '#ffc107';
+    return '#dc3545';
+}
+
+async function viewStudentProfile(studentId) {
+    try {
+        const userSnapshot = await db.ref(`users/${studentId}`).once('value');
+        const userData = userSnapshot.val();
+        
+        const attemptsSnapshot = await db.ref('attempts').once('value');
+        const allAttempts = attemptsSnapshot.val() || {};
+        
+        let studentAttempts = [];
+        Object.values(allAttempts).forEach(sessionAttempts => {
+            if (sessionAttempts[studentId]) {
+                studentAttempts.push(sessionAttempts[studentId]);
+            }
+        });
+        
+        const totalAttempts = studentAttempts.length;
+        const totalScore = studentAttempts.reduce((sum, attempt) => sum + parseFloat(attempt.score || 0), 0);
+        const avgScore = totalAttempts > 0 ? (totalScore / totalAttempts).toFixed(2) : '0.00';
+        const bestScore = Math.max(...studentAttempts.map(a => parseFloat(a.score || 0)));
+        const lastAttempt = studentAttempts.length > 0 ? 
+            new Date(studentAttempts[studentAttempts.length - 1].createdAt).toLocaleDateString('vi-VN') : 'Chưa có';
+        
+        const message = `
+            👤 <b>Hồ sơ Học sinh</b>
+            📛 Tên: ${userData?.name || 'N/A'}
+            🆔 Mã: ${userData?.code || 'N/A'}
+            
+            📊 <b>Thống kê:</b>
+            📝 Tổng bài làm: ${totalAttempts}
+            🎯 Điểm trung bình: ${avgScore}
+            🏆 Điểm cao nhất: ${bestScore.toFixed(2)}
+            ⏰ Lần cuối làm bài: ${lastAttempt}
+        `;
+        
+        showNotification(message, 'info');
+        
+    } catch (error) {
+        console.error('Lỗi xem hồ sơ học sinh:', error);
+        showNotification('❌ Lỗi khi tải thông tin học sinh!', 'error');
+    }
+}
+
+async function editStudent(studentCode) {
+    try {
+        const snapshot = await db.ref(`studentCodes/${studentCode}`).once('value');
+        const studentData = snapshot.val();
+        
+        if (!studentData) {
+            showNotification('Không tìm thấy học sinh!', 'error');
+            return;
+        }
+
+        const newName = prompt('Nhập tên mới cho học sinh:', studentData.name);
+        if (!newName || newName.trim() === '') return;
+
+        const newClassCode = prompt('Nhập mã lớp mới:', studentData.classCode);
+        if (!newClassCode) return;
+
+        await db.ref(`studentCodes/${studentCode}`).update({
+            name: newName.trim(),
+            classCode: newClassCode,
+            className: await getClassName(newClassCode)
+        });
+
+        const userId = `student_${studentCode}`;
+        await db.ref(`users/${userId}`).update({
+            name: newName.trim(),
+            classCode: newClassCode
+        });
+
+        await updateStudentCountInClass(studentData.classCode);
+        await updateStudentCountInClass(newClassCode);
+
+        showNotification(`✅ Đã cập nhật thông tin học sinh ${studentCode}`, 'success');
+        loadStudentsList();
+        
+    } catch (error) {
+        console.error('Lỗi chỉnh sửa học sinh:', error);
+        showNotification('❌ Lỗi khi cập nhật thông tin học sinh!', 'error');
+    }
+}
+
+// ===== ANSWER CHECKING FUNCTIONS =====
+window.toggleSolution = function(questionId) {
+    const solution = document.getElementById('solution-' + questionId);
+    if (solution) {
+        solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
+    }
+};
+
+window.checkAnswer = function(qid, correct) {
+    try {
+        const container = document.getElementById(qid);
+        if (!container) {
+            console.error(`Không tìm thấy container cho câu hỏi: ${qid}`);
+            showNotification('Lỗi: Không tìm thấy câu hỏi!', 'error');
+            return;
+        }
+
+        container.querySelectorAll('.option-icon').forEach(el => el.textContent = '');
+
+        const chosen = container.querySelector(`input[name="${qid}"]:checked`);
+        if (!chosen) {
+            showNotification("Hãy chọn một đáp án!", 'warning');
+            playSound('wrong');
+            return;
+        }
+
+        const chosenVal = chosen.value;
+        const resultArea = container.querySelector(".answer-check");
+
+        let feedback = resultArea.querySelector(".result");
+        if (!feedback) {
+            feedback = document.createElement("div");
+            feedback.className = "result";
+            feedback.style.marginTop = "10px";
+            feedback.style.padding = "12px";
+            feedback.style.background = "rgba(255,255,255,0.9)";
+            feedback.style.borderRadius = "8px";
+            feedback.style.border = "1px solid #e0e0e0";
+            feedback.style.fontSize = "0.95em";
+            resultArea.appendChild(feedback);
+        }
+
+        if (chosenVal === correct) {
+            const userOption = chosen.closest('.option-row');
+            const icon = userOption.querySelector('.option-icon');
+            if (icon) icon.textContent = '✅';
+            
+            feedback.innerHTML = `
+                <div style="color: #28a745; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                    <span>✅</span>
+                    <span><b>Chính xác!</b></span>
+                </div>
+                <div style="margin-top: 8px; padding: 8px; background: #d4edda; border-radius: 6px;">
+                    Đáp án của bạn: <b>${chosenVal}</b>
+                </div>
+            `;
+            
+            container.querySelectorAll('.option-row').forEach(row => {
+                const radio = row.querySelector('input[type="radio"]');
+                radio.disabled = true;
+                if (radio.value === correct) {
+                    row.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    row.style.borderColor = '#28a745';
+                }
+            });
+            
+            playSound('correct');
+            
+            if (currentUser && sessionCode) {
+                savePartial(qid, chosenVal, correct, true);
+            }
+            
+            showNotification(`✅ Câu ${qid}: Chính xác! (+0.25 điểm)`, 'success');
+            
+        } else {
+            const userOption = chosen.closest('.option-row');
+            const correctOption = container.querySelector(`input[value="${correct}"]`).closest('.option-row');
+            
+            const userIcon = userOption?.querySelector('.option-icon');
+            const correctIcon = correctOption?.querySelector('.option-icon');
+            
+            if (userIcon) userIcon.textContent = '❌';
+            if (correctIcon) correctIcon.textContent = '✅';
+            
+            feedback.innerHTML = `
+                <div style="color: #dc3545; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                    <span>❌</span>
+                    <span><b>Sai rồi.</b></span>
+                </div>
+                <div style="margin-top: 8px; padding: 8px; background: #f8d7da; border-radius: 6px;">
+                    Bạn chọn: <b>${chosenVal}</b>
+                </div>
+                <div style="margin-top: 5px; padding: 8px; background: #d4edda; border-radius: 6px;">
+                    Đáp án đúng: <b style="color: #28a745">${correct}</b>
+                </div>
+            `;
+            
+            container.querySelectorAll('.option-row').forEach(row => {
+                const radio = row.querySelector('input[type="radio"]');
+                radio.disabled = true;
+                const value = radio.value;
+                if (value === correct) {
+                    row.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    row.style.borderColor = '#28a745';
+                } else if (value === chosenVal) {
+                    row.style.background = 'linear-gradient(135deg, #f8d7da, #f5c6cb)';
+                    row.style.borderColor = '#dc3545';
+                }
+            });
+            
+            playSound('wrong');
+            
+            if (currentUser && sessionCode) {
+                savePartial(qid, chosenVal, correct, false);
+            }
+            
+            showNotification(`❌ Câu ${qid}: Chưa chính xác`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('Lỗi trong checkAnswer:', error);
+        showNotification('Có lỗi xảy ra khi kiểm tra đáp án!', 'error');
+    }
+};
+
+window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
+    console.log("🔍 === KIỂM TRA TRUE/FALSE ===");
+    console.log("Question:", questionId);
+    console.log("Answers param:", correctAnswers);
+    
+    // 1. Tìm container
+    const container = document.getElementById(questionId);
+    if (!container) {
+        console.error("❌ Không tìm thấy container với ID:", questionId);
+        showNotification("Không tìm thấy câu hỏi!", "error");
+        return;
+    }
+    console.log("✅ Found container");
+    
+    // 2. Parse answers
+    let answers = [];
+    try {
+        if (typeof correctAnswers === 'string') {
+            // Xử lý chuỗi như "[True, True, True, False]"
+            const clean = correctAnswers
+                .replace(/^\[|\]$/g, '') // Bỏ []
+                .replace(/"/g, '')       // Bỏ "
+                .replace(/'/g, '');      // Bỏ '
+            
+            answers = clean.split(',').map(item => {
+                const trimmed = item.trim().toLowerCase();
+                return trimmed === 'true' || trimmed === 'đúng';
+            });
+        } else if (Array.isArray(correctAnswers)) {
+            answers = correctAnswers.map(ans => {
+                if (typeof ans === 'boolean') return ans;
+                if (typeof ans === 'string') {
+                    return ans.toLowerCase() === 'true' || ans === 'Đúng';
+                }
+                return Boolean(ans);
+            });
+        }
+    } catch (e) {
+        console.error("❌ Parse answers error:", e);
+        showNotification("Lỗi xử lý đáp án!", "error");
+        return;
+    }
+    
+    console.log("Parsed answers:", answers);
+    
+    // 3. Tìm các option rows
+    const optionRows = container.querySelectorAll(".option-row");
+    console.log("Found option rows:", optionRows.length);
+    
+    if (optionRows.length === 0) {
+        console.error("❌ Không tìm thấy .option-row trong container");
+        console.log("Container children:", container.children);
+        return;
+    }
+    
+    // 4. Kiểm tra từng câu
+    let allCorrect = true;
+    let correctCount = 0;
+    let feedbackHtml = '';
+    
+    optionRows.forEach((row, idx) => {
+        console.log(`--- Row ${idx} ---`);
+        
+        // Tìm các radio buttons trong row
+        const radios = row.querySelectorAll('input[type="radio"]');
+        console.log(`Radio buttons found: ${radios.length}`);
+        
+        let selectedValue = null;
+        radios.forEach(radio => {
+            console.log(`  Radio: name="${radio.name}", value="${radio.value}", checked=${radio.checked}`);
+            if (radio.checked) selectedValue = radio.value;
+        });
+        
+        const expectedAnswer = idx < answers.length ? answers[idx] : false;
+        const expectedText = expectedAnswer ? "True" : "False";
+        const letter = String.fromCharCode(97 + idx); // a, b, c, d
+        
+        console.log(`Selected: ${selectedValue}, Expected: ${expectedText}`);
+        
+        if (selectedValue === null) {
+            feedbackHtml += `<div style="color: #ffc107; margin: 5px 0;">${letter}) ⭕ Chưa chọn</div>`;
+            allCorrect = false;
+        } else if (selectedValue === expectedText) {
+            correctCount++;
+            feedbackHtml += `<div style="color: #28a745; margin: 5px 0;">${letter}) ✅ Đúng (${selectedValue})</div>`;
+            
+            // Highlight correct
+            radios.forEach(radio => {
+                if (radio.value === selectedValue) {
+                    radio.parentElement.style.color = '#28a745';
+                    radio.parentElement.style.fontWeight = 'bold';
+                }
+            });
+        } else {
+            feedbackHtml += `<div style="color: #dc3545; margin: 5px 0;">
+                ${letter}) ❌ Sai (Chọn: ${selectedValue}, Đáp án: ${expectedText})
+            </div>`;
+            allCorrect = false;
+            
+            // Highlight wrong and correct
+            radios.forEach(radio => {
+                if (radio.checked) {
+                    radio.parentElement.style.color = '#dc3545';
+                }
+                if (radio.value === expectedText) {
+                    radio.parentElement.style.color = '#28a745';
+                    radio.parentElement.style.fontWeight = 'bold';
+                }
+            });
+        }
+        
+        // Disable radios
+        radios.forEach(radio => radio.disabled = true);
+    });
+    
+    // 5. Hiển thị kết quả
+    const score = correctCount * 0.25;
+    const resultDiv = document.createElement('div');
+    resultDiv.innerHTML = `
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+            <h4 style="color: #1a237e; margin-bottom: 10px;">📊 Kết quả:</h4>
+            ${feedbackHtml}
+            <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 8px;">
+                <strong>Đúng:</strong> ${correctCount}/4 câu<br>
+                <strong>Điểm:</strong> <span style="color: ${allCorrect ? '#28a745' : '#ffc107'}">${score.toFixed(2)}/1.00</span><br>
+                <strong>Kết quả:</strong> ${allCorrect ? '🎉 Hoàn hảo!' : 'Cần cố gắng hơn!'}
+            </div>
+        </div>
+    `;
+    
+    // Xóa kết quả cũ nếu có
+    const oldResult = container.querySelector('.true-false-result');
+    if (oldResult) oldResult.remove();
+    
+    resultDiv.className = 'true-false-result';
+    container.appendChild(resultDiv);
+    
+    // 6. Thông báo
+    console.log(`✅ Check completed: ${correctCount}/4 correct, score: ${score}`);
+    if (allCorrect) {
+        showNotification(`🎉 Hoàn toàn chính xác! (${correctCount}/4)`, 'success');
+    } else {
+        showNotification(`Đúng ${correctCount}/4 mệnh đề`, 'warning');
+    }
+};
+window.checkShortAnswer = function(qid, correct) {
+    const input = document.getElementById(`input-${qid}`);
+    const icon = document.getElementById(`icon-${qid}`);
+    const resultBox = input?.closest(".answer-check");
+
+    if (!input) return;
+
+    const userAnswer = input.value.trim();
+
+    let feedback = resultBox.querySelector(".result");
+    if (!feedback) {
+        feedback = document.createElement("div");
+        feedback.className = "result";
+        feedback.style.marginTop = "10px";
+        feedback.style.padding = "12px";
+        feedback.style.borderRadius = "8px";
+        feedback.style.background = "rgba(255,255,255,0.9)";
+        feedback.style.border = "1px solid #e0e0e0";
+        feedback.style.fontSize = "0.95em";
+        resultBox.appendChild(feedback);
+    }
+
+    if (userAnswer === "") {
+        icon.textContent = "⚠️";
+        feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
+        playSound('wrong');
+        return;
+    }
+
+    const normalizedUser = userAnswer.toLowerCase().replace(/\s+/g, '');
+    const normalizedCorrect = correct.trim().toLowerCase().replace(/\s+/g, '');
+
+    if (normalizedUser === normalizedCorrect) {
+        icon.textContent = "✅";
+        feedback.innerHTML = `
+            <div style="color: #28a745; font-weight: bold;">
+                🎯 <b>Đúng rồi!</b>
+            </div>
+            <div style="margin-top: 5px;">Đáp án của bạn: <b>${userAnswer}</b></div>
+        `;
+        input.style.borderColor = '#28a745';
+        input.style.background = '#d4edda';
+        input.disabled = true;
+        
+        if (currentUser && sessionCode) {
+            try { savePartial(qid, userAnswer, correct, true); } catch(e){}
+        }
+        playSound('correct');
+        showNotification(`✅ Câu ${qid}: Chính xác!`, 'success');
+    } else {
+        icon.textContent = "❌";
+        feedback.innerHTML = `
+            <div style="color: #dc3545; font-weight: bold;">
+                ❌ <b>Sai rồi.</b>
+            </div>
+            <div style="margin-top: 5px;">Đáp án của bạn: <b>${userAnswer}</b></div>
+            <div>Đáp án đúng là: <b style="color: #28a745">${correct}</b></div>
+        `;
+        input.style.borderColor = '#dc3545';
+        input.style.background = '#f8d7da';
+        input.disabled = true;
+        
+        if (currentUser && sessionCode) {
+            try { savePartial(qid, userAnswer, correct, false); } catch(e){}
+        }
+        playSound('wrong');
+        showNotification(`❌ Câu ${qid}: Chưa chính xác`, 'error');
+    }
+};
+
+function playSound(type) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = type === 'correct' ? 'Chính xác!' : (type === 'partial' ? 'Gần đúng rồi' : 'Sai rồi!');
+        utterance.lang = 'vi-VN';
+        utterance.volume = 0.7;
+        utterance.rate = 1.2;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+// ===== SCORE SAVING =====
+window.savePartial = async function(questionId, userAnswer, correctAnswer, isCorrect) {
+    if (!currentUser || !sessionCode) return;
+
+    try {
+        await db.ref(`partialResults/${sessionCode}/${currentUser.uid}/${questionId}`).set({
+            userAnswer,
+            correctAnswer,
+            isCorrect,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
+    } catch (err) {
+        console.error("❌ Lỗi lưu kết quả từng phần:", err);
+    }
+};
+
+window.saveAttempt = async function(testId, detailsOrScore, maybeScore) {
+    if (!currentUser || !sessionCode) {
+        console.warn("⚠️ Vui lòng đăng nhập trước khi lưu!");
+        return;
+    }
+
+    let answers = {};
+    let totalScore = 0;
+
+    if (typeof detailsOrScore === 'object' && maybeScore !== undefined) {
+        answers = detailsOrScore.studentAnswers || {};
+        totalScore = parseFloat(maybeScore);
+    } else {
+        totalScore = parseFloat(detailsOrScore);
+    }
+
+    try {
+        await db.ref(`attempts/${sessionCode}/${currentUser.uid}`).set({
+            code: currentUser.code,
+            name: currentUser.name,
+            testId,
+            score: totalScore,
+            answers,
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            sessionCode: sessionCode
+        });
+        
+        console.log("✅ Đã lưu điểm:", totalScore);
+        showNotification(`✅ Đã lưu kết quả: ${totalScore.toFixed(2)} điểm`, 'success');
+    } catch (err) {
+        console.error("❌ Lỗi lưu:", err);
+        showNotification('❌ Lỗi khi lưu kết quả', 'error');
+    }
+};
+
+// ===== FINAL SCORE CALCULATION =====
+window.calculateFinalScore = async function() {
+    if (isTeacherLoggedIn) {
+        showNotification("Giáo viên không tính điểm.", "info");
+        return;
+    }
+    
+    if (!currentUser || !sessionCode) {
+        showNotification("Vui lòng đăng nhập và tham gia lớp học.", "warning");
+        return;
+    }
+
+    window.isScoreCalculated = false;
+    
+    const studentAnswers = {};
+    const correctAnswers = {};
+    let totalScore = 0;
+
+    // Collect correct answers
+    document.querySelectorAll('.question').forEach(q => {
+        const qid = q.id;
+        if (!qid) return;
+        
+        const btn = q.querySelector('button[onclick*="check"]');
+        const onclickStr = btn ? (btn.getAttribute('onclick') || '') : '';
+
+        if (onclickStr.includes('checkTrueFalseAnswer')) {
+            const arrMatch = onclickStr.match(/\[(.*?)\]/);
+            if (arrMatch) {
+                const arr = arrMatch[1].split(',').map(s => s.replace(/['"\s\[\]]/g, '').trim());
+                if (arr.length) correctAnswers[qid] = arr;
+            }
+        } else if (onclickStr.includes('checkShortAnswer')) {
+            const m = onclickStr.match(/checkShortAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\)/);
+            if (m) correctAnswers[m[1]] = m[2];
+        } else if (onclickStr.includes('checkAnswer')) {
+            const m = onclickStr.match(/checkAnswer\(['"]([^'"]+)['"]\s*,\s*['"]([A-Za-z0-9]+)['"]\)/);
+            if (m) correctAnswers[m[1]] = m[2].toString().toUpperCase();
+        }
+
+        if (!correctAnswers[qid]) {
+            const dataCorrect = q.getAttribute('data-correct');
+            if (dataCorrect) {
+                try { 
+                    correctAnswers[qid] = JSON.parse(dataCorrect); 
+                } catch(e) { 
+                    correctAnswers[qid] = dataCorrect; 
+                }
+            }
+        }
+    });
+
+    // Collect student answers
+    for (let i = 1; i <= 12; i++) {
+        const name = 'q' + i;
+        const selected = document.querySelector(`input[name="${name}"]:checked`);
+        studentAnswers[name] = selected ? selected.value.trim() : '';
+    }
+
+    for (let i = 13; i <= 16; i++) {
+        const sub = [];
+        ['a','b','c','d'].forEach(letter => {
+            const sel = document.querySelector(`input[name="q${i}${letter}"]:checked`);
+            sub.push(sel ? sel.value.trim() : '');
+        });
+        studentAnswers['q' + i] = sub;
+    }
+
+    for (let i = 17; i <= 22; i++) {
+        const el = document.getElementById(`input-q${i}`);
+        studentAnswers['q' + i] = el ? el.value.trim().replace(',', '.') : '';
+    }
+
+    // Calculate score
+    for (let i = 1; i <= 22; i++) {
+        const key = 'q' + i;
+        const userAns = studentAnswers[key];
+        const corr = correctAnswers[key];
+        
+        if (i >= 1 && i <= 12) {
+            if (!corr) continue;
+            if (userAns && String(userAns).toUpperCase() === String(corr).toUpperCase()) {
+                totalScore += 0.25;
+            }
+        } else if (i >= 13 && i <= 16) {
+            if (!Array.isArray(corr) || !Array.isArray(userAns)) continue;
+            
+            let correctCount = 0;
+            for (let j = 0; j < corr.length && j < userAns.length; j++) {
+                const exp = String(corr[j]).toLowerCase();
+                const u = String(userAns[j]).toLowerCase();
+                if (u && (u === exp || 
+                    (exp.startsWith('t') && u.startsWith('t')) || 
+                    (exp.startsWith('đ') && u.startsWith('đ')))) {
+                    correctCount++;
+                }
+            }
+            
+            if (correctCount === 1) totalScore += 0.1;
+            else if (correctCount === 2) totalScore += 0.25;
+            else if (correctCount === 3) totalScore += 0.5;
+            else if (correctCount === 4) totalScore += 1;
+        } else if (i >= 17 && i <= 22) {
+            if (typeof corr === 'undefined') continue;
+            
+            const userNum = parseFloat((userAns || '').toString().replace(',', '.'));
+            const corrNum = parseFloat((corr || '').toString().replace(',', '.'));
+            
+            if (!isNaN(userNum) && !isNaN(corrNum)) {
+                if (Math.abs(userNum - corrNum) < 0.001) {
+                    totalScore += 0.5;
+                }
+            } else {
+                if ((userAns || '').toString().trim().toLowerCase() === 
+                    (corr || '').toString().trim().toLowerCase()) {
+                    totalScore += 0.5;
+                }
+            }
+        }
+    }
+
+    // Display result
+    const finalScore = totalScore.toFixed(2);
+    let resultBox = document.getElementById('score-result');
+    
+    if (!resultBox) {
+        resultBox = document.createElement('div');
+        resultBox.id = 'score-result';
+        resultBox.style.cssText = `
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: rgba(0,0,0,0.9); 
+            color: #fff; 
+            padding: 20px; 
+            border-radius: 12px; 
+            z-index: 99999; 
+            font-size: 16px;
+            max-width: 300px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 2px solid ${finalScore >= 5 ? '#28a745' : '#dc3545'};
+        `;
+        document.body.appendChild(resultBox);
+    }
+    
+    const scoreColor = finalScore >= 8 ? '#28a745' : finalScore >= 5 ? '#ffc107' : '#dc3545';
+    const scoreEmoji = finalScore >= 8 ? '🏆' : finalScore >= 5 ? '✅' : '❌';
+    
+    resultBox.innerHTML = `
+        <div style="text-align: center; margin-bottom: 10px;">
+            <div style="font-size: 2em;">${scoreEmoji}</div>
+            <div style="font-size: 1.2em; font-weight: bold; color: ${scoreColor};">
+                ${finalScore} / 10.00
+            </div>
+        </div>
+        <div style="font-size: 0.9em; text-align: center;">
+            ${finalScore >= 8 ? 'Xuất sắc! 🎉' : finalScore >= 5 ? 'Đạt yêu cầu! 👍' : 'Cần cố gắng thêm! 💪'}
+        </div>
+    `;
+
+    try { 
+        playSound(finalScore >= 5 ? 'correct' : 'wrong'); 
+    } catch(e){}
+    
+    if (currentUser && sessionCode && typeof saveAttempt === 'function') {
+        await saveAttempt(document.title || 'de1', { studentAnswers, correctAnswers }, finalScore);
+        resultBox.innerHTML += `
+            <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.3); font-size: 0.8em; text-align: center;">
+                ✅ Kết quả đã lưu vào hệ thống
+            </div>
+        `;
+    } else {
+        resultBox.innerHTML += `
+            <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.3); font-size: 0.8em; text-align: center;">
+                ℹ️ Chưa đăng nhập — kết quả chỉ hiển thị tạm thời
+            </div>
+        `;
+    }
+
+    console.log('=== correctAnswers ===', correctAnswers);
+    console.log('=== studentAnswers ===', studentAnswers);
+    console.log('=== totalScore ===', finalScore);
+    
+    window.isScoreCalculated = true;
+    
+    if (currentUser && sessionCode) {
+        await db.ref(`sessions/${sessionCode}/students/${currentUser.uid}`).update({
+            score: parseFloat(finalScore),
+            status: 'finished',
+            finished: firebase.database.ServerValue.TIMESTAMP
+        });
+    }
+};
+
+// ===== NOTIFICATION SYSTEM =====
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    notification.innerHTML = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
+    setTimeout(() => { notification.classList.remove('show'); }, 6000);
+}
+
+// ===== CANVAS DRAWING =====
+function setupCanvas() {
+    const canvas = document.getElementById("drawCanvas");
+    const ctx = canvas.getContext("2d");
+    const toggleBtn = document.getElementById("toggleMenu");
+    const toolbar = document.getElementById("drawToolbar");
+    const exitBtn = document.getElementById("exitBtn");
+
+    let isDrawMode = false;
+    let isDrawing = false;
+    let history = [];
+    let currentTool = "pen";
+    let startX, startY, lastX, lastY;
+    let imageBeforeShape;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    toggleBtn.onclick = () => {
+        isDrawMode = !isDrawMode;
+        canvas.style.display = isDrawMode ? "block" : "none";
+        toolbar.style.display = isDrawMode ? "flex" : "none";
+        canvas.style.pointerEvents = isDrawMode ? "auto" : "none";
+    };
+    exitBtn.onclick = toggleBtn.onclick;
+
+    document.getElementById("tool").onchange = e => currentTool = e.target.value;
+    document.getElementById("clearBtn").onclick = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        history = [];
+    };
+    document.getElementById("saveBtn").onclick = () => {
+        const link = document.createElement("a");
+        link.download = "ban_ve.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    };
+    document.getElementById("undoBtn").onclick = () => {
+        if (history.length > 0) ctx.putImageData(history.pop(), 0, 0);
+    };
+
+    const getPos = e => {
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches && e.touches[0];
+        const clientX = touch ? touch.clientX : e.clientX;
+        const clientY = touch ? touch.clientY : e.clientY;
+        return { 
+            x: (clientX - rect.left) * (canvas.width / rect.width), 
+            y: (clientY - rect.top) * (canvas.height / rect.height) 
+        };
+    };
+
+    const startDraw = e => {
+        if (!isDrawMode) return;
+        e.preventDefault();
+        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        isDrawing = true;
+        const pos = getPos(e);
+        startX = lastX = pos.x;
+        startY = lastY = pos.y;
+        if (currentTool !== 'pen') {
+            imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        }
+        ctx.beginPath();
+    };
+
+    const drawMove = e => {
+        if (!isDrawing || !isDrawMode) return;
+        e.preventDefault();
+        ctx.strokeStyle = document.getElementById("colorPicker").value;
+        ctx.lineWidth = document.getElementById("draw-width").value;
+        const pos = getPos(e);
+        
+        if (currentTool !== "pen" && imageBeforeShape) {
+            ctx.putImageData(imageBeforeShape, 0, 0);
+        }
+
+        ctx.beginPath();
+        switch (currentTool) {
+            case "pen":
+                ctx.moveTo(lastX, lastY); 
+                ctx.lineTo(pos.x, pos.y); 
+                ctx.stroke();
+                [lastX, lastY] = [pos.x, pos.y];
+                break;
+            case "line":
+                ctx.moveTo(startX, startY); 
+                ctx.lineTo(pos.x, pos.y); 
+                ctx.stroke();
+                break;
+            case "dashedLineBtn":
+                ctx.setLineDash([8, 6]); 
+                ctx.moveTo(startX, startY); 
+                ctx.lineTo(pos.x, pos.y); 
+                ctx.stroke(); 
+                ctx.setLineDash([]);
+                break;
+            case "rect":
+                ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+                break;
+            case "circle":
+                ctx.arc(startX, startY, Math.hypot(pos.x - startX, pos.y - startY), 0, Math.PI * 2); 
+                ctx.stroke();
+                break;
+            case "ellipseBtn":
+                ctx.ellipse(startX, startY, Math.abs(pos.x - startX), Math.abs(pos.y - startY), 0, 0, Math.PI * 2); 
+                ctx.stroke();
+                break;
+            case "parallelogram":
+                const width_p = pos.x - startX, height_p = pos.y - startY, offset_p = width_p * 0.3;
+                ctx.moveTo(startX + offset_p, startY); 
+                ctx.lineTo(startX + width_p + offset_p, startY);
+                ctx.lineTo(startX + width_p - offset_p, startY + height_p); 
+                ctx.lineTo(startX - offset_p, startY + height_p);
+                ctx.closePath(); 
+                ctx.stroke();
+                break;
+            case "box":
+                const w = pos.x - startX, h = pos.y - startY, d = Math.min(Math.abs(w), Math.abs(h)) * 0.4;
+                ctx.strokeRect(startX, startY, w, h); 
+                ctx.strokeRect(startX + d, startY - d, w, h);
+                [[startX, startY, startX + d, startY - d], 
+                 [startX + w, startY, startX + w + d, startY - d],
+                 [startX, startY + h, startX + d, startY + h - d], 
+                 [startX + w, startY + h, startX + w + d, startY + h - d]].forEach(c => {
+                    ctx.moveTo(c[0], c[1]); 
+                    ctx.lineTo(c[2], c[3]);
+                });
+                ctx.stroke();
+                break;
+            case "pyramid3":
+                const baseLeft = { x: startX, y: pos.y }; 
+                const baseRight = { x: pos.x, y: pos.y };
+                const apex = { x: (startX + pos.x) / 2, y: startY };
+                ctx.moveTo(apex.x, apex.y); 
+                ctx.lineTo(baseLeft.x, baseLeft.y); 
+                ctx.lineTo(baseRight.x, baseRight.y); 
+                ctx.closePath(); 
+                ctx.stroke();
+                break;
+            case "pyramid4":
+                const w4 = pos.x - startX, h4 = pos.y - startY;
+                const apex4 = {x: startX + w4 / 2, y: startY - h4 };
+                ctx.strokeRect(startX, startY, w4, h4);
+                [[startX, startY], [startX+w4, startY], [startX, startY+h4], [startX+w4, startY+h4]].forEach(([bx,by]) => {
+                    ctx.moveTo(apex4.x, apex4.y); 
+                    ctx.lineTo(bx,by);
+                });
+                ctx.stroke();
+                break;
+            case "sphere":
+                const rs = Math.abs(pos.x-startX);
+                ctx.arc(startX, startY, rs, 0, Math.PI * 2); 
+                ctx.stroke();
+                ctx.beginPath(); 
+                ctx.setLineDash([6,4]);
+                ctx.ellipse(startX, startY, rs, rs / 2.5, 0, 0, Math.PI*2); 
+                ctx.stroke();
+                ctx.setLineDash([]);
+                break;
+        }
+    };
+
+    const endDraw = () => { 
+        if(isDrawing) { 
+            isDrawing = false; 
+            ctx.beginPath();
+        }
+    };
+
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("mousemove", drawMove);
+    canvas.addEventListener("mouseup", endDraw);
+    canvas.addEventListener("mouseleave", endDraw);
+    canvas.addEventListener("touchstart", startDraw, { passive: false });
+    canvas.addEventListener("touchmove", drawMove, { passive: false });
+    canvas.addEventListener("touchend", endDraw);
+}
+
+// ===== FULLSCREEN =====
+function setupFullscreen() {
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    if (!fullscreenBtn) return;
+    
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    
+    document.addEventListener('fullscreenchange', updateFullscreenButton);
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+
+function updateFullscreenButton() {
+    const btn = document.getElementById('fullscreenBtn');
+    if (document.fullscreenElement) {
+        btn.textContent = '📺 Exit';
+    } else {
+        btn.textContent = '📺 Fullscreen';
+    }
+}
+
+// F11 shortcut
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'F11') {
+        e.preventDefault();
+        toggleFullscreen();
+    }
+});
+
+// ===== DARK MODE =====
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("toggleStyleBtn");
+    let isDark = localStorage.getItem('darkMode') === "True";
+
+    if (isDark) {
+        document.documentElement.classList.add("dark-mode");
+        toggleBtn.textContent = "☀️ Chế độ sáng";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+        isDark = !isDark;
+        document.documentElement.classList.toggle("dark-mode", isDark);
+        toggleBtn.textContent = isDark ? "☀️ Chế độ sáng" : "🌙 Chế độ tối";
+        
+        localStorage.setItem('darkMode', isDark);
+
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+    });
+});
+
+// ===== POLL SYSTEM =====
+function setupPollSystem() {
+    document.getElementById('poll-submit-btn').addEventListener('click', submitPollResponse);
+}
+
+function startPoll() {
+    if (!isTeacherLoggedIn || !sessionCode) return showNotification('Vui lòng đăng nhập GV và tạo lớp', 'error');
+    const question = prompt('Nhập câu hỏi khảo sát:');
+    if (!question) return;
+    const options = prompt('Nhập các lựa chọn, cách nhau bởi dấu phẩy (vd: A,B,C):')?.split(',') || [];
+    if (options.length < 2) return showNotification('Cần ít nhất 2 lựa chọn!', 'error');
+
+    const pollData = {
+        question, 
+        options: options.map(o => o.trim()), 
+        active: true,
+        created: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    db.ref('sessions/' + sessionCode + '/poll').set(pollData)
+        .then(() => showNotification('✅ Khảo sát đã bắt đầu!', 'success'));
+}
+
+function showPoll(pollData) {
+    document.getElementById('poll-title').textContent = pollData.question;
+    const optionsDiv = document.getElementById('poll-options');
+    optionsDiv.innerHTML = pollData.options.map((option, index) =>
+        `<div class="poll-option" data-index="${index}">${String.fromCharCode(65 + index)}. ${option}</div>`
+    ).join('');
+    
+    optionsDiv.querySelectorAll('.poll-option').forEach(el => {
+        el.onclick = () => {
+            optionsDiv.querySelectorAll('.poll-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+        };
+    });
+    showModal('poll-modal');
+}
+
+function hidePoll() {
+    hideModal(document.getElementById('poll-modal'));
+}
+
+function submitPollResponse() {
+    const selectedOption = document.querySelector('.poll-option.selected');
+    if (!selectedOption) return showNotification('Vui lòng chọn một phương án!', 'warning');
+    if (!sessionCode || !currentUser) return showNotification('Vui lòng đăng nhập!', 'error');
+
+    const responseIndex = parseInt(selectedOption.dataset.index);
+    db.ref(`sessions/${sessionCode}/poll/responses/${currentUser.uid}`).set({
+        name: currentUser.name, choice: responseIndex
+    }).then(() => {
+        showNotification('✅ Đã gửi phản hồi!', 'success');
+        hidePoll();
+    });
+}
+
+// ===== STUDENT INTERACTION =====
+function setupStudentInteraction() {
+    document.getElementById('studentInteractBtn').addEventListener('click', () => {
+        if (!currentUser || !sessionCode) return showNotification('Vui lòng đăng nhập và vào lớp!', 'error');
+        const choice = prompt(`Chọn tương tác:\n1-✋ Giơ tay\n2-❓ Đặt câu hỏi\n3-🆘 Cần hỗ trợ`);
+        if (choice === '1') sendInteraction('hand_raised');
+        else if (choice === '2') {
+            const question = prompt('Nhập câu hỏi của bạn:');
+            if (question) sendInteraction('question', question);
+        } else if (choice === '3') sendInteraction('need_help');
+    });
+}
+
+function sendInteraction(type, content = '') {
+    const interactionData = { 
+        student: currentUser.name, 
+        type, 
+        timestamp: firebase.database.ServerValue.TIMESTAMP 
+    };
+    if (content) interactionData.content = content;
+    
+    db.ref('sessions/' + sessionCode + '/interactions').push(interactionData)
+        .then(() => showNotification('✅ Đã gửi tương tác!', 'success'));
+}
+
+// ===== TEACHER MONITORING =====
+function startMonitoringSession() {
+    if (!sessionCode) return;
+    db.ref('sessions/' + sessionCode + '/students').on('value', snapshot => updateStudentMonitor(snapshot.val()));
+    db.ref('sessions/' + sessionCode + '/interactions').on('child_added', snapshot => showInteractionAlert(snapshot.val()));
+}
+
+function updateStudentMonitor(students) {
+    const tbody = document.getElementById('student-results-body');
+    const stats = {
+        total: document.getElementById('stats-total'),
+        completed: document.getElementById('stats-completed'),
+        average: document.getElementById('stats-average'),
+        failed: document.getElementById('stats-failed')
+    };
+    const liveCount = document.getElementById('live-student-count');
+    
+    if (!students || Object.keys(students).length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: #666;">Chưa có học sinh nào tham gia.</td></tr>`;
+        Object.values(stats).forEach(el => el.textContent = '0');
+        liveCount.textContent = '0';
+        return;
+    }
+    
+    let html = '';
+    let total = 0, completed = 0, totalScore = 0, failed = 0;
+    
+    Object.entries(students).forEach(([studentId, student]) => {
+        total++;
+        const studentScore = student.score || 0;
+        if (student.status === 'finished') {
+             completed++;
+             totalScore += studentScore;
+        }
+        if (studentScore < 1) failed++;
+        
+        const timeSpent = student.joined && student.finished ? calculateTimeSpent(student.joined, student.finished) : '--:--';
+        
+        let status = student.status || 'not-started';
+        let statusText = getStatusText(status);
+        
+        if (inactiveStudents.has(studentId)) {
+            statusText = '❌ Không hoạt động';
+        }
+        
+        html += `
+            <tr>
+                <td><strong>${student.name}</strong><br><small>${student.code}</small></td>
+                <td style="text-align: center;"><span class="status-${status}">${statusText}</span></td>
+                <td style="text-align: center; font-weight: bold;">${studentScore.toFixed(2)}</td>
+                <td style="text-align: center;">${timeSpent}</td>
+                <td style="text-align: center;">
+                    <div style="background: #e0e0e0; border-radius: 5px; height: 8px;"><div style="background: linear-gradient(135deg, #1a237e, #3949ab); height: 100%; border-radius: 5px; width: ${student.progress || 0}%;"></div></div>
+                    <small>${student.progress || 0}%</small>
+                </td>
+                <td style="text-align: center;"><button onclick="viewStudentDetail('${studentId}')" style="padding: 5px 10px; border: none; background: #17a2b8; color: white; border-radius: 5px; cursor: pointer;">📊</button></td>
+            </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+    stats.total.textContent = total;
+    stats.completed.textContent = completed;
+    stats.average.textContent = completed > 0 ? (totalScore / completed).toFixed(1) : '0.0';
+    stats.failed.textContent = failed;
+    liveCount.textContent = total;
+}
+
+function getStatusText(status) {
+    return { 
+        'active': 'Đang làm', 
+        'finished': 'Đã nộp', 
+        'not-started': 'Chưa bắt đầu' 
+    }[status] || '...';
+}
+
+function calculateTimeSpent(startTime, endTime) {
+    const diff = endTime - startTime;
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function showInteractionAlert(interaction) {
+    if (!isTeacherLoggedIn) return;
+    
+    let message = '';
+    let type = 'warning';
+    
+    switch(interaction.type) {
+        case 'hand_raised': 
+            message = `✋ ${interaction.student} đang giơ tay!`;
+            type = 'info';
+            break;
+        case 'question': 
+            message = `❓ ${interaction.student}: ${interaction.content}`;
+            type = 'warning';
+            break;
+        case 'need_help': 
+            message = `🆘 ${interaction.student} cần hỗ trợ gấp!`;
+            type = 'error';
+            break;
+        default: return;
+    }
+    
+    showNotification(message, type);
+    
+    if (document.getElementById('class-management-modal').classList.contains('active')) {
+        setTimeout(viewClassInteractions, 1000);
+    }
+}
+
+window.viewStudentDetail = function(studentId) {
+    showNotification('Tính năng xem chi tiết học sinh đang được phát triển.', 'info');
+};
+
+// ===== ADDITIONAL FUNCTIONS FROM ORIGINAL CODE =====
+
+// Start monitoring session button
+document.getElementById('monitor-create-session').addEventListener('click', createNewSession);
+document.getElementById('monitor-start-poll').addEventListener('click', startPoll);
+document.getElementById('monitor-sync-slides').addEventListener('click', syncSlidesWithStudents);
+
+// Cancel buttons
+document.getElementById('cancel-create-class-btn').addEventListener('click', function() {
+    hideModal(document.getElementById('create-class-modal'));
+});
+
+// Export codes button
+document.getElementById('export-codes-btn').addEventListener('click', function() {
+    showNotification('Tính năng xuất Excel đang được phát triển!', 'info');
+});
+
+// Class poll functions (simplified versions)
+async function startClassPoll() {
+    showNotification('Tính năng poll lớp đang được phát triển', 'info');
+}
+
+async function syncClassSlides() {
+    showNotification('Tính năng đồng bộ lớp đang được phát triển', 'info');
+}
+
+async function viewClassPollResults() {
+    showNotification('Tính năng xem kết quả poll đang được phát triển', 'info');
+}
+
+async function viewClassInteractions() {
+    showNotification('Tính năng xem tương tác đang được phát triển', 'info');
+}
+// DÁN HÀM saveAttempt MỚI VÀO ĐÂY:
+window.saveAttempt = async function(testId, detailsOrScore, maybeScore) {
+    if (!currentUser || !sessionCode) {
+        console.warn("⚠️ Vui lòng đăng nhập trước khi lưu!");
+        return;
+    }
+
+    let answers = {};
+    let totalScore = 0;
+
+    if (typeof detailsOrScore === 'object' && maybeScore !== undefined) {
+        answers = detailsOrScore.studentAnswers || {};
+        totalScore = parseFloat(maybeScore);
+    } else {
+        totalScore = parseFloat(detailsOrScore);
+    }
+
+    try {
+        // Lưu vào attempts
+        await db.ref(`attempts/${sessionCode}/${currentUser.uid}`).set({
+            code: currentUser.code,
+            name: currentUser.name,
+            testId,
+            score: totalScore,
+            answers,
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            sessionCode: sessionCode,
+            testName: currentExam?.name
+        });
+        
+        // Lưu vào lịch sử cá nhân
+        await saveStudentAttempt(testId, totalScore, answers);
+        
+        console.log("✅ Đã lưu điểm và lịch sử:", totalScore);
+        showNotification(`✅ Đã lưu kết quả: ${totalScore.toFixed(2)} điểm`, 'success');
+        
+    } catch (err) {
+        console.error("❌ Lỗi lưu:", err);
+        showNotification('❌ Lỗi khi lưu kết quả', 'error');
+    }
+};
+
+// VÀ THÊM CÁC HÀM HỖ TRỢ NGAY SAU ĐÓ
+async function saveStudentAttempt(testId, score, details) {
+    if (!currentUser) return;
+    
+    const attemptData = {
+        testId: testId,
+        testName: currentExam?.name || testId,
+        score: parseFloat(score),
+        details: details || {},
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        completedTime: new Date().toLocaleString('vi-VN'),
+        timeSpent: calculateTimeSpent(sessionStartTime, Date.now()),
+        device: getDeviceInfo(),
+        questions: currentQuestions || []
+    };
+    
+    try {
+        // Lưu vào lịch sử cá nhân
+        await db.ref(`studentHistory/${currentUser.code}`).push(attemptData);
+        
+        // Cập nhật thống kê
+        await updateStudentStatistics(score);
+        
+        console.log('✅ Đã lưu lịch sử làm bài');
+        
+    } catch (error) {
+        console.error('Error saving attempt:', error);
+        // Fallback: lưu vào localStorage
+        saveToLocalStorage(attemptData);
+    }
+}
+// ===== NEW TRUE/FALSE FUNCTIONS FOR LESSON COLLECTION =====
+
+// ===== NEW TRUE/FALSE FUNCTIONS FOR LESSON COLLECTION =====
+
+window.checkSingleTrueFalse = function(uniqueId, questionId, correctAnswer) {
+    const selected = document.querySelector(`input[name="tf-${uniqueId}-${questionId}"]:checked`);
+    const resultEl = document.getElementById(`tf-result-${uniqueId}-${questionId}`);
+    const solutionEl = document.getElementById(`tf-solution-${uniqueId}-${questionId}`);
+    
+    if (!selected) {
+        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy chọn Đúng hoặc Sai</span>';
+        return;
+    }
+    
+    const userAnswer = selected.value === 'true';
+    const isCorrect = userAnswer === correctAnswer;
+    
+    if (isCorrect) {
+        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
+        // Highlight selected radio
+        selected.parentElement.style.color = '#28a745';
+        selected.parentElement.style.fontWeight = 'bold';
+        selected.parentElement.style.borderColor = '#28a745';
+    } else {
+        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer ? 'ĐÚNG' : 'SAI'}</span>`;
+        selected.parentElement.style.color = '#dc3545';
+        selected.parentElement.style.borderColor = '#dc3545';
+    }
+    
+    // Show solution
+    if (solutionEl) {
+        solutionEl.style.display = 'block';
+    }
+    
+    // Disable radio after checking
+    selected.disabled = true;
+    
+    // Save result
+    if (currentUser) {
+        savePartial(`tf-${uniqueId}-${questionId}`, userAnswer, correctAnswer, isCorrect);
+    }
+    
+    // Play sound
+    playSound(isCorrect ? 'correct' : 'wrong');
+};
+
+window.checkAllTrueFalse = function(uniqueId, correctAnswers) {
+    const quizEl = document.getElementById(`tf-quiz-${uniqueId}`);
+    if (!quizEl) return;
+    
+    const questions = quizEl.querySelectorAll('.tf-question');
+    let score = 0;
+    let total = questions.length;
+    
+    questions.forEach((questionEl, index) => {
+        const radioName = `tf-${uniqueId}-${index}`;
+        const selected = questionEl.querySelector(`input[name="${radioName}"]:checked`);
+        const resultEl = questionEl.querySelector(`[id^="tf-result"]`);
+        const solutionEl = questionEl.querySelector(`[id^="tf-solution"]`);
+        
+        if (selected) {
+            const userAnswer = selected.value === 'true';
+            const isCorrect = userAnswer === correctAnswers[index];
+            
+            if (isCorrect) {
+                score++;
+                if (resultEl) {
+                    resultEl.innerHTML = '<span style="color: #28a745;">✅ Đúng</span>';
+                }
+                selected.parentElement.style.color = '#28a745';
+                selected.parentElement.style.fontWeight = 'bold';
+            } else {
+                if (resultEl) {
+                    resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai (Đáp án: ${correctAnswers[index] ? 'Đúng' : 'Sai'})</span>`;
+                }
+                selected.parentElement.style.color = '#dc3545';
+            }
+            
+            if (solutionEl) {
+                solutionEl.style.display = 'block';
+            }
+            
+            // Disable all radios in this question
+            questionEl.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.disabled = true;
+            });
+        } else {
+            // No answer selected
+            if (resultEl) {
+                resultEl.innerHTML = '<span style="color: #ffc107;">⭕ Chưa chọn</span>';
+            }
+        }
+    });
+    
+    // Show final score
+    const percentage = (score / total * 100).toFixed(1);
+    const finalScoreDiv = document.createElement('div');
+    finalScoreDiv.innerHTML = `
+        <div style="margin-top: 30px; padding: 20px; background: ${score === total ? '#d4edda' : '#fff3cd'}; border-radius: 12px; border: 2px solid ${score === total ? '#28a745' : '#ffc107'};">
+            <h4 style="color: ${score === total ? '#155724' : '#856404'}; margin-bottom: 15px;">📊 KẾT QUẢ:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: #1a237e;">${score}/${total}</div>
+                    <div style="font-size: 0.9em; color: #666;">Số câu đúng</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: ${getScoreColor(percentage)}">${percentage}%</div>
+                    <div style="font-size: 0.9em; color: #666;">Tỉ lệ đúng</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: ${score === total ? '#28a745' : '#ffc107'}">${(score * 0.25).toFixed(2)}</div>
+                    <div style="font-size: 0.9em; color: #666;">Điểm số</div>
+                </div>
+            </div>
+            <div style="margin-top: 15px; text-align: center;">
+                ${score === total ? 
+                    '<span style="color: #28a745; font-weight: bold;">🎉 Xuất sắc! Tất cả đều đúng!</span>' :
+                    score >= total * 0.7 ?
+                    '<span style="color: #ffc107; font-weight: bold;">👍 Khá tốt! Hãy ôn lại các câu sai.</span>' :
+                    '<span style="color: #dc3545; font-weight: bold;">💪 Cần cố gắng hơn! Xem lại lý thuyết.</span>'
+                }
+            </div>
+        </div>
+    `;
+    
+    // Remove existing score display if any
+    const existingScore = quizEl.querySelector('.score-display');
+    if (existingScore) existingScore.remove();
+    
+    finalScoreDiv.classList.add('score-display');
+    quizEl.appendChild(finalScoreDiv);
+    
+    // Save overall result
+    if (currentUser) {
+        const answers = {};
+        questions.forEach((q, idx) => {
+            const selected = q.querySelector(`input[name="tf-${uniqueId}-${idx}"]:checked`);
+            answers[`q${idx}`] = selected ? (selected.value === 'true') : null;
+        });
+        
+        savePartial(`tf-quiz-${uniqueId}`, answers, correctAnswers, score === total);
+    }
+    
+    // Play sound based on score
+    if (score === total) {
+        playSound('correct');
+        showNotification(`🎉 Hoàn hảo! ${score}/${total} câu đúng!`, 'success');
+    } else if (score >= total * 0.7) {
+        playSound('partial');
+        showNotification(`👍 Tốt lắm! Đúng ${score}/${total} câu`, 'warning');
+    } else {
+        playSound('wrong');
+        showNotification(`💪 Cố gắng nhé! Đúng ${score}/${total} câu`, 'error');
+    }
+};
+
+// Helper function
+function getScoreColor(percentage) {
+    if (percentage >= 80) return '#28a745';
+    if (percentage >= 50) return '#ffc107';
+    return '#dc3545';
+}
+// ===== NEW TRUE/FALSE FUNCTIONS FOR LESSON COLLECTION =====
+
+window.checkSingleTrueFalse = function(uniqueId, questionId, correctAnswer) {
+    const selected = document.querySelector(`input[name="tf-${uniqueId}-${questionId}"]:checked`);
+    const resultEl = document.getElementById(`tf-result-${uniqueId}-${questionId}`);
+    const solutionEl = document.getElementById(`tf-solution-${uniqueId}-${questionId}`);
+    
+    if (!selected) {
+        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy chọn Đúng hoặc Sai</span>';
+        return;
+    }
+    
+    const userAnswer = selected.value === 'true';
+    const isCorrect = userAnswer === correctAnswer;
+    
+    if (isCorrect) {
+        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
+        // Highlight selected radio
+        selected.parentElement.style.color = '#28a745';
+        selected.parentElement.style.fontWeight = 'bold';
+        selected.parentElement.style.borderColor = '#28a745';
+    } else {
+        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer ? 'ĐÚNG' : 'SAI'}</span>`;
+        selected.parentElement.style.color = '#dc3545';
+        selected.parentElement.style.borderColor = '#dc3545';
+    }
+    
+    // Show solution
+    if (solutionEl) {
+        solutionEl.style.display = 'block';
+    }
+    
+    // Disable radio after checking
+    selected.disabled = true;
+    
+    // Save result
+    if (currentUser) {
+        savePartial(`tf-${uniqueId}-${questionId}`, userAnswer, correctAnswer, isCorrect);
+    }
+    
+    // Play sound
+    playSound(isCorrect ? 'correct' : 'wrong');
+};
+
+window.checkAllTrueFalse = function(uniqueId, correctAnswers) {
+    const quizEl = document.getElementById(`tf-quiz-${uniqueId}`);
+    if (!quizEl) return;
+    
+    const questions = quizEl.querySelectorAll('.tf-question');
+    let score = 0;
+    let total = questions.length;
+    
+    questions.forEach((questionEl, index) => {
+        const radioName = `tf-${uniqueId}-${index}`;
+        const selected = questionEl.querySelector(`input[name="${radioName}"]:checked`);
+        const resultEl = questionEl.querySelector(`[id^="tf-result"]`);
+        const solutionEl = questionEl.querySelector(`[id^="tf-solution"]`);
+        
+        if (selected) {
+            const userAnswer = selected.value === 'true';
+            const isCorrect = userAnswer === correctAnswers[index];
+            
+            if (isCorrect) {
+                score++;
+                if (resultEl) {
+                    resultEl.innerHTML = '<span style="color: #28a745;">✅ Đúng</span>';
+                }
+                selected.parentElement.style.color = '#28a745';
+                selected.parentElement.style.fontWeight = 'bold';
+            } else {
+                if (resultEl) {
+                    resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai (Đáp án: ${correctAnswers[index] ? 'Đúng' : 'Sai'})</span>`;
+                }
+                selected.parentElement.style.color = '#dc3545';
+            }
+            
+            if (solutionEl) {
+                solutionEl.style.display = 'block';
+            }
+            
+            // Disable all radios in this question
+            questionEl.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.disabled = true;
+            });
+        } else {
+            // No answer selected
+            if (resultEl) {
+                resultEl.innerHTML = '<span style="color: #ffc107;">⭕ Chưa chọn</span>';
+            }
+        }
+    });
+    
+    // Show final score
+    const percentage = (score / total * 100).toFixed(1);
+    const finalScoreDiv = document.createElement('div');
+    finalScoreDiv.innerHTML = `
+        <div style="margin-top: 30px; padding: 20px; background: ${score === total ? '#d4edda' : '#fff3cd'}; border-radius: 12px; border: 2px solid ${score === total ? '#28a745' : '#ffc107'};">
+            <h4 style="color: ${score === total ? '#155724' : '#856404'}; margin-bottom: 15px;">📊 KẾT QUẢ:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: #1a237e;">${score}/${total}</div>
+                    <div style="font-size: 0.9em; color: #666;">Số câu đúng</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: ${getScoreColor(percentage)}">${percentage}%</div>
+                    <div style="font-size: 0.9em; color: #666;">Tỉ lệ đúng</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: white; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: ${score === total ? '#28a745' : '#ffc107'}">${(score * 0.25).toFixed(2)}</div>
+                    <div style="font-size: 0.9em; color: #666;">Điểm số</div>
+                </div>
+            </div>
+            <div style="margin-top: 15px; text-align: center;">
+                ${score === total ? 
+                    '<span style="color: #28a745; font-weight: bold;">🎉 Xuất sắc! Tất cả đều đúng!</span>' :
+                    score >= total * 0.7 ?
+                    '<span style="color: #ffc107; font-weight: bold;">👍 Khá tốt! Hãy ôn lại các câu sai.</span>' :
+                    '<span style="color: #dc3545; font-weight: bold;">💪 Cần cố gắng hơn! Xem lại lý thuyết.</span>'
+                }
+            </div>
+        </div>
+    `;
+    
+    // Remove existing score display if any
+    const existingScore = quizEl.querySelector('.score-display');
+    if (existingScore) existingScore.remove();
+    
+    finalScoreDiv.classList.add('score-display');
+    quizEl.appendChild(finalScoreDiv);
+    
+    // Save overall result
+    if (currentUser) {
+        const answers = {};
+        questions.forEach((q, idx) => {
+            const selected = q.querySelector(`input[name="tf-${uniqueId}-${idx}"]:checked`);
+            answers[`q${idx}`] = selected ? (selected.value === 'true') : null;
+        });
+        
+        savePartial(`tf-quiz-${uniqueId}`, answers, correctAnswers, score === total);
+    }
+    
+    // Play sound based on score
+    if (score === total) {
+        playSound('correct');
+        showNotification(`🎉 Hoàn hảo! ${score}/${total} câu đúng!`, 'success');
+    } else if (score >= total * 0.7) {
+        playSound('partial');
+        showNotification(`👍 Tốt lắm! Đúng ${score}/${total} câu`, 'warning');
+    } else {
+        playSound('wrong');
+        showNotification(`💪 Cố gắng nhé! Đúng ${score}/${total} câu`, 'error');
+    }
+};
+
+// Helper function
+function getScoreColor(percentage) {
+    if (percentage >= 80) return '#28a745';
+    if (percentage >= 50) return '#ffc107';
+    return '#dc3545';
+}
+// ===== INITIALIZE =====
+console.log("🚀 Hệ thống Lớp Toán Thầy Bình (Scroll Mode) đã sẵn sàng!");
+</script>
+<script src="ui-mobile.js"></script>
+</body>
+</html>

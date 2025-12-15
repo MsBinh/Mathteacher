@@ -54,35 +54,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
+    padding: 0 20px;
     z-index: 10000;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     border-bottom: 3px solid #3949ab;
 }
 
 .topbar-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
     white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.topbar-title::before {
-    content: "🧮";
-    font-size: 1.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 40%;
 }
 
 .topbar-controls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .topbar-controls select,
 .topbar-controls button {
-    padding: 8px 16px;
+    padding: 8px 12px;
     border: none;
     border-radius: 8px;
     background: rgba(255,255,255,0.15);
@@ -91,18 +89,33 @@ body {
     transition: all 0.3s ease;
     font-weight: 500;
     border: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+    font-size: 0.9rem;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .topbar-controls select:hover,
 .topbar-controls button:hover {
     background: rgba(255,255,255,0.25);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.topbar-controls select:active,
+.topbar-controls button:active {
+    transform: translateY(1px);
 }
 
 .topbar-controls select option {
     background: #283593;
     color: white;
+}
+
+#lessonSelector {
+    min-width: 140px;
+    max-width: 160px;
+    font-size: 0.85rem;
 }
 
 /* ===== SCROLL PROGRESS ===== */
@@ -134,13 +147,14 @@ body {
     border-radius: 20px 20px 0 0;
     box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
     overflow-y: auto;
-    padding: 20px;
+    padding: 15px;
     z-index: 1;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ===== SLIDES CONTAINER ===== */
 .slides {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     color: #2c3e50;
     max-width: 1200px;
     margin: 0 auto;
@@ -149,97 +163,101 @@ body {
 
 /* ===== SLIDE SECTIONS ===== */
 .slide-section {
-    padding: 30px 40px;
-    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 15px;
     background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
-    border-radius: 14px;
+    border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
-    min-height: 200px;
+    min-height: auto;
+    touch-action: pan-y;
 }
 
 .slide-section.active-section {
     background: linear-gradient(135deg, #f0f2ff 0%, #e6e9ff 100%);
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     border-left: 6px solid #ffd54f;
-    transform: translateY(-2px);
 }
 
 .slide-section h2 {
     color: #1a237e;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border-bottom: 3px solid #1a237e;
-    padding-bottom: 15px;
+    padding-bottom: 12px;
     font-weight: 700;
+    font-size: 1.5rem;
+    word-wrap: break-word;
 }
 
 .slide-section h3 {
     color: #3949ab;
-    margin: 20px 0 15px 0;
+    margin: 15px 0 12px 0;
     font-weight: 600;
+    font-size: 1.3rem;
 }
 
 .slide-section h4 {
     color: #4d5cb6;
-    margin: 15px 0 10px 0;
+    margin: 12px 0 10px 0;
     font-weight: 600;
+    font-size: 1.1rem;
 }
 
 .slide-section p, .slide-section li {
     color: #34495e;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    word-wrap: break-word;
 }
 
 .slide-section ul, .slide-section ol {
-    margin-left: 30px;
-    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding-left: 5px;
 }
 
 /* ===== QUESTION STYLES ===== */
 .question {
-    margin: 25px 0;
-    padding: 20px;
+    margin: 20px 0;
+    padding: 15px;
     background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-    border-radius: 15px;
+    border-radius: 12px;
     border-left: 6px solid #1a237e;
     color: #2c3e50;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-}
-
-.question:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 .question-title {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-weight: 700;
     color: #1a237e;
-    font-size: 1.1em;
+    font-size: 1.05em;
     line-height: 1.5;
+    word-wrap: break-word;
 }
 
 /* ===== OPTION STYLES ===== */
 .option-row {
-    margin: 12px 0;
+    margin: 10px 0;
     padding: 12px 15px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.95);
     border-radius: 10px;
     color: #2c3e50;
     border: 2px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     cursor: pointer;
+    min-height: 54px;
+    touch-action: manipulation;
 }
 
-.option-row:hover {
+.option-row:active {
     background: rgba(255,255,255,1);
     border-color: #1a237e;
-    transform: translateX(5px);
+    transform: translateX(3px);
 }
 
 .option-row label {
@@ -247,12 +265,15 @@ body {
     cursor: pointer;
     font-weight: 500;
     flex: 1;
+    font-size: 1rem;
+    word-wrap: break-word;
 }
 
 .option-row input[type="radio"] {
     transform: scale(1.2);
     margin-right: 8px;
     cursor: pointer;
+    min-width: 20px;
 }
 
 .option-row input[type="radio"]:checked + label {
@@ -265,7 +286,7 @@ body {
     margin-top: 20px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -275,9 +296,11 @@ body {
     border-radius: 10px;
     background: white;
     color: #2c3e50;
-    width: 250px;
+    width: 100%;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    min-height: 44px;
+    -webkit-appearance: none;
 }
 
 .answer-check input:focus {
@@ -287,7 +310,7 @@ body {
 }
 
 .answer-check button {
-    padding: 12px 25px;
+    padding: 12px 20px;
     background: linear-gradient(135deg, #1a237e, #3949ab);
     color: white;
     border: none;
@@ -295,26 +318,31 @@ body {
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
+    min-height: 44px;
+    width: 100%;
+    font-size: 1rem;
+    touch-action: manipulation;
 }
 
-.answer-check button:hover {
+.answer-check button:active {
     background: linear-gradient(135deg, #3949ab, #1a237e);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
+    transform: translateY(1px);
 }
 
 /* ===== SLIDE MENU ===== */
 .slide-menu {
     position: fixed;
     top: 0;
-    left: -400px;
-    width: 400px;
+    left: -100%;
+    width: 100%;
     height: 100vh;
     background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
     z-index: 11000;
     transition: left 0.4s ease;
     box-shadow: 5px 0 25px rgba(0,0,0,0.3);
     color: white;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .slide-menu.active {
@@ -322,19 +350,22 @@ body {
 }
 
 .menu-header {
-    padding: 25px;
+    padding: 20px 15px;
     background: rgba(0,0,0,0.2);
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .menu-header h3 {
     color: white;
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -346,23 +377,29 @@ body {
     color: white;
     font-size: 2rem;
     cursor: pointer;
-    padding: 5px;
+    padding: 5px 15px;
     border-radius: 50%;
     transition: background 0.3s ease;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
 }
 
-.close-btn:hover {
+.close-btn:active {
     background: rgba(255,255,255,0.1);
 }
 
 .menu-content {
-    padding: 20px;
-    height: calc(100% - 80px);
+    padding: 15px;
+    height: calc(100% - 70px);
     overflow-y: auto;
 }
 
 .slide-item {
-    padding: 15px 20px;
+    padding: 15px;
     margin-bottom: 10px;
     background: rgba(255,255,255,0.1);
     border-radius: 10px;
@@ -370,11 +407,15 @@ body {
     transition: all 0.3s ease;
     color: white;
     border: 1px solid rgba(255,255,255,0.1);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    touch-action: manipulation;
 }
 
-.slide-item:hover {
+.slide-item:active {
     background: rgba(255,255,255,0.2);
-    transform: translateX(10px);
+    transform: translateX(5px);
 }
 
 .slide-item.active {
@@ -393,6 +434,16 @@ body {
     background: rgba(255,255,255,0.2);
     border-radius: 50%;
     font-weight: bold;
+    flex-shrink: 0;
+}
+
+.slide-item span:last-child {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .menu-overlay {
@@ -422,28 +473,32 @@ body {
     display: none;
     pointer-events: auto;
     background: transparent;
+    touch-action: none;
 }
 
 .toolbar {
     position: fixed;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0,0,0,0.9);
-    padding: 15px 25px;
+    padding: 12px 15px;
     border-radius: 15px;
     display: none;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     z-index: 9100;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 95vw;
 }
 
 .toolbar select,
 .toolbar input,
 .toolbar button {
-    padding: 8px 15px;
+    padding: 8px 12px;
     border: none;
     border-radius: 8px;
     background: white;
@@ -451,31 +506,35 @@ body {
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease;
+    min-height: 40px;
+    font-size: 0.9rem;
+    touch-action: manipulation;
 }
 
-.toolbar select:hover,
-.toolbar input:hover,
-.toolbar button:hover {
+.toolbar select:active,
+.toolbar input:active,
+.toolbar button:active {
     background: #f0f0f0;
-    transform: translateY(-2px);
+    transform: translateY(1px);
 }
 
 .toolbar input[type="color"] {
-    padding: 4px;
+    padding: 2px;
     height: 40px;
-    width: 60px;
+    width: 50px;
 }
 
 .toolbar input[type="range"] {
-    width: 100px;
+    width: 80px;
 }
 
 /* ===== NOTIFICATION ===== */
 .notification {
     position: fixed;
     top: 80px;
-    right: 20px;
-    padding: 15px 25px;
+    right: 15px;
+    left: 15px;
+    padding: 15px 20px;
     border-radius: 10px;
     color: white;
     font-weight: 600;
@@ -483,6 +542,10 @@ body {
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     transform: translateX(400px);
     transition: transform 0.4s ease;
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .notification.show {
@@ -514,6 +577,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 1.1rem;
 }
 
 .solution-title::before {
@@ -524,12 +588,13 @@ body {
 .solution-content {
     color: #1565c0;
     line-height: 1.6;
+    font-size: 1rem;
 }
 
 .solution-box { 
     display: none; 
     margin-top: 20px;
-    padding: 20px;
+    padding: 15px;
     background: #e8f4f8;
     border-radius: 10px;
     border-left: 4px solid #17a2b8;
@@ -537,10 +602,10 @@ body {
 
 /* ===== SPECIAL CONTENT STYLES ===== */
 .theory-box {
-    margin: 25px 0;
-    padding: 25px;
+    margin: 20px 0;
+    padding: 20px;
     background: linear-gradient(135deg, #f0f7ff, #e6f0ff);
-    border-radius: 15px;
+    border-radius: 12px;
     border-left: 5px solid #4dabf7;
 }
 
@@ -553,54 +618,225 @@ body {
 }
 
 .example-box {
-    margin: 20px 0;
-    padding: 20px;
+    margin: 15px 0;
+    padding: 15px;
     background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-    border-radius: 12px;
+    border-radius: 10px;
     border: 2px solid #ffc107;
+}
+
+/* ===== WELCOME PAGE ===== */
+.welcome-container {
+    text-align: center;
+    padding: 30px 20px;
+    min-height: calc(100vh - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-title {
+    font-size: 2rem;
+    color: #1a237e;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.welcome-subtitle {
+    font-size: 1.2rem;
+    color: #3949ab;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.welcome-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    max-width: 600px;
+    width: 100%;
+}
+
+.stat-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    flex: 1;
+    min-width: 140px;
+    max-width: 180px;
+}
+
+.stat-card .number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1a237e;
+    display: block;
+}
+
+.stat-card .label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .topbar {
-        padding: 0 15px;
+        padding: 0 12px;
         height: 60px;
     }
     
     .topbar-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        max-width: 35%;
     }
     
+    .topbar-controls {
+        gap: 6px;
+    }
+    
+    .topbar-controls select,
     .topbar-controls button {
-        padding: 6px 12px;
-        font-size: 0.9rem;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        min-height: 32px;
+    }
+    
+    #lessonSelector {
+        min-width: 120px;
+        max-width: 140px;
+        font-size: 0.8rem;
     }
     
     .page-container {
         top: 63px;
-        padding: 15px;
+        padding: 12px;
     }
     
     .scroll-progress {
         top: 60px;
     }
     
+    .slides {
+        font-size: 1rem;
+    }
+    
     .slide-section {
-        padding: 20px;
+        padding: 15px;
+        margin-bottom: 12px;
+    }
+    
+    .slide-section h2 {
+        font-size: 1.3rem;
         margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+    
+    .slide-section h3 {
+        font-size: 1.2rem;
+    }
+    
+    .slide-section h4 {
+        font-size: 1.1rem;
+    }
+    
+    .question {
+        padding: 12px;
+        margin: 15px 0;
+    }
+    
+    .option-row {
+        padding: 10px 12px;
+        min-height: 50px;
     }
     
     .slide-menu {
-        width: 300px;
-        left: -300px;
+        width: 100%;
+    }
+    
+    .menu-header {
+        padding: 15px 12px;
+    }
+    
+    .menu-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .close-btn {
+        padding: 5px 12px;
+        min-width: 40px;
+        min-height: 40px;
     }
     
     .toolbar {
-        bottom: 20px;
-        padding: 12px 20px;
-        gap: 10px;
-        flex-wrap: wrap;
+        padding: 10px 12px;
+        gap: 8px;
         width: 95vw;
+    }
+    
+    .toolbar select,
+    .toolbar input,
+    .toolbar button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        min-height: 36px;
+    }
+    
+    .welcome-title {
+        font-size: 1.6rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.1rem;
+        padding: 0 10px;
+    }
+    
+    .stat-card {
+        min-width: 120px;
+        padding: 12px;
+    }
+    
+    .stat-card .number {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .topbar-controls {
+        gap: 4px;
+    }
+    
+    .topbar-controls select,
+    .topbar-controls button {
+        padding: 5px 8px;
+        font-size: 0.75rem;
+    }
+    
+    #lessonSelector {
+        min-width: 100px;
+        max-width: 120px;
+    }
+    
+    .slide-number {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        margin-right: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .welcome-stats {
+        gap: 10px;
+    }
+    
+    .stat-card {
+        min-width: calc(50% - 10px);
+        max-width: calc(50% - 10px);
     }
 }
 
@@ -611,31 +847,75 @@ body {
 
 .dark-mode .page-container {
     background: #1e1e1e !important;
-    color: #fff !important;
+    color: #e0e0e0 !important;
 }
 
 .dark-mode .slide-section {
     background: #2d2d2d !important;
-    color: #fff !important;
+    color: #e0e0e0 !important;
     border-left: 4px solid #00bcd4 !important;
+}
+
+.dark-mode .slide-section h2,
+.dark-mode .slide-section h3,
+.dark-mode .slide-section h4 {
+    color: #bb86fc !important;
+}
+
+.dark-mode .slide-section p,
+.dark-mode .slide-section li {
+    color: #e0e0e0 !important;
 }
 
 .dark-mode .question {
     background: #333333 !important;
-    color: #fff !important;
+    color: #e0e0e0 !important;
     border-left: 6px solid #00bcd4 !important;
+}
+
+.dark-mode .question-title {
+    color: #bb86fc !important;
 }
 
 .dark-mode .option-row {
     background: #3a3a3a !important;
-    color: #fff !important;
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .option-row label {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .option-row input[type="radio"]:checked + label {
+    color: #bb86fc !important;
+}
+
+.dark-mode .solution-box {
+    background: #2c3e50 !important;
+    border-left-color: #00bcd4 !important;
+}
+
+.dark-mode .solution-content {
+    color: #b3e5fc !important;
+}
+
+.dark-mode .theory-box {
+    background: #37474f !important;
+}
+
+.dark-mode .method-step {
+    background: #455a64 !important;
+}
+
+.dark-mode .example-box {
+    background: #5d4037 !important;
 }
 
 .dark-mode .topbar {
     background: linear-gradient(135deg, #000, #333) !important;
 }
 
-/* ===== LOADING SPINNER ===== */
+/* ===== LOADING STATES ===== */
 .loading-spinner {
     display: inline-block;
     width: 20px;
@@ -650,18 +930,83 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.loading-overlay .spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255,255,255,0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+/* ===== TOUCH OPTIMIZATION ===== */
+.touch-optimized {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.touch-optimized:active {
+    opacity: 0.7;
+}
+
+.mathjax-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px 0;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.p-20 {
+    padding: 20px;
+}
 </style>
 </head>
 <body>
 <!-- ===== TOPBAR ===== -->
 <div class="topbar">
-    <div class="topbar-title">📚 BÀI GIẢNG TOÁN CHUYÊN ĐỀ</div>
+    <div class="topbar-title">📚 Lớp Toán Thầy Bình</div>
     <div class="topbar-controls">
-        <button id="slideMenuBtn">📋 Danh sách bài</button>
-        <button id="loadLessonBtn">📥 Tải bài giảng</button>
+        <button id="slideMenuBtn">📋 Danh sách</button>
+        <select id="lessonSelector">
+            <option value="">📚 Chọn bài giảng</option>
+        </select>
         <button id="toggleCanvasBtn">✏️ Bảng vẽ</button>
         <button id="toggleDarkModeBtn">🌙 Chế độ tối</button>
-        <button id="printBtn">🖨️ In bài</button>
+        <button id="printBtn">🖨️ In</button>
     </div>
 </div>
 
@@ -673,70 +1018,16 @@ body {
 <!-- Notification -->
 <div id="notification" class="notification"></div>
 
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <div id="loadingText">Đang tải...</div>
+</div>
+
 <!-- ===== MAIN CONTENT ===== -->
 <div class="page-container">
     <div class="slides" id="slides-container">
-        <section class="slide-section active-section" id="section-0">
-            <h2 style="text-align: center; color: #666; margin-top: 50px;">
-                🧮 BÀI GIẢNG TOÁN CHUYÊN ĐỀ
-            </h2>
-            <p style="text-align: center; color: #888; font-size: 1.2em;">
-                Chọn "Tải bài giảng" để bắt đầu học hoặc dán JSON bài giảng vào ô bên dưới
-            </p>
-            
-            <div style="max-width: 600px; margin: 40px auto; padding: 25px; background: #f8f9fa; border-radius: 15px;">
-                <h4 style="color: #1a237e; margin-bottom: 15px;">📥 Tải bài giảng từ file JSON</h4>
-                
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Chọn file JSON:</label>
-                    <input type="file" id="jsonFileInput" accept=".json" style="width: 100%; padding: 12px; border: 2px dashed #ddd; border-radius: 10px; background: white;">
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Hoặc dán JSON trực tiếp:</label>
-                    <textarea id="jsonTextInput" placeholder="Dán nội dung JSON bài giảng tại đây..." 
-                              style="width: 100%; height: 150px; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-family: monospace; font-size: 14px;"></textarea>
-                </div>
-                
-                <button id="loadJsonBtn" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 1.1em;">
-                    🚀 Tải bài giảng
-                </button>
-            </div>
-            
-            <div style="max-width: 800px; margin: 40px auto; padding: 25px; background: linear-gradient(135deg, #f0f7ff, #e6f0ff); border-radius: 15px;">
-                <h4 style="color: #1a237e; margin-bottom: 15px;">📚 Mẫu JSON bài giảng</h4>
-                <pre style="background: #f8f9fa; padding: 15px; border-radius: 10px; font-size: 12px; overflow-x: auto; color: #333;">
-{
-  "type": "lesson_collection",
-  "title": "CHUYÊN ĐỀ TOÁN 12",
-  "description": "Ứng dụng đạo hàm",
-  "author": "Lớp Toán Thầy Bình",
-  "sections": [
-    {
-      "title": "Chương 1: Đạo hàm",
-      "content": [
-        {
-          "type": "definition",
-          "title": "Định nghĩa đạo hàm",
-          "content": "Cho hàm số $y = f(x)$ xác định trên khoảng $(a, b)$..."
-        },
-        {
-          "type": "true_false_quiz",
-          "title": "Câu hỏi đúng/sai",
-          "questions": [
-            {
-              "statement": "Nếu hàm số có đạo hàm tại $x_0$ thì liên tục tại $x_0$.",
-              "answer": true,
-              "explanation": "ĐÚNG. Đây là định lý cơ bản..."
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}</pre>
-            </div>
-        </section>
+        <!-- Welcome page will be generated by JavaScript -->
     </div>
 </div>
 
@@ -762,14 +1053,13 @@ body {
         <option value="line">📏 Đường</option>
         <option value="rect">⬛ Chữ nhật</option>
         <option value="circle">⚪ Tròn</option>
-        <option value="text">A Văn bản</option>
         <option value="eraser">🧹 Xóa</option>
     </select>
     <input id="draw-width" max="10" min="1" type="range" value="2"/>
     <input id="colorPicker" type="color" value="#6b21a8">
     <button id="undoBtn" title="Undo">↩️</button>
     <button id="clearBtn">🗑️ Xoá</button>
-    <button id="saveBtn">💾 Lưu ảnh</button>
+    <button id="saveBtn">💾 Lưu</button>
     <button id="exitCanvasBtn">❌ Thoát</button>
 </div>
 
@@ -777,23 +1067,385 @@ body {
 // ===== GLOBAL VARIABLES =====
 let currentLesson = null;
 let scrollObserver = null;
+let examList = [];
+let currentLessonIndex = 0;
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
     console.log("🚀 Trang bài giảng Toán chuyên đề khởi động...");
     
+    // Hiển thị trang welcome
+    showWelcomePage();
+    
+    // Thiết lập event listeners
     setupEventListeners();
-    setupScrollTracking();
+    
+    // Khởi tạo canvas
     setupCanvas();
     
-    showNotification('✅ Hệ thống đã sẵn sàng! Tải bài giảng để bắt đầu.', 'info');
+    // Tải danh sách bài giảng từ exam-list.json
+    loadExamList();
+    
+    // Khởi tạo scroll tracking
+    setTimeout(setupScrollTracking, 100);
+    
+    showNotification('✅ Hệ thống đã sẵn sàng!', 'info');
 });
+
+// ===== WELCOME PAGE =====
+function showWelcomePage() {
+    const slidesContainer = document.getElementById('slides-container');
+    
+    const welcomeHTML = `
+        <section class="slide-section active-section" id="section-0">
+            <div class="welcome-container">
+                <div style="font-size: 4rem; margin-bottom: 20px;">🧮</div>
+                <h1 class="welcome-title">LỚP TOÁN THẦY BÌNH</h1>
+                <h3 class="welcome-subtitle">Hệ thống học tập Toán trực tuyến</h3>
+                
+                <div class="welcome-stats">
+                    <div class="stat-card">
+                        <span class="number" id="lessonCount">0</span>
+                        <span class="label">Bài giảng</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">12</span>
+                        <span class="label">Lớp học</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">1000+</span>
+                        <span class="label">Bài tập</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px; max-width: 500px; width: 100%;">
+                    <p style="color: #666; margin-bottom: 20px; font-size: 1.1rem;">
+                        <strong>📝 Hướng dẫn:</strong> Chọn bài giảng từ menu trên cùng để bắt đầu học
+                    </p>
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                        <button onclick="openLessonSelector()" style="padding: 12px 24px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; flex: 1; min-width: 150px;">
+                            📚 Chọn bài giảng
+                        </button>
+                        <button onclick="toggleSlideMenu()" style="padding: 12px 24px; background: linear-gradient(135deg, #0d47a1, #1565c0); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; flex: 1; min-width: 150px;">
+                            📋 Danh sách bài
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 10px; max-width: 600px; width: 100%;">
+                    <h4 style="color: #1a237e; margin-bottom: 15px;">📱 Tối ưu cho điện thoại</h4>
+                    <ul style="text-align: left; color: #666; padding-left: 20px;">
+                        <li>Giao diện thân thiện với màn hình nhỏ</li>
+                        <li>Tương tác cảm ứng mượt mà</li>
+                        <li>Tải nhanh, tiết kiệm dữ liệu</li>
+                        <li>Hỗ trợ học offline</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    `;
+    
+    slidesContainer.innerHTML = welcomeHTML;
+}
+
+function openLessonSelector() {
+    const selector = document.getElementById('lessonSelector');
+    selector.focus();
+    selector.click();
+}
+
+// ===== LOAD EXAM LIST =====
+async function loadExamList() {
+    try {
+        showLoading('Đang tải danh sách bài giảng...');
+        
+        // Thử tải từ exam-list.json
+        const response = await fetch('exam-list.json');
+        if (!response.ok) {
+            throw new Error('Không tìm thấy exam-list.json');
+        }
+        
+        const data = await response.json();
+        // 🔧 SỬA DÒNG NÀY: hỗ trợ cả "exams" và "lessons"
+        examList = data.exams || data.lessons || data;
+        
+        // Cập nhật menu chọn bài giảng
+        updateLessonSelector();
+        
+        // 🔧 SỬA DÒNG NÀY: kiểm tra phần tử có tồn tại không
+        if (document.getElementById('lessonCount')) {
+            document.getElementById('lessonCount').textContent = examList.length;
+        }
+        
+        showNotification(`✅ Đã tải ${examList.length} bài giảng`, 'success');
+        
+    } catch (error) {
+        console.warn('Không thể tải exam-list.json:', error);
+        
+        // Sử dụng danh sách mặc định
+        examList = [
+            {
+                "id": "demo-1",
+                "name": "📝 Đề kiểm tra mẫu",
+                "file": "data/de-kiem-tra.json",
+                "description": "Đề kiểm tra mẫu"
+            }
+        ];
+        
+        updateLessonSelector();
+        
+        showNotification('⚠️ Tạo file "exam-list.json" để có danh sách bài giảng riêng', 'warning');
+        
+    } finally {
+        hideLoading();
+    }
+}
+
+function updateLessonSelector() {
+    const selector = document.getElementById('lessonSelector');
+    if (!selector) return;
+    
+    // Xóa tất cả option trừ option đầu tiên
+    while (selector.options.length > 1) {
+        selector.remove(1);
+    }
+    
+    // Thêm các bài giảng vào menu
+    examList.forEach((lesson, index) => {
+        const option = document.createElement('option');
+        // Sử dụng 'name' thay vì 'title'
+        const lessonName = lesson.name || lesson.title || `Bài ${index + 1}`;
+        option.value = lesson.file || `data/${lesson.id}.json`;
+        option.textContent = `${index + 1}. ${lessonName}`;
+        selector.appendChild(option);
+    });
+}
+
+// ===== LOAD LESSON =====
+async function loadLesson(lessonUrl) {
+    try {
+        showLoading('Đang tải bài giảng...');
+        
+        const response = await fetch(lessonUrl);
+        if (!response.ok) {
+            throw new Error(`Không tìm thấy file: ${lessonUrl}`);
+        }
+        
+        const lessonData = await response.json();
+        currentLesson = lessonData;
+        
+        // Phân loại và render bài giảng
+        if (Array.isArray(lessonData)) {
+            renderSimpleSlides(lessonData);
+        } else if (lessonData.type === 'lesson_collection') {
+            renderLessonCollection(lessonData);
+        } else {
+            renderSimpleSlides([lessonData]);
+        }
+        
+        showNotification('✅ Đã tải bài giảng thành công', 'success');
+        
+    } catch (error) {
+        console.error('Lỗi tải bài giảng:', error);
+        showNotification(`❌ Lỗi: ${error.message}`, 'error');
+        showErrorPage(error.message);
+    } finally {
+        hideLoading();
+    }
+}
+
+// ===== RENDER FUNCTIONS =====
+function renderSimpleSlides(slides) {
+    const slidesContainer = document.getElementById('slides-container');
+    slidesContainer.innerHTML = '';
+    
+    slides.forEach((slide, index) => {
+        const section = document.createElement('section');
+        section.className = index === 0 ? 'slide-section active-section' : 'slide-section';
+        section.id = `section-${index}`;
+        
+        let content = '';
+        
+        switch(slide.type) {
+            case 'welcome':
+                content = renderWelcomeSlide(slide);
+                break;
+            case 'multiple_choice':
+                content = renderMultipleChoiceSlide(slide, index);
+                break;
+            case 'true_false':
+                content = renderTrueFalseSlide(slide, index);
+                break;
+            case 'short_answer':
+                content = renderShortAnswerSlide(slide, index);
+                break;
+            default:
+                content = renderGenericSlide(slide, index);
+        }
+        
+        section.innerHTML = content;
+        slidesContainer.appendChild(section);
+    });
+    
+    // Khởi tạo MathJax
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+    
+    // Cập nhật danh sách slide
+    updateSlideList();
+}
+
+function renderWelcomeSlide(slide) {
+    return `
+        <div style="text-align: center; padding: 40px 20px; min-height: 300px; display: flex; flex-direction: column; justify-content: center; 
+                    background: ${slide.background || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; 
+                    border-radius: 20px; margin-bottom: 20px;">
+            <h1 style="color: ${slide.color || 'white'}; border: none; font-size: 2rem; margin-bottom: 15px;">
+                ${slide.title || 'BÀI GIẢNG TOÁN'}
+            </h1>
+            <h3 style="color: ${slide.color || 'white'}; margin-bottom: 20px; font-weight: 300;">
+                ${slide.subtitle || ''}
+            </h3>
+            <div style="color: ${slide.color || 'white'}; font-size: 1.1em; line-height: 1.6;">
+                ${slide.content || ''}
+            </div>
+        </div>
+    `;
+}
+
+function renderMultipleChoiceSlide(slide, index) {
+    const questionNumber = slide.title || `Câu ${index}`;
+    const questionId = slide.id || `q${index}`;
+    
+    let optionsHtml = '';
+    if (slide.options && typeof slide.options === 'object') {
+        Object.entries(slide.options).forEach(([key, value]) => {
+            optionsHtml += `
+                <div class="option-row" onclick="selectOption('${questionId}', '${key}')">
+                    <input type="radio" name="${questionId}" value="${key}" style="display: none;">
+                    <span style="background: #f0f0f0; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; font-weight: bold;">
+                        ${key}
+                    </span>
+                    <span style="flex: 1;">${value}</span>
+                </div>
+            `;
+        });
+    }
+    
+    return `
+        <div class="question">
+            <div class="question-title" style="display: flex; align-items: flex-start; gap: 12px;">
+                <span style="background: #1a237e; color: white; min-width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                    ${questionNumber}
+                </span>
+                <div style="flex: 1;">
+                    ${slide.text || ''}
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                ${optionsHtml}
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <button onclick="checkAnswer('${questionId}', '${slide.correct}')"
+                        style="padding: 10px 20px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    Kiểm tra
+                </button>
+                <span id="result-${questionId}" style="padding: 5px 10px;"></span>
+            </div>
+            
+            ${slide.solution ? `
+                <div id="solution-${questionId}" style="display: none; margin-top: 15px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
+                    <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Hướng dẫn giải:</div>
+                    <div>${slide.solution}</div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// ===== ANSWER HANDLING =====
+window.selectOption = function(questionId, selectedKey) {
+    // Xóa selection cũ
+    const container = document.querySelector(`input[name="${questionId}"]`)?.closest('.question');
+    if (container) {
+        container.querySelectorAll('.option-row').forEach(row => {
+            row.style.background = '';
+            row.style.borderColor = '';
+        });
+    }
+    
+    // Tìm và highlight option được chọn
+    const selectedOption = document.querySelector(`input[value="${selectedKey}"]`);
+    if (selectedOption) {
+        selectedOption.checked = true;
+        selectedOption.parentElement.style.background = '#e8f4f8';
+        selectedOption.parentElement.style.borderColor = '#17a2b8';
+    }
+    
+    // Lưu lựa chọn
+    window.userAnswers = window.userAnswers || {};
+    window.userAnswers[questionId] = selectedKey;
+};
+
+window.checkAnswer = function(questionId, correctAnswer) {
+    const userAnswer = window.userAnswers?.[questionId];
+    const resultEl = document.getElementById(`result-${questionId}`);
+    const solutionEl = document.getElementById(`solution-${questionId}`);
+    
+    if (!userAnswer) {
+        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Chọn đáp án</span>';
+        return;
+    }
+    
+    const isCorrect = userAnswer === correctAnswer;
+    
+    // Highlight tất cả các option
+    const container = document.querySelector(`input[name="${questionId}"]`)?.closest('.question');
+    if (container) {
+        container.querySelectorAll('.option-row').forEach(row => {
+            const radio = row.querySelector('input[type="radio"]');
+            if (radio) {
+                if (radio.value === correctAnswer) {
+                    row.style.background = '#d4edda';
+                    row.style.borderColor = '#28a745';
+                } else if (radio.value === userAnswer && !isCorrect) {
+                    row.style.background = '#f8d7da';
+                    row.style.borderColor = '#dc3545';
+                }
+            }
+        });
+    }
+    
+    // Hiển thị kết quả
+    if (isCorrect) {
+        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
+    } else {
+        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer}</span>`;
+    }
+    
+    // Hiển thị lời giải nếu có
+    if (solutionEl) {
+        solutionEl.style.display = 'block';
+    }
+    
+    // Phát âm thanh
+    playSound(isCorrect ? 'correct' : 'wrong');
+};
 
 // ===== EVENT LISTENERS =====
 function setupEventListeners() {
-    // Load lesson buttons
-    document.getElementById('loadJsonBtn').addEventListener('click', loadLessonFromInput);
-    document.getElementById('jsonFileInput').addEventListener('change', handleFileUpload);
+    // Lesson selector
+    document.getElementById('lessonSelector').addEventListener('change', function() {
+        const selectedUrl = this.value;
+        if (selectedUrl) {
+            loadLesson(selectedUrl);
+            this.selectedIndex = 0; // Reset selector
+        }
+    });
     
     // Slide menu
     document.getElementById('slideMenuBtn').addEventListener('click', toggleSlideMenu);
@@ -807,624 +1459,164 @@ function setupEventListeners() {
     
     // Canvas controls
     document.getElementById('exitCanvasBtn').addEventListener('click', toggleCanvas);
+    
+    // Touch events for mobile
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
 
-// ===== LOAD LESSON FUNCTIONS =====
-async function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    if (!file.name.endsWith('.json')) {
-        showNotification('❌ Vui lòng chọn file JSON', 'error');
-        return;
-    }
-    
-    try {
-        const text = await file.text();
-        document.getElementById('jsonTextInput').value = text;
-        loadLessonFromJSON(text);
-    } catch (error) {
-        showNotification('❌ Lỗi đọc file: ' + error.message, 'error');
-    }
+// ===== MOBILE TOUCH HANDLING =====
+let touchStartX = 0;
+let touchStartY = 0;
+
+function handleTouchStart(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
 }
 
-function loadLessonFromInput() {
-    const jsonText = document.getElementById('jsonTextInput').value.trim();
-    const fileInput = document.getElementById('jsonFileInput');
+function handleTouchEnd(e) {
+    if (!touchStartX || !touchStartY) return;
     
-    if (!jsonText && (!fileInput.files || fileInput.files.length === 0)) {
-        showNotification('❌ Vui lòng chọn file hoặc dán JSON', 'error');
-        return;
-    }
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
     
-    if (jsonText) {
-        loadLessonFromJSON(jsonText);
-    }
-}
-
-function loadLessonFromJSON(jsonText) {
-    try {
-        const lessonData = JSON.parse(jsonText);
-        currentLesson = lessonData;
-        renderLesson(lessonData);
-        showNotification('✅ Đã tải bài giảng thành công!', 'success');
-    } catch (error) {
-        showNotification('❌ Lỗi JSON: ' + error.message, 'error');
-        console.error('JSON Parse Error:', error);
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+    
+    // Chỉ xử lý swipe ngang nếu swipe dọc nhỏ
+    if (Math.abs(diffY) < 50) {
+        // Swipe trái (next)
+        if (diffX > 50) {
+            nextSlide();
+        }
+        // Swipe phải (previous)
+        else if (diffX < -50) {
+            previousSlide();
+        }
     }
 }
 
-// ===== RENDER FUNCTIONS =====
-function renderLesson(lessonData) {
+function nextSlide() {
+    const activeSection = document.querySelector('.slide-section.active-section');
+    if (!activeSection) return;
+    
+    const nextSection = activeSection.nextElementSibling;
+    if (nextSection && nextSection.classList.contains('slide-section')) {
+        nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function previousSlide() {
+    const activeSection = document.querySelector('.slide-section.active-section');
+    if (!activeSection) return;
+    
+    const prevSection = activeSection.previousElementSibling;
+    if (prevSection && prevSection.classList.contains('.slide-section')) {
+        prevSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// ===== UTILITY FUNCTIONS =====
+function showLoading(message = 'Đang tải...') {
+    const overlay = document.getElementById('loadingOverlay');
+    const text = document.getElementById('loadingText');
+    
+    if (overlay && text) {
+        text.textContent = message;
+        overlay.classList.remove('hidden');
+    }
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
+}
+
+function showErrorPage(errorMessage) {
     const slidesContainer = document.getElementById('slides-container');
-    slidesContainer.innerHTML = '';
-    
-    // Cover page
-    const coverSection = document.createElement('section');
-    coverSection.className = 'slide-section active-section';
-    coverSection.id = 'section-0';
-    
-    coverSection.innerHTML = `
-        <div style="text-align: center; padding: 40px 20px;">
-            <h1 style="color: #1a237e; border: none; font-size: 2.5em; margin-bottom: 20px;">
-                ${lessonData.title || 'BÀI GIẢNG TOÁN'}
-            </h1>
-            <h3 style="color: #3949ab; margin-bottom: 30px;">
-                ${lessonData.description || ''}
-            </h3>
-            
-            ${lessonData.author ? `
-                <div style="margin: 30px 0; padding: 15px; background: #f8f9fa; border-radius: 10px; display: inline-block;">
-                    <strong>👨‍🏫 Tác giả:</strong> ${lessonData.author}
-                </div>
-            ` : ''}
-            
-            <div style="margin-top: 40px;">
-                <button onclick="scrollToSection(1)" style="padding: 15px 30px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 10px; font-size: 1.1em; font-weight: bold; cursor: pointer;">
-                    🚀 Bắt đầu học
+    slidesContainer.innerHTML = `
+        <section class="slide-section active-section">
+            <div style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">❌</div>
+                <h2 style="color: #dc3545;">Không thể tải bài giảng</h2>
+                <p style="color: #666; margin: 20px 0;">${errorMessage}</p>
+                <button onclick="showWelcomePage()" 
+                        style="padding: 12px 24px; background: #1a237e; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    Quay lại trang chủ
                 </button>
             </div>
-        </div>
+        </section>
     `;
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    if (!notification) return;
     
-    slidesContainer.appendChild(coverSection);
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
     
-    // Render sections
-    if (lessonData.sections && Array.isArray(lessonData.sections)) {
-        lessonData.sections.forEach((section, sectionIndex) => {
-            renderSection(section, sectionIndex + 1);
-        });
-    }
-    
-    // Initialize systems
     setTimeout(() => {
-        createSlideList();
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+function playSound(type) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = type === 'correct' ? 'Chính xác!' : 'Sai rồi!';
+        utterance.lang = 'vi-VN';
+        utterance.volume = 0.3;
+        utterance.rate = 1.0;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    document.getElementById('toggleDarkModeBtn').innerHTML = isDark ? '☀️ Sáng' : '🌙 Tối';
+    showNotification(isDark ? '🌙 Đã bật chế độ tối' : '☀️ Đã bật chế độ sáng', 'info');
+    
+    if (window.MathJax) {
         MathJax.typesetPromise();
-    }, 100);
+    }
 }
 
-function renderSection(sectionData, sectionNumber) {
-    const slidesContainer = document.getElementById('slides-container');
+// ===== SLIDE MENU FUNCTIONS =====
+function updateSlideList() {
+    const slideList = document.getElementById('slideList');
+    const sections = document.querySelectorAll('.slide-section');
     
-    const section = document.createElement('section');
-    section.className = 'slide-section';
-    section.id = `section-${sectionNumber}`;
+    if (!slideList || sections.length === 0) return;
     
-    let html = `
-        <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
-            <h2 style="color: #1a237e; border-bottom: 3px solid #1a237e; padding-bottom: 10px;">
-                ${sectionNumber}. ${sectionData.title || `Chương ${sectionNumber}`}
-            </h2>
-            ${sectionData.description ? `<p style="color: #666; font-size: 1.1em; margin-top: 10px;">${sectionData.description}</p>` : ''}
-        </div>
-    `;
-    
-    // Render content items
-    if (sectionData.content && Array.isArray(sectionData.content)) {
-        sectionData.content.forEach((item, itemIndex) => {
-            html += renderContentItem(item, sectionNumber, itemIndex);
+    slideList.innerHTML = Array.from(sections).map((section, index) => {
+        const title = section.querySelector('h1, h2, h3, h4')?.textContent.substring(0, 50) || 
+                     section.querySelector('.question-title')?.textContent.substring(0, 50) || 
+                     `Bài ${index + 1}`;
+        return `<div class="slide-item" data-section-index="${index}">
+                    <span class="slide-number">${index + 1}</span>
+                    <span>${title}</span>
+                </div>`;
+    }).join('');
+
+    slideList.querySelectorAll('.slide-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const sectionIndex = parseInt(this.dataset.sectionIndex);
+            scrollToSection(sectionIndex);
+            toggleSlideMenu();
         });
-    }
-    
-    section.innerHTML = html;
-    slidesContainer.appendChild(section);
-}
-
-function renderContentItem(item, sectionNum, itemIndex) {
-    const uniqueId = `s${sectionNum}-i${itemIndex}`;
-    
-    switch(item.type) {
-        case 'definition':
-            return renderDefinition(item, uniqueId);
-        case 'theorem':
-            return renderTheorem(item, uniqueId);
-        case 'true_false_quiz':
-            return renderTrueFalseQuiz(item, uniqueId);
-        case 'multiple_choice':
-            return renderMultipleChoice(item, uniqueId);
-        case 'short_answer':
-            return renderShortAnswer(item, uniqueId);
-        case 'method':
-            return renderMethod(item, uniqueId);
-        case 'example':
-            return renderExample(item, uniqueId);
-        case 'note':
-            return renderNote(item, uniqueId);
-        default:
-            return `<div style="padding: 20px; background: #f8f9fa; border-radius: 10px; margin: 15px 0;">
-                <p>${JSON.stringify(item)}</p>
-            </div>`;
-    }
-}
-
-// ===== CONTENT RENDERERS =====
-function renderDefinition(item, uniqueId) {
-    return `
-        <div class="theory-box">
-            <h4 style="color: #17a2b8; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                <span>📘</span> ${item.title || 'Định nghĩa'}
-            </h4>
-            <div style="line-height: 1.6;">
-                ${item.content || ''}
-                ${item.formula ? `<div style="text-align: center; margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">${item.formula}</div>` : ''}
-                ${item.note ? `<div style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 8px;"><strong>Chú ý:</strong> ${item.note}</div>` : ''}
-            </div>
-        </div>
-    `;
-}
-
-function renderTheorem(item, uniqueId) {
-    return `
-        <div class="theory-box">
-            <h4 style="color: #1c7ed6; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                <span>📖</span> ${item.title || 'Định lý'}
-            </h4>
-            <div style="line-height: 1.6;">
-                ${item.content || ''}
-                
-                ${item.statements && Array.isArray(item.statements) ? `
-                    <div style="margin: 20px 0;">
-                        ${item.statements.map((stmt, idx) => `
-                            <div style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px;">
-                                <strong>${idx + 1}.</strong> ${stmt.content}
-                                ${stmt.proof ? `
-                                    <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 8px;">
-                                        <em>Chứng minh:</em> ${stmt.proof}
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : ''}
-                
-                ${item.note ? `<div style="margin-top: 20px; padding: 15px; background: #e8f4f8; border-radius: 8px;"><strong>Nhận xét:</strong> ${item.note}</div>` : ''}
-            </div>
-        </div>
-    `;
-}
-
-function renderTrueFalseQuiz(item, uniqueId) {
-    let questionsHtml = '';
-    
-    if (item.questions && Array.isArray(item.questions)) {
-        item.questions.forEach((q, qIndex) => {
-            questionsHtml += `
-                <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 12px;">
-                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
-                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                            ${qIndex + 1}
-                        </span>
-                        <div style="flex: 1; font-size: 1.05em;">
-                            ${q.statement}
-                        </div>
-                    </div>
-                    
-                    <div style="margin-left: 50px; display: flex; gap: 20px;">
-                        <label class="option-row" style="margin: 0; width: auto;">
-                            <input type="radio" name="tf-${uniqueId}-${q.id || qIndex}" value="true">
-                            <label>✅ ĐÚNG</label>
-                        </label>
-                        <label class="option-row" style="margin: 0; width: auto;">
-                            <input type="radio" name="tf-${uniqueId}-${q.id || qIndex}" value="false">
-                            <label>❌ SAI</label>
-                        </label>
-                        <button onclick="checkTrueFalseQuestion('${uniqueId}', ${qIndex}, ${q.answer})" 
-                                style="margin-left: auto; padding: 8px 20px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
-                            Kiểm tra
-                        </button>
-                    </div>
-                    
-                    <div id="result-tf-${uniqueId}-${q.id || qIndex}" style="margin-top: 15px; margin-left: 50px; min-height: 24px;"></div>
-                    
-                    ${q.explanation ? `
-                        <div id="explain-tf-${uniqueId}-${q.id || qIndex}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
-                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📝 Giải thích:</div>
-                            <div>${q.explanation}</div>
-                            ${q.proof ? `<div style="margin-top: 10px;"><em>Chứng minh:</em> ${q.proof}</div>` : ''}
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        });
-    }
-    
-    return `
-        <div class="question">
-            <div style="background: linear-gradient(135deg, #f0f7ff, #e6f0ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-                    <span>❓</span> ${item.title || 'Câu hỏi đúng/sai'}
-                </h4>
-                ${item.instructions ? `<p style="color: #666;">${item.instructions}</p>` : ''}
-            </div>
-            
-            ${questionsHtml}
-            
-            ${item.scoring ? `
-                <div style="margin-top: 20px; text-align: center; color: #666;">
-                    <em>${item.scoring.points_per_correct ? `Điểm: ${item.scoring.points_per_correct}/câu đúng` : ''}</em>
-                </div>
-            ` : ''}
-        </div>
-    `;
-}
-
-function renderMultipleChoice(item, uniqueId) {
-    let questionsHtml = '';
-    
-    if (item.questions && Array.isArray(item.questions)) {
-        item.questions.forEach((q, qIndex) => {
-            let optionsHtml = '';
-            if (q.options && typeof q.options === 'object') {
-                Object.entries(q.options).forEach(([key, value]) => {
-                    optionsHtml += `
-                        <div class="option-row" onclick="selectMCOption(this, '${uniqueId}-${q.id || qIndex}', '${key}')">
-                            <input type="radio" name="mc-${uniqueId}-${q.id || qIndex}" value="${key}" style="display: none;">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="background: #f0f0f0; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                                    ${key}
-                                </span>
-                                <span>${value}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            
-            questionsHtml += `
-                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
-                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
-                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                            ${qIndex + 1}
-                        </span>
-                        <div style="flex: 1; font-size: 1.05em;">
-                            ${q.question}
-                            ${q.difficulty ? `<span style="font-size: 0.8em; padding: 2px 8px; background: ${getDifficultyColor(q.difficulty)}; color: white; border-radius: 10px; margin-left: 10px;">${q.difficulty}</span>` : ''}
-                        </div>
-                    </div>
-                    
-                    <div style="margin-left: 50px;">
-                        ${optionsHtml}
-                    </div>
-                    
-                    <div style="margin-top: 15px; margin-left: 50px; display: flex; gap: 10px; align-items: center;">
-                        <button onclick="checkMCQuestion('${uniqueId}-${q.id || qIndex}', '${q.correct}', '${q.solution || ''}')"
-                                style="padding: 8px 20px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
-                            Kiểm tra
-                        </button>
-                        <span id="result-mc-${uniqueId}-${q.id || qIndex}" style="margin-left: 10px;"></span>
-                    </div>
-                    
-                    ${q.solution ? `
-                        <div id="solution-mc-${uniqueId}-${q.id || qIndex}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
-                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Hướng dẫn giải:</div>
-                            <div>${q.solution}</div>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        });
-    }
-    
-    return `
-        <div class="question">
-            <div style="background: linear-gradient(135deg, #f8f9ff, #eef1ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-                    <span>📝</span> ${item.title || 'Bài tập trắc nghiệm'}
-                </h4>
-            </div>
-            
-            ${questionsHtml}
-        </div>
-    `;
-}
-
-function renderShortAnswer(item, uniqueId) {
-    let questionsHtml = '';
-    
-    if (item.questions && Array.isArray(item.questions)) {
-        item.questions.forEach((q, qIndex) => {
-            questionsHtml += `
-                <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
-                    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px;">
-                        <span style="background: #1a237e; color: white; min-width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                            ${qIndex + 1}
-                        </span>
-                        <div style="flex: 1; font-size: 1.05em;">
-                            ${q.question}
-                        </div>
-                    </div>
-                    
-                    <div style="margin-left: 50px;">
-                        <input type="text" id="input-${uniqueId}-${q.id || qIndex}" 
-                               placeholder="${q.placeholder || 'Nhập câu trả lời...'}"
-                               style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em;">
-                        
-                        ${q.hint ? `
-                            <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 6px; color: #856404;">
-                                <strong>💡 Gợi ý:</strong> ${q.hint}
-                            </div>
-                        ` : ''}
-                        
-                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
-                            <button onclick="checkSAQuestion('${uniqueId}-${q.id || qIndex}', '${q.answer}', ${JSON.stringify(q.accept_variations || [])}, '${q.solution || ''}')"
-                                    style="padding: 10px 25px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
-                                Kiểm tra
-                            </button>
-                            <span id="result-sa-${uniqueId}-${q.id || qIndex}" style="margin-left: 10px;"></span>
-                        </div>
-                    </div>
-                    
-                    ${q.solution ? `
-                        <div id="solution-sa-${uniqueId}-${q.id || qIndex}" style="display: none; margin-top: 15px; margin-left: 50px; padding: 15px; background: #e8f4f8; border-radius: 8px;">
-                            <div style="font-weight: bold; color: #17a2b8; margin-bottom: 8px;">📖 Lời giải:</div>
-                            <div>${q.solution}</div>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        });
-    }
-    
-    return `
-        <div class="question">
-            <div style="background: linear-gradient(135deg, #f0f7ff, #e6f0ff); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                <h4 style="color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-                    <span>✍️</span> ${item.title || 'Bài tập tự luận ngắn'}
-                </h4>
-            </div>
-            
-            ${questionsHtml}
-        </div>
-    `;
-}
-
-function renderMethod(item, uniqueId) {
-    let stepsHtml = '';
-    
-    if (item.steps && Array.isArray(item.steps)) {
-        item.steps.forEach((step, idx) => {
-            stepsHtml += `
-                <div class="method-step">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <span style="background: #4dabf7; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                            ${idx + 1}
-                        </span>
-                        <strong style="color: #1a237e;">${step.title}</strong>
-                    </div>
-                    <div style="margin-left: 40px;">
-                        <div><strong>Công thức/bước:</strong> ${step.content}</div>
-                        ${step.explanation ? `<div style="margin-top: 8px; color: #666;">${step.explanation}</div>` : ''}
-                    </div>
-                </div>
-            `;
-        });
-    }
-    
-    return `
-        <div class="theory-box">
-            <h4 style="color: #1a237e; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                <span>🔧</span> ${item.title || 'Phương pháp giải'}
-            </h4>
-            
-            ${item.problem_type ? `
-                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px;">
-                    <strong>Dạng toán:</strong> ${item.problem_type}
-                </div>
-            ` : ''}
-            
-            <div style="margin: 20px 0;">
-                <h5 style="color: #3949ab; margin-bottom: 15px;">📋 Các bước giải:</h5>
-                ${stepsHtml}
-            </div>
-        </div>
-    `;
-}
-
-// ===== HELPER FUNCTIONS =====
-function getDifficultyColor(difficulty) {
-    switch(difficulty?.toLowerCase()) {
-        case 'easy': return '#28a745';
-        case 'medium': return '#ffc107';
-        case 'hard': return '#dc3545';
-        default: return '#6c757d';
-    }
-}
-
-// ===== ANSWER CHECKING FUNCTIONS =====
-window.checkTrueFalseQuestion = function(uniqueId, questionIndex, correctAnswer) {
-    const radioName = `tf-${uniqueId}-${questionIndex}`;
-    const selected = document.querySelector(`input[name="${radioName}"]:checked`);
-    const resultEl = document.getElementById(`result-tf-${uniqueId}-${questionIndex}`);
-    const explainEl = document.getElementById(`explain-tf-${uniqueId}-${questionIndex}`);
-    
-    if (!selected) {
-        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy chọn Đúng hoặc Sai</span>';
-        return;
-    }
-    
-    const userAnswer = selected.value === 'true';
-    const isCorrect = userAnswer === correctAnswer;
-    
-    if (isCorrect) {
-        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
-        selected.parentElement.style.background = '#d4edda';
-        selected.parentElement.style.borderColor = '#28a745';
-    } else {
-        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer ? 'ĐÚNG' : 'SAI'}</span>`;
-        selected.parentElement.style.background = '#f8d7da';
-        selected.parentElement.style.borderColor = '#dc3545';
-    }
-    
-    if (explainEl) {
-        explainEl.style.display = 'block';
-    }
-    
-    // Disable all radios in this question
-    document.querySelectorAll(`input[name="${radioName}"]`).forEach(radio => {
-        radio.disabled = true;
-        radio.parentElement.style.cursor = 'default';
     });
-    
-    playSound(isCorrect ? 'correct' : 'wrong');
-};
+}
 
-window.selectMCOption = function(element, questionId, optionKey) {
-    // Remove selection from all options in this question
-    const questionContainer = element.closest('.question');
-    questionContainer.querySelectorAll(`[onclick*="${questionId}"]`).forEach(opt => {
-        opt.style.background = '';
-        opt.style.borderColor = '';
-    });
-    
-    // Select current option
-    element.style.background = '#e8f4f8';
-    element.style.borderColor = '#17a2b8';
-    
-    // Update hidden radio
-    const radio = element.querySelector('input[type="radio"]');
-    if (radio) radio.checked = true;
-    
-    // Store selection
-    window.selectedMCAnswers = window.selectedMCAnswers || {};
-    window.selectedMCAnswers[questionId] = optionKey;
-};
-
-window.checkMCQuestion = function(questionId, correctAnswer, solution) {
-    const userAnswer = window.selectedMCAnswers?.[questionId];
-    const resultEl = document.getElementById(`result-mc-${questionId}`);
-    const solutionEl = document.getElementById(`solution-mc-${questionId}`);
-    
-    if (!userAnswer) {
-        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy chọn một đáp án</span>';
-        return;
-    }
-    
-    const isCorrect = userAnswer === correctAnswer;
-    
-    // Highlight all options
-    const questionContainer = document.querySelector(`[onclick*="${questionId}"]`).closest('.question');
-    questionContainer.querySelectorAll(`[onclick*="${questionId}"]`).forEach(opt => {
-        const radio = opt.querySelector('input[type="radio"]');
-        if (radio) {
-            const value = radio.value;
-            if (value === correctAnswer) {
-                opt.style.background = '#d4edda';
-                opt.style.borderColor = '#28a745';
-            } else if (value === userAnswer && !isCorrect) {
-                opt.style.background = '#f8d7da';
-                opt.style.borderColor = '#dc3545';
-            }
-            opt.style.cursor = 'default';
-            radio.disabled = true;
-        }
-    });
-    
-    // Show result
-    if (isCorrect) {
-        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
-    } else {
-        resultEl.innerHTML = `<span style="color: #dc3545;">❌ Sai! Đáp án: ${correctAnswer}</span>`;
-    }
-    
-    // Show solution
-    if (solutionEl && solution) {
-        solutionEl.innerHTML = solution;
-        solutionEl.style.display = 'block';
-    }
-    
-    playSound(isCorrect ? 'correct' : 'wrong');
-};
-
-window.checkSAQuestion = function(questionId, correctAnswer, acceptVariations = [], solution = '') {
-    const inputEl = document.getElementById(`input-${questionId}`);
-    const resultEl = document.getElementById(`result-sa-${questionId}`);
-    const solutionEl = document.getElementById(`solution-sa-${questionId}`);
-    
-    if (!inputEl) return;
-    
-    const userAnswer = inputEl.value.trim();
-    
-    if (!userAnswer) {
-        resultEl.innerHTML = '<span style="color: #ffc107;">⚠️ Hãy nhập câu trả lời</span>';
-        return;
-    }
-    
-    // Normalize answers for comparison
-    const normalizeAnswer = (ans) => {
-        return ans.toLowerCase()
-            .replace(/\s+/g, '')
-            .replace(/[^a-z0-9\-\+\*\/\.\(\)]/g, '');
-    };
-    
-    const normalizedCorrect = normalizeAnswer(correctAnswer);
-    const normalizedUser = normalizeAnswer(userAnswer);
-    
-    // Check if answer is correct
-    let isCorrect = normalizedUser === normalizedCorrect;
-    
-    // Check variations if not correct
-    if (!isCorrect && acceptVariations && acceptVariations.length > 0) {
-        for (const variation of acceptVariations) {
-            if (normalizeAnswer(variation) === normalizedUser) {
-                isCorrect = true;
-                break;
-            }
-        }
-    }
-    
-    // Update UI
-    if (isCorrect) {
-        resultEl.innerHTML = '<span style="color: #28a745;">✅ Chính xác!</span>';
-        inputEl.style.borderColor = '#28a745';
-        inputEl.style.background = '#d4edda';
-    } else {
-        resultEl.innerHTML = '<span style="color: #dc3545;">❌ Chưa chính xác</span>';
-        inputEl.style.borderColor = '#dc3545';
-        inputEl.style.background = '#f8d7da';
-        
-        // Show correct answer after delay
-        setTimeout(() => {
-            if (resultEl) {
-                resultEl.innerHTML += `<br><small>Đáp án: <code style="color: #28a745;">${correctAnswer}</code></small>`;
-            }
-        }, 1000);
-    }
-    
-    // Show solution
-    if (solutionEl && solution) {
-        solutionEl.innerHTML = solution;
-        solutionEl.style.display = 'block';
-    }
-    
-    // Disable input
-    inputEl.disabled = true;
-    
-    playSound(isCorrect ? 'correct' : 'wrong');
-};
-
-// ===== SLIDE MANAGEMENT =====
 function setupScrollTracking() {
-    scrollObserver = new IntersectionObserver(
+    const pageContainer = document.querySelector('.page-container');
+    if (!pageContainer) return;
+    
+    const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1438,16 +1630,17 @@ function setupScrollTracking() {
             });
         },
         {
-            root: document.querySelector('.page-container'),
+            root: pageContainer,
             rootMargin: '-20% 0px -60% 0px',
             threshold: 0.1
         }
     );
     
-    const pageContainer = document.querySelector('.page-container');
-    if (pageContainer) {
-        pageContainer.addEventListener('scroll', updateScrollProgress);
-    }
+    document.querySelectorAll('.slide-section').forEach(section => {
+        observer.observe(section);
+    });
+    
+    pageContainer.addEventListener('scroll', updateScrollProgress);
 }
 
 function updateScrollProgress() {
@@ -1458,48 +1651,22 @@ function updateScrollProgress() {
     const scrollHeight = pageContainer.scrollHeight - pageContainer.clientHeight;
     const scrollPercentage = (scrollTop / scrollHeight) * 100;
     
-    document.getElementById('scrollProgress').style.width = scrollPercentage + '%';
-}
-
-function createSlideList() {
-    const slideList = document.getElementById('slideList');
-    const sections = document.querySelectorAll('.slide-section');
-    
-    if (sections.length === 0) {
-        slideList.innerHTML = `<div class="slide-item">Chưa có nội dung</div>`;
-        return;
+    const progressBar = document.getElementById('scrollProgress');
+    if (progressBar) {
+        progressBar.style.width = scrollPercentage + '%';
     }
-    
-    slideList.innerHTML = Array.from(sections).map((section, index) => {
-        const title = section.querySelector('h1, h2, h3, h4')?.textContent.substring(0, 40) || 
-                     section.querySelector('p')?.textContent.substring(0, 40) || 
-                     `Bài ${index + 1}`;
-        return `<div class="slide-item" data-section-index="${index}">
-                    <span class="slide-number">${index + 1}</span>${title}
-                </div>`;
-    }).join('');
-
-    slideList.querySelectorAll('.slide-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const sectionIndex = parseInt(item.dataset.sectionIndex);
-            scrollToSection(sectionIndex);
-            toggleSlideMenu();
-        });
-    });
-    
-    updateActiveSlideInMenu();
 }
 
 function updateActiveSlideInMenu(section = null) {
     if (!section) {
         section = document.querySelector('.slide-section.active-section');
     }
-    
     if (!section) return;
     
     const sectionIndex = Array.from(document.querySelectorAll('.slide-section')).indexOf(section);
+    const slideItems = document.querySelectorAll('.slide-item');
     
-    document.querySelectorAll('.slide-item').forEach((item, index) => {
+    slideItems.forEach((item, index) => {
         item.classList.toggle('active', index === sectionIndex);
     });
 }
@@ -1507,8 +1674,11 @@ function updateActiveSlideInMenu(section = null) {
 function toggleSlideMenu() {
     const slideMenu = document.getElementById('slideMenu');
     const menuOverlay = document.getElementById('menuOverlay');
-    slideMenu.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
+    
+    if (slideMenu && menuOverlay) {
+        slideMenu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+    }
 }
 
 window.scrollToSection = function(sectionIndex) {
@@ -1518,17 +1688,14 @@ window.scrollToSection = function(sectionIndex) {
     }
 };
 
-// ===== CANVAS FUNCTIONS =====
+// ===== CANVAS FUNCTIONS (simplified for mobile) =====
 function setupCanvas() {
     const canvas = document.getElementById("drawCanvas");
     const ctx = canvas.getContext("2d");
-    const toolbar = document.getElementById("drawToolbar");
     
     let isDrawing = false;
-    let currentTool = "pen";
-    let startX, startY, lastX, lastY;
-    let history = [];
-    let imageBeforeShape;
+    let lastX = 0;
+    let lastY = 0;
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -1536,161 +1703,141 @@ function setupCanvas() {
         ctx.lineJoin = "round";
         ctx.lineCap = "round";
     }
+    
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Tool selection
-    document.getElementById("tool").addEventListener("change", e => currentTool = e.target.value);
-    
-    // Clear button
-    document.getElementById("clearBtn").addEventListener("click", () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        history = [];
-    });
-    
-    // Undo button
-    document.getElementById("undoBtn").addEventListener("click", () => {
-        if (history.length > 0) ctx.putImageData(history.pop(), 0, 0);
-    });
-    
-    // Save button
-    document.getElementById("saveBtn").addEventListener("click", () => {
-        const link = document.createElement("a");
-        link.download = "bai_giang_viet.png";
-        link.href = canvas.toDataURL();
-        link.click();
-        showNotification("✅ Đã lưu ảnh thành công!", "success");
-    });
-
-    const getPos = e => {
+    function getPos(e) {
         const rect = canvas.getBoundingClientRect();
-        const touch = e.touches && e.touches[0];
-        const clientX = touch ? touch.clientX : e.clientX;
-        const clientY = touch ? touch.clientY : e.clientY;
+        let clientX, clientY;
+        
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        
         return { 
             x: (clientX - rect.left) * (canvas.width / rect.width), 
             y: (clientY - rect.top) * (canvas.height / rect.height) 
         };
-    };
+    }
 
-    const startDraw = e => {
-        e.preventDefault();
-        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    function startDraw(e) {
         isDrawing = true;
         const pos = getPos(e);
-        startX = lastX = pos.x;
-        startY = lastY = pos.y;
-        if (currentTool !== 'pen' && currentTool !== 'eraser') {
-            imageBeforeShape = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        }
+        [lastX, lastY] = [pos.x, pos.y];
         ctx.beginPath();
-    };
+        ctx.moveTo(lastX, lastY);
+    }
 
-    const drawMove = e => {
+    function drawMove(e) {
         if (!isDrawing) return;
-        e.preventDefault();
         
-        ctx.strokeStyle = currentTool === 'eraser' ? 'white' : document.getElementById("colorPicker").value;
+        ctx.strokeStyle = document.getElementById("colorPicker").value;
         ctx.lineWidth = document.getElementById("draw-width").value;
-        const pos = getPos(e);
         
-        if (currentTool !== "pen" && currentTool !== "eraser" && imageBeforeShape) {
-            ctx.putImageData(imageBeforeShape, 0, 0);
-        }
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        [lastX, lastY] = [pos.x, pos.y];
+    }
 
+    function endDraw() {
+        isDrawing = false;
         ctx.beginPath();
-        switch (currentTool) {
-            case "pen":
-            case "eraser":
-                ctx.moveTo(lastX, lastY); 
-                ctx.lineTo(pos.x, pos.y); 
-                ctx.stroke();
-                [lastX, lastY] = [pos.x, pos.y];
-                break;
-            case "line":
-                ctx.moveTo(startX, startY); 
-                ctx.lineTo(pos.x, pos.y); 
-                ctx.stroke();
-                break;
-            case "rect":
-                ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
-                break;
-            case "circle":
-                const radius = Math.hypot(pos.x - startX, pos.y - startY);
-                ctx.arc(startX, startY, radius, 0, Math.PI * 2); 
-                ctx.stroke();
-                break;
-            case "text":
-                // Simple text drawing
-                if (Math.abs(pos.x - startX) > 10 || Math.abs(pos.y - startY) > 10) {
-                    ctx.font = `${ctx.lineWidth * 5}px Arial`;
-                    ctx.fillText("Văn bản", startX, startY);
-                }
-                break;
-        }
-    };
-
-    const endDraw = () => { 
-        if(isDrawing) { 
-            isDrawing = false; 
-            ctx.beginPath();
-        }
-    };
+    }
 
     // Event listeners
     canvas.addEventListener("mousedown", startDraw);
     canvas.addEventListener("mousemove", drawMove);
     canvas.addEventListener("mouseup", endDraw);
     canvas.addEventListener("mouseleave", endDraw);
-    canvas.addEventListener("touchstart", startDraw, { passive: false });
-    canvas.addEventListener("touchmove", drawMove, { passive: false });
+    
+    canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        startDraw(e);
+    }, { passive: false });
+    
+    canvas.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        drawMove(e);
+    }, { passive: false });
+    
     canvas.addEventListener("touchend", endDraw);
+
+    // Toolbar controls
+    document.getElementById("clearBtn").addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+    
+    document.getElementById("saveBtn").addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = "bai_giang_viet.png";
+        link.href = canvas.toDataURL();
+        link.click();
+        showNotification("✅ Đã lưu ảnh", "success");
+    });
 }
 
 function toggleCanvas() {
     const canvas = document.getElementById("drawCanvas");
     const toolbar = document.getElementById("drawToolbar");
-    const isActive = canvas.style.display === "block";
     
-    if (isActive) {
+    if (canvas.style.display === "block") {
         canvas.style.display = "none";
         toolbar.style.display = "none";
         showNotification("✏️ Đã tắt bảng vẽ", "info");
     } else {
         canvas.style.display = "block";
         toolbar.style.display = "flex";
-        showNotification("✏️ Bảng vẽ đã bật - Vẽ trực tiếp lên bài giảng", "success");
+        showNotification("✏️ Bảng vẽ đã bật", "success");
     }
 }
 
-// ===== UTILITY FUNCTIONS =====
-function showNotification(message, type = 'info') {
-    const notification = document.getElementById('notification');
-    notification.innerHTML = message;
-    notification.className = `notification ${type}`;
-    notification.classList.add('show');
-    setTimeout(() => { notification.classList.remove('show'); }, 5000);
+// ===== SIMPLIFIED RENDER FUNCTIONS =====
+function renderTrueFalseSlide(slide, index) {
+    return `<div class="question">
+        <div class="question-title">${slide.title || `Câu ${index}`}</div>
+        <div>${slide.text || ''}</div>
+        <div style="margin-top: 20px;">
+            <button style="margin-right: 10px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 8px;">✅ Đúng</button>
+            <button style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 8px;">❌ Sai</button>
+        </div>
+    </div>`;
 }
 
-function playSound(type) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance();
-        utterance.text = type === 'correct' ? 'Chính xác!' : 'Sai rồi!';
-        utterance.lang = 'vi-VN';
-        utterance.volume = 0.5;
-        utterance.rate = 1.2;
-        speechSynthesis.speak(utterance);
-    }
+function renderShortAnswerSlide(slide, index) {
+    return `<div class="question">
+        <div class="question-title">${slide.title || `Câu ${index}`}</div>
+        <div>${slide.question || slide.text || ''}</div>
+        <div style="margin-top: 20px;">
+            <input type="text" placeholder="Nhập câu trả lời..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+            <button style="margin-top: 10px; padding: 10px 20px; background: #1a237e; color: white; border: none; border-radius: 8px;">Kiểm tra</button>
+        </div>
+    </div>`;
 }
 
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    document.getElementById('toggleDarkModeBtn').innerHTML = isDark ? '☀️ Chế độ sáng' : '🌙 Chế độ tối';
-    showNotification(isDark ? '🌙 Đã bật chế độ tối' : '☀️ Đã bật chế độ sáng', 'info');
-    
-    if (window.MathJax) {
-        MathJax.typesetPromise();
+function renderGenericSlide(slide, index) {
+    return `<div>
+        <h3>${slide.title || `Nội dung ${index + 1}`}</h3>
+        <div>${JSON.stringify(slide, null, 2)}</div>
+    </div>`;
+}
+
+function renderLessonCollection(lessonData) {
+    // Sử dụng hàm render có sẵn từ file gốc nếu tồn tại
+    if (typeof renderLesson === 'function') {
+        renderLesson(lessonData);
+    } else {
+        // Fallback: render như simple slides
+        renderSimpleSlides([{
+            type: 'welcome',
+            title: lessonData.title,
+            content: `<p>${lessonData.description || ''}</p><p>Số chương: ${lessonData.sections?.length || 0}</p>`
+        }]);
     }
 }
 </script>
