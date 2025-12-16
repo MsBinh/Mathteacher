@@ -4195,48 +4195,18 @@ function getScoreColor(percentage) {
 console.log("🚀 Hệ thống Lớp Toán Thầy Bình (Scroll Mode) đã sẵn sàng!");
 </script>
 <script src="ui-mobile.js"></script>
+<!-- Mobile Cache Fix Backup -->
 <script>
-// 💣 NUCLEAR FIX - DÀNH CHO CACHE CỨNG ĐẦU
-(function() {
-    const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
-    if (!isMobile) return;
-    
-    console.log('💣 KÍCH HOẠT NUCLEAR FIX CHO MOBILE');
-    
-    // 1. XÓA MỌI CACHE LIÊN QUAN ĐẾN EXAMS
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.includes('exam') || key.includes('cache')) {
-            localStorage.removeItem(key);
-            console.log('💣 Đã xóa:', key);
-        }
-    }
-    
-    // 2. GHI ĐÈ FETCH VÀ XMLHttpRequest
+if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
     const oldFetch = window.fetch;
     window.fetch = function(url, opts) {
-        if (typeof url === 'string' && url.includes('.json')) {
-            const newUrl = url + 
-                (url.includes('?') ? '&' : '?') + 
-                'nuke=' + Date.now() + 
-                '&mobile=1&r=' + Math.random();
-            console.log('💣 Nuclear fetch:', newUrl);
+        if (typeof url === 'string' && url.includes('exams.json')) {
+            const newUrl = url + (url.includes('?') ? '&' : '?') + 'mobile_fix=' + Date.now();
             return oldFetch(newUrl, { cache: 'no-store', ...opts });
         }
         return oldFetch(url, opts);
     };
-    
-    // 3. TỰ ĐỘNG RELOAD SAU 2 GIÂY NẾU CẦN
-    setTimeout(() => {
-        if (location.search.indexOf('fixed') === -1) {
-            console.log('🔄 Tự động reload để áp dụng fix...');
-            location.href = location.href + 
-                (location.search ? '&' : '?') + 'mobile_fixed=1';
-        }
-    }, 2000);
-    
-    console.log('✅ Nuclear fix đã sẵn sàng');
-})();
+}
 </script>
 </body>
 </html>

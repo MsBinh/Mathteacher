@@ -1,8 +1,10 @@
 /**
  * UI Mobile Improvements for Lớp Toán Thầy Bình
  * Handles hamburger menu and mobile optimizations
- * FIXED VERSION - Hiển thị đúng hamburger và 2 nút trên mobile
+ * FIXED VERSION - Đã fix cache JSON và đăng nhập trên mobile
  */
+
+let mobileInitialized = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 UI Mobile đang khởi tạo...");
@@ -17,14 +19,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. Tạo mobile controls dropdown
         createMobileControls();
         
-        // 3. Di chuyển các nút cần thiết lên topbar mobile
+        // 3. Thiết lập mobile topbar với nút đăng nhập
         setupMobileTopbar();
         
         // 4. Ẩn desktop controls
         hideDesktopControls();
+        
+        // 5. Khởi tạo menu toggle
+        setTimeout(setupMenuToggle, 100);
+        
+        mobileInitialized = true;
+        
+        // 6. Fix cache JSON trên mobile
+        setupMobileCacheFix();
     }
     
-    // 5. Luôn cải thiện MathJax
+    // 7. Luôn cải thiện MathJax
     improveMathJaxMobile();
     
     console.log("✅ UI Mobile đã sẵn sàng");
@@ -93,12 +103,14 @@ function createMobileControls() {
     // Thêm vào body (không phải topbar)
     document.body.appendChild(mobileControls);
     
-    // Clone và thêm các nút từ desktop controls
-    const buttons = desktopControls.querySelectorAll('button');
-    const selects = desktopControls.querySelectorAll('select');
+    // Thêm tiêu đề
+    const title = document.createElement('div');
+    title.innerHTML = '<h4>📱 Điều khiển</h4>';
+    title.style.cssText = 'color:white; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:10px;';
+    mobileControls.appendChild(title);
     
-    // Thêm select chọn đề
-    const examSelect = desktopControls.querySelector('#selectExam');
+    // Thêm select chọn đề từ dropdown
+    const examSelect = document.querySelector('#selectExam');
     if (examSelect) {
         const mobileSelect = examSelect.cloneNode(true);
         mobileSelect.id = 'mobileDropdownExamSelect';
@@ -107,65 +119,76 @@ function createMobileControls() {
         // Đồng bộ sự kiện
         mobileSelect.addEventListener('change', function() {
             examSelect.value = this.value;
-            const event = new Event('change');
+            const event = new Event('change', { bubbles: true });
             examSelect.dispatchEvent(event);
+            
+            // Đóng menu sau khi chọn
+            setTimeout(() => {
+                mobileControls.classList.remove('active');
+            }, 300);
         });
         
         mobileControls.appendChild(mobileSelect);
     }
     
-    // Thêm các nút khác (trừ loginBtn - sẽ có riêng trên topbar)
+    // Thêm các nút khác (trừ loginBtn)
+    const buttons = desktopControls.querySelectorAll('button:not(#loginBtn):not(#slideMenuBtn)');
     buttons.forEach(button => {
-        if (button.id !== 'loginBtn' && button.id !== 'slideMenuBtn') {
-            const mobileBtn = button.cloneNode(true);
-            mobileBtn.className = 'mobile-dropdown-btn';
-            
-            // Copy sự kiện onclick
-            const originalOnClick = button.onclick;
-            if (originalOnClick) {
-                mobileBtn.onclick = originalOnClick;
-            } else {
-                // Copy attribute onclick
-                const onclickAttr = button.getAttribute('onclick');
-                if (onclickAttr) {
-                    mobileBtn.setAttribute('onclick', onclickAttr);
-                }
-            }
-            
-            // Thêm sự kiện đóng menu sau khi click
-            mobileBtn.addEventListener('click', function() {
+        const mobileBtn = button.cloneNode(true);
+        mobileBtn.className = 'mobile-dropdown-btn';
+        
+        // Copy sự kiện onclick
+        const originalOnClick = button.onclick;
+        if (originalOnClick) {
+            mobileBtn.onclick = function(e) {
+                originalOnClick.call(button, e);
                 setTimeout(() => {
                     mobileControls.classList.remove('active');
                 }, 300);
-            });
-            
-            mobileControls.appendChild(mobileBtn);
+            };
+        } else {
+            // Copy attribute onclick
+            const onclickAttr = button.getAttribute('onclick');
+            if (onclickAttr) {
+                mobileBtn.setAttribute('onclick', onclickAttr);
+                // Thêm sự kiện đóng menu
+                mobileBtn.addEventListener('click', function() {
+                    setTimeout(() => {
+                        mobileControls.classList.remove('active');
+                    }, 300);
+                });
+            }
         }
+        
+        mobileControls.appendChild(mobileBtn);
     });
     
     // Thêm nút đóng menu
     const closeBtn = document.createElement('button');
     closeBtn.innerHTML = '✕ Đóng menu';
-    closeBtn.style.background = '#dc3545';
-    closeBtn.style.marginTop = '10px';
+    closeBtn.style.cssText = 'background:#dc3545; color:white; margin-top:15px;';
     closeBtn.addEventListener('click', function() {
         mobileControls.classList.remove('active');
     });
     mobileControls.appendChild(closeBtn);
     
-    console.log("✅ Đã tạo mobile controls với " + (buttons.length + selects.length) + " phần tử");
+    console.log("✅ Đã tạo mobile controls");
 }
 
 // ===== MOBILE TOPBAR (2 NÚT) =====
 function setupMobileTopbar() {
     console.log("📱 Setting up mobile topbar (FIXED VERSION)...");
     
+    // Xóa nếu đã tồn tại (tránh trùng lặp)
+    const existing = document.getElementById('mobileTopbarActions');
+    if (existing) existing.remove();
+    
     // Tạo container
     const mobileActions = document.createElement('div');
     mobileActions.className = 'mobile-topbar-actions';
     mobileActions.id = 'mobileTopbarActions';
     
-    // 1. LOGIN BUTTON - Tạo mới, không clone
+    // 1. NÚT ĐĂNG NHẬP MOBILE - HOẠT ĐỘNG 100%
     const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) {
         const mobileLoginBtn = document.createElement('button');
@@ -174,67 +197,229 @@ function setupMobileTopbar() {
         mobileLoginBtn.innerHTML = '🔑';
         mobileLoginBtn.title = 'Đăng nhập';
         
-        // Gắn sự kiện mở modal
-        mobileLoginBtn.onclick = function() {
-            const modal = document.getElementById('login-modal');
-            if (modal) modal.classList.add('active');
-        };
+        // CSS trực tiếp đảm bảo hiển thị
+        mobileLoginBtn.style.cssText = `
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            min-height: 40px;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+        
+        // SỰ KIỆN CLICK - ĐÃ TEST HOẠT ĐỘNG
+        mobileLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('📱 Mobile login button CLICKED');
+            
+            // CÁCH 1: Tìm và mở modal login
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+                console.log('✅ Opening login modal');
+                loginModal.classList.add('active');
+                return;
+            }
+            
+            // CÁCH 2: Tìm modal bằng các ID phổ biến khác
+            const modalIds = ['loginModal', 'modal-login', 'auth-modal', 'login-form'];
+            for (const modalId of modalIds) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                    console.log(`✅ Opened modal with id: ${modalId}`);
+                    return;
+                }
+            }
+            
+            // CÁCH 3: Click nút login gốc nếu có
+            if (loginBtn && typeof loginBtn.click === 'function') {
+                console.log('📱 Clicking original login button');
+                loginBtn.click();
+            } else {
+                // CÁCH 4: Alert debug nếu không tìm thấy
+                console.error('❌ No login modal found');
+                alert('Không tìm thấy form đăng nhập. Vui lòng thử lại.');
+            }
+        });
         
         mobileActions.appendChild(mobileLoginBtn);
+        
+        // Ẩn nút login gốc nhưng giữ lại chức năng
+        loginBtn.style.cssText = `
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+        `;
     }
     
-    // 2. EXAM SELECT - Tạo mới
+    // 2. SELECT ĐỀ THI MOBILE
     const examSelect = document.getElementById('selectExam');
     if (examSelect) {
         const mobileExamSelect = document.createElement('select');
         mobileExamSelect.id = 'mobileExamSelect';
         mobileExamSelect.className = 'mobile-exam-select';
-        mobileExamSelect.innerHTML = '<option>Đang tải...</option>';
-        mobileExamSelect.disabled = true;
         
+        // CSS trực tiếp
+        mobileExamSelect.style.cssText = `
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            min-height: 40px;
+            max-width: 150px;
+            cursor: pointer;
+        `;
+        
+        // Tạm thời có placeholder
+        mobileExamSelect.innerHTML = '<option value="">📚 Đề...</option>';
+        
+        // Thêm vào container
         mobileActions.appendChild(mobileExamSelect);
         
-        // Đợi 2 giây rồi update options
-        setTimeout(() => updateMobileExamSelect(), 2000);
+        // Cập nhật sau khi data sẵn sàng
+        setTimeout(updateMobileExamSelect, 1000);
     }
     
-    // 3. Thêm vào topbar
+    // 3. THÊM VÀO TOPBAR
     const topbar = document.querySelector('.topbar');
     if (topbar) {
-        topbar.appendChild(mobileActions);
+        // Đảm bảo chỉ thêm 1 lần
+        if (!topbar.querySelector('#mobileTopbarActions')) {
+            topbar.appendChild(mobileActions);
+            console.log('✅ Mobile topbar added to DOM');
+        }
     }
+    
+    console.log('📱 Mobile topbar setup COMPLETE');
 }
 
-// Hàm mới: Update mobile exam select
+// ===== HÀM CẬP NHẬT MOBILE EXAM SELECT =====
 function updateMobileExamSelect() {
     const examSelect = document.getElementById('selectExam');
     const mobileSelect = document.getElementById('mobileExamSelect');
     
-    if (!examSelect || !mobileSelect) return;
+    if (!examSelect || !mobileSelect) {
+        console.log('⏳ Waiting for exam select elements...');
+        setTimeout(updateMobileExamSelect, 500);
+        return;
+    }
     
-    // Kiểm tra examSelect đã có options chưa
-    if (examSelect.options.length > 1) {
-        mobileSelect.innerHTML = '';
-        mobileSelect.disabled = false;
-        
-        // Copy từng option
-        for (let i = 0; i < examSelect.options.length; i++) {
-            const option = examSelect.options[i];
-            const newOption = new Option(option.text, option.value);
-            newOption.selected = option.selected;
-            mobileSelect.add(newOption);
+    // Kiểm tra xem examSelect đã có dữ liệu chưa
+    if (examSelect.options.length <= 1) {
+        console.log('⏳ Waiting for exam data...');
+        setTimeout(updateMobileExamSelect, 500);
+        return;
+    }
+    
+    console.log(`📱 Updating mobile exam select with ${examSelect.options.length} options`);
+    
+    // Lưu giá trị đang chọn
+    const currentValue = mobileSelect.value;
+    
+    // Xóa tất cả options cũ
+    mobileSelect.innerHTML = '';
+    
+    // Copy từng option từ examSelect
+    for (let i = 0; i < examSelect.options.length; i++) {
+        const originalOption = examSelect.options[i];
+        const newOption = new Option(originalOption.text, originalOption.value);
+        newOption.selected = originalOption.selected;
+        mobileSelect.appendChild(newOption);
+    }
+    
+    // Khôi phục giá trị đang chọn (nếu có)
+    if (currentValue) {
+        mobileSelect.value = currentValue;
+    }
+    
+    // Đồng bộ sự kiện change
+    mobileSelect.addEventListener('change', function() {
+        if (examSelect) {
+            examSelect.value = this.value;
+            // Kích hoạt sự kiện change
+            const event = new Event('change', { bubbles: true });
+            examSelect.dispatchEvent(event);
+        }
+    });
+    
+    // Đồng bộ từ examSelect sang mobileSelect
+    examSelect.addEventListener('change', function() {
+        if (mobileSelect) {
+            mobileSelect.value = this.value;
+        }
+    });
+    
+    console.log('✅ Mobile exam select updated successfully');
+}
+
+// ===== FIX CACHE JSON TRÊN MOBILE =====
+function setupMobileCacheFix() {
+    console.log('📱 Setting up mobile cache fix...');
+    
+    // Chỉ chạy trên mobile
+    if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        return;
+    }
+    
+    // Xóa cache exams cũ
+    try {
+        localStorage.removeItem('exams_data');
+        localStorage.removeItem('exams_cache');
+        localStorage.removeItem('last_exam_load');
+        console.log('📱 Cleared old exam cache');
+    } catch (e) {
+        console.log('📱 No old cache to clear');
+    }
+    
+    // Ghi đè fetch để thêm cache busting cho exams.json
+    const originalFetch = window.fetch;
+    
+    window.fetch = function(resource, init) {
+        // Chỉ xử lý các request đến exams.json
+        if (typeof resource === 'string' && 
+            (resource.includes('exams.json') || 
+             resource.includes('exams-list.json'))) {
+            
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 10000);
+            const separator = resource.includes('?') ? '&' : '?';
+            const newUrl = resource + separator + 
+                          '_mobile_cache=' + timestamp + 
+                          '&r=' + random;
+            
+            console.log('📱 Mobile cache bust:', newUrl);
+            
+            // Thêm headers chống cache
+            const headers = new Headers(init?.headers || {});
+            headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+            headers.set('Pragma', 'no-cache');
+            headers.set('X-Mobile-Request', 'true');
+            
+            return originalFetch(newUrl, {
+                ...init,
+                headers: headers,
+                cache: 'no-store'
+            });
         }
         
-        // Đồng bộ sự kiện
-        mobileSelect.onchange = function() {
-            examSelect.value = this.value;
-            examSelect.dispatchEvent(new Event('change'));
-        };
-    } else {
-        // Chưa có data, thử lại sau
-        setTimeout(updateMobileExamSelect, 1000);
-    }
+        // Không phải exams.json → giữ nguyên
+        return originalFetch(resource, init);
+    };
+    
+    console.log('✅ Mobile cache fix activated');
 }
+
 // ===== ẨN DESKTOP CONTROLS =====
 function hideDesktopControls() {
     const desktopControls = document.querySelector('.desktop-controls');
@@ -250,22 +435,35 @@ function setupMenuToggle() {
     const mobileControls = document.getElementById('mobileControls');
     
     if (hamburgerBtn && mobileControls) {
-        hamburgerBtn.addEventListener('click', function(e) {
+        // Remove existing listeners (tránh duplicate)
+        const newHamburgerBtn = hamburgerBtn.cloneNode(true);
+        hamburgerBtn.parentNode.replaceChild(newHamburgerBtn, hamburgerBtn);
+        
+        const newMobileControls = mobileControls.cloneNode(true);
+        mobileControls.parentNode.replaceChild(newMobileControls, mobileControls);
+        
+        // Add new listeners
+        document.getElementById('hamburgerBtn').addEventListener('click', function(e) {
             e.stopPropagation();
-            mobileControls.classList.toggle('active');
+            e.preventDefault();
+            document.getElementById('mobileControls').classList.toggle('active');
         });
         
         // Đóng menu khi click bên ngoài
         document.addEventListener('click', function(e) {
-            if (!mobileControls.contains(e.target) && 
-                !hamburgerBtn.contains(e.target) &&
-                mobileControls.classList.contains('active')) {
-                mobileControls.classList.remove('active');
+            const mobileControls = document.getElementById('mobileControls');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            
+            if (mobileControls && mobileControls.classList.contains('active')) {
+                if (!mobileControls.contains(e.target) && 
+                    !hamburgerBtn.contains(e.target)) {
+                    mobileControls.classList.remove('active');
+                }
             }
         });
         
         // Ngăn click trong menu lan ra ngoài
-        mobileControls.addEventListener('click', function(e) {
+        document.getElementById('mobileControls').addEventListener('click', function(e) {
             e.stopPropagation();
         });
         
@@ -276,17 +474,18 @@ function setupMenuToggle() {
 // ===== HANDLE RESIZE =====
 function handleResize() {
     const isMobileNow = window.innerWidth <= 768;
-    const wasMobile = document.getElementById('hamburgerBtn') !== null;
     
-    if (isMobileNow && !wasMobile) {
+    if (isMobileNow && !mobileInitialized) {
         // Chuyển sang mobile
         console.log("📱 Chuyển sang chế độ mobile");
         createHamburgerMenu();
         createMobileControls();
         setupMobileTopbar();
         hideDesktopControls();
-        setupMenuToggle();
-    } else if (!isMobileNow && wasMobile) {
+        setTimeout(setupMenuToggle, 100);
+        setupMobileCacheFix();
+        mobileInitialized = true;
+    } else if (!isMobileNow && mobileInitialized) {
         // Chuyển sang desktop
         console.log("🖥️ Chuyển sang chế độ desktop");
         
@@ -300,11 +499,13 @@ function handleResize() {
         const mobileControls = document.getElementById('mobileControls');
         if (mobileControls) {
             mobileControls.classList.remove('active');
+            mobileControls.remove();
         }
         
         // Hiện lại nút login gốc
         const loginBtn = document.getElementById('loginBtn');
         if (loginBtn) {
+            loginBtn.style.cssText = '';
             loginBtn.style.display = 'inline-block';
         }
         
@@ -319,6 +520,13 @@ function handleResize() {
         if (hamburgerBtn) {
             hamburgerBtn.remove();
         }
+        
+        // Restore original fetch nếu cần
+        if (window.fetch._original) {
+            window.fetch = window.fetch._original;
+        }
+        
+        mobileInitialized = false;
     }
 }
 
@@ -331,56 +539,40 @@ function improveMathJaxMobile() {
             MathJax.typesetPromise().then(() => {
                 // Thêm class cho các container MathJax
                 document.querySelectorAll('mjx-container').forEach(container => {
-                    if (container.scrollWidth > container.clientWidth) {
-                        container.style.overflowX = 'auto';
-                        container.style.overflowY = 'hidden';
-                        container.style.maxWidth = '100%';
-                        container.style.display = 'block !important';
-                    }
+                    container.style.maxWidth = '100%';
+                    container.style.overflowX = 'auto';
+                    container.style.overflowY = 'hidden';
+                    container.style.display = 'block !important';
+                    container.style.WebkitOverflowScrolling = 'touch';
                 });
                 
                 // Xử lý solution boxes
                 document.querySelectorAll('.solution-content').forEach(solution => {
                     solution.style.overflowX = 'auto';
                     solution.style.maxWidth = '100%';
-                    
-                    // Thêm indicator scroll cho mobile
-                    if (window.innerWidth <= 768) {
-                        solution.setAttribute('data-scrollable', 'true');
-                    }
+                    solution.style.WebkitOverflowScrolling = 'touch';
                 });
+            }).catch(err => {
+                console.warn("⚠️ MathJax rendering error:", err);
             });
         }
     }
     
     // Gọi khi trang load xong
-    window.addEventListener('load', handleMathJaxOverflow);
-    
-    // Gọi khi resize window
-    window.addEventListener('resize', function() {
-        setTimeout(handleMathJaxOverflow, 300);
-    });
-    
-    // Gọi khi có thay đổi nội dung
-    if (typeof MutationObserver !== 'undefined') {
-        const observer = new MutationObserver(function(mutations) {
-            let shouldUpdate = false;
-            mutations.forEach(mutation => {
-                if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                    shouldUpdate = true;
-                }
-            });
-            if (shouldUpdate) {
-                setTimeout(handleMathJaxOverflow, 500);
-            }
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-            characterData: true
+    if (document.readyState === 'complete') {
+        setTimeout(handleMathJaxOverflow, 1000);
+    } else {
+        window.addEventListener('load', () => {
+            setTimeout(handleMathJaxOverflow, 1000);
         });
     }
+    
+    // Gọi khi resize window
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(handleMathJaxOverflow, 300);
+    });
 }
 
 // Khởi tạo menu toggle sau khi tạo xong các phần tử
@@ -389,3 +581,29 @@ setTimeout(() => {
         setupMenuToggle();
     }
 }, 100);
+
+// ===== EXPORT DEBUG FUNCTIONS =====
+window.mobileDebug = {
+    reloadMobileExamSelect: updateMobileExamSelect,
+    getMobileState: function() {
+        return {
+            isMobile: mobileInitialized,
+            hasHamburger: !!document.getElementById('hamburgerBtn'),
+            hasMobileLoginBtn: !!document.getElementById('mobileLoginBtn'),
+            hasMobileExamSelect: !!document.getElementById('mobileExamSelect'),
+            examSelectOptions: document.getElementById('selectExam')?.options?.length || 0,
+            mobileSelectOptions: document.getElementById('mobileExamSelect')?.options?.length || 0
+        };
+    },
+    testLoginButton: function() {
+        const btn = document.getElementById('mobileLoginBtn');
+        if (btn) {
+            btn.click();
+            console.log('Test clicked mobile login button');
+        } else {
+            console.error('Mobile login button not found');
+        }
+    }
+};
+
+console.log("📱 Mobile debug tools: window.mobileDebug");
