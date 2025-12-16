@@ -75,13 +75,10 @@
     <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
     <div class="desktop-controls">
         <button id="slideMenuBtn">📋 DS Bài</button>
+        
         <select id="selectExam">
-            <option value="mm">-- Chọn đề --</option>
-            <option value="gk1de1.html">Đề 1: Giữa HK1</option>
-            <option value="gk1de2.html">Đề 2:Giữa HK1</option>
-            <option value="PTMPDT.html">PTMP:DS</option>
-            <option value="hk1de7.html">Đề 7: HK1</option>
-        </select>
+    <option value="">Chọn đề thi</option>
+    </select>
         <button id="studentInteractBtn">🎮 Tương tác</button>
         <button id="teacherMonitorBtn">👁️ Theo dõi</button>
         <button id="loginBtn">🔑 Đăng nhập</button>
@@ -710,7 +707,7 @@ function updateStudentProgressFromScroll(section) {
 // ===== EXAM MANAGEMENT =====
 async function loadExamList() {
     try {
-        const response = await fetch('exam-list.json');
+        const response = await fetch('12Hk1.json');
         if (!response.ok) throw new Error('Không tìm thấy file exam-list.json');
         
         const data = await response.json();
@@ -4198,5 +4195,7 @@ function getScoreColor(percentage) {
 console.log("🚀 Hệ thống Lớp Toán Thầy Bình (Scroll Mode) đã sẵn sàng!");
 </script>
 <script src="ui-mobile.js"></script>
+<!-- Thêm timestamp để bust cache -->
+<script src="ui-mobile.js?v=20240316"></script>
 </body>
 </html>
