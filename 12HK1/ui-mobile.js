@@ -157,66 +157,81 @@ function createMobileControls() {
 }
 
 // ===== MOBILE TOPBAR (2 NÚT) =====
+// Thay toàn bộ hàm setupMobileTopbar bằng:
+
 function setupMobileTopbar() {
-    console.log("📱 Thiết lập topbar mobile...");
+    console.log("📱 Setting up mobile topbar...");
     
-    // Tạo container cho 2 nút trên topbar
+    // Tạo container
     const mobileActions = document.createElement('div');
     mobileActions.className = 'mobile-topbar-actions';
     mobileActions.id = 'mobileTopbarActions';
     
-    // 1. Nút đăng nhập
+    // Login button
     const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) {
         const mobileLoginBtn = loginBtn.cloneNode(true);
         mobileLoginBtn.id = 'mobileLoginBtn';
-        mobileLoginBtn.innerHTML = '🔑'; // Icon đơn giản hơn
-        mobileLoginBtn.title = 'Đăng nhập';
-        
-        // Gán sự kiện mở modal đăng nhập
-        mobileLoginBtn.onclick = function() {
-            const loginModal = document.getElementById('login-modal');
-            if (loginModal) {
-                loginModal.classList.add('active');
-            }
-        };
-        
         mobileActions.appendChild(mobileLoginBtn);
-        
-        // Ẩn nút login gốc
         loginBtn.style.display = 'none';
     }
     
-    // 2. Select chọn đề
-    const examSelect = document.getElementById('selectExam');
-    if (examSelect) {
-        const mobileExamSelect = examSelect.cloneNode(true);
-        mobileExamSelect.id = 'mobileExamSelect';
-        mobileExamSelect.className = 'mobile-exam-select';
-        mobileExamSelect.style.maxWidth = '120px';
-        
-        // Đồng bộ sự kiện
-        mobileExamSelect.addEventListener('change', function() {
-            examSelect.value = this.value;
-            const event = new Event('change');
-            examSelect.dispatchEvent(event);
-        });
-        
-        // Đồng bộ giá trị ban đầu
-        mobileExamSelect.value = examSelect.value;
-        
-        mobileActions.appendChild(mobileExamSelect);
-    }
+    // QUAN TRỌNG: Tạo select nhưng ĐỂ TRỐNG
+    const mobileExamSelect = document.createElement('select');
+    mobileExamSelect.id = 'mobileExamSelect';
+    mobileExamSelect.className = 'mobile-exam-select';
+    mobileExamSelect.innerHTML = '<option>Đang tải...</option>';
+    mobileExamSelect.disabled = true;
     
-    // Thêm vào topbar (sau title)
+    mobileActions.appendChild(mobileExamSelect);
+    
+    // Thêm vào topbar
     const topbar = document.querySelector('.topbar');
-    if (topbar) {
-        topbar.appendChild(mobileActions);
-    }
+    if (topbar) topbar.appendChild(mobileActions);
     
-    console.log("✅ Đã thêm 2 nút lên topbar mobile");
+    // QUAN TRỌNG: Chờ exam data load xong RỒI mới populate
+    setTimeout(() => populateMobileExamSelect(), 1000);
+    
+    console.log("✅ Mobile topbar setup (select sẽ được update sau)");
 }
 
+function populateMobileExamSelect() {
+    const examSelect = document.getElementById('selectExam');
+    const mobileSelect = document.getElementById('mobileExamSelect');
+    
+    if (!examSelect || !mobileSelect) return;
+    
+    // Kiểm tra xem examSelect đã có data chưa
+    if (examSelect.options.length <= 1) {
+        console.log('⏳ Chưa có data, thử lại sau...');
+        setTimeout(populateMobileExamSelect, 500);
+        return;
+    }
+    
+    // Clear mobile select
+    mobileSelect.innerHTML = '';
+    mobileSelect.disabled = false;
+    
+    // Copy options từ examSelect
+    Array.from(examSelect.options).forEach(option => {
+        const newOption = new Option(option.text, option.value);
+        newOption.selected = option.selected;
+        mobileSelect.appendChild(newOption);
+    });
+    
+    // Đồng bộ sự kiện
+    mobileSelect.addEventListener('change', function() {
+        examSelect.value = this.value;
+        examSelect.dispatchEvent(new Event('change'));
+    });
+    
+    // Đồng bộ ngược lại
+    examSelect.addEventListener('change', function() {
+        mobileSelect.value = this.value;
+    });
+    
+    console.log(`✅ Mobile select populated with ${examSelect.options.length} options`);
+}
 // ===== ẨN DESKTOP CONTROLS =====
 function hideDesktopControls() {
     const desktopControls = document.querySelector('.desktop-controls');
