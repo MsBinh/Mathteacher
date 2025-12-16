@@ -10,10 +10,11 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #333;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== MOBILE TOPBAR (HAMBURGER) ===== */
-/* ===== MOBILE TOPBAR (HAMBURGER) - SỬA LẠI ===== */
 .topbar {
     position: fixed;
     top: 0;
@@ -31,7 +32,6 @@ body {
     border-bottom: 3px solid #3949ab;
 }
 
-/* Hamburger button - LUÔN HIỂN THỊ TRÊN MOBILE */
 .hamburger-menu {
     background: none;
     border: none;
@@ -41,17 +41,18 @@ body {
     padding: 8px;
     border-radius: 5px;
     transition: all 0.3s ease;
-    display: none; /* Mặc định ẩn */
+    display: none;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .hamburger-menu:hover {
     background: rgba(255,255,255,0.1);
 }
 
-/* Mobile controls dropdown */
 .mobile-controls {
     display: none;
-    position: fixed; /* Đổi từ absolute sang fixed */
+    position: fixed;
     top: 60px;
     left: 0;
     width: 100%;
@@ -70,7 +71,6 @@ body {
     display: flex;
 }
 
-/* Nút hiển thị trên topbar mobile */
 .mobile-topbar-actions {
     display: none;
     align-items: center;
@@ -89,6 +89,7 @@ body {
     font-weight: 500;
     font-size: 0.9rem;
     min-height: 40px;
+    min-width: 44px;
 }
 
 #mobileLoginBtn:hover, 
@@ -101,42 +102,6 @@ body {
     color: white;
 }
 
-/* ===== RESPONSIVE MOBILE - SỬA LẠI ===== */
-@media (max-width: 768px) {
-    .topbar {
-        height: 60px;
-        padding: 0 15px;
-    }
-    
-    .topbar-title {
-        font-size: 1.1rem;
-        flex: 1;
-    }
-    
-    /* HIỂN THỊ HAMBURGER TRÊN MOBILE */
-    .hamburger-menu {
-        display: block !important;
-    }
-    
-    /* HIỂN THỊ 2 NÚT TRÊN TOPBAR */
-    .mobile-topbar-actions {
-        display: flex !important;
-    }
-    
-    /* ẨN DESKTOP CONTROLS */
-    .desktop-controls {
-        display: none !important;
-    }
-    
-    /* Điều chỉnh scroll progress */
-    .scroll-progress {
-        top: 60px;
-    }
-    
-    .page-container {
-        top: 63px;
-    }
-}
 /* ===== TOPBAR DESKTOP ===== */
 .desktop-controls select,
 .desktop-controls button {
@@ -181,7 +146,7 @@ body {
     transition: width 0.3s ease;
 }
 
-/* ===== PAGE CONTAINER (SCROLL MODE) ===== */
+/* ===== PAGE CONTAINER ===== */
 .page-container {
     position: fixed;
     top: 63px;
@@ -203,6 +168,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 50px;
+    line-height: 1.6;
 }
 
 /* ===== SLIDE SECTIONS ===== */
@@ -230,18 +196,21 @@ body {
     border-bottom: 3px solid #1a237e;
     padding-bottom: 15px;
     font-weight: 700;
+    font-size: 1.8rem;
 }
 
 .slide-section h3 {
     color: #3949ab;
     margin: 20px 0 15px 0;
     font-weight: 600;
+    font-size: 1.4rem;
 }
 
 .slide-section p, .slide-section li {
     color: #34495e;
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 15px;
+    font-size: 1.1rem;
 }
 
 .slide-section ul, .slide-section ol {
@@ -249,6 +218,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* ===== QUESTION STYLES - TỐI ƯU TRUE/FALSE ===== */
 /* ===== QUESTION STYLES ===== */
 .question {
     margin: 25px 0;
@@ -274,6 +244,7 @@ body {
     line-height: 1.5;
 }
 
+/* ===== MULTIPLE CHOICE OPTIONS (GIỮ NGUYÊN GỐC) ===== */
 .option-row {
     margin: 12px 0;
     padding: 12px 15px;
@@ -305,6 +276,41 @@ body {
     cursor: pointer;
 }
 
+/* ===== TRUE/FALSE SPECIFIC (CHỈ THÊM CHO MOBILE) ===== */
+/* Style đặc biệt cho True/False - chỉ trên mobile */
+@media (max-width: 768px) {
+    /* Khi option-row có nhiều hơn 1 phần tử con (True/False) */
+    .option-row:has(> div) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .option-row:has(> div) > div:first-child {
+        width: 100%;
+        margin-bottom: 15px;
+        font-size: 1.05rem;
+    }
+    
+    .option-row:has(> div) > div:last-child {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .option-row:has(> div) label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        background: white;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        min-width: 80px;
+        justify-content: center;
+    }
+}
+
+/* ===== ANSWER CHECK INPUT ===== */
 .answer-check {
     margin-top: 20px;
     display: flex;
@@ -347,7 +353,7 @@ body {
     box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
 }
 
-/* ===== SOLUTION BOX IMPROVED (MATHJAX FRIENDLY) ===== */
+/* ===== SOLUTION BOX ===== */
 .solution-title {
     color: #1976d2;
     font-weight: 700;
@@ -355,23 +361,25 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 1.2rem;
 }
 
 .solution-title::before {
     content: "💡";
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .solution-content {
     color: #1565c0;
-    line-height: 1.6;
-    padding: 15px;
+    line-height: 1.7;
+    padding: 20px;
     background: #f8f9ff;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 1px solid #e0e0e0;
     overflow-x: auto;
     max-width: 100%;
     word-wrap: break-word;
+    font-size: 1.1rem;
 }
 
 .solution-content::-webkit-scrollbar {
@@ -392,22 +400,77 @@ body {
     background: #a8a8a8;
 }
 
-/* MathJax specific adjustments */
-.solution-content .MathJax,
-.solution-content mjx-container {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    display: block !important;
-}
-
-.solution-content mjx-container[jax="CHTML"] {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-}
-
 .solution-box { 
     display: none; 
-    margin-top: 15px;
+    margin-top: 20px;
+}
+
+/* ===== TABLES - TĂNG KÍCH THƯỚC CHỮ ===== */
+.table-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 15px;
+    border: 2px solid #f0f0f0;
+    position: relative;
+    margin: 20px 0;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px; /* Tăng kích thước chữ */
+}
+
+th, td {
+    padding: 18px 20px; /* Tăng padding */
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    color: #333;
+    line-height: 1.6; /* Tăng line-height */
+}
+
+th {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: white;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+    font-size: 17px; /* Tiêu đề lớn hơn */
+    z-index: 10;
+}
+
+tr:nth-child(even) {
+    background: #f8f9ff;
+}
+
+tr:hover {
+    background: #e8eaff;
+    transition: all 0.2s ease;
+}
+
+/* Cell chứa số liệu thống kê */
+.stats-cell {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #1a237e !important;
 }
 
 /* ===== SLIDE MENU ===== */
@@ -477,6 +540,7 @@ body {
     transition: all 0.3s ease;
     color: white;
     border: 1px solid rgba(255,255,255,0.1);
+    font-size: 1rem;
 }
 
 .slide-item:hover {
@@ -516,6 +580,412 @@ body {
 
 .menu-overlay.active {
     display: block;
+}
+
+/* ===== MODAL SYSTEM ===== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 12000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    color: #333;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    animation: modalAppear 0.4s ease;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ===== NOTIFICATION SYSTEM ===== */
+.notification {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    z-index: 100000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transform: translateX(400px);
+    transition: transform 0.4s ease;
+    font-size: 1rem;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+/* ===== RESPONSIVE DESIGN - TỐI ƯU MOBILE ===== */
+@media (max-width: 1024px) {
+    .slides {
+        font-size: 1.3rem !important;
+    }
+    .slide-section {
+        padding: 20px 25px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .topbar {
+        height: 60px;
+        padding: 0 15px;
+    }
+    
+    .hamburger-menu {
+        display: block !important;
+    }
+    
+    .mobile-topbar-actions {
+        display: flex !important;
+    }
+    
+    .desktop-controls {
+        display: none !important;
+    }
+    
+    .page-container {
+        top: 63px;
+        padding: 15px;
+        border-radius: 0;
+    }
+    
+    .scroll-progress {
+        top: 60px;
+    }
+    
+    .slide-section {
+        padding: 20px !important;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+    
+    .slide-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+    
+    .slide-section h3 {
+        font-size: 1.2rem;
+        margin: 15px 0 10px;
+    }
+    
+    /* TỐI ƯU TRUE/FALSE CHO MOBILE */
+    .option-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 15px !important;
+    }
+    
+    .option-row > div:first-child {
+        width: 100% !important;
+        margin-bottom: 15px !important;
+        font-size: 1.05rem !important;
+        min-width: unset !important;
+    }
+    
+    .option-row > div:last-child {
+        justify-content: flex-start !important;
+        width: 100% !important;
+        gap: 15px !important;
+        min-width: unset !important;
+    }
+    
+    .option-row label {
+        min-width: 80px !important;
+        padding: 10px 15px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* QUESTION OPTIMIZATION */
+    .question {
+        padding: 20px !important;
+        margin: 20px 0;
+    }
+    
+    .question-title {
+        font-size: 1.1rem;
+    }
+    
+    /* ANSWER CHECK - TỐI ƯU CHO MOBILE */
+    .answer-check {
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-top: 20px !important;
+    }
+    
+    .answer-check input {
+        width: 100% !important;
+        min-width: unset !important;
+        padding: 14px !important;
+        font-size: 16px !important;
+    }
+    
+    .answer-check button {
+        width: 100% !important;
+        padding: 16px !important;
+        font-size: 1.1rem !important;
+    }
+    
+    /* TABLES - TĂNG CHỮ CHO MOBILE */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 15px;
+    }
+    
+    table {
+        font-size: 15px !important;
+        min-width: unset !important;
+    }
+    
+    th, td {
+        padding: 14px 16px !important;
+        font-size: 15px !important;
+    }
+    
+    th {
+        font-size: 16px !important;
+        padding: 16px !important;
+    }
+    
+    .stats-cell {
+        font-size: 16px !important;
+    }
+    
+    /* SLIDE MENU */
+    .slide-menu { 
+        width: 85vw !important;
+        max-width: 320px;
+        left: -85vw;
+    }
+    
+    .slide-item {
+        padding: 14px 16px;
+        font-size: 1rem;
+    }
+    
+    /* SOLUTION */
+    .solution-content {
+        font-size: 1rem;
+        padding: 16px;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    .topbar-title {
+        font-size: 1rem;
+    }
+    
+    .slides {
+        font-size: 1.1rem !important;
+    }
+    
+    .slide-section h2 {
+        font-size: 1.3rem;
+    }
+    
+    /* TRUE/FALSE EVEN SMALLER */
+    .option-row > div:last-child {
+        gap: 10px !important;
+    }
+    
+    .option-row label {
+        min-width: 70px !important;
+        padding: 8px 12px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* TABLES - HIỆN ÍT CỘT HƠN */
+    .table-container {
+        font-size: 14px;
+    }
+    
+    table {
+        font-size: 14px !important;
+    }
+    
+    th, td {
+        padding: 12px 10px !important;
+        font-size: 14px !important;
+    }
+    
+    /* Ẩn cột không quan trọng trên mobile rất nhỏ */
+    .mobile-hide {
+        display: none !important;
+    }
+    
+    /* Giảm khoảng cách */
+    .question {
+        padding: 18px !important;
+        margin: 15px 0 !important;
+    }
+}
+
+/* Mobile gestures */
+@media (hover: none) and (pointer: coarse) {
+    button, 
+    .option-row label,
+    .slide-item {
+        min-height: 44px !important;
+    }
+    
+    .option-row:active,
+    .slide-item:active,
+    button:active {
+        opacity: 0.7;
+        transform: scale(0.98) !important;
+    }
+    
+    .option-row:hover {
+        transform: none !important;
+        background: inherit !important;
+    }
+    
+    /* Tăng kích thước touch target cho radio */
+    input[type="radio"] {
+        width: 24px !important;
+        height: 24px !important;
+    }
+}
+
+/* Landscape mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .topbar {
+        height: 50px;
+    }
+    
+    .page-container {
+        top: 53px;
+    }
+    
+    .scroll-progress {
+        top: 50px;
+    }
+    
+    /* Trong landscape, true/false có thể nằm ngang với câu hỏi */
+    .option-row {
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+    
+    .option-row > div:first-child {
+        margin-bottom: 0 !important;
+        min-width: 200px !important;
+    }
+    
+    .option-row > div:last-child {
+        min-width: 150px !important;
+    }
+}
+
+/* Safe area for iPhone */
+@supports (padding: max(0px)) {
+    .topbar,
+    .page-container {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+    }
+    
+    .topbar {
+        padding-top: max(5px, env(safe-area-inset-top));
+    }
+    
+    .page-container {
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+}
+
+/* Table responsive */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+    margin: 20px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px; /* Tăng kích thước chữ */
+}
+
+.table-responsive th,
+.table-responsive td {
+    border: 1px solid #ddd;
+    padding: 14px 16px; /* Tăng padding */
+    text-align: left;
+    vertical-align: top;
+    font-size: 15px; /* Tăng font-size */
+}
+
+.table-responsive th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 16px; /* Tiêu đề lớn hơn */
+    color: #1a237e;
+}
+
+/* ===== CÁC STYLE KHÁC TỪ FILE GỐC - GIỮ NGUYÊN ===== */
+.modal-content-scrollable {
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow-y: hidden;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
 }
 
 /* ===== CANVAS DRAWING ===== */
@@ -577,138 +1047,6 @@ body {
     width: 100px;
 }
 
-/* ===== MODAL SYSTEM ===== */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 12000;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    background: white;
-    color: #333;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.2);
-    animation: modalAppear 0.4s ease;
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.modal-content-scrollable {
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    max-height: 85vh;
-    overflow-y: hidden;
-}
-
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #666;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.modal-close:hover {
-    background: #f0f0f0;
-    color: #333;
-}
-
-@keyframes modalAppear {
-    from {
-        opacity: 0;
-        transform: scale(0.8) translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* ===== TABLES ===== */
-.table-container {
-    max-height: 60vh;
-    overflow-y: auto;
-    border-radius: 15px;
-    border: 2px solid #f0f0f0;
-    position: relative;
-}
-
-.table-container::-webkit-scrollbar {
-    width: 8px;
-}
-
-.table-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 10px;
-}
-
-.table-container::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-}
-
-th, td {
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    text-align: left;
-    color: #333;
-}
-
-th {
-    background: linear-gradient(135deg, #1a237e, #3949ab);
-    color: white;
-    position: sticky;
-    top: 0;
-    font-weight: 600;
-    z-index: 10;
-}
-
-tr:nth-child(even) {
-    background: #f8f9ff;
-}
-
-tr:hover {
-    background: #e8eaff;
-    transform: scale(1.01);
-    transition: all 0.2s ease;
-}
-
 /* ===== TEACHER MONITOR ===== */
 #teacher-monitor {
     display: none;
@@ -752,25 +1090,6 @@ tr:hover {
     color: white;
 }
 
-/* ===== NOTIFICATION SYSTEM ===== */
-.notification {
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    padding: 15px 25px;
-    border-radius: 10px;
-    color: white;
-    font-weight: 600;
-    z-index: 100000;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    transform: translateX(400px);
-    transition: transform 0.4s ease;
-}
-
-.notification.show {
-    transform: translateX(0);
-}
-
 .notification.success {
     background: linear-gradient(135deg, #28a745, #20c997);
 }
@@ -786,15 +1105,6 @@ tr:hover {
 
 .notification.info {
     background: linear-gradient(135deg, #17a2b8, #138496);
-}
-
-/* ===== OPTION ICON ===== */
-.option-icon {
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 1.1em;
-    min-width: 20px;
-    display: inline-block;
 }
 
 /* ===== CONFIRM MODAL ===== */
@@ -1024,16 +1334,6 @@ body:-ms-fullscreen .scroll-progress {
     top: 0;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 1024px) {
-    .slides {
-        font-size: 1.3rem !important;
-    }
-    .slide-section {
-        padding: 15px 20px !important;
-    }
-}
-
 /* Desktop */
 @media (min-width: 769px) {
     .hamburger-menu {
@@ -1045,235 +1345,4 @@ body:-ms-fullscreen .scroll-progress {
     .desktop-controls {
         display: flex !important;
     }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .topbar {
-        height: 60px;
-        padding: 0 15px;
-    }
-    
-    .topbar-title {
-        font-size: 1.1rem;
-    }
-    
-    .hamburger-menu {
-        display: block;
-    }
-    
-    .desktop-controls {
-        display: none !important;
-    }
-    
-    /* Hiển thị chỉ 2 nút trên mobile */
-    .mobile-topbar-actions {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    #loginBtn, 
-    #mobileExamSelect {
-        display: inline-block !important;
-        padding: 8px 12px;
-        font-size: 0.9rem;
-    }
-    
-    .page-container {
-        top: 63px;
-        padding: 10px;
-        border-radius: 0;
-    }
-    
-    .scroll-progress {
-        top: 60px;
-    }
-    
-    .slide-section {
-        padding: 20px 15px !important;
-        margin-bottom: 15px;
-        border-radius: 12px;
-    }
-    
-    .slide-section h2 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-    }
-    
-    .slide-section h3 {
-        font-size: 1.1rem;
-        margin: 15px 0 10px;
-    }
-    
-    .question {
-        padding: 15px;
-        margin: 15px 0;
-    }
-    
-    .question-title {
-        font-size: 1rem;
-    }
-    
-    .option-row {
-        padding: 10px;
-        margin: 8px 0;
-    }
-    
-    .option-row label {
-        font-size: 0.95rem;
-    }
-    
-    .answer-check {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .answer-check input {
-        width: 100% !important;
-    }
-    
-    .answer-check button {
-        width: 100%;
-    }
-    
-    .slide-menu { 
-        width: 85vw !important;
-        max-width: 320px;
-        left: -85vw;
-    }
-    
-    .slide-item {
-        padding: 12px 15px;
-        font-size: 0.95rem;
-    }
-    
-    .modal-content {
-        width: 95vw !important;
-        max-width: 95vw !important;
-        padding: 20px 15px;
-    }
-    
-    .solution-content {
-        font-size: 0.95rem;
-        padding: 12px;
-    }
-    
-    .table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    table {
-        min-width: 600px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 480px) {
-    .topbar-title {
-        font-size: 1rem;
-    }
-    
-    .slides {
-        font-size: 1.1rem !important;
-    }
-    
-    .slide-section h2 {
-        font-size: 1.2rem;
-    }
-    
-    .mobile-topbar-actions button {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-        min-width: 44px;
-    }
-    
-    .solution-content {
-        font-size: 0.9rem;
-    }
-    
-    /* Hide non-essential buttons */
-    #fullscreenBtn,
-    #toggleStyleBtn,
-    #classManagementBtn,
-    #teacherMonitorBtn {
-        display: none !important;
-    }
-}
-
-/* Mobile gestures */
-@media (hover: none) and (pointer: coarse) {
-    button:active,
-    .option-row:active,
-    .slide-item:active {
-        opacity: 0.7;
-        transform: scale(0.98);
-    }
-    
-    .option-row:hover {
-        transform: none;
-        background: inherit;
-    }
-    
-    /* Đảm bảo MathJax scrollable trên mobile */
-    .solution-content mjx-container {
-        -webkit-overflow-scrolling: touch !important;
-    }
-}
-
-/* Landscape mode */
-@media (max-height: 500px) and (orientation: landscape) {
-    .topbar {
-        height: 50px;
-    }
-    
-    .page-container {
-        top: 53px;
-    }
-    
-    .scroll-progress {
-        top: 50px;
-    }
-    
-    .solution-content {
-        max-height: 150px;
-        overflow-y: auto;
-    }
-}
-
-/* Safe area for iPhone */
-@supports (padding: max(0px)) {
-    .topbar,
-    .page-container {
-        padding-left: max(15px, env(safe-area-inset-left));
-        padding-right: max(15px, env(safe-area-inset-right));
-    }
-    
-    .topbar {
-        padding-top: max(5px, env(safe-area-inset-top));
-    }
-}
-.table-responsive {
-    overflow-x: auto;
-    width: 100%;
-    margin: 15px 0;
-}
-
-.table-responsive table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table-responsive th,
-.table-responsive td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    vertical-align: top;
-}
-
-.table-responsive th {
-    background-color: #f8f9fa;
-    font-weight: 600;
 }
