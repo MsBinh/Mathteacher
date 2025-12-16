@@ -1,25 +1,27 @@
 /**
  * UI Mobile Improvements for Lớp Toán Thầy Bình
- * FINAL VERSION - Single source of truth cho #selectExam
+ * Handles hamburger menu and mobile optimizations
+ * FIXED VERSION - Hiển thị đúng hamburger và 2 nút trên mobile
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 UI Mobile đang khởi tạo...");
     
+    // Kiểm tra xem đang ở mobile hay không
     const isMobile = window.innerWidth <= 768;
     
     if (isMobile) {
         // 1. Tạo hamburger menu
         createHamburgerMenu();
         
-        // 2. Tạo mobile controls dropdown (KHÔNG có select)
+        // 2. Tạo mobile controls dropdown
         createMobileControls();
         
-        // 3. Tạo mobile topbar (chỉ clone login button)
-        createMobileTopbar();
+        // 3. Di chuyển các nút cần thiết lên topbar mobile
+        setupMobileTopbar();
         
-        // 4. Thiết lập toggle menu
-        setupMenuToggle();
+        // 4. Ẩn desktop controls
+        hideDesktopControls();
     }
     
     // 5. Luôn cải thiện MathJax
@@ -36,52 +38,101 @@ function createHamburgerMenu() {
     console.log("🍔 Tạo hamburger menu...");
     
     const topbar = document.querySelector('.topbar');
-    if (!topbar) return;
+    if (!topbar) {
+        console.error("❌ Không tìm thấy .topbar");
+        return;
+    }
     
-    if (document.getElementById('hamburgerBtn')) return;
+    // Kiểm tra xem đã có hamburger chưa
+    if (document.getElementById('hamburgerBtn')) {
+        console.log("✅ Hamburger đã tồn tại");
+        return;
+    }
     
+    // Tạo nút hamburger
     const hamburgerBtn = document.createElement('button');
     hamburgerBtn.className = 'hamburger-menu';
     hamburgerBtn.innerHTML = '☰';
     hamburgerBtn.id = 'hamburgerBtn';
     hamburgerBtn.title = 'Mở menu điều khiển';
+    hamburgerBtn.style.display = 'block';
     
+    // Thêm vào bên trái topbar (trước title)
     const topbarTitle = document.querySelector('.topbar-title');
     if (topbarTitle) {
         topbar.insertBefore(hamburgerBtn, topbarTitle);
     } else {
         topbar.insertBefore(hamburgerBtn, topbar.firstChild);
     }
+    
+    console.log("✅ Đã thêm hamburger button");
 }
 
-// ===== MOBILE CONTROLS DROPDOWN (KHÔNG CÓ SELECT) =====
+// ===== MOBILE CONTROLS DROPDOWN =====
 function createMobileControls() {
     console.log("📱 Tạo mobile controls...");
     
-    if (document.getElementById('mobileControls')) return;
+    // Kiểm tra đã có chưa
+    if (document.getElementById('mobileControls')) {
+        console.log("✅ Mobile controls đã tồn tại");
+        return;
+    }
     
+    // Lấy các nút từ desktop controls
     const desktopControls = document.querySelector('.desktop-controls');
-    if (!desktopControls) return;
+    if (!desktopControls) {
+        console.error("❌ Không tìm thấy .desktop-controls");
+        return;
+    }
     
+    // Tạo container mobile controls
     const mobileControls = document.createElement('div');
     mobileControls.className = 'mobile-controls';
     mobileControls.id = 'mobileControls';
     
+    // Thêm vào body (không phải topbar)
     document.body.appendChild(mobileControls);
     
-    // Lấy các nút từ desktop controls (TRỪ loginBtn và select)
+    // Clone và thêm các nút từ desktop controls
     const buttons = desktopControls.querySelectorAll('button');
+    const selects = desktopControls.querySelectorAll('select');
     
+    // Thêm select chọn đề
+    const examSelect = desktopControls.querySelector('#selectExam');
+    if (examSelect) {
+        const mobileSelect = examSelect.cloneNode(true);
+        mobileSelect.id = 'mobileDropdownExamSelect';
+        mobileSelect.className = 'mobile-dropdown-select';
+        
+        // Đồng bộ sự kiện
+        mobileSelect.addEventListener('change', function() {
+            examSelect.value = this.value;
+            const event = new Event('change');
+            examSelect.dispatchEvent(event);
+        });
+        
+        mobileControls.appendChild(mobileSelect);
+    }
+    
+    // Thêm các nút khác (trừ loginBtn - sẽ có riêng trên topbar)
     buttons.forEach(button => {
         if (button.id !== 'loginBtn' && button.id !== 'slideMenuBtn') {
             const mobileBtn = button.cloneNode(true);
             mobileBtn.className = 'mobile-dropdown-btn';
             
-            const onclickAttr = button.getAttribute('onclick');
-            if (onclickAttr) {
-                mobileBtn.setAttribute('onclick', onclickAttr);
+            // Copy sự kiện onclick
+            const originalOnClick = button.onclick;
+            if (originalOnClick) {
+                mobileBtn.onclick = originalOnClick;
+            } else {
+                // Copy attribute onclick
+                const onclickAttr = button.getAttribute('onclick');
+                if (onclickAttr) {
+                    mobileBtn.setAttribute('onclick', onclickAttr);
+                }
             }
             
+            // Thêm sự kiện đóng menu sau khi click
             mobileBtn.addEventListener('click', function() {
                 setTimeout(() => {
                     mobileControls.classList.remove('active');
@@ -95,32 +146,34 @@ function createMobileControls() {
     // Thêm nút đóng menu
     const closeBtn = document.createElement('button');
     closeBtn.innerHTML = '✕ Đóng menu';
-    closeBtn.className = 'mobile-menu-close';
+    closeBtn.style.background = '#dc3545';
+    closeBtn.style.marginTop = '10px';
     closeBtn.addEventListener('click', function() {
         mobileControls.classList.remove('active');
     });
     mobileControls.appendChild(closeBtn);
+    
+    console.log("✅ Đã tạo mobile controls với " + (buttons.length + selects.length) + " phần tử");
 }
 
-// ===== MOBILE TOPBAR (CHỈ CLONE LOGIN BUTTON) =====
-function createMobileTopbar() {
+// ===== MOBILE TOPBAR (2 NÚT) =====
+function setupMobileTopbar() {
     console.log("📱 Thiết lập topbar mobile...");
     
-    if (document.getElementById('mobileTopbarActions')) return;
-    
+    // Tạo container cho 2 nút trên topbar
     const mobileActions = document.createElement('div');
     mobileActions.className = 'mobile-topbar-actions';
     mobileActions.id = 'mobileTopbarActions';
     
-    // CHỈ CLONE LOGIN BUTTON
+    // 1. Nút đăng nhập
     const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) {
         const mobileLoginBtn = loginBtn.cloneNode(true);
         mobileLoginBtn.id = 'mobileLoginBtn';
-        mobileLoginBtn.innerHTML = '🔑';
+        mobileLoginBtn.innerHTML = '🔑'; // Icon đơn giản hơn
         mobileLoginBtn.title = 'Đăng nhập';
         
-        // Giữ nguyên sự kiện mở modal
+        // Gán sự kiện mở modal đăng nhập
         mobileLoginBtn.onclick = function() {
             const loginModal = document.getElementById('login-modal');
             if (loginModal) {
@@ -130,15 +183,46 @@ function createMobileTopbar() {
         
         mobileActions.appendChild(mobileLoginBtn);
         
-        // Ẩn login gốc
+        // Ẩn nút login gốc
         loginBtn.style.display = 'none';
     }
     
-    // KHÔNG CLONE SELECT - CSS sẽ hiển thị #selectExam gốc
+    // 2. Select chọn đề
+    const examSelect = document.getElementById('selectExam');
+    if (examSelect) {
+        const mobileExamSelect = examSelect.cloneNode(true);
+        mobileExamSelect.id = 'mobileExamSelect';
+        mobileExamSelect.className = 'mobile-exam-select';
+        mobileExamSelect.style.maxWidth = '120px';
+        
+        // Đồng bộ sự kiện
+        mobileExamSelect.addEventListener('change', function() {
+            examSelect.value = this.value;
+            const event = new Event('change');
+            examSelect.dispatchEvent(event);
+        });
+        
+        // Đồng bộ giá trị ban đầu
+        mobileExamSelect.value = examSelect.value;
+        
+        mobileActions.appendChild(mobileExamSelect);
+    }
     
+    // Thêm vào topbar (sau title)
     const topbar = document.querySelector('.topbar');
     if (topbar) {
         topbar.appendChild(mobileActions);
+    }
+    
+    console.log("✅ Đã thêm 2 nút lên topbar mobile");
+}
+
+// ===== ẨN DESKTOP CONTROLS =====
+function hideDesktopControls() {
+    const desktopControls = document.querySelector('.desktop-controls');
+    if (desktopControls) {
+        desktopControls.style.display = 'none';
+        console.log("✅ Đã ẩn desktop controls");
     }
 }
 
@@ -153,6 +237,7 @@ function setupMenuToggle() {
             mobileControls.classList.toggle('active');
         });
         
+        // Đóng menu khi click bên ngoài
         document.addEventListener('click', function(e) {
             if (!mobileControls.contains(e.target) && 
                 !hamburgerBtn.contains(e.target) &&
@@ -161,9 +246,12 @@ function setupMenuToggle() {
             }
         });
         
+        // Ngăn click trong menu lan ra ngoài
         mobileControls.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+        
+        console.log("✅ Đã thiết lập toggle menu");
     }
 }
 
@@ -173,41 +261,89 @@ function handleResize() {
     const wasMobile = document.getElementById('hamburgerBtn') !== null;
     
     if (isMobileNow && !wasMobile) {
-        console.log("📱 Chuyển sang mobile");
-        location.reload();
+        // Chuyển sang mobile
+        console.log("📱 Chuyển sang chế độ mobile");
+        createHamburgerMenu();
+        createMobileControls();
+        setupMobileTopbar();
+        hideDesktopControls();
+        setupMenuToggle();
     } else if (!isMobileNow && wasMobile) {
-        console.log("🖥️ Chuyển sang desktop");
-        location.reload();
+        // Chuyển sang desktop
+        console.log("🖥️ Chuyển sang chế độ desktop");
+        
+        // Hiện lại desktop controls
+        const desktopControls = document.querySelector('.desktop-controls');
+        if (desktopControls) {
+            desktopControls.style.display = 'flex';
+        }
+        
+        // Ẩn mobile controls
+        const mobileControls = document.getElementById('mobileControls');
+        if (mobileControls) {
+            mobileControls.classList.remove('active');
+        }
+        
+        // Hiện lại nút login gốc
+        const loginBtn = document.getElementById('loginBtn');
+        if (loginBtn) {
+            loginBtn.style.display = 'inline-block';
+        }
+        
+        // Xóa mobile topbar actions
+        const mobileActions = document.getElementById('mobileTopbarActions');
+        if (mobileActions) {
+            mobileActions.remove();
+        }
+        
+        // Xóa hamburger button
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        if (hamburgerBtn) {
+            hamburgerBtn.remove();
+        }
     }
 }
 
 // ===== IMPROVE MATHJAX MOBILE DISPLAY =====
 function improveMathJaxMobile() {
-    if (typeof MathJax === 'undefined') return;
-    
+    // Hàm xử lý MathJax overflow
     function handleMathJaxOverflow() {
-        if (MathJax.typesetPromise) {
+        // Chờ MathJax render xong
+        if (window.MathJax && window.MathJax.typesetPromise) {
             MathJax.typesetPromise().then(() => {
+                // Thêm class cho các container MathJax
                 document.querySelectorAll('mjx-container').forEach(container => {
                     if (container.scrollWidth > container.clientWidth) {
                         container.style.overflowX = 'auto';
+                        container.style.overflowY = 'hidden';
                         container.style.maxWidth = '100%';
+                        container.style.display = 'block !important';
                     }
                 });
                 
+                // Xử lý solution boxes
                 document.querySelectorAll('.solution-content').forEach(solution => {
                     solution.style.overflowX = 'auto';
                     solution.style.maxWidth = '100%';
+                    
+                    // Thêm indicator scroll cho mobile
+                    if (window.innerWidth <= 768) {
+                        solution.setAttribute('data-scrollable', 'true');
+                    }
                 });
             });
         }
     }
     
+    // Gọi khi trang load xong
     window.addEventListener('load', handleMathJaxOverflow);
+    
+    // Gọi khi resize window
     window.addEventListener('resize', function() {
         setTimeout(handleMathJaxOverflow, 300);
     });
     
+    // Gọi khi có thay đổi nội dung
     if (typeof MutationObserver !== 'undefined') {
         const observer = new MutationObserver(function(mutations) {
             let shouldUpdate = false;
@@ -229,7 +365,7 @@ function improveMathJaxMobile() {
     }
 }
 
-// Khởi tạo menu toggle
+// Khởi tạo menu toggle sau khi tạo xong các phần tử
 setTimeout(() => {
     if (window.innerWidth <= 768) {
         setupMenuToggle();
