@@ -157,80 +157,83 @@ function createMobileControls() {
 }
 
 // ===== MOBILE TOPBAR (2 NÚT) =====
-// Thay toàn bộ hàm setupMobileTopbar bằng:
-
 function setupMobileTopbar() {
-    console.log("📱 Setting up mobile topbar...");
+    console.log("📱 Setting up mobile topbar (FIXED VERSION)...");
     
     // Tạo container
     const mobileActions = document.createElement('div');
     mobileActions.className = 'mobile-topbar-actions';
     mobileActions.id = 'mobileTopbarActions';
     
-    // Login button
+    // 1. LOGIN BUTTON - Tạo mới, không clone
     const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) {
-        const mobileLoginBtn = loginBtn.cloneNode(true);
+        const mobileLoginBtn = document.createElement('button');
         mobileLoginBtn.id = 'mobileLoginBtn';
+        mobileLoginBtn.className = 'mobile-login-btn';
+        mobileLoginBtn.innerHTML = '🔑';
+        mobileLoginBtn.title = 'Đăng nhập';
+        
+        // Gắn sự kiện mở modal
+        mobileLoginBtn.onclick = function() {
+            const modal = document.getElementById('login-modal');
+            if (modal) modal.classList.add('active');
+        };
+        
         mobileActions.appendChild(mobileLoginBtn);
-        loginBtn.style.display = 'none';
     }
     
-    // QUAN TRỌNG: Tạo select nhưng ĐỂ TRỐNG
-    const mobileExamSelect = document.createElement('select');
-    mobileExamSelect.id = 'mobileExamSelect';
-    mobileExamSelect.className = 'mobile-exam-select';
-    mobileExamSelect.innerHTML = '<option>Đang tải...</option>';
-    mobileExamSelect.disabled = true;
+    // 2. EXAM SELECT - Tạo mới
+    const examSelect = document.getElementById('selectExam');
+    if (examSelect) {
+        const mobileExamSelect = document.createElement('select');
+        mobileExamSelect.id = 'mobileExamSelect';
+        mobileExamSelect.className = 'mobile-exam-select';
+        mobileExamSelect.innerHTML = '<option>Đang tải...</option>';
+        mobileExamSelect.disabled = true;
+        
+        mobileActions.appendChild(mobileExamSelect);
+        
+        // Đợi 2 giây rồi update options
+        setTimeout(() => updateMobileExamSelect(), 2000);
+    }
     
-    mobileActions.appendChild(mobileExamSelect);
-    
-    // Thêm vào topbar
+    // 3. Thêm vào topbar
     const topbar = document.querySelector('.topbar');
-    if (topbar) topbar.appendChild(mobileActions);
-    
-    // QUAN TRỌNG: Chờ exam data load xong RỒI mới populate
-    setTimeout(() => populateMobileExamSelect(), 1000);
-    
-    console.log("✅ Mobile topbar setup (select sẽ được update sau)");
+    if (topbar) {
+        topbar.appendChild(mobileActions);
+    }
 }
 
-function populateMobileExamSelect() {
+// Hàm mới: Update mobile exam select
+function updateMobileExamSelect() {
     const examSelect = document.getElementById('selectExam');
     const mobileSelect = document.getElementById('mobileExamSelect');
     
     if (!examSelect || !mobileSelect) return;
     
-    // Kiểm tra xem examSelect đã có data chưa
-    if (examSelect.options.length <= 1) {
-        console.log('⏳ Chưa có data, thử lại sau...');
-        setTimeout(populateMobileExamSelect, 500);
-        return;
+    // Kiểm tra examSelect đã có options chưa
+    if (examSelect.options.length > 1) {
+        mobileSelect.innerHTML = '';
+        mobileSelect.disabled = false;
+        
+        // Copy từng option
+        for (let i = 0; i < examSelect.options.length; i++) {
+            const option = examSelect.options[i];
+            const newOption = new Option(option.text, option.value);
+            newOption.selected = option.selected;
+            mobileSelect.add(newOption);
+        }
+        
+        // Đồng bộ sự kiện
+        mobileSelect.onchange = function() {
+            examSelect.value = this.value;
+            examSelect.dispatchEvent(new Event('change'));
+        };
+    } else {
+        // Chưa có data, thử lại sau
+        setTimeout(updateMobileExamSelect, 1000);
     }
-    
-    // Clear mobile select
-    mobileSelect.innerHTML = '';
-    mobileSelect.disabled = false;
-    
-    // Copy options từ examSelect
-    Array.from(examSelect.options).forEach(option => {
-        const newOption = new Option(option.text, option.value);
-        newOption.selected = option.selected;
-        mobileSelect.appendChild(newOption);
-    });
-    
-    // Đồng bộ sự kiện
-    mobileSelect.addEventListener('change', function() {
-        examSelect.value = this.value;
-        examSelect.dispatchEvent(new Event('change'));
-    });
-    
-    // Đồng bộ ngược lại
-    examSelect.addEventListener('change', function() {
-        mobileSelect.value = this.value;
-    });
-    
-    console.log(`✅ Mobile select populated with ${examSelect.options.length} options`);
 }
 // ===== ẨN DESKTOP CONTROLS =====
 function hideDesktopControls() {
