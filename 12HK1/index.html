@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"/>
-<title>GIỮA KỲ 1 ĐỀ 1</title>
+<title>HỌC KỲ 1</title>
 <link rel="stylesheet" href="styles.css">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Hệ thống dạy học Toán trực tuyến đầy đủ tính năng - Lớp Toán Thầy Bình">
@@ -76,11 +76,8 @@
     <div class="desktop-controls">
         <button id="slideMenuBtn">📋 DS Bài</button>
         <select id="selectExam">
-            <option value="mm">-- Chọn đề --</option>
-            <option value="gk1de1.html">Đề 1: Giữa HK1</option>
-            <option value="gk1de2.html">Đề 2:Giữa HK1</option>
-            <option value="PTMPDT.html">PTMP:DS</option>
-            <option value="hk1de7.html">Đề 7: HK1</option>
+            <option value="">-- Chọn đề --</option>
+            
         </select>
         <button id="studentInteractBtn">🎮 Tương tác</button>
         <button id="teacherMonitorBtn">👁️ Theo dõi</button>
@@ -4198,5 +4195,48 @@ function getScoreColor(percentage) {
 console.log("🚀 Hệ thống Lớp Toán Thầy Bình (Scroll Mode) đã sẵn sàng!");
 </script>
 <script src="ui-mobile.js"></script>
+<script>
+// 💣 NUCLEAR FIX - DÀNH CHO CACHE CỨNG ĐẦU
+(function() {
+    const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+    if (!isMobile) return;
+    
+    console.log('💣 KÍCH HOẠT NUCLEAR FIX CHO MOBILE');
+    
+    // 1. XÓA MỌI CACHE LIÊN QUAN ĐẾN EXAMS
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.includes('exam') || key.includes('cache')) {
+            localStorage.removeItem(key);
+            console.log('💣 Đã xóa:', key);
+        }
+    }
+    
+    // 2. GHI ĐÈ FETCH VÀ XMLHttpRequest
+    const oldFetch = window.fetch;
+    window.fetch = function(url, opts) {
+        if (typeof url === 'string' && url.includes('.json')) {
+            const newUrl = url + 
+                (url.includes('?') ? '&' : '?') + 
+                'nuke=' + Date.now() + 
+                '&mobile=1&r=' + Math.random();
+            console.log('💣 Nuclear fetch:', newUrl);
+            return oldFetch(newUrl, { cache: 'no-store', ...opts });
+        }
+        return oldFetch(url, opts);
+    };
+    
+    // 3. TỰ ĐỘNG RELOAD SAU 2 GIÂY NẾU CẦN
+    setTimeout(() => {
+        if (location.search.indexOf('fixed') === -1) {
+            console.log('🔄 Tự động reload để áp dụng fix...');
+            location.href = location.href + 
+                (location.search ? '&' : '?') + 'mobile_fixed=1';
+        }
+    }, 2000);
+    
+    console.log('✅ Nuclear fix đã sẵn sàng');
+})();
+</script>
 </body>
 </html>
