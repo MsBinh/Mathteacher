@@ -2083,6 +2083,23 @@
                 showNotification('❌ Lỗi khi xuất toàn bộ dữ liệu!', 'error');
             }
         }
+function calcScoreFromPartial(partialAnswers, answerKey) {
+    if (!partialAnswers || !answerKey) return 0;
+
+    let score = 0;
+    let totalQuestions = 0;
+
+    Object.keys(answerKey).forEach(qid => {
+        if (!answerKey[qid] || answerKey[qid].type === 'welcome') return;
+        totalQuestions++;
+
+        const pa = partialAnswers[qid];
+        if (pa && pa.isCorrect) score++;
+    });
+
+    if (totalQuestions === 0) return 0;
+    return (score / totalQuestions) * 10;
+}
 
         // ===== NOTIFICATION SYSTEM =====
         function showNotification(message, type = 'info') {
@@ -2097,5 +2114,6 @@
         window.revokeStudentCode = revokeStudentCode;
         window.viewStudentResultDetail = viewStudentResultDetail;
     </script>
+    
 </body>
 </html>
