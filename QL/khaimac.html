@@ -1,239 +1,3094 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Bài phát biểu khai mạc — Ngày hội STEM & KHKT | THPT Trần Trường Sinh</title>
+<meta charset="UTF-8">
+<title>Bảng Toán LaTeX Live</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [],
+    processEscapes: true
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-  <style>
-    :root{
-      --bg: #f3f6fb;
-      --text: #0a2340;
-      --muted: #405770;
-      --accent: #0d6efd;
-      --box1: #114b5f;
-      --box2: #2a9d8f;
-      --box3: #e76f51;
-      --box4: #f4a261;
-      --box5: #264653;
-      --white: #ffffff;
-      --maxw: 1100px;
-    }
+<style>
+body {
+  margin: 0;
+  background: #e5e5e5;
+  font-family: Arial, sans-serif;
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#eef6ff 0%, #f7fafc 100%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:32px 16px;
-      display:flex;
-      justify-content:center;
-    }
+/* BẢNG */
+#board {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 720px;
+  height: 450px;
+  background: #0b6b3a;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.3);
+  display: flex;
+  flex-direction: column;
+  resize: both;
+  overflow: hidden;
+}
 
-    .wrap{
-      width:100%;
-      max-width:var(--maxw);
-    }
+/* HEADER */
+#header {
+  padding: 8px 12px;
+  background: rgba(0,0,0,.25);
+  cursor: move;
+  font-weight: bold;
+}
 
-    header{
-      text-align:center;
-      margin-bottom:20px;
-    }
-    header h1{
-      margin:0;
-      font-size:2rem;
-      line-height:1.05;
-      color:var(--accent);
-      font-weight:800;
-      letter-spacing:0.2px;
-    }
-    header p.lead{
-      margin:8px 0 0;
-      color:var(--muted);
-      font-size:1rem;
-    }
+/* NỘI DUNG */
+#content {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
 
-    .controls{
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      margin-bottom:20px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:10px;
-      border: none;
-      cursor:pointer;
-      font-weight:600;
-      font-size:0.95rem;
-      box-shadow: 0 8px 20px rgba(13,110,253,0.08);
-      transition: transform .14s ease, box-shadow .14s ease;
-    }
-    .btn:hover{ transform: translateY(-3px); }
-    .btn.print{ background: linear-gradient(90deg,#0d6efd,#3b82f6); color:#fff; }
-    .btn.copy{ background: #fff; color:var(--text); border:1px solid rgba(10,34,64,0.06); }
-    .btn.theme{ background:#111827; color:#fff; }
+/* MENU */
+#menu {
+  background: rgba(0,0,0,.3);
+  color: white;
+  border: none;
+  padding: 6px;
+}
 
-    /* Boxes */
-    .box{
-      border-radius:14px;
-      padding:26px;
-      margin-bottom:18px;
-      color:var(--white);
-      line-height:1.7;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.06);
-    }
-    .box .section-title{
-      font-size:1.25rem;
-      margin:0 0 8px;
-      font-weight:700;
-    }
-    .box p{ font-size:1.15rem; margin:10px 0; }
-
-    .box1{ background: linear-gradient(120deg,#0f3943 0%, #114b5f 100%); }
-    .box2{ background: linear-gradient(120deg,#15877e 0%, #2a9d8f 100%); }
-    .box3{ background: linear-gradient(120deg,#d9534f 0%, #e76f51 100%); }
-    .box4{ background: linear-gradient(120deg,#f6a05e 0%, #f4a261 100%); color:#082032; }
-    .box5{ background: linear-gradient(120deg,#1f3b4d 0%, #264653 100%); }
-
-    /* Emphasis */
-    .highlight{ font-weight:700; color:#fff; text-decoration:underline; text-underline-offset:6px; text-decoration-color: rgba(255,255,255,0.15); }
-
-    /* Signature / footer */
-    .signature{ margin-top:10px; font-weight:700; color:var(--white); font-size:1.05rem; }
-
-    /* Responsive: font-size scale down on small screens */
-    @media (max-width:720px){
-      header h1{ font-size:1.6rem; }
-      .box p{ font-size:1.05rem; }
-      .btn{ padding:8px 10px; font-size:0.9rem; }
-    }
-
-    /* Print rules */
-    @media print{
-      body{ background: #fff; padding:0; }
-      .controls{ display:none; }
-      .box{ box-shadow:none; border-radius:0; color:#000; -webkit-print-color-adjust: exact; }
-      .box1, .box2, .box3, .box4, .box5 { background: none !important; }
-      .box p{ color:#000; }
-      header h1{ color:#000; }
-    }
-  </style>
+/* Ô GÕ */
+#input {
+  background: rgba(0,0,0,.2);
+  color: white;
+  border: none;
+  padding: 8px;
+  height: 70px;
+  resize: vertical;
+  outline: none;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap" role="main" aria-labelledby="pageTitle">
-    <header>
-      <h1 id="pageTitle">BÀI PHÁT BIỂU KHAI MẠC<br><small style="font-size:0.86rem;color:#5b6b7a;font-weight:600">NGÀY HỘI STEM & CUỘC THI NGHIÊN CỨU KHOA HỌC KỸ THUẬT – TRƯỜNG THPT TRẦN TRƯỜNG SINH</small></h1>
-      <p class="lead">Phiên bản in/hiển thị - chữ to, rõ, các khối màu khác nhau cho từng phần</p>
-    </header>
 
-    <div class="controls" role="toolbar" aria-label="Công cụ">
-      <button class="btn print" id="printBtn" title="In hoặc lưu PDF">🖨️ In / Lưu PDF</button>
-      <button class="btn copy" id="copyBtn" title="Sao chép toàn bộ văn bản">📋 Sao chép</button>
-      <button class="btn theme" id="toggleTheme" title="Chuyển chế độ tối/sáng">🌗 Sáng/Tối</button>
-    </div>
+<div id="board">
+  <div id="header">BẢNG TOÁN – Ctrl+M chèn $ $</div>
 
-    <!-- Section 0: Greeting (box1) -->
-    <section class="box box1" aria-label="Lời chào">
-      <div class="section-title">Kính thưa Quý Thầy Cô,  cùng toàn thể các em học sinh thân mến!</div>
-      <p style="font-size:1.12rem; margin-top:8px; color:rgba(255,255,255,0.95)">
-        <span class="highlight">Hôm nay</span>, chúng ta cùng có mặt trong Ngày hội STEM và Cuộc thi Nghiên cứu Khoa học Kỹ thuật cấp trường – một hoạt động không chỉ mang ý nghĩa học thuật, mà còn thể hiện tinh thần đổi mới, sáng tạo của thầy và trò trường Trần Trường Sinh.
-      </p>
-    </section>
+  <div id="content">
+Giải bài toán sau:
 
-    <!-- 1. Ý nghĩa (box2) -->
-    <section class="box box2" aria-labelledby="sec1">
-      <div id="sec1" class="section-title">🌱 1. Ý nghĩa của ngày hội</div>
-      <p>Trong thời đại tri thức phát triển từng giờ, STEM không chỉ là viết tắt của <strong>Khoa học, Công nghệ, Kỹ thuật và Toán học</strong>, mà còn là <strong>một cách nghĩ – một cách học – và một cách vận dụng kiến thức vào cuộc sống</strong>.</p>
-      <p>Đây là nơi học sinh được tư duy, khám phá, sáng tạo và trải nghiệm; được tự tay biến những công thức, con số và hiện tượng thành <strong>ý tưởng, sản phẩm, và giải pháp cho đời sống</strong>.</p>
-      <p>Mỗi mô hình, mỗi dự án hôm nay đều là kết quả của quá trình <strong>tự học, tự tìm tòi, thử sai và kiên trì</strong> – những phẩm chất quý nhất mà giáo dục hiện đại hướng tới. Hơn cả một cuộc thi, đây là một hành trình của <strong>niềm đam mê, tinh thần vượt khó và khát vọng chinh phục tri thức</strong> của học sinh Trường THPT Trần Trường Sinh.</p>
-    </section>
-
-    <!-- 2. To students (box3) -->
-    <section class="box box3" aria-labelledby="sec2">
-      <div id="sec2" class="section-title">🧭 2. Gửi đến các em học sinh</div>
-      <p>Các em thân mến,</p>
-      <p>Thầy  biết, để có được một sản phẩm hay một báo cáo hoàn chỉnh, các em đã phải vượt qua rất nhiều khó khăn: từ việc tìm ý tưởng, nghiên cứu tài liệu, thử nghiệm, đến việc trình bày và thuyết minh. Có những nhóm đã thất bại hàng chục lần, nhưng vẫn không bỏ cuộc.</p>
-      <p>Chính điều đó đã làm nên giá trị thật sự của Ngày hội hôm nay – giá trị của <strong>sự kiên trì và tinh thần không lùi bước</strong>. Dù kết quả ra sao, thầy  tin rằng mọi nhóm đều đã chiến thắng: chiến thắng sự e dè, chiến thắng nỗi sợ sai, và chiến thắng chính mình để dám bước lên thể hiện.</p>
-      <p><strong>Điểm số không phải là đích đến cuối cùng</strong> –điều quan trọng nhất là các em đã dám nghĩ, dám làm, để biến ý tưởng thành sản phẩm, biến tri thức thành sáng tạo..</p>
-    </section>
-
-    <!-- 3. To judges (box4) -->
-    <section class="box box4" aria-labelledby="sec3">
-      <div id="sec3" class="section-title">👨‍🏫 3. Gửi đến Quý Thầy Cô – Ban Giám Khảo</div>
-      <p>Với Thầy cô hướng dẫn</p>
-      <p>Tôi hiểu rằng, giữa bộn bề công việc, Thầy Cô vẫn dành thời gian quý báu để đồng hành cùng học sinh – đọc từng báo cáo, xem từng mô hình, lắng nghe từng bài thuyết trình. Đó là sự tận tâm, là trách nhiệm, và cũng là tình yêu nghề – yêu trò mà không điều gì có thể đo đếm được.</p>
-      <p>Với Thầy Cô Trong BGJ: tôi cũng hiểu rằng  thời gian để đọc, xem xét và đánh giá từng dự án của các em học sinh thật không nhiều. Tuy nhiên, chính niềm đam mê sáng tạo, tinh thần trách nhiệm, và tình yêu dành cho học trò đã khiến Thầy Cô dành trọn tâm huyết cho công tác chấm thi hôm nay.Mỗi dự án mà các em gửi gắm không chỉ là kết quả của những ngày miệt mài tìm tòi và sáng tạo, mà còn là ước mơ, là nỗ lực vượt qua giới hạn bản thân. Tôi tin rằng, bằng con mắt tinh tường và trái tim công tâm, Quý Thầy Cô sẽ nhận ra và trân trọng từng ý tưởng, từng nỗ lực của học sinh. Xin kính mong Quý Thầy Cô đọc thật kỹ, – chấm công tâm – đánh giá chính xác, để kết quả cuối cùng không chỉ là những con số, mà còn là sự ghi nhận xứng đáng cho hành trình cố gắng và khát vọng, là sự khích lệ, là niềm tin để học sinh tiếp tục hành trình sáng tạo của mình.</p>
-    </section>
-
-    <!-- 4. Thanks to organizers and supporters (box5) -->
-    <section class="box box5" aria-labelledby="sec4">
-      <div id="sec4" class="section-title">🤝 4. Lời cảm ơn đến Ban Tổ chức & những người đồng hành</div>
-      <p>Để có được một ngày hội trọn vẹn như hôm nay, từng thành viên Ban Tổ chức  nhiều tuần lễ làm việc miệt mài và âm thầm.</p>
-      <p>Xin được gửi lời cảm ơn chân thành nhất đến các Thầy Cô   – những người đứng sau sân khấu, nhưng đã làm nên thành công hôm nay.</p>
-      
-    </section>
-
-    <!-- 5. Conclusion (box1 variant) -->
-    <section class="box box1" aria-labelledby="sec5">
-      <div id="sec5" class="section-title">🌟 5. Lời kết – Truyền lửa</div>
-      <p>Kính thưa Quý Thầy Cô, à toàn thể học sinh,</p>
-      <p>Một lần nửa khẳng định: Ngày hội STEM và Cuộc thi Nghiên cứu Khoa học Kỹ thuật  không chỉ là dịp để chọn ra dự án xuất sắc, mà còn là nơi lan tỏa tinh thần học tập chủ động, dấn thân và đổi mới.</p>
-      <p>Tôi Hy vọng rằng, sau ngày hôm nay, tinh thần STEM và nghiên cứu khoa học sẽ lan tỏa mạnh mẽ hơn nữa trong từng tiết học, từng nhóm học sinh, từng lớp học, để mỗi em đều tìm thấy niềm vui trong việc học và khám phá thế giới xung quanh.</p>
-
-      <p style="margin-top:14px" class="signature">Xin kính chúc Quý Thầy Cô thật nhiều sức khỏe, <br>chúc các em học sinh tự tin, bản lĩnh và thể hiện thật tốt phần dự án của mình.</p>
-
-      <p style="margin-top:12px; font-weight:800; font-size:1.06rem;">Và bây giờ,</p>
-      <p style="font-size:1rem; font-weight:700;">Tôi xin trân trọng tuyên bố khai mạc Ngày hội STEM và Cuộc thi Nghiên cứu Khoa học Kỹ thuật cấp trường Trường THPT Trần Trường Sinh năm học 2025 -2026!</p>
-
-      <p style="margin-top:8px" class="signature">Xin trân trọng cảm ơn và kính chào! 🌿</p>
-    </section>
-
+$\int_0^1 x^2\,dx$
   </div>
 
-  <script>
-    // Print
-    document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+  <select id="menu">
+    <option value="">Công thức nhanh</option>
 
-    // Copy all text content
-    document.getElementById('copyBtn').addEventListener('click', async function(){
-      const nodes = document.querySelectorAll('.box');
-      let txt = '';
-      nodes.forEach(n => {
-        txt += (n.querySelector('.section-title')?.innerText || '') + '\\n';
-        txt += (n.innerText.replace(n.querySelector('.section-title')?.innerText || '', '') || '') + '\\n\\n';
-      });
-      try {
-        await navigator.clipboard.writeText(txt.trim());
-        alert('Đã sao chép nội dung bài phát biểu vào bộ nhớ tạm.'); 
-      } catch (e) {
-        // fallback: show prompt
-        prompt('Sao chép thủ công (Ctrl+C):', txt.trim());
-      }
-    });
+    <!-- SUY RA -->
+    <option value=" $\\Rightarrow$ ">$\Rightarrow$</option>
+    <option value=" $\\Leftrightarrow$ ">$\Leftrightarrow$</option>
 
-    // Theme toggle: invert backgrounds for simpler "light" mode
-    document.getElementById('toggleTheme').addEventListener('click', function(){
-      const body = document.body;
-      if(body.style.background === 'white'){
-        body.style.background = '';
-        // reset boxes by removing inline styles (not needed here)
-        this.textContent = '🌗 Sáng/Tối';
-      } else {
-        body.style.background = 'white';
-        this.textContent = '🌗 Sáng/Tối';
-      }
-    });
-  </script>
+    <!-- PHÂN SỐ – CĂN -->
+    <option value=" $\\frac{a}{b}$ ">$\frac{a}{b}$</option>
+    <option value=" $\\sqrt{x}$ ">$\sqrt{x}$</option>
+    <option value=" $|x|$ ">$|x|$</option>
+
+    <!-- TÍCH PHÂN -->
+    <option value=" $\\int f(x)\\,dx$ ">$\int f(x)\,dx$</option>
+    <option value=" $\\int_a^b f(x)\\,dx$ ">$\int_a^b f(x)\,dx$</option>
+    <option value=" $\\int x^n\\,dx$ ">$\int x^n\,dx$</option>
+
+    <!-- VECTOR -->
+    <option value=" $\\vec{u}$ ">$\vec{u}$</option>
+    <option value=" $\\vec{AB}$ ">$\vec{AB}$</option>
+    <option value=" $|\\vec{u}|$ ">$|\vec{u}|$</option>
+    <option value=" $\\vec{u}\\cdot\\vec{v}$ ">$\vec{u}\cdot\vec{v}$</option>
+
+    <!-- HỆ -->
+    <option value=" $\\begin{cases} x+y=0 \\end{cases}$ ">
+$\begin{cases}x+y=0\end{cases}$</option>
+
+  </select>
+
+  <textarea id="input" placeholder="Gõ lời giải... (Ctrl+M chèn $ $)"></textarea>
+</div>
+
+<script>
+const board = document.getElementById("board");
+const header = document.getElementById("header");
+const content = document.getElementById("content");
+const input = document.getElementById("input");
+const menu = document.getElementById("menu");
+
+/* DRAG */
+let dx = 0, dy = 0, drag = false;
+header.onmousedown = e => {
+  drag = true;
+  dx = e.clientX - board.offsetLeft;
+  dy = e.clientY - board.offsetTop;
+};
+document.onmousemove = e => {
+  if (drag) {
+    board.style.left = e.clientX - dx + "px";
+    board.style.top = e.clientY - dy + "px";
+  }
+};
+document.onmouseup = () => drag = false;
+
+/* CTRL+M */
+input.addEventListener("keydown", e => {
+  if (e.ctrlKey && e.key.toLowerCase() === "m") {
+    e.preventDefault();
+    const p = input.selectionStart;
+    input.value =
+      input.value.slice(0, p) + " $ $ " + input.value.slice(p);
+    input.selectionStart = input.selectionEnd = p + 2;
+  }
+});
+
+/* MENU COPY */
+menu.onchange = () => {
+  if (!menu.value) return;
+  input.value += menu.value;
+  menu.selectedIndex = 0;
+};
+
+/* RENDER */
+let timer = null;
+function canRender(t) {
+  return (t.match(/\$/g) || []).length % 2 === 0;
+}
+
+input.addEventListener("input", () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    const t = input.value;
+    content.textContent = t;
+    if (canRender(t)) {
+      content.innerHTML = t.replace(/\n/g, "<br>");
+      MathJax.typesetPromise([content]);
+    }
+  }, 250);
+});
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Kê Khai Thăng Hạng GV - THPT Trần Trường Sinh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #2980b9;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --gray-color: #7f8c8d;
+            --border-color: #ddd;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            padding: 20px 40px;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .view-public-btn, .admin-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .view-public-btn:hover, .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .status-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .admin-panel.open {
+            right: 0;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-content {
+            padding: 20px;
+        }
+
+        .admin-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teacher-list-admin {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .teacher-item-admin {
+            padding: 12px 15px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .teacher-info-admin {
+            flex: 1;
+        }
+
+        .teacher-name-admin {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .teacher-code-admin {
+            font-size: 0.85rem;
+            color: var(--gray-color);
+        }
+
+        .edit-code-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px dashed var(--secondary-color);
+            margin-top: 20px;
+        }
+
+        .edit-code-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--success-color);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 40px;
+        }
+
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            justify-content: center;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .tab:hover {
+            color: var(--secondary-color);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .tab.active {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .tab.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .tab.error::after {
+            content: '!';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+            background: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-color);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Styles */
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+        }
+
+        .form-group label.required::after {
+            content: ' *';
+            color: var(--accent-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group input[readonly] {
+            background-color: #f8f9fa;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        /* Teacher ID Check */
+        .teacher-check-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .teacher-check-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .id-input-group {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        .id-input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 1rem;
+        }
+
+        /* Public View - Ranking Lists */
+        .ranking-lists {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .ranking-list {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .list-header {
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            padding: 20px;
+        }
+
+        .list-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .list-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ranking-table thead {
+            background: var(--light-color);
+        }
+
+        .ranking-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .ranking-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .ranking-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .ranking-table td {
+            padding: 15px;
+            vertical-align: top;
+        }
+
+        .rank-number {
+            width: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .teacher-rank-info {
+            flex: 1;
+        }
+
+        .teacher-rank-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .teacher-rank-details {
+            font-size: 0.85rem;
+            color: var(--gray-color);
+            margin-bottom: 8px;
+        }
+
+        .achievement-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .achievement-badge {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--success-color);
+        }
+
+        .achievement-badge.high {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .achievement-badge.medium {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+            border-color: var(--warning-color);
+        }
+
+        .task-count {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            background: #f8f9fa;
+            border-radius: 0 0 15px 15px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: var(--gray-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #6c7b7d;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #219653);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--accent-color), #c0392b);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color), #e67e22);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Navigation Buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Missing Fields Alert */
+        .missing-fields-alert {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .missing-fields-alert.show {
+            display: block;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .ranking-lists {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-panel {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header,
+            .main-content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+                justify-content: flex-start;
+                border-bottom: 1px solid var(--border-color);
+                min-width: unset;
+            }
+            
+            .tab.active {
+                border-bottom: 3px solid var(--secondary-color);
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .id-input-group {
+                flex-direction: column;
+            }
+            
+            .admin-panel {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .modal-content {
+                margin: 10px;
+            }
+            
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                padding: 20px;
+            }
+        }
+
+        /* Overlay for admin panel */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div>
+                    <h1>
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        HỆ THỐNG KÊ KHAI THĂNG HẠNG GIÁO VIÊN HẠNG II
+                    </h1>
+                    <p>Trường THPT Trần Trường Sinh - Vĩnh Long</p>
+                    <p>Theo Thông tư 13/2024/TT-BGDĐT</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="status-badge" id="submissionStatus">
+                        <i class="fas fa-user"></i>
+                        <span>Chưa đăng nhập</span>
+                    </div>
+                    
+                    <button class="view-public-btn" id="viewPublicBtn">
+                        <i class="fas fa-eye"></i> Xem xếp hạng
+                    </button>
+                    
+                    <button class="admin-btn" id="adminBtn">
+                        <i class="fas fa-cog"></i> Quản trị
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Teacher ID Check Section -->
+            <div class="teacher-check-section" id="teacherCheckSection">
+                <h3><i class="fas fa-user-check"></i> KIỂM TRA THÔNG TIN GIÁO VIÊN</h3>
+                <p>Nhập mã giáo viên để tiếp tục kê khai hoặc chỉnh sửa thông tin</p>
+                
+                <div class="id-input-group">
+                    <input type="text" id="teacherIdInput" placeholder="Nhập mã giáo viên (VD: GV001)" maxlength="20">
+                    <button class="btn btn-primary" id="checkTeacherId">
+                        <i class="fas fa-search"></i> Kiểm tra
+                    </button>
+                </div>
+                
+                <div id="idCheckResult" style="display: none;">
+                    <p id="existingTeacherInfo" style="margin-bottom: 15px;"></p>
+                    <div>
+                        <button class="btn btn-secondary" id="useExistingId">
+                            <i class="fas fa-edit"></i> Tiếp tục chỉnh sửa
+                        </button>
+                        <button class="btn btn-warning" id="createNewId" style="margin-left: 10px;">
+                            <i class="fas fa-plus"></i> Tạo mới
+                        </button>
+                    </div>
+                </div>
+                
+                <p style="font-size: 0.9rem; color: #666; margin-top: 20px;">
+                    <i class="fas fa-info-circle"></i> Nếu đã có mã giáo viên, nhập mã để chỉnh sửa. Nếu chưa có, nhấn "Tạo mới".
+                </p>
+            </div>
+
+            <!-- Lock Message -->
+            <div class="missing-fields-alert" id="lockMessage" style="background: linear-gradient(135deg, #9C27B0, #7B1FA2);">
+                <h4><i class="fas fa-lock"></i> HỒ SƠ ĐÃ ĐƯỢC LƯU VÀ KHÓA</h4>
+                <p>Bạn đã hoàn thành kê khai và đã lưu hồ sơ. Để chỉnh sửa, vui lòng liên hệ Admin để xin mã chỉnh sửa.</p>
+                <p style="margin-top: 10px;"><strong>Mã giáo viên:</strong> <span id="lockedTeacherCode"></span></p>
+            </div>
+
+            <!-- Missing Fields Alert -->
+            <div class="missing-fields-alert" id="missingFieldsAlert">
+                <h4><i class="fas fa-exclamation-triangle"></i> THIẾU THÔNG TIN</h4>
+                <p>Vui lòng hoàn thành các thông tin sau trước khi tiếp tục:</p>
+                <ul class="missing-list" id="missingFieldsList"></ul>
+            </div>
+
+            <!-- Progress Tabs -->
+            <div class="tabs" id="progressTabs" style="display: none;">
+                <button class="tab active" data-tab="info" id="tabInfo">
+                    <i class="fas fa-user-edit"></i>
+                    <span>I. THÔNG TIN CÁ NHÂN</span>
+                </button>
+                <button class="tab" data-tab="achievements" id="tabAchievements">
+                    <i class="fas fa-trophy"></i>
+                    <span>II. THÀNH TÍCH THI ĐUA</span>
+                </button>
+                <button class="tab" data-tab="tasks" id="tabTasks">
+                    <i class="fas fa-tasks"></i>
+                    <span>III. NHIỆM VỤ CHUYÊN MÔN</span>
+                </button>
+                <button class="tab" data-tab="review" id="tabReview">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>KIỂM TRA & LƯU HỒ SƠ</span>
+                </button>
+            </div>
+
+            <!-- Tab Contents (initially hidden) -->
+            <div id="formTabs" style="display: none;">
+                <!-- Tab 1: Personal Information -->
+                <div class="tab-content active" id="infoTab">
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+                            <h2>I. KHAI BÁO THÔNG TIN CÁ NHÂN</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">1. Họ tên giáo viên</label>
+                            <input type="text" id="teacherName" placeholder="Nhập họ tên đầy đủ">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">2. Năm vào ngành</label>
+                            <select id="startYear">
+                                <option value="">Chọn năm vào ngành</option>
+                                <!-- Years will be populated by JavaScript -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required">3. Cam kết đạt tiêu chuẩn, điều kiện xét thăng hạng</label>
+                            <div class="achievement-option" style="cursor: pointer;" id="standardCommitment">
+                                <div class="achievement-title">
+                                    <i class="fas fa-file-signature"></i>
+                                    Cam kết đạt đủ tiêu chuẩn theo Điều 9 Thông tư 13/2024/TT-BGDĐT
+                                </div>
+                                <div class="achievement-description">
+                                    Tôi cam kết đã đạt đầy đủ các tiêu chuẩn về trình độ đào tạo, bồi dưỡng, năng lực chuyên môn, nghiệp vụ và các điều kiện khác theo quy định.
+                                </div>
+                                <div class="achievement-radio"></div>
+                            </div>
+                            <input type="radio" name="commitment" id="standardCommitmentRadio" style="display: none;">
+                        </div>
+
+                        <p class="required-fields">* Các trường bắt buộc phải hoàn thành</p>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <div></div>
+                        <button class="btn btn-primary" id="nextToAchievements">
+                            Tiếp theo: Kê khai thành tích <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Achievements -->
+                <div class="tab-content" id="achievementsTab">
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h2>II. KÊ KHAI THÀNH TÍCH THI ĐUA (9 năm gần nhất)</h2>
+                        </div>
+
+                        <div id="yearAchievementsContainer">
+                            <!-- Year sections will be generated by JavaScript -->
+                        </div>
+
+                        <div class="form-group custom-achievement">
+                            <label>Thành tích khác (nếu có, không thuộc danh mục trên)</label>
+                            <textarea id="otherAchievements" placeholder="Ghi rõ các thành tích khác..."></textarea>
+                        </div>
+
+                        <p class="required-fields">* Phải kê khai đầy đủ cho tất cả 9 năm học</p>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" id="backToInfo">
+                            <i class="fas fa-arrow-left"></i> Quay lại thông tin
+                        </button>
+                        <button class="btn btn-primary" id="nextToTasks">
+                            Tiếp theo: Nhiệm vụ chuyên môn <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Tasks -->
+                <div class="tab-content" id="tasksTab">
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h2>III. ĐÁNH GIÁ NĂNG LỰC THỰC HIỆN NHIỆM VỤ GIÁO VIÊN HẠNG II</h2>
+                        </div>
+
+                        <div class="task-list" id="taskList">
+                            <!-- Tasks will be populated by JavaScript -->
+                        </div>
+
+                        <p class="required-fields">* Phải đánh giá tất cả 07 nhiệm vụ</p>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" id="backToAchievements">
+                            <i class="fas fa-arrow-left"></i> Quay lại thành tích
+                        </button>
+                        <button class="btn btn-primary" id="nextToReview">
+                            Tiếp theo: Kiểm tra & Lưu hồ sơ <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Review and Submit -->
+                <div class="tab-content" id="reviewTab">
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <h2>KIỂM TRA THÔNG TIN VÀ LƯU HỒ SƠ</h2>
+                        </div>
+
+                        <div id="validationMessage"></div>
+
+                        <div class="form-group">
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">Tóm tắt thông tin đã kê khai:</h3>
+                            
+                            <div class="info-summary" id="infoSummary" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                                <h4 style="color: var(--secondary-color); margin-bottom: 15px;">
+                                    <i class="fas fa-user"></i> Thông tin cá nhân
+                                </h4>
+                                <div id="summaryPersonal"></div>
+                            </div>
+
+                            <div class="info-summary" id="achievementsSummary" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                                <h4 style="color: var(--secondary-color); margin-bottom: 15px;">
+                                    <i class="fas fa-trophy"></i> Thành tích thi đua
+                                </h4>
+                                <div id="summaryAchievements"></div>
+                            </div>
+
+                            <div class="info-summary" id="tasksSummary" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                                <h4 style="color: var(--secondary-color); margin-bottom: 15px;">
+                                    <i class="fas fa-tasks"></i> Năng lực thực hiện nhiệm vụ
+                                </h4>
+                                <div id="summaryTasks"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="required">
+                                    <input type="checkbox" id="finalConfirmation">
+                                    <span style="margin-left: 10px;">Tôi xác nhận tất cả thông tin kê khai trên là đúng sự thật và chịu trách nhiệm trước pháp luật về tính chính xác của thông tin.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" id="backToTasks">
+                            <i class="fas fa-arrow-left"></i> Quay lại nhiệm vụ
+                        </button>
+                        <button class="btn btn-success" id="submitForm" disabled>
+                            <i class="fas fa-save"></i> LƯU HỒ SƠ VÀ KẾT THÚC
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h3><i class="fas fa-user-shield"></i> QUẢN TRỊ HỆ THỐNG</h3>
+            <button class="view-public-btn" id="closeAdminPanel">
+                <i class="fas fa-times"></i> Đóng
+            </button>
+        </div>
+        
+        <div class="admin-content">
+            <!-- Admin Login -->
+            <div class="admin-section" id="adminLoginSection">
+                <h3><i class="fas fa-lock"></i> ĐĂNG NHẬP QUẢN TRỊ</h3>
+                <div class="form-group">
+                    <label>Mã Admin</label>
+                    <input type="password" id="adminCodeInput" placeholder="Nhập mã admin">
+                </div>
+                <button class="btn btn-primary" id="adminLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                </button>
+            </div>
+
+            <!-- Admin Functions (hidden by default) -->
+            <div id="adminFunctions" style="display: none;">
+                <!-- Delete Teachers -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-trash-alt"></i> QUẢN LÝ GIÁO VIÊN</h3>
+                    <div class="teacher-list-admin" id="teacherListAdmin">
+                        <!-- Teacher list will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Generate Edit Codes -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-key"></i> CẤP MÃ CHỈNH SỬA</h3>
+                    <div class="form-group">
+                        <label>Chọn giáo viên cần cấp mã</label>
+                        <select id="teacherSelectForEdit" style="margin-bottom: 15px;">
+                            <option value="">Chọn giáo viên</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-warning" id="generateEditCodeBtn">
+                        <i class="fas fa-key"></i> Tạo mã chỉnh sửa
+                    </button>
+                    
+                    <div class="edit-code-section" id="editCodeResult" style="display: none;">
+                        <h4><i class="fas fa-key"></i> MÃ CHỈNH SỬA ĐÃ TẠO</h4>
+                        <p>Mã này chỉ sử dụng được 1 lần. Cung cấp cho giáo viên để chỉnh sửa hồ sơ.</p>
+                        <div class="edit-code-display" id="generatedEditCode">
+                            Đang tạo mã...
+                        </div>
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+                            <i class="fas fa-info-circle"></i> Mã sẽ tự động xóa sau khi sử dụng
+                        </p>
+                    </div>
+                </div>
+
+                <!-- View Edit Codes -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-list"></i> MÃ CHỈNH SỬA ĐANG HOẠT ĐỘNG</h3>
+                    <div class="teacher-list-admin" id="activeEditCodes">
+                        <!-- Active edit codes will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-chart-bar"></i> THỐNG KÊ HỆ THỐNG</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--secondary-color); text-align: center;" id="totalTeachersCount">0</div>
+                            <div style="text-align: center; color: var(--gray-color); font-size: 0.9rem;">Tổng số GV</div>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--success-color); text-align: center;" id="completedSubmissionsCount">0</div>
+                            <div style="text-align: center; color: var(--gray-color); font-size: 0.9rem;">Đã hoàn thành</div>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--warning-color); text-align: center;" id="activeEditCodesCount">0</div>
+                            <div style="text-align: center; color: var(--gray-color); font-size: 0.9rem;">Mã chỉnh sửa</div>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--accent-color); text-align: center;" id="incompleteSubmissionsCount">0</div>
+                            <div style="text-align: center; color: var(--gray-color); font-size: 0.9rem;">Chưa hoàn thành</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Public View Modal (XEM XẾP HẠNG) -->
+    <div class="modal" id="publicViewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-trophy"></i> XẾP HẠNG TOÀN TRƯỜNG</h3>
+                <button class="view-public-btn" id="closePublicView">
+                    <i class="fas fa-times"></i> Đóng
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="ranking-lists">
+                    <!-- Danh sách 1: Xếp hạng theo thành tích -->
+                    <div class="ranking-list">
+                        <div class="list-header">
+                            <h3><i class="fas fa-crown"></i> DANH SÁCH 1</h3>
+                            <div class="list-subtitle">Xếp hạng theo thành tích thi đua</div>
+                        </div>
+                        <div class="ranking-table-container">
+                            <table class="ranking-table">
+                                <thead>
+                                    <tr>
+                                        <th width="60">Hạng</th>
+                                        <th>Giáo viên</th>
+                                        <th width="120">Thành tích</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rankingByAchievements">
+                                    <!-- Ranking by achievements will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách 2: Xếp hạng theo nhiệm vụ -->
+                    <div class="ranking-list">
+                        <div class="list-header">
+                            <h3><i class="fas fa-tasks"></i> DANH SÁCH 2</h3>
+                            <div class="list-subtitle">Xếp hạng theo nhiệm vụ đã thực hiện</div>
+                        </div>
+                        <div class="ranking-table-container">
+                            <table class="ranking-table">
+                                <thead>
+                                    <tr>
+                                        <th width="60">Hạng</th>
+                                        <th>Giáo viên</th>
+                                        <th width="100">Nhiệm vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rankingByTasks">
+                                    <!-- Ranking by tasks will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px;">
+                        <i class="fas fa-info-circle"></i> QUY TẮC XẾP HẠNG
+                    </h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h5 style="color: var(--secondary-color); margin-bottom: 10px;">Danh sách 1 (Thành tích):</h5>
+                            <ol style="margin-left: 20px; font-size: 0.9rem; color: #555;">
+                                <li>Xét thành tích cao nhất (cấp độ 1-5)</li>
+                                <li>Số lượng thành tích cao nhất</li>
+                                <li>Thành tích cao tiếp theo</li>
+                                <li>Số lượng thành tích tiếp theo</li>
+                                <li>Tiếp tục như vậy...</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--secondary-color); margin-bottom: 10px;">Danh sách 2 (Nhiệm vụ):</h5>
+                            <ul style="margin-left: 20px; font-size: 0.9rem; color: #555;">
+                                <li>Số lượng nhiệm vụ đã thực hiện (7 nhiệm vụ)</li>
+                                <li>Nếu bằng nhau: Xét thành tích</li>
+                                <li>Tiếp tục: Xét năm vào ngành (cũ hơn xếp trên)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Code Modal -->
+    <div class="modal" id="editCodeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> NHẬP MÃ CHỈNH SỬA</h3>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fas fa-lock" style="font-size: 3rem; color: var(--warning-color); margin-bottom: 20px;"></i>
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px;">CHỈNH SỬA HỒ SƠ ĐÃ KHÓA</h4>
+                    <p>Hồ sơ của bạn đã được khóa. Để chỉnh sửa, vui lòng nhập mã chỉnh sửa do Admin cung cấp.</p>
+                    
+                    <div style="margin: 30px 0;">
+                        <input type="text" id="editCodeInput" placeholder="Nhập mã chỉnh sửa" 
+                               style="width: 100%; padding: 15px; font-size: 1.1rem; text-align: center; letter-spacing: 2px; border: 2px solid var(--border-color); border-radius: 8px;">
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-exclamation-triangle"></i> Mỗi mã chỉ sử dụng được 1 lần
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelEditCode">
+                    Hủy
+                </button>
+                <button class="btn btn-primary" id="submitEditCode">
+                    <i class="fas fa-check"></i> Xác nhận
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Đang xử lý...</p>
+    </div>
+
+    <!-- Overlay for admin panel -->
+    <div class="overlay" id="adminOverlay"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+            authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+            databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "daytoantructuyen-149d9",
+            storageBucket: "daytoantructuyen-149d9.firebasestorage.app",
+            messagingSenderId: "258454714393",
+            appId: "1:258454714393:web:bcf66624668e516934d288"
+        };
+
+        // Khởi tạo Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Biến toàn cục
+        let currentTeacherCode = null;
+        let currentSubmission = null;
+        let isLocked = false;
+        let isAdmin = false;
+        let allSubmissions = {};
+        let editCodes = {};
+
+        // Mã admin cố định
+        const ADMIN_CODE = "admin79";
+
+        // Cấp độ thành tích (1: cao nhất, 8: thấp nhất)
+        const achievementLevels = {
+            'chien_si_thi_dua_toan_quoc': 1,
+            'huan_chuong_lao_dong_nhat': 2,
+            'huan_chuong_lao_dong_nhi': 3,
+            'huan_chuong_lao_dong_ba': 4,
+            'bang_khen_thu_tuong': 5,
+            'chien_si_thi_dua_tinh': 6,
+            'bang_khen_bo_tinh': 7,
+            'chien_si_thi_dua_co_so': 8,
+            'other': 9,  // Thành tích khác
+            'none': 10   // Không có thành tích
+        };
+
+        // Hàm tiện ích
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showMessage(message, type = 'error', duration = 5000) {
+            const validationDiv = document.getElementById('validationMessage');
+            validationDiv.innerHTML = `
+                <div class="missing-fields-alert ${type === 'error' ? 'show' : ''}" 
+                     style="background: ${type === 'error' ? 'linear-gradient(135deg, #ff6b6b, #ee5a24)' : 
+                              type === 'success' ? 'linear-gradient(135deg, #4CAF50, #219653)' : 
+                              'linear-gradient(135deg, #3498db, #2980b9)'};">
+                    <h4><i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 
+                                        type === 'success' ? 'check-circle' : 'info-circle'}"></i> 
+                        ${type === 'error' ? 'LỖI' : type === 'success' ? 'THÀNH CÔNG' : 'THÔNG BÁO'}
+                    </h4>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                validationDiv.innerHTML = '';
+            }, duration);
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // Tạo mã chỉnh sửa ngẫu nhiên
+        function generateEditCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return 'EDIT-' + code;
+        }
+
+        // Khởi tạo ứng dụng
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+        });
+
+        function initApp() {
+            setupEventListeners();
+            loadAllSubmissions();
+            loadEditCodes();
+            setupYearAchievements();
+        }
+
+        function setupEventListeners() {
+            // Check teacher ID
+            document.getElementById('checkTeacherId').addEventListener('click', checkTeacherId);
+            
+            // Use existing ID
+            document.getElementById('useExistingId').addEventListener('click', useExistingId);
+            
+            // Create new ID
+            document.getElementById('createNewId').addEventListener('click', createNewId);
+            
+            // Enter key for teacher ID input
+            document.getElementById('teacherIdInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkTeacherId();
+                }
+            });
+
+            // Navigation between tabs
+            document.getElementById('nextToAchievements').addEventListener('click', () => {
+                if (validateCurrentTab('info')) {
+                    switchTab('achievements');
+                }
+            });
+
+            document.getElementById('nextToTasks').addEventListener('click', () => {
+                if (validateCurrentTab('achievements')) {
+                    switchTab('tasks');
+                }
+            });
+
+            document.getElementById('nextToReview').addEventListener('click', () => {
+                if (validateCurrentTab('tasks')) {
+                    switchTab('review');
+                    updateSummary();
+                }
+            });
+
+            document.getElementById('backToInfo').addEventListener('click', () => switchTab('info'));
+            document.getElementById('backToAchievements').addEventListener('click', () => switchTab('achievements'));
+            document.getElementById('backToTasks').addEventListener('click', () => switchTab('tasks'));
+
+            // Submit form
+            document.getElementById('submitForm').addEventListener('click', submitForm);
+            
+            // Final confirmation checkbox
+            document.getElementById('finalConfirmation').addEventListener('change', function() {
+                document.getElementById('submitForm').disabled = !this.checked;
+            });
+
+            // Admin panel
+            document.getElementById('adminBtn').addEventListener('click', toggleAdminPanel);
+            document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
+            document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+            document.getElementById('adminLoginBtn').addEventListener('click', adminLogin);
+
+            // Public view
+            document.getElementById('viewPublicBtn').addEventListener('click', showPublicRanking);
+            document.getElementById('closePublicView').addEventListener('click', () => closeModal('publicViewModal'));
+
+            // Edit code modal
+            document.getElementById('cancelEditCode').addEventListener('click', () => closeModal('editCodeModal'));
+            document.getElementById('submitEditCode').addEventListener('click', verifyEditCode);
+            document.getElementById('editCodeInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    verifyEditCode();
+                }
+            });
+        }
+
+        // Kiểm tra mã giáo viên
+        async function checkTeacherId() {
+            const teacherId = document.getElementById('teacherIdInput').value.trim().toUpperCase();
+            
+            if (!teacherId) {
+                showMessage('Vui lòng nhập mã giáo viên', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                // Kiểm tra trong Firebase
+                const snapshot = await database.ref(`submissions/${teacherId}`).once('value');
+                const submission = snapshot.val();
+                
+                const resultDiv = document.getElementById('idCheckResult');
+                const infoDiv = document.getElementById('existingTeacherInfo');
+                
+                if (submission) {
+                    // Đã tồn tại
+                    if (submission.status === 'locked') {
+                        infoDiv.innerHTML = `
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid var(--warning-color);">
+                                <p><strong>${submission.name}</strong> - Mã: ${teacherId}</p>
+                                <p>Trạng thái: <span style="color: var(--warning-color); font-weight: bold;">Đã khóa</span></p>
+                                <p>Thời gian kê khai: ${new Date(submission.submittedAt).toLocaleDateString('vi-VN')}</p>
+                                <p><i class="fas fa-info-circle"></i> Hồ sơ đã khóa. Bạn cần mã chỉnh sửa từ Admin.</p>
+                            </div>
+                        `;
+                    } else {
+                        infoDiv.innerHTML = `
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid var(--info-color);">
+                                <p><strong>${submission.name}</strong> - Mã: ${teacherId}</p>
+                                <p>Trạng thái: <span style="color: var(--info-color); font-weight: bold;">Đang kê khai</span></p>
+                                <p><i class="fas fa-info-circle"></i> Tiếp tục chỉnh sửa hồ sơ hiện có.</p>
+                            </div>
+                        `;
+                    }
+                    
+                    resultDiv.style.display = 'block';
+                    currentTeacherCode = teacherId;
+                    currentSubmission = submission;
+                    isLocked = submission.status === 'locked';
+                    
+                } else {
+                    // Chưa tồn tại
+                    infoDiv.innerHTML = `
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid var(--success-color);">
+                            <p>Mã <strong>${teacherId}</strong> chưa được sử dụng.</p>
+                            <p><i class="fas fa-info-circle"></i> Bạn có thể tạo hồ sơ mới với mã này.</p>
+                        </div>
+                    `;
+                    resultDiv.style.display = 'block';
+                    currentTeacherCode = teacherId;
+                    currentSubmission = null;
+                    isLocked = false;
+                }
+                
+                showLoading(false);
+                
+            } catch (error) {
+                console.error('Lỗi khi kiểm tra mã:', error);
+                showMessage('Lỗi khi kiểm tra mã giáo viên', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Sử dụng ID đã tồn tại
+        function useExistingId() {
+            if (!currentTeacherCode) return;
+            
+            if (isLocked) {
+                // Yêu cầu mã chỉnh sửa
+                openModal('editCodeModal');
+            } else {
+                // Tiếp tục chỉnh sửa
+                startEditing();
+            }
+        }
+
+        // Tạo mới
+        function createNewId() {
+            if (!currentTeacherCode) {
+                // Tạo mã mới
+                currentTeacherCode = generateTeacherCode();
+            }
+            
+            currentSubmission = null;
+            isLocked = false;
+            startEditing();
+        }
+
+        // Bắt đầu chỉnh sửa
+        function startEditing() {
+            // Hiển thị thông tin
+            document.getElementById('submissionStatus').innerHTML = `
+                <i class="fas fa-edit"></i>
+                <span>Mã: ${currentTeacherCode}</span>
+            `;
+            
+            // Ẩn phần kiểm tra
+            document.getElementById('teacherCheckSection').style.display = 'none';
+            
+            // Hiển thị tabs và form
+            document.getElementById('progressTabs').style.display = 'flex';
+            document.getElementById('formTabs').style.display = 'block';
+            
+            // Tải dữ liệu nếu có
+            if (currentSubmission) {
+                loadFormData(currentSubmission);
+            } else {
+                // Khởi tạo form mới
+                populateFormFields();
+            }
+            
+            // Cập nhật trạng thái tabs
+            updateTabErrors();
+        }
+
+        // Xác minh mã chỉnh sửa
+        async function verifyEditCode() {
+            const editCode = document.getElementById('editCodeInput').value.trim();
+            
+            if (!editCode) {
+                showMessage('Vui lòng nhập mã chỉnh sửa', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                // Kiểm tra mã chỉnh sửa
+                const editCodeSnapshot = await database.ref(`editCodes/${editCode}`).once('value');
+                const editCodeData = editCodeSnapshot.val();
+                
+                if (!editCodeData) {
+                    showMessage('Mã chỉnh sửa không đúng', 'error');
+                    showLoading(false);
+                    return;
+                }
+                
+                if (editCodeData.teacherCode !== currentTeacherCode) {
+                    showMessage('Mã chỉnh sửa không khớp với giáo viên này', 'error');
+                    showLoading(false);
+                    return;
+                }
+                
+                if (editCodeData.used) {
+                    showMessage('Mã chỉnh sửa đã được sử dụng', 'error');
+                    showLoading(false);
+                    return;
+                }
+                
+                // Đánh dấu mã đã sử dụng
+                await database.ref(`editCodes/${editCode}`).update({
+                    used: true,
+                    usedAt: new Date().toISOString()
+                });
+                
+                // Mở khóa hồ sơ
+                await database.ref(`submissions/${currentTeacherCode}`).update({
+                    status: 'editing',
+                    unlockedAt: new Date().toISOString(),
+                    editCodeUsed: editCode
+                });
+                
+                // Cập nhật local
+                currentSubmission.status = 'editing';
+                isLocked = false;
+                
+                // Đóng modal và bắt đầu chỉnh sửa
+                closeModal('editCodeModal');
+                startEditing();
+                
+                showLoading(false);
+                showMessage('Mở khóa thành công. Bạn có thể chỉnh sửa hồ sơ.', 'success');
+                
+            } catch (error) {
+                console.error('Lỗi khi xác minh mã:', error);
+                showMessage('Lỗi khi xác minh mã chỉnh sửa', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Tải tất cả submissions
+        async function loadAllSubmissions() {
+            try {
+                const snapshot = await database.ref('submissions').once('value');
+                allSubmissions = snapshot.val() || {};
+                
+                // Cập nhật thống kê admin nếu đang đăng nhập
+                if (isAdmin) {
+                    updateAdminStatistics();
+                    updateTeacherListAdmin();
+                    updateTeacherSelectForEdit();
+                }
+                
+            } catch (error) {
+                console.error('Lỗi khi tải dữ liệu:', error);
+            }
+        }
+
+        // Tải mã chỉnh sửa
+        async function loadEditCodes() {
+            try {
+                const snapshot = await database.ref('editCodes').once('value');
+                editCodes = snapshot.val() || {};
+                
+                if (isAdmin) {
+                    updateActiveEditCodes();
+                }
+                
+            } catch (error) {
+                console.error('Lỗi khi tải mã chỉnh sửa:', error);
+            }
+        }
+
+        // Admin functions
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            const overlay = document.getElementById('adminOverlay');
+            
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                overlay.classList.remove('show');
+            } else {
+                panel.classList.add('open');
+                overlay.classList.add('show');
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('open');
+            document.getElementById('adminOverlay').classList.remove('show');
+        }
+
+        async function adminLogin() {
+            const adminCode = document.getElementById('adminCodeInput').value.trim();
+            
+            if (adminCode !== ADMIN_CODE) {
+                alert('Mã admin không đúng');
+                return;
+            }
+            
+            isAdmin = true;
+            
+            // Hiển thị chức năng admin
+            document.getElementById('adminLoginSection').style.display = 'none';
+            document.getElementById('adminFunctions').style.display = 'block';
+            
+            // Cập nhật dữ liệu
+            updateAdminStatistics();
+            updateTeacherListAdmin();
+            updateTeacherSelectForEdit();
+            updateActiveEditCodes();
+            
+            showMessage('Đăng nhập quản trị thành công', 'success', 3000);
+        }
+
+        function updateAdminStatistics() {
+            const submissions = Object.values(allSubmissions);
+            const totalTeachers = submissions.length;
+            const completedSubmissions = submissions.filter(s => s.status === 'locked').length;
+            const incompleteSubmissions = totalTeachers - completedSubmissions;
+            
+            const activeEditCodesCount = Object.values(editCodes).filter(ec => !ec.used).length;
+            
+            document.getElementById('totalTeachersCount').textContent = totalTeachers;
+            document.getElementById('completedSubmissionsCount').textContent = completedSubmissions;
+            document.getElementById('incompleteSubmissionsCount').textContent = incompleteSubmissions;
+            document.getElementById('activeEditCodesCount').textContent = activeEditCodesCount;
+        }
+
+        function updateTeacherListAdmin() {
+            const container = document.getElementById('teacherListAdmin');
+            const submissions = Object.entries(allSubmissions);
+            
+            if (submissions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Chưa có dữ liệu.</p>';
+                return;
+            }
+            
+            // Sắp xếp theo thời gian
+            submissions.sort((a, b) => b[1].timestamp - a[1].timestamp);
+            
+            let html = '';
+            submissions.forEach(([code, submission]) => {
+                const statusColor = submission.status === 'locked' ? 'var(--success-color)' : 
+                                  submission.status === 'editing' ? 'var(--warning-color)' : 'var(--info-color)';
+                const statusText = submission.status === 'locked' ? 'Đã khóa' : 
+                                 submission.status === 'editing' ? 'Đang chỉnh sửa' : 'Chưa hoàn thành';
+                
+                // Tính số nhiệm vụ đã thực hiện
+                const completedTasks = submission.tasks ? 
+                    submission.tasks.filter(t => t.status === 'done').length : 0;
+                
+                html += `
+                    <div class="teacher-item-admin">
+                        <div class="teacher-info-admin">
+                            <div class="teacher-name-admin">${submission.name}</div>
+                            <div class="teacher-code-admin">Mã: ${code} | Năm vào ngành: ${submission.startYear}</div>
+                            <div style="font-size: 0.8rem; margin-top: 5px;">
+                                <span style="color: ${statusColor}; font-weight: 600;">${statusText}</span>
+                                | Nhiệm vụ: ${completedTasks}/7
+                            </div>
+                        </div>
+                        <button class="btn btn-danger btn-sm" onclick="deleteTeacher('${code}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function updateTeacherSelectForEdit() {
+            const select = document.getElementById('teacherSelectForEdit');
+            const submissions = Object.entries(allSubmissions)
+                .filter(([_, s]) => s.status === 'locked') // Chỉ những người đã khóa
+                .sort((a, b) => a[1].name.localeCompare(b[1].name));
+            
+            // Giữ option đầu tiên
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            
+            submissions.forEach(([code, submission]) => {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = `${submission.name} (${code})`;
+                select.appendChild(option);
+            });
+        }
+
+        function updateActiveEditCodes() {
+            const container = document.getElementById('activeEditCodes');
+            const activeCodes = Object.entries(editCodes)
+                .filter(([_, ec]) => !ec.used)
+                .sort((a, b) => b[1].createdAt - a[1].createdAt);
+            
+            if (activeCodes.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Không có mã nào đang hoạt động.</p>';
+                return;
+            }
+            
+            let html = '';
+            activeCodes.forEach(([code, data]) => {
+                const teacherName = allSubmissions[data.teacherCode]?.name || 'Không xác định';
+                const createdAt = new Date(data.createdAt).toLocaleDateString('vi-VN');
+                
+                html += `
+                    <div class="teacher-item-admin">
+                        <div class="teacher-info-admin">
+                            <div class="teacher-name-admin">Mã: ${code}</div>
+                            <div class="teacher-code-admin">Giáo viên: ${teacherName} (${data.teacherCode})</div>
+                            <div style="font-size: 0.8rem; margin-top: 5px;">
+                                Tạo ngày: ${createdAt}
+                            </div>
+                        </div>
+                        <button class="btn btn-warning btn-sm" onclick="revokeEditCode('${code}')">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Xóa giáo viên
+        async function deleteTeacher(teacherCode) {
+            if (!confirm(`Bạn có chắc chắn muốn xóa giáo viên ${teacherCode}?`)) {
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                // Xóa từ Firebase
+                await database.ref(`submissions/${teacherCode}`).remove();
+                
+                // Xóa mã chỉnh sửa liên quan
+                const editCodesToDelete = Object.entries(editCodes)
+                    .filter(([_, ec]) => ec.teacherCode === teacherCode)
+                    .map(([code, _]) => code);
+                
+                for (const code of editCodesToDelete) {
+                    await database.ref(`editCodes/${code}`).remove();
+                }
+                
+                // Cập nhật local
+                delete allSubmissions[teacherCode];
+                
+                // Cập nhật giao diện
+                updateAdminStatistics();
+                updateTeacherListAdmin();
+                updateTeacherSelectForEdit();
+                updateActiveEditCodes();
+                
+                showLoading(false);
+                showMessage(`Đã xóa giáo viên ${teacherCode}`, 'success');
+                
+            } catch (error) {
+                console.error('Lỗi khi xóa giáo viên:', error);
+                showMessage('Lỗi khi xóa giáo viên', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Tạo mã chỉnh sửa
+        async function generateEditCodeForTeacher() {
+            const teacherCode = document.getElementById('teacherSelectForEdit').value;
+            
+            if (!teacherCode) {
+                alert('Vui lòng chọn giáo viên');
+                return;
+            }
+            
+            const teacher = allSubmissions[teacherCode];
+            if (!teacher || teacher.status !== 'locked') {
+                alert('Giáo viên này chưa khóa hồ sơ');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                // Tạo mã mới
+                const editCode = generateEditCode();
+                const editCodeData = {
+                    teacherCode: teacherCode,
+                    teacherName: teacher.name,
+                    createdAt: new Date().toISOString(),
+                    used: false,
+                    createdBy: 'admin'
+                };
+                
+                // Lưu vào Firebase
+                await database.ref(`editCodes/${editCode}`).set(editCodeData);
+                
+                // Cập nhật local
+                editCodes[editCode] = editCodeData;
+                
+                // Hiển thị mã
+                document.getElementById('editCodeResult').style.display = 'block';
+                document.getElementById('generatedEditCode').textContent = editCode;
+                
+                // Cập nhật danh sách
+                updateActiveEditCodes();
+                               // Cập nhật thống kê
+                updateAdminStatistics();
+                
+                showLoading(false);
+                showMessage(`Đã tạo mã chỉnh sửa: ${editCode}`, 'success');
+                
+            } catch (error) {
+                console.error('Lỗi khi tạo mã chỉnh sửa:', error);
+                showMessage('Lỗi khi tạo mã chỉnh sửa', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Thu hồi mã chỉnh sửa
+        async function revokeEditCode(editCode) {
+            if (!confirm(`Bạn có chắc chắn muốn thu hồi mã ${editCode}?`)) {
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                // Xóa mã từ Firebase
+                await database.ref(`editCodes/${editCode}`).remove();
+                
+                // Cập nhật local
+                delete editCodes[editCode];
+                
+                // Cập nhật giao diện
+                updateActiveEditCodes();
+                updateAdminStatistics();
+                
+                showLoading(false);
+                showMessage(`Đã thu hồi mã ${editCode}`, 'success');
+                
+            } catch (error) {
+                console.error('Lỗi khi thu hồi mã:', error);
+                showMessage('Lỗi khi thu hồi mã chỉnh sửa', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Thêm event listener cho nút tạo mã chỉnh sửa
+        document.getElementById('generateEditCodeBtn').addEventListener('click', generateEditCodeForTeacher);
+
+        // Hàm sắp xếp và hiển thị xếp hạng
+        async function showPublicRanking() {
+            showLoading(true);
+            
+            try {
+                // Tải lại dữ liệu
+                await loadAllSubmissions();
+                
+                const submissions = Object.values(allSubmissions).filter(s => s.status === 'locked');
+                
+                if (submissions.length === 0) {
+                    showMessage('Chưa có dữ liệu kê khai nào để xếp hạng', 'info');
+                    showLoading(false);
+                    return;
+                }
+                
+                // Tính điểm cho từng giáo viên
+                const scoredTeachers = submissions.map(submission => {
+                    // Tính điểm thành tích
+                    const achievementScore = calculateAchievementScore(submission);
+                    
+                    // Tính số nhiệm vụ đã thực hiện
+                    const completedTasks = submission.tasks ? 
+                        submission.tasks.filter(t => t.status === 'done').length : 0;
+                    
+                    return {
+                        ...submission,
+                        achievementScore,
+                        completedTasks,
+                        yearAchievements: submission.yearAchievements || {}
+                    };
+                });
+                
+                // Danh sách 1: Xếp hạng theo thành tích
+                const rankedByAchievements = [...scoredTeachers].sort((a, b) => {
+                    return compareByAchievements(a, b);
+                });
+                
+                // Danh sách 2: Xếp hạng theo nhiệm vụ
+                const rankedByTasks = [...scoredTeachers].sort((a, b) => {
+                    // Ưu tiên số nhiệm vụ đã thực hiện
+                    if (b.completedTasks !== a.completedTasks) {
+                        return b.completedTasks - a.completedTasks;
+                    }
+                    
+                    // Nếu số nhiệm vụ bằng nhau, xét thành tích
+                    const achievementCompare = compareByAchievements(a, b);
+                    if (achievementCompare !== 0) {
+                        return achievementCompare;
+                    }
+                    
+                    // Nếu thành tích bằng nhau, xét năm vào ngành (cũ hơn xếp trên)
+                    return parseInt(a.startYear) - parseInt(b.startYear);
+                });
+                
+                // Hiển thị danh sách 1
+                displayRankingList('rankingByAchievements', rankedByAchievements, 'achievements');
+                
+                // Hiển thị danh sách 2
+                displayRankingList('rankingByTasks', rankedByTasks, 'tasks');
+                
+                // Hiển thị modal
+                openModal('publicViewModal');
+                showLoading(false);
+                
+            } catch (error) {
+                console.error('Lỗi khi hiển thị xếp hạng:', error);
+                showMessage('Lỗi khi tải dữ liệu xếp hạng', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Tính điểm thành tích
+        function calculateAchievementScore(submission) {
+            if (!submission.yearAchievements) return [];
+            
+            const achievements = Object.values(submission.yearAchievements)
+                .filter(a => a.id !== 'none' && a.id !== 'other')
+                .map(a => ({
+                    id: a.id,
+                    level: achievementLevels[a.id] || 9
+                }));
+            
+            // Sắp xếp theo level (thấp = cao nhất)
+            achievements.sort((a, b) => a.level - b.level);
+            
+            return achievements;
+        }
+
+        // So sánh theo thành tích (theo yêu cầu)
+        function compareByAchievements(a, b) {
+            const aAchievements = a.achievementScore;
+            const bAchievements = b.achievementScore;
+            
+            // Lấy thành tích cao nhất
+            const aTop = aAchievements[0];
+            const bTop = bAchievements[0];
+            
+            // So sánh thành tích cao nhất
+            if (!bTop && aTop) return -1;
+            if (!aTop && bTop) return 1;
+            if (aTop && bTop) {
+                if (aTop.level !== bTop.level) {
+                    return aTop.level - bTop.level; // Level thấp hơn = cao hơn
+                }
+            }
+            
+            // Nếu cùng thành tích cao nhất, đếm số lượng thành tích cao nhất
+            const aTopCount = aAchievements.filter(ach => ach.level === (aTop?.level || 10)).length;
+            const bTopCount = bAchievements.filter(ach => ach.level === (bTop?.level || 10)).length;
+            
+            if (aTopCount !== bTopCount) {
+                return bTopCount - aTopCount; // Số lượng nhiều hơn = cao hơn
+            }
+            
+            // Nếu số lượng thành tích cao nhất bằng nhau, xét thành tích tiếp theo
+            const aNext = aAchievements[aTopCount];
+            const bNext = bAchievements[bTopCount];
+            
+            if (!bNext && aNext) return -1;
+            if (!aNext && bNext) return 1;
+            if (aNext && bNext) {
+                if (aNext.level !== bNext.level) {
+                    return aNext.level - bNext.level;
+                }
+            }
+            
+            // Tiếp tục so sánh các thành tích tiếp theo
+            let index = aTopCount;
+            while (index < Math.max(aAchievements.length, bAchievements.length)) {
+                const aAch = aAchievements[index];
+                const bAch = bAchievements[index];
+                
+                if (!bAch && aAch) return -1;
+                if (!aAch && bAch) return 1;
+                if (aAch && bAch) {
+                    if (aAch.level !== bAch.level) {
+                        return aAch.level - bAch.level;
+                    }
+                }
+                index++;
+            }
+            
+            // Nếu tất cả thành tích đều bằng nhau, xét số lượng thành tích tổng
+            if (aAchievements.length !== bAchievements.length) {
+                return bAchievements.length - aAchievements.length;
+            }
+            
+            // Cuối cùng, xét năm vào ngành (cũ hơn xếp trên)
+            return parseInt(a.startYear) - parseInt(b.startYear);
+        }
+
+        // Hiển thị danh sách xếp hạng
+        function displayRankingList(elementId, rankedList, type) {
+            const container = document.getElementById(elementId);
+            
+            if (rankedList.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="3" style="text-align: center; padding: 40px; color: #666;">
+                            <i class="fas fa-info-circle"></i> Chưa có dữ liệu
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            rankedList.forEach((teacher, index) => {
+                // Chuẩn bị thông tin thành tích
+                const achievementInfo = getAchievementInfo(teacher);
+                
+                html += `
+                    <tr>
+                        <td class="rank-number">${index + 1}</td>
+                        <td>
+                            <div class="teacher-rank-info">
+                                <div class="teacher-rank-name">${teacher.name}</div>
+                                <div class="teacher-rank-details">
+                                    Mã: ${teacher.code} | Năm vào ngành: ${teacher.startYear}
+                                </div>
+                                ${achievementInfo.badges}
+                            </div>
+                        </td>
+                        <td class="${type === 'tasks' ? 'task-count' : ''}">
+                            ${type === 'tasks' ? 
+                                `<div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary-color);">
+                                    ${teacher.completedTasks}/7
+                                </div>` :
+                                `<div style="font-weight: 600; color: var(--dark-color);">
+                                    ${achievementInfo.topAchievement}
+                                </div>
+                                ${achievementInfo.count ? 
+                                    `<div style="font-size: 0.85rem; color: var(--gray-color); margin-top: 5px;">
+                                        ${achievementInfo.count} thành tích
+                                    </div>` : ''}`
+                            }
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Lấy thông tin thành tích để hiển thị
+        function getAchievementInfo(teacher) {
+            if (!teacher.achievementScore || teacher.achievementScore.length === 0) {
+                return {
+                    topAchievement: 'Không có thành tích',
+                    count: 0,
+                    badges: ''
+                };
+            }
+            
+            // Lấy thành tích cao nhất
+            const topAchievement = teacher.achievementScore[0];
+            const topAchievementName = getAchievementNameById(topAchievement.id);
+            
+            // Đếm tổng số thành tích
+            const totalAchievements = teacher.achievementScore.length;
+            
+            // Tạo badges cho top 3 thành tích
+            let badges = '<div class="achievement-badges">';
+            const top3 = teacher.achievementScore.slice(0, 3);
+            top3.forEach((ach, index) => {
+                let badgeClass = 'achievement-badge';
+                if (ach.level <= 5) badgeClass += ' high';
+                else if (ach.level <= 7) badgeClass += ' medium';
+                
+                badges += `<span class="${badgeClass}">${getAchievementLevelLabel(ach.level)}</span>`;
+            });
+            
+            if (totalAchievements > 3) {
+                badges += `<span class="achievement-badge">+${totalAchievements - 3}</span>`;
+            }
+            badges += '</div>';
+            
+            return {
+                topAchievement: topAchievementName,
+                count: totalAchievements,
+                badges: badges
+            };
+        }
+
+        // Lấy tên thành tích theo ID
+        function getAchievementNameById(id) {
+            const achievementNames = {
+                'chien_si_thi_dua_toan_quoc': 'Chiến sĩ Thi đua Toàn quốc',
+                'huan_chuong_lao_dong_nhat': 'Huân chương Lao động hạng Nhất',
+                'huan_chuong_lao_dong_nhi': 'Huân chương Lao động hạng Nhì',
+                'huan_chuong_lao_dong_ba': 'Huân chương Lao động hạng Ba',
+                'bang_khen_thu_tuong': 'Bằng khen Thủ tướng',
+                'chien_si_thi_dua_tinh': 'Chiến sĩ thi đua cấp tỉnh',
+                'bang_khen_bo_tinh': 'Bằng khen Bộ/Tỉnh',
+                'chien_si_thi_dua_co_so': 'Chiến sĩ thi đua cơ sở'
+            };
+            
+            return achievementNames[id] || 'Thành tích khác';
+        }
+
+        // Lấy nhãn cấp độ thành tích
+        function getAchievementLevelLabel(level) {
+            if (level <= 2) return 'Cao nhất';
+            if (level <= 5) return 'Cao';
+            if (level <= 7) return 'Trung bình';
+            return 'Cơ sở';
+        }
+
+        // Các hàm hỗ trợ khác (giữ nguyên từ code cũ)
+        function generateTeacherCode() {
+            const prefix = 'GV';
+            const timestamp = Date.now().toString().slice(-6);
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `${prefix}${timestamp}${random}`;
+        }
+
+        function generateYears(startYear = 1980, endYear = new Date().getFullYear()) {
+            const years = [];
+            for (let year = endYear; year >= startYear; year--) {
+                years.push(year.toString());
+            }
+            return years;
+        }
+
+        function generateSchoolYears() {
+            const currentYear = new Date().getFullYear();
+            const years = [];
+            for (let i = 8; i >= 0; i--) {
+                const year = currentYear - i - 1;
+                years.push({
+                    value: `${year}-${year + 1}`,
+                    label: `Năm học ${year}-${year + 1}`,
+                    shortLabel: `${year}-${year + 1}`,
+                    sortKey: year
+                });
+            }
+            return years.sort((a, b) => b.sortKey - a.sortKey);
+        }
+
+        function setupYearAchievements() {
+            // Implementation from previous code
+            const container = document.getElementById('yearAchievementsContainer');
+            const schoolYears = generateSchoolYears();
+            
+            schoolYears.forEach(yearData => {
+                const yearSection = document.createElement('div');
+                yearSection.className = 'year-achievement-section';
+                yearSection.id = `year-${yearData.value.replace('-', '_')}`;
+                
+                yearSection.innerHTML = `
+                    <div class="year-header">
+                        <div class="year-title">
+                            <i class="fas fa-calendar-alt"></i> ${yearData.label}
+                        </div>
+                        <div class="year-status status-not-done" id="status-${yearData.value}">
+                            Chưa kê khai
+                        </div>
+                    </div>
+                    
+                    <button class="khaikai-btn" type="button" data-year="${yearData.value}" id="btn-${yearData.value}">
+                        <i class="fas fa-edit"></i> Kê khai thành tích
+                    </button>
+                    
+                    <div class="year-collapsible" id="collapse-${yearData.value}" style="display: none; margin-top: 20px;">
+                        <div style="margin-bottom: 15px; color: #666; font-style: italic;">
+                            <i class="fas fa-info-circle"></i> Chọn thành tích cao nhất của năm ${yearData.label}
+                        </div>
+                        <div class="achievement-options">
+                            ${Object.entries(achievementLevels)
+                                .filter(([id]) => !['other', 'none'].includes(id))
+                                .map(([id]) => {
+                                    const achievement = {
+                                        'chien_si_thi_dua_toan_quoc': 'Chiến sĩ Thi đua Toàn quốc',
+                                        'huan_chuong_lao_dong_nhat': 'Huân chương Lao động hạng Nhất',
+                                        'huan_chuong_lao_dong_nhi': 'Huân chương Lao động hạng Nhì',
+                                        'huan_chuong_lao_dong_ba': 'Huân chương Lao động hạng Ba',
+                                        'bang_khen_thu_tuong': 'Bằng khen của Thủ tướng Chính phủ',
+                                        'chien_si_thi_dua_tinh': 'Chiến sĩ thi đua cấp tỉnh/Bộ, Ngành',
+                                        'bang_khen_bo_tinh': 'Bằng khen của Bộ, ban, ngành, tỉnh',
+                                        'chien_si_thi_dua_co_so': 'Chiến sĩ thi đua cơ sở'
+                                    }[id];
+                                    
+                                    const level = achievementLevels[id];
+                                    const levelText = level <= 2 ? 'Cao nhất' : 
+                                                    level <= 5 ? 'Cao' : 
+                                                    level <= 7 ? 'Trung bình' : 'Cơ sở';
+                                    
+                                    return `
+                                        <div class="achievement-option" data-year="${yearData.value}" data-achievement="${id}">
+                                            <div class="achievement-title">${achievement}</div>
+                                            <div class="achievement-description">Cấp độ: ${levelText} (${level})</div>
+                                            <div class="achievement-radio"></div>
+                                            <input type="radio" name="achievement_${yearData.value}" value="${id}" style="display: none;">
+                                        </div>
+                                    `;
+                                }).join('')}
+                            
+                            <div class="no-achievement-option" data-year="${yearData.value}" data-achievement="none">
+                                <div class="achievement-title">Không có thành tích trong năm này</div>
+                                <div class="achievement-description">Chọn nếu không có thành tích nào trong năm ${yearData.label}</div>
+                                <div class="achievement-radio"></div>
+                                <input type="radio" name="achievement_${yearData.value}" value="none" style="display: none;">
+                            </div>
+                            
+                            <div class="achievement-option" data-year="${yearData.value}" data-achievement="other">
+                                <div class="achievement-title">Thành tích khác (không có trong danh sách)</div>
+                                <div class="achievement-description">Chọn nếu có thành tích đặc biệt khác</div>
+                                <div class="achievement-radio"></div>
+                                <input type="radio" name="achievement_${yearData.value}" value="other" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="custom-achievement" id="custom-${yearData.value}" style="display: none;">
+                            <label>Mô tả thành tích đặc biệt</label>
+                            <textarea class="custom-achievement-text" data-year="${yearData.value}" 
+                                placeholder="Ghi rõ thành tích đặc biệt không có trong danh sách trên..."></textarea>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(yearSection);
+                
+                // Add event listeners
+                const khaikaiBtn = yearSection.querySelector('.khaikai-btn');
+                khaikaiBtn.addEventListener('click', function() {
+                    const year = this.dataset.year;
+                    const collapsible = document.getElementById(`collapse-${year}`);
+                    const isVisible = collapsible.style.display !== 'none';
+                    
+                    if (isVisible) {
+                        collapsible.style.display = 'none';
+                        this.innerHTML = '<i class="fas fa-edit"></i> Kê khai thành tích';
+                    } else {
+                        collapsible.style.display = 'block';
+                        this.innerHTML = '<i class="fas fa-times"></i> Đóng';
+                    }
+                });
+                
+                yearSection.querySelectorAll('.achievement-option, .no-achievement-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const year = this.dataset.year;
+                        const achievementId = this.dataset.achievement;
+                        
+                        // Deselect all options in the same year
+                        const yearOptions = document.querySelectorAll(`[data-year="${year}"]`);
+                        yearOptions.forEach(opt => {
+                            opt.classList.remove('selected');
+                            const radio = opt.querySelector('input[type="radio"]');
+                            if (radio) radio.checked = false;
+                        });
+                        
+                        // Select current option
+                        this.classList.add('selected');
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio) radio.checked = true;
+                        
+                        // Update year status
+                        updateYearStatus(year);
+                        
+                        // Show/hide custom achievement field
+                        const customDiv = document.getElementById(`custom-${year}`);
+                        if (achievementId === 'other') {
+                            customDiv.style.display = 'block';
+                        } else {
+                            customDiv.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function updateYearStatus(year) {
+            const selectedAchievement = document.querySelector(`input[name="achievement_${year}"]:checked`);
+            const statusElement = document.getElementById(`status-${year}`);
+            const khaikaiBtn = document.getElementById(`btn-${year}`);
+            
+            if (selectedAchievement) {
+                if (selectedAchievement.value === 'other') {
+                    const customText = document.querySelector(`.custom-achievement-text[data-year="${year}"]`).value.trim();
+                    if (customText) {
+                        statusElement.textContent = 'Đã kê khai';
+                        statusElement.className = 'year-status status-done';
+                        khaikaiBtn.innerHTML = '<i class="fas fa-check"></i> Đã kê khai';
+                        khaikaiBtn.className = 'khaikai-btn done';
+                    } else {
+                        statusElement.textContent = 'Thiếu mô tả';
+                        statusElement.className = 'year-status status-not-done';
+                        khaikaiBtn.innerHTML = '<i class="fas fa-edit"></i> Kê khai thành tích';
+                        khaikaiBtn.className = 'khaikai-btn';
+                    }
+                } else {
+                    statusElement.textContent = 'Đã kê khai';
+                    statusElement.className = 'year-status status-done';
+                    khaikaiBtn.innerHTML = '<i class="fas fa-check"></i> Đã kê khai';
+                    khaikaiBtn.className = 'khaikai-btn done';
+                }
+            } else {
+                statusElement.textContent = 'Chưa kê khai';
+                statusElement.className = 'year-status status-not-done';
+                khaikaiBtn.innerHTML = '<i class="fas fa-edit"></i> Kê khai thành tích';
+                khaikaiBtn.className = 'khaikai-btn';
+            }
+        }
+
+        function populateFormFields() {
+            // Populate start years
+            const startYearSelect = document.getElementById('startYear');
+            const years = generateYears(1980, new Date().getFullYear());
+            
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                startYearSelect.appendChild(option);
+            });
+
+            // Populate tasks
+            const taskList = document.getElementById('taskList');
+            const teacherTasks = [
+                {
+                    id: 1,
+                    title: "Làm báo cáo viên hoặc dạy minh họa ở các lớp bồi dưỡng giáo viên từ cấp trường trở lên",
+                    description: "Hoặc dạy thử nghiệm các mô hình, phương pháp, công nghệ mới; chủ trì các nội dung bồi dưỡng và sinh hoạt chuyên đề ở tổ chuyên môn hoặc tham gia xây dựng học liệu điện tử"
+                },
+                // ... other tasks from previous code
+            ];
+            
+            teacherTasks.forEach((task, index) => {
+                const taskItem = document.createElement('div');
+                taskItem.className = 'task-item';
+                taskItem.id = `task-${task.id}`;
+                taskItem.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-number">${index + 1}</div>
+                        <div class="task-title">${task.title}</div>
+                    </div>
+                    <div class="task-description">${task.description}</div>
+                    <div class="task-options">
+                        <div class="task-option">
+                            <label>
+                                <input type="radio" name="task_${task.id}" value="done">
+                                <div class="task-radio"></div>
+                                <span class="task-label">
+                                    <i class="fas fa-check-circle"></i>
+                                    Đã thực hiện
+                                </span>
+                            </label>
+                        </div>
+                        <div class="task-option">
+                            <label>
+                                <input type="radio" name="task_${task.id}" value="capable">
+                                <div class="task-radio"></div>
+                                <span class="task-label">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Có khả năng thực hiện
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                `;
+                taskList.appendChild(taskItem);
+            });
+        }
+
+        function validateCurrentTab(tabName) {
+            let missingFields = [];
+            
+            if (tabName === 'info') {
+                missingFields = validatePersonalInfoWithDetails();
+            } else if (tabName === 'achievements') {
+                missingFields = validateAchievementsWithDetails();
+            } else if (tabName === 'tasks') {
+                missingFields = validateTasksWithDetails();
+            }
+            
+            if (missingFields.length > 0) {
+                showMissingFieldsAlert(tabName, missingFields);
+                highlightMissingFields(missingFields);
+                return false;
+            }
+            
+            return true;
+        }
+
+        function validatePersonalInfoWithDetails() {
+            const missingFields = [];
+            
+            const name = document.getElementById('teacherName').value.trim();
+            if (!name) missingFields.push('Họ tên giáo viên');
+            
+            const startYear = document.getElementById('startYear').value;
+            if (!startYear) missingFields.push('Năm vào ngành');
+            
+            const commitment = document.getElementById('standardCommitmentRadio').checked;
+            if (!commitment) missingFields.push('Cam kết đạt tiêu chuẩn');
+            
+            return missingFields;
+        }
+
+        function validateAchievementsWithDetails() {
+            const missingFields = [];
+            const schoolYears = generateSchoolYears();
+            
+            schoolYears.forEach(yearData => {
+                const yearValue = yearData.value;
+                const selectedAchievement = document.querySelector(`input[name="achievement_${yearValue}"]:checked`);
+                
+                if (!selectedAchievement) {
+                    missingFields.push(`Năm học ${yearData.shortLabel} chưa kê khai`);
+                } else if (selectedAchievement.value === 'other') {
+                    const customText = document.querySelector(`.custom-achievement-text[data-year="${yearValue}"]`).value.trim();
+                    if (!customText) {
+                        missingFields.push(`Năm học ${yearData.shortLabel} thiếu mô tả thành tích đặc biệt`);
+                    }
+                }
+            });
+            
+            return missingFields;
+        }
+
+        function validateTasksWithDetails() {
+            const missingFields = [];
+            
+            for (let i = 1; i <= 7; i++) {
+                const taskRadio = document.querySelector(`input[name="task_${i}"]:checked`);
+                if (!taskRadio) {
+                    missingFields.push(`Nhiệm vụ số ${i} chưa đánh giá`);
+                }
+            }
+            
+            return missingFields;
+        }
+
+        function showMissingFieldsAlert(section, missingFields) {
+            const alertDiv = document.getElementById('missingFieldsAlert');
+            const listDiv = document.getElementById('missingFieldsList');
+            
+            listDiv.innerHTML = '';
+            missingFields.forEach(field => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-times-circle"></i> ${field}`;
+                listDiv.appendChild(li);
+            });
+            
+            alertDiv.classList.add('show');
+            
+            setTimeout(() => {
+                alertDiv.classList.remove('show');
+            }, 10000);
+        }
+
+        function hideMissingFieldsAlert() {
+            document.getElementById('missingFieldsAlert').classList.remove('show');
+        }
+
+        function highlightMissingFields(missingFields) {
+            // Implementation from previous code
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            // Update active tab in navigation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+            
+            // Hide missing fields alert
+            hideMissingFieldsAlert();
+        }
+
+        function updateTabProgress(completedTab) {
+            const tab = document.getElementById(`tab${completedTab.charAt(0).toUpperCase() + completedTab.slice(1)}`);
+            tab.classList.add('completed');
+            tab.classList.remove('error');
+        }
+
+        function updateTabErrors() {
+            // Update errors on tabs
+            const tabs = ['info', 'achievements', 'tasks'];
+            
+            tabs.forEach(tabName => {
+                const tab = document.getElementById(`tab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+                
+                if (tabName === 'info') {
+                    const missingFields = validatePersonalInfoWithDetails();
+                    tab.classList.toggle('error', missingFields.length > 0);
+                } else if (tabName === 'achievements') {
+                    const missingFields = validateAchievementsWithDetails();
+                    tab.classList.toggle('error', missingFields.length > 0);
+                } else if (tabName === 'tasks') {
+                    const missingFields = validateTasksWithDetails();
+                    tab.classList.toggle('error', missingFields.length > 0);
+                }
+            });
+        }
+
+        function loadFormData(data) {
+            if (!data) return;
+            
+            // Personal info
+            document.getElementById('teacherName').value = data.name || '';
+            document.getElementById('startYear').value = data.startYear || '';
+            
+            if (data.commitment) {
+                document.getElementById('standardCommitmentRadio').checked = true;
+                document.getElementById('standardCommitment').classList.add('selected');
+            }
+            
+            // Achievements
+            if (data.yearAchievements) {
+                Object.entries(data.yearAchievements).forEach(([year, achievementData]) => {
+                    const achievementId = achievementData.id;
+                    const customText = achievementData.customText;
+                    
+                    if (achievementId === 'other') {
+                        const otherOption = document.querySelector(`[data-year="${year}"][data-achievement="other"]`);
+                        if (otherOption) {
+                            otherOption.click();
+                            const textarea = document.querySelector(`.custom-achievement-text[data-year="${year}"]`);
+                            if (textarea) textarea.value = customText || '';
+                        }
+                    } else {
+                        const option = document.querySelector(`[data-year="${year}"][data-achievement="${achievementId}"]`);
+                        if (option) option.click();
+                    }
+                    
+                    updateYearStatus(year);
+                });
+            }
+            
+            document.getElementById('otherAchievements').value = data.otherAchievements || '';
+            
+            // Tasks
+            if (data.tasks) {
+                data.tasks.forEach(task => {
+                    const radio = document.querySelector(`input[name="task_${task.id}"][value="${task.status}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }
+                });
+            }
+        }
+
+        function updateSummary() {
+            // Personal info summary
+            const name = document.getElementById('teacherName').value;
+            const startYear = document.getElementById('startYear').value;
+            
+            document.getElementById('summaryPersonal').innerHTML = `
+                <p><strong>Họ tên:</strong> ${name}</p>
+                <p><strong>Năm vào ngành:</strong> ${startYear}</p>
+                <p><strong>Cam kết đạt chuẩn:</strong> Đã xác nhận</p>
+            `;
+            
+            // Achievements summary
+            const schoolYears = generateSchoolYears();
+            let achievementsHtml = '';
+            let yearsWithAchievements = 0;
+            
+            schoolYears.forEach(yearData => {
+                const yearValue = yearData.value;
+                const selectedAchievement = document.querySelector(`input[name="achievement_${yearValue}"]:checked`);
+                
+                if (selectedAchievement) {
+                    let achievementText = '';
+                    if (selectedAchievement.value === 'none') {
+                        achievementText = 'Không có thành tích';
+                    } else if (selectedAchievement.value === 'other') {
+                        const customText = document.querySelector(`.custom-achievement-text[data-year="${yearValue}"]`).value.trim();
+                        achievementText = `Thành tích đặc biệt: ${customText}`;
+                        yearsWithAchievements++;
+                    } else {
+                        const achievementName = getAchievementNameById(selectedAchievement.value);
+                        achievementText = achievementName;
+                        yearsWithAchievements++;
+                    }
+                    
+                    achievementsHtml += `
+                        <div class="summary-item">
+                            <div class="summary-year">
+                                <i class="fas fa-calendar-alt"></i> ${yearData.label}
+                            </div>
+                            <div class="summary-achievement">${achievementText}</div>
+                        </div>
+                    `;
+                }
+            });
+            
+            const otherAchievements = document.getElementById('otherAchievements').value.trim();
+            if (otherAchievements) {
+                achievementsHtml += `
+                    <div class="summary-item">
+                        <div class="summary-year">
+                            <i class="fas fa-star"></i> Thành tích khác
+                        </div>
+                        <div class="summary-achievement">${otherAchievements}</div>
+                    </div>
+                `;
+            }
+            
+            achievementsHtml = `
+                <div style="background: #e8f4fc; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    <strong>Tổng hợp:</strong> ${yearsWithAchievements}/9 năm có thành tích
+                </div>
+                ${achievementsHtml}
+            `;
+            
+            document.getElementById('summaryAchievements').innerHTML = achievementsHtml;
+            
+            // Tasks summary
+            let tasksHtml = '';
+            let completedCount = 0;
+            
+            for (let i = 1; i <= 7; i++) {
+                const taskRadio = document.querySelector(`input[name="task_${i}"]:checked`);
+                if (taskRadio) {
+                    const taskTitle = document.querySelector(`#task-${i} .task-title`).textContent;
+                    const status = taskRadio.value === 'done' ? 'Đã thực hiện' : 'Có khả năng thực hiện';
+                    const statusIcon = taskRadio.value === 'done' ? 'fa-check-circle' : 'fa-lightbulb';
+                    const statusColor = taskRadio.value === 'done' ? 'var(--success-color)' : 'var(--warning-color)';
+                    
+                    if (taskRadio.value === 'done') completedCount++;
+                    
+                    tasksHtml += `
+                        <div class="summary-item">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <i class="fas ${statusIcon}" style="color: ${statusColor};"></i>
+                                <div>
+                                    <strong>${i}. ${taskTitle}:</strong> ${status}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            tasksHtml = `
+                <div style="background: #e8f4fc; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    <strong>Tổng hợp:</strong> ${completedCount}/7 nhiệm vụ đã thực hiện
+                </div>
+                ${tasksHtml}
+            `;
+            
+            document.getElementById('summaryTasks').innerHTML = tasksHtml;
+        }
+
+        async function submitForm() {
+            // Final validation
+            const personalMissing = validatePersonalInfoWithDetails();
+            const achievementsMissing = validateAchievementsWithDetails();
+            const tasksMissing = validateTasksWithDetails();
+            
+            if (personalMissing.length > 0 || achievementsMissing.length > 0 || tasksMissing.length > 0) {
+                showMessage('Vui lòng hoàn thành tất cả thông tin bắt buộc', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            
+            // Collect form data
+            const submissionData = {
+                code: currentTeacherCode,
+                name: document.getElementById('teacherName').value.trim(),
+                startYear: document.getElementById('startYear').value,
+                commitment: document.getElementById('standardCommitmentRadio').checked,
+                yearAchievements: {},
+                otherAchievements: document.getElementById('otherAchievements').value.trim(),
+                tasks: [],
+                status: 'locked',
+                submittedAt: new Date().toISOString(),
+                timestamp: Date.now()
+            };
+            
+            // Collect achievements by year
+            const schoolYears = generateSchoolYears();
+            schoolYears.forEach(yearData => {
+                const yearValue = yearData.value;
+                const selectedAchievement = document.querySelector(`input[name="achievement_${yearValue}"]:checked`);
+                
+                if (selectedAchievement) {
+                    const achievementData = {
+                        id: selectedAchievement.value
+                    };
+                    
+                    if (selectedAchievement.value === 'other') {
+                        const customText = document.querySelector(`.custom-achievement-text[data-year="${yearValue}"]`).value.trim();
+                        achievementData.customText = customText;
+                    }
+                    
+                    submissionData.yearAchievements[yearValue] = achievementData;
+                }
+            });
+            
+            // Collect task data
+            for (let i = 1; i <= 7; i++) {
+                const taskRadio = document.querySelector(`input[name="task_${i}"]:checked`);
+                if (taskRadio) {
+                    const taskTitle = document.querySelector(`#task-${i} .task-title`).textContent;
+                    submissionData.tasks.push({
+                        id: i,
+                        title: taskTitle,
+                        status: taskRadio.value
+                    });
+                }
+            }
+            
+            try {
+                // Save to Firebase
+                await database.ref(`submissions/${currentTeacherCode}`).set(submissionData);
+                
+                // Update local
+                currentSubmission = submissionData;
+                isLocked = true;
+                
+                // Update all submissions
+                allSubmissions[currentTeacherCode] = submissionData;
+                
+                showLoading(false);
+                
+                // Show success message
+                showMessage('Hồ sơ đã được lưu và khóa thành công!', 'success');
+                
+                // Reset form and show lock message
+                document.getElementById('progressTabs').style.display = 'none';
+                document.getElementById('formTabs').style.display = 'none';
+                document.getElementById('lockMessage').classList.add('show');
+                document.getElementById('lockedTeacherCode').textContent = currentTeacherCode;
+                
+                document.getElementById('submissionStatus').innerHTML = `
+                    <i class="fas fa-lock"></i>
+                    <span>Đã khóa - Mã: ${currentTeacherCode}</span>
+                `;
+                
+                // If admin is logged in, update admin data
+                if (isAdmin) {
+                    updateAdminStatistics();
+                    updateTeacherListAdmin();
+                    updateTeacherSelectForEdit();
+                }
+                
+            } catch (error) {
+                console.error('Lỗi khi lưu hồ sơ:', error);
+                showMessage('Lỗi khi lưu hồ sơ. Vui lòng thử lại.', 'error');
+                showLoading(false);
+            }
+        }
+
+        // Thêm sự kiện cho cam kết tiêu chuẩn
+        document.getElementById('standardCommitment').addEventListener('click', function() {
+            const radio = document.getElementById('standardCommitmentRadio');
+            radio.checked = !radio.checked;
+            this.classList.toggle('selected', radio.checked);
+        });
+
+        // Initialize year achievements setup
+        setupYearAchievements();
+
+        // Make functions available globally for event handlers
+        window.deleteTeacher = deleteTeacher;
+        window.revokeEditCode = revokeEditCode;
+    </script>
 </body>
 </html>
