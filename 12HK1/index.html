@@ -4680,5 +4680,213 @@ if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
     };
 }
 </script>
+<script>
+(function () {
+
+  /* ===== TẠO BẢNG ===== */
+  const board = document.createElement("div");
+  board.id = "latexBoardOverlay";
+  board.innerHTML = `
+    <div class="content">
+      <div class="text-layer"></div>
+      <div class="image-layer"></div>
+    </div>
+
+    <textarea class="input"
+      placeholder="Gõ lời giải… | Ctrl+M → $ $ | # → ẩn/hiện"></textarea>
+
+    <div class="quick">
+      <span>\\Rightarrow</span>
+      <span>\\Leftrightarrow</span>
+      <span>\\frac{a}{b}</span>
+      <span>\\sqrt{x}</span>
+      <span>\\int f(x)\\,dx</span>
+      <span>\\int_a^b f(x)\\,dx</span>
+      <span>\\vec{AB}</span>
+      <span>\\begin{cases}</span>
+    </div>
+  `;
+  document.body.appendChild(board);
+
+  /* ===== CSS ===== */
+  const style = document.createElement("style");
+  style.textContent = `
+  #latexBoardOverlay {
+    position: fixed;
+    top: 60px;
+    left: 60px;
+    width: 720px;
+    height: 440px;
+    background: #0b6b3a;
+    color: #fff;
+    z-index: 999999;
+    display: none;
+    resize: both;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #latexBoardOverlay .content {
+    flex: 1;
+    padding: 10px;
+    overflow: auto;
+    cursor: move;
+    position: relative;
+  }
+
+  .text-layer {
+    white-space: pre-wrap;
+  }
+
+  .image-layer img {
+    max-width: 100%;
+    display: block;
+    margin: 8px 0;
+    resize: both;
+    overflow: auto;
+    cursor: move;
+    position: relative;
+  }
+
+  #latexBoardOverlay .input {
+    width: 100%;
+    height: 70px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    padding: 8px;
+    background: rgba(0,0,0,.2);
+    color: white;
+    box-sizing: border-box;
+  }
+
+  #latexBoardOverlay .quick {
+    padding: 6px;
+    background: rgba(0,0,0,.25);
+    white-space: nowrap;
+    overflow-x: auto;
+    font-size: 13px;
+  }
+
+  #latexBoardOverlay .quick span {
+    cursor: pointer;
+    margin-right: 14px;
+    user-select: none;
+  }`;
+  document.head.appendChild(style);
+
+  const content = board.querySelector(".content");
+  const textLayer = board.querySelector(".text-layer");
+  const imageLayer = board.querySelector(".image-layer");
+  const input = board.querySelector(".input");
+
+  /* ===== TOGGLE BẰNG PHÍM # ===== */
+  document.addEventListener("keydown", e => {
+    if (e.key === "#") {
+      board.style.display =
+        board.style.display === "none" ? "flex" : "none";
+    }
+  });
+
+  /* ===== CTRL+M ===== */
+  input.addEventListener("keydown", e => {
+    if (e.ctrlKey && e.key.toLowerCase() === "m") {
+      e.preventDefault();
+      const p = input.selectionStart;
+      input.value =
+        input.value.slice(0, p) + " $ $ " + input.value.slice(p);
+      input.selectionStart = input.selectionEnd = p + 2;
+    }
+  });
+
+  /* ===== GÕ NHANH ===== */
+  board.querySelectorAll(".quick span").forEach(el => {
+    el.onclick = () => {
+      const p = input.selectionStart;
+      input.value =
+        input.value.slice(0, p) + el.textContent + input.value.slice(p);
+      input.selectionStart = input.selectionEnd =
+        p + el.textContent.length;
+      input.focus();
+    };
+  });
+
+  /* ===== DRAG BẢNG ===== */
+  let dragging = false, dx = 0, dy = 0;
+
+  content.addEventListener("mousedown", e => {
+    dragging = true;
+    dx = e.clientX - board.offsetLeft;
+    dy = e.clientY - board.offsetTop;
+  });
+
+  document.addEventListener("mousemove", e => {
+    if (dragging) {
+      board.style.left = e.clientX - dx + "px";
+      board.style.top  = e.clientY - dy + "px";
+    }
+  });
+
+  document.addEventListener("mouseup", () => dragging = false);
+
+  /* ===== RENDER LATEX (KHÔNG XOÁ ẢNH) ===== */
+  let timer = null;
+  function canRender(t) {
+    return (t.match(/\$/g) || []).length % 2 === 0;
+  }
+
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const t = input.value;
+      textLayer.textContent = t;
+      if (canRender(t) && window.MathJax) {
+        textLayer.innerHTML = t.replace(/\n/g, "<br>");
+        MathJax.typesetPromise([textLayer]);
+      }
+    }, 250);
+  });
+
+  /* ===== DÁN ẢNH ===== */
+  input.addEventListener("paste", e => {
+    const items = e.clipboardData.items;
+    for (let item of items) {
+      if (item.type.startsWith("image")) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        const reader = new FileReader();
+
+        reader.onload = ev => {
+          const img = document.createElement("img");
+          img.src = ev.target.result;
+
+          let dragImg = false, ix = 0, iy = 0;
+          img.addEventListener("mousedown", e2 => {
+            dragImg = true;
+            ix = e2.offsetX;
+            iy = e2.offsetY;
+          });
+          document.addEventListener("mousemove", e2 => {
+            if (dragImg) {
+              img.style.left = e2.pageX - ix + "px";
+              img.style.top  = e2.pageY - iy + "px";
+            }
+          });
+          document.addEventListener("mouseup", () => dragImg = false);
+
+          imageLayer.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+  });
+
+})();
+</script>
+
 </body>
 </html>
