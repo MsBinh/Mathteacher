@@ -2,42 +2,41 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>BẢNG TOÁN HỌC v3.1 (GEOMETRY)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>BẢNG DẠY v4.0 (TOUCH FIX)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     </script>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2c3e50; font-family: 'Segoe UI', sans-serif; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2c3e50; font-family: 'Segoe UI', sans-serif; touch-action: none; /* Quan trọng: Chặn trình duyệt can thiệp touch */ }
         .app-layout { display: flex; flex-direction: column; height: 100vh; }
         
-        /* THANH CÔNG CỤ */
         .toolbar {
-            height: 45px; background: #ecf0f1; display: flex; align-items: center; padding: 0 10px; gap: 6px; border-bottom: 1px solid #bdc3c7; flex-shrink: 0; overflow-x: auto;
+            height: 50px; background: #ecf0f1; display: flex; align-items: center; padding: 0 10px; gap: 8px; border-bottom: 1px solid #bdc3c7; flex-shrink: 0; overflow-x: auto;
         }
-        .btn { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; background: white; white-space: nowrap; font-size: 13px; }
+        .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; background: white; white-space: nowrap; font-size: 14px; }
         .btn:hover { background: #e0e0e0; }
         .btn.active { background: #2980b9; color: white; border-color: #2980b9; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
         
-        /* MENU SHAPE */
-        select.shape-select { padding: 5px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #2c3e50; cursor: pointer; max-width: 100px; }
-
-        .color-group { display: flex; gap: 4px; margin-left: auto; margin-right: 5px;}
-        .color-btn { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        select.shape-select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #2c3e50; cursor: pointer; max-width: 120px; font-size: 14px; }
+        .color-group { display: flex; gap: 8px; margin-left: auto; margin-right: 5px;}
+        .color-btn { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
         .color-btn.active { transform: scale(1.2); border-color: #333; }
 
-        /* VÙNG CHỨA PDF */
         #mainContainer {
             flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; text-align: center; background-color: #555; padding-bottom: 50px; scroll-behavior: smooth;
+            touch-action: pan-y; /* Cho phép trượt dọc bằng tay ở vùng trống */
         }
+        
+        /* Khi đang vẽ thì tắt trượt */
+        body.drawing-mode #mainContainer { touch-action: none; overflow: hidden; }
+
         .page-wrapper { display: inline-block; position: relative; margin: 0 auto; margin-bottom: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); line-height: 0; }
         .pdf-canvas { display: block; background: white; width: 100%; height: auto; }
         .draw-canvas { position: absolute; top: 0; left: 0; cursor: crosshair; touch-action: none; width: 100%; height: 100%; }
 
-        /* CSS Chế độ Tay */
         body.hand-mode .draw-canvas { cursor: grab; pointer-events: none; }
-        body.hand-mode #mainContainer { cursor: grab; }
-        body.hand-mode #mainContainer:active { cursor: grabbing; }
+        body.hand-mode #mainContainer { cursor: grab; touch-action: pan-y; } /* Chế độ tay: Cho phép trượt */
 
         /* Web Window */
         .web-window { position: absolute; width: 800px; height: 600px; background: white; border: 2px solid #3498db; top: 60px; left: 60px; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 2000; resize: both; overflow: auto; }
@@ -49,39 +48,38 @@
         :fullscreen .toolbar { display: flex; }
     </style>
 </head>
-<body class=""> 
-
-<div class="app-layout" id="app">
+<body class="drawing-mode"> <div class="app-layout" id="app">
     <div class="toolbar">
         <button class="btn" onclick="toggleFullScreen()" title="Toàn màn hình">🖥️</button>
         <div style="width: 1px; height: 25px; background: #ccc;"></div>
 
-        <button class="btn" onclick="document.getElementById('pdfInput').click()">📄 PDF</button>
+        <button class="btn" onclick="document.getElementById('pdfInput').click()">📂 File</button>
+        <button class="btn" onclick="loadPdfFromPrompt()">🔗 Link</button>
         <button class="btn" onclick="addWebsite()">🌐 Web</button>
         <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
 
         <div style="width: 1px; height: 25px; background: #ccc;"></div>
         
-        <button class="btn active" id="btnPen" onclick="setTool('pen')" title="Viết thường">✏️</button>
-        <button class="btn" id="btnHighlighter" onclick="setTool('highlighter')" title="Tô sáng">🖍️</button>
-        <button class="btn" id="btnEraser" onclick="setTool('eraser')" title="Tẩy">Tẩy</button>
+        <button class="btn active" id="btnPen" onclick="setTool('pen')">✏️</button>
+        <button class="btn" id="btnHighlighter" onclick="setTool('highlighter')">🖍️</button>
+        <button class="btn" id="btnEraser" onclick="setTool('eraser')">Tẩy</button>
 
         <div style="width: 1px; height: 25px; background: #ccc;"></div>
 
-        <button class="btn" id="btnLine" onclick="setTool('shape', 'line')" title="Đường thẳng (Liền)">📏</button>
-        <button class="btn" id="btnDashed" onclick="setTool('shape', 'dashed')" title="Đường thẳng (Đứt)" style="letter-spacing: -2px;">- - -</button>
+        <button class="btn" id="btnLine" onclick="setTool('shape', 'line')">📏</button>
+        <button class="btn" id="btnDashed" onclick="setTool('shape', 'dashed')" style="letter-spacing: -2px;">- - -</button>
 
         <select id="shapeSelect" class="shape-select" onchange="setTool('shape', this.value)">
-            <option value="" disabled selected>📐 Hình khác</option>
+            <option value="" disabled selected>📐 Hình</option>
             <option value="rect">Vuông/CN</option>
-            <option value="circle">⚪ Hình tròn</option>
+            <option value="circle">⚪ Tròn</option>
             <option value="triangle">🔺 Tam giác</option>
             <option value="axis">Hệ trục Oxy</option>
             <option disabled>--- 3D ---</option>
-            <option value="cube">📦 Hình hộp</option>
-            <option value="sphere">⚽ Hình cầu</option>
-            <option value="cylinder">🛢️ Hình trụ</option>
-            <option value="cone">🍦 Hình nón</option>
+            <option value="cube">📦 Hộp</option>
+            <option value="sphere">⚽ Cầu</option>
+            <option value="cylinder">🛢️ Trụ</option>
+            <option value="cone">🍦 Nón</option>
         </select>
 
         <div style="width: 1px; height: 25px; background: #ccc;"></div>
@@ -91,7 +89,8 @@
 
         <div class="color-group">
             <div class="color-btn active" style="background: #e74c3c;" onclick="setColor('#e74c3c', this)"></div>
-            <div class="color-btn" style="background: #2980b9;" onclick="setColor('#2980b9', this)"></div> <div class="color-btn" style="background: #27ae60;" onclick="setColor('#27ae60', this)"></div>
+            <div class="color-btn" style="background: #2980b9;" onclick="setColor('#2980b9', this)"></div>
+            <div class="color-btn" style="background: #27ae60;" onclick="setColor('#27ae60', this)"></div>
             <div class="color-btn" style="background: #2c3e50;" onclick="setColor('#2c3e50', this)"></div>
             <div class="color-btn" style="background: #f1c40f;" onclick="setColor('#f1c40f', this)"></div>
         </div>
@@ -99,16 +98,16 @@
 
     <div id="mainContainer">
         <div style="margin-top: 20%; color: #bbb; font-size: 18px;">
-            <b>BẢNG DẠY TOÁN v3.1</b><br>
-            <i>(Hỗ trợ vẽ Nét liền, Nét đứt, Hình khối)</i><br><br>
-            Bấm <b>📄 PDF</b> để bắt đầu.
+            <b>BẢNG DẠY v4.0 (TOUCH FIX)</b><br>
+            <i>Đã tối ưu cho màn hình cảm ứng</i><br><br>
+            Bấm <b>📂 File</b> hoặc <b>🔗 Link</b> để bắt đầu.
         </div>
     </div>
 </div>
 
 <script>
     let currentTool = 'pen';
-    let currentShapeType = 'line'; // Loại hình đang vẽ
+    let currentShapeType = 'line'; 
     let currentColor = '#e74c3c';
     let isDrawing = false;
     let startX = 0, startY = 0;
@@ -122,41 +121,37 @@
         }
     }
 
-    // Hàm setTool thông minh hơn: vừa chọn công cụ vừa chọn loại hình
     function setTool(tool, shapeType = null) {
         currentTool = tool;
         if (shapeType) currentShapeType = shapeType;
-
-        // Reset UI các nút
         document.querySelectorAll('.toolbar .btn').forEach(b => b.classList.remove('active'));
         
-        // Active nút tương ứng
         if(tool === 'pen') document.getElementById('btnPen').classList.add('active');
         if(tool === 'highlighter') document.getElementById('btnHighlighter').classList.add('active');
         if(tool === 'eraser') document.getElementById('btnEraser').classList.add('active');
         if(tool === 'hand') document.getElementById('btnHand').classList.add('active');
         
-        // Xử lý nút hình học
         if(tool === 'shape') {
             if (shapeType === 'line') document.getElementById('btnLine').classList.add('active');
             else if (shapeType === 'dashed') document.getElementById('btnDashed').classList.add('active');
             else {
-                // Nếu là hình trong menu dropdown
                 document.getElementById('shapeSelect').style.borderColor = '#2980b9';
                 document.getElementById('shapeSelect').style.color = '#2980b9';
             }
-        }
-
-        // Reset style dropdown nếu không dùng
-        if (tool !== 'shape' || (shapeType === 'line' || shapeType === 'dashed')) {
+        } else {
              document.getElementById('shapeSelect').style.borderColor = '#ccc';
              document.getElementById('shapeSelect').style.color = '#2c3e50';
              document.getElementById('shapeSelect').value = ""; 
         }
 
-        // Chế độ Tay
-        if (tool === 'hand') document.body.classList.add('hand-mode');
-        else document.body.classList.remove('hand-mode');
+        // Xử lý logic cảm ứng
+        if (tool === 'hand') {
+            document.body.classList.remove('drawing-mode');
+            document.body.classList.add('hand-mode');
+        } else {
+            document.body.classList.add('drawing-mode');
+            document.body.classList.remove('hand-mode');
+        }
     }
 
     function setColor(color, element) {
@@ -175,80 +170,119 @@
         }
     }
 
-    // --- PDF ENGINE ---
-    document.getElementById('pdfInput').onchange = async function(e) {
+    document.getElementById('pdfInput').onchange = function(e) {
         const file = e.target.files[0];
-        if (!file) return;
-
-        const container = document.getElementById('mainContainer');
-        container.innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang xử lý tài liệu...</div>';
-
-        const pdfData = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument(pdfData).promise;
-        container.innerHTML = ''; 
-
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-            const page = await pdf.getPage(pageNum);
-            const containerWidth = container.clientWidth - 20; 
-            const unscaledViewport = page.getViewport({ scale: 1 });
-            const scale = Math.max(containerWidth / unscaledViewport.width, 1.5);
-            const viewport = page.getViewport({ scale: scale });
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'page-wrapper';
-            wrapper.style.width = viewport.width + 'px';
-            wrapper.style.height = viewport.height + 'px';
-
-            const pdfCanvas = document.createElement('canvas');
-            pdfCanvas.className = 'pdf-canvas';
-            pdfCanvas.width = viewport.width;
-            pdfCanvas.height = viewport.height;
-            const pdfCtx = pdfCanvas.getContext('2d');
-            page.render({ canvasContext: pdfCtx, viewport: viewport });
-
-            const drawCanvas = document.createElement('canvas');
-            drawCanvas.className = 'draw-canvas';
-            drawCanvas.width = viewport.width;
-            drawCanvas.height = viewport.height;
-
-            setupDrawing(drawCanvas);
-
-            wrapper.appendChild(pdfCanvas);
-            wrapper.appendChild(drawCanvas);
-            container.appendChild(wrapper);
-        }
+        if (file) loadPdfData(file.arrayBuffer());
     };
 
-    // --- DRAWING ENGINE ---
+    function loadPdfFromPrompt() {
+        const url = prompt("Dán đường link PDF:");
+        if (url) {
+            document.getElementById('mainContainer').innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang tải từ Link...</div>';
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error("Lỗi tải link");
+                    return response.arrayBuffer();
+                })
+                .then(data => loadPdfData(Promise.resolve(data)))
+                .catch(err => {
+                    alert("Lỗi tải Link: " + err.message);
+                    document.getElementById('mainContainer').innerHTML = '';
+                });
+        }
+    }
+
+    async function loadPdfData(dataPromise) {
+        const container = document.getElementById('mainContainer');
+        container.innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang xử lý...</div>';
+
+        try {
+            const pdfData = await dataPromise;
+            const pdf = await pdfjsLib.getDocument(pdfData).promise;
+            container.innerHTML = ''; 
+
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                const page = await pdf.getPage(pageNum);
+                const containerWidth = container.clientWidth - 20; 
+                const unscaledViewport = page.getViewport({ scale: 1 });
+                const scale = Math.max(containerWidth / unscaledViewport.width, 1.5);
+                const viewport = page.getViewport({ scale: scale });
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'page-wrapper';
+                wrapper.style.width = viewport.width + 'px';
+                wrapper.style.height = viewport.height + 'px';
+
+                const pdfCanvas = document.createElement('canvas');
+                pdfCanvas.className = 'pdf-canvas';
+                pdfCanvas.width = viewport.width;
+                pdfCanvas.height = viewport.height;
+                const pdfCtx = pdfCanvas.getContext('2d');
+                page.render({ canvasContext: pdfCtx, viewport: viewport });
+
+                const drawCanvas = document.createElement('canvas');
+                drawCanvas.className = 'draw-canvas';
+                drawCanvas.width = viewport.width;
+                drawCanvas.height = viewport.height;
+
+                setupDrawing(drawCanvas);
+
+                wrapper.appendChild(pdfCanvas);
+                wrapper.appendChild(drawCanvas);
+                container.appendChild(wrapper);
+            }
+        } catch (error) {
+            alert("Lỗi hiển thị PDF: " + error.message);
+        }
+    }
+
+    // --- DRAWING ENGINE (HỖ TRỢ CẢM ỨNG) ---
     function setupDrawing(canvas) {
         const ctx = canvas.getContext('2d');
+        
+        // Hàm lấy tọa độ thống nhất cho cả Chuột và Cảm ứng
         function getPos(e) {
             const rect = canvas.getBoundingClientRect();
-            return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+            let clientX, clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                // Nếu là cảm ứng
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                // Nếu là chuột
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            return { x: clientX - rect.left, y: clientY - rect.top };
         }
 
-        canvas.addEventListener('mousedown', (e) => {
+        // --- SỰ KIỆN BẮT ĐẦU (MouseDown & TouchStart) ---
+        function startDraw(e) {
             if (currentTool === 'hand') return; 
+            if (e.cancelable) e.preventDefault(); // Chặn cuộn màn hình khi chạm
+
             isDrawing = true;
             const pos = getPos(e);
             startX = pos.x; startY = pos.y;
             
-            // Lưu ảnh cũ để làm hiệu ứng kéo thả (Rubber banding)
             if (currentTool === 'shape') {
                 snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
             } else {
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
             }
-        });
+        }
 
-        canvas.addEventListener('mousemove', (e) => {
+        // --- SỰ KIỆN DI CHUYỂN (MouseMove & TouchMove) ---
+        function moveDraw(e) {
             if (!isDrawing || currentTool === 'hand') return;
-            if (e.target !== canvas) return; 
-            
+            if (e.cancelable) e.preventDefault(); // Chặn cuộn màn hình tuyệt đối khi đang vẽ
+
             const pos = getPos(e);
             ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-            ctx.setLineDash([]); // Reset nét liền mặc định
+            ctx.setLineDash([]); 
 
             if (currentTool === 'pen') {
                 ctx.globalCompositeOperation = 'source-over';
@@ -265,126 +299,109 @@
                 ctx.lineTo(pos.x, pos.y); ctx.stroke();
                 ctx.globalCompositeOperation = 'source-over';
             } else if (currentTool === 'shape') {
-                // VẼ HÌNH PREVIEW
-                ctx.putImageData(snapshot, 0, 0); // Xóa nét vẽ cũ
+                ctx.putImageData(snapshot, 0, 0); 
                 ctx.globalCompositeOperation = 'source-over';
                 ctx.strokeStyle = currentColor; ctx.lineWidth = 2;
                 drawGeometry(ctx, startX, startY, pos.x, pos.y, currentShapeType);
             }
-        });
+        }
 
-        canvas.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('mouseleave', () => isDrawing = false);
+        // --- SỰ KIỆN KẾT THÚC (MouseUp & TouchEnd) ---
+        function endDraw(e) {
+            isDrawing = false;
+        }
+
+        // Gán sự kiện cho cả Chuột và Cảm ứng
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('touchstart', startDraw, { passive: false }); // passive: false để cho phép preventDefault
+
+        canvas.addEventListener('mousemove', moveDraw);
+        canvas.addEventListener('touchmove', moveDraw, { passive: false });
+
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('touchend', endDraw);
+        canvas.addEventListener('mouseleave', endDraw);
     }
 
-    // --- GEOMETRY LIBRARY ---
+    // --- GEOMETRY LIBRARY (GIỮ NGUYÊN) ---
     function drawGeometry(ctx, x1, y1, x2, y2, type) {
         const w = x2 - x1;
         const h = y2 - y1;
         ctx.beginPath();
-
-        // Xử lý nét đứt nếu là dashed
         if (type === 'dashed') ctx.setLineDash([10, 8]); 
         else ctx.setLineDash([]);
 
-        if (type === 'line' || type === 'dashed') {
-            ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
-        } 
-        else if (type === 'rect') {
-            ctx.rect(x1, y1, w, h);
-        } 
-        else if (type === 'circle') {
-            let r = Math.sqrt(w*w + h*h);
-            ctx.arc(x1, y1, r, 0, 2 * Math.PI);
-        }
-        else if (type === 'triangle') {
-            ctx.moveTo(x1 + w/2, y1); 
-            ctx.lineTo(x1, y1 + h);   
-            ctx.lineTo(x1 + w, y1 + h); 
-            ctx.closePath();
-        }
+        if (type === 'line' || type === 'dashed') { ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); } 
+        else if (type === 'rect') { ctx.rect(x1, y1, w, h); } 
+        else if (type === 'circle') { let r = Math.sqrt(w*w + h*h); ctx.arc(x1, y1, r, 0, 2 * Math.PI); }
+        else if (type === 'triangle') { ctx.moveTo(x1 + w/2, y1); ctx.lineTo(x1, y1 + h); ctx.lineTo(x1 + w, y1 + h); ctx.closePath(); }
         else if (type === 'axis') {
-            // Trục Tung
             ctx.moveTo(x1, y1 - h); ctx.lineTo(x1, y1 + h);
-            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 - 5, y1 - h + 10);
-            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 + 5, y1 - h + 10);
-            // Trục Hoành
+            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 - 5, y1 - h + 10); ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 + 5, y1 - h + 10);
             ctx.moveTo(x1 - w, y1); ctx.lineTo(x1 + w, y1);
-            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 - 5);
-            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 + 5);
+            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 - 5); ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 + 5);
         }
-        // 3D Shapes (Tự động nét đứt phần khuất)
         else if (type === 'cube') {
-            const d = w / 3; 
-            ctx.rect(x1, y1, w, h); 
-            ctx.rect(x1 + d, y1 - d, w, h); 
-            ctx.moveTo(x1, y1); ctx.lineTo(x1 + d, y1 - d);
-            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w + d, y1 - d);
-            ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + d, y1 + h - d);
-            ctx.moveTo(x1 + w, y1 + h); ctx.lineTo(x1 + w + d, y1 + h - d);
+            const d = w / 3; ctx.rect(x1, y1, w, h); ctx.rect(x1 + d, y1 - d, w, h); 
+            ctx.moveTo(x1, y1); ctx.lineTo(x1 + d, y1 - d); ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w + d, y1 - d);
+            ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + d, y1 + h - d); ctx.moveTo(x1 + w, y1 + h); ctx.lineTo(x1 + w + d, y1 + h - d);
         }
         else if (type === 'sphere') {
-            let r = Math.abs(w); 
-            ctx.arc(x1 + r, y1 + r, r, 0, 2*Math.PI); 
-            ctx.moveTo(x1 + 2*r, y1 + r);
-            ctx.ellipse(x1 + r, y1 + r, r, r/4, 0, 0, 2*Math.PI);
+            let r = Math.abs(w); ctx.arc(x1 + r, y1 + r, r, 0, 2*Math.PI); ctx.moveTo(x1 + 2*r, y1 + r); ctx.ellipse(x1 + r, y1 + r, r, r/4, 0, 0, 2*Math.PI);
         }
         else if (type === 'cylinder') {
             const rx = w/2; const ry = w/6; 
             ctx.moveTo(x1 + w, y1); ctx.ellipse(x1 + rx, y1, rx, ry, 0, 0, 2*Math.PI);
             ctx.moveTo(x1 + w, y1 + h); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, 0, Math.PI); 
-            ctx.moveTo(x1, y1); ctx.lineTo(x1, y1 + h);
-            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w, y1 + h);
-            ctx.stroke(); 
-            ctx.beginPath(); ctx.setLineDash([5, 5]);
-            ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
+            ctx.moveTo(x1, y1); ctx.lineTo(x1, y1 + h); ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w, y1 + h);
+            ctx.stroke(); ctx.beginPath(); ctx.setLineDash([5, 5]); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
         }
         else if (type === 'cone') {
             const rx = w/2; const ry = w/6;
             ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + rx, y1); ctx.lineTo(x1 + w, y1 + h);
             ctx.moveTo(x1 + w, y1 + h); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, 0, Math.PI);
-            ctx.stroke();
-            ctx.beginPath(); ctx.setLineDash([5, 5]);
-            ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
+            ctx.stroke(); ctx.beginPath(); ctx.setLineDash([5, 5]); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
         }
-
-        ctx.stroke();
-        ctx.setLineDash([]); // Trả lại nét liền cho lần vẽ sau
+        ctx.stroke(); ctx.setLineDash([]); 
     }
 
-    // --- WEB & DRAGGABLE ---
+    // --- WEB & DRAGGABLE (GIỮ NGUYÊN) ---
     function addWebsite() {
-        let url = prompt("Nhập Link:", "https://desmos.com/calculator");
+        let url = prompt("Nhập Link Web:", "https://desmos.com/calculator");
         if (!url) return;
         if (!url.startsWith('http')) url = 'https://' + url;
-
         const win = document.createElement('div'); win.className = 'web-window';
-        
-        const header = document.createElement('div'); header.className = 'web-header';
-        header.innerHTML = `<span>${url}</span>`;
+        const header = document.createElement('div'); header.className = 'web-header'; header.innerHTML = `<span>${url}</span>`;
         const controls = document.createElement('div');
         const btnDrawWeb = document.createElement('button'); btnDrawWeb.innerText = '✏️ Vẽ đè'; btnDrawWeb.style.marginRight = '10px';
         btnDrawWeb.onclick = () => { win.classList.toggle('drawing-web'); btnDrawWeb.style.background = win.classList.contains('drawing-web') ? '#f1c40f' : ''; };
         const btnClose = document.createElement('button'); btnClose.innerText = '✕'; btnClose.onclick = () => win.remove();
         controls.appendChild(btnDrawWeb); controls.appendChild(btnClose); header.appendChild(controls);
-
         const content = document.createElement('div'); content.className = 'web-content';
         const iframe = document.createElement('iframe'); iframe.src = url;
         const overlay = document.createElement('canvas'); overlay.className = 'web-overlay';
         new ResizeObserver(() => { overlay.width = content.offsetWidth; overlay.height = content.offsetHeight; }).observe(content);
         setupDrawing(overlay);
-
         content.appendChild(iframe); content.appendChild(overlay);
         win.appendChild(header); win.appendChild(content); document.body.appendChild(win);
         makeDraggable(win, header);
     }
-
     function makeDraggable(element, handle) {
-        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        handle.onmousedown = dragMouseDown;
-        function dragMouseDown(e) { e = e || window.event; e.preventDefault(); pos3 = e.clientX; pos4 = e.clientY; document.onmouseup = closeDragElement; document.onmousemove = elementDrag; }
-        function elementDrag(e) { e = e || window.event; e.preventDefault(); pos1 = pos3 - e.clientX; pos2 = pos4 - e.clientY; pos3 = e.clientX; pos4 = e.clientY; element.style.top = (element.offsetTop - pos2) + "px"; element.style.left = (element.offsetLeft - pos1) + "px"; }
-        function closeDragElement() { document.onmouseup = null; document.onmousemove = null; }
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0; handle.onmousedown = dragMouseDown; handle.ontouchstart = dragMouseDown;
+        function dragMouseDown(e) {
+            e.preventDefault(); 
+            if(e.touches) { pos3 = e.touches[0].clientX; pos4 = e.touches[0].clientY; } else { pos3 = e.clientX; pos4 = e.clientY; }
+            document.onmouseup = closeDragElement; document.ontouchend = closeDragElement;
+            document.onmousemove = elementDrag; document.ontouchmove = elementDrag;
+        }
+        function elementDrag(e) {
+            e.preventDefault();
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            pos1 = pos3 - clientX; pos2 = pos4 - clientY; pos3 = clientX; pos4 = clientY;
+            element.style.top = (element.offsetTop - pos2) + "px"; element.style.left = (element.offsetLeft - pos1) + "px";
+        }
+        function closeDragElement() { document.onmouseup = null; document.onmousemove = null; document.ontouchend = null; document.ontouchmove = null; }
     }
 </script>
 </body>
