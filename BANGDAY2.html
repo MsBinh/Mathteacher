@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <title>BẢNG TOÁN HỌC v3.1 (GEOMETRY)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2c3e50; font-family: 'Segoe UI', sans-serif; }
+        .app-layout { display: flex; flex-direction: column; height: 100vh; }
+        
+        /* THANH CÔNG CỤ */
+        .toolbar {
+            height: 45px; background: #ecf0f1; display: flex; align-items: center; padding: 0 10px; gap: 6px; border-bottom: 1px solid #bdc3c7; flex-shrink: 0; overflow-x: auto;
+        }
+        .btn { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; background: white; white-space: nowrap; font-size: 13px; }
+        .btn:hover { background: #e0e0e0; }
+        .btn.active { background: #2980b9; color: white; border-color: #2980b9; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        
+        /* MENU SHAPE */
+        select.shape-select { padding: 5px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #2c3e50; cursor: pointer; max-width: 100px; }
+
+        .color-group { display: flex; gap: 4px; margin-left: auto; margin-right: 5px;}
+        .color-btn { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .color-btn.active { transform: scale(1.2); border-color: #333; }
+
+        /* VÙNG CHỨA PDF */
+        #mainContainer {
+            flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; text-align: center; background-color: #555; padding-bottom: 50px; scroll-behavior: smooth;
+        }
+        .page-wrapper { display: inline-block; position: relative; margin: 0 auto; margin-bottom: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); line-height: 0; }
+        .pdf-canvas { display: block; background: white; width: 100%; height: auto; }
+        .draw-canvas { position: absolute; top: 0; left: 0; cursor: crosshair; touch-action: none; width: 100%; height: 100%; }
+
+        /* CSS Chế độ Tay */
+        body.hand-mode .draw-canvas { cursor: grab; pointer-events: none; }
+        body.hand-mode #mainContainer { cursor: grab; }
+        body.hand-mode #mainContainer:active { cursor: grabbing; }
+
+        /* Web Window */
+        .web-window { position: absolute; width: 800px; height: 600px; background: white; border: 2px solid #3498db; top: 60px; left: 60px; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 2000; resize: both; overflow: auto; }
+        .web-header { padding: 8px; background: #3498db; color: white; cursor: move; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .web-content { flex: 1; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .web-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .drawing-web .web-overlay { pointer-events: auto; background: rgba(0,0,0,0.05); cursor: crosshair; }
+        :fullscreen .toolbar { display: flex; }
+    </style>
+</head>
+<body class=""> 
+
+<div class="app-layout" id="app">
+    <div class="toolbar">
+        <button class="btn" onclick="toggleFullScreen()" title="Toàn màn hình">🖥️</button>
+        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+
+        <button class="btn" onclick="document.getElementById('pdfInput').click()">📄 PDF</button>
+        <button class="btn" onclick="addWebsite()">🌐 Web</button>
+        <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+
+        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+        
+        <button class="btn active" id="btnPen" onclick="setTool('pen')" title="Viết thường">✏️</button>
+        <button class="btn" id="btnHighlighter" onclick="setTool('highlighter')" title="Tô sáng">🖍️</button>
+        <button class="btn" id="btnEraser" onclick="setTool('eraser')" title="Tẩy">Tẩy</button>
+
+        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+
+        <button class="btn" id="btnLine" onclick="setTool('shape', 'line')" title="Đường thẳng (Liền)">📏</button>
+        <button class="btn" id="btnDashed" onclick="setTool('shape', 'dashed')" title="Đường thẳng (Đứt)" style="letter-spacing: -2px;">- - -</button>
+
+        <select id="shapeSelect" class="shape-select" onchange="setTool('shape', this.value)">
+            <option value="" disabled selected>📐 Hình khác</option>
+            <option value="rect">Vuông/CN</option>
+            <option value="circle">⚪ Hình tròn</option>
+            <option value="triangle">🔺 Tam giác</option>
+            <option value="axis">Hệ trục Oxy</option>
+            <option disabled>--- 3D ---</option>
+            <option value="cube">📦 Hình hộp</option>
+            <option value="sphere">⚽ Hình cầu</option>
+            <option value="cylinder">🛢️ Hình trụ</option>
+            <option value="cone">🍦 Hình nón</option>
+        </select>
+
+        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+
+        <button class="btn" id="btnHand" onclick="setTool('hand')" title="Kéo trượt trang">🖐️</button>
+        <button class="btn" onclick="clearInk()" style="color: #c0392b;">❌</button>
+
+        <div class="color-group">
+            <div class="color-btn active" style="background: #e74c3c;" onclick="setColor('#e74c3c', this)"></div>
+            <div class="color-btn" style="background: #2980b9;" onclick="setColor('#2980b9', this)"></div> <div class="color-btn" style="background: #27ae60;" onclick="setColor('#27ae60', this)"></div>
+            <div class="color-btn" style="background: #2c3e50;" onclick="setColor('#2c3e50', this)"></div>
+            <div class="color-btn" style="background: #f1c40f;" onclick="setColor('#f1c40f', this)"></div>
+        </div>
+    </div>
+
+    <div id="mainContainer">
+        <div style="margin-top: 20%; color: #bbb; font-size: 18px;">
+            <b>BẢNG DẠY TOÁN v3.1</b><br>
+            <i>(Hỗ trợ vẽ Nét liền, Nét đứt, Hình khối)</i><br><br>
+            Bấm <b>📄 PDF</b> để bắt đầu.
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentTool = 'pen';
+    let currentShapeType = 'line'; // Loại hình đang vẽ
+    let currentColor = '#e74c3c';
+    let isDrawing = false;
+    let startX = 0, startY = 0;
+    let snapshot; 
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => { alert(`Lỗi: ${err.message}`); });
+        } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+    }
+
+    // Hàm setTool thông minh hơn: vừa chọn công cụ vừa chọn loại hình
+    function setTool(tool, shapeType = null) {
+        currentTool = tool;
+        if (shapeType) currentShapeType = shapeType;
+
+        // Reset UI các nút
+        document.querySelectorAll('.toolbar .btn').forEach(b => b.classList.remove('active'));
+        
+        // Active nút tương ứng
+        if(tool === 'pen') document.getElementById('btnPen').classList.add('active');
+        if(tool === 'highlighter') document.getElementById('btnHighlighter').classList.add('active');
+        if(tool === 'eraser') document.getElementById('btnEraser').classList.add('active');
+        if(tool === 'hand') document.getElementById('btnHand').classList.add('active');
+        
+        // Xử lý nút hình học
+        if(tool === 'shape') {
+            if (shapeType === 'line') document.getElementById('btnLine').classList.add('active');
+            else if (shapeType === 'dashed') document.getElementById('btnDashed').classList.add('active');
+            else {
+                // Nếu là hình trong menu dropdown
+                document.getElementById('shapeSelect').style.borderColor = '#2980b9';
+                document.getElementById('shapeSelect').style.color = '#2980b9';
+            }
+        }
+
+        // Reset style dropdown nếu không dùng
+        if (tool !== 'shape' || (shapeType === 'line' || shapeType === 'dashed')) {
+             document.getElementById('shapeSelect').style.borderColor = '#ccc';
+             document.getElementById('shapeSelect').style.color = '#2c3e50';
+             document.getElementById('shapeSelect').value = ""; 
+        }
+
+        // Chế độ Tay
+        if (tool === 'hand') document.body.classList.add('hand-mode');
+        else document.body.classList.remove('hand-mode');
+    }
+
+    function setColor(color, element) {
+        currentColor = color;
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+        element.classList.add('active');
+        if (currentTool === 'eraser' || currentTool === 'hand') setTool('pen'); 
+    }
+
+    function clearInk() {
+        if(confirm("Xóa mực trang này?")) {
+            document.querySelectorAll('.draw-canvas').forEach(canvas => {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+        }
+    }
+
+    // --- PDF ENGINE ---
+    document.getElementById('pdfInput').onchange = async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const container = document.getElementById('mainContainer');
+        container.innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang xử lý tài liệu...</div>';
+
+        const pdfData = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument(pdfData).promise;
+        container.innerHTML = ''; 
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const containerWidth = container.clientWidth - 20; 
+            const unscaledViewport = page.getViewport({ scale: 1 });
+            const scale = Math.max(containerWidth / unscaledViewport.width, 1.5);
+            const viewport = page.getViewport({ scale: scale });
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'page-wrapper';
+            wrapper.style.width = viewport.width + 'px';
+            wrapper.style.height = viewport.height + 'px';
+
+            const pdfCanvas = document.createElement('canvas');
+            pdfCanvas.className = 'pdf-canvas';
+            pdfCanvas.width = viewport.width;
+            pdfCanvas.height = viewport.height;
+            const pdfCtx = pdfCanvas.getContext('2d');
+            page.render({ canvasContext: pdfCtx, viewport: viewport });
+
+            const drawCanvas = document.createElement('canvas');
+            drawCanvas.className = 'draw-canvas';
+            drawCanvas.width = viewport.width;
+            drawCanvas.height = viewport.height;
+
+            setupDrawing(drawCanvas);
+
+            wrapper.appendChild(pdfCanvas);
+            wrapper.appendChild(drawCanvas);
+            container.appendChild(wrapper);
+        }
+    };
+
+    // --- DRAWING ENGINE ---
+    function setupDrawing(canvas) {
+        const ctx = canvas.getContext('2d');
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if (currentTool === 'hand') return; 
+            isDrawing = true;
+            const pos = getPos(e);
+            startX = pos.x; startY = pos.y;
+            
+            // Lưu ảnh cũ để làm hiệu ứng kéo thả (Rubber banding)
+            if (currentTool === 'shape') {
+                snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing || currentTool === 'hand') return;
+            if (e.target !== canvas) return; 
+            
+            const pos = getPos(e);
+            ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+            ctx.setLineDash([]); // Reset nét liền mặc định
+
+            if (currentTool === 'pen') {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = currentColor; ctx.lineWidth = 2;
+                ctx.lineTo(pos.x, pos.y); ctx.stroke();
+            } else if (currentTool === 'highlighter') {
+                ctx.globalCompositeOperation = 'multiply';
+                ctx.strokeStyle = currentColor; ctx.lineWidth = 25;
+                ctx.lineTo(pos.x, pos.y); ctx.stroke();
+                ctx.globalCompositeOperation = 'source-over';
+            } else if (currentTool === 'eraser') {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.lineWidth = 30;
+                ctx.lineTo(pos.x, pos.y); ctx.stroke();
+                ctx.globalCompositeOperation = 'source-over';
+            } else if (currentTool === 'shape') {
+                // VẼ HÌNH PREVIEW
+                ctx.putImageData(snapshot, 0, 0); // Xóa nét vẽ cũ
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = currentColor; ctx.lineWidth = 2;
+                drawGeometry(ctx, startX, startY, pos.x, pos.y, currentShapeType);
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseleave', () => isDrawing = false);
+    }
+
+    // --- GEOMETRY LIBRARY ---
+    function drawGeometry(ctx, x1, y1, x2, y2, type) {
+        const w = x2 - x1;
+        const h = y2 - y1;
+        ctx.beginPath();
+
+        // Xử lý nét đứt nếu là dashed
+        if (type === 'dashed') ctx.setLineDash([10, 8]); 
+        else ctx.setLineDash([]);
+
+        if (type === 'line' || type === 'dashed') {
+            ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+        } 
+        else if (type === 'rect') {
+            ctx.rect(x1, y1, w, h);
+        } 
+        else if (type === 'circle') {
+            let r = Math.sqrt(w*w + h*h);
+            ctx.arc(x1, y1, r, 0, 2 * Math.PI);
+        }
+        else if (type === 'triangle') {
+            ctx.moveTo(x1 + w/2, y1); 
+            ctx.lineTo(x1, y1 + h);   
+            ctx.lineTo(x1 + w, y1 + h); 
+            ctx.closePath();
+        }
+        else if (type === 'axis') {
+            // Trục Tung
+            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1, y1 + h);
+            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 - 5, y1 - h + 10);
+            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 + 5, y1 - h + 10);
+            // Trục Hoành
+            ctx.moveTo(x1 - w, y1); ctx.lineTo(x1 + w, y1);
+            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 - 5);
+            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 + 5);
+        }
+        // 3D Shapes (Tự động nét đứt phần khuất)
+        else if (type === 'cube') {
+            const d = w / 3; 
+            ctx.rect(x1, y1, w, h); 
+            ctx.rect(x1 + d, y1 - d, w, h); 
+            ctx.moveTo(x1, y1); ctx.lineTo(x1 + d, y1 - d);
+            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w + d, y1 - d);
+            ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + d, y1 + h - d);
+            ctx.moveTo(x1 + w, y1 + h); ctx.lineTo(x1 + w + d, y1 + h - d);
+        }
+        else if (type === 'sphere') {
+            let r = Math.abs(w); 
+            ctx.arc(x1 + r, y1 + r, r, 0, 2*Math.PI); 
+            ctx.moveTo(x1 + 2*r, y1 + r);
+            ctx.ellipse(x1 + r, y1 + r, r, r/4, 0, 0, 2*Math.PI);
+        }
+        else if (type === 'cylinder') {
+            const rx = w/2; const ry = w/6; 
+            ctx.moveTo(x1 + w, y1); ctx.ellipse(x1 + rx, y1, rx, ry, 0, 0, 2*Math.PI);
+            ctx.moveTo(x1 + w, y1 + h); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, 0, Math.PI); 
+            ctx.moveTo(x1, y1); ctx.lineTo(x1, y1 + h);
+            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w, y1 + h);
+            ctx.stroke(); 
+            ctx.beginPath(); ctx.setLineDash([5, 5]);
+            ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
+        }
+        else if (type === 'cone') {
+            const rx = w/2; const ry = w/6;
+            ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + rx, y1); ctx.lineTo(x1 + w, y1 + h);
+            ctx.moveTo(x1 + w, y1 + h); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, 0, Math.PI);
+            ctx.stroke();
+            ctx.beginPath(); ctx.setLineDash([5, 5]);
+            ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
+        }
+
+        ctx.stroke();
+        ctx.setLineDash([]); // Trả lại nét liền cho lần vẽ sau
+    }
+
+    // --- WEB & DRAGGABLE ---
+    function addWebsite() {
+        let url = prompt("Nhập Link:", "https://desmos.com/calculator");
+        if (!url) return;
+        if (!url.startsWith('http')) url = 'https://' + url;
+
+        const win = document.createElement('div'); win.className = 'web-window';
+        
+        const header = document.createElement('div'); header.className = 'web-header';
+        header.innerHTML = `<span>${url}</span>`;
+        const controls = document.createElement('div');
+        const btnDrawWeb = document.createElement('button'); btnDrawWeb.innerText = '✏️ Vẽ đè'; btnDrawWeb.style.marginRight = '10px';
+        btnDrawWeb.onclick = () => { win.classList.toggle('drawing-web'); btnDrawWeb.style.background = win.classList.contains('drawing-web') ? '#f1c40f' : ''; };
+        const btnClose = document.createElement('button'); btnClose.innerText = '✕'; btnClose.onclick = () => win.remove();
+        controls.appendChild(btnDrawWeb); controls.appendChild(btnClose); header.appendChild(controls);
+
+        const content = document.createElement('div'); content.className = 'web-content';
+        const iframe = document.createElement('iframe'); iframe.src = url;
+        const overlay = document.createElement('canvas'); overlay.className = 'web-overlay';
+        new ResizeObserver(() => { overlay.width = content.offsetWidth; overlay.height = content.offsetHeight; }).observe(content);
+        setupDrawing(overlay);
+
+        content.appendChild(iframe); content.appendChild(overlay);
+        win.appendChild(header); win.appendChild(content); document.body.appendChild(win);
+        makeDraggable(win, header);
+    }
+
+    function makeDraggable(element, handle) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        handle.onmousedown = dragMouseDown;
+        function dragMouseDown(e) { e = e || window.event; e.preventDefault(); pos3 = e.clientX; pos4 = e.clientY; document.onmouseup = closeDragElement; document.onmousemove = elementDrag; }
+        function elementDrag(e) { e = e || window.event; e.preventDefault(); pos1 = pos3 - e.clientX; pos2 = pos4 - e.clientY; pos3 = e.clientX; pos4 = e.clientY; element.style.top = (element.offsetTop - pos2) + "px"; element.style.left = (element.offsetLeft - pos1) + "px"; }
+        function closeDragElement() { document.onmouseup = null; document.onmousemove = null; }
+    }
+</script>
+</body>
+</html>
