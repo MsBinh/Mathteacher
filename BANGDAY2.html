@@ -2,45 +2,67 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>BẢNG DẠY v4.0 (TOUCH FIX)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BẢNG DẠY v4.1 (MOBILE FIX)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     </script>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2c3e50; font-family: 'Segoe UI', sans-serif; touch-action: none; /* Quan trọng: Chặn trình duyệt can thiệp touch */ }
+        /* CẤU HÌNH CƠ BẢN */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2c3e50; font-family: 'Segoe UI', sans-serif; touch-action: none; }
         .app-layout { display: flex; flex-direction: column; height: 100vh; }
         
+        /* THANH CÔNG CỤ (Cho phép trượt ngang nếu nhiều nút quá) */
         .toolbar {
-            height: 50px; background: #ecf0f1; display: flex; align-items: center; padding: 0 10px; gap: 8px; border-bottom: 1px solid #bdc3c7; flex-shrink: 0; overflow-x: auto;
+            height: 50px; background: #ecf0f1; display: flex; align-items: center; padding: 0 10px; gap: 8px; border-bottom: 1px solid #bdc3c7; flex-shrink: 0; 
+            overflow-x: auto; /* Cho phép trượt thanh công cụ trên điện thoại */
+            white-space: nowrap;
         }
-        .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; background: white; white-space: nowrap; font-size: 14px; }
-        .btn:hover { background: #e0e0e0; }
-        .btn.active { background: #2980b9; color: white; border-color: #2980b9; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        /* Ẩn thanh cuộn của toolbar cho đẹp */
+        .toolbar::-webkit-scrollbar { display: none; }
+
+        .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; background: white; font-size: 14px; }
+        .btn.active { background: #2980b9; color: white; border-color: #2980b9; }
         
-        select.shape-select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #2c3e50; cursor: pointer; max-width: 120px; font-size: 14px; }
+        select.shape-select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #2c3e50; max-width: 120px; font-size: 14px; }
         .color-group { display: flex; gap: 8px; margin-left: auto; margin-right: 5px;}
-        .color-btn { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .color-btn { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; flex-shrink: 0; }
         .color-btn.active { transform: scale(1.2); border-color: #333; }
 
+        /* VÙNG CHỨA PDF (QUAN TRỌNG: CHO PHÉP TRƯỢT 2 CHIỀU) */
         #mainContainer {
-            flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; text-align: center; background-color: #555; padding-bottom: 50px; scroll-behavior: smooth;
-            touch-action: pan-y; /* Cho phép trượt dọc bằng tay ở vùng trống */
+            flex: 1; 
+            position: relative; 
+            text-align: center; 
+            background-color: #555; 
+            padding-bottom: 50px; 
+            
+            /* CHO PHÉP CUỘN CẢ 2 CHIỀU (NGANG + DỌC) */
+            overflow: auto; 
+            
+            /* Mặc định cho phép trượt bằng tay (khi ở chế độ Hand) */
+            touch-action: pan-x pan-y; 
+            -webkit-overflow-scrolling: touch; /* Mượt mà trên iPhone */
         }
         
-        /* Khi đang vẽ thì tắt trượt */
-        body.drawing-mode #mainContainer { touch-action: none; overflow: hidden; }
+        /* KHI ĐANG VẼ: KHÓA CHẶT MỌI HƯỚNG CUỘN ĐỂ KHÔNG BỊ TRÔI GIẤY */
+        body.drawing-mode #mainContainer { 
+            touch-action: none; 
+            overflow: hidden; /* Ẩn thanh cuộn tạm thời để tập trung vẽ */
+        }
 
-        .page-wrapper { display: inline-block; position: relative; margin: 0 auto; margin-bottom: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); line-height: 0; }
-        .pdf-canvas { display: block; background: white; width: 100%; height: auto; }
-        .draw-canvas { position: absolute; top: 0; left: 0; cursor: crosshair; touch-action: none; width: 100%; height: 100%; }
+        .page-wrapper { display: inline-block; position: relative; margin: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); line-height: 0; }
+        .pdf-canvas { display: block; background: white; }
+        .draw-canvas { position: absolute; top: 0; left: 0; cursor: crosshair; touch-action: none; }
 
-        body.hand-mode .draw-canvas { cursor: grab; pointer-events: none; }
-        body.hand-mode #mainContainer { cursor: grab; touch-action: pan-y; } /* Chế độ tay: Cho phép trượt */
+        /* Chế độ Tay: Canvas vẽ xuyên thấu để chạm vào vùng cuộn bên dưới */
+        body.hand-mode .draw-canvas { pointer-events: none; }
+        body.hand-mode #mainContainer { cursor: grab; overflow: auto; } 
 
         /* Web Window */
-        .web-window { position: absolute; width: 800px; height: 600px; background: white; border: 2px solid #3498db; top: 60px; left: 60px; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 2000; resize: both; overflow: auto; }
-        .web-header { padding: 8px; background: #3498db; color: white; cursor: move; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .web-window { position: absolute; width: 300px; height: 400px; background: white; border: 2px solid #3498db; top: 60px; left: 20px; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 2000; resize: both; overflow: hidden; }
+        .web-header { padding: 8px; background: #3498db; color: white; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
         .web-content { flex: 1; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
         .web-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -48,59 +70,55 @@
         :fullscreen .toolbar { display: flex; }
     </style>
 </head>
-<body class="drawing-mode"> <div class="app-layout" id="app">
-    <div class="toolbar">
-        <button class="btn" onclick="toggleFullScreen()" title="Toàn màn hình">🖥️</button>
-        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+<body class="drawing-mode">
 
-        <button class="btn" onclick="document.getElementById('pdfInput').click()">📂 File</button>
-        <button class="btn" onclick="loadPdfFromPrompt()">🔗 Link</button>
-        <button class="btn" onclick="addWebsite()">🌐 Web</button>
+<div class="app-layout" id="app">
+    <div class="toolbar">
+        <button class="btn" onclick="toggleFullScreen()" title="Full màn hình">🖥️</button>
+        <button class="btn" onclick="document.getElementById('pdfInput').click()">📂</button>
+        <button class="btn" onclick="loadPdfFromPrompt()">🔗</button>
+        <button class="btn" onclick="addWebsite()">🌐</button>
         <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
 
-        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+        <div style="width: 1px; height: 25px; background: #ccc; margin: 0 5px;"></div>
         
         <button class="btn active" id="btnPen" onclick="setTool('pen')">✏️</button>
         <button class="btn" id="btnHighlighter" onclick="setTool('highlighter')">🖍️</button>
         <button class="btn" id="btnEraser" onclick="setTool('eraser')">Tẩy</button>
 
-        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+        <div style="width: 1px; height: 25px; background: #ccc; margin: 0 5px;"></div>
 
         <button class="btn" id="btnLine" onclick="setTool('shape', 'line')">📏</button>
-        <button class="btn" id="btnDashed" onclick="setTool('shape', 'dashed')" style="letter-spacing: -2px;">- - -</button>
-
         <select id="shapeSelect" class="shape-select" onchange="setTool('shape', this.value)">
             <option value="" disabled selected>📐 Hình</option>
             <option value="rect">Vuông/CN</option>
             <option value="circle">⚪ Tròn</option>
             <option value="triangle">🔺 Tam giác</option>
             <option value="axis">Hệ trục Oxy</option>
-            <option disabled>--- 3D ---</option>
             <option value="cube">📦 Hộp</option>
             <option value="sphere">⚽ Cầu</option>
             <option value="cylinder">🛢️ Trụ</option>
             <option value="cone">🍦 Nón</option>
         </select>
 
-        <div style="width: 1px; height: 25px; background: #ccc;"></div>
+        <div style="width: 1px; height: 25px; background: #ccc; margin: 0 5px;"></div>
 
-        <button class="btn" id="btnHand" onclick="setTool('hand')" title="Kéo trượt trang">🖐️</button>
+        <button class="btn" id="btnHand" onclick="setTool('hand')" title="Di chuyển">🖐️</button>
         <button class="btn" onclick="clearInk()" style="color: #c0392b;">❌</button>
 
         <div class="color-group">
             <div class="color-btn active" style="background: #e74c3c;" onclick="setColor('#e74c3c', this)"></div>
             <div class="color-btn" style="background: #2980b9;" onclick="setColor('#2980b9', this)"></div>
-            <div class="color-btn" style="background: #27ae60;" onclick="setColor('#27ae60', this)"></div>
-            <div class="color-btn" style="background: #2c3e50;" onclick="setColor('#2c3e50', this)"></div>
             <div class="color-btn" style="background: #f1c40f;" onclick="setColor('#f1c40f', this)"></div>
+            <div class="color-btn" style="background: #2c3e50;" onclick="setColor('#2c3e50', this)"></div>
         </div>
     </div>
 
     <div id="mainContainer">
-        <div style="margin-top: 20%; color: #bbb; font-size: 18px;">
-            <b>BẢNG DẠY v4.0 (TOUCH FIX)</b><br>
-            <i>Đã tối ưu cho màn hình cảm ứng</i><br><br>
-            Bấm <b>📂 File</b> hoặc <b>🔗 Link</b> để bắt đầu.
+        <div style="margin-top: 50%; color: #bbb; font-size: 16px;">
+            <b>BẢNG DẠY v4.1 (MOBILE)</b><br>
+            <i>Chế độ trượt ngang/dọc</i><br><br>
+            Bấm <b>📂</b> hoặc <b>🔗</b> để mở file.
         </div>
     </div>
 </div>
@@ -133,7 +151,6 @@
         
         if(tool === 'shape') {
             if (shapeType === 'line') document.getElementById('btnLine').classList.add('active');
-            else if (shapeType === 'dashed') document.getElementById('btnDashed').classList.add('active');
             else {
                 document.getElementById('shapeSelect').style.borderColor = '#2980b9';
                 document.getElementById('shapeSelect').style.color = '#2980b9';
@@ -144,7 +161,7 @@
              document.getElementById('shapeSelect').value = ""; 
         }
 
-        // Xử lý logic cảm ứng
+        // Logic chuyển chế độ Vẽ <-> Tay
         if (tool === 'hand') {
             document.body.classList.remove('drawing-mode');
             document.body.classList.add('hand-mode');
@@ -178,7 +195,7 @@
     function loadPdfFromPrompt() {
         const url = prompt("Dán đường link PDF:");
         if (url) {
-            document.getElementById('mainContainer').innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang tải từ Link...</div>';
+            document.getElementById('mainContainer').innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang tải...</div>';
             fetch(url)
                 .then(response => {
                     if (!response.ok) throw new Error("Lỗi tải link");
@@ -203,9 +220,16 @@
 
             for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 const page = await pdf.getPage(pageNum);
-                const containerWidth = container.clientWidth - 20; 
-                const unscaledViewport = page.getViewport({ scale: 1 });
-                const scale = Math.max(containerWidth / unscaledViewport.width, 1.5);
+                // LOGIC SCALE MỚI CHO ĐIỆN THOẠI
+                // Không ép vừa chiều ngang màn hình nữa, mà đảm bảo chữ đủ to để đọc
+                const viewportRaw = page.getViewport({ scale: 1 });
+                
+                // Nếu màn hình nhỏ (điện thoại), ép scale tối thiểu là 0.6 (hoặc lớn hơn tùy ý) 
+                // để không bị bé quá. Nếu màn hình to thì fit theo chiều rộng container.
+                let scale = container.clientWidth / viewportRaw.width;
+                if (scale < 0.6) scale = 0.6; // Scale tối thiểu
+                if (scale > 1.5) scale = 1.5; // Scale tối đa
+                
                 const viewport = page.getViewport({ scale: scale });
 
                 const wrapper = document.createElement('div');
@@ -236,32 +260,26 @@
         }
     }
 
-    // --- DRAWING ENGINE (HỖ TRỢ CẢM ỨNG) ---
+    // --- DRAWING ENGINE (TOUCH SUPPORT) ---
     function setupDrawing(canvas) {
         const ctx = canvas.getContext('2d');
         
-        // Hàm lấy tọa độ thống nhất cho cả Chuột và Cảm ứng
         function getPos(e) {
             const rect = canvas.getBoundingClientRect();
             let clientX, clientY;
-
             if (e.touches && e.touches.length > 0) {
-                // Nếu là cảm ứng
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
+                clientX = e.touches[0].clientX; clientY = e.touches[0].clientY;
             } else {
-                // Nếu là chuột
-                clientX = e.clientX;
-                clientY = e.clientY;
+                clientX = e.clientX; clientY = e.clientY;
             }
-
             return { x: clientX - rect.left, y: clientY - rect.top };
         }
 
-        // --- SỰ KIỆN BẮT ĐẦU (MouseDown & TouchStart) ---
         function startDraw(e) {
             if (currentTool === 'hand') return; 
-            if (e.cancelable) e.preventDefault(); // Chặn cuộn màn hình khi chạm
+            // Chỉ chặn sự kiện mặc định (cuộn) khi KHÔNG phải chế độ Tay
+            // Và chặn luôn để đảm bảo nét vẽ không bị ngắt quãng
+            if (e.cancelable) e.preventDefault(); 
 
             isDrawing = true;
             const pos = getPos(e);
@@ -275,10 +293,9 @@
             }
         }
 
-        // --- SỰ KIỆN DI CHUYỂN (MouseMove & TouchMove) ---
         function moveDraw(e) {
             if (!isDrawing || currentTool === 'hand') return;
-            if (e.cancelable) e.preventDefault(); // Chặn cuộn màn hình tuyệt đối khi đang vẽ
+            if (e.cancelable) e.preventDefault(); 
 
             const pos = getPos(e);
             ctx.lineCap = 'round'; ctx.lineJoin = 'round';
@@ -306,31 +323,21 @@
             }
         }
 
-        // --- SỰ KIỆN KẾT THÚC (MouseUp & TouchEnd) ---
-        function endDraw(e) {
-            isDrawing = false;
-        }
+        function endDraw(e) { isDrawing = false; }
 
-        // Gán sự kiện cho cả Chuột và Cảm ứng
         canvas.addEventListener('mousedown', startDraw);
-        canvas.addEventListener('touchstart', startDraw, { passive: false }); // passive: false để cho phép preventDefault
-
+        canvas.addEventListener('touchstart', startDraw, { passive: false });
         canvas.addEventListener('mousemove', moveDraw);
         canvas.addEventListener('touchmove', moveDraw, { passive: false });
-
         canvas.addEventListener('mouseup', endDraw);
         canvas.addEventListener('touchend', endDraw);
         canvas.addEventListener('mouseleave', endDraw);
     }
 
-    // --- GEOMETRY LIBRARY (GIỮ NGUYÊN) ---
+    // --- GEOMETRY & WEB (GIỮ NGUYÊN) ---
     function drawGeometry(ctx, x1, y1, x2, y2, type) {
-        const w = x2 - x1;
-        const h = y2 - y1;
-        ctx.beginPath();
-        if (type === 'dashed') ctx.setLineDash([10, 8]); 
-        else ctx.setLineDash([]);
-
+        const w = x2 - x1; const h = y2 - y1; ctx.beginPath();
+        if (type === 'dashed') ctx.setLineDash([10, 8]); else ctx.setLineDash([]);
         if (type === 'line' || type === 'dashed') { ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); } 
         else if (type === 'rect') { ctx.rect(x1, y1, w, h); } 
         else if (type === 'circle') { let r = Math.sqrt(w*w + h*h); ctx.arc(x1, y1, r, 0, 2 * Math.PI); }
@@ -365,18 +372,14 @@
         ctx.stroke(); ctx.setLineDash([]); 
     }
 
-    // --- WEB & DRAGGABLE (GIỮ NGUYÊN) ---
     function addWebsite() {
         let url = prompt("Nhập Link Web:", "https://desmos.com/calculator");
         if (!url) return;
         if (!url.startsWith('http')) url = 'https://' + url;
         const win = document.createElement('div'); win.className = 'web-window';
         const header = document.createElement('div'); header.className = 'web-header'; header.innerHTML = `<span>${url}</span>`;
-        const controls = document.createElement('div');
-        const btnDrawWeb = document.createElement('button'); btnDrawWeb.innerText = '✏️ Vẽ đè'; btnDrawWeb.style.marginRight = '10px';
-        btnDrawWeb.onclick = () => { win.classList.toggle('drawing-web'); btnDrawWeb.style.background = win.classList.contains('drawing-web') ? '#f1c40f' : ''; };
         const btnClose = document.createElement('button'); btnClose.innerText = '✕'; btnClose.onclick = () => win.remove();
-        controls.appendChild(btnDrawWeb); controls.appendChild(btnClose); header.appendChild(controls);
+        header.appendChild(btnClose);
         const content = document.createElement('div'); content.className = 'web-content';
         const iframe = document.createElement('iframe'); iframe.src = url;
         const overlay = document.createElement('canvas'); overlay.className = 'web-overlay';
@@ -386,10 +389,11 @@
         win.appendChild(header); win.appendChild(content); document.body.appendChild(win);
         makeDraggable(win, header);
     }
+
     function makeDraggable(element, handle) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0; handle.onmousedown = dragMouseDown; handle.ontouchstart = dragMouseDown;
         function dragMouseDown(e) {
-            e.preventDefault(); 
+            if(e.cancelable) e.preventDefault(); 
             if(e.touches) { pos3 = e.touches[0].clientX; pos4 = e.touches[0].clientY; } else { pos3 = e.clientX; pos4 = e.clientY; }
             document.onmouseup = closeDragElement; document.ontouchend = closeDragElement;
             document.onmousemove = elementDrag; document.ontouchmove = elementDrag;
