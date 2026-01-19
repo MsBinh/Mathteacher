@@ -3,410 +3,569 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BẢNG DẠY v4.1 (MOBILE FIX)</title>
+    <title>BẢNG DẠY v18.1 (3D FIX)</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$']], processEscapes: true },
+            svg: { fontCache: 'global' },
+            startup: { typeset: false, ready: () => { MathJax.startup.defaultReady(); window.mathJaxReady = true; } }
+        };
     </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+
     <style>
-        /* CẤU HÌNH CƠ BẢN */
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2c3e50; font-family: 'Segoe UI', sans-serif; touch-action: none; }
+        :root { --board-bg: #2c3e50; --toolbar-bg: #34495e; --accent: #2ecc71; --yellow: #f1c40f; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #252526; font-family: 'Segoe UI', sans-serif; user-select: none; touch-action: none; }
         .app-layout { display: flex; flex-direction: column; height: 100vh; }
         
-        /* THANH CÔNG CỤ (Cho phép trượt ngang nếu nhiều nút quá) */
-        .toolbar {
-            height: 50px; background: #ecf0f1; display: flex; align-items: center; padding: 0 10px; gap: 8px; border-bottom: 1px solid #bdc3c7; flex-shrink: 0; 
-            overflow-x: auto; /* Cho phép trượt thanh công cụ trên điện thoại */
-            white-space: nowrap;
-        }
-        /* Ẩn thanh cuộn của toolbar cho đẹp */
-        .toolbar::-webkit-scrollbar { display: none; }
+        /* TOOLBAR */
+        .toolbar { height: 50px; background: var(--toolbar-bg); padding: 0 5px; display: flex; align-items: center; border-bottom: 1px solid #555; z-index: 300; flex-shrink: 0; }
+        .toolbar-scroll { display: flex; gap: 8px; align-items: center; overflow-x: auto; white-space: nowrap; flex: 1; padding-right: 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .toolbar-scroll::-webkit-scrollbar { display: none; }
+        .btn { padding: 6px 12px; border-radius: 6px; border: 1px solid #555; cursor: pointer; font-weight: bold; color: #fff; background: #444; font-size: 14px; display: flex; align-items: center; flex-shrink: 0; min-height: 36px; }
+        .btn:hover { background: #555; }
+        .btn.active { background: var(--accent); border-color: var(--accent); }
+        .sep { width: 1px; height: 25px; background: #666; margin: 0 4px; flex-shrink: 0; }
 
-        .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: bold; background: white; font-size: 14px; }
-        .btn.active { background: #2980b9; color: white; border-color: #2980b9; }
-        
-        select.shape-select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #2c3e50; max-width: 120px; font-size: 14px; }
-        .color-group { display: flex; gap: 8px; margin-left: auto; margin-right: 5px;}
-        .color-btn { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; flex-shrink: 0; }
-        .color-btn.active { transform: scale(1.2); border-color: #333; }
+        /* MATH TOOLBAR */
+        .math-toolbar { height: 40px; background: #2c2c2c; display: flex; align-items: center; padding: 0 10px; gap: 8px; border-bottom: 1px solid #444; overflow-x: auto; z-index: 299; white-space: nowrap; -webkit-overflow-scrolling: touch; flex-shrink: 0; }
+        .snippet-btn { padding: 4px 10px; font-size: 14px; background: #3a3a3a; color: #ddd; border: 1px solid #555; border-radius: 4px; cursor: pointer; }
+        .snippet-btn:hover { background: var(--accent); color: white; }
 
-        /* VÙNG CHỨA PDF (QUAN TRỌNG: CHO PHÉP TRƯỢT 2 CHIỀU) */
-        #mainContainer {
-            flex: 1; 
-            position: relative; 
-            text-align: center; 
-            background-color: #555; 
-            padding-bottom: 50px; 
-            
-            /* CHO PHÉP CUỘN CẢ 2 CHIỀU (NGANG + DỌC) */
-            overflow: auto; 
-            
-            /* Mặc định cho phép trượt bằng tay (khi ở chế độ Hand) */
-            touch-action: pan-x pan-y; 
-            -webkit-overflow-scrolling: touch; /* Mượt mà trên iPhone */
-        }
-        
-        /* KHI ĐANG VẼ: KHÓA CHẶT MỌI HƯỚNG CUỘN ĐỂ KHÔNG BỊ TRÔI GIẤY */
-        body.drawing-mode #mainContainer { 
-            touch-action: none; 
-            overflow: hidden; /* Ẩn thanh cuộn tạm thời để tập trung vẽ */
-        }
+        /* BẢNG VẼ */
+        #boardWrapper { flex: 1; position: relative; background-color: #0b6b3a; background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 25px 25px; overflow: auto; cursor: crosshair; touch-action: pan-y; }
+        #boardWrapper.drawing-active { touch-action: none; cursor: crosshair; }
+        #boardWrapper.hand-active { cursor: grab; }
+        #mainCanvas { position: absolute; top: 0; left: 0; z-index: 5; pointer-events: auto; }
 
-        .page-wrapper { display: inline-block; position: relative; margin: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); line-height: 0; }
-        .pdf-canvas { display: block; background: white; }
-        .draw-canvas { position: absolute; top: 0; left: 0; cursor: crosshair; touch-action: none; }
+        /* ELEMENTS */
+        .pasted-image, .pasted-pdf, .pasted-web { position: absolute; z-index: 10; cursor: move; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .pasted-image:hover, .pasted-pdf:hover, .pasted-web:hover { outline: 2px solid var(--yellow); }
+        .pasted-web { background: white; display: flex; flex-direction: column; border: 2px solid #ccc; }
+        .web-header { padding: 5px; background: #2c3e50; color: white; cursor: move; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; flex-shrink: 0;}
+        iframe { width: 100%; height: 100%; border: none; display: block;}
+        .web-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; }
+        .resizer { position: absolute; right: 0; bottom: 0; width: 30px; height: 30px; background: orange; cursor: se-resize; z-index: 100; clip-path: polygon(100% 0, 0 100%, 100% 100%); }
 
-        /* Chế độ Tay: Canvas vẽ xuyên thấu để chạm vào vùng cuộn bên dưới */
-        body.hand-mode .draw-canvas { pointer-events: none; }
-        body.hand-mode #mainContainer { cursor: grab; overflow: auto; } 
+        /* MATH BOX */
+        .math-box { position: absolute; min-width: 100px; z-index: 20; background-color: #154c27; border-left: 4px solid var(--yellow); border-radius: 4px; box-shadow: 3px 3px 8px rgba(0,0,0,0.4); color: white; font-family: 'Segoe UI', sans-serif; font-size: 22px; display: flex; flex-direction: column; }
+        .math-handle { height: 18px; background: rgba(0,0,0,0.2); cursor: move; border-top-right-radius: 4px; width: 100%; display: flex; justify-content: center; align-items: center; }
+        .math-handle::after { content: '::::'; color: #ccc; font-size: 10px; letter-spacing: 2px; margin-top: -4px;}
+        .math-content { padding: 10px 15px; outline: none; border: none; white-space: pre-wrap; word-wrap: break-word; user-select: text !important; cursor: text; min-height: 1.5em; line-height: 1.5; }
+        .latex-rendered { display: inline-block; vertical-align: baseline; cursor: pointer; padding: 0 2px; border-radius: 4px; user-select: none; }
+        .latex-rendered:hover { background: rgba(255,255,255,0.2); outline: 1px dashed var(--yellow); }
+        .latex-rendered svg { display: inline-block; fill: currentColor; stroke: currentColor; vertical-align: middle; }
 
-        /* Web Window */
-        .web-window { position: absolute; width: 300px; height: 400px; background: white; border: 2px solid #3498db; top: 60px; left: 20px; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 2000; resize: both; overflow: hidden; }
-        .web-header { padding: 8px; background: #3498db; color: white; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
-        .web-content { flex: 1; position: relative; }
-        iframe { width: 100%; height: 100%; border: none; }
-        .web-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .drawing-web .web-overlay { pointer-events: auto; background: rgba(0,0,0,0.05); cursor: crosshair; }
-        :fullscreen .toolbar { display: flex; }
+        /* LABEL BOX */
+        .label-box { position: absolute; z-index: 30; background: transparent; color: var(--yellow); font-family: 'Segoe UI', sans-serif; font-weight: normal; font-size: 18px; padding: 2px 5px; cursor: move; border: 1px dashed transparent; outline: none; min-width: 20px; user-select: text !important; }
+        .label-box:focus { border: 1px dashed var(--yellow); background: rgba(0,0,0,0.2); }
+
+        /* UI PHỤ */
+        .pagination-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; padding: 5px 15px; border-radius: 20px; display: flex; gap: 10px; align-items: center; z-index: 5000; border: 1px solid #555; white-space: nowrap; }
+        #pageIndicator { color: var(--yellow); font-weight: bold; font-size: 14px; }
+        #colorStatus { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; margin-left: 5px; cursor: pointer; flex-shrink: 0; }
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 320px; background: #333; padding: 20px; border-radius: 8px; display: none; z-index: 6000; color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        #studentVideoContainer { position: fixed; bottom: 10px; right: 10px; width: 200px; height: 120px; background: black; border: 2px solid var(--yellow); z-index: 7000; display: none; }
+        #loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.8); color: white; padding: 15px 30px; border-radius: 8px; display: none; z-index: 9999; }
     </style>
 </head>
 <body class="drawing-mode">
 
-<div class="app-layout" id="app">
+<div id="loading">⏳ Đang xử lý...</div>
+
+<div class="app-layout">
     <div class="toolbar">
-        <button class="btn" onclick="toggleFullScreen()" title="Full màn hình">🖥️</button>
-        <button class="btn" onclick="document.getElementById('pdfInput').click()">📂</button>
-        <button class="btn" onclick="loadPdfFromPrompt()">🔗</button>
-        <button class="btn" onclick="addWebsite()">🌐</button>
-        <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
-
-        <div style="width: 1px; height: 25px; background: #ccc; margin: 0 5px;"></div>
-        
-        <button class="btn active" id="btnPen" onclick="setTool('pen')">✏️</button>
-        <button class="btn" id="btnHighlighter" onclick="setTool('highlighter')">🖍️</button>
-        <button class="btn" id="btnEraser" onclick="setTool('eraser')">Tẩy</button>
-
-        <div style="width: 1px; height: 25px; background: #ccc; margin: 0 5px;"></div>
-
-        <button class="btn" id="btnLine" onclick="setTool('shape', 'line')">📏</button>
-        <select id="shapeSelect" class="shape-select" onchange="setTool('shape', this.value)">
-            <option value="" disabled selected>📐 Hình</option>
-            <option value="rect">Vuông/CN</option>
-            <option value="circle">⚪ Tròn</option>
-            <option value="triangle">🔺 Tam giác</option>
-            <option value="axis">Hệ trục Oxy</option>
-            <option value="cube">📦 Hộp</option>
-            <option value="sphere">⚽ Cầu</option>
-            <option value="cylinder">🛢️ Trụ</option>
-            <option value="cone">🍦 Nón</option>
-        </select>
-
-        <div style="width: 1px; height: 25px; background: #ccc; margin: 0 5px;"></div>
-
-        <button class="btn" id="btnHand" onclick="setTool('hand')" title="Di chuyển">🖐️</button>
-        <button class="btn" onclick="clearInk()" style="color: #c0392b;">❌</button>
-
-        <div class="color-group">
-            <div class="color-btn active" style="background: #e74c3c;" onclick="setColor('#e74c3c', this)"></div>
-            <div class="color-btn" style="background: #2980b9;" onclick="setColor('#2980b9', this)"></div>
-            <div class="color-btn" style="background: #f1c40f;" onclick="setColor('#f1c40f', this)"></div>
-            <div class="color-btn" style="background: #2c3e50;" onclick="setColor('#2c3e50', this)"></div>
+        <div class="toolbar-scroll">
+            <button class="btn" onclick="toggleFullScreen()" title="Full Màn Hình">🖥️</button>
+            <strong style="color: var(--accent); margin:0 5px;">GV v18.1</strong>
+            <button class="btn" id="btnHand" onclick="setTool('hand')" title="Chế độ Cuộn">🖐️</button>
+            <button class="btn" onclick="undo()">↩️</button>
+            <button class="btn" onclick="redo()">↪️</button>
+            <div class="sep"></div>
+            
+            <select id="drawTool" style="padding: 8px; border-radius: 4px; background: #eee; font-weight:bold;" onchange="setTool(this.value)">
+                <optgroup label="Cơ bản">
+                    <option value="pen" selected>✏️ Viết</option>
+                    <option value="highlighter">🖍️ Nhớ</option>
+                    <option value="line">📏 Thẳng</option>
+                    <option value="dashedLine"> -- Nét đứt</option>
+                </optgroup>
+                <optgroup label="Hình phẳng">
+                    <option value="rect">⬛ CNhật</option>
+                    <option value="circle">⚪ Tròn</option>
+                </optgroup>
+                <optgroup label="Hình Không Gian (Tự nét đứt)">
+                    <option value="cube">📦 Hộp</option>
+                    <option value="tri_pyramid">🔺 Chóp Tam Giác</option>
+                    <option value="quad_pyramid">⬜ Chóp Tứ Giác</option>
+                    <option value="cone">🍦 Nón</option>
+                    <option value="cylinder">🛢️ Trụ</option>
+                    <option value="sphere">⚽ Cầu</option>
+                </optgroup>
+            </select>
+            
+            <div id="colorStatus" onclick="cycleColor()" title="Đổi màu"></div>
+            <button class="btn" id="btnMath" onclick="createCenteredMathBox()" style="color: var(--yellow); margin-left: 5px;">$\Sigma$ Box</button>
+            <div class="sep"></div>
+            
+            <button class="btn" id="btnAnnotate" onclick="toggleAnnotation()" style="background:#e67e22">Vẽ Đè</button>
+            <button class="btn" style="background:#27ae60" onclick="document.getElementById('imageInput').click()">Ảnh</button>
+            <button class="btn" style="background:#8e44ad" onclick="addWebsite()">Web</button>
+            <button class="btn" style="background:#3498db" onclick="document.getElementById('pdfInput').click()">PDF</button>
+            <button class="btn" style="background:var(--accent)" onclick="exportFullPDF()">Lưu</button>
+            <button class="btn" style="color:#c0392b" onclick="toggleLive()">Live</button>
+            <button class="btn" onclick="toggleHelp()">?</button>
         </div>
     </div>
 
-    <div id="mainContainer">
-        <div style="margin-top: 50%; color: #bbb; font-size: 16px;">
-            <b>BẢNG DẠY v4.1 (MOBILE)</b><br>
-            <i>Chế độ trượt ngang/dọc</i><br><br>
-            Bấm <b>📂</b> hoặc <b>🔗</b> để mở file.
+    <div class="math-toolbar">
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\frac{}{}')">Phân số</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\sqrt{}')">Căn</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('^{}')">Mũ</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\begin{cases} \\end{cases}')">Hệ PT</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\int_{}^{}')">Tích phân</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\vec{}')">Vecto</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\widehat{}')">Góc</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\perp')">Vuông góc</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\parallel')">Song song</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\in')">Thuộc</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('^\\circ')">Độ</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\Delta')">Tam giác</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\Rightarrow')">Suy ra</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\Leftrightarrow')">Tương đương</button>
+        <button class="snippet-btn" onmousedown="event.preventDefault()" onclick="insertMath('\\infty')">Vô cực</button>
+    </div>
+
+    <div id="boardWrapper" class="drawing-active" ondblclick="handleDoubleClick(event)">
+        <canvas id="mainCanvas"></canvas>
+        <div id="welcome" style="position:absolute; top:50px; left:50%; transform:translateX(-50%); color:#ccc; text-align:center; pointer-events:none; font-size:14px;">
+            <h2>BẢNG DẠY v18.1</h2>
+            <p>Paste đề bài thoải mái.</p>
+            <p>Vẽ 3D tự động nét đứt.</p>
         </div>
     </div>
+
+    <div class="pagination-bar">
+        <button class="btn" onclick="prevPage()">◀</button>
+        <span id="pageIndicator">1/1</span>
+        <button class="btn" onclick="nextPage()">▶</button>
+        <button class="btn" onclick="addPage()" style="background:var(--accent)">➕</button>
+    </div>
+    
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+    <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
 </div>
 
+<div id="liveModal" class="modal">
+    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+        <strong style="color:#e74c3c">LIVESTREAM</strong><span onclick="toggleLive()" style="cursor:pointer">✕</span>
+    </div>
+    <button class="btn" onclick="startBroadcast()" style="width:100%; background:#e74c3c; margin-bottom:10px; justify-content:center;">🎥 Phát (Giáo viên)</button>
+    <div id="hostInfo" style="display:none; margin-bottom:10px; font-size:12px; color:#ccc; word-break: break-all;">Mã: <b id="myId" style="color:white">...</b> <button onclick="copyId()" class="btn" style="display:inline-block; padding:2px 5px; margin-left:5px">Copy</button></div>
+    <input type="text" id="remoteId" placeholder="Nhập mã..." style="width:100%; padding:8px; margin-bottom:5px; box-sizing: border-box;">
+    <button class="btn" onclick="joinBroadcast()" style="width:100%; background:#3498db; justify-content:center;">👀 Xem</button>
+</div>
+
+<div id="helpModal" class="modal">
+    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+        <strong style="color:#f1c40f">HƯỚNG DẪN</strong><span onclick="toggleHelp()" style="cursor:pointer">✕</span>
+    </div>
+    <ul style="padding-left: 20px; margin: 0;">
+        <li><b>🖐️ Bàn tay:</b> Cuộn bảng.</li>
+        <li><b>Vẽ Đè:</b> Bật để khoanh PDF.</li>
+        <li><b>3D:</b> Nét đứt tự động.</li>
+        <li><b>Ctrl+D:</b> Tên đỉnh.</li>
+    </ul>
+</div>
+
+<div id="studentVideoContainer"><video id="studentVideo" autoplay playsinline style="width:100%; height:100%"></video><button onclick="this.parentElement.style.display='none'" style="position:absolute; top:0; right:0; background:red; color:white; border:none; padding:5px;">✕</button></div>
+
 <script>
-    let currentTool = 'pen';
-    let currentShapeType = 'line'; 
-    let currentColor = '#e74c3c';
-    let isDrawing = false;
-    let startX = 0, startY = 0;
-    let snapshot; 
+    const canvas = document.getElementById('mainCanvas'); 
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('boardWrapper');
+    const colorStatus = document.getElementById('colorStatus');
+    const drawToolSelect = document.getElementById('drawTool');
 
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => { alert(`Lỗi: ${err.message}`); });
-        } else {
-            if (document.exitFullscreen) document.exitFullscreen();
-        }
+    let isDrawing = false, points = [], snapshot;
+    let currentColor = '#ffffff';
+    let currentTool = 'pen'; 
+    let activeMathBox = null;
+    let peer = null, localStream = null;
+    let mouseX = 0, mouseY = 0; 
+
+    const BOARD_HEIGHT = 3000;
+    let pages = [{ canvasData: null, history: [], historyStep: -1 }];
+    let currentPage = 0;
+    let history = []; let historyStep = -1;
+
+    function init() {
+        canvas.width = wrapper.offsetWidth; 
+        canvas.height = BOARD_HEIGHT; 
+        ctx.strokeStyle = currentColor; ctx.lineWidth = 2.5; 
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        colorStatus.style.background = currentColor;
+        updateToolState();
     }
-
-    function setTool(tool, shapeType = null) {
-        currentTool = tool;
-        if (shapeType) currentShapeType = shapeType;
-        document.querySelectorAll('.toolbar .btn').forEach(b => b.classList.remove('active'));
-        
-        if(tool === 'pen') document.getElementById('btnPen').classList.add('active');
-        if(tool === 'highlighter') document.getElementById('btnHighlighter').classList.add('active');
-        if(tool === 'eraser') document.getElementById('btnEraser').classList.add('active');
-        if(tool === 'hand') document.getElementById('btnHand').classList.add('active');
-        
-        if(tool === 'shape') {
-            if (shapeType === 'line') document.getElementById('btnLine').classList.add('active');
-            else {
-                document.getElementById('shapeSelect').style.borderColor = '#2980b9';
-                document.getElementById('shapeSelect').style.color = '#2980b9';
-            }
-        } else {
-             document.getElementById('shapeSelect').style.borderColor = '#ccc';
-             document.getElementById('shapeSelect').style.color = '#2c3e50';
-             document.getElementById('shapeSelect').value = ""; 
-        }
-
-        // Logic chuyển chế độ Vẽ <-> Tay
-        if (tool === 'hand') {
-            document.body.classList.remove('drawing-mode');
-            document.body.classList.add('hand-mode');
-        } else {
-            document.body.classList.add('drawing-mode');
-            document.body.classList.remove('hand-mode');
-        }
-    }
-
-    function setColor(color, element) {
-        currentColor = color;
-        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-        element.classList.add('active');
-        if (currentTool === 'eraser' || currentTool === 'hand') setTool('pen'); 
-    }
-
-    function clearInk() {
-        if(confirm("Xóa mực trang này?")) {
-            document.querySelectorAll('.draw-canvas').forEach(canvas => {
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            });
-        }
-    }
-
-    document.getElementById('pdfInput').onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) loadPdfData(file.arrayBuffer());
+    window.onload = init; 
+    window.onresize = () => {
+        const img = ctx.getImageData(0,0,canvas.width, canvas.height);
+        canvas.width = wrapper.offsetWidth;
+        ctx.putImageData(img, 0, 0);
+        ctx.strokeStyle = currentColor; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
     };
+    wrapper.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
 
-    function loadPdfFromPrompt() {
-        const url = prompt("Dán đường link PDF:");
-        if (url) {
-            document.getElementById('mainContainer').innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang tải...</div>';
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error("Lỗi tải link");
-                    return response.arrayBuffer();
-                })
-                .then(data => loadPdfData(Promise.resolve(data)))
-                .catch(err => {
-                    alert("Lỗi tải Link: " + err.message);
-                    document.getElementById('mainContainer').innerHTML = '';
-                });
+    // --- TOOL MANAGEMENT ---
+    function setTool(toolName) {
+        if(toolName === 'hand') {
+            currentTool = 'hand';
+            document.getElementById('btnHand').classList.add('active');
+        } else {
+            currentTool = toolName;
+            document.getElementById('btnHand').classList.remove('active');
+            if(drawToolSelect.value !== toolName) drawToolSelect.value = toolName;
+        }
+        updateToolState();
+    }
+
+    function updateToolState() {
+        if (currentTool === 'hand') {
+            wrapper.classList.remove('drawing-active');
+            wrapper.classList.add('hand-active');
+        } else {
+            wrapper.classList.add('drawing-active'); 
+            wrapper.classList.remove('hand-active');
         }
     }
 
-    async function loadPdfData(dataPromise) {
-        const container = document.getElementById('mainContainer');
-        container.innerHTML = '<div style="color:white; margin-top:50px;">⏳ Đang xử lý...</div>';
+    // --- COLOR ---
+    const colorPalette = ['#ffffff', '#ff4757', '#ffeb3b', '#3498db', '#2ecc71'];
+    let colorIndex = 0;
+    function cycleColor() { colorIndex = (colorIndex + 1) % colorPalette.length; updateColor(colorPalette[colorIndex]); }
+    function updateColor(color) { currentColor = color; ctx.strokeStyle = color; colorStatus.style.background = color; if(activeMathBox) { activeMathBox.style.color = color; activeMathBox.querySelectorAll('svg').forEach(s => { s.style.fill=color; s.style.color=color; }); } }
 
-        try {
-            const pdfData = await dataPromise;
-            const pdf = await pdfjsLib.getDocument(pdfData).promise;
-            container.innerHTML = ''; 
+    // --- MATH BOX ---
+    function handleDoubleClick(e) { if (e.target === canvas) createMathBox(e.offsetX, e.offsetY); }
+    function createCenteredMathBox() { createMathBox(wrapper.offsetWidth/2 - 100, wrapper.scrollTop + 200); }
 
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                const page = await pdf.getPage(pageNum);
-                // LOGIC SCALE MỚI CHO ĐIỆN THOẠI
-                // Không ép vừa chiều ngang màn hình nữa, mà đảm bảo chữ đủ to để đọc
-                const viewportRaw = page.getViewport({ scale: 1 });
-                
-                // Nếu màn hình nhỏ (điện thoại), ép scale tối thiểu là 0.6 (hoặc lớn hơn tùy ý) 
-                // để không bị bé quá. Nếu màn hình to thì fit theo chiều rộng container.
-                let scale = container.clientWidth / viewportRaw.width;
-                if (scale < 0.6) scale = 0.6; // Scale tối thiểu
-                if (scale > 1.5) scale = 1.5; // Scale tối đa
-                
-                const viewport = page.getViewport({ scale: scale });
+    function createMathBox(x, y) {
+        const box = document.createElement('div'); box.className = 'math-box';
+        box.style.left = x + 'px'; box.style.top = y + 'px'; box.style.color = currentColor;
+        box.dataset.page = currentPage;
+        const handle = document.createElement('div'); handle.className = 'math-handle'; box.appendChild(handle);
+        const content = document.createElement('div'); content.className = 'math-content'; content.contentEditable = "true"; content.spellcheck = false;
+        box.appendChild(content); wrapper.appendChild(box);
 
-                const wrapper = document.createElement('div');
-                wrapper.className = 'page-wrapper';
-                wrapper.style.width = viewport.width + 'px';
-                wrapper.style.height = viewport.height + 'px';
+        content.addEventListener('paste', (e) => {
+            e.preventDefault(); const text = (e.clipboardData || window.clipboardData).getData('text');
+            document.execCommand("insertText", false, text);
+            setTimeout(() => { content.normalize(); if ((content.innerText.match(/\$/g) || []).length % 2 === 0) processMath(content); }, 10);
+        });
+        content.addEventListener('input', (e) => { if (!window.mathJaxReady) return; if ((content.innerText.match(/\$/g) || []).length % 2 === 0) { content.normalize(); processMath(content); } });
+        content.addEventListener('keydown', e => { if(e.ctrlKey) { if(e.key==='r') { content.normalize(); processMath(content); } if(e.key==='x') { if(confirm('Xóa?')) box.remove(); } } });
+        content.addEventListener('focus', () => activeMathBox = box);
+        content.addEventListener('blur', () => { if(window.mathJaxReady){ content.normalize(); processMath(content); } activeMathBox = null; });
+        content.focus(); makeElementDraggable(box, handle);
+    }
 
-                const pdfCanvas = document.createElement('canvas');
-                pdfCanvas.className = 'pdf-canvas';
-                pdfCanvas.width = viewport.width;
-                pdfCanvas.height = viewport.height;
-                const pdfCtx = pdfCanvas.getContext('2d');
-                page.render({ canvasContext: pdfCtx, viewport: viewport });
+    // --- LABEL BOX ---
+    function createLabelBox(x, y) {
+        const box = document.createElement('div'); box.className = 'label-box';
+        box.contentEditable = "true"; box.spellcheck = false; box.dataset.page = currentPage; box.innerText = "A"; 
+        const rect = wrapper.getBoundingClientRect(); 
+        let finalX = x - rect.left; let finalY = y - rect.top + wrapper.scrollTop; 
+        if(finalX < 0) finalX = 10; if(finalY < 0) finalY = 10;
+        box.style.left = finalX + 'px'; box.style.top = finalY + 'px';
+        wrapper.appendChild(box); makeElementDraggable(box, box);
+        setTimeout(() => { box.focus(); document.execCommand('selectAll', false, null); }, 10);
+    }
+    window.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && (e.key === 'd' || e.key === 'D')) { e.preventDefault(); createLabelBox(mouseX, mouseY); } });
 
-                const drawCanvas = document.createElement('canvas');
-                drawCanvas.className = 'draw-canvas';
-                drawCanvas.width = viewport.width;
-                drawCanvas.height = viewport.height;
-
-                setupDrawing(drawCanvas);
-
-                wrapper.appendChild(pdfCanvas);
-                wrapper.appendChild(drawCanvas);
-                container.appendChild(wrapper);
+    async function processMath(contentDiv) {
+        if (!window.mathJaxReady) return;
+        const walker = document.createTreeWalker(contentDiv, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while (node = walker.nextNode()) {
+            const match = /\$([^$]+)\$/.exec(node.nodeValue);
+            if (match) {
+                const full=match[0], latex=match[1];
+                if(!latex.trim()) continue;
+                const span = document.createElement('span'); span.className = 'latex-rendered'; span.contentEditable = "false";
+                try {
+                    const mj = MathJax.tex2svg(latex); span.appendChild(mj);
+                    const svg = mj.querySelector('svg'); if(svg) { svg.style.fill=currentColor; svg.style.color=currentColor; }
+                    span.onclick = e => { e.stopPropagation(); span.parentNode.replaceChild(document.createTextNode(full), span); contentDiv.focus(); };
+                } catch(e) { span.textContent=full; }
+                const r = document.createRange(); r.setStart(node, match.index); r.setEnd(node, match.index + full.length);
+                r.deleteContents(); r.insertNode(span);
+                const s = window.getSelection(); r.setStartAfter(span); r.collapse(true); s.removeAllRanges(); s.addRange(r);
+                return;
             }
-        } catch (error) {
-            alert("Lỗi hiển thị PDF: " + error.message);
         }
     }
 
-    // --- DRAWING ENGINE (TOUCH SUPPORT) ---
-    function setupDrawing(canvas) {
-        const ctx = canvas.getContext('2d');
+    function insertMath(code) {
+        if (!activeMathBox) { createCenteredMathBox(); setTimeout(() => insertMath(code), 50); return; }
+        const content = activeMathBox.querySelector('.math-content'); content.focus();
+        const sel = window.getSelection();
+        if (sel.rangeCount) {
+            const range = sel.getRangeAt(0); range.deleteContents();
+            const node = document.createTextNode(code); range.insertNode(node);
+            const cursorOffset = code.includes('{}') ? code.indexOf('{}') + 1 : code.length;
+            range.setStart(node, cursorOffset); range.setEnd(node, cursorOffset);
+            sel.removeAllRanges(); sel.addRange(range);
+        }
+    }
+
+    // --- DRAWING ENGINE (FIXED COORDS & 3D) ---
+    function getPointerPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDraw(e) {
+        if (currentTool === 'hand') return; 
+        if (isAnnotationMode && !canDrawAnnotation) return;
+        if(e.cancelable) e.preventDefault(); 
         
-        function getPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            let clientX, clientY;
-            if (e.touches && e.touches.length > 0) {
-                clientX = e.touches[0].clientX; clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX; clientY = e.clientY;
+        isDrawing = true;
+        points = [getPointerPos(e)];
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y);
+    }
+
+    function moveDraw(e) {
+        if (!isDrawing) return;
+        if(e.cancelable) e.preventDefault();
+
+        const cur = getPointerPos(e);
+        ctx.putImageData(snapshot, 0, 0);
+
+        if (currentTool === 'pen' || currentTool === 'highlighter') {
+            ctx.save();
+            if (currentTool === 'highlighter') { ctx.globalAlpha=0.3; ctx.lineWidth=20; ctx.strokeStyle="yellow"; ctx.lineCap="butt"; }
+            else { ctx.lineWidth=2.5; ctx.strokeStyle=currentColor; }
+            points.push(cur); ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y);
+            for (let i=1; i<points.length-2; i++) {
+                const xc = (points[i].x + points[i+1].x)/2, yc = (points[i].y + points[i+1].y)/2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
             }
-            return { x: clientX - rect.left, y: clientY - rect.top };
-        }
-
-        function startDraw(e) {
-            if (currentTool === 'hand') return; 
-            // Chỉ chặn sự kiện mặc định (cuộn) khi KHÔNG phải chế độ Tay
-            // Và chặn luôn để đảm bảo nét vẽ không bị ngắt quãng
-            if (e.cancelable) e.preventDefault(); 
-
-            isDrawing = true;
-            const pos = getPos(e);
-            startX = pos.x; startY = pos.y;
-            
-            if (currentTool === 'shape') {
-                snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            } else {
+            if(points.length>2) ctx.quadraticCurveTo(points[points.length-2].x, points[points.length-2].y, points[points.length-1].x, points[points.length-1].y);
+            ctx.stroke(); ctx.restore();
+        } else {
+            // Shapes
+            if (currentTool === 'dashedLine') { ctx.save(); ctx.setLineDash([8, 8]); ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y); ctx.lineTo(cur.x, cur.y); ctx.stroke(); ctx.restore(); }
+            else {
                 ctx.beginPath();
-                ctx.moveTo(startX, startY);
+                if (currentTool==='line') { ctx.moveTo(points[0].x, points[0].y); ctx.lineTo(cur.x, cur.y); }
+                else if (currentTool==='rect') ctx.rect(points[0].x, points[0].y, cur.x-points[0].x, cur.y-points[0].y);
+                else if (currentTool==='circle') { let r=Math.sqrt((cur.x-points[0].x)**2 + (cur.y-points[0].y)**2); ctx.arc(points[0].x, points[0].y, r, 0, 2*Math.PI); }
+                
+                // GỌI HÀM VẼ 3D
+                else if (currentTool==='cube') drawCube3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool==='tri_pyramid') drawTriPyramid3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool==='quad_pyramid') drawQuadPyramid3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool==='cone') drawCone3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool==='cylinder') drawCylinder3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool==='sphere') drawSphere3D(points[0].x, points[0].y, cur.x, cur.y);
+                
+                ctx.stroke();
             }
         }
-
-        function moveDraw(e) {
-            if (!isDrawing || currentTool === 'hand') return;
-            if (e.cancelable) e.preventDefault(); 
-
-            const pos = getPos(e);
-            ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-            ctx.setLineDash([]); 
-
-            if (currentTool === 'pen') {
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = currentColor; ctx.lineWidth = 2;
-                ctx.lineTo(pos.x, pos.y); ctx.stroke();
-            } else if (currentTool === 'highlighter') {
-                ctx.globalCompositeOperation = 'multiply';
-                ctx.strokeStyle = currentColor; ctx.lineWidth = 25;
-                ctx.lineTo(pos.x, pos.y); ctx.stroke();
-                ctx.globalCompositeOperation = 'source-over';
-            } else if (currentTool === 'eraser') {
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.lineWidth = 30;
-                ctx.lineTo(pos.x, pos.y); ctx.stroke();
-                ctx.globalCompositeOperation = 'source-over';
-            } else if (currentTool === 'shape') {
-                ctx.putImageData(snapshot, 0, 0); 
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = currentColor; ctx.lineWidth = 2;
-                drawGeometry(ctx, startX, startY, pos.x, pos.y, currentShapeType);
-            }
-        }
-
-        function endDraw(e) { isDrawing = false; }
-
-        canvas.addEventListener('mousedown', startDraw);
-        canvas.addEventListener('touchstart', startDraw, { passive: false });
-        canvas.addEventListener('mousemove', moveDraw);
-        canvas.addEventListener('touchmove', moveDraw, { passive: false });
-        canvas.addEventListener('mouseup', endDraw);
-        canvas.addEventListener('touchend', endDraw);
-        canvas.addEventListener('mouseleave', endDraw);
     }
 
-    // --- GEOMETRY & WEB (GIỮ NGUYÊN) ---
-    function drawGeometry(ctx, x1, y1, x2, y2, type) {
-        const w = x2 - x1; const h = y2 - y1; ctx.beginPath();
-        if (type === 'dashed') ctx.setLineDash([10, 8]); else ctx.setLineDash([]);
-        if (type === 'line' || type === 'dashed') { ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); } 
-        else if (type === 'rect') { ctx.rect(x1, y1, w, h); } 
-        else if (type === 'circle') { let r = Math.sqrt(w*w + h*h); ctx.arc(x1, y1, r, 0, 2 * Math.PI); }
-        else if (type === 'triangle') { ctx.moveTo(x1 + w/2, y1); ctx.lineTo(x1, y1 + h); ctx.lineTo(x1 + w, y1 + h); ctx.closePath(); }
-        else if (type === 'axis') {
-            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1, y1 + h);
-            ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 - 5, y1 - h + 10); ctx.moveTo(x1, y1 - h); ctx.lineTo(x1 + 5, y1 - h + 10);
-            ctx.moveTo(x1 - w, y1); ctx.lineTo(x1 + w, y1);
-            ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 - 5); ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w - 10, y1 + 5);
-        }
-        else if (type === 'cube') {
-            const d = w / 3; ctx.rect(x1, y1, w, h); ctx.rect(x1 + d, y1 - d, w, h); 
-            ctx.moveTo(x1, y1); ctx.lineTo(x1 + d, y1 - d); ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w + d, y1 - d);
-            ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + d, y1 + h - d); ctx.moveTo(x1 + w, y1 + h); ctx.lineTo(x1 + w + d, y1 + h - d);
-        }
-        else if (type === 'sphere') {
-            let r = Math.abs(w); ctx.arc(x1 + r, y1 + r, r, 0, 2*Math.PI); ctx.moveTo(x1 + 2*r, y1 + r); ctx.ellipse(x1 + r, y1 + r, r, r/4, 0, 0, 2*Math.PI);
-        }
-        else if (type === 'cylinder') {
-            const rx = w/2; const ry = w/6; 
-            ctx.moveTo(x1 + w, y1); ctx.ellipse(x1 + rx, y1, rx, ry, 0, 0, 2*Math.PI);
-            ctx.moveTo(x1 + w, y1 + h); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, 0, Math.PI); 
-            ctx.moveTo(x1, y1); ctx.lineTo(x1, y1 + h); ctx.moveTo(x1 + w, y1); ctx.lineTo(x1 + w, y1 + h);
-            ctx.stroke(); ctx.beginPath(); ctx.setLineDash([5, 5]); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
-        }
-        else if (type === 'cone') {
-            const rx = w/2; const ry = w/6;
-            ctx.moveTo(x1, y1 + h); ctx.lineTo(x1 + rx, y1); ctx.lineTo(x1 + w, y1 + h);
-            ctx.moveTo(x1 + w, y1 + h); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, 0, Math.PI);
-            ctx.stroke(); ctx.beginPath(); ctx.setLineDash([5, 5]); ctx.ellipse(x1 + rx, y1 + h, rx, ry, 0, Math.PI, 2*Math.PI);
-        }
-        ctx.stroke(); ctx.setLineDash([]); 
+    function endDraw() { if(isDrawing) { isDrawing=false; saveHistory(); } }
+
+    canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mousemove', moveDraw); canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('touchstart', startDraw, {passive: false}); canvas.addEventListener('touchmove', moveDraw, {passive: false}); canvas.addEventListener('touchend', endDraw);
+
+    // --- 3D FUNCTIONS (SEPARATE DASHED/SOLID) ---
+    function drawTriPyramid3D(x1, y1, x2, y2) {
+        const S = {x: x1, y: y1}, width = x2 - x1, height = y2 - y1;
+        const B = {x: x1 - width, y: y1 + height}, C = {x: x1 + width, y: y1 + height}, A = {x: x1 - width * 0.3, y: y1 + height - height * 0.3};
+        
+        ctx.beginPath(); ctx.setLineDash([8, 8]); // Nét đứt
+        ctx.moveTo(S.x, S.y); ctx.lineTo(A.x, A.y); ctx.moveTo(B.x, B.y); ctx.lineTo(A.x, A.y); ctx.lineTo(C.x, C.y); ctx.stroke(); 
+        
+        ctx.setLineDash([]); ctx.beginPath(); // Nét liền
+        ctx.moveTo(S.x, S.y); ctx.lineTo(B.x, B.y); ctx.lineTo(C.x, C.y); ctx.lineTo(S.x, S.y); ctx.stroke();
     }
+    
+    function drawQuadPyramid3D(x1, y1, x2, y2) {
+        const baseW = Math.abs(x2 - x1), baseH = Math.abs(y2 - y1), cx = x1, cy = y2, top = {x: cx, y: y1};
+        const p1 = {x: cx - baseW, y: cy + baseH*0.2}, p2 = {x: cx + baseW, y: cy + baseH*0.2}, p3 = {x: cx + baseW*1.3, y: cy - baseH*0.2}, p4 = {x: cx - baseW*0.7, y: cy - baseH*0.2};
+        
+        ctx.beginPath(); ctx.setLineDash([8, 8]); 
+        ctx.moveTo(p1.x, p1.y); ctx.lineTo(p4.x, p4.y); ctx.lineTo(p3.x, p3.y); ctx.moveTo(top.x, top.y); ctx.lineTo(p4.x, p4.y); ctx.stroke();
+        
+        ctx.setLineDash([]); ctx.beginPath(); 
+        ctx.moveTo(top.x, top.y); ctx.lineTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(top.x, top.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+    }
+    
+    function drawCube3D(x1, y1, x2, y2) {
+        const w = x2 - x1, h = y2 - y1, d = w * 0.4;
+        
+        ctx.beginPath(); ctx.setLineDash([8, 8]); 
+        ctx.moveTo(x1, y1+h); ctx.lineTo(x1+d, y1+h-d); ctx.lineTo(x1+d, y1-d); ctx.moveTo(x1+d, y1+h-d); ctx.lineTo(x1+w+d, y1+h-d); ctx.stroke();
+        
+        ctx.setLineDash([]); ctx.beginPath(); 
+        ctx.rect(x1, y1, w, h); ctx.moveTo(x1, y1); ctx.lineTo(x1+d, y1-d); ctx.lineTo(x1+w+d, y1-d); ctx.lineTo(x1+w, y1); ctx.moveTo(x1+w, y1); ctx.lineTo(x1+w+d, y1-d); ctx.lineTo(x1+w+d, y1+h-d); ctx.lineTo(x1+w, y1+h); ctx.stroke();
+    }
+    
+    function drawCylinder3D(x1, y1, x2, y2) {
+        const rx = Math.abs(x2-x1)/2, ry=rx*0.3, cx=(x1+x2)/2, tY=Math.min(y1,y2), bY=Math.max(y1,y2);
+        
+        ctx.beginPath(); ctx.setLineDash([8, 8]); 
+        ctx.ellipse(cx, bY, rx, ry, 0, Math.PI, 2*Math.PI); ctx.stroke(); // Đáy sau
+        
+        ctx.setLineDash([]); ctx.beginPath();
+        ctx.ellipse(cx, tY, rx, ry, 0, 0, 2*Math.PI); // Đáy trên
+        ctx.moveTo(cx-rx, tY); ctx.lineTo(cx-rx, bY); ctx.moveTo(cx+rx, tY); ctx.lineTo(cx+rx, bY); 
+        ctx.ellipse(cx, bY, rx, ry, 0, 0, Math.PI); // Đáy trước
+        ctx.stroke();
+    }
+    
+    function drawCone3D(x1, y1, x2, y2) {
+        const rx = Math.abs(x2-x1)/2, ry=rx*0.3, cx=(x1+x2)/2, tY=y1, bY=y2;
+        
+        ctx.beginPath(); ctx.setLineDash([8, 8]); 
+        ctx.ellipse(cx, bY, rx, ry, 0, Math.PI, 2*Math.PI); ctx.stroke();
+        
+        ctx.setLineDash([]); ctx.beginPath();
+        ctx.moveTo(cx-rx, bY); ctx.lineTo(cx, tY); ctx.lineTo(cx+rx, bY); 
+        ctx.ellipse(cx, bY, rx, ry, 0, 0, Math.PI); ctx.stroke();
+    }
+    
+    function drawSphere3D(x1, y1, x2, y2) {
+        const r=Math.sqrt((x2-x1)**2+(y2-y1)**2); 
+        
+        ctx.beginPath(); ctx.setLineDash([8, 8]); 
+        ctx.ellipse(x1, y1, r, r*0.3, 0, Math.PI, 2*Math.PI); ctx.stroke();
+        
+        ctx.setLineDash([]); ctx.beginPath(); 
+        ctx.arc(x1, y1, r, 0, 2*Math.PI); 
+        ctx.moveTo(x1+r, y1); ctx.ellipse(x1, y1, r, r*0.3, 0, 0, Math.PI); ctx.stroke();
+    }
+
+    // --- OTHER UTILS ---
+    function toggleFullScreen() { if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    
+    let isAnnotationMode = false; let canDrawAnnotation = true; 
+    function toggleAnnotation() {
+        isAnnotationMode = !isAnnotationMode;
+        const btn = document.getElementById('btnAnnotate');
+        const els = document.querySelectorAll('.pasted-image, .pasted-pdf, .pasted-web, .math-box');
+        if (isAnnotationMode) {
+            btn.innerHTML = "📝 Vẽ Đè: BẬT"; btn.style.background = "#d35400"; 
+            canvas.style.zIndex = 2000; // Đưa canvas lên trên cùng
+            els.forEach(el => { el.style.pointerEvents = 'none'; el.style.opacity = 0.8; });
+        } else {
+            btn.innerHTML = "📝 Vẽ Đè: TẮT"; btn.style.background = "#e67e22"; 
+            canvas.style.zIndex = 5; // Trả về dưới
+            els.forEach(el => { el.style.pointerEvents = 'auto'; el.style.opacity = 1; });
+        }
+    }
+
+    function updatePageIndicator() { document.getElementById('pageIndicator').innerText = `${currentPage + 1} / ${pages.length}`; }
+    function saveCurrentPageState() { pages[currentPage].canvasData = canvas.toDataURL(); pages[currentPage].history = [...history]; pages[currentPage].historyStep = historyStep; }
+    function switchPage(index) {
+        if(index<0 || index>=pages.length) return;
+        saveCurrentPageState(); currentPage = index; const p = pages[currentPage];
+        history = [...p.history]; historyStep = p.historyStep;
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        if(p.canvasData) { const i=new Image(); i.src=p.canvasData; i.onload=()=>ctx.drawImage(i,0,0); }
+        document.querySelectorAll('.pasted-image, .pasted-pdf, .pasted-web, .math-box, .label-box').forEach(el => {
+            if(!el.dataset.page) el.dataset.page=0; el.style.display = (parseInt(el.dataset.page)===currentPage) ? 'flex' : 'none';
+        });
+        updatePageIndicator();
+    }
+    function nextPage() { if(currentPage<pages.length-1) switchPage(currentPage+1); else if(confirm("Trang mới?")) addPage(); }
+    function prevPage() { switchPage(currentPage-1); }
+    function addPage() { saveCurrentPageState(); pages.push({canvasData:null, history:[], historyStep:-1}); switchPage(pages.length-1); }
 
     function addWebsite() {
-        let url = prompt("Nhập Link Web:", "https://desmos.com/calculator");
-        if (!url) return;
-        if (!url.startsWith('http')) url = 'https://' + url;
-        const win = document.createElement('div'); win.className = 'web-window';
-        const header = document.createElement('div'); header.className = 'web-header'; header.innerHTML = `<span>${url}</span>`;
-        const btnClose = document.createElement('button'); btnClose.innerText = '✕'; btnClose.onclick = () => win.remove();
-        header.appendChild(btnClose);
-        const content = document.createElement('div'); content.className = 'web-content';
-        const iframe = document.createElement('iframe'); iframe.src = url;
-        const overlay = document.createElement('canvas'); overlay.className = 'web-overlay';
-        new ResizeObserver(() => { overlay.width = content.offsetWidth; overlay.height = content.offsetHeight; }).observe(content);
-        setupDrawing(overlay);
-        content.appendChild(iframe); content.appendChild(overlay);
-        win.appendChild(header); win.appendChild(content); document.body.appendChild(win);
-        makeDraggable(win, header);
+        let u=prompt("Link Web:"); if(!u)return; if(!u.startsWith('http'))u='https://'+u;
+        const w=document.createElement('div'); w.className='pasted-web'; w.dataset.page=currentPage;
+        w.style.left='50px'; w.style.top='50px'; w.style.width='600px'; w.style.height='400px';
+        w.innerHTML=`<div class="web-header"><span>🌐 ${u}</span><span style="cursor:pointer;color:red" onclick="this.parentElement.parentElement.remove()">✕</span></div><div class="web-content" style="flex:1;position:relative"><iframe src="${u}"></iframe><div class="web-overlay"></div></div><div class="resizer"></div>`;
+        wrapper.appendChild(w); makeElementDraggable(w, w.querySelector('.web-header')); setupResizer(w);
+    }
+    
+    document.getElementById('imageInput').onchange = e => { if(e.target.files[0]) { const i=document.createElement('img'); i.src=URL.createObjectURL(e.target.files[0]); i.className='pasted-image'; i.dataset.page=currentPage; i.style.left='50px'; i.style.top='50px'; i.style.maxWidth='400px'; i.ondblclick=()=>i.remove(); wrapper.appendChild(i); makeElementDraggable(i, i); } e.target.value=''; };
+    document.getElementById('pdfInput').onchange = e => { if(e.target.files[0]) createPDFElement(e.target.files[0]); e.target.value=''; };
+
+    async function createPDFElement(file) {
+        const c=document.createElement('div'); c.className='pasted-pdf'; c.dataset.page=currentPage;
+        c.style.cssText="position:absolute;left:50px;top:50px;width:60%;height:80%;background:white;border:2px dashed #ccc;display:flex;flex-direction:column; z-index:10;";
+        c.innerHTML=`<div class="web-header"><span>📄 ${file.name}</span><span style="cursor:pointer;color:red" onclick="this.parentElement.parentElement.remove()">✕</span></div><div style="flex:1;overflow-y:auto;position:relative"></div><div class="resizer"></div>`;
+        const content=c.children[1]; const pdf=await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
+        for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); const v=p.getViewport({scale:1.5}); const cv=document.createElement('canvas'); cv.width=v.width; cv.height=v.height; cv.style.width="100%"; await p.render({canvasContext:cv.getContext('2d'),viewport:v}).promise; content.appendChild(cv); }
+        wrapper.appendChild(c); makeElementDraggable(c, c.querySelector('.web-header')); setupResizer(c);
     }
 
-    function makeDraggable(element, handle) {
-        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0; handle.onmousedown = dragMouseDown; handle.ontouchstart = dragMouseDown;
-        function dragMouseDown(e) {
-            if(e.cancelable) e.preventDefault(); 
-            if(e.touches) { pos3 = e.touches[0].clientX; pos4 = e.touches[0].clientY; } else { pos3 = e.clientX; pos4 = e.clientY; }
-            document.onmouseup = closeDragElement; document.ontouchend = closeDragElement;
-            document.onmousemove = elementDrag; document.ontouchmove = elementDrag;
-        }
-        function elementDrag(e) {
-            e.preventDefault();
-            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            pos1 = pos3 - clientX; pos2 = pos4 - clientY; pos3 = clientX; pos4 = clientY;
-            element.style.top = (element.offsetTop - pos2) + "px"; element.style.left = (element.offsetLeft - pos1) + "px";
-        }
-        function closeDragElement() { document.onmouseup = null; document.onmousemove = null; document.ontouchend = null; document.ontouchmove = null; }
+    function makeElementDraggable(el, handle) {
+        let isDrag=false, sx, sy, sl, st;
+        handle.addEventListener('mousedown', e => { if(e.target.tagName==='SPAN')return; e.preventDefault(); isDrag=true; sx=e.clientX; sy=e.clientY; sl=el.offsetLeft; st=el.offsetTop; document.addEventListener('mousemove', move); document.addEventListener('mouseup', stop); });
+        handle.addEventListener('touchstart', e => { if(e.target.tagName==='SPAN')return; isDrag=true; sx=e.touches[0].clientX; sy=e.touches[0].clientY; sl=el.offsetLeft; st=el.offsetTop; document.addEventListener('touchmove', move, {passive:false}); document.addEventListener('touchend', stop); });
+        function move(e) { if(!isDrag)return; const cx=e.type.includes('touch')?e.touches[0].clientX:e.clientX; const cy=e.type.includes('touch')?e.touches[0].clientY:e.clientY; el.style.left=(sl+cx-sx)+'px'; el.style.top=(st+cy-sy)+'px'; if(e.preventDefault)e.preventDefault(); }
+        function stop() { isDrag=false; document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',stop); document.removeEventListener('touchmove',move); document.removeEventListener('touchend',stop); }
     }
+
+    function setupResizer(el) {
+        const resizer = el.querySelector('.resizer'); if(!resizer) return;
+        resizer.addEventListener('mousedown', initResize, false);
+        resizer.addEventListener('touchstart', initResize, {passive: false});
+        function initResize(e) { e.stopPropagation(); e.preventDefault(); 
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            window.startX = clientX; window.startY = clientY;
+            window.startW = el.offsetWidth; window.startH = el.offsetHeight;
+            
+            if(e.type === 'touchstart') { window.addEventListener('touchmove', resize, {passive:false}); window.addEventListener('touchend', stopResize); }
+            else { window.addEventListener('mousemove', resize); window.addEventListener('mouseup', stopResize); }
+            const overlay = el.querySelector('.web-overlay'); if(overlay) overlay.style.display='block';
+        }
+        function resize(e) {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            el.style.width = (window.startW + clientX - window.startX) + 'px';
+            el.style.height = (window.startH + clientY - window.startY) + 'px';
+        }
+        function stopResize() {
+            window.removeEventListener('mousemove', resize); window.removeEventListener('mouseup', stopResize);
+            window.removeEventListener('touchmove', resize); window.removeEventListener('touchend', stopResize);
+            const overlay = el.querySelector('.web-overlay'); if(overlay) overlay.style.display='none';
+        }
+    }
+
+    function saveHistory() { if(historyStep<history.length-1)history=history.slice(0,historyStep+1); history.push(canvas.toDataURL()); historyStep++; }
+    function undo() { if(historyStep>0){ historyStep--; const i=new Image(); i.src=history[historyStep]; i.onload=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(i,0,0);} } else if(historyStep===0){ historyStep=-1; ctx.clearRect(0,0,canvas.width,canvas.height); } }
+    function redo() { if(historyStep<history.length-1){ historyStep++; const i=new Image(); i.src=history[historyStep]; i.onload=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(i,0,0);} } }
+
+    async function exportFullPDF() {
+        document.getElementById('loading').style.display='block'; const {jsPDF}=window.jspdf; const pdf=new jsPDF('l','mm','a4'); const W=pdf.internal.pageSize.getWidth(), H=pdf.internal.pageSize.getHeight();
+        saveCurrentPageState(); const oldPage=currentPage;
+        for(let i=0; i<pages.length; i++) { switchPage(i); await new Promise(r=>setTimeout(r,300)); const c = await html2canvas(wrapper, {scale:1.5, useCORS:true, backgroundColor:'#0b6b3a', ignoreElements:el=>el.classList.contains('pagination-bar')}); if(i>0) pdf.addPage(); pdf.addImage(c.toDataURL('image/jpeg',0.8), 'JPEG',0,0,W,H); }
+        pdf.save("BaiGiang.pdf"); switchPage(oldPage); document.getElementById('loading').style.display='none';
+    }
+
+    async function startBroadcast() {
+        if(peer) return alert("Đang phát!");
+        try { const s = await navigator.mediaDevices.getDisplayMedia({video:true,audio:false}); const a = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true},video:false}); localStream = new MediaStream([s.getVideoTracks()[0], a.getAudioTracks()[0]]); peer = new Peer(); peer.on('open', id => { document.getElementById('hostInfo').style.display='block'; document.getElementById('myId').innerText=id; }); peer.on('call', call => call.answer(localStream)); s.getVideoTracks()[0].onended = () => { if(peer)peer.destroy(); peer=null; document.getElementById('hostInfo').style.display='none'; }; } catch(e) { alert(e.message); }
+    }
+    function joinBroadcast() { const id=document.getElementById('remoteId').value; if(!id) return; const p = new Peer(); p.on('open', () => { const call = p.call(id, new MediaStream()); call.on('stream', s => { document.getElementById('studentVideoContainer').style.display='block'; document.getElementById('studentVideo').srcObject = s; }); }); }
+    function copyId() { navigator.clipboard.writeText(document.getElementById('myId').innerText); }
+    function toggleLive(){ let m=document.getElementById('liveModal'); m.style.display=m.style.display==='block'?'none':'block'; }
+    function toggleHelp(){ let m=document.getElementById('helpModal'); m.style.display=m.style.display==='block'?'none':'block'; }
 </script>
 </body>
 </html>
