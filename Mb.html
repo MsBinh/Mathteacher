@@ -590,6 +590,13 @@
 
             <button class="btn" style="background:#27ae60" onclick="document.getElementById('imageInput').click()" title="Chèn Ảnh">🖼️</button>
             <button class="btn" style="background:#8e44ad" onclick="addWebsite()" title="Chèn Web">🌐</button>
+            
+            <!-- THÊM MENU CHỌN PDF VÀO ĐÂY -->
+            <select id="pdfLibrary" class="btn" style="width: 140px; font-size: 13px; background: #34495e; color: white; border: 1px solid #2ecc71; margin-right: 5px;" 
+                    onchange="if(this.value) loadPdfFromPath(this.value)">
+                <option value="">⏳ Đang nạp...</option>
+            </select>
+            
             <button class="btn" style="background:#3498db" onclick="document.getElementById('pdfInput').click()" title="Chèn PDF">📄</button>
 
             <div class="sep"></div>
@@ -777,12 +784,18 @@
         saveAppState(); // Lưu trang trắng đầu tiên
     }
 
+    // SỬA LỖI VẼ SAI VỊ TRÍ: CẬP NHẬT HÀM resizeCanvas()
     function resizeCanvas() {
         const rect = contentContainer.getBoundingClientRect();
-        canvas.width = wrapper.offsetWidth;
-        canvas.height = Math.max(rect.height, 5000);
-        canvas.style.width = '100%';
-        canvas.style.height = 'auto';
+        // Đảm bảo kích thước vật lý của Canvas khớp với kích thước hiển thị
+        canvas.width = contentContainer.offsetWidth;
+        canvas.height = contentContainer.offsetHeight;
+        
+        // Thiết lập lại các thuộc tính vẽ sau khi resize vì Canvas sẽ bị reset
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = 2.5;
     }
     
     window.onload = init; 
@@ -1119,19 +1132,6 @@
         const handle = document.createElement('div');
         handle.className = 'math-handle';
 
-        // --- XÓA HOẶC ẨN ĐOẠN TỪ ĐÂY ---
-        /* const stampBtn = document.createElement('button');
-        stampBtn.className = 'stamp-btn';
-        stampBtn.innerHTML = '📌';
-        stampBtn.title = "Dán dính vào PDF";
-        stampBtn.onclick = (e) => {
-            e.stopPropagation();
-            flattenBox(box);
-        };
-        handle.appendChild(stampBtn);
-        */
-        // --- ĐẾN ĐÂY ---
-
         // Thêm nút Xóa (Nên giữ lại nút này để xóa box)
         const delBtn = document.createElement('button');
         delBtn.className = 'stamp-btn';
@@ -1236,11 +1236,21 @@
     }
 
     // --- DRAWING ENGINE ---
+    // SỬA LỖI VẼ SAI VỊ TRÍ: CẬP NHẬT HÀM getPointerPos()
     function getPointerPos(e) {
         const rect = canvas.getBoundingClientRect();
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
+
+        // Tính toán tỉ lệ scale (nếu có zoom trình duyệt hoặc CSS thay đổi kích thước)
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        // Trả về tọa độ chính xác tuyệt đối trên bề mặt Canvas
+        return {
+            x: (clientX - rect.left) * scaleX,
+            y: (clientY - rect.top) * scaleY
+        };
     }
 
     function startDraw(e) {
@@ -1986,6 +1996,77 @@
         };
         input.click();
     }
+
+    // ============================================================
+    // THÊM MENU CHỌN PDF TỪ GITHUB
+    // ============================================================
+
+    // --- CẤU HÌNH API GITHUB (Dựa trên ảnh thầy gửi) ---
+    const GH_USER = "MsBinh"; 
+    const GH_REPO = "Mathteacher";    
+    const GH_FOLDER = "pdf"; 
+
+    // Hàm 1: Tự động lấy danh sách file từ GitHub
+    async function autoLoadLibrary() {
+        const apiUrl = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${GH_FOLDER}`;
+        const select = document.getElementById('pdfLibrary');
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                select.innerHTML = '<option value="">📚 Thư viện (Trống)</option>';
+                return;
+            }
+            const files = await response.json();
+            select.innerHTML = '<option value="">📚 Chọn Bài Giảng</option>';
+            files.forEach(file => {
+                if (file.name.toLowerCase().endsWith('.pdf')) {
+                    const opt = document.createElement('option');
+                    opt.value = file.download_url; 
+                    opt.textContent = file.name.replace(/\.pdf$/i, '').replace(/[_-]/g, ' ');
+                    select.appendChild(opt);
+                }
+            });
+        } catch (e) {
+            select.innerHTML = '<option value="">❌ Lỗi kết nối</option>';
+        }
+    }
+
+    // Hàm 2: Tải PDF từ đường dẫn API và vẽ lên bảng
+    async function loadPdfFromPath(path) {
+        document.getElementById('loading').style.display = 'block';
+        try {
+            const pdfData = await pdfjsLib.getDocument(path).promise;
+            const pdfContainer = document.createElement('div');
+            pdfContainer.className = 'pdf-container';
+            pdfContainer.dataset.page = currentPage;
+            const containerWidth = wrapper.offsetWidth - 40;
+            
+            for (let i = 1; i <= pdfData.numPages; i++) {
+                const page = await pdfData.getPage(i);
+                const viewport = page.getViewport({ scale: 1 });
+                const scale = containerWidth / viewport.width;
+                const scaledViewport = page.getViewport({ scale: scale });
+                const canvasPage = document.createElement('canvas');
+                canvasPage.className = 'pdf-page';
+                const context = canvasPage.getContext('2d');
+                canvasPage.width = scaledViewport.width;
+                canvasPage.height = scaledViewport.height;
+                await page.render({canvasContext: context, viewport: scaledViewport}).promise;
+                pdfContainer.appendChild(canvasPage);
+            }
+            contentContainer.appendChild(pdfContainer);
+            makeElementDraggable(pdfContainer, pdfContainer);
+            updateContainerHeight();
+            saveAppState(); 
+        } catch (error) {
+            alert("Lỗi tải PDF!");
+        }
+        document.getElementById('loading').style.display = 'none';
+    }
+
+    // Chạy nạp thư viện khi trang web mở
+    window.addEventListener('load', autoLoadLibrary);
 </script>
 </body>
 </html>
