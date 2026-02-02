@@ -523,26 +523,69 @@
             background: #27ae60;
         }
 
-        /* --- THÊM CODE CSS CHO LABEL BOX (TÊN ĐỈNH) --- */
+        /* --- LABEL BOX CẢI TIẾN V2 --- */
         .label-box {
             position: absolute;
-            z-index: 600; /* Cao hơn Canvas (300) và MathBox (500) */
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #333;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 16px;
+            z-index: 1000;
+            background: transparent;
+            /* Thêm viền mờ khi rê chuột để dễ nhận biết vùng kéo */
+            border: 1px dashed transparent;
+            padding: 5px; /* Tạo khoảng hở để dễ nhìn */
+            min-width: 30px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        /* Chỉ hiện viền và tay cầm khi rê chuột vào */
+        .label-box:hover, .label-box:focus-within {
+            border: 1px dashed rgba(255,255,255,0.3);
+        }
+
+        .label-editor {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            color: transparent;
+            caret-color: currentColor; /* Dấu nháy theo màu bút */
+            outline: none;
+            white-space: pre-wrap;
+            font-size: 18pt; /* Tăng cỡ chữ gõ lên 18pt */
             font-weight: bold;
+            font-family: 'Times New Roman', serif;
+            z-index: 2;
+            padding: 5px; /* Khớp với padding của box */
+        }
+
+        .label-render {
+            position: relative;
+            pointer-events: none;
+            z-index: 1;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            font-size: 18pt; /* Tăng cỡ chữ hiển thị lên 18pt */
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* Tay cầm di chuyển (Dấu cộng) */
+        .label-handle {
+            position: absolute;
+            top: -25px; /* Nằm phía trên box */
+            left: 0;
+            background: var(--accent);
+            color: white;
+            font-size: 14px;
+            padding: 2px 6px;
+            border-radius: 4px;
             cursor: move;
-            min-width: 20px;
-            text-align: center;
+            display: none; /* Mặc định ẩn */
+            z-index: 1001;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        .label-box:focus {
-            border: 2px solid var(--accent); /* Viền xanh khi đang gõ */
-            outline: none;
+        /* Hiện tay cầm khi rê chuột vào box */
+        .label-box:hover .label-handle {
+            display: block;
         }
     </style>
 </head>
@@ -573,6 +616,7 @@
                 </optgroup>
                 <optgroup label="Hình học">
                     <option value="rect">⬛</option>
+			<option value="parallelogram">▱</option>
                     <option value="circle">⚪</option>
                     <option value="cube">📦</option>
                     <option value="tri_pyramid">🔺</option>
@@ -689,22 +733,79 @@
 
 <div id="helpModal" class="modal">
     <div style="display:flex; justify-content:space-between; margin-bottom:15px; align-items:center;">
-        <strong style="color:#f1c40f; font-size:18px;">📚 HƯỚNG DẪN v26.0</strong>
+        <strong style="color:#f1c40f; font-size:18px;">📚 TRA CỨU NHANH</strong>
         <span onclick="toggleHelp()" style="cursor:pointer; font-size:20px; color:#f1c40f;">✕</span>
     </div>
-    <ul style="padding-left: 20px; margin: 0; font-size:14px; line-height:1.6;">
-        <li><b>🖼️ Ảnh:</b> Click chọn → Nút Zoom (+/-) & Xoay (↻) hiện lên</li>
-        <li><b>📄 PDF:</b> Tự động chèn dính tất cả trang vào bảng</li>
-        <li><b>🌐 Web:</b> Iframe cao để hiển thị đầy đủ trang web</li>
-        <li><b>Σ Box:</b> Click đúp tạo → Click box mở editor</li>
-        <li><b>Ctrl+R:</b> Render công thức Latex ngay</li>
-        <li><b>Ctrl+Enter:</b> Đóng editor</li>
-        <li><b>Ctrl+X:</b> Xóa box đang active</li>
-        <li><b>Ctrl+D:</b> Tạo tên đỉnh (label)</li>
-        <li><b>📌 Ghim:</b> Dính Math Box vào PDF vĩnh viễn</li>
-    </ul>
-</div>
+    
+    <div style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
+        
+        <strong style="color:#3498db; display:block; margin-bottom:5px;">1. THAO TÁC CƠ BẢN</strong>
+        <ul style="padding-left: 20px; margin: 0; font-size:13px; line-height:1.5; color:#ddd; margin-bottom:15px;">
+            <li><b>Ctrl + D:</b> Tạo nhãn / tên đỉnh (A, B, C...)</li>
+            <li><b>Ctrl + E:</b> Xóa nhãn / box đang chọn</li>
+            <li><b>Ctrl + R:</b> Render (trong bảng đen)</li>
+            <li><b>Mũi tên ➡️:</b> Thoát khỏi phân số / căn</li>
+        </ul>
 
+        <strong style="color:var(--accent); display:block; margin-bottom:5px; border-top:1px solid #555; padding-top:10px;">2. BỘ GÕ NHANH (Alt + Số)</strong>
+        <table style="width:100%; border-collapse:collapse; font-size:13px; color:#fff; margin-bottom:15px;">
+            <tr style="background:#444;">
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+1</b> Phân số</td>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+6</b> Suy ra</td>
+            </tr>
+            <tr>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+2</b> Căn</td>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+7</b> Cộng trừ</td>
+            </tr>
+            <tr style="background:#444;">
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+3</b> Hệ PT</td>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+8</b> Tích phân</td>
+            </tr>
+            <tr>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+4</b> Góc</td>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+9</b> Vuông góc</td>
+            </tr>
+            <tr style="background:#444;">
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+5</b> Độ</td>
+                <td style="padding:4px; border:1px solid #666;"><b>Alt+0</b> Lim</td>
+            </tr>
+        </table>
+
+        <strong style="color:#e74c3c; display:block; margin-bottom:5px; border-top:1px solid #555; padding-top:10px;">3. CÁC LỆNH KHÁC (Gõ rồi cách)</strong>
+        <table style="width:100%; border-collapse:collapse; font-size:13px; color:#fff;">
+            <tr style="background:#444;">
+                <td style="padding:4px; border:1px solid #666;">$\neq$</td> <td style="padding:4px; border:1px solid #666;">\neq</td>
+                <td style="padding:4px; border:1px solid #666;">$\approx$</td> <td style="padding:4px; border:1px solid #666;">\approx</td>
+                <td style="padding:4px; border:1px solid #666;">$\le$</td> <td style="padding:4px; border:1px solid #666;">\le</td>
+            </tr>
+            <tr>
+                <td style="padding:4px; border:1px solid #666;">$\in$</td> <td style="padding:4px; border:1px solid #666;">\in</td>
+                <td style="padding:4px; border:1px solid #666;">$\subset$</td> <td style="padding:4px; border:1px solid #666;">\subset</td>
+                <td style="padding:4px; border:1px solid #666;">$\cup$</td> <td style="padding:4px; border:1px solid #666;">\cup</td>
+            </tr>
+            <tr style="background:#444;">
+                 <td style="padding:4px; border:1px solid #666;">$\cap$</td> <td style="padding:4px; border:1px solid #666;">\cap</td>
+                 <td style="padding:4px; border:1px solid #666;">$\emptyset$</td> <td style="padding:4px; border:1px solid #666;">\emptyset</td>
+                 <td style="padding:4px; border:1px solid #666;">$\mathbb{R}$</td> <td style="padding:4px; border:1px solid #666;">\mathbb{R}</td>
+            </tr>
+            <tr>
+                <td style="padding:4px; border:1px solid #666;">$\forall$</td> <td style="padding:4px; border:1px solid #666;">\forall</td>
+                <td style="padding:4px; border:1px solid #666;">$\exists$</td> <td style="padding:4px; border:1px solid #666;">\exists</td>
+                <td style="padding:4px; border:1px solid #666;">$\parallel$</td> <td style="padding:4px; border:1px solid #666;">\parallel</td>
+            </tr>
+            <tr style="background:#444;">
+                <td style="padding:4px; border:1px solid #666;">$\alpha$</td> <td style="padding:4px; border:1px solid #666;">\alpha</td>
+                <td style="padding:4px; border:1px solid #666;">$\beta$</td> <td style="padding:4px; border:1px solid #666;">\beta</td>
+                <td style="padding:4px; border:1px solid #666;">$\pi$</td> <td style="padding:4px; border:1px solid #666;">\pi</td>
+            </tr>
+            <tr>
+                <td style="padding:4px; border:1px solid #666;">$\Delta$</td> <td style="padding:4px; border:1px solid #666;">\Delta</td>
+                <td style="padding:4px; border:1px solid #666;">$\Omega$</td> <td style="padding:4px; border:1px solid #666;">\Omega</td>
+                <td style="padding:4px; border:1px solid #666;">$\lambda$</td> <td style="padding:4px; border:1px solid #666;">\lambda</td>
+            </tr>
+        </table>
+    </div>
+</div>
 <script>
     const canvas = document.getElementById('mainCanvas'); 
     const ctx = canvas.getContext('2d');
@@ -901,13 +1002,33 @@
         ctx.strokeStyle = color; 
         colorStatus.style.background = color; 
         
+        // 1. Đổi màu cho MathBox lớn (nếu có)
         if(activeMathBox) { 
             activeMathBox.style.color = color; 
             activeMathBox.querySelectorAll('svg').forEach(svg => {
                 svg.style.fill = color;
-                svg.style.color = color;
                 svg.style.stroke = color;
             }); 
+        }
+
+        // 2. Đổi màu cho LabelBox (nhãn tên đỉnh) đang focus
+        // Lấy phần tử đang được chọn (con trỏ nhấp nháy)
+        const activeEl = document.activeElement;
+        if (activeEl && activeEl.closest('.label-box')) {
+            const box = activeEl.closest('.label-box');
+            box.style.color = color; // Lưu màu mới vào box
+            
+            // Đổi màu dấu nháy
+            const editor = box.querySelector('.label-editor');
+            if(editor) editor.style.caretColor = color;
+
+            // Đổi màu chữ/công thức hiển thị
+            const display = box.querySelector('.label-render');
+            if(display) {
+                display.style.color = color;
+                // Đổi màu toàn bộ hình vẽ SVG bên trong
+                display.querySelectorAll('svg').forEach(svg => svg.style.fill = color);
+            }
         }
     }
 
@@ -1334,7 +1455,8 @@
                 else if (currentTool === 'cone') drawCone3D(points[0].x, points[0].y, cur.x, cur.y);
                 else if (currentTool === 'cylinder') drawCylinder3D(points[0].x, points[0].y, cur.x, cur.y);
                 else if (currentTool === 'sphere') drawSphere3D(points[0].x, points[0].y, cur.x, cur.y);
-                
+                // Thêm dòng này vào chuỗi if/else trong hàm moveDraw
+		else if (currentTool === 'parallelogram') drawParallelogram(points[0].x, points[0].y, cur.x, cur.y);
                 ctx.stroke();
             }
         }
@@ -1392,7 +1514,20 @@
         ctx.beginPath(); ctx.setLineDash([8, 8]); ctx.ellipse(x1, y1, r, r*0.3, 0, Math.PI, 2*Math.PI); ctx.stroke();
         ctx.setLineDash([]); ctx.beginPath(); ctx.arc(x1, y1, r, 0, 2*Math.PI); ctx.moveTo(x1+r, y1); ctx.ellipse(x1, y1, r, r*0.3, 0, 0, Math.PI); ctx.stroke();
     }
-
+// --- HÀM VẼ HÌNH BÌNH HÀNH (Mặt phẳng không gian) ---
+function drawParallelogram(x1, y1, x2, y2) {
+    const w = x2 - x1;
+    // Độ nghiêng (Skew) = 20% chiều rộng, thầy có thể chỉnh số 0.2 thành số khác tùy ý
+    const skew = w * 0.2; 
+    
+    ctx.beginPath();
+    ctx.moveTo(x1 + skew, y1); // Đỉnh trên trái (nghiêng)
+    ctx.lineTo(x2 + skew, y1); // Đỉnh trên phải (nghiêng)
+    ctx.lineTo(x2, y2);        // Đỉnh dưới phải
+    ctx.lineTo(x1, y2);        // Đỉnh dưới trái
+    ctx.closePath();
+    ctx.stroke();
+}
     // --- CẬP NHẬT CHIỀU CAO CONTAINER ---
     function updateContainerHeight() {
         let maxBottom = 0;
@@ -1520,32 +1655,58 @@
 
     // --- LABEL BOX ---
     function createLabelBox(x, y) {
-        const box = document.createElement('div'); 
+        const box = document.createElement('div');
         box.className = 'label-box';
-        box.contentEditable = "true"; 
-        box.spellcheck = false; 
-        box.dataset.page = currentPage; 
-        box.innerText = "A"; 
+        box.style.color = currentColor; // Lấy màu hiện tại
         
         const rect = wrapper.getBoundingClientRect();
-        let finalX = x - rect.left; 
-        let finalY = y - rect.top + wrapper.scrollTop; 
+        box.style.left = (x - rect.left) + 'px';
+        box.style.top = (y - rect.top + wrapper.scrollTop) + 'px';
+
+        // Thêm div tay cầm (label-handle) vào trong box
+        box.innerHTML = `
+            <div class="label-handle" title="Kéo để di chuyển">✥ Di chuyển</div>
+            <div class="label-editor" contenteditable="true" spellcheck="false">A</div>
+            <div class="label-render">A</div>
+        `;
+        contentContainer.appendChild(box);
+
+        const editor = box.querySelector('.label-editor');
+        const display = box.querySelector('.label-render');
+        const handle = box.querySelector('.label-handle');
+
+        // Xử lý sự kiện gõ (Giữ nguyên logic thông minh)
+        editor.addEventListener('input', () => {
+            let text = editor.innerText;
+            box.dataset.raw = text;
+            
+            // Logic tự bọc $ cho toán
+            if (text.includes('\\') || text.includes('^') || text.includes('_') || text.includes('{') || text.match(/[=><]/)) {
+                 display.innerHTML = '$' + text + '$';
+            } else {
+                 display.innerText = text;
+            }
+            
+            MathJax.typesetPromise([display]).then(() => {
+                // Quan trọng: Áp dụng màu bút vào SVG vừa render
+                display.querySelectorAll('svg').forEach(svg => svg.style.fill = box.style.color);
+            });
+        });
+
+        editor.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); editor.blur(); }
+            if (e.ctrlKey && e.key === 'e') { e.preventDefault(); box.remove(); saveAppState(); }
+        });
+
+        editor.addEventListener('blur', () => { if (!editor.innerText.trim()) box.remove(); saveAppState(); });
         
-        if(finalX < 0) finalX = 10; 
-        if(finalY < 0) finalY = 10;
-        
-        box.style.left = finalX + 'px'; 
-        box.style.top = finalY + 'px';
-        contentContainer.appendChild(box); 
-        
-        makeElementDraggable(box, box);
+        // QUAN TRỌNG: Chỉ cho phép kéo khi nắm vào tay cầm (handle)
+        makeElementDraggable(box, handle);
         
         setTimeout(() => { 
-            box.focus(); 
+            editor.focus(); 
             document.execCommand('selectAll', false, null); 
         }, 10);
-        
-        updateContainerHeight();
     }
     
     window.addEventListener('keydown', (e) => { 
@@ -1821,7 +1982,17 @@
 
     function toggleHelp(){
         const m = document.getElementById('helpModal');
-        m.style.display = m.style.display === 'block' ? 'none' : 'block';
+        // Kiểm tra xem đang đóng hay mở
+        if (m.style.display === 'block') {
+            m.style.display = 'none';
+        } else {
+            m.style.display = 'block';
+            // Lệnh quan trọng: Ép MathJax vẽ lại công thức trong bảng hướng dẫn
+            MathJax.typesetPromise([m]).then(() => {
+                // Đổi màu các công thức thành màu trắng cho nổi bật trên nền đen
+                m.querySelectorAll('svg').forEach(svg => svg.style.fill = '#fff');
+            });
+        }
     }
 
     // ============================================================
@@ -2064,9 +2235,83 @@
         }
         document.getElementById('loading').style.display = 'none';
     }
+// ============================================================
+    // HỆ THỐNG PHÍM TẮT TOÁN HỌC DÙNG CHUNG (GLOBAL MATH SHORTCUTS)
+    // ============================================================
+
+    // 1. Cấu hình phím tắt (Thầy có thể sửa đổi code Latex tại đây)
+    const MATH_SHORTCUTS = {
+        '1': { code: '\\frac{}{}', move: 3 },       // Alt+1: Phân số
+        '2': { code: '\\sqrt{}', move: 1 },         // Alt+2: Căn bậc 2
+        '3': { code: '\\begin{cases}\\end{cases}', move: 11 }, // Alt+3: Hệ PT
+        '4': { code: '\\widehat{}', move: 1 },      // Alt+4: Góc
+        '5': { code: '^\\circ', move: 0 },          // Alt+5: Độ
+        '6': { code: '\\Rightarrow ', move: 0 },    // Alt+6: Suy ra
+        '7': { code: '\\pm ', move: 0 },            // Alt+7: Cộng trừ
+        '8': { code: '\\int_{}^{}', move: 4 },      // Alt+8: Tích phân
+        '9': { code: '\\perp ', move: 0 },          // Alt+9: Vuông góc
+        '0': { code: '\\infty ', move: 0 }          // Alt+0: Vô cực
+    };
+
+    // 2. Lắng nghe phím tắt trên toàn trang (Alt + Số)
+    window.addEventListener('keydown', (e) => {
+        // Chỉ bắt sự kiện nếu nhấn Alt + Số (và không giữ Ctrl/Shift)
+        if (e.altKey && !e.ctrlKey && !e.shiftKey) {
+            const key = e.key;
+            if (MATH_SHORTCUTS[key]) {
+                e.preventDefault(); // Chặn hành động mặc định
+                
+                // Xác định đang gõ ở đâu để chèn vào đó
+                const activeEl = document.activeElement;
+                const { code, move } = MATH_SHORTCUTS[key];
+
+                // TRƯỜNG HỢP A: Đang gõ trong Label Box (Nhãn trên hình)
+                if (activeEl.classList.contains('label-editor')) {
+                    const sel = window.getSelection();
+                    if (sel.getRangeAt && sel.rangeCount) {
+                        const range = sel.getRangeAt(0);
+                        range.deleteContents();
+                        const textNode = document.createTextNode(code);
+                        range.insertNode(textNode);
+                        range.setStartAfter(textNode);
+                        range.setEndAfter(textNode);
+                        
+                        // Lùi con trỏ vào giữa dấu ngoặc {}
+                        if (move > 0) {
+                            try {
+                                range.setStart(textNode, code.length - move);
+                                range.setEnd(textNode, code.length - move);
+                            } catch (err) {}
+                        }
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                        // Kích hoạt sự kiện input để LabelBox tự render lại hình
+                        activeEl.dispatchEvent(new Event('input'));
+                    }
+                }
+                
+                // TRƯỜNG HỢP B: Đang gõ trong Math Box Editor (Bảng đen phía dưới)
+                else if (activeEl.id === 'latex-input') {
+                    const start = activeEl.selectionStart;
+                    const end = activeEl.selectionEnd;
+                    const val = activeEl.value;
+                    
+                    // Chèn text vào vị trí con trỏ
+                    activeEl.value = val.substring(0, start) + code + val.substring(end);
+                    
+                    // Đặt lại vị trí con trỏ
+                    const newPos = start + code.length - move;
+                    activeEl.selectionStart = newPos;
+                    activeEl.selectionEnd = newPos;
+                    activeEl.focus();
+                }
+            }
+        }
+    });
 
     // Chạy nạp thư viện khi trang web mở
     window.addEventListener('load', autoLoadLibrary);
+
 </script>
 </body>
 </html>
