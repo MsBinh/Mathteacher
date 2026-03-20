@@ -1,0 +1,124 @@
+{
+  "title": "📚 Lý thuyết hàm số và ứng dụng",
+  "description": "Bài giảng tổng hợp lý thuyết về hàm số, tính đơn điệu, cực trị và bài tập vận dụng",
+  "sections": [
+    {
+      "title": "1. Định nghĩa và tính chất cơ bản",
+      "description": "Các khái niệm cơ bản về hàm số",
+      "content": [
+        {
+          "type": "definition",
+          "title": "Định nghĩa hàm số",
+          "content": "Cho $D \\subset \\mathbb{R}$. Hàm số $f$ xác định trên $D$ là một quy tắc đặt tương ứng mỗi số $x \\in D$ với một và chỉ một số thực $y$, ký hiệu $y = f(x)$.",
+          "formula": "$f: D \\to \\mathbb{R}$\n$x \\mapsto y = f(x)$",
+          "note": "Tập $D$ gọi là tập xác định, $y = f(x)$ gọi là giá trị của hàm số tại $x$."
+        },
+        {
+          "type": "definition",
+          "title": "Tập xác định",
+          "content": "Tập xác định của hàm số $y = f(x)$ là tập hợp tất cả các giá trị của $x$ làm cho biểu thức $f(x)$ có nghĩa.",
+          "note": "Cần chú ý: mẫu số khác 0, biểu thức trong căn bậc chẵn ≥ 0, biểu thức trong logarit > 0."
+        },
+        {
+          "type": "example",
+          "title": "Ví dụ 1",
+          "problem": "Tìm tập xác định của hàm số $y = \\frac{\\sqrt{x-2}}{x^2 - 4}$.",
+          "solution": "Điều kiện xác định:\n1) $x - 2 \\geq 0 \\Rightarrow x \\geq 2$\n2) $x^2 - 4 \\neq 0 \\Rightarrow x \\neq \\pm 2$\nKết hợp: $x > 2$\nVậy $D = (2, +\\infty)$."
+        }
+      ]
+    },
+    {
+      "title": "2. Tính đơn điệu của hàm số",
+      "description": "Xét sự đồng biến, nghịch biến của hàm số",
+      "content": [
+        {
+          "type": "definition",
+          "title": "Hàm số đồng biến",
+          "content": "Hàm số $y = f(x)$ gọi là đồng biến (tăng) trên khoảng $(a,b)$ nếu với mọi $x_1, x_2 \\in (a,b)$ mà $x_1 < x_2$ thì $f(x_1) < f(x_2)$."
+        },
+        {
+          "type": "definition",
+          "title": "Hàm số nghịch biến",
+          "content": "Hàm số $y = f(x)$ gọi là nghịch biến (giảm) trên khoảng $(a,b)$ nếu với mọi $x_1, x_2 \\in (a,b)$ mà $x_1 < x_2$ thì $f(x_1) > f(x_2)$."
+        },
+        {
+          "type": "theorem",
+          "title": "Định lý về dấu của đạo hàm",
+          "statements": [
+            {
+              "content": "Nếu $f'(x) > 0$ với mọi $x \\in (a,b)$ thì hàm số đồng biến trên $(a,b)$."
+            },
+            {
+              "content": "Nếu $f'(x) < 0$ với mọi $x \\in (a,b)$ thì hàm số nghịch biến trên $(a,b)$."
+            },
+            {
+              "content": "Nếu $f'(x) = 0$ với mọi $x \\in (a,b)$ thì hàm số là hằng số trên $(a,b)$."
+            }
+          ],
+          "note": "Điều ngược lại không đúng. Có những hàm số đồng biến nhưng đạo hàm bằng 0 tại một số điểm (ví dụ $y = x^3$ tại $x=0$)."
+        },
+        {
+          "type": "example",
+          "title": "Ví dụ 2",
+          "problem": "Xét tính đơn điệu của hàm số $y = x^3 - 3x^2 + 1$.",
+          "solution": "Ta có: $y' = 3x^2 - 6x = 3x(x-2)$\n$y' = 0 \\Leftrightarrow x = 0$ hoặc $x = 2$\nBảng xét dấu:\n\\begin{tabular}{|c|c|c|c|c|c|}\n\\hline\n$x$ & $-\\infty$ & 0 & 2 & $+\\infty$ \\\\\n\\hline\n$y'$ & + & 0 & - & 0 & + \\\\\n\\hline\n$y$ & ĐB & CĐ & NB & CT & ĐB \\\\\n\\hline\n\\end{tabular}\nVậy hàm số đồng biến trên $(-\\infty,0)$ và $(2,+\\infty)$, nghịch biến trên $(0,2)$."
+        },
+        {
+          "type": "multiple_choice",
+          "title": "Bài tập 1",
+          "text": "Hàm số nào sau đây đồng biến trên $\\mathbb{R}$?",
+          "level": "thong_hieu",
+          "options": {
+            "A": "$y = x^2 + 1$",
+            "B": "$y = x^3 + x$",
+            "C": "$y = \\frac{x+1}{x-1}$",
+            "D": "$y = \\tan x$"
+          },
+          "correct": "B",
+          "solution": "$y = x^3 + x$ có $y' = 3x^2 + 1 > 0$ với mọi $x \\in \\mathbb{R}$ nên đồng biến trên $\\mathbb{R}$."
+        }
+      ]
+    },
+    {
+      "title": "3. Cực trị của hàm số",
+      "description": "Các khái niệm và phương pháp tìm cực trị",
+      "content": [
+        {
+          "type": "definition",
+          "title": "Điểm cực đại",
+          "content": "Điểm $x_0$ được gọi là điểm cực đại của hàm số $y = f(x)$ nếu tồn tại khoảng $(a,b)$ chứa $x_0$ sao cho $(a,b) \\subset D$ và $f(x) < f(x_0)$ với mọi $x \\in (a,b) \\setminus \\{x_0\\}$."
+        },
+        {
+          "type": "definition",
+          "title": "Điểm cực tiểu",
+          "content": "Điểm $x_0$ được gọi là điểm cực tiểu của hàm số $y = f(x)$ nếu tồn tại khoảng $(a,b)$ chứa $x_0$ sao cho $(a,b) \\subset D$ và $f(x) > f(x_0)$ với mọi $x \\in (a,b) \\setminus \\{x_0\\}$."
+        },
+        {
+          "type": "theorem",
+          "title": "Điều kiện cần của cực trị (Fermat)",
+          "statements": [
+            {
+              "content": "Nếu hàm số $y = f(x)$ có đạo hàm tại $x_0$ và đạt cực trị tại $x_0$ thì $f'(x_0) = 0$."
+            }
+          ],
+          "proof": "Giả sử $f$ đạt cực đại tại $x_0$. Khi đó với $h$ đủ nhỏ:\n$f(x_0 + h) - f(x_0) \\leq 0$\nNếu $h > 0$: $\\frac{f(x_0+h)-f(x_0)}{h} \\leq 0 \\Rightarrow f'(x_0^+) \\leq 0$\nNếu $h < 0$: $\\frac{f(x_0+h)-f(x_0)}{h} \\geq 0 \\Rightarrow f'(x_0^-) \\geq 0$\nVì $f$ có đạo hàm tại $x_0$ nên $f'(x_0^+) = f'(x_0^-) = f'(x_0) = 0$."
+        },
+        {
+          "type": "example",
+          "title": "Ví dụ 3",
+          "problem": "Tìm cực trị của hàm số $y = x^4 - 2x^2 + 3$.",
+          "solution": "$y' = 4x^3 - 4x = 4x(x^2 - 1) = 4x(x-1)(x+1)$\n$y' = 0 \\Leftrightarrow x = -1, 0, 1$\nBảng biến thiên:\n\\begin{tabular}{|c|c|c|c|c|c|c|c|}\n\\hline\n$x$ & $-\\infty$ & -1 & 0 & 1 & $+\\infty$ \\\\\n\\hline\n$y'$ & - & 0 & + & 0 & - & 0 & + \\\\\n\\hline\n$y$ & $+\\infty$ & CT & ĐB & CĐ & NB & CT & $+\\infty$ \\\\\n\\hline\n\\end{tabular}\nCực tiểu: $(-1,2)$ và $(1,2)$, cực đại: $(0,3)$."
+        },
+        {
+          "type": "short_answer",
+          "title": "Bài tập 2",
+          "text": "Tìm giá trị cực đại của hàm số $y = -x^3 + 3x^2 - 4$.",
+          "level": "van_dung",
+          "placeholder": "Nhập kết quả",
+          "answer": "0",
+          "solution": "$y' = -3x^2 + 6x = -3x(x-2) = 0 \\Rightarrow x=0$ hoặc $x=2$\n$y'' = -6x + 6$\n$y''(0) = 6 > 0$ ⇒ cực tiểu\n$y''(2) = -6 < 0$ ⇒ cực đại\n$y_{CĐ} = y(2) = -8 + 12 - 4 = 0$"
+        }
+      ]
+    }
+  ]
+}

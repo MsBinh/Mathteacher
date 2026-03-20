@@ -1,0 +1,352 @@
+[
+  {
+    "id": "149",
+    "title": "Câu 149",
+    "type": "true_false",
+    "text": "Cho hàm số $y = \\sqrt{x+2}$ ($x \\ge -2$) và đường thẳng $y = x$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-1.png}",
+    "options": {
+      "A": "Diện tích hình phẳng $D$ giới hạn bởi đồ thị hàm số $y = \\sqrt{x+2}$ ($x \\ge -2$), trục tung, trục hoành và đường thẳng $x = 2$ là $S_D = \\frac{16}{3} - \\frac{4\\sqrt{2}}{3}$ (đvdt).",
+      "B": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = \\sqrt{x+2}$ và đường thẳng $y = x$, hai đường thẳng $x = 0$, $x = 2$ là $S = \\frac{10}{3} - \\frac{2\\sqrt{2}}{9}$ (đvdt).",
+      "C": "Thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đường thẳng $y = x$, trục hoành, hai đường thẳng $x = 1$, $x = 3$ quanh trục $Ox$ là $5\\pi$ (đvtt).",
+      "D": "Thể tích khối tròn xoay tạo thành khi quay hình phẳng $D$ quanh trục $Ox$ là $6\\pi$ (đvtt)."
+    },
+    "correct": "T,F,F,T",
+    "solution": "a) Đúng. Diện tích cần tìm là $S_D = \\int\\limits_0^2 \\left| \\sqrt{x+2} \\right| \\mathrm{d}x$ <br> Với $x \\in [0; 2]$ thì $\\sqrt{x+2} \\ge 0$ nên <br> $S_D = \\int\\limits_0^2 \\left| \\sqrt{x+2} \\right| \\mathrm{d}x = \\int\\limits_0^2 \\sqrt{x+2} \\mathrm{d}x = \\int\\limits_0^2 (x+2)^{\\frac{1}{2}} \\mathrm{d}x = \\frac{2}{3}(x+2)^{\\frac{3}{2}} \\bigg|_0^2 = \\frac{16}{3} - \\frac{4\\sqrt{2}}{3}$. <br>  <br> b) Sai. Diện tích cần tìm là $S = \\int\\limits_0^2 \\left| \\sqrt{x+2} - x \\right| \\mathrm{d}x$ <br> Ta có $\\sqrt{x+2} - x = 0 \\Leftrightarrow x = 2$ ($x \\ge 0$) <br> Vậy $S = \\int\\limits_0^2 \\left| \\sqrt{x+2} - x \\right| \\mathrm{d}x = \\left| \\int\\limits_0^2 (\\sqrt{x+2} - x) \\mathrm{d}x \\right| = \\left| \\int\\limits_0^2 \\sqrt{x+2} \\mathrm{d}x - \\int\\limits_0^2 x \\mathrm{d}x \\right| = \\left| \\int\\limits_0^2 (x+2)^{\\frac{1}{2}} \\mathrm{d}x - \\int\\limits_0^2 x \\mathrm{d}x \\right|$ <br> $= \\left| \\frac{2}{3}(x+2)^{\\frac{3}{2}} \\bigg|_0^2 - \\frac{x^2}{2} \\bigg|_0^2 \\right| = \\left| \\frac{10}{3} - \\frac{4\\sqrt{2}}{3} \\right| = \\frac{10}{3} - \\frac{4\\sqrt{2}}{3}$ (đvdt). <br>  <br> c) Sai. Thể tích khối tròn xoay cần tìm là $V = \\pi \\int\\limits_1^3 x^2 \\mathrm{d}x = \\pi \\frac{x^3}{3} \\bigg|_1^3 = \\frac{26}{3}\\pi$ (đvtt). <br>  <br> d) Đúng. Thể tích khối tròn xoay tạo thành khi quay hình phẳng $D$ quanh trục $Ox$ là: <br> $V = \\pi \\int\\limits_0^2 (\\sqrt{x+2})^2 \\mathrm{d}x = 6\\pi$ (đvtt)."
+  },
+  {
+    "id": "150",
+    "title": "Câu 150",
+    "type": "true_false",
+    "text": "Cho đồ thị hàm số $(C): y = \\frac{x^2 - x}{x + 1}$ và đường thẳng $d: y = 2$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-2.png}",
+    "options": {
+      "A": "Diện tích hình phẳng $D$ giới hạn bởi đồ thị hàm số $(C)$, trục tung, trục hoành là $\\frac{3}{2} - 2\\ln 2$.",
+      "B": "Diện tích hình phẳng $H$ giới hạn bởi đồ thị hàm số $(C)$, đường thẳng $d$, $x = 1$, $x = 2$ là $\\frac{5}{2} + 2\\ln\\frac{3}{2}$.",
+      "C": "Thể tích của khối tròn xoay tạo thành khi quay hình phẳng $D$ quanh trục $Ox$ là $\\left(\\frac{20}{3} - 12\\ln 2\\right)\\pi$.",
+      "D": "Thể tích của khối tròn xoay tạo thành khi quay hình phẳng $H$ quanh trục $Ox$ là $\\left(12\\ln\\frac{3}{2} - 1\\right)\\pi$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "a) Đúng. Phương trình hoành độ giao điểm của đồ thị hàm số $(C): y = \\frac{x^2 - x}{x + 1}$ và trục hoành <br> $\\frac{x^2 - x}{x + 1} = 0, x \\ne -1 \\Leftrightarrow x^2 - x = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\\\ x = 1 \\end{array} \\right.$ <br> Diện tích hình phẳng $D$ giới hạn bởi đồ thị hàm số $(C)$, trục tung, trục hoành là <br> $S_1 = \\int\\limits_0^1 \\left| \\frac{x^2 - x}{x + 1} \\right| \\mathrm{d}x = \\left| \\int\\limits_0^1 \\left( x - 2 + \\frac{2}{x + 1} \\right) \\mathrm{d}x \\right| = \\left| \\left( \\frac{1}{2}x^2 - 2x + 2\\ln|x + 1| \\right) \\bigg|_0^1 \\right| = \\frac{3}{2} - 2\\ln 2$ (đvdt). <br>  <br> b) Sai. Xét phương trình hoành độ giao điểm của đồ thị hàm số $(C): y = \\frac{x^2 - x}{x + 1}$ và đường thẳng $d: \\frac{x^2 - x}{x + 1} = 2, x \\ne -1$ <br> $\\Leftrightarrow x^2 - x = 2(x + 1) \\Leftrightarrow x^2 - 3x - 2 = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = \\frac{3 - \\sqrt{17}}{2} \\notin [1; 2] \\\\ x = \\frac{3 + \\sqrt{17}}{2} \\notin [1; 2] \\end{array} \\right.$ <br> Diện tích hình phẳng $H$ giới hạn bởi đồ thị hàm số $(C)$, đường thẳng $d: y = 2$, $x = 1, x = 2$ là <br> $S_2 = \\int\\limits_1^2 \\left| \\frac{x^2 - x}{x + 1} - 2 \\right| \\mathrm{d}x = \\left| \\int\\limits_1^2 \\left( x - 4 + \\frac{2}{x + 1} \\right) \\mathrm{d}x \\right| = \\left| \\left( \\frac{1}{2}x^2 - 4x + 2\\ln|x + 1| \\right) \\bigg|_1^2 \\right| = \\frac{5}{2} - 2\\ln\\frac{3}{2}$ (đvdt). <br>  <br> c) Sai. Thể tích của khối tròn xoay tạo thành khi quay hình phẳng $D$ giới hạn bởi đồ thị hàm số $(C)$, trục tung, trục hoành khi quay quanh trục $Ox$ là <br> $V_1 = \\pi \\int\\limits_0^1 \\left( \\frac{x^2 - x}{x + 1} \\right)^2 \\mathrm{d}x = \\pi \\int\\limits_0^1 \\left( x - 2 + \\frac{2}{x + 1} \\right)^2 \\mathrm{d}x = \\pi \\int\\limits_0^1 \\left( x^2 - 4x + 8 - \\frac{12}{x + 1} + \\frac{4}{(x + 1)^2} \\right) \\mathrm{d}x$ <br> $= \\pi \\left( \\frac{1}{3}x^3 - 2x^2 + 8x - 12\\ln|x + 1| - \\frac{4}{x + 1} \\right) \\bigg|_0^1 = \\left( \\frac{25}{3} - 12\\ln 2 \\right)\\pi$ (đvdt). <br>  <br> d) Đúng. Thể tích của khối tròn xoay tạo thành khi quay hình phẳng $H$ giới hạn bởi đồ thị hàm số $(C)$, đường thẳng $d$, $x = 0, x = 2$ khi quay quanh trục $Ox$ là <br> $V_2 = \\pi \\int\\limits_1^2 2^2 \\mathrm{d}x - \\pi \\int\\limits_1^2 \\left( \\frac{x^2 - x}{x + 1} \\right)^2 \\mathrm{d}x$ <br> $= 4\\pi - \\pi \\int\\limits_1^2 \\left( x - 2 + \\frac{2}{x + 1} \\right)^2 \\mathrm{d}x = 4\\pi - \\pi \\int\\limits_1^2 \\left( x^2 - 4x + 8 - \\frac{12}{x + 1} + \\frac{4}{(x + 1)^2} \\right) \\mathrm{d}x$ <br> $= 4\\pi - \\pi \\left( \\frac{1}{3}x^3 - 2x^2 + 8x - 12\\ln|x + 1| - \\frac{4}{x + 1} \\right) \\bigg|_1^2$ <br> $= 4\\pi - \\left( 5 + 12\\ln\\frac{2}{3} \\right)\\pi = \\left( 12\\ln\\frac{3}{2} - 1 \\right)\\pi$ (đvdt)."
+  },
+  {
+    "id": "151",
+    "title": "Câu 151",
+    "type": "true_false",
+    "text": "Cho hàm số $y = e^x$ có đồ thị $(C)$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-3.png}",
+    "options": {
+      "A": "Diện tích hình phẳng giới hạn bởi đồ thị $(C)$, trục hoành và hai đường thẳng $x = 0; x = 3$ bằng $e^3$.",
+      "B": "Khi $k = 4$ thì diện tích hình phẳng giới hạn bởi đồ thị $(C)$, trục hoành và hai đường thẳng $x = 0; x = k$ bằng $3$.",
+      "C": "Gọi $d$ là tiếp tuyến của đồ thị $(C)$ tại điểm $x_0 = 1$. Diện tích hình phẳng giới hạn bởi đường thẳng $d$, trục hoành và hai đường thẳng $x = 0; x = 3$ bằng $\\frac{9e}{2}$.",
+      "D": "Thể tích khối tròn xoay tạo thành khi quay hình phẳng $D$ giới hạn bởi đồ thị $(C)$, trục hoành và hai đường thẳng $x = 0; x = 3$ quanh trục $Ox$ bằng $e^6$."
+    },
+    "correct": "F,F,T,F",
+    "solution": "a) Sai. Diện tích hình phẳng giới hạn bởi đồ thị $(C)$, trục hoành và hai đường thẳng $x = 0; x = 3$ là <br> $S = \\int\\limits_0^3 e^x \\mathrm{d}x = e^x \\bigg|_0^3 = e^3 - 1$. <br>  <br> b) Sai. Diện tích hình phẳng giới hạn bởi đồ thị $(C)$, trục hoành và hai đường thẳng $x = 0; x = k (k > 0)$ bằng $3$ nên ta có: $\\int\\limits_0^k e^x \\mathrm{d}x = 3 \\Leftrightarrow e^x \\bigg|_0^k = 3 \\Leftrightarrow e^k - 1 = 3 \\Leftrightarrow k = \\ln 4$. <br>  <br> c) Đúng. Phương trình tiếp tuyến $d$ của đồ thi hàm số tại điểm $x_0 = 1$ là <br> $y = e(x - 1) + e \\Leftrightarrow y = ex$. <br> Diện tích hình phẳng giới hạn bởi đường thẳng $d$, trục hoành và hai đường thẳng $x = 0; x = 3$ là $S = \\int\\limits_0^3 (ex) \\mathrm{d}x = e \\cdot \\frac{x^2}{2} \\bigg|_0^3 = \\frac{9e}{2}$. <br>  <br> d) Sai. Thể tích khối tròn xoay tạo thành khi quay hình phẳng $D$ giới hạn bởi đồ thị $(C)$, trục hoành và hai đường thẳng $x = 0; x = 3$ quanh trục $Ox$ là <br> $V = \\int\\limits_0^3 e^{2x} \\mathrm{d}x = \\frac{1}{2}e^{2x} \\bigg|_0^3 = \\frac{1}{2}(e^6 - 1)$."
+  },
+  {
+    "id": "152",
+    "title": "Câu 152",
+    "type": "true_false",
+    "text": "Cho hàm số bậc hai $y = -x^2 + 5x$ và đường thẳng $y = 2x$.",
+    "options": {
+      "A": "Toạ độ giao điểm của đường thẳng $y = 2x$ và đồ thị hàm số $y = -x^2 + 5x$ là $A(0;0)$ và $B(3;6)$.",
+      "B": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = -x^2 + 5x$, trục hoành là $\\frac{27}{2}$",
+      "C": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = -x^2 + 5x, y = 2x$ là $\\frac{9}{2}$",
+      "D": "Gọi $S_1$ là diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = -x^2 + 5x; y = 2x$ và $S_2$ là diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = -x^2 + 5x; y = 2x$ và trục hoành. Tỉ số diện tích $\\frac{S_1}{S_2}$ bằng $\\frac{27}{6}$."
+    },
+    "correct": "T,F,T,F",
+    "solution": "a) Đúng. Xét phương trình hoành độ giao điểm của đồ thị hàm số $y = -x^2 + 5x$ và đường thẳng $y = 2x$. <br> Ta có: $-x^2 + 5x = 2x \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\\\ x = 3 \\end{array} \\right.$. Khi đó ta có 2 giao điểm $A(0;0); B(3;6)$. <br>  <br> b) Sai. Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = -x^2 + 5x$, trục hoành là <br> $S = \\int\\limits_0^5 |-x^2 + 5x| \\mathrm{d}x = \\frac{125}{6}$. <br>  <br> c) Đúng. Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = -x^2 + 5x, y = 2x$ là <br> $S_1 = \\int\\limits_0^3 |-x^2 + 3x| \\mathrm{d}x = \\frac{9}{2}$. <br>  <br> d) Sai. Ta có: $S_2 = S - S_1 = \\frac{125}{6} - \\frac{9}{2} = \\frac{49}{3}$. <br> Khi đó $\\frac{S_1}{S_2} = \\frac{27}{98}$."
+  },
+  {
+    "id": "153",
+    "title": "Câu 153",
+    "type": "true_false",
+    "text": "Cho đồ thị các hàm số $y = f(x) = 2x^2$, $y = -2x + 4$, đường parabol $y^2 = 4x$ và hình phẳng $(S)$ được tô màu như hình vẽ bên dưới. Các mệnh đề sau đúng hay sai?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-8.png}",
+    "options": {
+      "A": "Phần hình phẳng $(S)$ được giới hạn bởi các đường $y^2 = 4x$, $y = -2x + 4$ và trục $Ox$.",
+      "B": "Diện tích của phần hình phẳng được giới hạn bởi đồ thị hàm số $y = 2x^2$, trục $Ox$ và hai đường thẳng $x = 0$, $x = 1$ được tính bởi công thức $S = \\int\\limits_0^1 2x^2 \\mathrm{d}x$.",
+      "C": "Diện tích của phần hình phẳng $(S)$ được tính bởi công thức $S = \\int\\limits_0^1 2x^2 \\mathrm{d}x + \\int\\limits_1^2 (2x - 4) \\mathrm{d}x$.",
+      "D": "Diện tích của phần hình phẳng được giới hạn bởi đồ thị hàm số $y = 2x^2$ và đường $y^2 = 4x$ là $\\dfrac{2}{3}$."
+    },
+    "correct": "F,T,F,T",
+    "solution": ""
+  },
+  {
+    "id": "154",
+    "title": "Câu 154",
+    "type": "true_false",
+    "text": "Cho hình phẳng được tô trong hình bên dưới.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-9.png}\nTrong mỗi ý a), b), c), d) ở mỗi câu. Hãy trả lời đúng hoặc sai.",
+    "options": {
+      "A": "Hình phẳng được tô màu trong hình trên được giới hạn các đồ thị $y = x^2; y = \\sqrt{x}$",
+      "B": "Diện tích hình phẳng tô màu trong hình vẽ là $\\frac{1}{3}$.",
+      "C": "Thể tích của vật tròn xoay tạo thành khi quay hình phẳng trên quanh trục $Ox$ là $\\pi \\int\\limits_0^1 (\\sqrt{x} - x^2) \\mathrm{d}x$.",
+      "D": "Thể tích $V$ của vật tròn xoay tạo thành khi quay hình phẳng $(H)$ giới hạn bởi các đường $(P): y = x^2; (C): y = \\sqrt{x}$ quanh trục $Oy$ bằng $\\frac{3\\pi}{10}$."
+    },
+    "correct": "T,T,F,T",
+    "solution": "a) Đúng. Hình phẳng được tô màu trong hình trên được giới hạn các đồ thị $y = x^2; y = \\sqrt{x}$ <br>  <br> b, Đúng. Phương trình hoành độ giao điểm: <br> $x^2 = \\sqrt{x} \\Leftrightarrow x^4 - x = 0$ <br> $\\Leftrightarrow x(x - 1)(x^2 + x + 1) = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\\\ x = 1 \\end{array} \\right.$. <br> Khi đó diện tích hình phẳng được giới hạn bởi các đồ thị $y = x^2; y = \\sqrt{x}$ là: <br> $S = \\int\\limits_0^1 (\\sqrt{x} - x^2) \\mathrm{d}x = \\frac{1}{3}$. <br>  <br> c) Sai. Phương trình hoành độ giao điểm: $x^2 = \\sqrt{x} \\Leftrightarrow x^4 - x = 0$ <br> $\\Leftrightarrow x(x - 1)(x^2 + x + 1) = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\\\ x = 1 \\end{array} \\right.$. <br> Khi đó thể tích của vật tròn xoay tạo thành khi quay hình phẳng trên quanh trục $Ox$ là <br> $\\pi \\int\\limits_0^1 (x - x^4) \\mathrm{d}x$. <br>  <br> d) Đúng. Phương trình hoành độ giao điểm: $x^2 = \\sqrt{x} \\Leftrightarrow x^4 - x = 0$ <br> $\\Leftrightarrow x(x - 1)(x^2 + x + 1) = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\Rightarrow y = 0 \\\\ x = 1 \\Rightarrow y = 1 \\end{array} \\right.$ <br> Mặt khác: <br> $(P): y = x^2 \\Rightarrow \\left[ \\begin{array}{l} x = \\sqrt{y} \\\\ x = -\\sqrt{y} \\end{array} \\right. (y \\ge 0)$ <br> $(C): y = \\sqrt{x} \\Rightarrow x = y^2$ <br> Xét $(H_1): \\begin{cases} x = \\sqrt{y} \\\\ Oy \\\\ y = 0 \\\\ y = 1 \\end{cases}$ quay quanh $Oy$ được $V_1$ <br> Xét $(H_2): \\begin{cases} x = y^2 \\\\ Oy \\\\ y = 0 \\\\ y = 1 \\end{cases}$ quay quanh $Oy$ được $V_2$ <br> Do đó, thể tích cần tìm chính là: <br> $V = V_1 - V_2 = \\pi \\left[ \\int\\limits_0^1 (\\sqrt{y})^2 \\mathrm{d}y - \\int\\limits_0^1 (y^2)^2 \\mathrm{d}y \\right] = \\frac{3\\pi}{10}$."
+  },
+  {
+    "id": "155",
+    "title": "Câu 155",
+    "type": "true_false",
+    "text": "(Chuyên Hùng Vương - Phú Thọ 2025) Cho hàm số $y = f(x)$, hàm số $y = f'(x)$ có đồ thị như hình vẽ bên dưới.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-11.png}\nBiết $f(-1) = -\\frac{43}{4}$, diện tích hình phẳng $(H_1), (H_2)$ lần lượt bằng $20$ và $128$.",
+    "options": {
+      "A": "Giá trị của $\\int\\limits_{-1}^5 f'(x) \\mathrm{d}x$ bằng $148$.",
+      "B": "Giá trị của $f(5)$ bằng $-\\frac{475}{4}$.",
+      "C": "Giá trị của $f(2)$ bằng $-4$.",
+      "D": "Diện tích hình phẳng giới hạn bởi các đường $y = f(x), y = -\\frac{3}{2}x^2 + 15x$, trục tung và đường thẳng $x = 5$ bằng $\\frac{625}{2}$."
+    },
+    "correct": "F,T,T,T",
+    "solution": "a) Sai. Dựa vào đồ thị ta có: $S_{(H_1)} = 20$ nên $\\int\\limits_{-1}^1 f'(x) \\mathrm{d}x = 20$, $S_{(H_2)} = 128$ nên $\\int\\limits_1^5 f'(x) \\mathrm{d}x = -128$. <br> Vậy $\\int\\limits_{-1}^5 f'(x) \\mathrm{d}x = \\int\\limits_{-1}^1 f'(x) \\mathrm{d}x + \\int\\limits_1^5 f'(x) \\mathrm{d}x = 20 - 128 = -108$. <br>  <br> b) Đúng. <br> $\\int\\limits_{-1}^5 f'(x) \\mathrm{d}x = f(x) \\bigg|_{-1}^5 = f(5) - f(-1) = -108 \\Rightarrow f(5) = -108 + f(-1) = -108 + \\left(-\\frac{43}{4}\\right) = -\\frac{475}{4}$. <br>  <br> c) Đúng. Xét $f'(x) = a(x + 1)(x - 1)(x - 5)$ <br> $S_{(H_1)} = \\int\\limits_{-1}^1 f'(x) \\mathrm{d}x = \\int\\limits_{-1}^1 a(x + 1)(x - 1)(x - 5) \\mathrm{d}x = a \\int\\limits_{-1}^1 (x + 1)(x - 1)(x - 5) \\mathrm{d}x = a \\cdot \\frac{20}{3} = 20 \\Rightarrow a = 3$. <br> Suy ra $f'(x) = 3(x + 1)(x - 1)(x - 5) = 3x^3 - 15x^2 - 3x + 15$. <br> $\\Rightarrow f(x) = \\int f'(x) \\mathrm{d}x = \\int (3x^3 - 15x^2 - 3x + 15) \\mathrm{d}x = \\frac{3}{4}x^4 - 5x^3 - \\frac{3}{2}x^2 + 15x + C$. <br> Mà $f(-1) = -\\frac{43}{4} \\Rightarrow C = 0 \\Rightarrow f(x) = \\frac{3}{4}x^4 - 5x^3 - \\frac{3}{2}x^2 + 15x$. Vậy $f(2) = -4$. <br>  <br> d) Đúng. Ta có: $S = \\int\\limits_0^5 \\left| \\left( \\frac{3}{4}x^4 - 5x^3 - \\frac{3}{2}x^2 + 15x \\right) - \\left( -\\frac{3}{2}x^2 + 15x \\right) \\right| \\mathrm{d}x = \\int\\limits_0^5 \\left| \\frac{3}{4}x^4 - 5x^3 \\right| \\mathrm{d}x = \\frac{625}{2}$."
+  },
+  {
+    "id": "156",
+    "title": "Câu 156",
+    "type": "true_false",
+    "text": "(Sở Bắc Ninh 2025) Cho đồ thị hàm số $(C): y = x^3 - 2x^2 - 3x + 4$. Đường thẳng $d: y = 2x - 2$ cắt đồ thị $(C)$ thành 2 miền có diện tích là $S_1$ và $S_2$ như hình vẽ\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-12.png}",
+    "options": {
+      "A": "Diện tích hình phẳng giới hạn bới đồ thị $(C)$ và đường thẳng $d$ bằng $\\frac{253}{12}$.",
+      "B": "Đường thẳng $d$ cắt $(C)$ tại ba điểm phân biệt $A(-2; -6); B(1; 0); C(3; 4)$",
+      "C": "Diện tích hình phẳng giới hạn bới đồ thị $(C), Ox$ và đường thẳng $x = -1; x = 2$ bằng $\\frac{21}{4}$.",
+      "D": "Tỉ số $\\frac{S_1}{S_2} = \\frac{63}{16}$."
+    },
+    "correct": "T,T,F,F",
+    "solution": "a) Đúng. Ta có phương trình hoành độ giao điểm của $d$ và $(C)$: <br> $x^3 - 2x^2 - 3x + 4 = 2x - 2 \\Leftrightarrow x^3 - 2x^2 - 5x + 6 = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 1 \\\\ x = -2 \\\\ x = 3 \\end{array} \\right.$ <br> Suy ra diện tích hình phẳng giới hạn bới đồ thị $(C)$ và đường thẳng $d$ là: <br> $S = \\int\\limits_{-2}^3 \\left| x^3 - 2x^2 - 3x + 4 - (2x - 2) \\right| \\mathrm{d}x = \\int\\limits_{-2}^3 \\left| x^3 - 2x^2 - 5x + 6 \\right| \\mathrm{d}x = \\frac{253}{12}$ <br>  <br> b) Đúng. Ta có phương trình hoành độ giao điểm của $(d)$ và $(C)$: <br> $x^3 - 2x^2 - 3x + 4 = 2x - 2 \\Leftrightarrow x^3 - 2x^2 - 5x + 6 = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 1 \\Rightarrow y = 0 \\\\ x = -2 \\Rightarrow y = -6 \\\\ x = 3 \\Rightarrow y = 4 \\end{array} \\right.$ <br> Vậy đường thẳng $(d)$ cắt $(C)$ tại ba điểm phân biệt $A(-2; -6); B(1; 0); C(3; 4)$. <br>  <br> c) Sai. Gọi $(H)$ hình phẳng giới hạn bới đồ thị $(C), Ox$ và đường thẳng $x = -1; x = 2$. Ta có: <br> $S_H = \\int\\limits_{-1}^2 \\left| x^3 - 2x^2 - 3x + 4 \\right| \\mathrm{d}x = \\frac{97}{12}$. <br>  <br> d) Sai. Ta có: $\\frac{S_1}{S_2} = \\frac{\\int\\limits_{-2}^1 \\left| x^3 - 2x^2 - 3x + 4 - (2x - 2) \\right| \\mathrm{d}x}{\\int\\limits_1^3 \\left| x^3 - 2x^2 - 3x + 4 - (2x - 2) \\right| \\mathrm{d}x} = \\frac{\\int\\limits_{-2}^1 \\left| x^3 - 2x^2 - 5x + 6 \\right| \\mathrm{d}x}{\\int\\limits_1^3 \\left| x^3 - 2x^2 - 5x + 6 \\right| \\mathrm{d}x} = \\frac{189}{64}$"
+  },
+  {
+    "id": "157",
+    "title": "Câu 157",
+    "type": "true_false",
+    "text": "(THPT Trần Phú - Vĩnh Phúc 2025) Cho hình phẳng $(H)$ giới hạn bởi $\\frac{1}{4}$ cung tròn của đường tròn tâm $O(0; 0)$ và bán kính bằng $4$, parabol $(P)$ có tọa độ đinhr $I(2; 2)$ và đi qua gốc tọa độ $O$, các đường thẳng $x = 0$, $x = 4$ như hình vẽ bên\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-13.png}",
+    "options": {
+      "A": "Diện tích hình phẳng $(H)$ bằng $16\\left(\\pi - \\frac{1}{3}\\right)$.",
+      "B": "Diện tích hình phẳng giới hạn bởi parabol $(P)$, trục tung, trục hoành và đường thẳng $x = 4$ bằng $\\frac{8}{3}$.",
+      "C": "Đường tròn có phương trình là $x^2 + y^2 = 4$.",
+      "D": "Parabol có phương trình là $y = f(x) = -\\frac{1}{2}x^2 + 2x$."
+    },
+    "correct": "F,F,F,T",
+    "solution": "a) Sai. Diện tích hình phẳng $(H)$ là $S_H = \\int\\limits_0^4 \\left[ \\sqrt{16 - x^2} - (-0,5x^2 + 2x) \\right] \\mathrm{d}x \\approx 7,23$. <br>  <br> b) Sai. Diện tích hình phẳng giới hạn bởi parabol $(P)$, trục tung, trục hoành và đường thẳng $x = 4$ là $S_P = \\int\\limits_0^4 (-0,5x^2 + 2x) \\mathrm{d}x = \\frac{16}{3}$. <br>  <br> c) Sai. Đường tròn tâm $O(0; 0)$, bán kính $R = 4$ có phương trình là $x^2 + y^2 = 4^2$. <br>  <br> d) Đúng. Gọi phương trình của parabol $y = ax^2 + bx + c \\quad (a \\ne 0)$. <br> Vì parabol đi qua các điểm $(0; 0)$, $(4; 0)$ và có đỉnh $I(2; 2)$ nên ta có hệ phương trình <br> $\\begin{cases} c = 0 \\\\ -\\frac{b}{2a} = 2 \\\\ 4a + 2b = 2 \\end{cases} \\Leftrightarrow \\begin{cases} a = -\\frac{1}{2} \\\\ b = 2 \\\\ c = 0 \\end{cases}$. <br> Suy ra phương trình của parabol là: $y = -\\frac{1}{2}x^2 + 2x$."
+  },
+  {
+    "id": "158",
+    "title": "Câu 158",
+    "type": "true_false",
+    "text": "(Đề thi vào ĐHSPHN 2025) Cho hàm số $f(x) = 1 + \\frac{1}{x}$ có đồ thị $(C)$ và hàm số $g(x) = -\\frac{1}{4}x + \\frac{9}{4}$ có đồ thị $(d)$ (xem hình bên dưới).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-14.png}",
+    "options": {
+      "A": "$\\int f(x) \\mathrm{d}x = x - \\ln|x| + C$ với $C$ là hằng số.",
+      "B": "Nếu $f(x)$ có một nguyên hàm là hàm số $F(x)$ và $F(1) = 0$ thì $F(2) = 1 + \\ln 2$.",
+      "C": "Hình phẳng $H_1$ (phần gạch chéo) giới hạn bởi đồ thị $(C)$, đồ thị $(d)$ và các đường thẳng $x = 1, x = 4$ có diện tích là $S_1 = \\frac{15}{8} - \\ln 4$.",
+      "D": "Nếu $S_1, S_2$ lần lượt là diện tích hình phẳng $H_1$ (phần gạch chéo) và $H_2$ (hình phẳng giới hạn bởi đồ thị $(C)$, trục hoành và các đường thẳng $x = 1, x = 4$) thì $\\frac{S_1}{S_2} = \\frac{5}{8}$."
+    },
+    "correct": "F,T,T,F",
+    "solution": "a) Sai. Ta có: $\\int f(x) \\mathrm{d}x = \\int \\left( 1 + \\frac{1}{x} \\right) \\mathrm{d}x = x + \\ln|x| + C$. <br>  <br> b) Đúng. $F(1) = 0 \\Leftrightarrow 1 + \\ln|1| + C = 0 \\Leftrightarrow C = -1$. <br> $\\Leftrightarrow F(2) = 2 + \\ln 2 - 1 = 1 + \\ln 2$. <br>  <br> c) Đúng. Diện tích hình phẳng $H_1$ giới hạn bởi bởi đồ thị $(C)$, đồ thị $(d)$ và các đường thẳng $x = 1, x = 4$ có diện tích là $S_1 = \\int\\limits_1^4 |f(x) - g(x)| \\mathrm{d}x = \\int\\limits_1^4 \\left| -\\frac{5}{4} + \\frac{1}{x} + \\frac{1}{4}x \\right| \\mathrm{d}x = \\left( -\\frac{5}{4}x + \\ln|x| + \\frac{x^2}{8} \\right) \\bigg|_1^4$ <br> $= \\left| -5 + \\ln 4 + \\frac{16}{8} + \\frac{5}{4} - 0 - \\frac{1}{8} \\right| = \\left| -\\frac{15}{8} + \\ln 4 \\right| = \\frac{15}{8} - \\ln 4$. <br>  <br> d) Sai. Diện tích hình phẳng $H_2$ (giới hạn bởi đồ thị $(C)$, trục hoành và các đường thẳng $x = 1, x = 4$) là $S_2 = \\left| \\int\\limits_1^4 f(x) \\mathrm{d}x \\right| = \\left| (x + \\ln|x|) \\bigg|_1^4 \\right| = |4 + \\ln 4 - 1 - \\ln 1| = 3 + \\ln 4$. <br> $\\frac{S_1}{S_2} = \\frac{\\frac{15}{8} - \\ln 4}{3 + \\ln 4} \\approx 0.11$."
+  },
+  {
+    "id": "159",
+    "title": "Câu 159",
+    "type": "true_false",
+    "text": "(THPT Nguyễn Gia Thiều - Hà Nội 2025) Cho hàm số $f(x) = x^3 - 3x^2 + 2x$ có đồ thị như hình vẽ bên.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-15.png}",
+    "options": {
+      "A": "$\\int\\limits_0^1 f'(x) \\mathrm{d}x = 0$.",
+      "B": "Gọi $F(x)$ là một nguyên hàm của hàm số $f(x)$, khi đó $F(x) = \\int f'(x) \\mathrm{d}x$.",
+      "C": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành và hai đường thẳng $x = 0, x = 2$ là $\\int\\limits_0^2 f(x) \\mathrm{d}x$.",
+      "D": "Gọi $(D)$ là hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành, trục tung và đường thẳng $x = 1$. Thể tích khối tròn xoay được tạo thành khi quay $(D)$ quanh trục hoành được tính theo công thức $\\pi \\int\\limits_0^1 f^2(x) \\mathrm{d}x$"
+    },
+    "correct": "T,F,F,T",
+    "solution": "a) Đúng. Ta có: $\\int\\limits_0^1 f'(x) \\mathrm{d}x = f(x) \\bigg|_0^1 = (x^3 - 3x^2 + 2x) \\bigg|_0^1 = 0$. <br>  <br> b) Sai. Gọi $F(x)$ là một nguyên hàm của hàm số $f(x)$, khi đó $F(x) = \\int f(x) \\mathrm{d}x$. <br>  <br> c) Sai. Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành và hai đường thẳng $x = 0, x = 2$ là $\\int\\limits_0^2 |f(x)| \\mathrm{d}x$. <br>  <br> d) Đúng. Gọi $(D)$ là hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành, trục tung và đường thẳng $x = 1$. Thể tích khối tròn xoay được tạo thành khi quay $(D)$ quanh trục hoành được tính theo công thức $\\pi \\int\\limits_0^1 f^2(x) \\mathrm{d}x$."
+  },
+  {
+    "id": "160",
+    "title": "Câu 160",
+    "type": "true_false",
+    "text": "(Sở Bến Tre 2025) Cho hàm số $f(x)$ thỏa mãn $f'(x) = -2x + 4$ và $f(3) = 1$. Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(2) + 4F(1) = 0$. Khi đó",
+    "options": {
+      "A": "$f'(3) = -2$",
+      "B": "$F'(x) = f(x)$",
+      "C": "$F(-2) = \\frac{44}{3}$",
+      "D": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = F(x)$, trục $Ox$ và hai đường thẳng $x = 1, x = 2$ nhỏ hơn $0,5$."
+    },
+    "correct": "T,T,T,F",
+    "solution": "a) Đúng. Ta có $f'(x) = -2x + 4$ nên $f'(3) = -2.3 + 4 = -2$. <br>  <br> b) Đúng. Ta có $F(x)$ là một nguyên hàm của $f(x)$ nên $F'(x) = f(x)$ <br>  <br> c) Đúng. Ta có $f(x) = \\int f'(x) \\mathrm{d}x = \\int (-2x + 4) \\mathrm{d}x = -x^2 + 4x + C$ <br> mà $f(3) = 1$ nên ta có $1 = -9 + 12 + C \\Leftrightarrow C = -2$ suy ra $f(x) = -x^2 + 4x - 2$. <br> Ta có $F(x) = \\int f(x) \\mathrm{d}x = \\int (-x^2 + 4x - 2) \\mathrm{d}x = -\\frac{x^3}{3} + 2x^2 - 2x + C'$ <br> Mà $F(2) + 4F(1) = 0$ nên ta có $-\\frac{8}{3} + 8 - 4 + C' + 4\\left(-\\frac{1}{3} + 2 - 2 + C'\\right) = 0$ <br> $\\Leftrightarrow C' = 0$ <br> Ta có $F(x) = -\\frac{x^3}{3} + 2x^2 - 2x$ suy ra $F(-2) = \\frac{44}{3}$ <br>  <br> d) Sai. Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = F(x)$, trục $Ox$ và hai đường thẳng $x = 1, x = 2$ <br> Ta có $F(x) = 0 \\Leftrightarrow -\\frac{x^3}{3} + 2x^2 - 2x = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\\\ x = 3 - \\sqrt{3} \\\\ x = 3 + \\sqrt{3} \\end{array} \\right.$ <br> Diện tích hình phẳng cần tính là $S = \\int\\limits_1^{3 - \\sqrt{3}} \\left( \\frac{x^3}{3} - 2x^2 + 2x \\right) \\mathrm{d}x + \\int\\limits_{3 - \\sqrt{3}}^2 \\left( -\\frac{x^3}{3} + 2x^2 - 2x \\right) \\mathrm{d}x$ <br> $\\approx 0,51 > 0,5$"
+  },
+  {
+    "id": "161",
+    "title": "Câu 161",
+    "type": "true_false",
+    "text": "(Sở Ninh Bình 2025) Một đồ lưu niệm bằng thuỷ tinh có chiều cao bằng $14$ cm, được thiết kế gồm hai phần, phần dưới là một khối lập phương cạnh bằng $8$ cm và phần trên là một phần của khối cầu có đường kính bằng $8$ cm (tham khảo hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-18.png}",
+    "options": {
+      "A": "Thể tích của đồ lưu niệm đó (làm tròn kết quả đến hàng đơn vị) là $738$ ($\\text{cm}^3$).",
+      "B": "Phần khối cầu có bán kính $4$ cm và chiều cao là $6$ cm.",
+      "C": "Quay hình phẳng giới hạn bởi đồ thị hàm số $y = \\sqrt{8x - x^2}$, trục hoành và hai đường thẳng $x = 0$, $x = 2$ quanh trục hoành ta thu được khối tròn xoay có thể tích là $V = \\int\\limits_0^2 (\\sqrt{8x - x^2})^2 \\mathrm{d}x$.",
+      "D": "Khối lập phương có thể tích bằng $512$ ($\\text{cm}^3$)."
+    },
+    "correct": "T,T,F,T",
+    "solution": "a) Đúng. Phần khối cầu là chỏm cầu có bán kính $R = \\frac{8}{2} = 4$ cm và chiều cao $h = 14 - 8 = 6$ cm. <br> Thể tích chỏm cầu là $V_1 = \\frac{1}{3}\\pi h^2 (3R - h) = \\frac{1}{3}\\pi . 6^2 . (3.4 - 6) = 72\\pi$ ($\\text{cm}^3$). <br> Khối lập phương cạnh bằng $8$ cm nên có thể tích bằng $V_2 = 8^3 = 512$ ($\\text{cm}^3$). <br> Thể tích tổng cộng $V = V_1 + V_2 = 512 + 72\\pi \\approx 738,19$ ($\\text{cm}^3$). <br> Vậy thể tích của đồ lưu niệm đó (làm tròn kết quả đến hàng đơn vị) là $738$ ($\\text{cm}^3$). <br>  <br> Cách khác tính thể tích chỏm cầu: <br> Xét hệ trục $Oxy$, đường tròn tâm $I(4;0)$ và bán kính $R = 4$ có phương trình: <br> $(C): (x - 4)^2 + y^2 = 16 \\Leftrightarrow y = \\pm\\sqrt{16 - (x - 4)^2} = \\pm\\sqrt{x^2 - 8x}$. <br> Khi đó quay hình phẳng giới hạn bởi đồ thị hàm số $y = \\sqrt{8x - x^2}$ trục hoành và hai đường thẳng $x = 0$, $x = 2$ quanh trục hoành ta thu được khối tròn xoay chính là phần mặt cầu nằm bên trong khối lập phương có thể tích $V' = \\pi \\int\\limits_0^2 (\\sqrt{8x - x^2})^2 \\mathrm{d}x = \\frac{40}{3}\\pi$ ($\\text{cm}^3$). <br> Mặt khác thể tích khối cầu có bán kính $R = 4$ là $V_{(S)} = \\frac{4}{3}\\pi . 4^3 = \\frac{256}{3}$ ($\\text{cm}^3$). <br> Suy ra thể tích chỏm cầu là $V_1 = V_{(S)} - V' = \\frac{256}{3}\\pi - \\frac{40}{3}\\pi = 72\\pi$ ($\\text{cm}^3$). <br>  <br> b) Đúng. Đồ lưu niệm bằng thuỷ tinh có chiều cao bằng $14$ cm, phần dưới là một khối lập phương cạnh bằng $8$ cm nên phần khối cầu có bán kính $4$ cm và chiều cao là $6$ cm. <br>  <br> c) Sai. Quay hình phẳng giới hạn bởi đồ thị hàm số $y = \\sqrt{8x - x^2}$ trục hoành và hai đường thẳng $x = 0$, $x = 2$ quanh trục hoành ta thu được khối tròn xoay có thể tích $V = \\pi \\int\\limits_0^2 (\\sqrt{8x - x^2})^2 \\mathrm{d}x$. <br>  <br> d) Đúng. Khối lập phương cạnh bằng $8$ cm nên có thể tích bằng $8^3 = 512$ ($\\text{cm}^3$)."
+  },
+  {
+    "id": "162",
+    "title": "Câu 162",
+    "type": "true_false",
+    "text": "(Sở Bắc Ninh 2025) Cho parabol $(P): y = f(x)$ và đường thẳng $d: y = ax + b$ cắt nhau tại hai điểm $A, B$ như hình vẽ.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-19.png}\nBiết rằng hình phẳng giới hạn bởi $(P)$ và $d$ có diện tích $S = \\frac{125}{6}$.",
+    "options": {
+      "A": "$\\int\\limits_2^7 f(x) \\mathrm{d}x = \\frac{50}{3}$.",
+      "B": "Phương trình đường thẳng $d$ là $y = 3x + 1$",
+      "C": "$\\int\\limits_2^7 f'(x) \\mathrm{d}x = 5$.",
+      "D": "$\\int\\limits_2^7 (2x - 3)f'(x) \\mathrm{d}x = \\frac{215}{3}$."
+    },
+    "correct": "T,F,T,T",
+    "solution": "a) Đúng. Vì đường thẳng $d$ đi qua hai điểm $A(2;5)$, $B(7;10)$ nên phương trình đường thẳng $d: y = x + 3$. <br> Gọi phương trình của parabol: $y = ax^2 + bx + c$. <br> Vì parabol đi qua các điểm $A(2;5)$, $B(7;10)$ nên ta có <br> $\\begin{cases} 4a + 2b + c = 5 \\quad (1) \\\\ 49a + 7b + c = 10 \\quad (2) \\end{cases}$. <br> Mặt khác diện tích hình phẳng giới hạn bởi đường thẳng và parabol có diện tích bằng $S = \\frac{125}{6}$ nên ta có <br> $S = \\int\\limits_2^7 \\left[ (x + 3) - (ax^2 + bx + c) \\right] \\mathrm{d}x = \\frac{125}{6}$ <br> $\\Leftrightarrow \\frac{335}{3}a + \\frac{45}{2}b + 5c = \\frac{50}{3}$. (3) <br> Từ $(1), (2)$ và $(3)$ suy ra $a = 1, b = -8, c = 17 \\Rightarrow (P): y = x^2 - 8x + 17$ <br> Suy ra $\\int\\limits_2^7 f(x) \\mathrm{d}x = \\int\\limits_2^7 (x^2 - 8x + 17) \\mathrm{d}x = \\frac{50}{3}$. <br>  <br> b) Sai. Phương trình đường thẳng $d$ là $y = x - 8$. <br>  <br> c) Đúng. Ta có $f'(x) = 2x - 8 \\Rightarrow \\int\\limits_2^7 f'(x) \\mathrm{d}x = \\int\\limits_2^7 (2x - 8) \\mathrm{d}x = 5$. <br>  <br> d) Đúng. $\\int\\limits_2^7 (2x - 3)f'(x) \\mathrm{d}x = \\int\\limits_2^7 (2x - 3)(2x - 8) \\mathrm{d}x = \\int\\limits_2^7 (4x^2 - 22x + 24) \\mathrm{d}x = \\frac{215}{3}$."
+  },
+  {
+    "id": "163",
+    "title": "Câu 163",
+    "type": "true_false",
+    "text": "(Sở Hải Phòng 2025) Cho hàm số $f(x) = x^2 - 7x + 9\\ln(x + 2) + 3$.",
+    "options": {
+      "A": "Đạo hàm của hàm số đã cho là $f'(x) = \\frac{2x^2 - 3x - 5}{x + 2}$.",
+      "B": "Hàm số đã cho đồng biến trên khoảng $\\left(-1; \\frac{5}{2}\\right)$.",
+      "C": "Giá trị lớn nhất của hàm số $y = f(x)$ trên đoạn $[-1; 2]$ bằng $10$.",
+      "D": "Tiếp tuyến của đồ thị hàm số tại điểm có hoành độ bằng $-1$ cùng với tiệm cận xiên của đồ thị hàm số $y = f'(x)$, trục $Ox$, trục $Oy$ tạo thành đa giác có diện tích bằng $44$ (đvdt)."
+    },
+    "correct": "T,F,F,F",
+    "solution": "a) đúng. $f'(x) = 2x - 7 + \\frac{9}{x + 2} = \\frac{2x^2 - 3x - 5}{x + 2}$. <br>  <br> b) sai. $f'(x) = 0 \\Rightarrow \\left[ \\begin{array}{l} x = -1 \\\\ x = \\frac{5}{2} \\end{array} \\right.$ <br>  <br>  <br> c) sai. $f(-1) = 11$. <br>  <br> d) sai. Tiếp tuyến của đồ thị hàm số tại điểm có hoành độ bằng $-1$ là $y = 11$. <br> Tiệm cận xiên của đồ thị hàm số $y = f'(x)$ là $y = 2x - 7$. <br> \\noteImage[width=0.4\\linewidth]{data/im/UDTP3-25.png} <br> Diện tích hình phẳng cần tìm là <br> $S = \\frac{7}{2}.11 + \\int\\limits_{\\frac{7}{2}}^9 [11 - (2x - 7)] \\mathrm{d}x = 68,75$."
+  },
+  {
+    "id": "164",
+    "title": "Câu 164",
+    "type": "true_false",
+    "text": "(Sở Khánh Hòa 2025) Cho hai hàm số $f(x) = \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8}$ và $g(x) = x$.",
+    "options": {
+      "A": "Hàm số $f(x)$ có nguyên hàm là $F(x) = \\frac{x^3}{24} - \\frac{x^2}{8} + \\frac{9}{8}x + C$ với $C$ là hằng số.",
+      "B": "Nếu hàm số $f(x)$ có nguyên hàm là $F(x)$ thỏa mãn $F(3) = \\frac{1}{3}$ thì $F(1) = -2$.",
+      "C": "Diện tích hình phẳng giới hạn bởi đồ thị của hai hàm số $y = f(x)$, $y = g(x)$ và hai đường thẳng $x = 0$, $x = 2$ là $0,08$ (làm tròn đến hàng phần trăm).",
+      "D": "Một món đồ chơi có dạng khối tròn xoay rỗng, mặt ngoài là một mặt tròn xoay sinh ra khi cho một phần đồ thị hàm số $y = \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8} (1 \\le x \\le 5)$ ($x, y$ tính theo decimét) quay xung quanh trục hoành và món đồ chơi đó có độ dày không đổi là $0,1$ dm (như hình vẽ). Thể tích của bề dày món đồ chơi đó là $\\frac{97\\pi}{75}$ $\\text{dm}^3$."
+    },
+    "correct": "T,T,F,T",
+    "solution": "a) đúng. $F(x) = \\int \\left( \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8} \\right) \\mathrm{d}x = \\frac{x^3}{24} - \\frac{x^2}{8} + \\frac{9}{8}x + C$. <br>  <br> b) đúng. $F(3) = \\frac{1}{3} \\Rightarrow C = -\\frac{73}{24} \\Rightarrow F(x) = \\frac{x^3}{24} - \\frac{x^2}{8} + \\frac{9}{8}x - \\frac{73}{24} \\Rightarrow F(1) = -2$. <br>  <br> c) sai. $S = \\int\\limits_0^2 \\left| \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8} - x \\right| \\mathrm{d}x = \\frac{1}{12}$. <br>  <br> d) đúng. Mặt trong của món đồ chơi biểu diễn bởi một phần đồ thị hàm số $f(x) = \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8} - 0,1$. Thể tích của bề dày món đồ chơi đó là <br> $\\pi \\int\\limits_1^5 \\left[ \\left( \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8} \\right)^2 - \\left( \\frac{x^2}{8} - \\frac{x}{4} + \\frac{9}{8} - 0,1 \\right)^2 \\right] \\mathrm{d}x = \\frac{97\\pi}{75} \\text{ dm}^3$ <br> \\noteImage[width=0.4\\linewidth]{data/im/UDTP3-26.png}"
+  },
+  {
+    "id": "165",
+    "title": "Câu 165",
+    "type": "true_false",
+    "text": "(Sở Thái Bình 2025) Chướng ngại vật “tường cong” trong một sân thi đấu thể thao là một khối bê tông có chiều cao từ mặt đất lên là $3$ m. Bề mặt tiếp xúc với mặt đất là một hình chữ nhật, giao của mặt tường cong và mặt đất là đoạn thẳng $AB = 2$ m. Thiết diện của tường cong khi cắt bởi mặt phẳng vuông góc với $AB$ tại $A$ là một tam giác cong $ACE$ vuông tại $C$ với $AC = 4$ m, $CE = 3$ m, cạnh cong $AE$ nằm trên một đường parabol có trục đối xứng vuông góc với mặt đất. Tại vị trí $M$ là trung điểm $AC$ thì đường cong có độ cao $1$ m (xem hình vẽ sau)\n\\noteImage[width=0.5\\linewidth]{data/im/UDTP3-24.png}",
+    "options": {
+      "A": "Chọn hệ trục tọa độ $Oxy$ sao cho $O$ trùng $A$, điểm $C$ thuộc tia $Ox$ và $Oy$ vuông góc với mặt đất (như hình trên). Khi đó cạnh cong $AE$ nằm trên parabol $(P)$ đi qua các điểm $(0;0); (2;1); (4;3)$.",
+      "B": "Diện tích tam giác cong $ACE$ là $S = \\frac{14}{3} \\text{m}^2$.",
+      "C": "Cắt vật thể bởi mặt phẳng vuông góc với $Ox$ tại điểm có hoành độ $x (0 < x \\le 4)$ ta được thiết diện là hình chữ nhật với diện tích $S(x) = \\frac{1}{2}x(x + 2)$.",
+      "D": "Thể tích của khối bê tông này lớn hơn $9\\text{m}^3$"
+    },
+    "correct": "T,T,F,T",
+    "solution": "a) đúng. Ta có $AE$ nằm trên parabol $(P)$ đi qua các điểm $(0;0); (2;1); (4;3)$ <br>  <br> b) đúng. Gọi parabol $(P)$ có phương trình $y = ax^2 + bx + c$, parabol đi qua điểm $A(0;0)$, $M(2;1)$, $E(4;3)$ nên ta có hệ phương trình <br> $\\begin{cases} c = 0 \\\\ 4a + 2b + c = 1 \\\\ 16a + 4b + c = 3 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{1}{8} \\\\ b = \\frac{1}{4} \\\\ c = 0 \\end{cases}$ <br> Khi đó parabol $(P): y = \\frac{1}{8}x^2 + \\frac{1}{4}x$ <br> Diện tích tam giác cong $ACE$ là $S = \\int\\limits_0^4 \\left( \\frac{1}{8}x^2 + \\frac{1}{4}x \\right) \\mathrm{d}x = \\frac{14}{3} \\text{m}^2$. <br>  <br> c) sai. Ta có chiều dài hình chữ nhật là thiết diện tại điểm có hoành độ $x (0 < x \\le 4)$ là $2$ m, chiều rộng bằng $y = \\frac{1}{8}x^2 + \\frac{1}{4}x$ nên diện tích thiết diện là $S(x) = 2.\\left( \\frac{1}{8}x^2 + \\frac{1}{4}x \\right) = \\frac{1}{2}\\left( \\frac{1}{2}x^2 + x \\right)$. <br>  <br> d) đúng. Thể tích khối bê tông bằng $V = \\int\\limits_0^4 S(x) \\mathrm{d}x = \\int\\limits_0^4 \\frac{1}{2}\\left( \\frac{1}{2}x^2 + x \\right) \\mathrm{d}x = \\frac{28}{3} \\text{m}^3$"
+  },
+  {
+    "id": "166",
+    "title": "Câu 166",
+    "type": "true_false",
+    "text": "(Cụm trường Nam Định 2025) Cho hàm số $y = f(x)$ xác định và liên tục trên $\\mathbb{R}$, biết $\\int\\limits_{-1}^3 |f'(x)| \\mathrm{d}x = 32$ và hàm số có bảng biến thiên như hình dưới\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-25.png}",
+    "options": {
+      "A": "$\\int\\limits_a^b f'(x) \\mathrm{d}x = f(a) - f(b)$.",
+      "B": "$\\int\\limits_{-1}^1 |f'(x)| \\mathrm{d}x = 16$.",
+      "C": "$f(3) = 20$.",
+      "D": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f'(x)$, trục $Ox$, đường thẳng $x = 1, x = 3$ bằng $16$."
+    },
+    "correct": "F,T,F,T",
+    "solution": "a) sai. $\\int\\limits_a^b f'(x) \\mathrm{d}x = f(x) \\bigg|_a^b = f(b) - f(a)$. <br>  <br> b) đúng. Trên $(-1; 1)$ ta có <br> $f'(x) > 0 \\Rightarrow \\int\\limits_{-1}^1 |f'(x)| \\mathrm{d}x = \\int\\limits_{-1}^1 f'(x) \\mathrm{d}x = f(x) \\bigg|_{-1}^1 = f(1) - f(-1) = 11 - (-5) = 16$. <br>  <br> c) sai. Ta có $\\int\\limits_{-1}^3 |f'(x)| \\mathrm{d}x = \\int\\limits_{-1}^1 |f'(x)| \\mathrm{d}x + \\int\\limits_1^3 |f'(x)| \\mathrm{d}x = \\int\\limits_{-1}^1 f'(x) \\mathrm{d}x - \\int\\limits_1^3 f'(x) \\mathrm{d}x$ <br> $= f(1) - f(-1) - [f(3) - f(1)] = 2f(1) - f(-1) - f(3)$ <br> $= 2.11 - (-5) - f(3) = 27 - f(3)$ <br> Mặt khác $\\int\\limits_{-1}^3 |f'(x)| \\mathrm{d}x = 32 \\Leftrightarrow 27 - f(3) = 32 \\Leftrightarrow f(3) = -5$. <br>  <br> d) đúng. Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f'(x)$, trục $Ox$, đường thẳng $x = 1, x = 3$ bằng $\\int\\limits_1^3 |f'(x)| \\mathrm{d}x = -\\int\\limits_1^3 f'(x) \\mathrm{d}x = -f(x) \\bigg|_1^3 = -(f(3) - f(1)) = -(-5 - 11) = 16$."
+  },
+  {
+    "id": "167",
+    "title": "Câu 167",
+    "type": "true_false",
+    "text": "(THPT Yên Lạc - Vĩnh Phúc 2025) Cho hai hàm số $f(x) = x^3 - 3x^2 + 2, g(x) = x^2 + 2$ có đồ thị tương ứng là các đường cong $(F)$ và $(G)$. Gọi $(H)$ là hình phẳng giới hạn bởi $(F)$ và $(G)$.",
+    "options": {
+      "A": "$\\int\\limits_0^1 f(x) \\mathrm{d}x = -2$.",
+      "B": "Một nguyên hàm của hàm số $g(x)$ là $G(x) = \\frac{x^3}{3} + 2x$.",
+      "C": "Thể tích của vật thể tròn xoay tạo bởi hình $(H)$ khi quay quanh trục hoành bằng $\\frac{21248\\pi}{105}$.",
+      "D": "Diện tích hình phẳng $(H)$ bằng $\\frac{64}{3}$."
+    },
+    "correct": "F,T,T,T",
+    "solution": "a) sai. $\\int\\limits_0^1 f(x) \\mathrm{d}x = \\left( \\frac{x^4}{4} - x^3 + 2x \\right) \\bigg|_0^1 = \\frac{5}{4}$. <br>  <br> b) đúng. $\\int g(x) \\mathrm{d}x = \\int (x^2 + 2) \\mathrm{d}x = \\frac{x^3}{3} + 2x + C$. Suy ra một nguyên hàm của hàm số $g(x)$ là $G(x) = \\frac{x^3}{3} + 2x$. <br>  <br> c) đúng. Phương trình hoành độ giao điểm của hai đồ thị hàm số $f(x) = x^3 - 3x^2 + 2, g(x) = x^2 + 2$ là <br> $x^3 - 3x^2 + 2 = x^2 + 2 \\Leftrightarrow x^3 - 4x^2 = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 0 \\\\ x = 4 \\end{array} \\right.$. <br> Thể tích của vật thể tròn xoay tạo bởi hình $(H)$ khi quay quanh trục hoành là <br> $V = \\pi \\int\\limits_0^4 |f^2(x) - g^2(x)| \\mathrm{d}x = \\pi \\int\\limits_0^4 |x^6 - 6x^5 + 8x^4 + 4x^3 - 16x^2| \\mathrm{d}x = \\frac{21248\\pi}{105}$. <br>  <br> d) đúng. Diện tích hình phẳng $(H)$ bằng $S = \\int\\limits_0^4 |f(x) - g(x)| \\mathrm{d}x = \\int\\limits_0^4 |x^3 - 4x^2| \\mathrm{d}x = \\frac{64}{3}$."
+  },
+  {
+    "id": "168",
+    "title": "Câu 168",
+    "type": "true_false",
+    "text": "(Cụm Sào Nam - Hồ Nghinh 2025) Xét tính đúng sai của các mệnh đề sau:",
+    "options": {
+      "A": "Hàm số $y = \\frac{1}{x}$ chỉ có nguyên hàm khi $x > 0$.",
+      "B": "$\\int\\limits_a^b (x^{2n} + 1) \\mathrm{d}x > 0$ với $\\forall a, b \\in \\mathbb{R}; a < b$ và $\\forall n \\in \\mathbb{N}$",
+      "C": "Tích phân $\\int\\limits_a^b f(x) \\mathrm{d}x$ luôn cho kết quả bằng diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành và hai đường thẳng $x = a; x = b$ với $a < b$.",
+      "D": "Cho hai khối cầu lần lượt có bán kính $R_1 = 3$ và $R_2 = 2$, khoáng cách giữa hai tâm khối cầu là $d = 4$. Khi đó thể tích phần giao của hai khối cầu là $V \\in [3; 4]$."
+    },
+    "correct": "F,T,F,T",
+    "solution": "a) sai. Điều kiện $x \\ne 0$. <br>  <br> b) đúng. $x^{2n} + 1 > 0 \\forall x \\in \\mathbb{R}; n \\in \\mathbb{N}$ nên $\\int\\limits_a^b (x^{2n} + 1) \\mathrm{d}x > 0$ với $\\forall a, b \\in \\mathbb{R}; a < b$ và $\\forall n \\in \\mathbb{N}$. <br>  <br> c) sai. $\\int\\limits_a^b f(x) \\mathrm{d}x \\in \\mathbb{R}$. <br> Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành và hai đường thẳng $x = a; x = b$ với $a < b$ là $\\int\\limits_a^b |f(x)| \\mathrm{d}x \\ge 0$. <br>  <br> d) đúng. <br> \\noteImage[width=0.4\\linewidth]{data/im/UDTP3-30.png} <br> Quay quanh $Ox$ phần diện tích giới hạn bởi hai đường tròn $x^2 + y^2 = 9$ và $(x - 4)^2 + y^2 = 4$ ta được thể tích $V$ cần tìm. <br> Hoành độ giao điểm của hai đường tròn là nghiệm của phương trình $9 - x^2 = 4 - (x - 4)^2 \\Leftrightarrow x = \\frac{21}{8}$. <br> Thể tích phần giao nhau của hai khối cầu là <br> $V = \\pi \\left[ \\int\\limits_2^{\\frac{21}{8}} \\left[ 4 - (x - 4)^2 \\right] \\mathrm{d}x + \\int\\limits_{\\frac{21}{8}}^3 (9 - x^2) \\mathrm{d}x \\right] = \\frac{53}{48}\\pi \\approx 3,5$."
+  },
+  {
+    "id": "169",
+    "title": "Câu 169",
+    "type": "true_false",
+    "text": "(Chuyên KHTN Hà Nội 2025) Một công ty thiết kế mẫu huy hiệu để tặng cho khách hàng thân thiết của mình (xem hình vẽ bên dưới). Trong đó $ABCD$ là hình vuông có cạnh bằng $4$cm, các đường cong $AOD$ và $BOC$ là một phần của các parabol đỉnh $O$. Với hệ trục tọa độ $Oxy$ (đơn vị trên mỗi trục tọa độ là cen-timet) thì điểm $A$ có tung độ bằng $1$. Biết phần tô đậm trong hình vẽ được phủ vàng với chi phí $1$ một triệu đồng/$1\\text{cm}^2$, phần còn lại được phủ bạc với chi phí $300$ nghìn đồng/$1\\text{cm}^2$, các chi phí còn lại là $500$ nghìn đồng.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-30.png}",
+    "options": {
+      "A": "Parabol chứa đường cong $AOD$ có phương trình là $y = \\frac{1}{16}x^2$.",
+      "B": "Parabol chứa đường cong $BOC$ có phương trình là $y = -\\frac{3}{4}x^2$.",
+      "C": "Diện tích phần tô đậm trong hình vẽ lớn hơn $5,5\\text{cm}^2$.",
+      "D": "Chí sản xuất $1$ chiếc huy hiệu trên nhỏ hơn $9.$ triệu đồng."
+    },
+    "correct": "F,T,F,F",
+    "solution": "a) Sai. Gọi Parabol chứa đường cong $AOD$ có phương trình là $y = ax^2$. <br> Vì Parabol đi qua điểm $A(-2;1)$ nên ta có: $1 = a(-2)^2 \\Leftrightarrow a = \\frac{1}{4} \\Rightarrow y = \\frac{1}{4}x^2$ <br> \\noteImage[width=0.4\\linewidth]{data/im/UDTP3-32.png} <br>  <br> b) Đúng. Gọi Parabol chứa đường cong $BOC$ có phương trình là $y = a'x^2$. <br> Vì Parabol đi qua điểm $C(2; -3)$ nên ta có: $-3 = a.2^2 \\Leftrightarrow a = \\frac{-3}{4} \\Rightarrow y = \\frac{-3}{4}x^2$ <br>  <br> c) Sai. Diện tích phần tô đậm chứa đường cong $BOC$ <br> $S_1 = \\int\\limits_{-2}^0 \\frac{3}{4}x^2 \\mathrm{d}x + \\int\\limits_0^2 \\frac{3}{4}x^2 \\mathrm{d}x = 4 (\\text{cm}^2)$. <br>  <br> d) Sai. Diện tích phần tô đậm chứa đường cong $AOD$ <br> $S_2 = \\int\\limits_{-2}^0 \\frac{1}{4}x^2 \\mathrm{d}x + \\int\\limits_0^2 \\frac{1}{4}x^2 \\mathrm{d}x = \\frac{10}{3} (\\text{cm}^2)$. <br> Diện tích hình vuông $ABCD$ <br> $S_{hv} = 4.4 = 16 (\\text{cm}^2)$. <br> Diện tích phần không tô đậm <br> $S_k = 16 - \\left( \\frac{10}{3} + 4 \\right) = \\frac{26}{3} (\\text{cm}^2)$. <br> Tổng chi phí để làm chiếc huy hiệu <br> $T = 1000000.\\frac{22}{3} + 300000.\\frac{26}{3} \\approx 9.933.000 (\\text{cm}^2)$."
+  },
+  {
+    "id": "170",
+    "title": "Câu 170",
+    "type": "true_false",
+    "text": "(Cụm trường Nghệ An 2025) Chào mừng tháng Thanh niên. Đoàn trường THPT X tổ chức cải tạo một khoảng đất trong khuôn viên nhà trường có hình dạng là một đường tròn có đường kính $8$m. Để tăng tính thẩm mỹ, khi thực hiện cải tạo đã chia mảnh đất đó thành hai phần bằng một đường cong là một phần của đồ thị hàm số bậc ba $y = f(x)$, phần gạch chéo dùng để trồng hoa và phần còn lại dùng để trồng cỏ, được mô hình hóa trong hệ trục $Oxy$ như hình vẽ dưới đây.\nBiết đồ thị hàm số bậc ba $y = f(x)$ có tâm đối xứng trùng với gốc tọa độ; đi qua các điểm $E, F$ lần lượt là các điểm chính giữa của các cung $\\overparen{BC}, \\overparen{DA}$ và đi qua các giao điểm của đường tròn với trục $Ox$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-31.png}",
+    "options": {
+      "A": "Tọa độ các điểm $E, F$ là $E(-2\\sqrt{2}; 2\\sqrt{2}), F(2\\sqrt{2}; -2\\sqrt{2})$.",
+      "B": "Biết $y = f(x) = ax^3 + bx$. Khi đó $a + b = -15$.",
+      "C": "Diện tích phần trồng hoa là $S = 16 + 8\\pi (\\text{m}^2)$.",
+      "D": "Biết chi phí trồng hoa $1\\text{m}^2$ là $180$ nghìn đồng, trồng cỏ $1\\text{m}^2$ là $100$ nghìn đồng. Chi phí để hoàn thành công trình trên là $8117$ nghìn đồng (làm tròn đến hàng nghìn)."
+    },
+    "correct": "T,F,T,F",
+    "solution": "a) đúng. Vì các điểm $E, F$ lần lượt là các điểm chính giữa của các cung $\\overparen{BC}, \\overparen{DA}$ nên $E(-2\\sqrt{2}; 2\\sqrt{2}), F(2\\sqrt{2}; -2\\sqrt{2})$. <br>  <br> b) sai. Hàm số bậc ba có dạng: $y = f(x) = ax^3 + cx^2 + bx + d (a \\ne 0)$. <br> Ta có: $f'(x) = 3ax^2 + 2cx + b$; $f''(x) = 6ax + 2c$. <br> Đồ thị hàm số đi qua các điểm: $C(-4;0), A(4;0)$ và có tâm đối xứng là gốc tọa độ nên ta có: <br> $\\begin{cases} f(-4) = 0 \\\\ f(4) = 0 \\\\ f''(0) = 0 \\\\ f(0) = 0 \\end{cases} \\Rightarrow \\begin{cases} 64a + 4b = 0 \\\\ c = 0 \\\\ d = 0 \\end{cases} \\Rightarrow b = -16a \\Rightarrow f(x) = ax^3 - 16ax$. <br> Đồ thị hàm số $f(x) = ax^3 - 16ax$ đi qua các điểm $E(-2\\sqrt{2}; 2\\sqrt{2}), F(2\\sqrt{2}; -2\\sqrt{2})$ nên $a = \\frac{1}{8}$; $b = -16a = -2$. Suy ra $a + b = -\\frac{15}{2}$. <br>  <br> c) đúng. Diện tích phần trồng hoa là $S = \\frac{1}{2}.\\pi.4^2 + 2.\\int\\limits_{-4}^0 \\left( \\frac{1}{8}x^3 - 2x \\right) \\mathrm{d}x = 8\\pi + 16 (\\text{m}^2)$. <br>  <br> d) sai. Diện tích phần trồng cỏ là $S = \\pi.4^2 - (8\\pi + 16) = 8\\pi - 16 (\\text{m}^2)$. <br> Chi phí để hoàn thành công trình trên là $(8\\pi + 16).180 + (8\\pi - 16).100 \\approx 8317$ (nghìn đồng)."
+  },
+  {
+    "id": "171",
+    "title": "Câu 171",
+    "type": "true_false",
+    "text": "(Sở Vũng Tàu 2025) Để tham gia lễ hội hóa trang, bạn An dự định làm một chiếc mặt nạ nửa mặt bằng chất liệu giấy cứng. Hình dạng của chiếc mặt nạ được bạn thiết kế trên mặt phẳng tọa độ $Oxy$, là phần hình phẳng giới hạn bởi hai đường parabol $(P_1), (P_2)$ lần lượt có đỉnh là gốc tọa độ $O$ và điểm có tọa độ $(0;4)$, cùng nhận trục $Oy$ làm trục đối xứng và cùng đi qua điểm $M(5;6)$. Mỗi đơn vị trên các trục tọa độ có độ dài $3$ cm. Sau đó, bạn vẽ hai hình thoi bằng nhau có độ dài các đường chéo là $2\\sqrt{2}$ cm và $4\\sqrt{2}$ cm để khoét làm mắt.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-32.png}",
+    "options": {
+      "A": "Diện tích hai hình thoi được khoét để làm mắt là: $16 \\text{ cm}^2$.",
+      "B": "Phương trình của parabol $(P_1): y = \\frac{6}{25}x^2$ và phương trình của parabol $(P_2): y = \\frac{2}{25}x^2 + 4$.",
+      "C": "Diện tích phần hình phẳng giới hạn bởi $(P_1)$ và $(P_2)$ là: $\\frac{40}{3}$ (đơn vị diện tích).",
+      "D": "Diện tích giấy được bạn An sử dụng để làm chiếc mặt nạ này là $224 \\text{ cm}^2$."
+    },
+    "correct": "T,T,F,F",
+    "solution": "a) Đúng. Diện tích hai hình thoi bằng $2.\\frac{2\\sqrt{2}.4\\sqrt{2}}{2} = 2.8 = 16 \\text{ cm}^2$. <br>  <br> b) Đúng. Gọi $(P_1): y = ax^2 + bx + c \\quad (a \\ne 0)$ <br> Vì trục $Oy$ làm trục đối xứng nên $x = \\frac{-b}{2a} = 0 \\Rightarrow b = 0$. <br> Vì $O(0;0); M(5;6) \\in (P_1)$ nên $\\begin{cases} c = 0 \\\\ 6 = a.5^2 \\end{cases} \\Rightarrow \\begin{cases} c = 0 \\\\ a = \\frac{6}{25} \\end{cases}$ <br> Do đó $(P_1): y = \\frac{6}{25}x^2$. <br> Gọi $(P_2): y = ax^2 + bx + c \\quad (a \\ne 0)$, tương tự $b = 0$ <br> Vì $(0;4); M(5;6) \\in (P_2)$ nên $\\begin{cases} 4 = 0 + c \\\\ 6 = a.5^2 + c \\end{cases} \\Rightarrow \\begin{cases} c = 4 \\\\ a = \\frac{2}{25} \\end{cases}$ <br> Vậy $(P_2): y = \\frac{2}{25}x^2 + 4$ <br>  <br> c) Sai. Vì mặt nạ đối xứng qua $Oy$ nên ta có: $S = 2.\\int\\limits_0^5 \\left| \\frac{6}{25}x^2 - \\left( \\frac{2}{25}x^2 + 4 \\right) \\right| \\mathrm{d}x = \\frac{80}{3}$. <br>  <br> d) Sai. Diện tích giấy là $\\frac{80}{3} - 16 = \\frac{32}{3} \\text{ cm}^2$."
+  },
+  {
+    "id": "172",
+    "title": "Câu 172",
+    "type": "true_false",
+    "text": "(Chuyên Lê Khiết - Quảng Ngãi 2025) Có một cái chòi hình “chóp cong”, trong đó mái chòi $(H)$ có dạng hình “chóp lục giác cong đều” như hình vẽ bên dưới. Đáy của $(H)$ là một hình lục giác đều tâm $O$, đường chéo qua tâm $O$ có độ dài là $10$ m, chiều cao $SO = 10$ m ($SO$ vuông góc với mặt phẳng đáy). Các cạnh bên của $(H)$ là các sợi dây thép $c_1; c_2; c_3; c_4; c_5; c_6$ nằm trên các đường parabol có trục đối xứng song song với $SO$. Giả sử hình tạo bởi các đoạn giao tuyến của $(H)$ với mặt phẳng $(\\alpha)$ vuông góc với $SO$ là một lục giác đều. Biết rằng khi mặt phẳng $(\\alpha)$ đi qua trung điểm của $SO$ thì lục giác đều có cạnh $l = 2$ m.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-34.png}",
+    "options": {
+      "A": "Diện tích hình lục giác đều nói trên khi $(\\alpha)$ đi qua trung điểm của $SO$ là $6\\sqrt{3} \\text{ m}^2$.",
+      "B": "Chọn hệ trục tọa độ $Oxy$ sao cho gốc tọa độ là điểm $O$ trên hình vẽ, $S$ thuộc tia $Oy$, đỉnh $A$ của lục giac đều thuộc tia $Ox$ thì $c_4$ nằm trên đường parabol có phương trình $y = -\\frac{1}{6}x^2 - \\frac{17}{6}x + 10$.",
+      "C": "Nếu $(\\alpha)$ cắt $SO$ và $c_4$ lần lượt tại $M$ và $B$, mà $OM = t$ thì độ dài đoạn $BM$ là $\\frac{17}{2} - \\sqrt{t + \\frac{49}{4}}$.",
+      "D": "Thể tích phần không gian nằm bên trong mái chòi $(H)$ là $171,4 \\text{ m}^3$."
+    },
+    "correct": "T,T,F,T",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-37.png} <br> a) Đúng. Cạnh của lục giác đều bằng nửa đường chéo nên diện tích thiết diện cắt bởi $(\\alpha)$ là: <br> $S = 6.\\frac{l^2\\sqrt{3}}{4} = 6.\\frac{2^2.\\sqrt{3}}{4} = 6\\sqrt{3} \\text{ m}^2$. <br>  <br> b) Đúng. $c_4: y = ax^2 + bx + c$ đi qua $A(5;0), S(0;10), N(2;5)$ (cạnh lục giác đều bằng khoảng cách từ đỉnh đến tâm của lục giác đó nên $N(2;5)$). Giải hệ phương trình ba ẩn $a, b, c$ ta được $c_4: y = -\\frac{1}{6}x^2 - \\frac{17}{6}x + 10$. <br>  <br> c) Sai. Đường thẳng $y = t (0 \\le t \\le 10)$ cắt $Oy, c_4$ lần lượt tại $M, B$. Khi đó độ dài đoạn $MB = x_B < 5$. <br> Xét phương trình <br> $t = -\\frac{1}{6}x^2 - \\frac{17}{6}x + 10 \\Leftrightarrow x^2 - 17x + 60 - 6t = 0 \\Leftrightarrow x = \\frac{17 \\pm \\sqrt{24t + 49}}{2}$ <br> $\\Rightarrow MB = \\frac{17 - \\sqrt{24t + 49}}{2} = \\frac{17}{2} - \\sqrt{6t + \\frac{49}{4}}$. <br>  <br> d) Đúng. Diện tích thiết diện cắt $SO$ tại $M$ là: $S(t) = 6.\\frac{MB^2\\sqrt{3}}{4} = \\frac{3\\sqrt{3}}{2}\\left( \\frac{17}{2} - \\sqrt{6t + \\frac{49}{4}} \\right)^2$ <br> Thể tích khối chóp lục giác cong đều là: <br> $V = \\int\\limits_0^{10} S(t) \\mathrm{d}t = \\int\\limits_0^{10} \\frac{3\\sqrt{3}}{2}\\left( \\frac{17}{2} - \\sqrt{6t + \\frac{49}{4}} \\right)^2 \\mathrm{d}t = \\int\\limits_0^{10} \\frac{3\\sqrt{3}}{2}\\left( \\frac{169}{2} + 6t - 17\\sqrt{6t + \\frac{49}{4}} \\right) \\mathrm{d}t$ <br> $= \\frac{3\\sqrt{3}}{2}\\left[ \\frac{169}{2}t + 3t^2 - \\frac{17}{9}\\left( 6t + \\frac{49}{4} \\right)^{\\frac{3}{2}} \\right] \\bigg|_0^{10} = \\frac{3\\sqrt{3}}{2}.\\frac{2375}{36} = \\frac{2375\\sqrt{3}}{24} \\approx 171,4$."
+  },
+  {
+    "id": "173",
+    "title": "Câu 173",
+    "type": "true_false",
+    "text": "(Sở Gia Lai 2025) Một nhà sản xuất muốn thiết kế một hộp đựng kẹo dạng hình tròn xoay gồm hai phần: Phần thứ nhất được tạo thành khi quay “nửa” hình elip quanh một trục; phần thứ hai là nửa hình cầu có bán kính bằng $4$ cm. Nếu xét trong hệ trục tọa độ $Oxy$, đơn vị trên trục là cm thì \\\"nửa\\\" hình elip quay quanh trục $Ox$ để tạo thành phần thứ nhất có phương trình là $\\frac{x^2}{64} + \\frac{y^2}{16} = 1$ với $-8 \\le x \\le 0$ (xem hình minh họa).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP3-35.png}",
+    "options": {
+      "A": "Thể tích của phần không gian “chứa” trong phần thứ hai (nửa khối cầu) bằng $\\frac{32}{3}\\pi$ (cm³).",
+      "B": "Đường thuộc góc phần tư thứ hai trong hệ trục $Oxy$ là đồ thị của hàm số $y = \\sqrt{16 - \\frac{x^2}{4}}, -8 \\le x \\le 0$.",
+      "C": "Thể tích của phần không gian “chứa” trong phần thứ nhất được tính bởi công thức $V = \\pi \\int\\limits_{-8}^0 \\sqrt{16 - \\frac{x^2}{4}} \\mathrm{d}x$ (cm³).",
+      "D": "Thể tích phần không gian bên trong của hộp đựng kẹo cần thiết kế là $24\\pi$ (cm³)."
+    },
+    "correct": "F,T,F,F",
+    "solution": "a) Sai. Thể tích của phần không gian “chứa” trong phần thứ hai (nửa khối cầu) bằng $\\frac{1}{2}.\\frac{4}{3}\\pi.4^3 = \\frac{128\\pi}{3}$ (cm³). <br>  <br> b) Đúng. Ta có $\\frac{x^2}{64} + \\frac{y^2}{16} = 1 \\Leftrightarrow y^2 = 16 - \\frac{x^2}{4} \\Leftrightarrow y = \\pm\\sqrt{16 - \\frac{x^2}{4}}$. <br> Suy ra đường thuộc góc phần tư thứ hai trong hệ trục $Oxy$ là đồ thị của hàm số <br> $y = \\sqrt{16 - \\frac{x^2}{4}}, -8 \\le x \\le 0$. <br>  <br> c) Sai. Phần không gian “chứa” trong phần thứ nhất sinh bởi hình phẳng giới hạn bởi các đường $y = \\sqrt{16 - \\frac{x^2}{4}}, y = 0, x = -8, x = 0$ quay xung quanh trục hoành. <br> Thể tích của phần không gian này được tính bởi công thức <br> $V = \\pi \\int\\limits_{-8}^0 \\left( \\sqrt{16 - \\frac{x^2}{4}} \\right)^2 \\mathrm{d}x = \\pi \\int\\limits_{-8}^0 \\left( 16 - \\frac{x^2}{4} \\right) \\mathrm{d}x$ (cm³). <br>  <br> d) Sai. Thể tích của phần không gian “chứa” trong phần thứ nhất là <br> $V = \\pi \\int\\limits_{-8}^0 \\left( 16 - \\frac{x^2}{4} \\right) \\mathrm{d}x = \\pi \\left( 16x - \\frac{x^3}{12} \\right) \\bigg|_{-8}^0 = \\frac{256\\pi}{3}$. <br> Thể tích phần không gian bên trong của hộp đựng kẹo cần thiết kế là $\\frac{128\\pi}{3} + \\frac{256\\pi}{3} = 128\\pi$ (cm³)."
+  }
+]

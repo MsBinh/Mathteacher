@@ -1,0 +1,353 @@
+[
+  {
+    "id": "1",
+    "title": "Câu 1",
+    "type": "short_answer",
+    "text": "Cho các hàm số $f(x), g(x)$ liên tục trên $[0;2]$ thoã mãn $\\int_0^2 f(x)\\mathrm{d}x = 1$ và $\\int_0^2 g(x)\\mathrm{d}x = -2$. Tính $I = \\int_0^2 \\left[2x + 3f(x) - 2g(x)\\right]\\mathrm{d}x$?",
+    "image": "",
+    "correct": "11",
+    "solution": "Ta có: $I = \\int_0^2 \\left[2x + 3f(x) - 2g(x)\\right]\\mathrm{d}x = \\int_0^2 2x\\mathrm{d}x + \\int_0^2 3f(x)\\mathrm{d}x - \\int_0^2 2g(x)\\mathrm{d}x = 4 + 3.1 - 2.(-2) = 11$.<br>\\shortans{11}"
+  },
+  {
+    "id": "2",
+    "title": "Câu 2",
+    "type": "short_answer",
+    "text": "Biết $\\int_1^3 \\frac{3x+2}{x}\\mathrm{d}x = a + b\\ln c$, với $a, b, c \\in \\mathbb{Z}, 0 < c < 9$. Tính tổng $S = a + b + c$.",
+    "image": "",
+    "correct": "11",
+    "solution": "Ta có $\\int_1^3 \\frac{3x+2}{x}\\mathrm{d}x = \\int_1^3 \\left(3 + \\frac{2}{x}\\right)\\mathrm{d}x = 3\\int_1^3 \\mathrm{d}x + 2\\int_1^3 \\frac{1}{x}\\mathrm{d}x = 3x\\big|_1^3 + 2\\ln|x|\\big|_1^3 = 6 + 2\\ln 3$.<br>Do đó $a=6, b=2, c=3 \\Rightarrow S=11$.<br>\\shortans{11}"
+  },
+  {
+    "id": "3",
+    "title": "Câu 3",
+    "type": "short_answer",
+    "text": "Cho $\\int_a^b |x|\\mathrm{d}x = ma^2 + nb^2$ với $m, n, a, b$ là các hằng số thực và $a < 0 < b$. Giá trị của biểu thức $m + n$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "1",
+    "solution": "Ta có: $\\int_a^b |x|\\mathrm{d}x = \\int_a^0 (-x)\\mathrm{d}x + \\int_0^b x\\mathrm{d}x = \\frac{-x^2}{2}\\bigg|_a^0 + \\frac{x^2}{2}\\bigg|_0^b = \\frac{1}{2}a^2 + \\frac{1}{2}b^2$.<br>Suy ra $m + n = \\frac{1}{2} + \\frac{1}{2} = 1$.<br>\\shortans{1}"
+  },
+  {
+    "id": "4",
+    "title": "Câu 4",
+    "type": "short_answer",
+    "text": "Biết rằng hàm số $f(x) = mx + n$ thỏa mãn $\\int_0^1 f(x)\\mathrm{d}x = 3$, $\\int_0^2 f(x)\\mathrm{d}x = 8$. Tính $m + n$.",
+    "image": "",
+    "correct": "4",
+    "solution": "Ta có: $\\int f(x)\\mathrm{d}x = \\int (mx + n)\\mathrm{d}x = \\frac{m}{2}x^2 + nx + C$.<br>Lại có: $\\int_0^1 f(x)\\mathrm{d}x = 3 \\Rightarrow \\left(\\frac{m}{2}x^2 + nx\\right)\\bigg|_0^1 = 3 \\Leftrightarrow \\frac{1}{2}m + n = 3$ (1).<br>$\\int_0^2 f(x)\\mathrm{d}x = 8 \\Rightarrow \\left(\\frac{m}{2}x^2 + nx\\right)\\bigg|_0^2 = 8 \\Leftrightarrow 2m + 2n = 8$ (2).<br>Từ (1) và (2) ta có hệ phương trình: $\\begin{cases} \\frac{1}{2}m + n = 3 \\\\ 2m + 2n = 8 \\end{cases} \\Leftrightarrow \\begin{cases} m = 2 \\\\ n = 2 \\end{cases}$.<br>$\\Rightarrow m + n = 4$.<br>\\shortans{4}"
+  },
+  {
+    "id": "5",
+    "title": "Câu 5",
+    "type": "short_answer",
+    "text": "Có hai giá trị của số thực $a$ là $a_1, a_2$ ($0 < a_1 < a_2$) thỏa mãn $\\int_1^a (2x - 3)\\mathrm{d}x = 0$. Hãy tính $T = 3^{a_1} + 3^{a_2} + \\log_2\\left(\\frac{a_2}{a_1}\\right)$.",
+    "image": "",
+    "correct": "13",
+    "solution": "Ta có: $\\int_1^a (2x - 3)\\mathrm{d}x = (x^2 - 3x)\\big|_1^a = a^2 - 3a + 2$.<br>Vì $\\int_1^a (2x - 3)\\mathrm{d}x = 0$ nên $a^2 - 3a + 2 = 0$, suy ra $\\left[\\begin{array}{l} a = 1 \\\\ a = 2 \\end{array}\\right.$.<br>Lại có $0 < a_1 < a_2$ nên $a_1 = 1; a_2 = 2$.<br>Như vậy $T = 3^{a_1} + 3^{a_2} + \\log_2\\left(\\frac{a_2}{a_1}\\right) = 3^1 + 3^2 + \\log_2\\left(\\frac{2}{1}\\right) = 13$.<br>\\shortans{13}"
+  },
+  {
+    "id": "6",
+    "title": "Câu 6",
+    "type": "short_answer",
+    "text": "(Sở Quảng Bình 2025) Cho hàm số $f(x)$ liên tục trên $\\mathbb{R}$, biết $f(x) = 16x^3 - 15x^2 + 2x\\int_1^2 f(t)\\mathrm{d}t - 21$. Giá trị của $f(2)$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "39",
+    "solution": "Ta đặt $m = \\int_1^2 f(t)\\mathrm{d}t = \\int_1^2 (16t^3 - 15t^2 + 2mt - 21)\\mathrm{d}t$, khi đó ta có<br>$m = (4t^4 - 5t^3 + mt^2 - 21t)\\big|_1^2 \\Leftrightarrow m = -2$<br>Thay $m = -2$ vào hàm số ta có $f(x) = 16x^3 - 15x^2 - 4x - 21$.<br>Suy ra: $f(2) = 39$.<br>\\shortans{39}"
+  },
+  {
+    "id": "7",
+    "title": "Câu 7",
+    "type": "short_answer",
+    "text": "Cho hàm số $f(x)$ xác định trên $\\mathbb{R} \\setminus \\{0\\}$ thỏa mãn $f'(x) = \\frac{x+1}{x^2}$, $f(-2) = \\frac{3}{2}$ và $f(2) = 2\\ln 2 - \\frac{3}{2}$. Giá trị của biểu thức $f(-1) + f(4)$ bằng (viết kết quả dưới dạng số thập phân và làm tròn đến hàng phần mười).",
+    "image": "",
+    "correct": "2,1",
+    "solution": "Có $f(x) = \\int f'(x)\\mathrm{d}x = \\int \\frac{x+1}{x^2}\\mathrm{d}x = \\ln|x| - \\frac{1}{x} + C$<br>$\\Rightarrow f(x) = \\begin{cases} \\ln|x| - \\frac{1}{x} + C_1 & \\text{khi } x < 0 \\\\ \\ln|x| - \\frac{1}{x} + C_2 & \\text{khi } x > 0 \\end{cases}$<br>Do $f(-2) = \\frac{3}{2} \\Rightarrow \\ln 2 + \\frac{1}{2} + C_1 = \\frac{3}{2} \\Rightarrow C_1 = 1 - \\ln 2$<br>Do $f(2) = 2\\ln 2 - \\frac{3}{2} \\Rightarrow \\ln 2 - \\frac{1}{2} + C_2 = 2\\ln 2 - \\frac{3}{2} \\Rightarrow C_2 = \\ln 2 - 1$<br>Như vậy, $f(x) = \\begin{cases} \\ln|x| - \\frac{1}{x} + 1 - \\ln 2 & \\text{khi } x < 0 \\\\ \\ln|x| - \\frac{1}{x} + \\ln 2 - 1 & \\text{khi } x > 0 \\end{cases}$<br>Vậy $f(-1) + f(4) = (2 - \\ln 2) + \\left(\\ln 4 - \\frac{1}{4} + \\ln 2 - 1\\right) = \\frac{8\\ln 2 + 3}{4} \\approx 2,1$.<br>\\shortans{2,1}"
+  },
+  {
+    "id": "8",
+    "title": "Câu 8",
+    "type": "short_answer",
+    "text": "Cho $F(x)$ là nguyên hàm của hàm số $f(x) = |1+x| - |1-x|$ trên $\\mathbb{R}$ và thỏa mãn $F(1) = 3$. Tính tổng $F(0) + F(2)$.",
+    "image": "",
+    "correct": "7",
+    "solution": "Ta có $\\int_0^1 f(x)\\mathrm{d}x = F(x)\\big|_0^1 = F(1) - F(0) = 3 - F(0)$.<br>Mà $\\int_0^1 f(x)\\mathrm{d}x = \\int_0^1 (|1+x| - |1-x|)\\mathrm{d}x = 1$. Nên $3 - F(0) = 1 \\Leftrightarrow F(0) = 2$.<br>$\\int_1^2 f(x)\\mathrm{d}x = F(x)\\big|_1^2 = F(2) - F(1) = F(2) - 3$. Mà $\\int_1^2 f(x)\\mathrm{d}x = \\int_1^2 (|1+x| - |1-x|)\\mathrm{d}x = 2$<br>Nên $F(2) - 3 = 2 \\Leftrightarrow F(2) = 5$. Vậy $F(0) + F(2) = 2 + 5 = 7$.<br>\\shortans{7}"
+  },
+  {
+    "id": "9",
+    "title": "Câu 9",
+    "type": "short_answer",
+    "text": "Cho hàm số $y = f(x)$ có đồ thị là đường gấp khúc như hình vẽ.\n\nTính $\\int_0^5 |f(x)|\\mathrm{d}x + \\int_3^6 f(x)\\mathrm{d}x$.",
+    "image": "data/im/TP4-9.png",
+    "correct": "9",
+    "solution": "$[0;3]: f(x) = -2x + 4$<br>$[3;5]: f(x) = 2x - 8$<br>$[5;6]: f(x) = 2$<br>$\\Rightarrow \\int_0^5 |f(x)|\\mathrm{d}x + \\int_3^6 f(x)\\mathrm{d}x$<br>$= \\int_0^3 |f(x)|\\mathrm{d}x + \\int_3^5 |f(x)|\\mathrm{d}x + \\int_3^5 f(x)\\mathrm{d}x + \\int_5^6 f(x)\\mathrm{d}x$<br>$= \\int_0^3 |-2x + 4|\\mathrm{d}x + \\int_3^5 |2x - 8|\\mathrm{d}x + \\int_3^5 (2x - 8)\\mathrm{d}x + \\int_5^6 2\\mathrm{d}x$<br>$= 5 + 2 + 0 + 2 = 9$<br>\\shortans{9}"
+  },
+  {
+    "id": "10",
+    "title": "Câu 10",
+    "type": "short_answer",
+    "text": "Cho $m$ là tham số thực thỏa mãn $\\int_1^2 \\left[m^2 + (4 - 4m)x + 4x^3\\right]\\mathrm{d}x = \\int_2^4 2x\\mathrm{d}x$. Khi đó phương trình $\\log_3(x + m) = 2$ có một nghiệm duy nhất và bằng bao nhiêu?",
+    "image": "",
+    "correct": "6",
+    "solution": "Ta có: $\\int_1^2 \\left[m^2 + (4 - 4m)x + 4x^3\\right]\\mathrm{d}x = \\left(m^2x + (2 - 2m)x^2 + x^4\\right)\\bigg|_1^2 = m^2 - 6m + 21$;<br>Và $\\int_2^4 2x\\mathrm{d}x = x^2\\big|_2^4 = 12$.<br>$m^2 - 6m + 21 = 12 \\Leftrightarrow m^2 - 6m + 9 = 0 \\Leftrightarrow m = 3$<br>$\\Rightarrow \\log_3(x + m) = 2 \\Leftrightarrow x + m = 9 \\Leftrightarrow x = 6$<br>\\shortans{6}"
+  },
+  {
+    "id": "11",
+    "title": "Câu 11",
+    "type": "short_answer",
+    "text": "Tìm $m \\in \\mathbb{R}$ biết rằng $\\left(\\int_0^{m+1} 2x\\mathrm{d}x\\right)^3 = \\int_0^m 6x^5\\mathrm{d}x$.",
+    "image": "",
+    "correct": "-0,5",
+    "solution": "Ta có: $\\left(\\int_0^{m+1} 2x\\mathrm{d}x\\right)^3 = \\left(x^2\\big|_0^{m+1}\\right)^3 = \\left((m+1)^2\\right)^3 = (m+1)^6$<br>Lại có: $\\int_0^m 6x^5\\mathrm{d}x = x^6\\big|_0^m = m^6$<br>Mà $\\left(\\int_0^{m+1} 2x\\mathrm{d}x\\right)^3 = \\int_0^m 6x^5\\mathrm{d}x$.<br>Nên $(m+1)^6 = m^6 \\Leftrightarrow (m+1)^6 - m^6 = 0 \\Leftrightarrow (m+1)^6 = m^6 \\Leftrightarrow \\left[\\begin{array}{l} m+1 = m \\\\ m+1 = -m \\end{array}\\right.$<br>$\\Leftrightarrow 2m + 1 = 0 \\Leftrightarrow m = \\frac{-1}{2}$ (TM $m \\in \\mathbb{R}$).<br>\\shortans{-0,5}"
+  },
+  {
+    "id": "12",
+    "title": "Câu 12",
+    "type": "short_answer",
+    "text": "Hiệu suất của tim là lưu lượng máu được bơm bởi tim trên một đơn vị thời gian (lưu Iượng máu chảy vào động mạch chủ). Để đo hiệu suất của tim, người ta bơm $A (\\text{mg})$ chất chỉ thị màu vào tâm nhĩ phải, chảy qua tim rồi vào động mạch chủ và đo nồng độ chất chỉ thị màu còn lại ở tim đến thời điểm $T (\\text{s})$ khi chất chỉ thị mày tan sạch. Gọi $c(t)$ là nồng độ $(\\text{mg}/\\text{l})$ chất chỉ thị màu tại thời điểm $t (\\text{s})$ thì hiệu suất của tim được xác định bởi $F = \\frac{A}{\\int_0^T c(t)\\mathrm{d}t} (\\text{l}/\\text{s})$. Biết $c(t) = \\frac{1}{4}t(12 - t)$ với $0 \\le t \\le 12$. Tính hiệu suất của tim khi bơm 8 mg chất chỉ thị màu vào tâm nhĩ phải (làm tròn đến hàng phần trăm theo đơn vị $\\text{l}/\\text{s}$).",
+    "image": "data/im/TP4-12.png",
+    "correct": "0,11",
+    "solution": "Từ đề bài ta có:<br>- $A = 8\\text{mg}$ (lượng chất chỉ thị màu được bơm vào).<br>- $c(t) = \\frac{1}{4}t(12 - t); 0 \\le t \\le 12$.<br>- $T$ là thời điểm chất chỉ thị màu tan sạch. Điều này có nghĩa là $c(T) = 0$.<br>Từ $c(t) = \\frac{1}{4}t(12 - t) = 0$, ta có $t = 0$ hoặc $t = 12$.<br>Vì $T$ là thời điểm chất chỉ thị màu tan sạch (sau khi bơm), nên $T = 12$ giây.<br>Vậy ta cần tính $\\int_0^{12} \\frac{1}{4}t(12 - t)\\mathrm{d}t$.<br>$\\int_0^{12} \\frac{1}{4}(12t - t^2)\\mathrm{d}t = \\frac{1}{4}\\int_0^{12} (12t - t^2)\\mathrm{d}t$<br>$= \\frac{1}{4}\\left[12\\frac{t^2}{2} - \\frac{t^3}{3}\\right]\\bigg|_0^{12} = \\frac{1}{4}\\left[6t^2 - \\frac{t^3}{3}\\right]\\bigg|_0^{12} = \\frac{1}{4}\\left(\\left(6(12)^2 - \\frac{(12)^3}{3}\\right) - \\left(6(0)^2 - \\frac{(0)^3}{3}\\right)\\right)$<br>$= \\frac{1}{4}\\left(6(144) - \\frac{1728}{3} - 0\\right) = 72$<br>Tính hiệu suất của tim $F$:<br>$F = \\frac{A}{\\int_0^T c(t)\\mathrm{d}t} = \\frac{8}{72}$<br>$F = \\frac{1}{9} (\\text{l}/\\text{s}) \\approx 0,11 (\\text{l}/\\text{s})$<br>Kết quả: Hiệu suất của tim là khoảng $0,11 \\text{l}/\\text{s}$<br>\\shortans{0,11}"
+  },
+  {
+    "id": "13",
+    "title": "Câu 13",
+    "type": "short_answer",
+    "text": "Giá trị trung bình của hàm số liên tục $f(x)$ trên đoạn $[a;b]$ được định nghĩa là $\\frac{1}{b-a}\\int_a^b f(x)\\mathrm{d}x$. Giả sử nhiệt độ (tính bằng $^\\circ\\text{C}$) tại thời điểm $t$ giờ trong khoảng thời gian từ 6 giờ sáng đến 12 giờ trưa ở một địa phương vào một ngày nào đó được mô hình hóa bởi hàm số $T(t) = 20 + 1,5(t - 6), 6 \\le t \\le 12$. Nhiệt độ trung bình vào ngày đó trong khoảng thời gian từ 6 giờ sáng đến 12 giờ trưa là bao nhiêu $^\\circ\\text{C}$.",
+    "image": "",
+    "correct": "24,5",
+    "solution": "- Tính tích phân của hàm số $T(t) = 20 + 1,5(t - 6), 6 \\le t \\le 12$ từ 6 giờ sáng đến 12 giờ trưa<br>$\\int_6^{12} T(t)\\mathrm{d}t = \\int_6^{12} (20 + 1,5(t - 6))\\mathrm{d}t = 147$<br>- Giá trị trung bình của hàm nhiệt độ trên khoảng từ 6 giờ sáng đến 12 giờ trưa là $\\frac{147}{12 - 6} = 24,5$<br>- Như vậy nhiệt độ trung bình vào ngày đó trong khoảng thời gian từ 6 giờ sáng đến 12 giờ trưa là $24,5^\\circ\\text{C}$.<br>\\shortans{24,5}"
+  },
+  {
+    "id": "14",
+    "title": "Câu 14",
+    "type": "short_answer",
+    "text": "Trọng lực của Trái Đất tác dụng lên một vệ tinh trong quá trình vệ tinh này được phóng lên từ mặt đất tới vị trí cách tâm Trái Đất $r(\\text{m})$ xác định bởi công thức $F(r) = G\\frac{Mm}{r^2}$ trong đó $M = 6.10^{24}\\text{ kg}$ là khối lượng Trái Đất, $m\\text{ (kg)}$ là khối lượng vệ tinh và $G = 6,67 \\cdot 10^{-11}\\text{ N}\\cdot\\text{m}^2/\\text{kg}^2$ là hằng số hấp dẫn. Trọng lực này sinh công $W = \\int_a^b F(h)\\mathrm{d}h (\\text{J})$ khi vệ tinh thay đổi từ vị trí cách tâm Trái Đất $a\\text{ (m)}$ lên vị trí cách tâm Trái Đất $b\\text{ (m)}$ (nguồn: http://hyperphysics.phy-astr.gsu.edu/hbase/wint.html). Công tối thiểu để phóng một vệ tinh nặng $m = 1000\\text{ kg}$ từ mặt đất lên độ cao 35780 km so với mặt đất là $a \\cdot 10^{10} (\\text{J})$, biết bán kính Trái Đất là 6370 km. Giá trị của $a$ làm tròn đến hàng đơn vị là",
+    "image": "data/im/TP4-14.png",
+    "correct": "5",
+    "solution": "Vì công thức tính lực sinh công W sẽ được tính khi vệ tinh thay đổi từ vị trí cách tâm trái đất $a(\\text{m})$ lên vị trí cách tâm trái đất $b(\\text{m})$ nên để phóng 1 vệ tinh lên độ cao 35780 km so với mặt đất thì $b = 35780 + 6370 = 42150\\text{ km} = 42150000\\text{ m}$ và $a = 6370\\text{ km} = 6370000\\text{ m}$<br>Ta có: $W = \\int_{6370000}^{42150000} G \\cdot \\frac{Mm}{h^2}\\mathrm{d}h = \\int_{6370000}^{42150000} 6,67 \\cdot 10^{-11} \\cdot \\frac{6.10^{24} \\cdot 1000}{h^2}\\mathrm{d}h \\approx 5.10^{10}$<br>Vì công tối thiểu để phóng vệ tinh bằng công của trọng lực W và bằng $5.10^{10}$<br>Suy ra $a = 5$.<br>\\shortans{5}"
+  },
+  {
+    "id": "15",
+    "title": "Câu 15",
+    "type": "short_answer",
+    "text": "Một bể nước hình nón tròn xoay như hình vẽ có chiều cao 10 m và bán kính đáy 4 mét được đổ nước đến độ cao 8 mét. Công để bơm hết nước ra từ một vòi ở đỉnh bể được tính theo công thức $W = 9,8.\\int_2^{10} x.S(x)\\mathrm{d}x$ (đơn vị kilôJun), trong đó $S(x) (\\text{m}^2)$ là diện tích của lớp nước cách mặt bể $x(\\text{m})$. Tính $W (\\text{kJ})$ (kết quả làm tròn đến hàng đơn vị).",
+    "image": "data/im/TP4-15.png",
+    "correct": "3363",
+    "solution": "Để tính được công để bơm hết nước ra thì ta cần đi tìm được hàm $S(x)$.<br>Lớp nước cách mặt bể là một hình tròn song song và cách mặt bể $x(\\text{m})$. Giả sử lớp nước hình tròn đó có bán kính là $r(\\text{m})$. Ta gắn trục tọa độ như hình sau.<br>\\noteImage{data/im/TP4-15-2.png}<br>Từ giả thiết, ta có $OC = x(\\text{m}) \\Rightarrow AC = 10 - x(\\text{m}); OA = 10(\\text{m}); OB = 4(\\text{m})$. Vì mặt nước cách bể song song với mặt bể nên $CD \\parallel OB$.<br>Khi đó, ta áp dụng hệ quả của định lý Talet trong tam giác $OAB$, ta có<br>$\\frac{AC}{OA} = \\frac{CD}{OB} \\Leftrightarrow \\frac{10 - x}{10} = \\frac{r}{4} \\Leftrightarrow r = \\frac{4(10 - x)}{10} = \\frac{20 - 2x}{5}$<br>Suy ra $S(x) = \\pi r^2 = \\pi \\left(\\frac{20 - 2x}{5}\\right)^2$<br>Vậy $W = 9,8 \\cdot \\int_2^{10} x \\cdot \\pi \\left(\\frac{20 - 2x}{5}\\right)^2\\mathrm{d}x \\approx 3363 (\\text{kJ})$.<br>\\shortans{3363}"
+  },
+  {
+    "id": "16",
+    "title": "Câu 16",
+    "type": "short_answer",
+    "text": "Ở $45^\\circ\\text{C}$, phản ứng hoá học phân huỷ $\\text{N}_2\\text{O}_5$ xảy ra theo phương trình $\\text{N}_2\\text{O}_5 \\rightarrow 2\\text{NO}_2 + \\frac{1}{2}\\text{O}_2$ với nồng độ $c(t)$ (mol/L) của $\\text{N}_2\\text{O}_5 (c(t) > 0)$ tại thời điểm $t$ giây ($t \\ge 0$) thoả mãn $c'(t) = -0,0005.c(t)$. Biết khi $t = 0$, nồng độ ban đầu của $\\text{N}_2\\text{O}_5$ là $0,05\\text{ mol/L}$ và nồng độ trung bình của $\\text{N}_2\\text{O}_5 (\\text{mol/L})$ từ thời điểm $a$ giây đến thời điểm $b$ giây ($a < b$) được cho bởi công thức $\\frac{1}{b-a}\\int_a^b c(t)\\mathrm{d}t$. Nồng độ trung bình của $\\text{N}_2\\text{O}_5$ từ thời điểm 10 giây đến thời điểm 20 giây là $a \\cdot 10^{-4} (\\text{mol/L})$. Tính $a$ (làm tròn kết quả đến hàng đơn vị).",
+    "image": "",
+    "correct": "496",
+    "solution": "Để tính được nồng độ trung bình, ta cần đi tìm $c(t)$.<br>Theo giả thiết, ta có $c'(t) = -0,0005.c(t) \\Rightarrow \\frac{c'(t)}{c(t)} = -0,005 \\Leftrightarrow (\\ln c(t))' = -0,0005$<br>Nguyên hàm 2 vế, ta được $\\ln c(t) = -0,0005t + C \\Rightarrow c(t) = e^{-0,0005t + C}$<br>Biết tại $t = 0$, thì $c(0) = 0,05\\text{ mol/L} \\Leftrightarrow 0,05 = e^C \\Rightarrow C = \\ln 0,05$<br>Suy ra $c(t) = e^{-0,0005t + \\ln 0,05}$<br>Có nồng độ trung bình từ thời điểm 10 giây đến thời điểm 20 giây bằng<br>$\\frac{1}{b-a}\\int_a^b c(t)\\mathrm{d}t = \\frac{1}{20-10}\\int_{10}^{20} e^{-0,0005t + \\ln 0,05}\\mathrm{d}t \\approx 0,0496 \\approx 496.10^{-4}$<br>Vậy $a = 496$.<br>\\shortans{496}"
+  },
+  {
+    "id": "17",
+    "title": "Câu 17",
+    "type": "short_answer",
+    "text": "(THPT Nguyễn Khuyến - Lê Thánh Tông 2025) Hệ thống lọc nước bể bơi vô cùng quan trọng khi tiến hành xây dựng công trình bơi lội để nguồn nước được làm sạch thường xuyên và giữ vệ sinh cho người bơi. Trong quá trình vận hành lọc nước thì lượng nước trong bể sẽ thay đổi theo thời gian. Lượng nước trong bể giảm nếu hệ thống đang xả nước bẩn ra khỏi bể và tăng nếu hệ thống đang cấp thêm nước sạch cho bể. Biết rằng 1 gallon gần bằng 3,785 lít, dung tích của bể là 1000 gallon và thời điểm 6 giờ sáng bể chứa 250 gallon nước. Hàm số $f(t)$ biểu thị cho tốc độ thay đổi lượng nước trong bể theo thời gian $t$ giờ, từ thời điểm 6 giờ sáng đến 6 giờ chiều được cho bởi $f(t) = \\begin{cases} 100t & \\text{khi } 0 \\le t \\le 3 \\\\ 900 - 200t & \\text{khi } 3 \\le t \\le 6 \\\\ 100t - 900 & \\text{khi } 6 \\le t \\le 12 \\end{cases}$ với mốc thời gian $t = 0$ tại thời điểm 6 giờ sáng. Hỏi ở thời điểm 6 giờ chiều thì trong bể chứa nhiêu gallon nước?",
+    "image": "data/im/TP4-18.png",
+    "correct": "700",
+    "solution": "+) Gọi $F(t)$ là một nguyên hàm của hàm số $f(t)$<br>Vì $f(t)$ biểu thị cho tốc độ thay đổi lượng nước trong bể theo thời gian $t$ nên $F(t)$ chính là lượng nước có trong bể theo thời gian $t$.<br>+) Lượng nước trong bể lúc 6 giờ sáng (ứng với $t = 0$) là $F(0) = 250$.<br>Lượng nước trong bể lúc 6 giờ chiều (ứng với $t = 12$) là $F(12)$.<br>Ta có $\\int_0^{12} f(t)\\mathrm{d}t = F(12) - F(0) \\Rightarrow F(12) = F(0) + \\int_0^{12} f(t)\\mathrm{d}t$<br>$\\Leftrightarrow F(12) = 250 + \\int_0^3 100t\\mathrm{d}t + \\int_3^6 (900 - 200t)\\mathrm{d}t + \\int_6^{12} (100t - 900)\\mathrm{d}t = 700$ gallon.<br>\\shortans{700}"
+  },
+  {
+    "id": "18",
+    "title": "Câu 18",
+    "type": "short_answer",
+    "text": "(THPT Lê Thánh Tông - Nguyễn Khuyến HCM 2025) Người ta cho một chiếc xe điện mô hình chạy thử nghiệm trên một đường thẳng trong 24 giây với vận tốc $v(t) = \\begin{cases} \\frac{1}{2}t & \\text{khi } 0 \\le t \\le 8 \\\\ 4 & \\text{khi } 8 < t < 16 \\\\ -\\frac{1}{2}t + 12 & \\text{khi } 16 \\le t \\le 24 \\end{cases}$ (decimet/giây), trong đó $t$ là khoảng thời gian tính bằng giây kể từ lúc xe bắt đầu chuyển động. Trong 24 giây chạy thử nghiệm đó, chiếc xe mô hình đi được quãng đường bao nhiêu decimet?",
+    "image": "",
+    "correct": "64",
+    "solution": "Trong 24 giây chạy thử nghiệm đó, chiếc xe mô hình đi được quãng đường là:<br>$s = \\int_0^{24} v(t)\\mathrm{d}t = \\int_0^8 \\frac{1}{2}t\\mathrm{d}t + \\int_8^{16} 4\\mathrm{d}t + \\int_{16}^{24} \\left(-\\frac{1}{2}t + 12\\right)\\mathrm{d}t$<br>$= \\left(\\frac{1}{4}t^2\\right)\\bigg|_0^8 + (4t)\\bigg|_8^{16} + \\left(-\\frac{1}{4}t^2 + 12t\\right)\\bigg|_{16}^{24} = 64 (\\text{dm/s})$<br>\\shortans{64}"
+  },
+  {
+    "id": "19",
+    "title": "Câu 19",
+    "type": "short_answer",
+    "text": "(Sở Đà Nẵng 2025) Một xe mô tô đang chạy với vận tốc 20 m/s thì tài xế giảm ga và kéo phanh. Từ thời điểm đó, xe chuyển động chậm dần đều với vận tốc được mô tả bởi phương trình: $v(t) = -4t + 20 \\text{ (m/s)}$, trong đó thời gian $t$ được tính bằng giây. Hỏi từ lúc giảm ga và kéo phanh đến khi dừng hẳn, mô tô di chuyển được quãng đường bao nhiêu mét?",
+    "image": "",
+    "correct": "50",
+    "solution": "Vận tốc ban đầu là 20 m/s. Xét $v(t) = 20 \\Leftrightarrow -4t + 20 = 20 \\Leftrightarrow t = 0$ (giây).<br>Do đó thời điểm kéo phanh là thời điểm $t = 0$ (giây).<br>Khi dừng hẳn vận tốc là 0 m/s. Xét $v(t) = 0 \\Leftrightarrow -4t + 20 = 0 \\Leftrightarrow t = 5$ (giây).<br>Do đó thời điểm xe dừng hẳn là thời điểm $t = 5$ (giây).<br>Vậy quãng đường cần tìm là $S = \\int_0^5 v(t)\\mathrm{d}t = \\int_0^5 (-4t + 20)\\mathrm{d}t = (-2t^2 + 20t)\\big|_0^5 = 50 \\text{ (m)}$.<br>\\shortans{50}"
+  },
+  {
+    "id": "20",
+    "title": "Câu 20",
+    "type": "short_answer",
+    "text": "(THPT Tư Nghĩa 1 - Quảng Ngãi 2025) Một ô tô bắt đầu chuyển động nhanh dần đều với vận tốc $v_1(t) = 2t \\text{ (m/s)}$. Đi được 12 giây, người lái xe gặp chướng ngại vật và phanh gấp, ô tô tiếp tục chuyển động chậm dần đều với gia tốc $a = -12 \\text{ (m/s}^2\\text{)}$. Tính quãng đường $s \\text{ (m)}$ đi được của ô tô từ lúc bắt đầu chuyển động đến khi dừng hẳn?",
+    "image": "",
+    "correct": "168",
+    "solution": "Giai đoạn 1: Xe bắt đầu chuyển động đến khi gặp chướng ngại vật thì quãng đường xe đi được là:<br>$S_1 = \\int_0^{12} v_1(t)\\mathrm{d}t = \\int_0^{12} 2t\\mathrm{d}t = t^2\\bigg|_0^{12} = 144 \\text{ (m)}$<br>Giai đoạn 2: Xe gặp chướng ngại vật đến khi dừng hẳn. Ô tô chuyển động chậm dần đều với vận tốc $v_2(t) = \\int a(t)\\mathrm{d}t = \\int (-12)\\mathrm{d}t = -12t + C$. Vận tốc của xe khi gặp chướng ngại vật là:<br>$v_2(0) = v_1(12) = 2.12 = 24 \\text{ (m/s)} \\Rightarrow -12.0 + C = 24 \\Rightarrow C = 24 \\Rightarrow v_2(t) = -12t + 24$.<br>Thời gian khi xe gặp chướng ngại vật đến khi dừng hẳn là nghiệm của phương trình:<br>$-12t + 24 = 0 \\Leftrightarrow t = 2$. Khi đó quãng đường xe đi được là:<br>$S_2 = \\int_0^2 v_2(t)\\mathrm{d}t = \\int_0^2 (-12t + 24)\\mathrm{d}t = (-6t^2 + 24t)\\bigg|_0^2 = 24 \\text{ (m)}$.<br>Vậy tổng quãng đường xe đi được là: $S = S_1 + S_2 = 144\\text{m} + 24\\text{m} = 168\\text{ (m)}$<br>\\shortans{168}"
+  },
+  {
+    "id": "21",
+    "title": "Câu 21",
+    "type": "short_answer",
+    "text": "(THPT Lê Quý Đôn - HCM 2025) Một phần của bề mặt phía trên của các gợn sóng của nước biển có hình dạng đồ thị hàm số bậc ba khi gắn hệ trục tọa độ $Oxy$. Biết rằng đồ thị hàm số bậc ba có các điểm cực trị lần lượt là $M(-2;1)$ và $N(0;1,2)$, đơn vị trên hệ trục tọa độ là mét.\n\nHai vị trí $A$ và $B$ có hoành độ lần lượt là $-3$ và $1$ nằm trên đường cong của các gợn sóng đó. Tính độ dài đường cong $AB$ (Kết quả làm tròn đến hàng phần trăm). Biết rằng độ dài đường cong có phương trình $y = f(x)$ từ điểm $C(c; f(c))$ tới điểm $D(d; f(d))$ với $c < d$ được tính bởi công thức $T = \\int_c^d \\sqrt{1 + \\left(f'(x)\\right)^2}\\mathrm{d}x$.",
+    "image": "data/im/TP4-22.png",
+    "correct": "4,07",
+    "solution": "Gọi hàm số bậc ba là $y = f(x) = ax^3 + bx^2 + cx + d$ có $f'(x) = 3ax^2 + 2bx + c$<br>Do $M(-2;1)$ và $N(0;1,2)$ là hai điểm cực trị nên $\\begin{cases} f'(-2) = 0 \\\\ f'(0) = 0 \\end{cases}$ và $\\begin{cases} f(-2) = 1 \\\\ f(0) = 1,2 \\end{cases}$<br>Thay vào tìm được $a = -0,05; b = -0,15; c = 0; d = 1,2$ suy ra $f'(x) = -0,15x^2 - 0,3x$<br>Vậy độ dài đường cong $AB$ là: $l_{AB} = \\int_{-3}^1 \\sqrt{1 + \\left(-0,15x^2 - 0,3x\\right)^2}\\mathrm{d}x \\approx 4,07$ mét.<br>\\shortans{4,07}"
+  },
+  {
+    "id": "22",
+    "title": "Câu 22",
+    "type": "short_answer",
+    "text": "(THPT Yên Lạc - Vĩnh Phúc 2025) Tốc độ tăng trưởng chiều cao sau khi trồng (đơn vị: centimet/năm) của một loài cây lấy gỗ ở năm thứ $t$ được cho bởi hàm số $h'(t) = \\log_{1,2}(20t + 1) + 30$. Từ năm thứ 20 đến năm thứ 30 sau khi trồng, cây cao thêm được bao nhiêu mét? (Làm tròn kết quả đến hàng phần trăm).",
+    "image": "",
+    "correct": "6,41",
+    "solution": "Từ năm thứ 20 đến năm thứ 30 sau khi trồng, cây cao thêm được<br>$\\int_{20}^{30} \\left[\\log_{1,2}(20t + 1) + 30\\right]\\mathrm{d}x \\approx 640,6 \\text{ cm} \\approx 6,41 \\text{ m}$<br>\\shortans{6,41}"
+  },
+  {
+    "id": "23",
+    "title": "Câu 23",
+    "type": "short_answer",
+    "text": "Chi phí (tính bằng nghìn đồng) trên mỗi đơn vị sản phẩm của một quy trình sản xuất bánh kẹo được mô hình hóa bởi công thức $c(t) = 0,005t^2 + 0,02t + 12,5$; trong đó $0 \\le t \\le 12$ là thời gian, tính theo tháng. Chi phí trung bình trên mỗi đơn vị sản phẩm đó trong khoảng thời gian một năm bằng bao nhiêu nghìn đồng? (kết quả làm tròn đến hàng phần mười)",
+    "image": "",
+    "correct": "12,9",
+    "solution": "Chi phí trung bình trên mỗi đơn vị sản phẩm trong khoảng thời gian một năm là<br>$\\frac{1}{12}\\int_0^{12} (0,005t^2 + 0,02t + 12,5)\\mathrm{d}t = \\frac{643}{50} \\approx 12,9$.<br>\\shortans{12,9}"
+  },
+  {
+    "id": "24",
+    "title": "Câu 24",
+    "type": "short_answer",
+    "text": "Cho hàm số $y = f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau\n\nTích phân $\\int_0^1 f'(2x - 1)\\mathrm{d}x$ bằng",
+    "image": "data/im/TP4-27.png",
+    "correct": "4",
+    "solution": "Đặt $2x - 1 = t \\Rightarrow 2\\mathrm{d}x = \\mathrm{d}t$. Khi đó $I = \\int_0^1 f'(2x - 1)\\mathrm{d}x = \\frac{1}{2}\\int_{-1}^1 f'(t)\\mathrm{d}t = \\frac{1}{2}\\int_{-1}^1 f'(x)\\mathrm{d}x$.<br>Theo đồ thị trên hàm số ta có bảng xét dấu của hàm số $y = f'(x)$<br>\\noteImage{data/im/TP4-27-2.png}<br>$I = \\frac{1}{2}\\int_{-1}^1 f'(x)\\mathrm{d}x = \\frac{1}{2}\\left[-\\int_{-1}^0 f'(x)\\mathrm{d}x + \\int_0^1 f'(x)\\mathrm{d}x\\right]$<br>$= \\frac{1}{2}\\left\\{-[f(0) - f(-1)] + [f(1) - f(0)]\\right\\}$<br>$= \\frac{1}{2}[f(1) - 2f(0) + f(-1)]$<br>$= \\frac{1}{2}(3 + 4 + 1) = 4$.<br>Vậy $I = \\int_0^1 f'(2x - 1)\\mathrm{d}x = 4$.<br>\\shortans{4}"
+  },
+  {
+    "id": "25",
+    "title": "Câu 25",
+    "type": "short_answer",
+    "text": "Nhiệt độ trung bình của Trái Đất có xu hướng tăng do nồng độ $\\text{CO}_2$ trong khí quyển. Giả sử lượng $\\text{CO}_2$ trong khí quyển (tính bằng ppm - parts per million) được mô tả bởi phương trình: $C(t) = 200 + 20t - 2t^2$, trong đó $t$ được tính theo năm, $t = 0$ ứng với năm 2025. Mối quan hệ giữa nhiệt độ trung bình của Trái Đất $T(t)$ (tính bằng $^\\circ\\text{C}$) và nồng độ $\\text{CO}_2$ được mô tả bởi phương trình: $T(t) = \\int_0^t kC(x)\\mathrm{d}x$ với hằng số $k = 0.005$ (mức độ ảnh hưởng của $\\text{CO}_2$ lên nhiệt độ). Nếu không có biện pháp giảm phát thải $\\text{CO}_2$, nhiệt độ trung bình của Trái Đất có thể tăng thêm bao nhiêu $^\\circ\\text{C}$ từ năm 2025 đến năm 2040?",
+    "image": "data/im/TP4-28.png",
+    "correct": "15",
+    "solution": "Sự thay đổi của nhiệt độ trung bình của Trái Đất từ năm 2025 đến năm 2040<br>$T = 0.005\\int_0^{15} (200 + 20t - 2t^2)\\mathrm{d}t = 15$<br>Nếu không có biện pháp giảm phát thải $\\text{CO}_2$, nhiệt độ trung bình của Trái Đất có thể tăng thêm khoảng $15^\\circ\\text{C}$ từ năm 2025 đến năm 2040<br>\\shortans{15}"
+  },
+  {
+    "id": "26",
+    "title": "Câu 26",
+    "type": "short_answer",
+    "text": "Một vật chuyển động trong 3 giờ với vận tốc $v$ (km/h) phụ thuộc vào thời gian $t$ (h), có đồ thị vận tốc như hình bên dưới. Trong khoảng thời gian 1 giờ kể từ khi bắt đầu chuyển động, đồ thị đó là một phần của đồ thị parabol có đỉnh $I(2;22)$, khoảng thời gian còn lại của đồ thị là một đoạn thẳng song song với trục hoành. Tính quãng đường $S$ (km) mà vật di chuyển được trong 3 giờ đó?",
+    "image": "data/im/TP4-29.png",
+    "correct": "53",
+    "solution": "Gọi phương trình chuyển động của vật trong 1 giờ đầu là: $v(t) = at^2 + bt + c$.<br>Từ đồ thị, ta có: $\\begin{cases} v(0) = 10 \\\\ v(2) = 22 \\\\ -\\frac{b}{2a} = 2 \\end{cases} \\Leftrightarrow \\begin{cases} c = 10 \\\\ 4a + 2b + c = 22 \\\\ 4a + b = 0 \\end{cases} \\Leftrightarrow \\begin{cases} a = -3 \\\\ b = 12 \\\\ c = 10 \\end{cases}$<br>Suy ra: $v(t) = -3t^2 + 12t + 10$.<br>Quãng đường đi được trong giờ đầu là: $S_1 = \\int_0^1 (-3t^2 + 12t + 10)\\mathrm{d}t = 15 \\text{ (km)}$.<br>Tại thời điểm $t = 1$, vận tốc của vật là: $v(1) = 19 \\text{ (km/h)}$.<br>Quãng đường vật đi được trong 2 giờ tiếp theo là: $S_2 = 19.2 = 38 \\text{ (km)}$.<br>Quãng đường vật đi được trong 3 giờ là: $S = S_1 + S_2 = 53 \\text{ (km)}$.<br>\\shortans{53}"
+  },
+  {
+    "id": "27",
+    "title": "Câu 27",
+    "type": "short_answer",
+    "text": "Một lực 30 N cần thiết để kéo giãn một lò xo thêm 4 cm so với chiều dài tự nhiên 18 cm. Hãy tìm công cần thiết là bao nhiêu Jun (J) để kéo giãn lò xo từ chiều dài 20 cm đến 24 cm.",
+    "image": "data/im/TP4-30.png",
+    "correct": "1,2",
+    "solution": "Giả sử đặt lò xo trùng với trục $Ox$ và đầu tự do ở gốc toạ độ (như Hình b). Theo định luật Hooke, lực $F(x)$ cần để kéo giãn lò xo thêm $x$ mét so với chiều dài tự nhiên là $F(x) = kx$.<br>Vì cần lực 30 N để kéo giãn lò xo 4 cm, tức $0,04\\text{ m}$, nên $30 = k \\cdot 0,04 \\Rightarrow k = 750 (\\text{N/m})$<br>Do đó $F(x) = 750x$.<br>Công để kéo giãn từ 20 cm đến 24 cm (tức $x$ tăng từ $0,02\\text{ m}$ đến $0,06\\text{ m}$) là<br>$W = \\int_{0,02}^{0,06} F(x)\\mathrm{d}x = \\int_{0,02}^{0,06} 750x\\mathrm{d}x = 750\\left[\\frac{1}{2}x^2\\right]\\bigg|_{0,02}^{0,06} = 375\\left((0,06)^2 - (0,02)^2\\right) = 1,2\\text{ J}$<br>Vậy công cần thiết là $1,2\\text{ J}$.<br>\\shortans{1,2}"
+  },
+  {
+    "id": "28",
+    "title": "Câu 28",
+    "type": "short_answer",
+    "text": "Trên Đảo Rắn (Insel des Todes) ngoài khơi bờ biển Brasil có loài rắn độc là Lancehead. Trong một chuyến thám hiểm cách đây 20 năm, người ta đã thống kê số lượng rắn trên đảo. Khi đó có khoảng 2000 con rắn, và tốc độ tăng trưởng quần thể được cho bởi: $N'(t) = \\frac{1}{30}(23 - 2t)$\ntrong đó:\n- $t$ tính bằng năm,\n- $N'(t)$ tính bằng nghìn con rắn/năm,\n- $N(t)$ là kích thước quần thể (tính bằng nghìn con rắn) tại thời điểm $t$ năm.\nYêu cầu: Số lượng rắn tăng thêm trong 20 năm qua là bao nhiêu nghìn con?",
+    "image": "data/im/TP4-31.png",
+    "correct": "2",
+    "solution": "Tốc độ tăng trưởng $N'(t)$ đã biết.<br>Số rắn tăng thêm bằng:<br>$\\Delta N = \\int_0^{20} N'(t)\\mathrm{d}t = \\int_0^{20} \\frac{1}{30}(23 - 2t)\\mathrm{d}t = \\frac{1}{30}\\left[23t - t^2\\right]\\bigg|_0^{20} = \\frac{1}{30}(460 - 400) = 2$<br>Kết quả: $\\Delta N = 2$ (nghìn con rắn) nghĩa là tăng thêm 2000 con.<br>\\shortans{2}"
+  },
+  {
+    "id": "29",
+    "title": "Câu 29",
+    "type": "short_answer",
+    "text": "Một khinh khí cầu thay đổi vận tốc lên cao $v$ theo biểu đồ bên. Nó khởi hành ở độ cao 350 m so với mực nước biển.\n\nHỏi sau 200 s, khinh khí cầu ở độ cao bao nhiêu mét so với mực nước biển.",
+    "image": "data/im/TP4-32.png",
+    "correct": "400",
+    "solution": "Từ đồ thị, ta có ba đoạn thẳng và các tập xác định:<br>$v(t) = \\begin{cases} 2, & 0 \\le t \\le 50, \\\\ -0,04t + 4, & 50 \\le t \\le 150, \\\\ 0,04t - 8, & 150 \\le t \\le 200, \\end{cases}$<br>($v$ tính bằng m/s, $t$ tính bằng s)<br>Độ cao tăng thêm là tích phân xác định của $v$ trên $[0;200]$:<br>$\\int_0^{50} 2\\mathrm{d}t = 2t\\big|_0^{50} = 100\\text{ m}$<br>$\\int_{50}^{150} (-0,04t + 4)\\mathrm{d}t = \\left[-0,02t^2 + 4t\\right]\\bigg|_{50}^{150} = 0\\text{ m}$<br>$\\int_{150}^{200} (0,04t - 8)\\mathrm{d}t = \\left[0,02t^2 - 8t\\right]\\bigg|_{150}^{200} = -50\\text{ m}$<br>Vậy tổng mức tăng độ cao là $100 + 0 - 50 = 50\\text{ m}$.<br>Sau 200 s, khinh khí cầu ở độ cao $350 + 50 = 400\\text{ m}$ so với mực nước biển.<br>\\shortans{400}"
+  },
+  {
+    "id": "30",
+    "title": "Câu 30",
+    "type": "short_answer",
+    "text": "Nhà Tít có một bồn chứa nước hình trụ cao 300 cm, đường kính 60 cm. Bồn đầy nước thì bạn Tí vô ý mở van xả. Mực nước hạ với vận tốc $h'(t) = \\frac{1}{54}t - \\frac{10}{3}$ ($t$ tính bằng phút, $h'(t)$ cm/phút).\nSau 1,5 giờ (tức 90 phút) thì Tít mới phát hiện sự cố. Hỏi lượng nước đã mất là bao nhiêu lít? (làm tròn kết quả đến hàng đơn vị)",
+    "image": "data/im/TP4-33.png",
+    "correct": "636",
+    "solution": "Tìm $h(t)$: Tích phân vận tốc: $h(t) = \\int \\left(\\frac{1}{54}t - \\frac{10}{3}\\right)\\mathrm{d}t = \\frac{1}{108}t^2 - \\frac{10}{3}t + C$<br>Do bồn ban đầu đầy $h(0) = 300 \\Rightarrow C = 300$.<br>Vậy $h(t) = \\frac{1}{108}t^2 - \\frac{10}{3}t + 300$<br>Lượng nước mất sau 1,5 giờ:<br>Độ giảm mực nước: $\\Delta h = \\int_0^{90} h'(t)\\mathrm{d}t = h(t)\\big|_0^{90} = h(90) - h(0) = 75 - 300 = -225\\text{ cm}$<br>Bán kính bồn $r = 30\\text{ cm}$. Thể tích nước mất (một hình trụ cao 225 cm):<br>$\\Delta V = \\pi r^2 \\Delta h = \\pi \\cdot 30^2 \\cdot 225 = 202500\\pi\\text{ cm}^3 \\approx 636173\\text{ cm}^3 \\approx 636$ lít.<br>Kết luận: Nước bị thất thoát xấp xỉ 636 lít.<br>\\shortans{636}"
+  },
+  {
+    "id": "31",
+    "title": "Câu 31",
+    "type": "short_answer",
+    "text": "Một cái đập có mặt cắt có dạng hình thang cân cao 20 mét, đáy lớn rộng 50 mét và đáy nhỏ rộng 30 mét. Nước cách đỉnh đập 4 mét (tham khảo hình vẽ). Áp suất thuỷ tĩnh tác dụng lên đập được tính theo công thức $F = 9800\\int_0^{h_0} h(x).k(x)\\mathrm{d}x (\\text{N})$, trong đó $h(x)$ và $k(x)$ lần lượt là chiều dài và độ sâu của lớp nước tại vị trí cách đáy $x(\\text{m})$, $h_0$ là độ cao của nước trong hồ. Biết rằng $F = a \\cdot 10^7 (\\text{N})$, tính $a$ (làm tròn kết quả đến hàng phần mười).",
+    "image": "data/im/TP4-35.png",
+    "correct": "4,4",
+    "solution": "Ta kẻ $AB$ song song với đáy và kí hiệu các điểm như hình.<br>\\noteImage{data/im/TP4-35-2.png}<br>Vì nước cách đỉnh đập 4 m nên độ cao của nước trong hồ $h_0 = 20 - 4 = 16(\\text{m})$. Khi đó, $k(x) = 16 - x; h(x) = AB$.<br>Vì mặt cắt của đập có dạng hình thang cân, nên khi kẻ $\\begin{cases} EN \\perp MQ \\\\ FP \\perp MQ \\end{cases}$ thì $ENPF$ là hình chữ nhật và $\\Delta EMN = \\Delta FPQ$. Suy ra $MN = \\frac{MQ - NP}{2} = \\frac{50 - 30}{2} = 10(\\text{m})$.<br>Suy ra $h(x) = AB = 30 + 2AK$.<br>Trong tam giác $EMN$, ta có $AK \\parallel MN$ nên áp dụng định lý Thalès, ta có $\\frac{EK}{EN} = \\frac{AK}{MN} \\Rightarrow AK = \\frac{EK \\cdot MN}{EN} = \\frac{10x}{20} = \\frac{1}{2}x$.<br>Suy ra $h(x) = 30 + x$.<br>Khi đó áp suất tĩnh thủy tác dụng lên đập nước là<br>$F = 9800\\int_0^{16} (16 - x)(30 + x)\\mathrm{d}x = 44322133.33 \\approx 4,4.10^7 (\\text{N})$<br>Vậy $a = 4,4$.<br>\\shortans{4,4}"
+  },
+  {
+    "id": "32",
+    "title": "Câu 32",
+    "type": "short_answer",
+    "text": "Tại một nhà máy, gọi $C(x)$ là tổng chi phí (tính theo triệu đồng) để sản xuất $x$ tấn sản phẩm $A$ trong một tháng. Khi đó, đạo hàm $C'(x)$, gọi là chi phí cận biên, cho biết tốc độ gia tăng tổng chi phí theo lượng gia tăng sản phẩm được sản xuất. Giả sử chi phí cận biên (tính theo triệu đồng trên tấn) của nhà máy được ước lượng bởi công thức\n$C'(x) = 5 - 0,06x + 0,00072x^2, 0 \\le x \\le 150$.\nBiết rằng $C(0) = 30$ triệu đồng, gọi là chi phí cố định. Tính tổng chi phí khi nhà máy sản xuất 100 tấn sản phẩm A trong tháng.",
+    "image": "",
+    "correct": "470",
+    "solution": "Ta có:<br>$C(100) - C(0) = \\int_0^{100} C'(x)\\mathrm{d}x = \\int_0^{100} (5 - 0,06x + 0,00072x^2)\\mathrm{d}x$<br>$= 5\\int_0^{100} \\mathrm{d}x - 0,06\\int_0^{100} x\\mathrm{d}x + 0,00072\\int_0^{100} x^2\\mathrm{d}x$<br>$= 5x\\big|_0^{100} - 0,03x^2\\big|_0^{100} + 0,00024x^3\\big|_0^{100} = 440$.<br>Suy ra $C(100) = C(0) + 440 = 30 + 440 = 470$ (triệu đồng).<br>Vậy khi nhà máy sản xuất 100 tấn sản phẩm A trong tháng thì tổng chi phí là 470 triệu đồng.<br>\\shortans{470}"
+  },
+  {
+    "id": "33",
+    "title": "Câu 33",
+    "type": "short_answer",
+    "text": "Vận tốc (dặm/giờ) của một máy bay khi bay ngược chiều gió được cho bởi công thức $v(t) = 30(16 - t^2)$ với $0 \\le t \\le 3$. Khi vận tốc tức thời đạt 400 dặm/giờ thì máy bay đã đi được quãng đường bao xa kể từ thời điểm bay ngược chiều gió (kết quả làm tròn đến hàng đơn vị của dặm)?",
+    "image": "data/im/TP4-38.png",
+    "correct": "740",
+    "solution": "Ta có $s(t) = \\int_0^t 30(16 - t^2)\\mathrm{d}t = 480t - 10t^3$.<br>Khi vận tốc tức thời đạt 400 dặm/giờ tức là $30(16 - t^2) = 400 \\Leftrightarrow t = \\frac{\\sqrt{24}}{3}$ (giờ).<br>Khi đó máy bay đã bay được quãng đường là<br>$s = 480 \\cdot \\frac{\\sqrt{24}}{3} - 10\\left(\\frac{\\sqrt{24}}{3}\\right)^3 \\approx 740$ (dặm)<br>\\shortans{740}"
+  },
+  {
+    "id": "34",
+    "title": "Câu 34",
+    "type": "short_answer",
+    "text": "Mặt cắt ngang của một ống dẫn khí nóng là hình vành khuyên như Hình. Khí bên trong ống được duy trì ở $150^\\circ\\text{C}$. Biết rằng nhiệt độ $T(^\\circ\\text{C})$ tại điểm $A$ trên thành ống là hàm số của khoảng cách $x (\\text{cm})$ từ $A$ đến tâm của mặt cắt và $T'(x) = -\\frac{30}{x} (6 \\le x \\le 8)$.\n\nTìm nhiệt độ mặt ngoài của ống. (viết kết quả dưới dạng số thập phân và làm tròn đến hàng phần trăm).",
+    "image": "data/im/TP4-40.png",
+    "correct": "141,37",
+    "solution": "Do nhiệt độ của khí bên trong ống luôn được duy trì ở $150^\\circ\\text{C}$, nên $T(6) = 150$.<br>Nhiệt độ mặt ngoài của ống là $T(8) = [T(8) - T(6)] + T(6) = \\int_6^8 T'(x)\\mathrm{d}x + T(6)$.<br>Ta có $\\int_6^8 T'(x)\\mathrm{d}x = \\int_6^8 -\\frac{30}{x}\\mathrm{d}x = -30\\int_6^8 \\frac{1}{x}\\mathrm{d}x = -30 \\cdot (\\ln|x|)\\big|_6^8 = -30\\ln 8 + 30\\ln 6$.<br>Vậy nhiệt độ bên ngoài mặt ống là $T(8) = -30\\ln 8 + 30\\ln 6 + 150 \\approx 141,37^\\circ\\text{C}$<br>\\shortans{141,37}"
+  },
+  {
+    "id": "35",
+    "title": "Câu 35",
+    "type": "short_answer",
+    "text": "Qua điều tra các nhà phân tích kinh tế đã nhận định rằng tốc độ tăng truởng kinh tế(GDP) của một quốc gia sau $t$ năm tính từ đầu năm 2004 là $30 + \\frac{1}{2}\\sqrt{5 + t}$ tỉ USD/năm. Biết rằng GDP của quốc gia đó vào đầu năm 2004 là 100 tỉ USD. Hãy dự đoán GDP của quốc gia đó vào đầu năm 2015 bằng bao nhiêu tỉ USD (làm tròn kết quả đến số thập phân hàng đơn vị)",
+    "image": "",
+    "correct": "438",
+    "solution": "Nguyên hàm của $q(t) = 30 + \\frac{1}{2}\\sqrt{5 + t}$ là hàm số $S(t)$ mô tả GDP của quốc gia sau $t$ năm (được tính từ năm 2004).<br>GDP tăng thêm tính từ năm 2004($t = 0$) đến đầu năm 2015 ($t = 11$) là<br>$\\int_0^{11} q(t)\\mathrm{d}t = \\int_0^{11} \\left(30 + \\frac{1}{2}\\sqrt{5 + t}\\right)\\mathrm{d}t = \\left(30t + \\frac{(5 + t)^{\\frac{3}{2}}}{3}\\right)\\bigg|_0^{11} \\approx 347,6$ (tỉ USD).<br>Như vậy, tổng giá trị GDP tính đến đầu năm 2015 bằng $347,6 + 100 = 437,6$ (tỉ USD).<br>\\shortans{438}"
+  },
+  {
+    "id": "36",
+    "title": "Câu 36",
+    "type": "short_answer",
+    "text": "Đơn đặt hàng của nhà máy cho một loại máy điều hoà không khí là khoảng 6000 chiếc mỗi tuần khi giá là 331 USD/chiếc và khoảng 8000 chiếc mỗi tuần khi giá là 303 USD/chiếc. Hàm cung được cho bởi $p = 0,0275x$, trong đó $x$ là số lượng máy điều hoà được bán với giá $p$ USD một chiếc. Tổng thặng dư tiêu dùng và thặng dư sản xuất bằng bao nhiêu nghìn USD (giả sử hàm cầu là hàm bậc nhất)",
+    "image": "data/im/TP4-42.png",
+    "correct": "2075",
+    "solution": "Hàm cầu có dạng $p = ax + b$. Do đơn đặt hàng của nhà máy cho một loại máy điều hoà không khí là 6000 chiếc mỗi tuần khi giá là 331 USD/chiếc và 8000 chiếc mỗi tuần khi giá là 303 USD/chiếc nên ta có:<br>$\\begin{cases} 331 = 6000a + b \\\\ 303 = 8000a + b \\end{cases} \\Leftrightarrow \\begin{cases} a = -0,014 \\\\ b = 415. \\end{cases}$<br>Vậy hàm cầu là $p = -0,014x + 415$.<br>Xét phương trình $-0,014x + 415 = 0,0275x \\Leftrightarrow x = 10000$, khi đó $p = 275$.<br>Thặng dư tiêu dùng là $\\int_0^{1000} (-0,014x + 415 - 275)\\mathrm{d}x = 700000 \\text{ (USD)}$.<br>Thặng dư sản xuất là $\\int_0^{10000} (275 - 0,0275x)\\mathrm{d}x = 1375000 \\text{ (USD)}$.<br>Tổng thặng dư tiêu dùng và thặng dư sản xuất bằng 2075000 USD<br>\\shortans{2075}"
+  },
+  {
+    "id": "37",
+    "title": "Câu 37",
+    "type": "short_answer",
+    "text": "Chi phí nhiên liệu dự kiến $C$ (tính bằng triệu đô la mỗi năm) khi sử dụng một loại xe tải của một công ty vận tải từ năm 2020 đến năm 2030 là $C_1 = 5,6 + 2,2t, 0 \\le t \\le 10$, trong đó $t = 0$ tương ứng với năm 2020. Nếu công ty sử dụng một loại xe tải khác có động cơ hiệu quả hơn thì chi phí nhiên liệu dự kiến sẽ giảm và tuân theo mô hình $C_2 = 4,7 + 2,04t, 0 \\le t \\le 10$. Công ty có thể tiết kiệm được bao nhiêu triệu đô khi sử dụng loại xe tải với động cơ hiệu quả hơn?",
+    "image": "data/im/TP4-43.png",
+    "correct": "17",
+    "solution": "Tổng chi phí nhiên liệu khi công ty vận tải sử dụng xe tải loại thứ nhất trong 10 năm là<br>$S_1 = \\int_0^{10} C_1\\mathrm{d}t = \\int_0^{10} (5,6 + 2,2t)\\mathrm{d}t = (5,6t + 1,1t^2)\\big|_0^{10} = 166$ (triệu đô la)<br>Tổng chi phí nhiên liệu khi công ty vận tải sử dụng xe tải loại thứ hai trong 10 năm là<br>$S_2 = \\int_0^{10} C_2\\mathrm{d}t = \\int_0^{10} (4,7 + 2,04t)\\mathrm{d}t = (4,7t + 1,02t^2)\\big|_0^{10} = 149$ (triệu đô la)<br>Vậy khi sử dụng loại xe tải với động cơ hiệu quả hơn, công ty tiết kiệm được<br>$166 - 149 = 17$ (triệu đô la)<br>\\shortans{17}"
+  },
+  {
+    "id": "38",
+    "title": "Câu 38",
+    "type": "short_answer",
+    "text": "Một trận dịch lây lan đến mức sau khi bùng phát $t$ tuần số người nhiễm bệnh là $N_1(t) = 0,1t^2 + 0,5t + 150, 0 \\le t \\le 50$. Hai mươi lăm tuần sau khi dịch bệnh bùng phát, một loại vắc xin đã được phát triển và tiêm cho công chúng. Khi đó, số người nhiễm bệnh được điều chỉnh theo mô hình $N_2(t) = -0,2t^2 + 6t + 200, 25 \\le t \\le 50$.\nHãy ước tính gần đúng số người mà vắc xin đã ngăn ngừa khỏi dịch bệnh trong thời gian xảy ra dịch bệnh.",
+    "image": "",
+    "correct": "4531",
+    "solution": "Thời gian $t$ mà dịch bệnh kết thúc thoả mãn phương trình<br>$-0,2t^2 + 6t + 200 = 0 \\Leftrightarrow t = 50$ (vì $t \\ge 0$).<br>Như vậy khi có vắc xin tiêm cho công chúng từ tuần thứ hai mươi lăm tới tuần thứ năm mươi thì kết thúc dịch (theo mô hình chỉ ra).<br>Số người mà vắc xin đã ngăn ngừa khỏi dịch bệnh trong thời gian xảy ra dịch bệnh là<br>$\\int_{25}^{50} [N_1(t) - N_2(t)]\\mathrm{d}t = \\int_{25}^{50} (0,3t^2 - 5,5t - 50)\\mathrm{d}t$<br>$= \\left(0,1t^3 - 5,5 \\cdot \\frac{t^2}{2} - 50t\\right)\\bigg|_{25}^{50} \\approx 4531$.<br>\\shortans{4531}"
+  },
+  {
+    "id": "39",
+    "title": "Câu 39",
+    "type": "short_answer",
+    "text": "Doanh thu từ một quy trình sản xuất (tính bằng triệu đô la mỗi năm) được dự kiến sẽ tuân theo mô hình $R = 100 + 0,08t$ trong 10 năm. Trong cùng khoảng thời gian đó, chi phí (tính bằng triệu đô la mỗi năm) được dự kiến sẽ tuân theo mô hình $C = 60 + 0,2t^2$, trong đó $t$ là thời gian (tính bằng năm). Ước tính lợi nhuận (triệu đô la) trong khoảng thời gian 10 năm. (làm tròn kết quả đến hàng đơn vị)",
+    "image": "",
+    "correct": "337",
+    "solution": "Hàm lợi nhuận là $P = R - C = 40 + 0,08t - 0,2t^2$.<br>Ước tính lợi nhuận trong khoảng thời gian 10 năm là<br>$\\int_0^{10} P\\mathrm{d}t = \\int_0^{10} (40 + 0,08t - 0,2t^2)\\mathrm{d}t = \\left(40t + 0,04t^2 - 0,2 \\cdot \\frac{t^3}{3}\\right)\\bigg|_0^{10} \\approx 337$ (triệu đô la)<br>\\shortans{337}"
+  }
+]

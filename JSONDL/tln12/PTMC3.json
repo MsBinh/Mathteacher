@@ -1,0 +1,299 @@
+[
+  {
+    "id": "1",
+    "title": "Câu 1",
+    "type": "short_answer",
+    "text": "(Sở Sơn La 2025) Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $(P): 2x - y + 2z + 5 = 0$ và các điểm $A(0;0;4), B(2;0;0)$. Mặt cầu $(S)$ có bán kính nhỏ nhất đi qua các điểm $A, B, O$ và tiếp xúc với mặt phẳng $(P)$ có tâm là điểm $I$. Tung độ của điểm $I$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "2",
+    "solution": "Ta có tam giác $OAB$ vuông tại các điểm $O$. Gọi điểm $I(x;y;z)$ trong không gian cách đều các điểm $A, B, O$, có tọa độ thỏa mãn<br>$$ \\begin{cases} AI^2 = BI^2 \\\\ AI^2 = OI^2 \\end{cases} \\Leftrightarrow \\begin{cases} x^2 + y^2 + (z-4)^2 = (x-2)^2 + y^2 + z^2 \\\\ x^2 + y^2 + (z-4)^2 = x^2 + y^2 + z^2 \\end{cases} \\Leftrightarrow \\begin{cases} x - 2z = -3 \\\\ z = 2 \\end{cases} \\Leftrightarrow \\begin{cases} x = 1 \\\\ z = 2 \\end{cases} $$<br>Vậy $I(1; y; 2)$<br>Mặt khác mặt cầu $(S)$ đi qua các điểm $A, B, O$ và tiếp xúc với mặt phẳng $(P)$ có tâm là điểm $I$<br>Suy ra $d(I;(P)) = OI \\Leftrightarrow \\frac{|2.1 - y + 2.2 + 5|}{\\sqrt{2^2 + (-1)^2 + 2^2}} = \\sqrt{1^2 + y^2 + 2^2} \\Leftrightarrow (11-y)^2 = 9(5+y^2) \\Leftrightarrow \\left[ \\begin{aligned} & y = 2 \\\\ & y = -\\frac{19}{4} \\end{aligned} \\right.$<br>Ta có $\\left[ \\begin{aligned} & y = 2 \\Rightarrow R = OI = 3 \\\\ & y = -\\frac{19}{4} \\Rightarrow R = \\sqrt{5 + \\left(-\\frac{19}{4}\\right)^2} > 3 \\end{aligned} \\right.$<br>Vậy $I(1; 2; 2)$<br>\\shortans{2}"
+  },
+  {
+    "id": "2",
+    "title": "Câu 2",
+    "type": "short_answer",
+    "text": "(Sở Thái Bình 2025) Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $(P): x + y - z - 3 = 0$ và hai điểm $M(1;1;1), N(-3;-3;-3)$. Mặt cầu $(S)$ đi qua $M, N$ và tiếp xúc với mặt phẳng $(P)$ tại điểm $Q$. Biết rằng $Q$ luôn thuộc một đường tròn cố định. Bán kính của đường tròn đó bằng bao nhiêu?",
+    "image": "",
+    "correct": "6",
+    "solution": "\\noteImage{data/im/MC4-2.png}<br>Ta có: $\\overrightarrow{MN} = (-4;-4;-4) = -4(1;1;1) \\Rightarrow$ Phương trình tham số của $MN$ là $\\begin{cases} x = 1+t \\\\ y = 1+t \\\\ z = 1+t \\end{cases}$<br>Gọi $I = MN \\cap (P)$, khi đó tọa độ điểm $I$ ứng với $t$ thỏa mãn:<br>$(1+t) + (1+t) - (1+t) - 3 = 0 \\Leftrightarrow t = 2 \\Rightarrow I(3;3;3)$<br>Do mặt cầu $(S)$ đi qua $M, N$ và tiếp xúc với $(P)$ tại $Q$ nên đường thẳng $IQ$ là tiếp tuyến của $(S)$ tại điểm $Q$. Ta có:<br>$\\Delta IMQ \\backsim \\Delta IQN (g-g) \\Rightarrow IQ^2 = IM.IN = \\sqrt{4+4+4}.\\sqrt{36+36+36} = 36 \\Rightarrow IQ = 6$.<br>Vì $I$ cố định nên $Q$ luôn thuộc đường tròn tâm $I$ bán kính $R = 6$.<br>\\shortans{6}"
+  },
+  {
+    "id": "3",
+    "title": "Câu 3",
+    "type": "short_answer",
+    "text": "(Cụm trường Nam Định 2025) Trong không gian $Oxyz$, mặt cầu $(S): x^2 + y^2 + z^2 - 2x + 4y - 8z - 4 = 0$ tiếp xúc với 3 cạnh của tam giác $ABC$. Biết $AB = 3, BC = 4, CA = 5$; tính khoảng cách từ tâm của mặt cầu đến $(ABC)$. (kết quả làm tròn đến hàng phần chục).",
+    "image": "",
+    "correct": "4,9",
+    "solution": "Mặt cầu $(S)$ có tâm $I(1;-2;4)$ và bán kính $R = \\sqrt{1^2 + 2^2 + 4^2 - (-4)} = 5$.<br>Vì mặt cầu $(S)$ tiếp xúc với 3 cạnh của tam giác $ABC$ nên mặt phẳng $(ABC)$ cắt mặt cầu $(S)$ theo giao tuyến là đường tròn nội tiếp tam giác $ABC$.<br>Ta có $AB^2 + BC^2 = AC^2 \\Rightarrow \\Delta ABC$ vuông tại $B$.<br>Diện tích tam giác $ABC$ là $S_{\\Delta ABC} = \\frac{1}{2}AB.BC = 6$.<br>Nửa chu vi tam giác $ABC$ là $p = \\frac{3+4+5}{2} = 6$.<br>Bán kính đường tròn nội tiếp tam giác $ABC$ là $r = \\frac{S_{\\Delta ABC}}{p} = 1$.<br>Khoảng cách từ tâm của mặt cầu đến mặt phẳng $(ABC)$ là<br>$d = \\sqrt{R^2 - r^2} = \\sqrt{5^2 - 1^2} = 2\\sqrt{6} \\approx 4,9$<br>\\shortans{4,9}"
+  },
+  {
+    "id": "4",
+    "title": "Câu 4",
+    "type": "short_answer",
+    "text": "(Sở Vũng Tàu 2025) Trong không gian với hệ trục tọa độ $Oxyz$, cho hai điểm $A(1;0;-1)$ và $B(-2;3;-1)$. Xét điểm $M$ thay đổi thỏa mãn $MB = 2MA$ và điểm $N(a;b;c)$ thuộc mặt phẳng $(P): x + 2y - 2z + 7 = 0$ sao cho đoạn thẳng $MN$ ngắn nhất. Hỏi giá trị biểu thức $T = a^2 + b^2 + c^2$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "11",
+    "solution": "Gọi $M(x;y;z)$, ta có: $MB = 2MA \\Leftrightarrow MB^2 = 4MA^2$<br>$\\Leftrightarrow (x+2)^2 + (y-3)^2 + (z+1)^2 = 4\\left[(x-1)^2 + y^2 + (z+1)^2\\right]$<br>$\\Leftrightarrow 3x^2 + 3y^2 + 3z^2 - 12x + 6y + 6z - 6 = 0$<br>$\\Leftrightarrow x^2 + y^2 + z^2 - 4x + 2y + 2z - 2 = 0$<br>Vậy $M$ thuộc mặt cầu tâm $I(2;-1;-1)$, bán kính $R = 2\\sqrt{2}$<br>\\noteImage{data/im/MC4-4.png}<br>Đoạn thẳng $MN$ ngắn nhất khi $N$ là hình chiếu của $I$ lên $(P)$ và $M$ là giao điểm của $IN$ với mặt cầu.<br>Gọi $\\Delta$ là đường thẳng qua $I$ và vuông góc với $(P)$. Khi đó:<br>$\\Delta: \\begin{cases} x = 2+t \\\\ y = -1+2t \\\\ z = -1-2t \\end{cases} \\Rightarrow N(2+t; -1+2t; -1-2t)$. Do $N$ thuộc $(P)$ nên ta có:<br>$(P): 2+t + 2(-1+2t) - 2(-1-2t) + 7 = 0$<br>$\\Leftrightarrow 9t = -9$<br>$\\Leftrightarrow t = -1$.<br>Vậy $N(1;-3;1)$ suy ra $T = a^2 + b^2 + c^2 = 11$.<br>\\shortans{11}"
+  },
+  {
+    "id": "5",
+    "title": "Câu 5",
+    "type": "short_answer",
+    "text": "(Sở Lai Châu 2025) Khi gắn hệ toạ độ $Oxyz$ (đơn vị trên mỗi trục tính theo kilômét) vào không gian, người ta thấy rằng một không gian phủ sóng điện thoại có dạng một hình cầu $(S)$ (tập hợp những điểm nằm trên và nằm trong mặt cầu tương ứng). Biết mặt cầu có phương trình $x^2 + y^2 + z^2 - 4x - 6y - 2z + 5 = 0$. Khoảng cách xa nhất giữa hai điểm thuộc vùng phủ sóng là bao nhiêu kilômét?",
+    "image": "",
+    "correct": "6",
+    "solution": "Mặt cầu $(S)$ có tâm $I(2;3;1)$ và bán kính $R = \\sqrt{2^2 + 3^2 + 1^2 - 5} = 3$.<br>Gọi $A, B$ là hai điểm thuộc vùng phủ sóng. Khi đó $A, B$ có khoảng cách xa nhất khi đoạn $AB$ là đường kính của mặt cầu.<br>Vậy khoảng cách xa nhất giữa hai điểm thuộc vùng phủ sóng là 6 kilômét.<br>\\shortans{6}"
+  },
+  {
+    "id": "6",
+    "title": "Câu 6",
+    "type": "short_answer",
+    "text": "(Chuyên Hoàng Văn Thụ - Hòa Bình 2025) Trong không gian $Oxyz$, cho mặt cầu $(S): (x-1)^2 + y^2 + (z-2)^2 = 10$ và hai điểm $A(1;2;-4), B(1;2;14)$. Điểm $M$ thay đổi trên mặt cầu, giá trị nhỏ nhất của biểu thức $P = MA + 2MB$ bằng bao nhiêu? (kết quả làm tròn đến hàng phần chục).",
+    "image": "",
+    "correct": "27,2",
+    "solution": "Mặt cầu $(S): (x-1)^2 + y^2 + (z-2)^2 = 10$ có tâm $I(1;0;2), R = \\sqrt{10}$.<br>Dễ thấy hai điểm $A, B$ nằm ngoài mặt cầu $(S)$.<br>\\noteImage{data/im/MC4-6.png}<br>Gọi điểm $C(x;y;z)$ trên cạnh $IA$ sao cho tam giác $ICM$ và tam giác $IMA$ đồng dạng theo tỷ số $\\frac{1}{2}$. Khi đó ta có:<br>$\\frac{IC}{IM} = \\frac{IM}{IA} = \\frac{CM}{MA} = \\frac{1}{2} \\Rightarrow IC = \\frac{IM^2}{IA} \\Rightarrow \\frac{IC}{IA} = \\frac{IM^2}{IA^2} = \\frac{10}{40} = \\frac{1}{4}$<br>Suy ra $\\overrightarrow{IC} = \\frac{1}{4}\\overrightarrow{IA} \\Rightarrow C\\left(1; \\frac{1}{2}; \\frac{1}{2}\\right)$. Ta có $MA = 2MC$.<br>$IC = \\sqrt{\\frac{5}{2}} < R$ nên điểm $C$ nằm phía trong của mặt cầu $(S)$.<br>Khi đó: $P = MA + 2MB = 2MC + 2MB = 2(MC + MB) \\ge 2BC = 2.\\frac{3\\sqrt{82}}{2} = 3\\sqrt{82}$.<br>Vậy $P_{\\min} = 3\\sqrt{82} \\approx 27,2$ khi $B, M, C$ thẳng hàng và điểm $M$ nằm giữa hai điểm $B, C$.<br>\\shortans{27,2}"
+  },
+  {
+    "id": "7",
+    "title": "Câu 7",
+    "type": "short_answer",
+    "text": "(THPT Ngô Sĩ Liên - Bắc Giang 2025) Trong không gian với hệ toạ độ $Oxyz$, cho hai mặt cầu $(S_1): x^2 + y^2 + (z-1)^2 = 16$ và mặt cầu $(S_2): x^2 + (y-12)^2 + (z+4)^2 = 1$ và đường thẳng $\\Delta: \\frac{x-12}{1} = \\frac{y+1}{2} = \\frac{z-3}{2}$. Các điểm $M, N, P$ di chuyển và lần lượt thuộc $(S_1), (S_2), \\Delta$ (tham khảo hình vẽ). Tìm giá trị nhỏ nhất của tổng $MP + PN$ (kết quả làm tròn đến hàng phần chục).",
+    "image": "data/im/MC4-7.png",
+    "correct": "25,7",
+    "solution": "Ta có:<br>$(S_1)$ có tâm $I(0;0;1)$, bán kính $r_1 = 4$.<br>$(S_2)$ có tâm $J(0;12;-4)$, bán kính $r_2 = 1$.<br>$\\Delta$ có vectơ chỉ phương $\\vec{u} = (1;2;2)$ và đi qua $D(12;-1;3)$.<br>$\\Delta: \\frac{x-12}{1} = \\frac{y+1}{2} = \\frac{z-3}{2} \\Leftrightarrow \\begin{cases} x = 12+t \\\\ y = -1+2t \\\\ z = 3+2t \\end{cases} \\Rightarrow P(t+12; 2t-1; 2t+3)$<br>Dễ thấy $MP + PN$ nhỏ nhất $\\Leftrightarrow PI + PJ = MP + PN + 5$ nhỏ nhất.<br>Cách 1:<br>Ta cần tìm giá trị nhỏ nhất của:<br>$l = IP + JP = \\sqrt{(t+12)^2 + (2t-1)^2 + (2t+2)^2} + \\sqrt{(t+12)^2 + (2t-13)^2 + (2t+7)^2}$<br>$= \\sqrt{9t^2 + 28t + 149} + \\sqrt{9t^2 + 362} = \\sqrt{\\left(3t + \\frac{14}{3}\\right)^2 + \\left(\\frac{\\sqrt{1145}}{9}\\right)^2} + \\sqrt{(-3t)^2 + \\left(\\sqrt{362}\\right)^2}$<br>Đặt $\\vec{u} = \\left(3t + \\frac{14}{3}; \\frac{\\sqrt{1145}}{3}\\right), \\vec{v} = \\left(-3t; \\sqrt{362}\\right) \\Rightarrow \\vec{u} + \\vec{v} = \\left(\\frac{14}{3}; \\frac{\\sqrt{1145} + 3\\sqrt{362}}{3}\\right)$<br>Ta có: $l = |\\vec{u}| + |\\vec{v}| \\ge |\\vec{u} + \\vec{v}| = \\sqrt{\\left(\\frac{14}{3}\\right)^2 + \\left(\\frac{\\sqrt{1145} + 3\\sqrt{362}}{3}\\right)^2} \\approx 30,66$.<br>Đẳng thức xảy ra khi $\\vec{u}, \\vec{v}$ cùng hướng hay<br>$\\left(3t + \\frac{14}{3}\\right)\\sqrt{362} = -3t.\\frac{\\sqrt{1145}}{3} \\Leftrightarrow t = \\frac{-14\\sqrt{362}}{3\\left(3\\sqrt{362} + \\sqrt{1145}\\right)} = \\frac{14\\sqrt{414490} - 15204}{6339}$<br>Vậy giá trị nhỏ nhất của $MP + PN$ là $l - 5 \\approx 25,7$.<br>Cách 2:<br>\\noteImage{data/im/MC4-7-2.png}<br>Gọi các mặt phẳng: $\\text{mp}(\\alpha)$ qua $I \\perp \\Delta$; $\\text{mp}(\\beta)$ qua $J \\perp \\Delta$; $\\text{mp}(\\varphi) \\equiv \\text{mp}(J; \\Delta)$<br>Khi đó:<br>$(\\alpha): x + 2y + 2z - 2 = 0$<br>$(\\varphi): 40x + 17y - 37z - 352 = 0$<br>Gọi $A = \\Delta \\cap (\\alpha) \\Rightarrow A\\left(\\frac{94}{9}; -\\frac{37}{9}; -\\frac{1}{9}\\right)$ và $d = (\\alpha) \\cap (\\varphi) \\Rightarrow d: \\begin{cases} x = \\frac{670}{63} + 12t \\\\ y = -\\frac{272}{63} - 13t \\\\ z = 7t \\end{cases}$<br>Gọi $I' \\in d \\Rightarrow I'\\left(\\frac{670}{63} + 12t; -\\frac{272}{63} - 13t; 7t\\right)$ thỏa $AI' = AI$.<br>Khi đó, trong mặt phẳng $(\\varphi): I'J \\cap \\Delta = P$ thỏa $PJ + PI = PJ + PI'$ vì $PI = PI'$ ($\\forall P \\in \\Delta$)<br>Khi đó $PJ + PI$ nhỏ nhất khi và chỉ khi $J, P, I'$ thẳng hàng và $P$ nằm giữa $A, B$ (Dễ dàng chứng minh $P$ nằm ngoài $A, B$ không thỏa nhỏ nhất).<br>Tìm $I'$:<br>$AI' = AI \\Leftrightarrow \\left(12t + \\frac{4}{21}\\right)^2 + \\left(-13t - \\frac{13}{63}\\right)^2 + \\left(7t + \\frac{1}{9}\\right)^2 = \\frac{1145}{9}$<br>$\\Leftrightarrow 1436778t^2 + 45612t - 504583 = 0 \\Leftrightarrow \\left[ \\begin{aligned} & t \\approx 0,57695293 \\Rightarrow JI' \\approx 30,66 \\text{ (khác phía } \\Delta) \\\\ & t \\approx -0,6086989 \\Rightarrow JI' \\approx 9,044 \\text{ (cùng phía } \\Delta) \\end{aligned} \\right.$<br>Vậy $PM + PN = PI + PJ - 5 = JI' - 5 \\approx 25,7$.<br>\\shortans{25,7}"
+  },
+  {
+    "id": "8",
+    "title": "Câu 8",
+    "type": "short_answer",
+    "text": "(THPT Nguyễn Gia Thiều - Hà Nội 2025) Trong không gian với hệ tọa độ $Oxyz$, cho đường thẳng $d: \\frac{x-1}{2} = \\frac{y-1}{-1} = \\frac{z-4}{2}$ và mặt cầu $(S): x^2 + y^2 + z^2 = 9$. Gọi $(P)$ là mặt phẳng có phương trình dạng: $ax + by + cz + 9 = 0$. Biết rằng $(P)$ chứa $d$ và $(P)$ tiếp xúc với $(S)$. Tính giá trị biểu thức $a + b + c$?",
+    "image": "",
+    "correct": "-15",
+    "solution": "Đường thẳng $d: \\frac{x-1}{2} = \\frac{y-1}{-1} = \\frac{z-4}{2}$ đi qua $A(1;1;4)$ và có VTCP $\\vec{u} = (2;-1;2)$.<br>Mặt cầu $(S): x^2 + y^2 + z^2 = 9$ có tâm là $O(0;0;0)$ và bán kính $R = 3$.<br>Mặt phẳng $(P): ax + by + cz + 9 = 0$ có VTPT là $\\vec{n} = (a;b;c)$.<br>Ta có $A(1;1;4) \\in (P) \\Rightarrow a + b + 4c + 9 = 0. (1)$<br>$d \\subset (P) \\Rightarrow \\vec{n}.\\vec{u} = 0 \\Rightarrow 2a - b + 2c = 0 \\Rightarrow b = 2a + 2c$.<br>Từ $(1) \\Rightarrow 3a + 6c + 9 = 0 \\Rightarrow a = -2c - 3$<br>$\\Rightarrow b = -2c - 6$<br>$(P)$ tiếp xúc với $(S) \\Rightarrow d_{(O;(P))} = 3 \\Rightarrow \\frac{|9|}{\\sqrt{a^2 + b^2 + c^2}} = 3 \\Rightarrow \\sqrt{(-2c-3)^2 + (-2c-6)^2 + c^2} = 3$<br>$\\Leftrightarrow 9c^2 - 36c + 36 = 0 \\Leftrightarrow c = 2 \\Rightarrow a = -7; b = -10$<br>Vậy $a + b + c = -15$.<br>\\shortans{-15}"
+  },
+  {
+    "id": "9",
+    "title": "Câu 9",
+    "type": "short_answer",
+    "text": "(Sở Hải Phòng 2025) Trong không gian $Oxyz$ cho mặt cầu $(S): x^2 + y^2 + z^2 - 4x + 2y - 2z - 3 = 0$ và điểm $A(5;3;-2)$. Một đường thẳng $d$ thay đổi luôn đi qua $A$ và luôn cắt mặt cầu tại hai điểm phân biệt $M, N$. Tính giá trị nhỏ nhất của biểu thức $S = AM + 4AN$.",
+    "image": "",
+    "correct": "20,2",
+    "solution": "Mặt cầu $(S)$ có tâm $I(2;-1;1)$, bán kính $R = 3$.<br>$AI = \\sqrt{34} > R \\Rightarrow A$ nằm ngoài mặt cầu $(S)$.<br>\\noteImage{data/im/MC4-9.png}<br>Do hai điểm $M, N$ nằm ở vị trí hai đầu một dây cung nên để $S_{\\min}$ thì $N$ nằm giữa $A$ và $M$.<br>Gọi $H$ là trung điểm $MN \\Rightarrow IH \\perp MN, NH = \\frac{1}{2}MN$.<br>$S = 4(AH - NH) + AH + NH = 5AH - 3NH$<br>$S = 5\\sqrt{AI^2 - IH^2} - 3\\sqrt{R^2 - IH^2} = 5\\sqrt{34 - x^2} - 3\\sqrt{9 - x^2}, x = IH$.<br>Xét hàm số $f(x) = 5\\sqrt{34 - x^2} - 3\\sqrt{9 - x^2}, (0 \\le x < 3)$.<br>$f'(x) = \\frac{-5x}{\\sqrt{34 - x^2}} + \\frac{3x}{\\sqrt{9 - x^2}} = x\\left(\\frac{-5}{\\sqrt{34 - x^2}} + \\frac{3}{\\sqrt{9 - x^2}}\\right)$.<br>Xét $\\left(\\frac{-5}{\\sqrt{34 - x^2}} + \\frac{3}{\\sqrt{9 - x^2}}\\right) > 0$<br>$\\Leftrightarrow 5\\sqrt{9 - x^2} < 3\\sqrt{34 - x^2}$<br>$\\Leftrightarrow 225 - 25x^2 < 9.34 - 9x^2 \\Leftrightarrow 16x^2 + 81 > 0, \\forall x \\in \\mathbb{R}$.<br>Suy ra $f'(x) \\ge 0, \\forall x \\in [0;3), f'(x) = 0 \\Leftrightarrow x = 0 \\Rightarrow f(x)$ đồng biến trên $[0;3)$.<br>Suy ra $\\min_{[0;3)} f(x) = f(0) = 5\\sqrt{34} - 9 \\approx 20,2$<br>\\shortans{20,2}"
+  },
+  {
+    "id": "10",
+    "title": "Câu 10",
+    "type": "short_answer",
+    "text": "(Sở Bình Phước 2025) Trong không gian với hệ trục $Oxyz$, giả sử mặt đất trùng với mặt phẳng $(Oxy)$. Một bóng đèn trang trí dạng khối cầu có tâm $I(-1;2;4)$ và bán kính $R$ được treo cố định lên trần nhà (đơn vị trên mỗi trục tọa độ là $m$). Một con kiến bò tùy ý trên bóng đèn và một con kiến khác bò tùy ý trên mặt đất, giả sử vectơ tạo bởi tọa độ vị trí của 2 con kiến luôn cùng phương với đường thẳng $\\Delta: \\frac{x}{1} = \\frac{y+1}{2} = \\frac{z-2}{2}$ (coi mỗi con kiến là một điểm). Biết lúc 2 con kiến gần nhau nhất có khoảng cách bằng $\\frac{57}{10} (m)$. Bán kính khối cầu có độ dài bao nhiêu $cm$.",
+    "image": "data/im/MC4-10.png",
+    "correct": "20",
+    "solution": "\\noteImage{data/im/MC4-10-2.png}<br>+ Gọi $\\alpha$ là góc tạo bởi $\\Delta$ và mặt $(Oxy)$ suy ra: $\\sin \\alpha = \\frac{2}{3}$. Gọi $H$ là hình chiếu của $I$ lên $(Oxy)$, gọi $K_2$ là giao điểm của $(IH)$ và khối cầu $(I, R)$. $K_1$ là giao điểm của đường thẳng qua $K_2$ và song song $\\Delta$ với $(Oxy)$.<br>Vì $K_2H$ là độ dài ngắn nhất giữa khối cầu $(I, R)$ và $(Oxy)$ nên lúc 2 con kiến gần nhau nhất thì một con ở $K_2$ và một con ở $K_1$.<br>+ Theo giả thiết: $K_1K_2 = \\frac{57}{10}$, suy ra: $K_2H = \\frac{19}{5}$. Vậy $R = 4 - \\frac{19}{5} = \\frac{1}{5} = 0,2 (m) = 20 (cm)$<br>\\shortans{20}"
+  },
+  {
+    "id": "11",
+    "title": "Câu 11",
+    "type": "short_answer",
+    "text": "(THPT Lê Thánh Tông - HCM 2025) Trong không gian $Oxyz$, cho mặt cầu $(S): x^2 + y^2 + z^2 - 2x - 2z - 38 = 0$ và hai mặt phẳng $(\\alpha): x + 2y - 4 = 0; (\\beta): 3y + z - 5 = 0$. Xét mặt phẳng $(P)$ thay đổi, song song với giao tuyến của hai mặt phẳng $(\\alpha), (\\beta)$ và tiếp xúc với mặt cầu $(S)$. Khoảng cách lớn nhất từ điểm $A(5;-5;6)$ đến mặt phẳng $(P)$ bằng bao nhiêu. (làm tròn đến hàng phần mười)",
+    "image": "",
+    "correct": "9,5",
+    "solution": "\\noteImage{data/im/MC4-11.png}<br>Mặt cầu $(S)$ có tâm $I(1;0;1)$ và bán kính $R = 2\\sqrt{10}$<br>Mặt phẳng $(\\alpha), (\\beta)$ có véc tơ pháp tuyến lần lượt là: $\\vec{n_\\alpha}(1;2;0), \\vec{n_\\beta}(0;3;1)$<br>Giả sử $\\Delta = (\\alpha) \\cap (\\beta) \\Rightarrow \\vec{u_\\Delta} = [\\vec{n_\\alpha}, \\vec{n_\\beta}] = (2;-1;3)$<br>Gọi $d$ là đường thẳng qua $I(1;0;1)$ và song song với $\\Delta$. Suy ra $d: \\begin{cases} x = 1+2t \\\\ y = -t \\\\ z = 1+3t \\end{cases}$.<br>Gọi $(H)$ là mặt trụ có trục $d$ và bán kính $R = 2\\sqrt{10}$; $(Q)$ là mặt phẳng qua $A$ vuông góc với $d$ cắt $(H)$ theo thiết diện là đường tròn $(C)$. Khi đó $(P)$ tiếp xúc với $(C)$<br>$d(A, (P)) = d(A, d) + R = \\sqrt{10} + 2\\sqrt{10} = 3\\sqrt{10}$<br>Vậy khoảng cách lớn nhất từ điểm $A$ đến mặt phẳng $(P)$ bằng $3\\sqrt{10} \\approx 9,5$.<br>\\shortans{9,5}"
+  },
+  {
+    "id": "12",
+    "title": "Câu 12",
+    "type": "short_answer",
+    "text": "(THPT Lê Thánh Tông - HCM 2025) Một cơ sở sản xuất Kem làm một mô hình Kem ốc quế lớn gồm 2 phần: Phần Kem có dạng hình cầu, phần ốc quế có dạng hình nón (như hình vẽ bên). Chủ cơ sở sản xuất muốn gắn một chiếc đèn Led lớn chiếu thẳng cây kem vào buổi tối, biết rằng chiếc đèn nằm trên mặt phẳng chứa đường tròn $(C)$ là phần tiếp xúc giữa phần Kem và phần ốc quế. Chọn hệ trục tọa độ $Oxyz$ trong không gian thỏa mãn phần Kem hình cầu có tâm $I(1;2;3)$, bán kính $R_c = 3$ và phần đỉnh của hình nón là điểm $H(0;1;-2)$ đáy là đường tròn có bán kính $R_N = \\sqrt{6}$. Để tối ưu hóa lượng ánh sáng chiếc đèn có thể chiếu vào cây kem người ta tính toán rằng chiếc đèn Led sẽ phải ở vị trí $M(a;b;2), a \\in \\mathbb{Z}$ và từ điểm $M$ kẻ được 2 tiếp tuyến với đường tròn $(C)$ sao cho góc giữa 2 tiếp tuyến đó không bé hơn $60^\\circ$. Có bao nhiêu vị trí đặt chiếc đèn Led thỏa mãn yêu cầu của chủ cơ sở.",
+    "image": "data/im/MC4-12.png",
+    "correct": "6",
+    "solution": "\\noteImage{data/im/MC4-12-2.png}<br>Gọi $A$ là tâm của đường tròn $(C)$ và $MC, MD$ là hai tiếp tuyến kẻ từ $M$ đến $(C)$<br>* Ta có: $\\overrightarrow{IH} = (-1;-1;-5)$<br>$IH = \\sqrt{(-1)^2 + (-1)^2 + (-5)^2} = 3\\sqrt{3}$<br>$IA = \\sqrt{R_c^2 - R_N^2} = \\sqrt{3^2 - 6} = \\sqrt{3}$<br>$\\overrightarrow{IH} = 3\\overrightarrow{IA} \\Rightarrow \\begin{cases} 0 - 1 = 3(x_A - 1) \\\\ 1 - 2 = 3(y_A - 2) \\\\ -2 - 3 = 3(z_A - 3) \\end{cases} \\Rightarrow \\begin{cases} x_A = \\frac{2}{3} \\\\ y_A = \\frac{5}{3} \\\\ z_A = \\frac{4}{3} \\end{cases}$<br>Vậy hình nón có đáy là đường tròn có tâm $A\\left(\\frac{2}{3}; \\frac{5}{3}; \\frac{4}{3}\\right)$<br>* Gọi mặt phẳng $(P)$ chứa đường tròn $(C)$.<br>Phương trình mặt phẳng $(P): \\left(x - \\frac{2}{3}\\right) + \\left(y - \\frac{5}{3}\\right) + 5\\left(z - \\frac{4}{3}\\right) = 0 \\Leftrightarrow x + y + 5z - 9 = 0$<br>Điểm $M \\in (P) \\Rightarrow a + b + 5.2 - 9 = 0 \\Leftrightarrow b = -a - 1$<br>hay $M(a; -a-1; 2) \\in (P)$<br>* Từ điểm $M$ kẻ được hai tiếp tuyến $\\Rightarrow AM > \\sqrt{6}$<br>$\\Rightarrow AM^2 > 6 \\Rightarrow \\left(a - \\frac{2}{3}\\right)^2 + \\left(-a - 1 - \\frac{5}{3}\\right)^2 + \\left(2 - \\frac{4}{3}\\right)^2 > 6$<br>$\\Rightarrow 2x^2 + 4x + 8 > 6 \\Rightarrow x \\neq -1$ (1)<br>* Góc giữa hai tiếp tuyến không bé hơn $60^\\circ \\Rightarrow \\sin \\widehat{CMA} \\ge \\sin 30^\\circ$<br>$\\Rightarrow \\sin \\widehat{CMA} \\ge \\frac{1}{2}$<br>$\\Rightarrow \\frac{AC}{AM} \\ge \\frac{1}{2} \\Rightarrow \\frac{\\sqrt{6}}{\\sqrt{\\left(a - \\frac{2}{3}\\right)^2 + \\left(-a - 1 - \\frac{5}{3}\\right)^2 + \\left(1 - \\frac{4}{3}\\right)^2}} \\ge \\frac{1}{2}$<br>$\\Rightarrow \\sqrt{\\left(a - \\frac{2}{3}\\right)^2 + \\left(-a - 1 - \\frac{5}{3}\\right)^2 + \\left(1 - \\frac{4}{3}\\right)^2} \\le 2\\sqrt{6}$<br>$\\Rightarrow \\left(a - \\frac{2}{3}\\right)^2 + \\left(-a - 1 - \\frac{5}{3}\\right)^2 + \\left(1 - \\frac{4}{3}\\right)^2 \\le 24$<br>$\\Rightarrow 2x^2 + 4x - \\frac{49}{3} \\le 0$<br>$\\Rightarrow -1 - \\frac{\\sqrt{330}}{6} \\le a \\le -1 + \\frac{\\sqrt{330}}{6}$ (2)<br>* Từ (1), (2) và $a \\in \\mathbb{Z} \\Rightarrow a \\in \\{-4; -3; -2; 0; 1; 2\\}$.<br>Vậy có 5 giá trị nguyên thỏa yêu cầu bài toán.<br>\\shortans{6}"
+  },
+  {
+    "id": "13",
+    "title": "Câu 13",
+    "type": "short_answer",
+    "text": "(THPT Trần Phú - Vĩnh Phúc 2025) Trong không gian hệ trục tọa độ $Oxyz$, đài kiểm soát không lưu sân bay có tọa độ $O(0;0;0)$, mỗi đơn vị trên trục ứng với 1km. Máy bay trong phạm vi cách đài kiểm soát 417km sẽ hiển thị trên màn hình ra đa. Một máy bay đang ở vị trí $A(222;565;8)$ chuyển động theo đường thẳng $d có véc tơ chỉ phương \\vec{u}(91;75;0)$ và hướng về đài kiểm soát không lưu (như hình vẽ). Tọa độ của vị trí sớm nhất mà máy bay xuất hiện trên màn hình ra đa là $M(a;b;c)$. Khi đó $a+b+c$ bằng bao nhiêu?",
+    "image": "data/im/MC4-13.png",
+    "correct": "463",
+    "solution": "Vùng phủ sóng Rada được phát ra từ trạm kiểm soát là tập hợp những điểm cách tâm $O(0;0;0)$ không quá 417km. Đây là những điểm nằm trên bề mặt và bên trong khối cầu có phương trình $x^2 + y^2 + z^2 = 417^2 \\Leftrightarrow x^2 + y^2 + z^2 = 173889$ (*).<br>Quỹ đạo chuyển động của máy bay là một đường thẳng có phương trình<br>$d: \\begin{cases} x = 222 - 91t \\\\ y = 565 - 75t \\\\ z = 8 \\end{cases} (t \\in \\mathbb{R})$<br>Máy bay bắt đầu thuộc vùng kiểm soát của ra đa khi $M(222 - 91t; 565 - 75t; 8)$ thỏa mãn (*)<br>$\\Rightarrow (222 - 91t)^2 + (565 - 75t)^2 + 8^2 = 173889 \\Leftrightarrow 13906t^2 - 125154t + 194684 = 0 \\Leftrightarrow \\left[ \\begin{aligned} & t = 2 \\\\ & t = 7 \\end{aligned} \\right.$<br>$t = 2 \\Rightarrow M(40; 415; 8) \\Rightarrow AM^2 = 55624$<br>$t = 7 \\Rightarrow M(-415; 40; 8) \\Rightarrow AM^2 = 681395$<br>Vậy $M(40; 415; 8) \\Rightarrow a + b + c = 463$.<br>\\shortans{463}"
+  },
+  {
+    "id": "14",
+    "title": "Câu 14",
+    "type": "short_answer",
+    "text": "(Sở Đà Nẵng 2025) Một khinh khí cầu nghiên cứu khí tượng được phóng lên để thu thập dữ liệu trong tầng bình lưu. Khí cầu này có thiết bị định vị sử dụng tín hiệu từ các vệ tinh của công ty S để xác định vị trí trong không gian. Tại thời điểm quan sát, khí cầu đang bay ở độ cao 50 km và nhận được tín hiệu từ ba vệ tinh S có toạ độ trong không gian $Oxyz$ (đơn vị km) như sau: Vệ tinh A tại vị trí $A(103; 204; 62)$, vệ tinh B tại vị trí $B(106; 208; 74)$, vệ tinh C tại vị trí $C(105; 212; 134)$. Từ thời gian truyền tín hiệu, hệ thống xác định rằng khoảng cách từ vị trí $M$ của khinh khí cầu đến các vệ tinh là: $MA = 13\\text{ km}, MB = 26\\text{ km}, MC = 85\\text{ km}$. Tính khoảng cách từ khinh khí cầu đến gốc toạ độ $O$. (làm tròn kết quả đến hàng đơn vị của km).",
+    "image": "data/im/MC4-14.png",
+    "correct": "229",
+    "solution": "Gọi $M(x;y;z)$. Ta có:<br>$MA = 13 \\Leftrightarrow M \\in (S_1)$ là mặt cầu tâm $A$, bán kính $R_1 = 13$<br>$\\Rightarrow x^2 + y^2 + z^2 - 206x - 408y - 124z + 55900 = 0$ (1)<br>$MB = 26 \\Leftrightarrow M \\in (S_2)$ là mặt cầu tâm $B$, bán kính $R_2 = 26$<br>$\\Rightarrow x^2 + y^2 + z^2 - 212x - 416y - 148z + 59300 = 0$ (2)<br>$MC = 85 \\Leftrightarrow M \\in (S_3)$ là mặt cầu tâm $C$ bán kính $R_3 = 85$<br>$\\Rightarrow x^2 + y^2 + z^2 - 210x - 424y - 268z + 66700 = 0$ (3)<br>Lấy (2) trừ (1) ta được $6x + 8y + 24z - 3400 = 0 \\Leftrightarrow 3x + 4y + 12z - 1700 = 0$ (4)<br>Lấy (2) trừ (3) ta được $2x - 8y - 120z + 7400 = 0 \\Leftrightarrow x - 4y - 60z + 3700 = 0$ (5)<br>Nhận xét các phương trình (4) và (5) đều là phương trình mặt phẳng.<br>Suy ra điểm $M$ thuộc giao tuyến $d$ của hai mặt phẳng $(P): 3x + 4y + 12z - 1700 = 0$ và $(Q): x - 4y - 60z + 3700 = 0$.<br>Ta có $\\begin{cases} \\vec{n}_{(P)} = (3;4;12) \\\\ \\vec{n}_{(Q)} = (1;-4;-60) \\end{cases} \\Rightarrow \\vec{u}_d = [\\vec{n}_{(P)}, \\vec{n}_{(Q)}] = (-192; 192; -16) = -16(12; -12; 1)$<br>Chọn điểm $T(-500; 800; 0)$ vừa thuộc $(P)$, vừa thuộc $(Q) \\Rightarrow T \\in d$<br>Phương trình tham số của $d$ là $\\begin{cases} x = -500 + 12t \\\\ y = 800 - 12t \\\\ z = t \\end{cases} (t \\in \\mathbb{R})$.<br>Mà $M \\in d \\Rightarrow M(-500 + 12m; 800 - 12m; m)$ với $m \\in \\mathbb{R}$.<br>Thay $(x;y;z) = (-500 + 12m; 800 - 12m; m)$ vào phương trình (1) ta được<br>$(12m - 500)^2 + (800 - 12m)^2 + m^2 = 206(12m - 500) + 408(800 - 12m) + 124m - 55900$<br>$\\Leftrightarrow 289m^2 - 28900m + 722500 = 0 \\Leftrightarrow m = 50$.<br>Vậy toạ độ $M$ là $M(100; 200; 50) \\Rightarrow OM = 50\\sqrt{21} \\approx 229\\text{ (km)}$.<br>\\shortans{229}"
+  },
+  {
+    "id": "15",
+    "title": "Câu 15",
+    "type": "short_answer",
+    "text": "(Chuyên Lương Thế Vinh - Đồng Nai 2025) Bạn Bình đố bạn Nam tìm được đường kính của quả bóng rổ, biết rằng nếu đặt quả bóng ở một góc căn phòng hình hộp chữ nhật, sao cho quả bóng chạm (tiếp xúc) với hai bức tường và nền nhà của căn phòng đó (khi đó khoảng cách từ tâm quả bóng đến hai bức tường và nền nhà đều bằng bán kính của quả bóng) thì có một điểm $M$ trên quả bóng với khoảng cách lần lượt đến hai bức tường và nền nhà là 17 cm, 18 cm và 21 cm (Hình bên dưới). Tính đường kính của quả bóng rổ đó, biết rằng loại bóng rổ tiêu chuẩn có đường kính từ 23 cm đến 24,5 cm (kết quả làm tròn đến hàng phần chục, đơn vị là cm).",
+    "image": "data/im/MC4-15.png",
+    "correct": "23,9",
+    "solution": "\\noteImage{data/im/MC4-15-2.png}<br>Xét quả bóng tiếp xúc với các bức tường và chọn hệ trục $Oxyz$ như hình vẽ:<br>Gọi $I(a;a;a)$ là tâm của mặt cầu và $r = a > 0$.<br>Phương trình mặt cầu của quả bóng là<br>$(S): (x-a)^2 + (y-a)^2 + (z-a)^2 = a^2$.<br>Giả sử $M(x;y;z)$ nằm trên mặt cầu (bề mặt của quả bóng) sao cho<br>$d(M, (Oxy)) = 21, d(M, (Oxz)) = 18, d(M, (Oyz)) = 17$.<br>Khi đó $z = 21, y = 18, x = 17$. Khi đó ta có phương trình<br>$(17-a)^2 + (18-a)^2 + (21-a)^2 = a^2$<br>$\\Leftrightarrow 2a^2 - 112a + 1054 = 0 \\Leftrightarrow \\left[ \\begin{aligned} & a \\approx 11,97 \\\\ & a \\approx 44,03 \\text{ (L)} \\end{aligned} \\right.$<br>Vậy đường kính của quả bóng rổ là $2a \\approx 23,9\\text{ cm}$.<br>\\shortans{23,9}"
+  },
+  {
+    "id": "16",
+    "title": "Câu 16",
+    "type": "short_answer",
+    "text": "(Chuyên Lam Sơn - Thanh Hóa 2025) Một công ty xây dựng một hệ thống Giám sát môi trường tại khu công nghiệp. Hai cảm biến không dây được đặt tại hai vị trí $A, B$ trong không gian 3 chiều để thu thập dữ liệu không khí. Để đảm bảo tín hiệu truyền giữa hai cảm biến ổn định, công ty thiết kế một bóng bảo vệ tín hiệu hình cầu di động nhưng luôn đi qua cả hai cảm biến $A$ và $B$. Bóng này cần tiếp xúc với mặt đất để đảm bảo tính ổn định. Giả sử trong không gian với hệ toạ độ $Oxyz$, toạ độ các điểm là $A(3;5;-2), B(-1;3;2)$ và mặt đất được mô tả bằng mặt phẳng: $(P): 2x + y - 2z + 9 = 0$. Trong quá trình mô phỏng, điểm tiếp xúc giữa bóng bảo vệ và mặt đất (gọi là $C$) thay đổi. Kỹ sư cần xác định khoảng cách từ gốc tọa độ $O(0,0,0)$ đến điểm tiếp xúc $C$ để đánh giá mức độ ảnh hưởng từ vị trí đặt thiết bị. Gọi $m_1$ là giá trị lớn nhất, và $m_2$ là giá trị nhỏ nhất của độ dài $OC$. Tính giá trị $m_1^2 + m_2^2$.",
+    "image": "data/im/MC4-16.png",
+    "correct": "76",
+    "solution": "\\noteImage{data/im/MC4-16-2.png}<br>$\\begin{cases} \\overrightarrow{AB} = (-4;-2;4) = -2(2;1;-2) \\\\ \\vec{n}_P = (2;1;-2) \\end{cases} \\Rightarrow \\overrightarrow{AB}, \\vec{n}_P$ cùng phương nên $AB \\perp (P), AB = 6$<br>$d(A; (P)) = \\frac{|2.3 + 5 - 2.(-2) + 9|}{\\sqrt{2^2 + 1^2 + (-2)^2}} = 8$ và $d(B; (P)) = \\frac{|2.(-1) + 3 - 2.2 + 9|}{\\sqrt{2^2 + 1^2 + (-2)^2}} = 2$<br>$AB \\cap (P) = M \\Rightarrow M$ cố định<br>Do $(P)$ tiếp xúc với mặt cầu $(S)$ tại $C$ nên $MC \\perp IC$ tại $C$<br>$\\Rightarrow MA.MB = MC^2$, ta có: $\\begin{cases} MA = d(A; (P)) = 8 \\\\ MB = d(B; (P)) = 2 \\end{cases} \\Leftrightarrow MC^2 = 16 \\Leftrightarrow MC = 4$<br>$\\Rightarrow C$ thuộc đường tròn tâm $M$ bán kính $r = MC = 4$<br>Ta có: $AB: \\begin{cases} x = 3+2t \\\\ y = 5+t \\\\ z = -2-2t \\end{cases}, M = AB \\cap (P) \\Rightarrow M\\left(-\\frac{7}{3}; \\frac{7}{3}; \\frac{10}{3}\\right)$<br>Gọi $H$ là hình chiếu của $O$ lên mặt phẳng $(P) \\Rightarrow d(O, (P)) = 3, OH: \\begin{cases} x = 2t \\\\ y = t \\\\ z = -2t \\end{cases}$<br>$H = OH \\cap (P) \\Leftrightarrow H(-2;-1;2), HM = \\sqrt{13} < 4$ nên $H$ nằm trong đường tròn tâm $M$ bán kính $r = MC = 4$. Suy ra $OC = \\sqrt{OH^2 + HC^2} = \\sqrt{9 + HC^2}$<br>$\\Rightarrow OC$ đạt min hoặc max $\\Leftrightarrow HC$ đạt min hoặc max<br>$\\begin{cases} HC_{\\min} = |HM - r| = 4 - \\sqrt{13} \\\\ HC_{\\max} = HM + r = 4 + \\sqrt{13} \\end{cases} \\Rightarrow \\begin{cases} OC_{\\min} = \\sqrt{9 + \\left(4 - \\sqrt{13}\\right)^2} = m_2 \\\\ OC_{\\max} = \\sqrt{9 + \\left(4 + \\sqrt{13}\\right)^2} = m_1 \\end{cases}$<br>Vậy $m_1^2 + m_2^2 = 76$<br>\\shortans{76}"
+  },
+  {
+    "id": "17",
+    "title": "Câu 17",
+    "type": "short_answer",
+    "text": "(THPT Lê Thánh Tông - HCM 2025) Hệ thống định vị toàn cầu (tên tiếng Anh là: Global Positioning System, viết tắt là GPS) là một hệ thống cho phép xác định chính xác vị trí của một vật thể bất kì trong không gian. Với hệ trục tọa độ $Oxyz$ thích hợp, một vệ tinh đang ở vị trí tọa độ $A(-1;-3;-5)$ thường xuyên truyền tín hiệu đến các trạm thu ở các vị trí $B(-1;1;-1)$ và $C(1;-1;-1)$ trên mặt đất. Biết rằng mặt đất được mô hình hóa bởi phương trình mặt cầu $(S): x^2 + y^2 + z^2 = 3$. Người ta xác định được tọa độ điểm $M(a;b;c)$ thuộc mặt đất sao cho tổng độ dài $MA + MB + MC$ nhỏ nhất. Tính giá trị $a + b + c$ và làm tròn đến hàng phần chục.",
+    "image": "data/im/MC4-17.png",
+    "correct": "-2,1",
+    "solution": "Mặt cầu $(S)$ có tâm $O(0;0;0)$, bán kính $R = \\sqrt{3}$.<br>Ta có $\\begin{cases} \\overrightarrow{AB} = (0;4;4) \\\\ \\overrightarrow{AC} = (2;2;4) \\end{cases} \\Rightarrow [\\overrightarrow{AB}, \\overrightarrow{AC}] = (8;8;-8) = 8(1;1;-1)$.<br>$\\Rightarrow (ABC): x + y - z - 1 = 0$.<br>Do $d(O, (ABC)) = \\frac{1}{\\sqrt{3}}$ nên mặt phẳng $(ABC)$ cắt mặt cầu $(S)$ theo giao tuyến là một đường tròn $(C)$ bán kính bằng $r = \\sqrt{R^2 - d^2} = \\frac{2\\sqrt{6}}{3}$.<br>\\noteImage{data/im/MC4-17-2.png}<br>Chọn điểm $D$ thuộc $(C)$ sao cho $\\Delta BCD$ đều, suy ra $D(1;1;1)$.<br>Xét điểm $M$ thuộc cung nhỏ $BC$, lấy $E$ thuộc đoạn $DM$ sao cho $MC = ME$ (1).<br>Mặt khác $\\widehat{CME} = \\widehat{CBD} = 60^\\circ$ (góc nội tiếp cùng chắn cung $CD$). Vì vậy tam giác $CME$ đều.<br>Xét hai tam giác $CMB$ và $CED$ có $\\begin{cases} CM = CE, CB = CD \\\\ \\widehat{CBM} = \\widehat{CDE} \\end{cases}$. Do đó hai tam giác $CMB, CED$ bằng nhau, suy ra $MB = ED$ (2).<br>Từ (1) và (2) suy ra $MA + MB + MC = MA + ED + ME \\ge AD = 2\\sqrt{14}$.<br>Dấu đằng thức xảy ra khi $M = AD \\cap (S)$ hay $M = AD \\cap (C)$.<br>Ta có: phương trình tham số của đường thẳng $AD$ là $AD: \\begin{cases} x = 1+t \\\\ y = 1+2t \\\\ z = 1+3t \\end{cases}$.<br>Thay phương trình $AD$ vào phương trình $(S)$ thì $(1+t)^2 + (1+2t)^2 + (1+3t)^2 = 3 \\Leftrightarrow \\left[ \\begin{aligned} & t = 0 \\\\ & t = -\\frac{6}{7} \\end{aligned} \\right.$.<br>Với $t = 0$ ta có điểm $D(1;1;1)$.<br>Với $t = -\\frac{6}{7}$ ta có điểm $M\\left(\\frac{1}{7}; -\\frac{5}{7}; -\\frac{11}{7}\\right)$; suy ra $a + b + c = -\\frac{15}{7} \\approx -2,1$.<br>\\shortans{-2,1}"
+  },
+  {
+    "id": "18",
+    "title": "Câu 18",
+    "type": "short_answer",
+    "text": "(Sở Hải Dương 2025) Hệ thống định vị toàn cầu GPS (Global Positioning System) hiện tại có 24 vệ tinh, mỗi vệ tinh cách trái đất $20000\\text{km}$, ta coi trái đất là khối cầu có bán kính $R = 6$ (nghìn km). Với một hệ tọa độ $Oxyz$ đã chọn, $O$ là tâm trái đất và đơn vị trên mỗi trục là nghìn km, hai vệ tinh có tọa độ $A(26;0;0), B(0;26;0)$. Xét điểm $M(x;y;z)$ thuộc bề mặt trái đất. Tính giá trị nhỏ nhất của $MA + MB$ theo đơn vị nghìn km (làm tròn đến hàng đơn vị).",
+    "image": "data/im/MC4-18.png",
+    "correct": "44",
+    "solution": "\\noteImage{data/im/MC4-18-2.png}<br>Phương trình mặt cầu trái đất tâm $O$ bán kính $R = 6$ là $x^2 + y^2 + z^2 = 36$.<br>Ta có tâm cầu $O, A, B$ cùng nằm trên mặt phẳng kính $(Oxy)$. Do đó $MA + MB$ đạt giá trị nhỏ nhất thì $M$ nằm trên đường tròn lớn thuộc mặt phẳng $(Oxy)$.<br>Ta đưa bài toán về xét trên mặt phẳng $(Oxy)$.<br>Gọi $H$ và $K$ lần lượt là hình chiếu của điểm $M$ và $O$ trên đường thẳng $AB$, do tam giác $OAB$ cân tại $O$ nên $K$ là trung điểm của $AB$.<br>Ta có:<br>$MA + MB = \\sqrt{MH^2 + HA^2} + \\sqrt{MH^2 + HB^2} \\ge \\sqrt{(MH + MH)^2 + (HA + HB)^2} = \\sqrt{4MH^2 + AB^2}$<br>Lại có $OM + MH \\ge OH \\ge OK$ suy ra $MH \\ge OK - OM = d(O; AB) - R = \\frac{AB}{2} - R = 13\\sqrt{2} - 6$<br>Do đó $MA + MB \\ge \\sqrt{4\\left(13\\sqrt{2} - 6\\right)^2 + \\left(26\\sqrt{2}\\right)^2} \\approx 44$<br>Dấu bằng xảy ra khi $H$ trùng với trung điểm $K$ của $AB$ và $M$ thuộc đoạn $OK$.<br>\\shortans{44}"
+  },
+  {
+    "id": "19",
+    "title": "Câu 19",
+    "type": "short_answer",
+    "text": "(Sở Hải Phòng 2025) Một robot khảo sát không gian hoạt động trong môi trường 3D có một cảm biến hình cầu, được lập trình để di chuyển sao cho cảm biến này tiếp xúc tại một điểm $Q$ trên một bức tường nghiêng có phương trình là mặt phẳng $x + y - z - 3 = 0$ để đo đạc. Trong lúc khảo sát, cảm biến luôn phải đi qua hai điểm chuẩn đã cố định sẵn trong không gian là điểm $M(1;1;1)$ - vị trí cảm biến tại lần đo đầu tiên và điểm $N(-3;-3;-3)$ vị trí cảm biến tại lần đo tiếp theo. Để tối ưu hoá phần mềm điều hướng, kỹ sư muốn xác định rằng: Dù cảm biến (hình cầu) có di chuyển sao cho tiếp xúc ở đâu trên bức tường, điểm tiếp xúc đó luôn nằm trên một đường tròn cố định. Tính bán kính của đường tròn cố định đó, từ đó giúp lập trình robot dò tìm tiếp điểm dễ dàng hơn trong các lần đo tiếp theo.",
+    "image": "data/im/MC4-19.png",
+    "correct": "6",
+    "solution": "* Đường thẳng $MN$ có phương trình tham số là $\\begin{cases} x = 1+t \\\\ y = 1+t \\\\ z = 1+t \\end{cases}$.<br>* Gọi $I = MN \\cap (P)$ khi đó tọa độ điểm $I$ ứng với $t$ thỏa mãn:<br>$1+t + 1+t - 1-t - 3 = 0 \\Leftrightarrow t - 2 = 0 \\Leftrightarrow t = 2 \\Rightarrow I(3;3;3) \\Rightarrow IM = 2\\sqrt{3}, IN = 6\\sqrt{3}$.<br>Do mặt cầu $(S)$ đi qua $M, N$ và tiếp xúc với đường thẳng $IQ$ tại điểm $Q$ nên ta có:<br>$IQ^2 = IM \\cdot IN = KI^2 - R^2 \\Rightarrow IQ^2 = IM \\cdot IN = 36 \\Leftrightarrow IQ = 6$<br>Vậy $Q$ luôn thuộc đường tròn tâm $I$ bán kính $R = 6$.<br>\\shortans{6}"
+  },
+  {
+    "id": "20",
+    "title": "Câu 20",
+    "type": "short_answer",
+    "text": "(Sở Cà Mau 2025) Trong không gian với hệ trục toạ độ $Oxyz$ (đơn vị trên mỗi trục là kilômét), đài kiểm soát không lưu sân bay ở vị trí $O(0;0;0)$ và được thiết kế phát hiện máy bay ở khoảng cách tối đa 500 km. Một máy bay đang ở vị trí $A(-1000; -185; 30)$ và chuyển động với vận tốc không đổi theo quỹ đạo là đường thẳng $d$ có vectơ chỉ phương $\\vec{u} = (100;80;0)$. Tính khoảng cách từ vị trí $A$ đến khi đài kiểm soát không lưu phát hiện được máy bay (đơn vị km, làm tròn kết quả đến hàng đơn vị).",
+    "image": "data/im/MC4-20.png",
+    "correct": "761",
+    "solution": "Gọi $M$ là giao điểm của đường thẳng $d$ với mặt cầu $(S)$ tâm $O$ bán kính $R = 500\\text{ km}$. Khi đó, yêu cầu bài toán là tính độ dài đoạn $AM$.<br>Ta có: $(S): x^2 + y^2 + z^2 = 500^2, d: \\begin{cases} x = -1000 + 100t \\\\ y = -185 + 80t \\\\ z = 30 \\end{cases} \\Rightarrow AM = 20\\sqrt{41}t$<br>Tìm $M$:<br>$(-1000 + 100t)^2 + (-185 + 80t)^2 + 30^2 = 250000$<br>$\\Leftrightarrow 16400t^2 - 229600t + 785125 = 0$<br>$\\Leftrightarrow 656t^2 - 9184t + 31405 = 0$<br>$\\Leftrightarrow \\left[ \\begin{aligned} & t = \\frac{1148 + \\sqrt{30299}}{164} \\Rightarrow AM \\approx 1032 \\\\ & t = \\frac{1148 - \\sqrt{30299}}{164} \\Rightarrow AM \\approx 761 \\end{aligned} \\right.$<br>Vậy $AM \\approx 761\\text{ km}$.<br>\\shortans{761}"
+  },
+  {
+    "id": "21",
+    "title": "Câu 21",
+    "type": "short_answer",
+    "text": "(Sở Tiền Giang 2025) Trong trong không gian $Oxyz$, bề mặt Trái Đất có phương trình: $x^2 + y^2 + z^2 = 1$. (1 đơn vị dài trong không gian $Oxyz$ tương ứng với $6\\ 371\\text{ krn}$ trên thực tế); vị trí $P$ có vĩ độ, kinh độ tương ứng là $\\alpha^\\circ N, \\beta^\\circ E (0 < \\alpha < 90, 0 < \\beta < 180)$ có toạ độ $P(\\cos \\alpha^\\circ \\cos \\beta^\\circ; \\cos \\alpha^\\circ \\sin \\beta^\\circ; \\sin \\alpha^\\circ)$. Ứng dụng Google Maps cho phép xác định khoảng cách giữa hai vị trí trên bề mặt Trái Đất khi biết vĩ độ và kinh độ của chúng. Khoảng cách giữa hai vị trí $P$ và $Q$ trên bề mặt Trái Đất là độ dài cung nhỏ $PQ$ của đường tròn có tâm $O$ và đi qua hai điểm $P, Q$. Tính khoảng cách trên mặt đất giữa hồ Hoàn Kiếm (Hà Nội) ở vị trí $21^\\circ 02'N, 105^\\circ 51'E$ và đảo Trường Sa ở vị trí $8^\\circ 39'N, 111^\\circ 56'E$ (đơn vị: km, kết quả làm tròn đến hàng đơn vị)",
+    "image": "",
+    "correct": "1524",
+    "solution": "Gọi $P$ và $Q$ lần lượt là vị trí tương ứng với hồ Hoàn Kiếm và đảo Trường Sa<br>Ta có $P(\\cos 21^\\circ 02'\\cos 105^\\circ 51'; \\cos 21^\\circ 02'\\sin 105^\\circ 51'; \\sin 21^\\circ 02')$,<br>$Q(\\cos 8^\\circ 39'\\cos 111^\\circ 56'; \\cos 8^\\circ 39'\\cos 111^\\circ 56'; \\sin 8^\\circ 39')$<br>Suy ra<br>$\\overrightarrow{OP} = (\\cos 21^\\circ 02'\\cos 105^\\circ 51'; \\cos 21^\\circ 02'\\sin 105^\\circ 51'; \\sin 21^\\circ 02')$,<br>$\\overrightarrow{OQ} = (\\cos 8^\\circ 39'\\cos 111^\\circ 56'; \\cos 8^\\circ 39'\\cos 111^\\circ 56'; \\sin 8^\\circ 39')$.<br>Do đó $\\overrightarrow{OP}.\\overrightarrow{OQ} \\approx 0,9715384942$ vì $P, Q$ thuộc mặt đất nên $|\\overrightarrow{OP}| = |\\overrightarrow{OQ}| = 1$<br>Do đó $\\cos \\widehat{POQ} = \\frac{\\overrightarrow{OP}.\\overrightarrow{OQ}}{|\\overrightarrow{OP}|.|\\overrightarrow{OQ}|} \\approx 0,97154$. Suy ra $\\widehat{POQ} \\approx 13,70257035^\\circ$<br>Mặt khác, mặt cầu tâm $O$, đi qua $P, Q$ có bán kính 1 nên cung nhỏ $\\overset{\\frown}{PQ}$ của đường tròn đó có độ dài xấp xỉ bằng $\\frac{13,70257035\\pi}{180} \\approx 0,2391549686$.<br>Do 1 đơn vị dài trong không gian $Oxyz$ tương ứng với $6\\ 371\\text{ km}$ trên thực tế, nên khoảng cách trên mặt đát giữa hai vị trí $P, Q$ xấp xỉ bằng $0,2391549686 \\cdot 6371 = 1523,656305 \\approx 1524\\text{ (km)}$.<br>\\shortans{1524}"
+  },
+  {
+    "id": "22",
+    "title": "Câu 22",
+    "type": "short_answer",
+    "text": "(Sở Hậu Giang 2025) Một trạm $X$ có chức năng thu - phát sóng điện thoại. Bán kính phủ sóng của trạm $X$ là 2 km. Chọn hệ trục tọa $Oxyz$ sao cho $O$ trùng với trạm $X$ và đơn vị độ dài trên mỗi trục tọa độ là 1 km. Từ một nơi nằm ngoài vùng phủ sóng của trạm $X$, bạn An đi xuyên qua khu vực trạm $X$ phủ sóng và đi trên một con đường dạng đường thẳng có phương trình: $\\begin{cases} x = t \\\\ y = 1-t \\\\ z = \\sqrt{3} \\end{cases}$. Quãng đường bạn An đi vào vùng phủ sóng của trạm $X$ bằng bao nhiêu kílômét? (kết quả làm tròn đến hàng phần mười)",
+    "image": "data/im/MC4-22.png",
+    "correct": "1,4",
+    "solution": "Phương trình vùng phủ sóng là: $x^2 + y^2 + z^2 \\le 2^2$.<br>Quảng đường bạn An đi trong vùng phủ sóng là đoạn $AB$ với $A, B$ là hai giao điểm của $d: \\begin{cases} x = t \\\\ y = 1-t \\\\ z = \\sqrt{3} \\end{cases}, (S): x^2 + y^2 + z^2 = 4$.<br>Ta có phương trình<br>$t^2 + (1-t)^2 + (\\sqrt{3})^2 = 4 \\Leftrightarrow 2t^2 - 2t = 0 \\Leftrightarrow \\left[ \\begin{aligned} & t = 0 \\Rightarrow A(0;1;\\sqrt{3}) \\\\ & t = 1 \\Rightarrow B(1;0;\\sqrt{3}) \\end{aligned} \\right. \\Rightarrow AB = \\sqrt{2} \\approx 1,4\\text{ km}$.<br>\\shortans{1,4}"
+  },
+  {
+    "id": "23",
+    "title": "Câu 23",
+    "type": "short_answer",
+    "text": "(THPT Sóc Sơn - Hà Nội 2025) Hình chỏm cầu có một đáy là một phần của hình cầu bị chia bởi một mặt phẳng. Một rađa có thể phát hiện các mục tiêu trong khu vực của một hình chỏm cầu với chiều rộng trên mặt đất là một hình tròn với bán kính 450 km và chiều cao 30 km. Chọn hệ trục tọa độ $Oxyz$ với mặt phẳng $Oxy$ là mặt đất (xem mặt đất là mặt phẳng), trục $Oz$ hướng lên cao và gốc tọa độ $O$ trùng với vị trí của rađa (tham khảo hình vẽ bên), mỗi đơn vị trên trục là 1 km. Một tên lửa được phóng lên cao, bắt đầu từ vị trí $A(30; -780; 60)$, dự định bay thẳng với vận tốc không đổi 7 km/ giây hướng thẳng đến vị trí của rađa. Thời gian dự kiến từ khi tên lửa bị rađa phát hiện đến khi nó bắn trúng rađa là bao nhiêu giây? (làm tròn đến hàng đơn vị)",
+    "image": "data/im/MC4-23.png",
+    "correct": "37",
+    "solution": "\\noteImage{data/im/MC4-23-2.png}<br>Giả sử trục $Oz$ cắt mặt cầu tại điểm $B(0; 0; 30)$; trục $Oy$ cắt mặt cầu tại điểm $C(0; 450; 0)$ như hình vẽ.<br>Gọi mặt cầu là $(S)$ và có tâm là $I(0;0;a)$ với $a < 0$.<br>Ta có $IB^2 = IC^2 \\Leftrightarrow (30-a)^2 = 450^2 + a^2 \\Leftrightarrow a = -3360$. Suy ra mặt cầu $(S)$ có tâm $I(0; 0; -3360)$ và $R = 3390$ nên có phương trình là $x^2 + y^2 + (z + 3360)^2 = 3390^2$.<br>Đường thẳng $AO$ có phương trình là $\\begin{cases} x = -30t \\\\ y = 780t \\\\ z = -60t \\end{cases}$.<br>Thay $x = -30t; y = 780t; z = -60t$ vào phương trình mặt cầu ta được<br>$(-30t)^2 + (780t)^2 + (-60t + 3360)^2 = 3390^2 \\Leftrightarrow 681t^2 - 448t - 225 = 0 \\Leftrightarrow \\left[ \\begin{aligned} & t = -\\frac{1}{3} \\\\ & t = \\frac{225}{227} \\end{aligned} \\right.$.<br>Khi đó đường thẳng $AO$ cắt mặt cầu tại 2 điểm $M$ và $N$. Tên lửa bị rađa phát hiện tại điểm $M$ thỏa mãn $A, M$ cùng phía so với mặt phẳng $Oxy$. Khi đó cao độ $z_M > 0$ nên tọa độ điểm $M$ ứng với $t = -\\frac{1}{3}$<br>$\\Rightarrow M(10; -260; 20) \\Rightarrow MO = 10\\sqrt{681}$.<br>Thời gian dự kiến từ khi tên lửa bị rađa phát hiện đến khi nó bắn trúng rađa là<br>$\\frac{MO}{7} = \\frac{10\\sqrt{681}}{7} \\approx 37$ (giây).<br>\\shortans{37}"
+  },
+  {
+    "id": "24",
+    "title": "Câu 24",
+    "type": "short_answer",
+    "text": "(THPT Khoa Học - Huế 2025) Trong không gian với hệ trục tọa độ $Oxyz$ (đơn vị trên mỗi trục là mét), một thiết bị phát sóng wifi được đặt tại vị trí $I(3;4;2)$. Vùng phủ sóng của thiết bị là một hình cầu có bán kính $R = 10m$. Một người sử dụng điện thoại đứng ở vị trí $K(x-7;7;1)$. Sau đó, người đó di chuyển đến vị trí $H(x+11;7;1)$. Tìm giá trị nguyên của $x$ sao cho cả hai vị trí $K$ và $H$ đều có thể bắt được tín hiệu wifi từ thiết bị.",
+    "image": "",
+    "correct": "1",
+    "solution": "Cả hai vị trí $K$ và $H$ đều có thể bắt được tín hiệu wifi từ thiết bị $\\Leftrightarrow \\begin{cases} IK \\le 10 \\\\ IH \\le 10 \\end{cases}$<br>$\\Leftrightarrow \\begin{cases} (x-10)^2 + 3^2 + (-1)^2 \\le 100 \\\\ (x+8)^2 + 3^2 + (-1)^2 \\le 100 \\end{cases} \\Leftrightarrow \\begin{cases} x^2 - 20x + 10 \\le 0 \\\\ x^2 + 16x - 26 \\le 0 \\end{cases} \\Leftrightarrow \\begin{cases} 10 - 3\\sqrt{10} \\le x \\le 10 + 3\\sqrt{10} \\\\ -8 - 3\\sqrt{10} \\le x \\le -8 + 3\\sqrt{10} \\end{cases}$<br>$10 - 3\\sqrt{10} \\le x \\le -8 + 3\\sqrt{10}$ ($0,5131 \\le x \\le 1,4868$). Do $x$ nguyên nên $x = 1$.<br>\\shortans{1}"
+  },
+  {
+    "id": "25",
+    "title": "Câu 25",
+    "type": "short_answer",
+    "text": "(Cụm Tiền Giang 2025) Một nguồn âm phát ra sóng âm là sóng cầu (mặt đầu sóng là mặt cầu). Khi gắn hệ trục tọa độ $Oxyz$ với đơn vị trên mỗi trục là mét, vị trí nguồn âm có tọa độ $(0;-3;-1)$, cường độ âm chuẩn phát ra có bán kính là $10\\text{mét}$. Một bạn học sinh di chuyển theo phương thẳng từ vị trí $N(7;10;-4)$ đến vị trí $M(5;0;2)$ để nhận nguồn âm. Khi bạn học sinh đó di chuyển từ $N$ đến $M$ thì vị trí đầu tiên nhận được nguồn âm là $A(x_0;y_0;z_0)$. Tính tổng $x_0 + y_0 + z_0$.",
+    "image": "data/im/MC4-25.png",
+    "correct": "10",
+    "solution": "Phương trình mặt cầu mô tả sóng âm phát ra từ nguồn âm là<br>$(S): x^2 + (y+3)^2 + (z+1)^2 = 100$<br>$\\overrightarrow{NM} = (-2;-10;6)$, phương trình đường thẳng $MN$ là<br>$\\begin{cases} x = 7-t \\\\ y = 10-5t \\\\ z = -4+3t \\end{cases}, t \\in \\mathbb{R}$.<br>Tọa độ giao điểm của mặt cầu $(S)$ và đường thẳng $MN$ là nghiệm của hệ<br>$\\begin{cases} x = 7-t \\\\ y = 10-5t \\\\ z = -4+3t \\\\ x^2 + (y+3)^2 + (z+1)^2 = 100 \\end{cases}$<br>$\\Rightarrow (7-t)^2 + (13-5t)^2 + (-3+3t)^2 = 100$<br>$\\Leftrightarrow 35t^2 - 162t + 127 = 0 \\Leftrightarrow \\left[ \\begin{aligned} & t = 1 \\Rightarrow A_1(6;5;-1) \\\\ & t = \\frac{127}{35} \\Rightarrow A_2\\left(\\frac{118}{35}; -\\frac{57}{35}; \\frac{241}{35}\\right) \\end{aligned} \\right.$<br>Các giao điểm là $A_1(6;5;-1)$ và $A_2\\left(\\frac{118}{35}; -\\frac{57}{35}; \\frac{241}{35}\\right)$<br>$NA_1 = \\sqrt{1^2 + 5^2 + (-3)^2} = \\sqrt{35}; NA_2 = \\sqrt{\\left(\\frac{118}{35} - 7\\right)^2 + \\left(-\\frac{57}{7} - 10\\right)^2 + \\left(\\frac{241}{35} + 4\\right)^2} \\approx 21,5$.<br>Ta có $NA_1 < NA_2$ nên $A_1(6;5;-1)$ là vị trí đầu tiên nhận được nguồn âm. Khi đó $x_0 + y_0 + z_0 = 10$<br>\\shortans{10}"
+  },
+  {
+    "id": "26",
+    "title": "Câu 26",
+    "type": "short_answer",
+    "text": "(Liên Trường Bắc Ninh 2025) Trong một tiết thực hành về quan sát quả địa cầu có một nhóm học sinh cầm một quả địa cầu sao cho nó không chạm vào mặt bàn. Trên mặt bàn có một tờ giấy hình tam giác $ABC$. Xét trong không gian $Oxyz$, tam giác $ABC$ có $A(3;0;0), B(0;5;0), C(0;5;1)$. Giả sữ bề mặt quả địa cầu là mặt cầu $(S): x^2 + y^2 + (z-3)^2 = \\frac{49}{20}$. Cô giáo khẳng định trên quả địa cầu $(S)$ tồn tại duy nhất một điểm $M(a;b;c)$ sao cho biểu thức $T = MA^2 + MB^2 + MC^2$ đạt giá trị lớn nhất và yêu cầu nhóm học sinh đó đi tìm điểm $M$ nêu trên. Tổng $a+b+c$ bằng bao nhiêu? (Làm tròn kết quả đến hàng phần trăm).",
+    "image": "data/im/MC4-26.png",
+    "correct": "2,40",
+    "solution": "+ Gọi $G$ là trọng tâm tam giác $ABC$ ta có $G\\left(1; \\frac{10}{3}; \\frac{1}{3}\\right)$ khi đó:<br>$T = MA^2 + MB^2 + MC^2 = GA^2 + GB^2 + GC^2 + 3MG^2$. Do đó biểu thức $T = MA^2 + MB^2 + MC^2$ đạt giá trị lớn nhất khi và chỉ khi $GM$ lớn nhất.<br>+ Ta có $\\overrightarrow{IG} = \\frac{1}{3}(3; 10; -8)$ trong đó $I(0;0;3)$ là tâm mặt cầu $(S)$. Khi đó đường thẳng $IG: \\begin{cases} x = 3t \\\\ y = 10t \\\\ z = 3 - 8t \\end{cases}$<br>+ Thay $x = 3t; y = 10t; z = 3 - 8t$ vào phương trình mặt cầu ta có $t = \\pm \\frac{7}{\\sqrt{3460}}$. Hay đường thẳng $IG$ cắt mặt cầu $(S)$ tại hai điểm $M_1\\left(\\frac{21}{\\sqrt{3460}}; \\frac{70}{\\sqrt{3460}}; 3 - \\frac{56}{\\sqrt{3460}}\\right), M_2\\left(\\frac{-21}{\\sqrt{3460}}; \\frac{-70}{\\sqrt{3460}}; 3 + \\frac{56}{\\sqrt{3460}}\\right)$.<br>+ Dễ thấy $\\overrightarrow{IG}; \\overrightarrow{IM_1}$ cùng hướng nên $GM$ lớn nhất khi $M \\equiv M_2$ hay $M\\left(\\frac{-21}{\\sqrt{3460}}; \\frac{-70}{\\sqrt{3460}}; 3 + \\frac{56}{\\sqrt{3460}}\\right)$.<br>Khi đó $a + b + c = \\frac{-21 - 70 + 56}{\\sqrt{3460}} + 3 \\approx 2,40$.<br>\\shortans{2,40}"
+  },
+  {
+    "id": "27",
+    "title": "Câu 27",
+    "type": "short_answer",
+    "text": "(Liên trường Vĩnh Phúc 2025) Tại lễ Tri ân và trưởng thành của học sinh khối 12 của một trường THPT CPV. Kết thúc buổi lễ, một học sinh khối 12 đại diện cho các bạn thả một khinh khí cầu với khát vọng bay cao và vươn xa. Trong không gian $Oxyz$, mỗi đơn vị ứng với 1m, giả sử khinh khí cầu đang ở vị trí có phương trình là $(S): (x-1)^2 + (y-2)^2 + (z-10)^2 = 2$. Cùng thời điểm đó có ba chiếc flycam $A, B, C$ cách nhau 3m, 4m, 5m và tạo thành một tam giác $ABC$ có ba cạnh tiếp xúc với mặt cầu $(S)$, biết rằng mặt phẳng $(ABC)$ song song với mặt phẳng $(P): 2x - y + 2z - 17 = 0$ và có phương trình dạng $2x + ay + bz + c = 0$. Tổng giá trị của $T = a + b + c$ bằng bao nhiêu?",
+    "image": "data/im/MC4-27.png",
+    "correct": "-22",
+    "solution": "Mặt cầu $(S)$ có tâm $I(1;2;10), R = \\sqrt{2}$.<br>Gọi $(C)$ có bán kính $r$ là đường tròn giao tuyến giữa mặt phẳng $(ABC)$ với mặt cầu $(S)$.<br>Ta có đường tròn $(C)$ nội tiếp tam giác $(ABC)$.<br>Vì tam giác $ABC$ có độ dài ba cạnh 3m, 4m, 5m nên tam giác $ABC$ vuông.<br>Ta có $S_{ABC} = p.r \\Rightarrow r = \\frac{S_{ABC}}{p} = \\frac{\\frac{1}{2}.3.4}{\\frac{3+4+5}{2}} = 1$.<br>Khoảng cách từ tâm mặt cầu đến mặt phẳng $(ABC)$ là $d = \\sqrt{R^2 - r^2} = \\sqrt{2 - 1} = 1$.<br>Do mặt phẳng $(ABC)$ song song với $(P): 2x - y + 2z - 17 = 0$ nên phương trình mặt phẳng $(ABC)$ có dạng: $(P): 2x - y + 2z + c = 0$ với $c \\neq -17$<br>$d(I, (ABC)) = 1 \\Leftrightarrow \\frac{|2.1 - 2 + 2.10 + c|}{\\sqrt{2^2 + (-1)^2 + 2^2}} = 1 \\Leftrightarrow |20 + c| = 3 \\Leftrightarrow \\left[ \\begin{aligned} & c = -17 (l) \\\\ & c = -23 \\end{aligned} \\right.$.<br>Vậy phương trình $(ABC)$ là $2x - y + 2z - 23 = 0 \\Rightarrow a = -1; b = 2; c = -23 \\Rightarrow T = a + b + c = -22$.<br>\\shortans{-22}"
+  },
+  {
+    "id": "28",
+    "title": "Câu 28",
+    "type": "short_answer",
+    "text": "(Sở Bình Dương 2025) Một quả bóng hình cầu có bán kính $r$ đang được treo trong một góc của tường nhà (hai bờ tường vuông góc với nhau). Một điểm $B$ cố định nằm trên mép hai bờ tường và cách mặt đất 80 cm, sợi dây treo quả bóng có độ dài $AB = 30\\text{ cm}$ và đây cũng là độ dài ngắn nhất nối điểm $B$ với mặt xung quanh của quả bóng. Biết rằng quả bóng tiếp xúc với hai bên bờ tường và điểm thấp nhất của quả bóng cách mặt đất 20 cm. Hỏi quả bóng có đường kính là bao nhiêu cm? (kết quả làm tròn đến hàng đơn vị)",
+    "image": "data/im/MC4-28.png",
+    "correct": "38",
+    "solution": "Gọi tâm quả bóng hình cầu là $I(a;b;c)$ bán kính $r$. Dựa vào hình vẽ ta có $a;b;c > 0$ và điểm $B(0; 0; 80)$.<br>Ta có $AB \\ge |IB - IA| = IB - r$. Do đó $IB - r = 30 \\Leftrightarrow \\sqrt{a^2 + b^2 + (c - 80)^2} = r + 30$ (1)<br>Quả bóng tiếp xúc với hai bên bờ tường nên $d(I, (Oxz)) = d(I, (Oyz)) = r \\Leftrightarrow b = a = r$ (2)<br>Điểm thấp nhất của quả bóng cách mặt đất 20 cm nên $d(I, (Oxy)) = r + 20 \\Leftrightarrow c = r + 20$ (3)<br>Vì dây treo quả bóng nên điểm $I$ phải thấp hơn điểm $B$. Do đó $c < 80$ nên $r + 20 < 80 \\Rightarrow r < 60$.<br>Thế (2), (3) vào (1) ta có<br>$\\sqrt{r^2 + r^2 + (r + 20 - 80)^2} = r + 30 \\Leftrightarrow 3r^2 - 120r + 3600 = r^2 + 60r + 900$<br>$\\Leftrightarrow 2r^2 - 180r + 2700 = 0 \\Leftrightarrow \\left[ \\begin{aligned} & r = 45 + 15\\sqrt{3} \\approx 70,98076 \\\\ & r = 45 - 15\\sqrt{3} \\approx 19,01924 \\end{aligned} \\right.$.<br>Đối chiếu $r < 60$ thì $r = 45 - 15\\sqrt{3}$. Vậy đường kính quả cầu là $r = 90 - 30\\sqrt{3} \\approx 38,038$<br>\\shortans{38}"
+  },
+  {
+    "id": "29",
+    "title": "Câu 29",
+    "type": "short_answer",
+    "text": "Một bồn chứa khí hình cầu $K$ có đường kính 10 m tiếp xúc trực tiếp với một bức tường thẳng đứng tại điểm $T(-6;0;5)$. Bồn được che chắn bằng một tấm chắn nghiêng, cố định xuống mặt đất tại các điểm $A(0;16,25;0)$ và $B(-12;16,25;0)$, đồng thời được chống đỡ bởi các thanh thẳng đứng tại các điểm $C(0;5;15)$ và $D(-12;5;15)$. Tính khoảng cách an toàn giữa tấm chắn $E$ và mặt cầu $K$ là bao nhiêu mét",
+    "image": "data/im/MC4-29.png",
+    "correct": "1",
+    "solution": "- Tường thẳng đứng là mặt phẳng $y = 0$.<br>- Mặt cầu bán kính $r = 5m$, tiếp xúc tường tại $T(-6;0;5) \\Rightarrow$ tâm $O(-6;5;5)$.<br>- Tấm chắn hiện tại $E$ đi qua $A(0;16,25;0), B(-12;16,25;0), C(0;5;15)$ và $D(-12;5;15)$<br>Phương trình mặt cầu $K: (x+6)^2 + (y-5)^2 + (z-5)^2 = 25$.<br>Phương trình mặt phẳng tấm chắn $E$<br>$\\overrightarrow{AB} = (-12;0;0), \\overrightarrow{AC} = (0;-11,25;15) \\Rightarrow \\vec{n} = (0;12;9) \\sim (0,4,3)$.<br>$E: 4y + 3z - 65 = 0$.<br>\"Khoảng cách an toàn\" giữa $E$ và mặt cầu $d(O, E) = \\frac{|4 \\cdot 5 + 3 \\cdot 5 - 65|}{\\sqrt{4^2 + 3^2}} = \\frac{30}{5} = 6m$.<br>Khoảng hở giữa bề mặt: $d - r = 6 - 5 = 1m$.<br>\\shortans{1}"
+  },
+  {
+    "id": "30",
+    "title": "Câu 30",
+    "type": "short_answer",
+    "text": "Cho tam giác $ABC$ với: $A(4;0;0), B(0;4;0), C(0;0;2)$. Bên trong tam giác có một lỗ tròn tâm $M'(1;1;1)$, bán kính $r' = 1$. Trong lỗ này đặt một quả cầu $K$ bán kính $r = \\sqrt{10}$. Tâm của quả cầu $K$ là $M(a;b;c) (a,b,c > 0)$. Tính $a+b-c$",
+    "image": "data/im/MC4-30.png",
+    "correct": "1",
+    "solution": "Mặt phẳng tam giác $ABC$:<br>$(ABC): \\frac{x}{4} + \\frac{y}{4} + \\frac{z}{2} = 1 \\Leftrightarrow x + y + 2z - 4 = 0$, véc tơ pháp tuyến $\\vec{n} = (1;1;2)$.<br>Trong mặt phẳng $(ABC)$ có một vòng tròn tâm $M'(1,1,1)$, bán kính $r' = 1$.<br>Quả cầu $K$ bán kính $r = \\sqrt{10}$ cắt $(ABC)$ theo vòng tròn ấy, nên tâm $M$ của cầu cách $(ABC)$ một khoảng $d = \\sqrt{r^2 - (r')^2} = \\sqrt{10 - 1} = 3$ và $M$ nằm trên đường thẳng $d$ vuông góc $(ABC)$ qua $M'$.<br>Phương trình đường thẳng $d: \\begin{cases} x = 1+t \\\\ y = 1+t \\\\ z = 1+2t \\end{cases}, (t \\in \\mathbb{R})$<br>Khi đó: $d(M, (ABC)) = \\frac{|1+t + 1+t + 2(1+2t) - 4|}{\\sqrt{6}} = \\frac{|6t|}{\\sqrt{6}} = 3 \\Rightarrow t = \\pm \\frac{3}{\\sqrt{6}}$<br>Do đó $M = \\left(1 + \\frac{\\sqrt{6}}{2}; 1 + \\frac{\\sqrt{6}}{2}; 1 + \\sqrt{6}\\right)$<br>\\shortans{1}"
+  },
+  {
+    "id": "31",
+    "title": "Câu 31",
+    "type": "short_answer",
+    "text": "Một trạm quan sát hình cầu có đường kính 10 m và tâm $M(0;0;12)$ được đỡ bởi bốn cột thép như hình vẽ. Các cột thép này chạy dọc theo các cạnh của một hình chóp tứ giác đều, với đỉnh $M$. Vị trí các điểm cột nối với mặt cầu khi nối lại sẽ tạo thành 1 đa giác. Tính diện tích của đa giác đó.",
+    "image": "data/im/MC4-31.png",
+    "correct": "18",
+    "solution": "Ta đặt hệ $Oxyz$ như hình. Quả cầu tâm $M(0;0;12)$, bán kính $R = 5$ (đường kính 10 m). Bốn cột thép trùng với bốn cạnh của một chóp tứ giác đều đỉnh $M$ có chân ở mặt đất tại $A(9;0;0), B(0;9;0), C(-9;0;0), D(0;-9;0)$.<br>Vị trí các điểm cột nối với mặt cầu<br>Lấy cạnh $MA$ làm mẫu: có $\\overrightarrow{MA} = (9;0;-12)$. Suy ra $MA: \\begin{cases} x = 9t \\\\ y = 0 \\\\ z = 12 - 12t \\end{cases}, t \\in [0,1]$.<br>Điểm $A_1$ trên đường $MA$ này thuộc mặt cầu khi $MA_1 = R \\Leftrightarrow t\\sqrt{9^2 + 12^2} = 5 \\Leftrightarrow t = \\frac{1}{3}$.<br>Suy ra điểm nối là $A_1 = (3;0;8)$.<br>Tương tự cho ba cạnh còn lại: $B_1(0;3;8), C_1(-3;0;8), D_1(0;-3;8)$<br>Tứ giác $A_1(3;0;8), B_1(0;3;8), C_1(-3;0;8), D_1(0;-3;8)$ nằm trên mặt phẳng $z = 8$, nên ta tính diện tích trên mặt phẳng $Oxy$ với bốn điểm $(3;0), (0;3), (-3;0), (0;-3)$.<br>Ta dễ chứng minh được đây là hình vuông $A_1B_1 = 3\\sqrt{2}$<br>Diện tích: $S = \\left(3\\sqrt{2}\\right)^2 = 18$. (đơn vị diện tích)<br>\\shortans{18}"
+  },
+  {
+    "id": "32",
+    "title": "Câu 32",
+    "type": "short_answer",
+    "text": "Mô hình quả cầu. Một nhà sản xuất ổ bi đã đặt một mô hình quả cầu khổng lồ trên mái nghiêng của nhà xưởng. Mặt mái có thể được mô tả bằng mặt phẳng $E: x + 2y + 2z = 10$. Trong đó $A, B, C$ là giao điểm của mặt phẳng $E$ với các trục tọa độ. Một mô hình quả cầu bán kính $r = 3$ được đặt tiếp xúc với mặt phẳng $E$ tại điểm $C$. Từ $C$ kẻ đường vuông góc với $AB$ tại $F$. Khi thay thế quả cầu, nó lăn trên đường thẳng $CF$ cho đến khi quả cầu vừa tiếp xúc với mặt phẳng $Oxy$ tại $P(a;b;0)$ thì dừng lại. Tính $a + b$",
+    "image": "data/im/MC4-32.png",
+    "correct": "7,8",
+    "solution": "Mái: $E: x + 2y + 2z = 10$.<br>Giao $A, B, C$ của $E$ với các trục<br>* Với trục $Ox (y = z = 0) \\Longrightarrow x = 10 \\Longrightarrow A(10;0;0)$.<br>* Với trục $Oy (x = z = 0) \\Longrightarrow 2y = 10 \\Longrightarrow B(0;5;0)$.<br>* Với trục $Oz (x = y = 0) \\Longrightarrow 2z = 10 \\Longrightarrow C(0;0;5)$.<br>Có $\\vec{v} = \\overrightarrow{AB} = (-10;5;0), AB: \\begin{cases} x = 10 - 10t \\\\ y = 0 + 5t \\\\ z = 0 \\end{cases}$<br>Điều kiện $\\overrightarrow{CF} \\perp \\vec{v}: (10 - 10t_0; 5t_0; -5) \\cdot (-10;5;0) = 0 \\Rightarrow -100 + 125t_0 = 0 \\Rightarrow t_0 = \\frac{4}{5}$.<br>$\\Rightarrow F(2; 4; 0)$.<br>Vì quả cầu tiếp xúc với $E$ tại $C$ nên $\\vec{n}(1;2;2)$ là vectơ chỉ phương của đường thẳng đi qua tâm quả cầu, khi đó đường thẳng tìm được là $\\begin{cases} x = s \\\\ y = 2s \\\\ z = 5 + 2s \\end{cases} (s > 0)$<br>Khi đó $MC = 3 \\Leftrightarrow s^2 + 4s^2 + 4s^2 = 9 \\Leftrightarrow s = 1$ suy ra $M(1; 2; 7)$<br>Quả cầu lăn theo đường thẳng qua $C$ và $F$, nhận $\\overrightarrow{CF} = (2; 4; -5)$ làm vecto chỉ phương<br>Vậy quỹ đạo tâm: $d_M: \\begin{cases} x = 1 + 2t \\\\ y = 2 + 4t \\\\ z = 7 - 5t \\end{cases} (t \\in \\mathbb{R})$.<br>Cuối cùng quả cầu đặt xuống mặt phẳng $Oxy (z = 3)$<br>Khi tiếp xúc $Oxy: z = r = 3 \\Rightarrow 7 - 5t = 3 \\Rightarrow t = 0,8$.<br>Vậy $P\\left(\\frac{13}{5}; \\frac{26}{5}; 0\\right)$ là điểm tiếp xúc với $Oxy$.<br>\\shortans{7,8}"
+  },
+  {
+    "id": "33",
+    "title": "Câu 33",
+    "type": "short_answer",
+    "text": "Một bồn chứa khí hình cầu đặt ở ven sông. Tâm $M(22; -8; 8)$, bán kính $r = 7$ (các số đo tính bằng mét). Từ trạm bơm $P(-2;4;0)$ có một đường ống dẫn khí theo hướng về tâm $M$. Trên đoạn thẳng $AB$ với $A(6; -10; 0)$ và $B(14; 6; 0)$ dựng một bức tường chắn thẳng đứng. Xác định điểm mà đường ống dẫn khí cắt bức tường cách mặt đất $(Oxy)$ bao nhiêu mét?",
+    "image": "data/im/MC4-33.png",
+    "correct": "4",
+    "solution": "Đường ống từ $P$ hướng về $M$<br>Véc tơ chỉ phương: $\\vec{v} = \\overrightarrow{PM} = (24; -12; 8)$.<br>Phương trình đường thẳng: $g(t): \\begin{cases} x = -2 + 24t \\\\ y = 4 - 12t \\\\ z = 8t \\end{cases} (t \\ge 0)$<br>Bức tường thẳng đứng qua $A(6; -10; 0), B(14; 6; 0)$ khi đó: $\\overrightarrow{AB} = (8; 16; 0), \\vec{k} = (0; 0; 1)$.<br>$\\vec{n} = [\\overrightarrow{AB}, \\vec{k}] = (16; -8; 0) \\sim (2; -1; 0)$. Mặt phẳng tường: $2x - y - 22 = 0$<br>Thay $g(t)$ vào $2x - y - 22 = 0 \\Rightarrow t = \\frac{1}{2} \\Rightarrow S(10; -2; 4)$<br>\\shortans{4}"
+  }
+]

@@ -1,0 +1,122 @@
+{
+  "groups": [
+    {
+      "name": "KHỐI ",
+      "icon": "1️⃣2️⃣",
+      "color": "#FF9800",
+      "order": 1,
+      "subgroups": ["C1K12", "C2K12", "C3K12", "C4K12"],
+      "description": "Đề thi và luyện tập Toán 12"
+    },
+    {
+      "name": "KHỐI ",
+      "icon": "1️⃣1️⃣",
+      "color": "#2196F3",
+      "order": 2,
+      "subgroups": ["C1K11", "C2K11", "C3K11"],
+      "description": "Đề thi và luyện tập Toán 11"
+    },
+    {
+      "name": "ĐỀ THI THỬ",
+      "icon": "📊",
+      "color": "#4CAF50",
+      "order": 3,
+      "description": "Đề thi thử THPT Quốc gia"
+    },
+    {
+      "name": "KIỂM TRA 45'",
+      "icon": "⏱️",
+      "color": "#9C27B0",
+      "order": 4,
+      "description": "Đề kiểm tra 45 phút"
+    },
+    {
+      "name": "LUYỆN TẬP",
+      "icon": "🎯",
+      "color": "#00BCD4",
+      "order": 5,
+      "description": "Bài tập luyện tập theo chủ đề"
+    },
+    {
+      "name": "LÝ THUYẾT",
+      "icon": "📚",
+      "color": "#3F51B5",
+      "order": 6,
+      "description": "Bài giảng lý thuyết kết hợp ví dụ"
+    }
+  ],
+  "exams": [
+    {
+      "id": "demo_practice",
+      "name": "Đề Luyện Tập Demo",
+      "group": "LUYỆN TẬP",
+      "subgroup": "C1K12",
+      "mode": "practice",
+      "type": "static",
+      "file": "data/demo_practice.json",
+      "question_count": 8,
+      "difficulty": "easy",
+      "description": "Đề luyện tập demo cho chế độ không login",
+      "tags": ["Luyện tập", "Demo", "Dễ"],
+      "duration": 30
+    },
+    {
+      "id": "demo_exam",
+      "name": "Đề Kiểm Tra Demo",
+      "group": "KIỂM TRA 45'",
+      "subgroup": "C1K12",
+      "mode": "exam",
+      "type": "static",
+      "file": "data/demo_exam.json",
+      "question_count": 10,
+      "difficulty": "medium",
+      "description": "Đề kiểm tra demo yêu cầu đăng nhập",
+      "tags": ["Kiểm tra", "Demo", "Trung bình"],
+      "duration": 45
+    },
+    {
+      "id": "demo_theory",
+      "name": "📖 Lý thuyết Hàm số",
+      "group": "LÝ THUYẾT",
+      "subgroup": "KHỐI 12",
+      "type": "theory_collection",
+      "file": "theory/demo_ham_so.json",
+      "content_type": "mixed",
+      "description": "Bài giảng lý thuyết kết hợp bài tập về hàm số",
+      "tags": ["Lý thuyết", "Hàm số", "Ví dụ"]
+    },
+    {
+      "id": "exponential_practice",
+      "name": "Luyện tập Hàm mũ & Logarit",
+      "group": "LUYỆN TẬP",
+      "subgroup": "C2K12",
+      "mode": "practice",
+      "type": "static",
+      "file": "data/exponential_practice.json",
+      "question_count": 6,
+      "difficulty": "medium",
+      "description": "Bài tập về hàm số mũ và logarit",
+      "tags": ["Mũ", "Logarit", "Luyện tập"]
+    },
+    {
+      "id": "geometry_theory",
+      "name": "📖 Hình học Không gian",
+      "group": "LÝ THUYẾT",
+      "subgroup": "KHỐI 12",
+      "type": "theory_collection",
+      "file": "theory/demobg.json",
+      "content_type": "mixed",
+      "description": "Lý thuyết và bài tập hình học không gian",
+      "tags": ["Hình học", "Không gian", "Thể tích"]
+    },
+{
+  "id": "12TOHOP",
+  "name": "Hoán vị - Chỉnh hợp - Tổ hợp",
+  "group": "KHỐI 12",
+  "type": "theory_collection",
+  "mode": "practice",
+  "file": "theory/12Tohop.json",
+  "question_count": 43
+}
+  ]
+}

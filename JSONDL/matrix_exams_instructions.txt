@@ -1,0 +1,60 @@
+HƯỚNG DẪN NGẮN VỀ `matrix_exams.json` và file dữ liệu đề
+
+1) Vị trí
+- File cấu hình chính: JSONDL/matrix_exams.json
+- File dữ liệu đề: đặt trong thư mục JSONDL/data/ (ví dụ: data/de_minh_hoa_01.json)
+
+2) Cấu trúc `matrix_exams.json`
+- groups: mảng các nhóm đề (tên, màu, icon, order, description).
+  Ví dụ:
+  { "name": "Luyện Thi THPT 2026", "color": "#1a237e", "icon": "🎯", "order": 1, "description": "..." }
+
+- exams: mảng các đề thi. Các trường thông dụng:
+  - id: chuỗi định danh duy nhất (ví dụ "DE_MH_01")
+  - name: tên đề  - group: tên nhóm (phải khớp với một nhóm trong `groups` nếu muốn lọc theo nhóm)
+  - file: đường dẫn tới file dữ liệu câu hỏi (relative đến file HTML), VD: "data/de_minh_hoa_01.json"
+  - question_count: (số nguyên) chỉ dùng để hiển thị/ thống kê
+  - duration: (phút) thời lượng đề
+  - difficulty: "easy" | "medium" | "hard" (dùng để hiển thị màu badge)
+  - author: tên tác giả
+  - description: mô tả ngắn
+  - tags: mảng chuỗi
+  - type: (tuỳ chọn) "static", "random_matrix", "moet_matrix_strict" ... (nếu dùng ma trận thì cần field `config`)
+  - config: (nếu type là ma trận) mảng cấu hình dẫn tới các file nguồn + định mức số câu
+
+3) File dữ liệu đề (schema đề xuất)
+- Có thể là một mảng JSON trực tiếp ([]) hoặc object { "questions": [...] }.
+- Mỗi câu hỏi là object với các trường tiêu biểu:
+  - id: "Q1" (chuỗi)
+  - type: "multiple_choice" | "true_false" | "short_answer"
+  - level: "nhan_biet" | "thong_hieu" | "van_dung" | "van_dung_cao"
+  - question: nội dung câu (hỗ trợ MathJax nếu có LaTeX)
+  - choices: (nếu multiple_choice) mảng lựa chọn
+  - answer: giá trị đáp án (chuỗi, boolean, hoặc text tuỳ loại)
+  - explain: lời giải/giải thích (tuỳ chọn)
+  - tags: mảng chuỗi (tuỳ chọn)
+  - difficulty: (tuỳ chọn)
+  - chapter / chapterName: (tuỳ chọn) để chỉ chương nguồn
+
+Ví dụ câu multiple_choice:
+{
+  "id":"Q1",
+  "type":"multiple_choice",
+  "level":"nhan_biet",
+  "question":"Tích phân ...",
+  "choices":["1/2","1","..."],
+  "answer":"1/2",
+  "explain":"..."
+}
+
+4) Những lưu ý khi phát triển thêm
+- Nếu thêm một nhóm mới, cập nhật `groups` trong `matrix_exams.json` (name phải trùng khi muốn gán group cho exam).
+- Khi thêm exam mới, đảm bảo `id` duy nhất; nếu dùng `group` thì group phải tồn tại.
+- Nếu dùng `type: "moet_matrix_strict"` hoặc tương tự, thêm `config` chỉ rõ file nguồn và định mức (xem ví dụ trong file hiện tại).
+- Đặt file dữ liệu câu hỏi theo định dạng ở phần 3 để giao diện `nganhangde12.html` có thể load và hiển thị đúng.
+- Với MathJax: nội dung câu có thể chứa LaTeX (ví dụ `$\int_0^1 x dx$`), trang sẽ hiển thị nếu MathJax đã được nạp.
+
+5) Kiểm tra nhanh
+- Mở `nganhangde12.html` trên trình duyệt (hoặc qua server cục bộ). Nếu không thấy nhóm/đề mới, kiểm tra console để xem lỗi fetch hoặc lỗi JSON.
+
+Nếu muốn, mình có thể: tạo thêm template file câu hỏi rỗng, hoặc script nhỏ để validate JSON trước khi commit.

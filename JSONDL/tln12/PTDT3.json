@@ -1,0 +1,632 @@
+[
+  {
+    "id": "1",
+    "title": "Câu 1",
+    "type": "short_answer",
+    "text": "(Chuyên KHTN Hà Nội 2025) Trong không gian $Oxyz$, cho điểm $A(1;-1;2)$, đường thẳng $(d): \\dfrac{x+1}{2} = \\dfrac{y}{1} = \\dfrac{z-2}{1}$ và mặt phẳng $(P): x+y-2z+5=0$. Xét đường thẳng $\\Delta$ cắt $d$ và $(P)$ tại hai điểm $M, N$ sao cho $A$ là trung điểm của đoạn thẳng $MN$. Biết vectơ $\\vec{u} = (1; a; b)$ là một vectơ chỉ phương của $\\Delta$. Tính $a+b$.",
+    "image": "",
+    "correct": "2,5",
+    "solution": "Gọi điểm $M(2t-1; t; t+2) \\in d$.<br>Vì $A$ là trung điểm của $MN$ nên ta có tọa độ của điểm $N(3-2t; -2-t; 2-t)$.<br>Mà điểm $N$ thuộc mp $(P)$ nên ta có: $3-2t-2-t-4+2t+5=0 \\Leftrightarrow t=2$.<br>Vậy $M(3;2;4)$ và vectơ $\\vec{AM}(2;3;2)$ là vectơ chỉ phương của đường thẳng $\\Delta$.<br>Chọn $\\vec{u} = (1; \\dfrac{3}{2}; 1)$ là một VTCP của $\\Delta$. Ta có: $a+b=2,5$."
+  },
+  {
+    "id": "2",
+    "title": "Câu 2",
+    "type": "short_answer",
+    "text": "(Cụm trường Hải Dương 2025) Trong không gian với hệ trục toạ độ $Oxyz$ cho hai điểm $A(2;-1;2), B(1;4;-3)$ và mặt phẳng $(P): x-2y+2z-3=0$. Đường thẳng $d$ thay đổi sao cho $d$ luôn đi qua điểm $A$ và song song với mặt phẳng $(P)$. Khi khoảng cách từ điểm $B$ đến đường thẳng $d$ nhỏ nhất thì đường thẳng $d$ có một vectơ chỉ phương $\\vec{u}=(a;1;b)$. Giá trị của $4a+b$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "15",
+    "solution": "+ Ta thấy: điểm $A \\notin (P)$.<br>+ Gọi $(Q)$ là mặt phẳng qua điểm $A(2;-1;2)$, chứa đường thẳng $d$ và song song với mặt phẳng $(P)$ khi đó $(Q)$ có phương trình là $x-2y+2z-8=0$. Gọi $H, K$ lần lượt là hình chiếu vuông góc của $B$ lên $(Q)$ và đường thẳng $d$. Khi đó $BK$ là khoảng cách từ điểm $B$ đến đường thẳng $d$ và $BK \\ge BH$. Vậy khoảng cách từ điểm $B$ đến đường thẳng $d$ nhỏ nhất thì đường thẳng $d$ đi qua điểm $A$ và $H$.<br>+ Đường thẳng $BH: \\begin{cases} x=1+t \\\\ y=4-2t \\\\ z=-3+2t \\end{cases}$. Thay vào phương trình mặt phẳng $(Q)$: $x-2y+2z-8=0$ ta có $1+t-2(4-2t)+2(-3+2t)-8=0 \\Leftrightarrow t=\\dfrac{7}{3} \\Rightarrow H\\left(\\dfrac{10}{3}; -\\dfrac{2}{3}; \\dfrac{5}{3}\\right)$. Khi đó $\\vec{AH} = \\left(\\dfrac{4}{3}; \\dfrac{1}{3}; -\\dfrac{1}{3}\\right) = \\dfrac{1}{3}(4;1;-1)$.<br>Hay $\\vec{u}=(4;1;-1)$ là một vectơ chỉ phương của đường thẳng $d$. Vậy $4a+b=15$."
+  },
+  {
+    "id": "3",
+    "title": "Câu 3",
+    "type": "short_answer",
+    "text": "(Chuyên KHTN Hà Nội 2025) Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M(2;1;1)$ và đường thẳng $d: \\dfrac{x-3}{1} = \\dfrac{y-3}{-1} = \\dfrac{z+1}{-2}$. Đường thẳng $\\Delta$ đi qua $M$, song song với mặt phẳng $(Q): x-2y+z-3=0$ và tạo với $d$ góc nhỏ nhất. Gọi $A(-8; a; b)$ là một điểm nằm trên đường thẳng $\\Delta$. Tính giá trị $a+b$.",
+    "image": "",
+    "correct": "36",
+    "solution": "$\\vec{u_\\Delta} = (x; y; z)$ (với $x^2+y^2+z^2 > 0$) là vectơ chỉ phương của đường thẳng $\\Delta$.<br>$\\vec{n_Q} = (1; -2; 1)$ là vectơ pháp tuyến của $(Q)$.<br>$\\Delta // (Q) \\Rightarrow \\vec{u_\\Delta}.\\vec{n_Q} = 0 \\Rightarrow x-2y+z=0 \\Rightarrow x=2y-z$ (1).<br>$\\vec{u_d} = (1; -1; -2)$ là vectơ chỉ phương của đường thẳng $d$.<br>Gọi $\\alpha$ là góc giữa hai đường thẳng, ta có: $\\cos \\alpha = \\dfrac{|x-y-2z|}{\\sqrt{6(x^2+y^2+z^2)}}$ (2).<br>Thế (1) và (2) ta được $\\cos \\alpha = \\dfrac{|2y-z-y-2z|}{\\sqrt{6((2y-z)^2+y^2+z^2)}} = \\dfrac{|y-3z|}{\\sqrt{6(2y-z)^2+6y^2+6z^2}}$.<br>+) Trường hợp 1: $y=0$ thì $\\cos \\alpha = \\dfrac{|-3z|}{\\sqrt{12z^2}} = \\dfrac{\\sqrt{3}}{2} \\Rightarrow \\alpha = 30^\\circ$.<br>+) Trường hợp 2: $y \\ne 0$ thì $\\cos \\alpha = \\dfrac{\\left|1-3\\dfrac{z}{y}\\right|}{\\sqrt{6\\left(2-\\dfrac{z}{y}\\right)^2+6+6\\left(\\dfrac{z}{y}\\right)^2}}$.<br>Đặt $t=\\dfrac{z}{y} \\Rightarrow f(t) = \\dfrac{|1-3t|}{\\sqrt{6(2-t)^2+6+6t^2}} = \\sqrt{\\dfrac{9t^2-6t+1}{12t^2-24t+30}}$.<br>Khảo sát hàm số $g(t) = \\dfrac{9t^2-6t+1}{12t^2-24t+30}$ ta tìm được $\\max g(t) = \\dfrac{35}{36}$ khi $t=\\dfrac{13}{4}$.<br>$\\cos \\alpha$ lớn nhất $\\Rightarrow \\alpha$ nhỏ nhất. Khi đó $t=\\dfrac{13}{4}$.<br>Với $t=\\dfrac{z}{y}=\\dfrac{13}{4} \\Rightarrow z=\\dfrac{13}{4}y$. Kết hợp (1) ta có $x=2y-\\dfrac{13}{4}y = -\\dfrac{5}{4}y$.<br>Suy ra $\\vec{u_\\Delta} = \\left(-\\dfrac{5}{4}y; y; \\dfrac{13}{4}y\\right) = \\dfrac{y}{4}(-5; 4; 13)$.<br>Phương trình tham số của $\\Delta$: $x=2-5t, y=1+4t, z=1+13t$.<br>$x_A = -8 \\Rightarrow 2-5t=-8 \\Rightarrow t=2 \\Rightarrow A(8;9;27) \\Rightarrow a=9, b=27 \\Rightarrow a+b=36$."
+  },
+  {
+    "id": "4",
+    "title": "Câu 4",
+    "type": "short_answer",
+    "text": "(THPT Mai Trúc Loan - Hà Tĩnh 2025) Trong không gian với hệ trục tọa độ $Oxyz$, cho hình vuông $ABCD$ có $B(3;0;8), D(-5;-4;0)$. Biết đỉnh $A$ thuộc mặt phẳng $(Oxy)$ và có tọa độ là những số nguyên, điểm $M(x;y;z)$ thuộc đường thẳng $CD$ sao cho $|\\vec{MA}+2\\vec{MB}|$ đạt giá trị nhỏ nhất. Tính $x-y+z$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q4.png}",
+    "image": "",
+    "correct": "7",
+    "solution": "Ta có $A \\in (Oxy) \\Rightarrow A(a;b;0)$. $\\vec{AB}=(3-a;-b;8)$, $\\vec{AD}=(-5-a;-4-b;0)$.<br>$ABCD$ là hình vuông $\\Rightarrow \\begin{cases} \\vec{AB} \\perp \\vec{AD} \\\\ AB=AD \\end{cases} \\Rightarrow \\begin{cases} \\vec{AB}.\\vec{AD}=0 \\\\ AB=AD \\end{cases}$.<br>Giải hệ phương trình ta được $a=1, b=2$ (vì $A$ có tọa độ nguyên) $\\Rightarrow A(1;2;0) \\Rightarrow \\vec{AB}=(2;-2;8)$.<br>Đường thẳng $CD$ qua $D(-5;-4;0)$ và nhận $\\vec{u}=\\dfrac{1}{2}\\vec{AB}=(1;-1;4)$ làm VTCP.<br>Phương trình tham số: $x=-5+t, y=-4-t, z=4t$.<br>Gọi $I$ là điểm thỏa $\\vec{IA}+2\\vec{IB}=\\vec{0} \\Rightarrow I\\left(\\dfrac{7}{3}; \\dfrac{2}{3}; \\dfrac{16}{3}\\right)$.<br>$|\\vec{MA}+2\\vec{MB}| = |\\vec{MI}+\\vec{IA}+2\\vec{MI}+2\\vec{IB}| = |3\\vec{MI}| = 3MI$. Min khi $MI \\perp CD$.<br>$M \\in CD \\Rightarrow M(-5+t; -4-t; 4t) \\Rightarrow \\vec{MI} = \\left(\\dfrac{22}{3}-t; \\dfrac{14}{3}+t; \\dfrac{16}{3}-4t\\right)$.<br>$\\vec{MI} \\perp \\vec{u} \\Rightarrow \\vec{MI}.\\vec{u}=0 \\Rightarrow t=\\dfrac{4}{3} \\Rightarrow M\\left(-\\dfrac{11}{3}; -\\dfrac{16}{3}; \\dfrac{16}{3}\\right) \\Rightarrow x-y+z=7$."
+  },
+  {
+    "id": "5",
+    "title": "Câu 5",
+    "type": "short_answer",
+    "text": "Góc giữa hai mặt phẳng $(P): x-y+4z-2=0$ và mặt phẳng $(Q): 2x-2z+7=0$ bằng $a^0$. Tìm $\\cos a$.",
+    "image": "",
+    "correct": "0,5",
+    "solution": "Mặt phẳng $(P)$ có VTPT $\\vec{n_1}=(1;-1;4)$.<br>Mặt phẳng $(Q)$ có VTPT $\\vec{n_2}=(2;0;-2)$.<br>$\\cos((P),(Q)) = \\dfrac{|\\vec{n_1}.\\vec{n_2}|}{|\\vec{n_1}|.|\\vec{n_2}|} = \\dfrac{|1.2+(-1).0+4.(-2)|}{\\sqrt{1^2+(-1)^2+4^2}.\\sqrt{2^2+(-2)^2}} = \\dfrac{6}{\\sqrt{18}.\\sqrt{8}} = \\dfrac{1}{2}$.<br>Vậy $\\cos a = 0,5$."
+  },
+  {
+    "id": "6",
+    "title": "Câu 6",
+    "type": "short_answer",
+    "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho 4 điểm $A(3;0;0), B(0;2;0), C(0;0;12)$ và $D(2;1;-2)$. Gọi $\\Delta$ là đường thẳng qua $D$ và thỏa mãn $T = d(A,\\Delta) + 2d(B,\\Delta) + 3d(C,\\Delta)$ đạt giá trị lớn nhất. Góc tạo bởi $\\Delta$ và trục $(Oxy)$ là bao nhiêu độ (làm tròn đến hàng đơn vị).",
+    "image": "",
+    "correct": "8",
+    "solution": "Phương trình mặt phẳng $(ABC): \\dfrac{x}{3}+\\dfrac{y}{2}+\\dfrac{z}{12}=1 \\Leftrightarrow 4x+6y+z-12=0$.<br>Nhận thấy $D$ thuộc mặt phẳng $(ABC)$. Ta có $T \\le AD+2BD+3CD$. $T$ lớn nhất khi $\\Delta \\perp (ABC)$.<br>$\\Delta$ nhận $\\vec{u}=(4;6;1)$ làm VTCP. Mặt phẳng $(Oxy)$ có VTPT $\\vec{k}=(0;0;1)$.<br>$\\sin(\\Delta, (Oxy)) = \\dfrac{|\\vec{u}.\\vec{k}|}{|\\vec{u}|.|\\vec{k}|} = \\dfrac{1}{\\sqrt{53}} \\Rightarrow (\\Delta, (Oxy)) \\approx 8^\\circ$."
+  },
+  {
+    "id": "7",
+    "title": "Câu 7",
+    "type": "short_answer",
+    "text": "Trong không gian $Oxyz$, cho hình lập phương $ABCD.A_1B_1C_1D_1$ biết $A(0;0;0), B(1;0;0), D(0;1;0), A_1(0;0;1)$. Gọi $(P): ax+by+cz-3=0$ (với $a, b, c \\in \\mathbb{Z}^*$) là phương trình mặt phẳng chứa $CD_1$ và tạo với mặt phẳng $(BB_1D_1D)$ một góc có số đo nhỏ nhất. Giá trị của $T=a+b+c$ bằng\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q7.png}",
+    "image": "",
+    "correct": "4",
+    "solution": "Ta có $C(1;1;0), D_1(0;1;1)$. $(P)$ chứa $C, D_1 \\Rightarrow a+b-3=0$ và $b+c-3=0$. VTPT $\\vec{n}=(a;b;c)$.<br>Mặt phẳng $(BB_1D_1D)$ có VTPT $\\vec{AC}=(1;1;0)$.<br>$\\cos \\alpha = \\dfrac{|a+b|}{\\sqrt{a^2+b^2+c^2}.\\sqrt{2}} = \\dfrac{3}{\\sqrt{2}.\\sqrt{(3-b)^2+b^2+(3-b)^2}}$.<br>Đánh giá thấy $\\cos \\alpha$ lớn nhất khi mẫu nhỏ nhất $\\Rightarrow b=2$. Suy ra $a=1, c=1$.<br>Vậy $T=1+2+1=4$."
+  },
+  {
+    "id": "8",
+    "title": "Câu 8",
+    "type": "short_answer",
+    "text": "(Sở Sóc Trăng 2025) Trong không gian với hệ trục toạ độ $Oxyz$, mặt phẳng $(P)$ chứa đường thẳng $d: \\dfrac{x-1}{2} = \\dfrac{y+1}{-1} = \\dfrac{z}{2}$ và tạo với đường thẳng $\\Delta: \\begin{cases} x=2+t \\\\ y=3 \\\\ z=-1+8t \\end{cases}$ một góc lớn nhất, có phương trình là $ax+by+cx-5=0$. Tính $a+b+c$.",
+    "image": "",
+    "correct": "-3",
+    "solution": "Giả sử VTPT $\\vec{n}=(h;k;l)$. $(P)$ chứa $d \\Rightarrow A(1;-1;0) \\in (P)$ và $\\vec{n} \\perp \\vec{u_d} \\Rightarrow 2h-k+2l=0 \\Rightarrow k=2h+2l$. $\\vec{n}=(h; 2h+2l; l)$.<br>$\\cos(\\vec{n}, \\vec{u_\\Delta}) = \\dfrac{|h+8l|}{\\sqrt{65(5h^2+8hl+5l^2)}}$. Đặt $t=\\dfrac{h}{l}$. Khảo sát hàm số tìm max. Chọn $h=3, l=-4 \\Rightarrow \\vec{n}=(3;-2;-4)$.<br>Phương trình $(P): 3x-2y-4z-5=0$. Vậy $a+b+c=3-2-4=-3$."
+  },
+  {
+    "id": "9",
+    "title": "Câu 9",
+    "type": "short_answer",
+    "text": "(Sở Lâm Đồng 2025) Trong không gian $Oxyz$, cho đường thẳng $(d): \\dfrac{x-1}{1} = \\dfrac{y+2}{2} = \\dfrac{z}{1}$ và mặt phẳng $(P): 3x-y+z-25=0$. Một đường thẳng $(d')$ cắt trục $Oz$ tại điểm $M$, cắt đường thẳng $(d)$ tại điểm $N$ và $(d')$ song song với mặt phẳng $(P)$. Độ dài nhỏ nhất của đoạn thẳng $MN$ bằng bao nhiêu? (Kết quả làm tròn đến hàng phần trăm).",
+    "image": "",
+    "correct": "2,71",
+    "solution": "$M \\in Oz \\Rightarrow M(0;0;z_M)$. $N \\in d \\Rightarrow N(1+t; -2+2t; t)$.<br>$\\vec{MN} = (1+t; -2+2t; t-z_M)$. $\\vec{n_P}=(3;-1;1)$.<br>$(d') // (P) \\Rightarrow \\vec{MN}.\\vec{n_P}=0 \\Rightarrow z_M=2t+1$.<br>$MN^2 = (1+t)^2 + (2t-2)^2 + (-t-3)^2 = 6t^2+8t+10$.<br>Min tại $t=-2/3$. $MN_{min} = \\sqrt{22/3} \\approx 2,71$."
+  },
+  {
+    "id": "10",
+    "title": "Câu 10",
+    "type": "short_answer",
+    "text": "(Sở Gia Lai 2025) Một máy bay cất cánh tại một sân bay, sau khi bắt đầu cất cánh trong thời gian ngắn máy bay sẽ bay theo một đường thẳng và sân bay nơi máy bay cất cánh được coi là một mặt phẳng. Chọn hệ tọa độ $Oxyz$, đơn vị độ dài trên mỗi trục là 1 km. Biết rằng, máy bay bắt đầu cất cánh tại điểm $O(0;0;0)$ và sau một thời gian ngắn máy bay bay đến điểm $A(2;5;1,2)$ và sân bay máy bay cất cánh nằm trên mặt phẳng $(Oxy)$. Góc tạo bởi đường bay của máy bay cất cánh và sân bay bằng bao nhiêu (làm tròn kết quả đến hàng đơn vị theo đơn vị độ là độ)?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q10.png}",
+    "image": "",
+    "correct": "14",
+    "solution": "$\\vec{OA} = (2;5;1,2)$. VTPT của $(Oxy)$ là $\\vec{k}=(0;0;1)$.<br>$\\sin \\alpha = \\dfrac{|\\vec{OA}.\\vec{k}|}{|\\vec{OA}|.|\\vec{k}|} = \\dfrac{1,2}{\\sqrt{2^2+5^2+1,2^2}} = \\dfrac{6\\sqrt{761}}{761} \\Rightarrow \\alpha \\approx 14^\\circ$."
+  },
+  {
+    "id": "11",
+    "title": "Câu 11",
+    "type": "short_answer",
+    "text": "(Sở Ninh Bình 2025) Trong không gian $Oxyz$, một khinh khí cầu ở tọa độ $A(-16;-10;10)$ bắt đầu bay với vectơ vận tốc không đổi $\\vec{v}=(4;3;-1)$ (đơn vị vận tốc là km/h) và dự kiến bay trong thời gian 10 giờ. Biết trạm kiểm soát không lưu đặt ở vị trí gốc tọa độ $O$ kiểm soát được các vật thể cách trạm một khoảng tối đa bằng 12km. Thời gian kể từ khi trạm kiểm soát không lưu phát hiện ra khinh khí cầu đến khi khinh khí cầu ra khỏi vùng kiểm soát là bao nhiêu phút?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q11.png}",
+    "image": "",
+    "correct": "240",
+    "solution": "Phương trình chuyển động: $B(-16+4t; -10+3t; 10-t)$.<br>Điều kiện $OB \\le 12 \\Leftrightarrow (-16+4t)^2+(-10+3t)^2+(10-t)^2 \\le 12^2 \\Leftrightarrow 26t^2-208t+312 \\le 0 \\Leftrightarrow 2 \\le t \\le 6$.<br>Thời gian bị phát hiện là $6-2=4$ giờ $= 240$ phút."
+  },
+  {
+    "id": "12",
+    "title": "Câu 12",
+    "type": "short_answer",
+    "text": "(THPT Hùng Vương - Bình Thuận 2025) Khi gắn hệ tọa độ $Oxyz$ (đơn vị trên mỗi trục tính theo kilômét) vào một sân bay, mặt phẳng $(Oxy)$ trùng với mặt sân bay. Một máy bay bay theo đường thẳng từ vị trí $A(5; 0; 5)$ đến vị trí $B(10; 10; 3)$ và hạ cánh tại vị trí $M(a; b; 0)$. Giá trị của $a+b$ bằng bao nhiêu (viết kết quả dưới dạng số thập phân)?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q12.png}",
+    "image": "",
+    "correct": "42,5",
+    "solution": "Phương trình đường thẳng $AB$: $\\dfrac{x-5}{5} = \\dfrac{y}{10} = \\dfrac{z-5}{-2}$.<br>$M \\in AB \\cap (Oxy) \\Rightarrow z=0 \\Rightarrow \\dfrac{-5}{-2} = 2,5$. $x=5+5(2,5)=17,5; y=10(2,5)=25$. $M(17,5; 25; 0)$.<br>$a+b = 17,5+25=42,5$."
+  },
+  {
+    "id": "13",
+    "title": "Câu 13",
+    "type": "short_answer",
+    "text": "(Cụm trường Nghệ An 2025) Trong không gian với hệ trục tọa độ $Oxyz$, mỗi đơn vị trên hệ trục ứng với 10 km, trạm kiểm soát không lưu đang theo dõi hai máy bay. Máy bay thứ nhất ban đầu ở tọa độ $A(25; -10; 1)$ và bay theo hướng vectơ $\\vec{v_1}=(-3;-4;0)$ với tốc độ không đổi là 750 km/h. Máy bay thứ hai ban đầu ở tọa độ $B(30; -25; 1,1)$ và bay theo hướng vectơ $\\vec{v_2}=(-4;3;0)$ với tốc độ không đổi là 900 km/h. Trên máy bay thứ nhất có gắn radar tránh va chạm với bán kính hoạt động là 50 km. Hỏi thời gian máy bay thứ hai xuất hiện trên màn hình của radar máy bay thứ nhất là bao nhiêu phút (làm tròn kết quả đến hàng phần trăm)?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q13.png}",
+    "image": "",
+    "correct": "4,91",
+    "solution": "Quy đổi vận tốc ra đơn vị tọa độ/giờ. $|\\vec{v_1}|=5$, $750km/h = 75$ đơn vị/h $\\Rightarrow$ VTCP thực tế $15(-3;-4;0)=(-450;-600;0)$.<br>Tuy nhiên đề bài cho hướng vectơ và tốc độ. Có thể hiểu theo phương trình tọa độ với thời gian $t$.<br>Phương trình 1: $x_1=250-450t, y_1=-100-600t, z_1=10$.<br>Phương trình 2: $x_2=300-720t, y_2=-250+540t, z_2=11$.<br>Khoảng cách $MN = \\sqrt{(50-270t)^2+(-150+1140t)^2+1}$.<br>Điều kiện $MN \\le 50$. Giải bất phương trình tìm khoảng $t$. Khoảng thời gian là hiệu $t_2-t_1$. Tính ra phút.<br>Kết quả $4,91$ phút."
+  },
+  {
+    "id": "14",
+    "title": "Câu 14",
+    "type": "short_answer",
+    "text": "Kim tự tháp Giza ở Ai Cập có dạng một hình chóp tứ giác đều. Biết rằng cạnh đáy của kim tự tháp dài 230 m và chiều cao của kim tự tháp là 146,6 m. Tính độ dốc của mặt bên kim tự tháp so với mặt phẳng nằm ngang (kết quả làm tròn đến hàng đơn vị của độ).\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q14.png}",
+    "image": "",
+    "correct": "49",
+    "solution": "Đặt hệ trục tọa độ, $S(0;0;146,6)$. Đáy là hình vuông tâm $O$. Gọi $I$ là trung điểm cạnh đáy, $I(115; 0; 0)$. Vectơ pháp tuyến mặt bên $(SCD)$ tính được hoặc dùng góc giữa $SI$ và mặt đáy. $\\tan \\alpha = \\dfrac{146,6}{115}$.<br>Suy ra $\\alpha \\approx 49^\\circ$."
+  },
+  {
+    "id": "15",
+    "title": "Câu 15",
+    "type": "short_answer",
+    "text": "(Cụm trường Hưng Yên 2025) Một phần mềm mô phỏng vận động viên tập bắn bia mục tiêu có kích thước nhỏ $(42cm \\times 42cm)$ trong không gian $Oxyz$ (giả sử $\\vec{i}=\\vec{j}=\\vec{k}=1cm$). Cho biết vận động viên đó sử dụng thước ngắm 3 và đứng cách xa bia mục tiêu là 100 m, trục $d$ của nòng súng và cọc đỡ bia $d'$ lần lượt có phương trình $d: \\begin{cases} x=t \\\\ y=2 \\\\ z=4 \\end{cases}$ và $d': \\begin{cases} x=1 \\\\ y=2 \\\\ z=1+3t' \\end{cases}$. Để bắn trúng hồng tâm (thang điểm 10) thì vận động viên phải ngắm bắn vào điểm $N(a;b;c) \\in d'$ và cách giao điểm của $d$ và $d'$ một khoảng 6 cm. Khi $c<0$, tính giá trị biểu thức $2a-b+3c$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q15.png}",
+    "image": "",
+    "correct": "-6",
+    "solution": "Giao điểm $I(1;2;4)$. $N \\in d' \\Rightarrow N(1; 2; 1+3t')$. $IN=6 \\Rightarrow |3t'-3|=6 \\Rightarrow t'=3$ hoặc $t'=-1$.<br>Với $t'=-1 \\Rightarrow N(1;2;-2)$ (thỏa mãn $c<0$).<br>$a=1, b=2, c=-2 \\Rightarrow 2(1)-2+3(-2)=-6$."
+  },
+  {
+    "id": "16",
+    "title": "Câu 16",
+    "type": "short_answer",
+    "text": "(Sở Bắc Giang 2025) Xét trong không gian $Oxyz$, đài kiểm soát không lưu sân bay đặt ở gốc toạ độ $O(0;0;0)$, đơn vị trên mỗi trục là ki-lô-mét. Một máy bay chuyển động theo đường thẳng, bay qua hai vị trí $A(-500;-300;500)$ và $B(-200;-200;450)$. Khi máy bay ở gần đài kiểm soát không lưu nhất, toạ độ máy bay là $(a;b;c)$. Tính giá trị của biểu thức $P=a+b+c$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q16.png}",
+    "image": "",
+    "correct": "400",
+    "solution": "Đường thẳng $\\Delta$ qua $A, B$ có VTCP $\\vec{AB}(300;100;-50)$. Phương trình tham số.<br>Tìm hình chiếu $H$ của $O$ lên $\\Delta$. $H(100; -100; 400)$.<br>$P=100-100+400=400$."
+  },
+  {
+    "id": "17",
+    "title": "Câu 17",
+    "type": "short_answer",
+    "text": "(Sở Phú Thọ 2025) Hai chiếc drone làm nhiệm vụ chuyển hàng cứu trợ bay lên từ cùng một địa điểm. Chiếc thứ nhất bay đến điểm cách điểm xuất phát 2,5km về phía nam và 1,5km về phía đông, đồng thời cách mặt đất 60m. Chiếc thứ hai bay đến điểm cách điểm xuất phát 3km về phía bắc và 2,5km về phía tây, đồng thời cách mặt đất 40m. Trong không gian, xét hệ tọa độ $Oxyz$ với gốc tọa độ $O$ đặt tại điểm xuất phát, mặt phẳng $(Oxy)$ trùng với mặt đất. Giả sử cần tìm một vị trí trên mặt đất để tiếp nhiên liệu cho hai drone sao cho tổng khoảng cách tới hai drone nhỏ nhất. Vị trí cần tìm cách gốc tọa độ $a$ km theo hướng bắc và $b$ km theo hướng tây. Khi đó $a+b$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "1,7",
+    "solution": "Chọn hệ trục: Ox Nam, Oy Đông, Oz lên trời. $A(2,5; 1,5; 0,06)$, $B(-3; -2,5; 0,04)$.<br>Tìm $C(x;y;0)$ sao cho $CA+CB$ min. Lấy $A'$ đối xứng $A$ qua $(Oxy) \\Rightarrow A'(2,5; 1,5; -0,06)$.<br>$C$ là giao điểm của $A'B$ và $(Oxy)$. $C(-4/5; -9/10; 0)$.<br>Tọa độ âm tức là ngược hướng dương (Bắc, Tây). $a=4/5, b=9/10$. $a+b=1,7$."
+  },
+  {
+    "id": "18",
+    "title": "Câu 18",
+    "type": "short_answer",
+    "text": "(THPT Lê Thánh Tông - Nguyễn Khuyến 2025) Đường ống dẫn trên không dọc theo đường thẳng $d: \\begin{cases} x=t \\\\ y=0 \\\\ z=16 \\end{cases}$. Người ta chọn điểm $A(12;10;15)$ để làm điểm trung chuyển. Chọn vị trí $B$ thuộc đường ống và $C$ thuộc mặt đất $(Oxy)$ sao cho $AB+BC+AC$ nhỏ nhất. Tìm giá trị bé nhất đó.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q18.png}",
+    "image": "",
+    "correct": "42,6",
+    "solution": "$B$ là hình chiếu của $A$ lên $d$ (để $AB$ min? Không, $B$ di động). Bài toán tìm $B \\in d, C \\in (Oxy)$ để chu vi $\\Delta ABC$ min.<br>Lấy $A'$ đối xứng $A$ qua $(Oxy) \\Rightarrow A'(12;10;-15)$. Lấy $A''$ đối xứng $A$ qua $d$ (hoặc một mặt phẳng chứa $d$?).<br>Thực ra: $AB+BC+CA$. Cố định $A$. $B \\in d, C \\in (Oxy)$.<br>Khoảng cách từ $A$ đến $d$ là const? Không, $B$ chạy. $B$ là hình chiếu của $A$ lên $d$ thì $AB$ ngắn nhất. $C$ là hình chiếu của $A$ lên $(Oxy)$ thì $AC$ ngắn nhất.<br>Giải: $B(12;0;16)$, $A'(12;10;-15)$. Min $= AB+BA' \\approx 42,6$."
+  },
+  {
+    "id": "19",
+    "title": "Câu 19",
+    "type": "short_answer",
+    "text": "(Sở Yên Bái 2025) Trong một khu du lịch, người ta cho du khách trải nghiệm thiên nhiên bằng cách đu theo đường trượt zipline từ vị trí $A(3;2,5;15)$ sang vị trí $B(21;27,5;10)$. Khi du khách ở độ cao 12 mét thì tọa độ là $M(a;b;c)$. Tính $T=a+b+c$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q19.png}",
+    "image": "",
+    "correct": "43,3",
+    "solution": "Viết phương trình $AB$. Tìm điểm có $z=12$. Tìm ra $t=3/5$. $M(13,8; 17,5; 12)$.<br>$T=43,3$."
+  },
+  {
+    "id": "20",
+    "title": "Câu 20",
+    "type": "short_answer",
+    "text": "(THPT Đô Lương 1 - Nghệ An 2025) Mắt người quan sát tại $M(1;2;3)$, vật tại $N(2;3;-12)$. Tấm bìa tròn thuộc $(Oxy)$ tâm $O$ che khuất tầm nhìn. Bán kính nhỏ nhất của tấm bìa?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q20.png}",
+    "image": "",
+    "correct": "2,51",
+    "solution": "Tìm giao điểm $I$ của $MN$ với $(Oxy)$. $I(6/5; 11/5; 0)$.<br>$R \\ge OI \\approx 2,51$."
+  },
+  {
+    "id": "21",
+    "title": "Câu 21",
+    "type": "short_answer",
+    "text": "(Sở Phú Thọ 2025) Hai người bắn đạn. Đạn 1 qua $A(5;7;10), B(6;9;12)$. Đạn 2 qua $C(15;17;5), D(a;b;26)$. Hai viên đạn chạm nhau tại $E$ cách $A$ 150m. Hỏi $D$ cách $C$ bao nhiêu?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q21.png}",
+    "image": "",
+    "correct": "28,8",
+    "solution": "$AB=3$. $\\vec{AE}$ cùng hướng $\\vec{AB}$ và $AE=150 \\Rightarrow \\vec{AE}=50\\vec{AB}$. Tìm $E(55; 107; 110)$.<br>Viết phương trình $CE$. Tìm $D$ trên $CE$ có $z=26$. $D(23; 35; 26)$.<br>$CD \\approx 28,8$."
+  },
+  {
+    "id": "22",
+    "title": "Câu 22",
+    "type": "short_answer",
+    "text": "Một hộ gia đình làm lều. Đáy HCN, cột $AA'=DD'=1,5m, BB'=CC'=2m$. $AB=2m, AD=1,5m$. Tính góc giữa mái nhà và nền nhà.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q22.png}",
+    "image": "",
+    "correct": "14",
+    "solution": "Gắn trục tọa độ. Tìm VTPT của $(A'B'C'D')$ và $(ABCD)$.<br>Tính cos góc. Suy ra góc $\\approx 14^\\circ$."
+  },
+  {
+    "id": "23",
+    "title": "Câu 23",
+    "type": "short_answer",
+    "text": "Ba vị trí trên mái nhà $A(2;0;4), B(4;0;3), C(4;9;3)$. Góc giữa mái nhà và nền $(Oxy)$?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q23.png}",
+    "image": "",
+    "correct": "27",
+    "solution": "VTPT mặt phẳng $(ABC)$ là $\\vec{n}=(9;0;18)$. VTPT $(Oxy)$ là $\\vec{k}=(0;0;1)$.<br>$\\cos \\alpha = \\dfrac{18}{\\sqrt{9^2+18^2}} \\dots \\Rightarrow \\alpha \\approx 27^\\circ$."
+  },
+  {
+    "id": "24",
+    "title": "Câu 24",
+    "type": "short_answer",
+    "text": "Máy bay ở $A(3;2;-3)$, hạ cánh tới $B(8;8;0)$. Góc giữa đường bay $AB$ và mặt sân bay $(Oxy)$?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q24.png}",
+    "image": "",
+    "correct": "21",
+    "solution": "$\\sin \\alpha = \\dfrac{|z_A - z_B|}{AB}$. Hoặc dùng góc giữa vectơ và mặt phẳng.<br>$\\approx 21^\\circ$."
+  },
+  {
+    "id": "25",
+    "title": "Câu 25",
+    "type": "short_answer",
+    "text": "Máy bay bay từ $A(5;0;5)$ đến $B(10;10;3)$ và hạ cánh tại $M(a;b;0)$. Tính $a+b$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q25.png}",
+    "image": "",
+    "correct": "42,5",
+    "solution": "Giao điểm của $AB$ với $(Oxy)$. $M(17,5; 25; 0)$.<br>$a+b=42,5$."
+  },
+  {
+    "id": "26",
+    "title": "Câu 26",
+    "type": "short_answer",
+    "text": "Cột ăng ten gốc $O$, dây buộc tại $A(0;0;8)$, neo tại $M(4;-6;3), N(-4;-3;2)$. Góc giữa dây $MA$ và mặt sườn đồi $(OMN)$?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q26.png}",
+    "image": "",
+    "correct": "53",
+    "solution": "Tính VTPT $(OMN)$. Tính góc giữa $\\vec{MA}$ và VTPT $\\Rightarrow$ góc với mặt phẳng.<br>Kết quả $53^\\circ$."
+  },
+  {
+    "id": "27",
+    "title": "Câu 27",
+    "type": "short_answer",
+    "text": "Cabin cáp treo từ $A(10;3;0)$, $\\vec{u}=(-8;-6;0)$, $v=10$. Người tại $O(0;0;0)$. Sau bao lâu khoảng cách gần nhất?\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q27.png}",
+    "image": "",
+    "correct": "0,98",
+    "solution": "Phương trình chuyển động của cabin. Tìm $t$ để $ON$ min.<br>$t=0,98s$."
+  },
+  {
+    "id": "28",
+    "title": "Câu 28",
+    "type": "short_answer",
+    "text": "Cầu Cổng Vàng. Dây cáp $AD$, $D(0;0;326), A(0;352;82)$. Điểm $N$ trên $AD$, $M$ trên thành cầu $(0; 250; 82)$ sao cho $MN$ song song cột trụ (song song $Oz$). Tính $MN$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q28.png}",
+    "image": "",
+    "correct": "70,7",
+    "solution": "Viết phương trình $AD$. $N$ có cùng $y=250$ (vì $MN // Oz \\Rightarrow x_N=x_M, y_N=y_M$).<br>Tìm $z_N$. $MN = |z_N - z_M| \\approx 70,7$."
+  },
+  {
+    "id": "29",
+    "title": "Câu 29",
+    "type": "short_answer",
+    "text": "(Sở Bắc Ninh 2025) Trang trí phòng. Dây từ $P(1;1;0)$ đến $Q(3;0;1)$. Gắn móc $A(1;0;-1), B(2;1;1)$. Lấy $M$ trên $PQ$. Căng dây $MA, MB$. Tìm $M$ để $MA+MB$ min. Tính khoảng cách $MP$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q29.png}",
+    "image": "",
+    "correct": "0,8",
+    "solution": "$M$ làm min $MA+MB$. Đưa về bài toán Min trên đoạn thẳng.<br>$PM \\approx 0,8$."
+  },
+  {
+    "id": "30",
+    "title": "Câu 30",
+    "type": "short_answer",
+    "text": "(Sở Lào Cai 2025) Cáp từ $X(-100;-40;0)$ tới $T(40;60;150)$. Điểm $A(40;30;-20)$. Tìm $M$ trên cáp sao cho $MA$ min. Tính $a+b+c$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q30.png}",
+    "image": "",
+    "correct": "100",
+    "solution": "$M$ là hình chiếu của $A$ lên $XT$. Tìm tọa độ $M$. Tổng tọa độ = 100."
+  },
+  {
+    "id": "31",
+    "title": "Câu 31",
+    "type": "short_answer",
+    "text": "(Sở Quảng Nam 2025) Tên lửa chặn UAV. UAV bay từ $A_0$ đến $A_1$. Tên lửa từ $M(0;50;0)$ bắn lúc $t=6$. Va chạm tại $B$. Tính thời gian bay của tên lửa.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q31.png}",
+    "image": "",
+    "correct": "7,93",
+    "solution": "Lập phương trình chuyển động. Điều kiện gặp nhau về không gian và thời gian.<br>Thời gian $7,93s$."
+  },
+  {
+    "id": "32",
+    "title": "Câu 32",
+    "type": "short_answer",
+    "text": "(Sở Quảng Ninh 2025) Thiết bị $A(1;0;2)$. Cảm biến 1 trên $\\Delta$, cảm biến 2 trên $(P)$. $A$ là trung điểm đoạn nối 2 cảm biến $BC$. Tìm $\\vec{u}_{BC}$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q32.png}",
+    "image": "",
+    "correct": "-1,5",
+    "solution": "Tham số hóa $B$, dùng công thức trung điểm tìm $C$. Thay $C$ vào $(P)$. Tìm tham số.<br>Suy ra vector $BC$. Tính $a+2b = -1,5$."
+  },
+  {
+    "id": "33",
+    "title": "Câu 33",
+    "type": "short_answer",
+    "text": "(Sở Vũng Tàu 2025) Máy bay hạ cánh từ $A(4;0;10)$ đến $B(5;5;6)$ tiếp đất tại $C(a;b;0)$. Tính $OC$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q33.png}",
+    "image": "",
+    "correct": "14,1",
+    "solution": "Tìm giao điểm $C$ với $(Oxy)$. Tính $OC \\approx 14,1$."
+  },
+  {
+    "id": "34",
+    "title": "Câu 34",
+    "type": "short_answer",
+    "text": "(THPT Lê Quý Đôn - Hà Nội 2025) Chân bàn $A$ thuộc đường thẳng $a$, cắt mặt bàn $(P)$ tại $F$. $FA=40\\sqrt{3}$. Tính độ cao mặt bàn.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q34.png}",
+    "image": "",
+    "correct": "40",
+    "solution": "Tính góc giữa đường thẳng và mặt phẳng. $h = FA \\sin \\alpha = 40$."
+  },
+  {
+    "id": "35",
+    "title": "Câu 35",
+    "type": "short_answer",
+    "text": "(Sở Nghệ An 2025) Drone bay từ $O$ đến $A(30;40;120)$ rồi vuông góc với mặt phẳng $(P)$ (đi qua $C, D$ thẳng đứng) tới $B$. Tính $OB$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q35.png}",
+    "image": "",
+    "correct": "126",
+    "solution": "Viết phương trình $(P)$. Viết phương trình đường thẳng qua $A$ vuông góc $(P)$. Tìm giao điểm $B$. Tính $OB=126$."
+  },
+  {
+    "id": "36",
+    "title": "Câu 36",
+    "type": "short_answer",
+    "text": "(Sở Hà Tĩnh 2025) Trạm cứu hộ $A(5;0;0)$. Tàu $B$ trên $d_1$, tàu $C$ trên $d_2$. Tìm vị trí để $AB+BC+CA$ min. Tính $a+2025$ với $P_{min}=\\sqrt{a}$.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q36.png}",
+    "image": "",
+    "correct": "2269",
+    "solution": "Bài toán tối ưu tổng khoảng cách (Heron generalized / Reflection). $a=244$. $244+2025=2269$."
+  },
+  {
+    "id": "37",
+    "title": "Câu 37",
+    "type": "short_answer",
+    "text": "(Sở Phú Thọ 2025) Hai lớp kính $( \\alpha ), ( \\beta )$. Tia sáng $\\vec{u}=(1;1;1)$ qua $M, N, P$. Giao điểm tạo lăng trụ. Tính $a+b$ từ thể tích.\n\\noteImage[width=0.6\\linewidth]{data/im/PTDT5_Q37.png}",
+    "image": "",
+    "correct": "138",
+    "solution": "Tính diện tích tam giác tạo bởi các giao điểm trên 1 mặt phẳng. Tính khoảng cách 2 mặt phẳng (chiều cao). $V=135\\sqrt{3}$. $a=135, b=3$. $a+b=138$."
+  },
+  {
+    "id": "38",
+    "title": "Câu 38",
+    "type": "short_answer",
+    "text": "Một cung thủ ngắm từ điểm $P(0;0;15)$ theo hướng của véc tơ $\\vec{v} = (-1; 3; 0,5)$ để bắn trúng một trong ba bia được đặt trên vùng núi. ($1$ đơn vị $= 1\\text{ dm}$)\n\n\n\nTọa độ các bia:\n- Bia gấu: $B(-155; 465; 85)$\n- Bia sói: $W(-155; 465; 92,5)$\n- Bia nai: $E(-160; 640; 95)$\n\nGiả sử mũi tên bay theo đường thẳng, tính vận tốc của mũi tên là bao nhiêu m/s, nếu thời gian bay là 1 giây? (làm tròn kết quả đến hàng phần mười)",
+    "image": "data/im/PTDT6-1.png",
+    "correct": "49,6",
+    "solution": "Điểm bắn: $P(0; 0; 15)$. Hướng bắn: $\\vec{v} = (-1; 3; 0,5)$.<br><br>Phương trình tham số của tia bắn: $\\begin{cases} x = -t \\\\ y = 3t \\\\ z = 15 + 0,5t \\end{cases} (t \\ge 0)$<br><br>Xác định bia trúng<br>- $B(-155; 465; 85)$: từ $x = -t \\Rightarrow t = 155$. Khi đó $z = 15 + 0,5 \\cdot 155 = 92,5 \\ne 85 \\Rightarrow$ không trúng.<br>- $W(-155; 465; 92,5)$: với $t = 155$ ta có $z = 15 + 0,5 \\cdot 155 = 92,5 \\Rightarrow$ trúng bia sói $W$.<br>- $E(-160; 640; 95)$: không có $t$ thỏa đồng thời $x, y$.<br><br>Độ dài quỹ đạo bay $PW = |\\overrightarrow{PW}| = \\sqrt{(-155)^2 + 465^2 + 77,5^2} = \\frac{155\\sqrt{41}}{2} (\\text{dm}) \\approx 496,242\\text{ dm}$<br><br>Tức khoảng $49,624\\text{ m}$.<br><br>- Tốc độ: $v = \\frac{PW}{1\\text{ s}} \\approx 496,242\\text{ dm/s} \\approx 49,6\\text{ m/s}$."
+  },
+  {
+    "id": "39",
+    "title": "Câu 39",
+    "type": "short_answer",
+    "text": "Một nghệ sĩ đi dây dự định chạy xe mô tô theo đường thẳng từ điểm $A(20;20;0)$ lên tháp nhà thờ tại điểm $B(220;420;80)$ (với 1 đơn vị = 1m).\n\n\n\nSợi cáp được chống đỡ bởi ba cột thẳng đứng có đỉnh tại:\n$S_1(70;120;20)$, $S_2(120;220;30)$, $S_3(170;300;60)$.\nHãy tìm tổng hoành độ các cột phù hợp để làm trụ đỡ",
+    "image": "data/im/PTDT6-2.png",
+    "correct": "70",
+    "solution": "Từ đề ta có: $A(20;20;0), B(220; 420;80) \\Rightarrow \\overrightarrow{AB} = (200;400;80) = 40(5;10;2)$<br><br>Phương trình tham số của dây cáp $AB$: $\\begin{cases} x = 20 + 200t \\\\ y = 20 + 400t \\\\ z = 80t \\end{cases} (0 \\le t \\le 1)$<br><br>Ba đỉnh cột: $S_1(70;120;20), S_2(120;220;30), S_3(170;300;60)$.<br><br>Đánh giá các cột có phù hợp không?<br>Một cột \"phù hợp\" khi điểm đỉnh của nó nằm trên đường thẳng $AB$ (vì dây căng thẳng).<br><br>- $S_1$: $t_x = \\frac{70 - 20}{200} = 0,25, t_y = \\frac{120 - 20}{400} = 0,25, t_z = \\frac{20 - 0}{80} = 0,25 \\Rightarrow$ trùng nhau.<br>Nên $S_1$ nằm trên $AB \\Rightarrow$ phù hợp.<br><br>- $S_2$: $t_x = t_y = 0,5 \\Rightarrow$ tại vị trí này dây có độ cao $z = 80 \\cdot 0,5 = 40 (\\text{m})$, nhưng đỉnh cột có $z = 30$ suy ra chưa phù hợp<br><br>- $S_3$: $t_x = 0,75, t_y = 0,7$ (không bằng nhau) suy ra chưa phù hợp<br><br>Vậy có cột $S_1$ thì phù hợp nên đáp án bằng 70"
+  },
+  {
+    "id": "40",
+    "title": "Câu 40",
+    "type": "short_answer",
+    "text": "Tại các vị trí $M$ có một hồ chứa nước (để trữ nước sau đó hút nước đưa lên mặt đất tại điểm $E$). Một kênh tràn $k$ dẫn nước từ $M$ đến $A$. Từ điểm $T$ trên mặt đất, một mũi khoan thông khí $b$ được khoan theo hướng của véc tơ $\\vec{v} = (1;1;-4)$\n\n\n\n(1 đơn vị = 100m)\n\nCác tọa độ: $M(8;12;-6)$, $N(14;2;-10)$, $A(11;0;-9)$, $T(8;2;0)$\n\nHỏi chiều dài mũi khoan cần là bao nhiêu mét? (làm tròn kết quả đến hàng đơn vị)",
+    "image": "data/im/PTDT6-3.png",
+    "correct": "849",
+    "solution": "- Kênh tràn $k$ từ $M$ đến $A$: $\\overrightarrow{MA} = (3;-12;-3) = 3(1;-4;-1)$.<br><br>Vậy phương trình đường thẳng $k$: $\\begin{cases} x = 8 + t \\\\ y = 12 - 4t \\\\ z = -6 - t \\end{cases} (t \\in \\mathbb{R})$<br><br>- Mũi khoan $b$ qua $T$, theo $\\vec{v} = (1;1;-4)$:<br><br>Vậy phương trình đường thẳng $b$: $\\begin{cases} x = 8 + s \\\\ y = 2 + s \\\\ z = -4s \\end{cases} (s \\in \\mathbb{R})$<br><br>Giải hệ $8 + t = 8 + s, 12 - 4t = 2 + s, -6 - t = -4s \\Rightarrow t = s = 2$.<br><br>Giao điểm $P(10;4;-8)$.<br><br>Chiều dài cần khoan từ $T$ đến $P$: $TP = 2\\sqrt{1^2 + 1^2 + (-4)^2} = 2\\sqrt{18} = 6\\sqrt{2}$ (đơn vị)<br><br>$600\\sqrt{2}\\text{ m} \\approx 849\\text{ m}$"
+  },
+  {
+    "id": "41",
+    "title": "Câu 41",
+    "type": "short_answer",
+    "text": "Trực thăng cứu hộ Alpha cất cánh lúc 10 giờ 00 từ điểm xuất phát Adlerhorst $A(10; 6; 0)$. Nó bay thẳng với vận tốc $300\\text{ km/h}$ tới đỉnh núi Mount Devil $D(4; -3; 3)$, nơi xảy ra tai nạn. (Tọa độ tính bằng km).\n\n\n\nCùng lúc đó, trực thăng Beta cất cánh từ đỉnh núi Tempelberg $T(7; -8; 3)$ để đưa du khách về điểm $B(4;16; 0)$. Vận tốc của nó là $350\\text{ km/h}$.\n\nNgười ta chứng minh được rằng hai trực thăng có đường bay giao nhau tại $S$. Khi Alpha tới $S$ thì Beta đã đi qua trước đó một khoảng thời gian (tính bằng giây), hãy tìm khoảng thời gian đó? (làm tròn kết quả đến hàng phần mười)",
+    "image": "data/im/PTDT6-4.png",
+    "correct": "6,4",
+    "solution": "Phương trình đường bay của Alpha<br><br>Điểm $A(10; 6; 0)$, hướng $\\overrightarrow{AD} = (-6; -9; 3)$: $\\begin{cases} x = 10 - 6t \\\\ y = 6 - 9t \\\\ z = 0 + 3t \\end{cases}$<br><br>Phương trình đường bay của Beta<br><br>Điểm $T(7; -8; 3)$, hướng $\\overrightarrow{TB} = (-3; 24; -3)$: $\\begin{cases} x = 7 - 3s \\\\ y = -8 + 24s \\\\ z = 3 - 3s \\end{cases}$<br><br>- Giao điểm đường bay:<br><br>Giải hệ cho $r = \\frac{2}{3}, s = \\frac{1}{3}$, được giao điểm $S(6;0;2)$<br><br>- Tính quãng đường tới điểm $S$:<br><br>$|AS| = \\sqrt{(-4)^2 + (-6)^2 + 2^2} = \\sqrt{56} \\approx 7,48\\text{ km}$<br><br>$|TS| = \\sqrt{(-1)^2 + 8^2 + (-1)^2} = \\sqrt{66} \\approx 8,12\\text{ km}$<br><br>- Tính thời gian bay tới S:<br><br>Alpha: $t_\\alpha = \\frac{7,48}{300}\\text{ h} \\approx 0,025\\text{ h} \\approx 1,50\\text{ phút}$<br><br>Beta: $t_\\beta = \\frac{8,12}{350}\\text{ h} \\approx 0,023\\text{ h} \\approx 1,39\\text{ phút}$<br><br>Vậy Alpha tới $S$ muộn hơn Beta khoảng $0,11\\text{ phút} \\approx 6,4\\text{ s}$."
+  },
+  {
+    "id": "42",
+    "title": "Câu 42",
+    "type": "short_answer",
+    "text": "Quỹ đạo của một tia sáng được theo dõi. Tia sáng xuất phát từ điểm $A(0;6;6)$ theo hướng của véc tơ $\\vec{v} = (1; -1; -2)$ và đi tới mặt phẳng $xOy$, tại đó nó bị phản xạ.\n\n\n\nTia sáng phản xạ cắt mặt phẳng $xOz$ tại điểm $C(a;b;c)$ tính $a+b+c$?",
+    "image": "data/im/PTDT6-5.png",
+    "correct": "12",
+    "solution": "- Phương trình tia sáng $g$<br><br>Điểm $A(0; 6; 6)$, véc tơ chỉ phương $(1; -1; -2)$: $\\begin{cases} x = 0 + t \\\\ y = 6 - t \\\\ z = 6 - 2t \\end{cases}$<br><br>Giao điểm với mặt phẳng $xOy (z = 0)$: $6 - 2t = 0 \\Rightarrow t = 3 \\Rightarrow B(3; 3; 0)$<br><br>- Phương trình tia phản xạ $h$<br><br>Tại $B(3; 3; 0)$, đổi dấu hệ số $z$ của véc tơ (từ -2 thành +2): $\\begin{cases} x = 3 + s \\\\ y = 3 - s \\\\ z = 0 + 2s \\end{cases}$<br><br>Giao điểm với mặt phẳng $xOz (y = 0)$: $3 - s = 0 \\Rightarrow s = 3 \\Rightarrow C(6; 0; 6)$"
+  },
+  {
+    "id": "43",
+    "title": "Câu 43",
+    "type": "short_answer",
+    "text": "Trong hệ trục tọa độ $Oxyz$, có đoạn thẳng đứng $PQ$ với: $P(4; 3; 0), Q(4; 3; 6)$.\n\n\n\nÁnh sáng song song theo hướng của véc-tơ $\\vec{v} = (-2;1;-2)$ chiếu vào đoạn thẳng (như hình). Hãy tính tổng độ dài đoạn chiếu bóng $PQ'' + Q'Q''$ (làm tròn kết quả đến hàng phần mười)",
+    "image": "data/im/PTDT6-6.png",
+    "correct": "6,9",
+    "solution": "Kết quả là một bóng gãy khúc, được xác định bằng cách xét tia sáng đi qua điểm $Q$.<br><br>1. Phương trình tham số của đường thẳng $g$ qua $Q$: $g: \\begin{cases} x = 4 - 2t \\\\ y = 3 + t \\\\ z = 6 - 2t \\end{cases} (t \\in \\mathbb{R})$<br><br>2. Giao điểm $Q'$ của $g$ với mặt phẳng $x = 0$ (mặt phẳng $yOz$): $4 - 2t = 0 \\Rightarrow t = 2$<br><br>Thay vào: $Q'(0; 5; 2)$<br><br>3. Hình chiếu vuông góc của $Q'$ xuống trục $Oy$:<br><br>Điều kiện trên trục $Oy$: $x = 0, z = 0$, giữ nguyên $y = 5$<br><br>Nên $Q''(0; 5; 0)$<br><br>Khi đó: $PQ'' + Q'Q'' = \\sqrt{4^2 + 2^2 + 2^2} + 2 = 2 + 2\\sqrt{6} \\approx 6,9$"
+  },
+  {
+    "id": "44",
+    "title": "Câu 44",
+    "type": "short_answer",
+    "text": "Máy bay Beta hướng tới điểm $C(10; -10; 5)$ theo hướng của véc tơ $\\vec{v} = (-2; 2; -1)$\nKhi qua điểm $C$, máy bay Beta nhận lệnh từ đài kiểm soát bay đổi hướng bay theo véc tơ $\\vec{w} = (-5; 4; -1)$. Ở điểm $P$ có độ cao 1000 m, máy bay Beta sẽ thực hiện một lần đổi hướng cuối cùng theo vecto $\\vec{u}$ để hạ cánh xuống sân bay $F$. Tính cosin góc của hai vecto $\\vec{u}$ và $\\vec{w}$. (làm tròn kết quả đến hàng phần mười)\n\n\n\nSân bay $F$ nằm trên mặt phẳng $Oxy$. Mỗi đơn vị trong hệ tọa độ tương ứng 1 km.",
+    "image": "data/im/PTDT6-7.png",
+    "correct": "0,95",
+    "solution": "Sau khi qua $C$, Beta bay theo $\\vec{w} = (-5; 4; -1)$: $\\begin{cases} x = 10 - 5\\lambda \\\\ y = -10 + 4\\lambda \\\\ z = 5 - \\lambda \\end{cases}$<br><br>Ở cao $1000\\text{ m} = 1\\text{ km}: 5 - \\lambda = 1 \\Rightarrow \\lambda = 4$.<br><br>Điểm đổi hướng cuối: $P(-10; 6; 1)$.<br><br>Chặng cuối hướng về $F(-12; 7; 0)$ có véc tơ chỉ phương $\\overrightarrow{PF} = \\vec{u} = (-2; 1; -1)$.<br><br>Khi đó $\\cos \\theta = \\frac{\\vec{w} \\cdot \\vec{u}}{|\\vec{w}| \\cdot |\\vec{u}|} = \\frac{10 + 4 + 1}{\\sqrt{42} \\cdot \\sqrt{6}} = \\frac{15}{\\sqrt{252}} \\approx 0,95$"
+  },
+  {
+    "id": "45",
+    "title": "Câu 45",
+    "type": "short_answer",
+    "text": "Một tàu ngầm bắt đầu lặn tại điểm $P(100;200;0)$ với vận tốc 11,1 hải lý/giờ theo hướng tới mục tiêu $Z(500;600;-80)$ cho đến khi đạt độ sâu 80 m.\n(1 hải lý/giờ xấp xỉ 1,852 km/h)\n\nSau đó, tàu tiếp tục di chuyển ngang hướng theo vectơ $\\vec{u} = (1;1;0)$ với vận tốc 11 hải lý/giờ. Một quả cầu $T$ được thả đồng thời khi tàu ngầm bắt đầu lặn, từ tàu nghiên cứu $S(700;800;0)$ và rơi thẳng đứng xuống với vận tốc $0,5\\text{ m/s}$. Tính khoảng cách tàu ngầm với quả cầu khi tàu ngầm đi đến thẳng dưới $S$ (làm tròn kết quả đến hàng đơn vị)",
+    "image": "data/im/PTDT6-8.png",
+    "correct": "5",
+    "solution": "Ta có $\\overrightarrow{PZ} = (400;400;-80)$.<br><br>- Đoạn lặn $P \\to Z$ (dừng ở độ sâu 80 m): $\\begin{cases} x = 100 + 400t \\\\ y = 200 + 400t \\\\ z = 0 - 80t \\end{cases} 0 \\le t \\le 1$<br><br>- Chuyển động ngang từ $Z$ theo vectơ $\\vec{u} = (1;1;0)$: $\\begin{cases} x = 500 + s \\\\ y = 600 + s \\\\ z = -80 \\end{cases} s \\ge 0$<br><br>- Quả cầu rơi thẳng đứng từ $S$: $\\begin{cases} x = 700 \\\\ y = 800 \\\\ z = -0,5\\tau \\end{cases} \\tau \\ge 0$<br><br>- Tàu đi đến thẳng dưới $S$ khi $x = 700, y = 800 \\Rightarrow s = 200$.<br><br>- Thời gian: lặn $P \\to Z: t_1 = \\frac{|\\overrightarrow{PZ}|}{11,1} = \\frac{80\\sqrt{51}}{5,7103} \\approx 100,05\\text{ s}$;<br><br>- Thời gian đi ngang tới dưới $S: t_2 = \\frac{200\\sqrt{2}}{11} = \\frac{200\\sqrt{2}}{5,6589} \\approx 49,98\\text{ s}$.<br><br>- Lúc đó quả cầu có $z = -0,5(t_1 + t_2) \\approx -75\\text{ m}$, còn tàu ở $z = -80\\text{ m}$, vậy khoảng cách giữa tàu ngầm với quả cầu bằng $5\\text{ m}$"
+  },
+  {
+    "id": "46",
+    "title": "Câu 46",
+    "type": "short_answer",
+    "text": "Từ điểm $A(-7; -3; -8)$ qua điểm $B(-2; 0; -9)$ một đường hầm thẳng tên Kuckucksloch sẽ được đào xuyên vào núi.\n\n\n\nTương tự, từ điểm $C(4; -6; -6)$ qua điểm $D(7; -1; -8)$ một đường hầm thẳng tên Morgenstern cũng sẽ được xây dựng. Sau khi khoang xong 2 đường hầm sẽ gặp nhau tại điểm $S$. Từ điểm $S$, đường hầm Kuckucksloch tiếp tục đào theo hướng véc tơ $(2;1; 2)$, cho đến khi đến điểm $P$ trên mặt đất mà đường hầm sẽ chạm tới. Trên đoạn $SP$, cách $P$ một khoảng 1200 m sẽ đào một lối thoát hiểm thẳng đứng. Tính độ sâu cần đào bằng bao nhiêu mét?\n\n(Mỗi đơn vị trong hệ tọa độ tương ứng 100 m. Mặt đất là mặt phẳng $xOy$)",
+    "image": "data/im/PTDT6-9.png",
+    "correct": "800",
+    "solution": "- Hầm Kuckucksloch qua $A, B: \\overrightarrow{AB} = (5;3;-1)$: $k: \\begin{cases} x = -7 + 5t \\\\ y = -3 + 3t \\\\ z = -8 - t \\end{cases} (t \\in \\mathbb{R})$<br><br>- Hầm Morgenstern qua $C, D: \\overrightarrow{CD} = (3;5;-2)$: $m: \\begin{cases} x = 4 + 3s \\\\ y = -6 + 5s \\\\ z = -6 - 2s \\end{cases} (s \\in \\mathbb{R})$<br><br>Giải hệ $k = m: t = 4, s = 3 \\Rightarrow S(13; 9; -12)$.<br><br>- Từ $S$ đào theo $\\vec{u} = (2;1; 2)$. Điểm chạm mặt đất $P$<br><br>Đường thẳng: $SP: \\begin{cases} x = 13 + 2\\lambda \\\\ y = 9 + \\lambda \\\\ z = -12 + 2\\lambda \\end{cases} (\\lambda \\ge 0)$<br><br>Giao với $z = 0 \\Rightarrow -12 + 2\\lambda = 0 \\Rightarrow \\lambda = 6$ suy ra $P(25;15; 0)$;<br><br>- Gọi $Q$ là điểm trong lòng núi nằm trên đoạn $SP$, sao cho $Q$ cách $P$ $1200\\text{ m}$ hay $QP = 12$ đơn vị. Ta có $SP = 18$. Suy ra $Q = (17;11; -8)$. Ta được:<br><br>Vị trí trên mặt đất để khoan thẳng đứng: $G(17;11; 0)$.<br><br>Độ sâu cần khoan: $|z_Q| = 8\\text{ đv} = 800\\text{ m}$."
+  },
+  {
+    "id": "47",
+    "title": "Câu 47",
+    "type": "short_answer",
+    "text": "Một cái lều có dạng hình chóp tứ giác đều, đáy rộng 8 m và cao 3 m.\n\n\n\nCửa vào là hình thang $EFGH$ trong đó đoạn $AE = FB$, với $|EF| = 4\\text{ m}$, $G$ và $H$ lần lượt là trung điểm của các đoạn $ES$ và $FS$. Một nguồn sáng đặt cách đỉnh $S$ 1 m ở phía dưới. Ánh sáng chiếu ra ngoài qua cửa vào, tạo thành một vùng được chiếu sáng $EFG'H'$.\n\nỞ giữa cạnh sau $CD$ của lều có gắn một camera trên một cột thẳng đứng. Camera phải đặt ở độ cao ít nhất là bao nhiêu mét để quan sát được điểm $K$ là trung điểm của $H'G'$?",
+    "image": "data/im/PTDT6-10.png",
+    "correct": "4,5",
+    "solution": "Gọi $O$ là giao điểm của $AC$ và $BD$. Gắn hệ trục tọa độ như hình vẽ:<br><br>\\noteImage{data/im/PTDT6-11.png}<br><br>Ta đặt hệ trục $Oxyz$ như hình: khi đó: $O(0;0;0)$<br><br>$A(-4; -4; 0), B(4; -4; 0), C(4; 4; 0), D(-4; 4; 0), S(0; 0; 3), E(-2; -4; 0), F(2; -4; 0)$<br><br>$G, H$ là trung điểm của $SE, SF \\Rightarrow G(-1; -2; 1,5), H(1; -2; 1,5)$.<br><br>Nguồn sáng $L(0; 0; 2)$ ở trên trục $SO$. Chiếu xuyên cửa lên mặt đất $z = 0$.<br><br>Đường chiếu qua $G$ có phương trình: $\\begin{cases} x = -t \\\\ y = -2t \\\\ z = 2 - 0,5t \\end{cases}$ giao $z = 0 \\Rightarrow t = 4 \\Rightarrow G'(-4; -8; 0)$.<br><br>Tương tự $H'(4; -8; 0)$.<br><br>- Trung điểm $M$ của $CD: M(0; 4; 0)$.<br><br>- Trung điểm $K$ của $G'H': K(0; -8; 0)$.<br><br>Đặt camera tại $C_m(0; 4; H)$ trên cột thẳng đứng. Muốn nhìn tới $K$ phải vừa lướt qua đỉnh $S(0;0;3)$.<br><br>Phương trình tham số đường $C_mK$: $\\begin{cases} x = 0 \\\\ y = 4 - 12t \\\\ z = H - Ht \\end{cases} (0 \\le t \\le 1)$<br><br>Cho $y = 0 \\Rightarrow t = \\frac{1}{3}$. Yêu cầu $z = 3 \\Rightarrow H\\left(1 - \\frac{1}{3}\\right) = 3 \\Rightarrow H = 4,5\\text{ m}$.<br><br>Vậy đặt camera cao $4,5\\text{ m}$ ở giữa cạnh $CD$ thì thấy được điểm $K$"
+  },
+  {
+    "id": "48",
+    "title": "Câu 48",
+    "type": "short_answer",
+    "text": "Một máy bay đang bay với vận tốc không đổi trong quá trình tiếp cận đường băng. (Các giá trị tọa độ tính bằng km).\n\n\n\nLúc 16:00, máy bay ở vị trí $A(4;0;6)$. Một phút sau, máy bay ở vị trí $B(5;3;4,5)$ và sẽ bay tiếp đến điểm $P$ trên đường băng (mặt phẳng $z = 0$).\n\nCùng lúc bắt đầu tiếp cận ở $A$, một trực thăng khởi hành từ giàn khoan dầu $C(12;0;0)$ theo hướng tới trạm trên núi $D(-2;14;7)$. Thời gian dự kiến cho chuyến bay này là đúng 5 phút.\n\nTa chứng minh được quỹ đạo bay của trực thăng và máy bay sẽ cắt nhau tại một điểm $M$ nhưng sẽ không xảy ra tai nạn vì thời gian đi qua điểm $M$ của trực thăng và máy bay chênh lệch nhau. Tìm thời gian chênh lệch đó là bao nhiêu giây? (làm tròn kết quả đến hàng phần trăm)",
+    "image": "data/im/PTDT6-11.png",
+    "correct": "8,75",
+    "solution": "- Theo đề ta có: $A(4;0;6), B(5;3;4,5) \\Rightarrow \\overrightarrow{AB} = (1;3;-1,5)$.<br><br>Tốc độ máy bay $|\\overrightarrow{AB}| = \\sqrt{1^2 + 3^2 + 1,5^2} = 3,5\\text{ km/phút}$ (tức $210\\text{ km/h}$).<br><br>Đường bay: $\\ell: \\begin{cases} x = 4 + t \\\\ y = 0 + 3t \\\\ z = 6 - 1,5t \\end{cases} (t \\ge 0)$<br><br>- Trực thăng từ $C(12; 0; 0)$ đến $D(-2; 14; 7)$ trong 5 phút $\\overrightarrow{CD} = (-14; 14; 7)$.<br><br>Đường bay (tham số $s$, phút): $h: \\begin{cases} x = 12 - \\frac{14}{5}s \\\\ y = 0 + \\frac{14}{5}s \\\\ z = 0 + \\frac{7}{5}s \\end{cases} (0 \\le s \\le 5)$<br><br>Giải $\\ell = h: t = 2, s = \\frac{15}{7}, \\Rightarrow M(6; 6; 3)$.<br><br>Thời điểm tới điểm chung: máy bay $t = 2$ phút, trực thăng $s = \\frac{15}{7}$ phút.<br><br>Chênh lệch $\\frac{1}{7}$ phút $\\approx 8,57$ giây"
+  },
+  {
+    "id": "49",
+    "title": "Câu 49",
+    "type": "short_answer",
+    "text": "Một khối thép không gỉ có dạng hình chóp cụt tứ giác đều.\n\n\n\n- Độ dài cạnh đáy lớn: 8 cm\n- Độ dài cạnh đáy nhỏ: 4 cm\n- Chiều cao: 8 cm\n\nGốc tọa độ $O(0; 0; 0)$ đặt tại tâm đáy lớn.\n\nTia laser khoan theo đoạn $PQ$ với: $P(-3,5; 9,5; 6), Q(-6; 16; 8)$\n\nTính độ dài kênh khoan biết đầu vào nằm trong mặt $CDHG$ và đầu ra nằm trong mặt $ABFE$",
+    "image": "data/im/PTDT6-12.png",
+    "correct": "7,25",
+    "solution": "Ta quy ước gốc $O(0; 0; 0)$ tại tâm đáy lớn, trục $Oz$ vuông góc đáy; đáy lớn (cạnh 8) là hình vuông $A(-4; -4; 0), B(4; -4; 0), C(4; 4; 0), D(-4; 4; 0)$,<br><br>đáy nhỏ (cạnh 4) song song và ở $z = 8: E(-2; -2; 8), F(2; -2; 8), G(2; 2; 8), H(-2; 2; 8)$.<br><br>(đơn vị: cm)<br><br>Tia khoan đi theo đường thẳng qua $P(-3,5; 9,5; 6), Q(-6; 16; 8)$ với véc tơ $\\vec{v} = \\overrightarrow{PQ} = (-2,5; 6,5; 2)$.<br><br>Phương trình tham số: $\\ell: \\begin{cases} x = -3,5 - 2,5t \\\\ y = 9,5 + 6,5t \\\\ z = 6 + 2t \\end{cases} (t \\in \\mathbb{R})$. Suy ra phương trình các mặt:<br><br>$ABFE: -4y + z - 16 = 0, CDHG: 4y + z - 16 = 0$<br><br>- Với $CDHG: 4y + z - 16 = 0 \\Rightarrow t = -1 \\Rightarrow I = \\ell(-1) = (-1; 3; 4)$ nằm trong mặt $CDHG \\Rightarrow$ điểm vào $I(-1; 3; 4)$.<br><br>- Với $ABFE: -4y + z - 16 = 0 \\Rightarrow t = -2 \\Rightarrow O = \\ell(-2) = \\left(\\frac{3}{2}; -\\frac{7}{2}; 2\\right)$ nằm trong mặt $ABFE$<br><br>$\\Rightarrow$ điểm ra $O\\left(\\frac{3}{2}; -\\frac{7}{2}; 2\\right)$.<br><br>Chiều dài kênh khoan $IO = \\sqrt{\\left(\\frac{3}{2} + 1\\right)^2 + \\left(-\\frac{7}{2} - 3\\right)^2 + (2 - 4)^2} = \\frac{\\sqrt{210}}{2}\\text{ cm} \\approx 7,25\\text{ cm}$."
+  },
+  {
+    "id": "50",
+    "title": "Câu 50",
+    "type": "short_answer",
+    "text": "Bốn ngôi sao $\\alpha, \\beta, \\gamma, \\delta$ tạo thành một vùng không gian hình chóp tứ giác. Tọa độ các ngôi sao là: $\\alpha(4; 4; 8), \\beta(0; 20; 0), \\gamma(-16; 16; 4), \\delta(-8; 12; 12)$\n\n\n\nMột sao chổi bay theo đường thẳng qua hai điểm $A(10; 3; 1)$ và $B(4; 7; 3)$. Người ta thấy rằng sao chổi đi vào vùng không gian tại điểm $S$ thuộc tam giác $\\alpha\\beta\\gamma$ và tại đó sao chổi rời khỏi vùng không gian hình chóp này tại điểm $T$. Tính độ đường đi $ST$ bằng bao nhiêu km (làm tròn kết quả đến hàng đơn vị). (1 đơn vị $= 1000\\text{km}$)",
+    "image": "data/im/PTDT6-13.png",
+    "correct": "7483",
+    "solution": "Dữ kiện $\\overrightarrow{u}_{AB} = (-6; 4; 2)$<br><br>Mặt phẳng $(\\alpha\\beta\\gamma)$ có $\\vec{n}_{\\alpha\\beta\\gamma} = \\left[\\overrightarrow{\\beta\\alpha}, \\overrightarrow{\\gamma\\alpha}\\right] = (2; 9; 17)$, nên phương trình tổng quát:<br><br>$2x + 9y + 17z - 180 = 0$.<br><br>Tìm điểm $S$ - giao của quỹ đạo và tam giác $\\alpha\\beta\\gamma$<br><br>Đường thẳng qua $A(10; 3; 1), B(4; 7; 3)$ (dạng tham số): $\\begin{cases} x = 10 - 6t \\\\ y = 3 + 4t \\\\ z = 1 + 2t \\end{cases} (t \\in \\mathbb{R})$<br><br>Giao với $(\\alpha\\beta\\gamma): 2x + 9y + 17z - 180 = 0$:<br><br>$2(10 - 6t) + 9(3 + 4t) + 17(1 + 2t) - 180 = 0 \\Rightarrow t = 2 \\Rightarrow S(-2; 11; 5)$.<br><br>Tìm điểm $T$ - nơi sao chổi rời khối chóp<br><br>Pháp tuyến các mặt còn lại: $\\vec{n}_{\\alpha\\beta\\delta} = (8; 7; 10), \\vec{n}_{\\alpha\\gamma\\delta} = (5; 8; -1), \\vec{n}_{\\beta\\gamma\\delta} = (-1; 10; 6)$.<br><br>Ta có $\\overrightarrow{u}_{AB} \\cdot \\vec{n}_{\\alpha\\beta\\delta} = 0$ và $\\overrightarrow{u}_{AB} \\cdot \\vec{n}_{\\alpha\\gamma\\delta} = 0$<br><br>$\\Rightarrow$ đường thẳng song song hai mặt này, không cắt chúng.<br><br>Mặt $(\\beta\\gamma\\delta)$ có phương trình: $-x + 10y + 6z - 200 = 0$<br><br>Giao với đường thẳng: $-(10 - 6t) + 10(3 + 4t) + 6(1 + 2t) - 200 = 0 \\Rightarrow t = 3 \\Rightarrow T(-8; 15; 7)$.<br><br>Suy ra: $ST = 2\\sqrt{14} \\cdot 1000 \\approx 7483\\text{ km}$"
+  },
+  {
+    "id": "51",
+    "title": "Câu 51",
+    "type": "short_answer",
+    "text": "Cho ngôi nhà như hình bên phải (các kích thước tính theo mét).\n\n\n\nMột ăng-ten trên mái nhà có hai điểm đầu mút: $A(-2; 2; 5), B(-2; 2; 6)$\n\nChiếu ánh sáng song song theo hướng của véc-tơ $\\vec{v} = (2; 8; -3)$ vào ăng-ten, bóng của ăng-ten sẽ đổ xuống mặt phẳng mái $EFGH$.\n\nTính chiều dài bóng của ăng-ten trên mái nhà bằng bao nhiêu mét? (làm tròn kết quả đến hàng phần trăm)",
+    "image": "data/im/PTDT6-14.png",
+    "correct": "1,31",
+    "solution": "Chọn hệ trục tọa độ như hình, khi đó<br><br>$E(0;0;4), F(8;0;4), H(0;4;6), G(8;4;6)$<br><br>$\\overrightarrow{EF} = (8;0;0), \\overrightarrow{EH} = (0;4;2) \\Rightarrow \\vec{n} = \\left[\\overrightarrow{EF}, \\overrightarrow{EH}\\right] = (0; -16; 32)$<br><br>Suy ra mặt phẳng $EFGH: 2z - y - 8 = 0$<br><br>Ánh sáng: $\\vec{v} = (2; 8; -3)$.<br><br>Đường thẳng qua $B(-2; 2; 6)$ song song $\\vec{v}$: $\\begin{cases} x = -2 + 2t \\\\ y = 2 + 8t \\\\ z = 6 - 3t \\end{cases} (t \\in \\mathbb{R})$<br><br>Giao với $2z - y - 8 = 0 \\Rightarrow t = \\frac{1}{7} \\Rightarrow B'\\left(-\\frac{12}{7}; \\frac{22}{7}; \\frac{39}{7}\\right)$<br><br>Vì $A(-2; 2; 5) \\in EFGH$ nên bóng của nó cũng là chính nó.<br><br>Từ đó ta có: chiều dài bóng của ăng-ten trên mái:<br><br>$|AB'| = \\sqrt{\\left(\\frac{2}{7}\\right)^2 + \\left(\\frac{8}{7}\\right)^2 + \\left(\\frac{4}{7}\\right)^2} = \\frac{2\\sqrt{21}}{7}\\text{ m} \\approx 1,31\\text{ m}$."
+  },
+  {
+    "id": "52",
+    "title": "Câu 52",
+    "type": "short_answer",
+    "text": "Một khinh khí cầu $l$ xuất phát từ sân bay $L(24; 52; 0)$ và sau đó được xác định tại $P(20; 42; 2)$.\n\n\n\nMột trực thăng $h$ bay thẳng đều cùng thời điểm trong ngày, xuất phát từ sân bay quân sự $F(20; -8; 0)$ hướng về đỉnh núi $S(-4; 32; 16)$.\n\nBức tường sương mù được mô tả bởi mặt phẳng $E_{ABC}$ với $A(16; 0; 0), B(0; 16; 0), C(0; 0; 16)$.\n\nGọi $T$ là vị trí mà quỹ đạo bay của khinh khí cầu $l$ và trực thăng $h$ cắt nhau.\n\nTrên quỹ đạo bay tiếp theo, khinh khí cầu $l$ đi vào tường sương mù tại $N$.\n\nTính khoảng cách $TN$ (làm tròn kết quả đến hàng đơn vị) (các kích thước tính theo km).",
+    "image": "data/im/PTDT6-15.png",
+    "correct": "11",
+    "solution": "Từ đề bài ta xác định được:<br><br>Đường thẳng $l: \\begin{cases} x = 24 - 4t \\\\ y = 52 - 10t \\\\ z = 2t \\end{cases} (t \\in \\mathbb{R})$<br><br>Đường thẳng $h: \\begin{cases} x = 20 - 3s \\\\ y = -8 + 5s \\\\ z = 2s \\end{cases} (s \\in \\mathbb{R})$<br><br>Giải hệ $24 - 4t = 20 - 3s, 52 - 10t = -8 + 5s, 2t = 2s \\Rightarrow t = s = 4 \\Rightarrow T(8; 12; 8)$.<br><br>Vì $t = s = 4 > 0$ (cùng thời điểm kể từ lúc xuất phát) nên hai quỹ đạo có thể va chạm tại $T$.<br><br>Khinh khí cầu $l$ gặp tường sương mù<br><br>Mặt phẳng $E_{ABC}: \\vec{n} = (1; 1; 1), x + y + z - 16 = 0$.<br><br>Giao với $l$:<br><br>$(24 - 4t) + (52 - 10t) + 2t - 16 = 0 \\Rightarrow 76 - 12t - 16 = 0 \\Rightarrow t = 5$<br><br>$\\Rightarrow N(4; 2; 10)$<br><br>Khi đó: $TN \\approx 11\\text{ km}$"
+  },
+  {
+    "id": "53",
+    "title": "Câu 53",
+    "type": "short_answer",
+    "text": "Cho các điểm $A(0; 0; 0), B(12; 0; 0), C(12; 12; 0)$ và $D(0; 12; 0)$ là các đỉnh của đáy hình chóp cụt bằng kính (xem hình bên).\n\n\n\nCác đỉnh của mặt trên là $E(2; 2; 3), F(10; 2; 3), G(10; 10; 3)$ và $H(2; 10; 3)$.\n\nTại điểm $P(14; 20; 0)$ đặt một tia laser, bắn theo hướng vectơ $\\vec{v} = (-3; -3; 0,5)$. Tia laser sẽ cắt mặt phẳng $CDH$ tại điểm $T(a; b; c)$, tính $a + b + 2c$?",
+    "image": "data/im/PTDT6-16.png",
+    "correct": "19",
+    "solution": "Mặt phẳng $CDH$ (chứa mặt bên $CDHG$)<br><br>$\\overrightarrow{CD} = (-12; 0; 0), \\overrightarrow{CH} = (-10; -2; 3)$.<br><br>$\\vec{n} = \\left[\\overrightarrow{CD} \\times \\overrightarrow{CH}\\right] = (0; 36; 24)$<br><br>Suy ra phương trình tổng quát $CDH: 3y + 2z - 36 = 0$<br><br>Tia laser từ $P(14; 20; 0)$ theo $\\vec{v} = \\left(-3; -3; \\frac{1}{2}\\right)$<br><br>Suy ra phương trình đường thẳng: $\\begin{cases} x = 14 - 3t \\\\ y = 20 - 3t \\\\ z = \\frac{1}{2}t \\end{cases} (t \\ge 0)$<br><br>Giao với mặt phẳng $3y + 2z - 36 = 0$: $3(20 - 3t) + 2\\left(\\frac{1}{2}t\\right) - 36 = 0 \\Rightarrow t = 3 \\Rightarrow T\\left(5; 11; \\frac{3}{2}\\right)$."
+  },
+  {
+    "id": "54",
+    "title": "Câu 54",
+    "type": "short_answer",
+    "text": "Khi phát triển hệ thống hỗ trợ đỗ xe ô tô, các nhà nghiên cứu sinh học đã sao chép hệ thống định vị của loài dơi và tích hợp các cảm biến tương ứng vào cản sau của xe. Các cảm biến được cài đặt sao cho chúng sẽ phát tín hiệu khi khoảng cách đến vật cản nhỏ hơn $0,3\\text{ m}$.\n\n\n\nMột người lái xe đang lùi thẳng về phía một mặt phẳng nghiêng, được cho bởi phương trình: $E: 6x + 2y + 3z = 49$. Xác định được điểm $R(a; b; c)$ trên đoạn $PQ$ trong đó $P(6; 3; 1)$ và $Q(6; 4; 1)$ mà tại đó cảm biến bắt đầu báo động. Tính $a - b + c$ (làm tròn kết quả đến hàng phần trăm)",
+    "image": "data/im/PTDT6-17.png",
+    "correct": "3,05",
+    "solution": "Điểm $R$ trên đoạn $PQ$ khi cảm biến bắt đầu báo động<br><br>Đường thẳng $PQ$ (dạng tham số): $\\begin{cases} x = 6 \\\\ y = 3 + t \\\\ z = 1 \\end{cases} (0 \\le t \\le 1)$<br><br>Khoảng cách đến $E$: $d = \\frac{|36 + 2(3 + t) + 3 - 49|}{7} = \\frac{|-4 + 2t|}{7}$.<br><br>Cảm biến bắt đầu báo động nên $4 - 2t = \\frac{21}{10} \\Rightarrow t = \\frac{19}{20}$.<br><br>Suy ra $R\\left(6; 3 + \\frac{19}{20}; 1\\right) = \\left(6; \\frac{79}{20}; 1\\right) \\approx (6; 3,95; 1)$."
+  },
+  {
+    "id": "55",
+    "title": "Câu 55",
+    "type": "short_answer",
+    "text": "Một chiếc trực thăng bay trong điều kiện tầm nhìn kém tiến về phía một sườn núi dốc lên, được mô tả bởi các điểm $P(0; 5; 0), Q(5; 10; 2), R(10; 10; 2)$\n\n\n\nTrực thăng bay qua các điểm $A(1; 6; 1)$ và $B(2; 7; 1)$ (đơn vị km).\n\nNếu trực thăng tiếp tục giữ nguyên hướng bay hiện tại, sẽ va vào sườn núi. Vì thế để tránh tai nạn, tại điểm $B$ phi công giữ nguyên hướng theo phương $x - y$ nhưng bay lên với góc nâng sao cho đường bay song song với sườn núi. Tính góc mà phi công đã thay đổi hướng bay tại điểm $B$ (làm tròn kết quả đến hàng phần mười, đơn vị độ)",
+    "image": "data/im/PTDT6-18.png",
+    "correct": "15,8",
+    "solution": "$\\overrightarrow{PQ} = (5; 5; 2), \\overrightarrow{PR} = (10; 5; 2), \\vec{n} = \\left[\\overrightarrow{PQ}, \\overrightarrow{PR}\\right] = (0; 10; -25)$<br><br>Vậy phương trình mặt phẳng sườn núi: $2y - 5z - 10 = 0$<br><br>Hướng bay mới: $\\vec{v} = (1; 1; k), k \\in \\mathbb{R}$<br><br>Điều kiện $\\vec{v} \\perp \\vec{n}: (1; 1; k) \\cdot (0; 2; -5) = 0 \\Rightarrow 2 - 5k = 0 \\Rightarrow k = \\frac{2}{5}$.<br><br>Đường bay mới qua $B$: $\\begin{cases} x = 2 + t \\\\ y = 7 + t \\\\ z = 1 + \\frac{2}{5}t \\end{cases}$<br><br>Góc đổi hướng tại $B$<br><br>Góc giữa $\\vec{v}_0 = (1; 1; 0)$ và $\\vec{v} = \\left(1; 1; \\frac{2}{5}\\right)$: $\\cos \\theta = \\frac{\\vec{v}_0 \\cdot \\vec{v}}{|\\vec{v}_0| |\\vec{v}|} = \\frac{2}{\\sqrt{2} \\sqrt{2 + \\frac{4}{25}}} = \\frac{5\\sqrt{3}}{9} \\Rightarrow \\theta \\approx 15,8^\\circ$"
+  },
+  {
+    "id": "56",
+    "title": "Câu 56",
+    "type": "short_answer",
+    "text": "Chính giữa mặt bên phải của mái nhà (như hình minh họa) có một ăng-ten cao 12 m nhô ra. Ăng-ten được cố định bởi một thanh thép, đầu trên của thanh được gắn ở điểm cách đỉnh ăng-ten 4 m và đầu dưới được bắt vít tại chính giữa đỉnh mái.\n\n\n\nTính góc giữa thanh thép và mặt phẳng mái nhà (gắn ăng-ten) (làm tròn kết quả đến hàng phần mười, đơn vị độ)",
+    "image": "data/im/PTDT6-19.png",
+    "correct": "82,7",
+    "solution": "Đặt gốc $O$ tại trung điểm đỉnh mái (đường nóc), $Oy$ dọc theo đỉnh mái (chiều dài 16 m), $Ox$ vuông góc đỉnh mái hướng sang mái phải (nửa bề rộng 6 m), $Oz$ thẳng đứng lên. (như hình dưới)<br><br>\\noteImage{data/im/PTDT6-21.png}<br><br>Khi đó: Chân ăng-ten tại $A(3; 0; -2)$, đỉnh $C(0; -8; 0)$ và $B(6; -8; -4)$<br><br>Suy ra phương trình tổng quát của mặt phẳng mái phải: $(P): 2x + 3z = 0 \\quad (\\vec{n} = (2; 0; 3))$<br><br>Đầu trên của thanh thép cách đỉnh ăng-ten $4\\text{ m} \\Rightarrow$ điểm gắn trên ăng-ten: $T(3; 0; 6)$.<br><br>Đầu dưới của thanh bắt tại chính giữa đỉnh mái: $O(0; 0; 0)$.<br><br>Hướng thanh thép: $\\vec{w} = \\overrightarrow{OT} = (3; 0; 6)$.<br><br>Khi đó góc thanh thép với mặt phẳng mái:<br><br>$\\sin \\beta = \\frac{|\\vec{n} \\cdot \\vec{w}|}{|\\vec{n}| \\cdot |\\vec{w}|} = \\frac{|(2; 0; 3) \\cdot (3; 0; 6)|}{\\sqrt{13} \\cdot 3\\sqrt{5}} = \\frac{8}{\\sqrt{65}} \\Rightarrow \\beta = \\arcsin \\frac{8}{\\sqrt{65}} \\approx 82,7^\\circ$.<br><br>Góc giữa hướng bay $\\vec{v} = (-4; 4; 2)$ và mặt phẳng ngang $z = const$ (pháp tuyến $\\vec{n} = (0; 0; 1)$):<br><br>$\\sin \\alpha = \\frac{|\\vec{n} \\cdot \\vec{v}|}{\\|\\vec{n}\\| \\cdot \\|\\vec{v}\\|} = \\frac{2}{6} = \\frac{1}{3} \\Rightarrow \\alpha = \\arcsin \\frac{1}{3} \\approx 19,47^\\circ$."
+  },
+  {
+    "id": "57",
+    "title": "Câu 57",
+    "type": "short_answer",
+    "text": "Một sân bóng đá rộng 60 m. Trong một quả đá phạt, bóng được sút từ vị trí $P(3; 9; 0)$ theo hướng của vectơ $\\vec{v} = (18; -6; 1)$ về phía khung thành rộng $7,20\\text{ m}$, cao $2,40\\text{ m}$. Quỹ đạo bay được giả sử là một đường thẳng. Vận tốc bóng ước tính $28,5\\text{ m/s}$.\n\n\n\nTính thời gian bóng bay tới khung thành.",
+    "image": "data/im/PTDT6-20.png",
+    "correct": "1",
+    "solution": "- Quỹ đạo bóng từ $P(3; 9; 0)$ theo $\\vec{v} = (18; -6; 1)$: $\\begin{cases} x = 3 + 18t \\\\ y = 9 - 6t \\\\ z = t \\end{cases} (t \\ge 0)$<br><br>$|\\vec{v}| = \\sqrt{18^2 + (-6)^2 + 1^2} = 19\\text{ m}$.<br><br>- Mặt phẳng khung thành (biên ngang): $y = 0$.<br><br>Điểm chạm mặt phẳng khung thành $y = 0 \\Rightarrow 9 - 6t = 0 \\Rightarrow t = \\frac{3}{2}$ hay $Q(30; 0; 1,5)$.<br><br>Khung thành rộng $7,20\\text{ m}$, tâm ở giữa sân rộng $60\\text{ m} \\Rightarrow x \\in [30 - 3,6; 30 + 3,6]$, cao $2,40\\text{ m} \\Rightarrow 0 \\le z \\le 2,40$. Tại $Q: x = 30$ và $z = 1,5 \\Rightarrow$ nằm trong khung thành<br><br>Thời gian bóng bay tới khung<br><br>Quãng đường $s = |\\vec{v}| t = 19 \\cdot \\frac{3}{2} = 28,5\\text{ m}$.<br><br>Vận tốc $28,5\\text{ m/s} \\Rightarrow t_{\\text{bay}} = \\frac{28,5}{28,5} = 1\\text{ s}$."
+  },
+  {
+    "id": "58",
+    "title": "Câu 58",
+    "type": "short_answer",
+    "text": "Một tàu ngầm nghiên cứu bị mất tích. Được hai tàu trên mặt biển tìm kiếm phát hiện tàu ngầm cùng lúc.\n\n\n\n- Tàu 1 phát hiện tàu ngầm theo hướng của vectơ $\\vec{v}_1 = (-1; 3; -1)$.\n\n- Tàu 2 phát hiện tàu ngầm cùng lúc theo hướng của vectơ $\\vec{v}_2 = (4; 2; -1)$.\n\nTàu 1 ở vị trí $P(6; 2; 0)$, còn tàu 2 ở vị trí $Q(-4; 4; 0)$ đang neo đậu.\n\nBốn phút sau, các tàu lại đo hướng và xác định rằng tàu ngầm hiện đang ở vị trí $B(6; 10; -1)$ (1 đơn vị độ dài $= 100\\text{ m}$).\n\nTàu ngầm tiếp tục di chuyển thẳng từ $B$ cho đến khi nổi lên mặt nước (tức $z = 0$).\n\nTại thời điểm xác định vị trí $B$, một trực thăng rời khỏi tàu 1, bay thẳng đứng lên tới độ cao 1100 m (vị trí $R$), rồi hướng thẳng tới vị trí nổi $W$ của tàu ngầm. Vận tốc của trực thăng là $20\\text{ m/s}$. Tính thời gian bay của trực thăng để đến $W$ là bao nhiêu giây?",
+    "image": "data/im/PTDT6-21.png",
+    "correct": "130",
+    "solution": "Vẽ lại mô hình bài toán<br><br>\\noteImage{data/im/PTDT6-24.png}<br><br>Ta tìm được phương trình đường duy chuyển của tầu 1 và 2 lần lượt là:<br><br>$P: \\begin{cases} x = 6 - t \\\\ y = 2 + 3t \\\\ z = -t \\end{cases} (t \\ge 0); Q: \\begin{cases} x = -4 + 4s \\\\ y = 4 + 2s \\\\ z = -s \\end{cases} (s \\ge 0)$<br><br>Giải $\\Rightarrow t = s = 2 \\Rightarrow A(4; 8; -2)$.<br><br>Suy ra hướng duy chuyển của tàu ngầm là $\\overrightarrow{AB} = (2; 2; 1)$<br><br>Đi thẳng theo hướng $\\overrightarrow{AB} = (2; 2; 1)$ ta có được phương trình đường thẳng duy chuyển của tàu ngầm là: $\\begin{cases} x = 6 + 2u \\\\ y = 10 + 2u \\\\ z = -1 + u \\end{cases}, u \\in \\mathbb{R}$. Khi nổi lên mặt biển $z = 0 \\Rightarrow u = 1 \\Rightarrow W(8; 12; 0)$<br><br>Trực thăng rời tàu 1, bay thẳng đứng lên 1100 m (điểm $R$) rồi bay thẳng đến $W$ với $v = 20\\text{ m/s}$<br><br>Tàu 1 ở $P(6; 2; 0) \\Rightarrow R(6; 2; 11)$, suy ra $|RW| = \\sqrt{(2)^2 + (10)^2 + (-11)^2} = 15 (\\text{đv}) = 1500\\text{ m}$.<br><br>Thời gian: $t_\\uparrow = \\frac{1100}{20} = 55\\text{ s}, \\quad t_{RW} = \\frac{1500}{20} = 75\\text{ s} \\Rightarrow \\sum t = 130\\text{ s}$."
+  },
+  {
+    "id": "59",
+    "title": "Câu 59",
+    "type": "short_answer",
+    "text": "Trong một cảnh dựng phim có một ngôi nhà, mái nhà là một hình chóp tứ giác đều với đáy là hình vuông có các đỉnh: $A(6; 4; 2), B(6; 6; 2), C(4; 6; 2), D(4; 4; 2)$ và đỉnh chóp là $S$. Chiều cao của hình chóp mái là 2m.\n\n\n\nMột đèn chiếu tại $L(5; 10; 2)$ chiếu sáng ngôi nhà từ phía bên phải.\n\nTrong mặt phẳng $xOz$ có một tấm màn, trên đó sẽ xuất hiện bóng của ngôi nhà.\n\nBiết rằng các đỉnh $B, C$ và $S$ có các điểm chiếu lần lượt là: $B'$ và $C'$ và $S'$\n\nTính $S'B' + S'C'$ (làm tròn kết quả đến hàng phần mười)",
+    "image": "data/im/PTDT6-22.png",
+    "correct": "9,4",
+    "solution": "Các đỉnh đáy (hình vuông, nằm trên $z = 2$): $A(6; 4; 2), B(6; 6; 2), C(4; 6; 2), D(4; 4; 2)$<br><br>Tâm đáy $O(5; 5; 2)$. Đèn chiếu $L(5; 10; 2)$. Màn chiếu là mặt phẳng $xOz: y = 0$<br><br>Tìm đỉnh chóp $S$<br><br>Chiều cao mái $= 2$ vuông góc với đáy $z = 2 \\Rightarrow S(5; 5; 4)$<br><br>Hình chiếu $S'$ của $S$ lên màn $y = 0$ theo đèn $L$<br><br>Phương trình đường thẳng $LS: \\begin{cases} x = 5 \\\\ y = 10 - 5t \\\\ z = 2 + 2t \\end{cases}$<br><br>Giao với $y = 0$ suy ra $t = 2 \\Rightarrow S'(5; 0; 6)$<br><br>Tương tự ta tìm được $B'(7, 5; 0; 2), C'(2,5; 0; 2)$<br><br>$\\overrightarrow{S'B'} = (-2,5; 0; 4), \\overrightarrow{S'C'} = (2,5; 0; 4)$<br><br>$\\Rightarrow |S'B'| = |S'C'| = \\sqrt{(2,5)^2 + 4^2} = \\frac{\\sqrt{89}}{2} \\Rightarrow S'B' + S'C' = \\sqrt{89} \\approx 9,4$"
+  },
+  {
+    "id": "60",
+    "title": "Câu 60",
+    "type": "short_answer",
+    "text": "Sân quần vợt được mô hình hóa lý tưởng, có chiều dài 24 m và chiều rộng 10 m. Các ô giao bóng dài 6 m và rộng 5 m. Lưới cao liên tục 1 m. Mọi cú đánh đều bay theo đường thẳng.\n\n\n\nMột vận động viên đứng ở vạch cuối sân tại điểm $P(3; 24; 0)$ và cố gắng đánh quả bóng với vận tốc $144\\text{ km/h}$ ở độ cao $3,10\\text{ m}$ sao cho bóng rơi đúng vào điểm $T(5; 6; 0)$ của ô giao bóng. Sau khi chạm đất, bóng phản xạ theo góc $\\alpha$ (giữ nguyên vận tốc, không đổi hướng ngang). Tại vị trí $K$ trên vạch cuối sân bên kia đối thủ sẽ đánh trả, hãy tính thời gian đối thủ có để phản ứng là bao nhiêu giây? (làm tròn kết quả đến hàng phần trăm)",
+    "image": "data/im/PTDT6-23.png",
+    "correct": "0,15",
+    "solution": "Quỹ đạo từ $A$ đến $T: \\begin{cases} x = 3 + 2t \\\\ y = 24 - 18t \\\\ z = 3,10 - 3,1t \\end{cases} (0 \\le t \\le 1)$ (hướng $\\vec{v} = (2; -18; -3,1)$).<br><br>Sau nảy bóng: phản xạ giữ nguyên vận tốc, không đổi hướng ngang.<br><br>Hướng mới: $\\vec{v}' = (2; -18; 3,1)$. Vậy phương trình mới của quả bóng là $\\begin{cases} x = 5 + 2s \\\\ y = 6 - 18s \\\\ z = 3,1s \\end{cases} (s \\in \\mathbb{R})$<br><br>Điểm $K$ trên vạch cuối sân bên kia thuộc mặt phẳng $y = 0$: Suy ra<br><br>$6 - 18s = 0 \\Rightarrow s = \\frac{1}{3} \\Rightarrow K\\left(\\frac{17}{3}; 0; \\frac{31}{30}\\right)$.<br><br>Quãng đường $TK = \\sqrt{\\left(\\frac{17}{3} - 5\\right)^2 + 6^2 + \\left(\\frac{31}{30}\\right)^2} = \\frac{7\\sqrt{689}}{30}$.<br><br>Vận tốc $144\\text{ km/h} = 40\\text{ m/s} \\Rightarrow$ thời gian đối thủ có để phản ứng: $t = \\frac{TK}{40} \\approx 0,15\\text{ s}$."
+  },
+  {
+    "id": "61",
+    "title": "Câu 61",
+    "type": "short_answer",
+    "text": "Một kim tự tháp cổ có các đỉnh $A(100; 0; 0), B(100; 100; 0), C(0; 100; 0), D(0; 0; 0)$ và đỉnh $S(50; 50; 100)$. Từ mặt bên $BCS$ nhô ra một thanh $PQ$ thẳng đứng (là một phần của cơ cấu nâng), trung điểm $T$ của thanh $PQ$ được đỡ bởi cột thẳng đứng $RT$. Biết $P(50; 60; 80), Q(50; 100; 100)$. Tính chiều dài cột $TR$.",
+    "image": "data/im/PTDT6-24.png",
+    "correct": "50",
+    "solution": "Mặt phẳng $(BCS)$:<br><br>$\\overrightarrow{BC} = (-100; 0; 0), \\overrightarrow{BS} = (-50; -50; 100), \\vec{n} = \\left[\\overrightarrow{BC}, \\overrightarrow{BS}\\right] = (0; 10000; 5000) \\sim (0; 2; 1)$<br><br>Vậy phương trình tổng quát: $(BCS): 2y + z - 200 = 0$.<br><br>Trung điểm $T$ của $PQ: T(50; 80; 90)$.<br><br>Cột $RT$ thẳng đứng (song song $Oz$) có phương trình $g: \\begin{cases} x = 50 \\\\ y = 80 \\\\ z = 90 + \\lambda \\end{cases} (\\lambda \\in \\mathbb{R})$<br><br>Giao với $(BCS): 2 \\cdot 80 + (90 + \\lambda) - 200 = 0 \\Rightarrow \\lambda = -50$.<br><br>Suy ra $R(50; 80; 40) \\Rightarrow TR = 50$."
+  },
+  {
+    "id": "62",
+    "title": "Câu 62",
+    "type": "short_answer",
+    "text": "Tháp gồm một khối lập phương, trên đó gắn thêm một khung hộp chữ nhật, và phía trên là một khối chóp tứ giác đều. Tại độ cao bằng chiều cao khối lập phương, có gắn một mặt phẳng trượt hình chữ nhật (xem hình, các kích thước tính bằng mét).\n\n\n\nTừ đỉnh $S$ có buộc một sợi dây xuống điểm $P(1; 7; 0)$ làm dây leo.\n\nTrên mặt phẳng trượt, có một đứa trẻ đứng thẳng tại vị trí chính giữa tấm trượt và với thẳng tay (vuông góc với mặt đất) nắm được dây leo. Tính chiều cao tay vịn của đứa trẻ tính từ mặt đất.",
+    "image": "data/im/PTDT6-25.png",
+    "correct": "1,6",
+    "solution": "Ta xác định được tọa độ các điểm như sau<br><br>$D(0; 0; 0), A(2; 0; 0), B(2; 2; 0), C(0; 2; 0); H(0; 0; 2), E(2; 0; 2), F(2; 2; 2), G(0; 2; 2), S(1; 1; 4)$<br><br>Phương trình đường thẳng $SP: \\begin{cases} x = 1 \\\\ y = 1 + 6t \\\\ z = 4 - 4t \\end{cases} (t \\in \\mathbb{R})$<br><br>Ta thấy được mặt phẳng trượt đi qua $F, G, K(0; 5; 0)$ nên phương trình mặt phẳng trượt là: $2y + 3z - 10 = 0$<br><br>Điểm chính giữa tấm trượt có tọa độ: $I(1; 3,5; 1)$<br><br>Đứa trẻ đứng thẳng tại vị trí chính giữa tấm trượt và với thẳng tay (vuông góc với mặt đất) thuộc đường thẳng có vecto chỉ phương là $(0; 0; 1)$ và đi qua $I(1; 3,5; 1)$:<br><br>Phương trình $\\Delta: \\begin{cases} x = 1 \\\\ y = 3,5 \\\\ z = 1 + k \\end{cases} (k \\in \\mathbb{R})$<br><br>Tìm giao điểm $\\Delta$ với $SP: \\begin{cases} 1 = 1 \\\\ 3,5 = 1 + 6t \\\\ 1 + k = 4 - 4t \\end{cases} \\Leftrightarrow \\begin{cases} t = 2,4 \\\\ k = 0,6 \\end{cases}$<br><br>Suy ra chiều cao tay vịn của đứa trẻ tính từ mặt đất là 1,6m"
+  },
+  {
+    "id": "63",
+    "title": "Câu 63",
+    "type": "short_answer",
+    "text": "Một máy bay đang trong giai đoạn tiếp cận để hạ cánh. Nó bay theo đường thẳng $g$ đi qua hai điểm $A(25; 2; 5)$ và $B(15; 7; 3)$.\n\n\n\nKhu vực tiếp cận hạ cánh được giới hạn bởi hai đường thẳng $g_1$ và $g_2$, lần lượt đi qua các điểm $C(10; 4; 2), D(0; 10; 0)$ và $E(10; 20; 2), F(0; 14; 0)$ (các số đo tính bằng km).\n\nĐường thẳng $g_i$ đi ở giữa khu vực tiếp cận được coi là đường lý tưởng cho hạ cánh. Xác định phương trình $g_i$. Đường bay $g$ của máy bay cắt đường $g_i$ tại $S$. Biết vận tốc của máy bay là $500\\text{ km/h}$. Tính thời gian từ khi máy bay ở điểm $A$ cho đến khi chạm đường lý tưởng $g_i$ là bao nhiêu giây? (làm tròn kết quả đến hàng đơn vị)",
+    "image": "data/im/PTDT6-26.png",
+    "correct": "164",
+    "solution": "Đường bay $g$ của máy bay (qua $A, B$): $g: \\begin{cases} x = 25 - 10t \\\\ y = 2 + 5t \\\\ z = 5 - 2t \\end{cases} (t \\in \\mathbb{R})$ (hướng $\\vec{v} = (-10; 5; -2)$).<br><br>\"Đường lý tưởng\" $g_i$ đi giữa khu vực tiếp cận: hay $g_i$ đi qua trung điểm $CE, DF$ (điểm đầu $(10; 12; 2)$, cuối $(0; 12; 0)$).<br><br>Ta được phương trình: $g_i: \\begin{cases} x = 10 - 10u \\\\ y = 12 \\\\ z = 2 - 2u \\end{cases} (u \\in \\mathbb{R})$<br><br>Giao $g \\cap g_i$: có $2 + 5t = 12 \\Rightarrow t = 2 \\Rightarrow S(5; 12; 1)$. Vậy $g$ cắt $g_i$ tại $S(5; 12; 1)$<br><br>Ta có $SA = \\sqrt{(5 - 25)^2 + (12 - 2)^2 + (1 - 5)^2} = 2\\sqrt{129}$<br><br>Thời gian bay (vận tốc $500\\text{ km/h}$) là: $t = \\frac{2\\sqrt{129}}{500} \\cdot 3600 \\approx 164$ (giây)"
+  },
+  {
+    "id": "64",
+    "title": "Câu 64",
+    "type": "short_answer",
+    "text": "Một ngôi nhà góc có kích thước như hình bên.\n\n\n\nĐầu tay cần cẩu có tọa độ $K(11; 12; 26)$. Từ đó kéo một sợi dây tới mái $E_2$ và xoay qua tiếp tục kéo một sợi dây khác với mái $E_1$. Tính tổng chiều dài tối thiểu các sợi dây đó (làm tròn kết quả đến hàng phần mười)",
+    "image": "data/im/PTDT6-27.png",
+    "correct": "48,2",
+    "solution": "$O(0; 0; 0), A(0; 8; 4), B(0; 4; 10), C(-8; 8; 4), E(-8; 16; 4), F(-11; 16; 10)$<br><br>$\\overrightarrow{AB} = (0, -4, 6), \\overrightarrow{AC} = (-8, 0, 0) \\Rightarrow \\vec{n}_{E_1} = \\left[\\overrightarrow{AB}, \\overrightarrow{AC}\\right] = (0, 3, 2) \\Rightarrow E_1: 3y + 2z - 32 = 0$.<br><br>$\\overrightarrow{CE} = (0, 8, 0), \\overrightarrow{CF} = (-3, 8, 6) \\Rightarrow \\vec{n}_{E_2} = (2, 0, 1) \\Rightarrow E_2: 2x + z + 12 = 0$.<br><br>- Trên $E_1$ đường nóc $g_{BD}$ đi qua $B$ và vectơ chỉ phương là $(1; 0; 0)$<br><br>$\\rightarrow$ đường nóc: $g_{BD}: \\begin{cases} x = t \\\\ y = 4 \\\\ z = 10 \\end{cases} (t \\in \\mathbb{R})$.<br><br>- Trên $E_2$ đường nóc $g_{FD}$ đi qua $F$ và vectơ chỉ phương là $(0; 1; 0)$<br><br>$\\rightarrow$ đường nóc: $g_{FD}: \\begin{cases} x = -11 \\\\ y = s \\\\ z = 10 \\end{cases} (s \\in \\mathbb{R})$.<br><br>Giao điểm hai đường nóc tại $D$<br><br>Giải hai hệ trên: $x = -11, y = 4, z = 10 \\Rightarrow D(-11; 4; 10)$.<br><br>Ta tìm được hình chiếu của $K$ lên $E_1$ là $K_1 = \\left(11, -\\frac{12}{13}, \\frac{226}{13}\\right)$<br><br>có $y < 4 \\Rightarrow$ ngoài tứ giác $\\Rightarrow$ độ dài ngắn nhất xảy ra trên biên.<br><br>- Khoảng cách từ $K$ đến các cạnh đạt min tại đỉnh $B(0, 4, 10)$:<br><br>$KB = \\sqrt{(11 - 0)^2 + (12 - 4)^2 + (26 - 10)^2} = \\sqrt{441} = 21\\text{ m}$.<br><br>- Ta tìm được hình chiếu của $K$ lên $E_2$ là $K_2 = (-13, 12, 14)$<br><br>có $x = -13 < -11 \\Rightarrow$ nằm ngoài tứ giác $\\Rightarrow$ độ dài ngắn nhất xảy ra trên biên.<br><br>- Xét cạnh $DF: \\begin{cases} x = -11 \\\\ y = 4 + 12t \\\\ z = 10 \\end{cases} 0 \\le t \\le 1$.<br><br>Ta có: Khoảng cách từ $K$ đến $DF = \\sqrt{22^2 + (12 - 4 - 12t)^2 + 16^2}$ nhỏ nhất khi $t = \\frac{2}{3} \\Rightarrow R = (-11, 12, 10)$, suy ra $KR = \\sqrt{22^2 + 0^2 + 16^2} = 2\\sqrt{185} \\approx 27,2\\text{ m}$.<br><br>Tổng độ dài tối thiểu hai sợi dây $L_{\\min} \\approx 48,2\\text{ m}$."
+  },
+  {
+    "id": "65",
+    "title": "Câu 65",
+    "type": "short_answer",
+    "text": "Các điểm $A(0; -1; 0), B(1; -4; 0)$ và $C(4; -3; 0)$ là các đỉnh thu được của đáy một kim tự tháp khối chóp tứ giác đều, đã bị sụp một phần và cần được phục dựng. Mỗi đơn vị trong hệ tọa độ ứng với 100 m.\n\n\n\nGọi tâm $M$ của hình vuông và tọa độ đỉnh $D$ còn thiếu. Trên đỉnh $M$ theo phương thẳng đứng là đỉnh $S$ của kim tự tháp, với chiều cao 200 m. Theo mô tả, ánh sáng mặt trời vuông góc với mặt bên $DAS$ chiếu qua điểm $Q\\left(\\frac{1}{2}; \\frac{5}{3}; \\frac{7}{2}\\right)$ vào một lối vào bí mật của kim tự tháp. Xác định được tọa độ điểm $P(a; b; c)$ là vị trí ban đầu của lối vào bí mật này. Tính $2a + 3b + c$",
+    "image": "data/im/PTDT6-28.png",
+    "correct": "0",
+    "solution": "Vì $A, B, C$ là ba đỉnh liên tiếp của hình vuông, $D = (3, 0, 0)$<br><br>Tâm hình vuông: $M = (2, -2, 0)$.<br><br>Cao kim tự tháp $= 200\\text{ m} = 2$ (đv) theo phương thẳng đứng $\\Rightarrow S(2, -2, 2)$<br><br>Có $\\overrightarrow{DA} = (-3, -1, 0), \\overrightarrow{DS} = (-1, -2, 2). \\Rightarrow$ pháp tuyến $\\vec{n} = \\left[\\overrightarrow{DA}, \\overrightarrow{DS}\\right] = (-2, 6, 5)$<br><br>Suy ra phương trình mặt phẳng $(DAS): -2x + 6y + 5z + 6 = 0$<br><br>Vì ánh sáng mặt trời vuông góc với mặt $DAS$ nên hướng tia là $\\vec{n} = (-2, 6, 5)$<br><br>Đường thẳng đi qua $Q$, vuông góc với $DAS$ có phương trình: $\\ell: \\begin{cases} x = \\frac{1}{2} - 2t \\\\ y = \\frac{5}{3} + 6t \\\\ z = \\frac{7}{2} + 5t \\end{cases} t \\in \\mathbb{R}$<br><br>Giao với $DAS: -2x + 6y + 5z + 6 = 0$ cho $t = -\\frac{1}{2}$.<br><br>Suy ra $P\\left(\\frac{3}{2}, -\\frac{4}{3}, 1\\right)$."
+  },
+  {
+    "id": "66",
+    "title": "Câu 66",
+    "type": "short_answer",
+    "text": "Tháp đôi Puerta de Europa, Tây Ban Nha có mặt tiền nghiêng, được mô hình hóa bởi mặt phẳng $(P): x - y + z + 1 = 0$ trong hệ tọa độ $Oxyz$ (đơn vị mét). Chủ tòa nhà muốn treo một biển quảng cáo lên mặt tường này, nhưng vì vị trí có cửa sổ thông gió nên phải dùng cơ cấu giàn giáo như sau:\n\n1. Khoan lỗ và cắm thanh sắt\n- Khoan hai lỗ trên tường, cắm vào đó hai thanh sắt cố định sao cho đầu mút của mỗi thanh nhô ra phía ngoài.\n- Gọi hai đầu mút lần lượt là điểm $A$ và điểm $B$, với tọa độ $A(1; -2; 0), B(2; 1; -1)$.\n\n2. Nối khung ngang\n- Hàn một thanh sắt ngang nối từ $A$ đến $B$. Đây là thanh chịu lực chính để treo biển.\n\n3. Gắn biển quảng cáo\n- Hàn khung biển vào thanh ngang, xem biển như một tấm bản mỏng nằm trên cùng mặt phẳng $(Q)$.\n\nĐể biển áp sát tường nhất - vừa tăng tính thẩm mỹ, vừa giảm lực gió - ta cần điều chỉnh sao cho góc $\\theta$ giữa mặt phẳng biển $(Q)$ và mặt phẳng tường $(P)$ là nhỏ nhất.\n\nGiả sử phương trình tổng quát của biển hiệu là $(Q): ax + by + cz + d = 0, (a; b; c; d \\in \\mathbb{R})$.\n\nHãy tính tổng $a + b + c + d$",
+    "image": "data/im/PTDT6-29.png",
+    "correct": "3",
+    "solution": "Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 0)$ và $B(2; 1; -1)$ và mặt phẳng $(P)$ có phương trình $x - y + z + 1 = 0$. Biết mặt phẳng $(Q)$ đi qua $A, B$ đồng thời tạo với $(P)$ một góc nhỏ nhất có phương trình là $ax + by + cz + d = 0$ với $a, b, c, d \\in \\mathbb{R}$. Tính giá trị đại lượng $a + b + c + d$.<br><br>\\noteImage{data/im/PTDT6-33.png}<br><br>Ta có $\\overrightarrow{AB} = (1; 3; -1)$ là véc tơ chỉ phương của $AB$.<br><br>Véc tơ pháp tuyến $\\vec{n}_p$ của $(P)$ là $\\vec{n}_p = (1; -1; 1)$.<br><br>Vậy $\\vec{n}_p \\cdot \\overrightarrow{AB} = -3 \\ne 0 \\Rightarrow$ đường thẳng $AB$ cắt $(P)$ tại điểm $I$.<br><br>Gọi $\\Delta = P \\cap Q$. Giả sử $H$ và $K$ lần lượt là hình chiếu của $A$ trên $(P)$ và $\\Delta$.<br><br>Ta có $\\widehat{AKH}$ là góc giữa $(Q)$ và $(P)$. Lại thấy $\\tan \\widehat{AKH} = \\frac{AH}{AK} \\ge \\frac{AH}{AI} = \\text{const}$<br><br>Vậy $\\widehat{AKH} \\min \\Leftrightarrow \\tan \\widehat{AKH} \\min \\Leftrightarrow \\tan \\widehat{AKH} = \\frac{AH}{AI} \\Leftrightarrow K \\equiv I \\Leftrightarrow \\Delta \\perp AB$<br><br>Vì $\\Delta \\perp AB; \\Delta \\perp \\vec{n}_p$ vậy $\\left[\\overrightarrow{AB}, \\vec{n}_p\\right]$ là véc tơ chỉ phương của $\\Delta$<br><br>Dễ thấy $\\left[\\overrightarrow{AB}, \\vec{n}_p\\right] = \\left(\\begin{vmatrix} 3 & -1 \\\\ -1 & 1 \\end{vmatrix}; \\begin{vmatrix} -1 & 1 \\\\ 1 & 1 \\end{vmatrix}; \\begin{vmatrix} 1 & 3 \\\\ 1 & -1 \\end{vmatrix}\\right) = (2; -2; -4) // (1; -1; -2) = \\vec{u}$<br><br>Vậy $(Q)$ nhận $\\vec{u}, \\overrightarrow{AB}$ làm cặp véc tơ chỉ phương<br><br>$\\Rightarrow \\vec{n}_Q = \\left[\\vec{u}, \\overrightarrow{AB}\\right] = \\left(\\begin{vmatrix} -1 & -2 \\\\ 3 & -1 \\end{vmatrix}; \\begin{vmatrix} -2 & 1 \\\\ -1 & 1 \\end{vmatrix}; \\begin{vmatrix} 1 & -1 \\\\ 1 & 3 \\end{vmatrix}\\right) = (7; -1; 4)$<br><br>Mặt khác $A \\in Q \\Rightarrow (Q): 7(x - 1) - (y - 3) + 4(z + 1) = 0$ hay $(Q): 7x - y + 4z - 9 = 0$<br><br>Theo đề bài $Q: ax + by + cz + d = 0 \\Rightarrow a = 7; b = 1; c = 4; d = -9 \\Rightarrow a + b + c + d = 3$"
+  },
+  {
+    "id": "67",
+    "title": "Câu 67",
+    "type": "short_answer",
+    "text": "Một chiếc thuyền đang chuyển động đều với vận tốc 10 m/s theo hướng từ Nam lên Bắc trên mặt hồ. Trên cây cầu nằm cách mặt hồ 20m theo phương thẳng đứng, có một chiếc ô tô chuyển động đều với vận tốc 20m/s theo hướng từ Tây sang Đông.\n\n\n\nNhư hình vẽ, tại thời điểm hiện tại, thuyền ở vị trí cách điểm P (nằm dưới cầu) 40 m theo phương Nam, còn ô tô ở vị trí cách Q (trên cầu) 30 m theo phương Tây.\n\n(Bỏ qua kích thước của thuyền và ô tô; đoạn thẳng PQ luôn vuông góc với hướng chuyển động của cả thuyền và ô tô)\n\nHỏi: Khoảng cách giữa thuyền và ô tô đạt giá trị nhỏ nhất bằng bao nhiêu mét?",
+    "image": "data/im/PTDT6-30.png",
+    "correct": "30",
+    "solution": "Chọn hệ tọa độ như sau trên mặt phẳng ngang (trục $x$ hướng Đông, trục $y$ hướng Bắc, gốc $O$ tại điểm $P$ ngay trên mặt nước, bên dưới điểm $Q$ trên cầu):<br><br>- Điểm $B_1$ là vị trí thuyền lúc $t = 0$ có tọa độ $(0; -40; 0)$ vì thuyền cách $P$ $40\\text{ m}$ theo phương Nam<br><br>- Điểm $C_1$ vị trí ô tô lúc $t = 0$ có tọa độ $(-30; 0; 20)$ vì ô tô cách $Q$ $30\\text{ m}$ về phía Tây và cao 20m so với mặt nước.<br><br>Khi $t$ giây trôi qua:<br><br>- Thuyền đi lên Bắc với vận tốc $10\\text{ m/s} \\Rightarrow$ vị trí $B(t) = (0; -40 + 10t; 0)$<br><br>- Ô tô chạy về Đông với vận tốc $20\\text{ m/s} \\Rightarrow$ vị trí $C(t) = (-30 + 20t; 0; 20)$.<br><br>Khoảng cách bình phương giữa thuyền và ô tô là<br><br>$D^2(t) = (x_C - x_B)^2 + (y_C - y_B)^2 + (z_C - z_B)^2 = (-30 + 20t)^2 + (0 - (-40 + 10t))^2 + (20 - 0)^2$.<br><br>Do đó $D^2(t) = 400t^2 - 1200t + 900 + 100t^2 - 800t + 1600 + 400 = 500t^2 - 2000t + 2900$.<br><br>Hàm $D^2(t)$ là hàm bậc hai nên đạt cực tiểu tại $t_0 = \\frac{-(-2000)}{2 \\cdot 500} = \\frac{2000}{1000} = 2$ (giây).<br><br>Giá trị nhỏ nhất:<br><br>$D_{\\min}^2 = 500 \\cdot (2)^2 - 2000 \\cdot 2 + 2900 = 2000 - 4000 + 2900 = 900 \\rightarrow D_{\\min} = \\sqrt{900} = 30 (\\text{m})$.<br><br>Vậy khoảng cách nhỏ nhất là 30m."
+  },
+  {
+    "id": "68",
+    "title": "Câu 68",
+    "type": "short_answer",
+    "text": "Một cây cầu được thiết kế theo dạng parabol đối xứng, bắc ngang con sông. Trong đó:\n- Dòng sông chảy theo trục $Ox$, mặt nước sông nằm trong mặt phẳng $z = 0$,\n- Cầu nằm trong mặt phẳng $yOz$, nối từ: $A(0; -5; 0)$ (bờ trái sông) đến $B(0; 5; 0)$ (bờ phải sông)\n- Cầu có dạng parabol đối xứng qua trục $Oz$, với đỉnh tại $H(0; 0; h)$\n\n\n\nTrên sông có tàu container cao 6 mét, thân tàu rộng 4 mét và cần ít nhất 1 mét khoảng trống chiều cao an toàn, tức yêu cầu chiều cao cầu tối thiểu là 7 mét tại đoạn giữa sông từ $y = -2$ đến $y = 2$. Tìm giá trị nhỏ nhất của $h$ để đảm bảo chiều cao cầu từ $y = -2$ đến $y = 2$ luôn lớn hơn hoặc bằng 7 (làm tròn kết quả đến hàng phần trăm)",
+    "image": "data/im/PTDT6-31.png",
+    "correct": "8,33",
+    "solution": "\\noteImage{data/im/PTDT6-36.png}<br><br>Vì cầu nằm trong mặt phẳng $yOz$, ta xét phương trình: $z = ay^2 + by + c$<br><br>Do parabol đối xứng qua trục $Oz$, nên $b = 0 \\Rightarrow z = ay^2 + h$ (*)<br><br>Vì cầu đi qua hai điểm: $A(0; -5; 0), B(0; 5; 0)$<br><br>Thay vào phương trình (*), ta được: $\\begin{cases} 0 = a(-5)^2 + h = 25a + h \\\\ 0 = a(5)^2 + h = 25a + h \\end{cases} \\Rightarrow 25a + h = 0 \\Rightarrow a = -\\frac{h}{25}$<br><br>Suy ra $z = -\\frac{h}{25}y^2 + h$<br><br>Để tàu đi qua được cầu thì: $z(y) = -\\frac{h}{25}y^2 + h \\ge 7$ với $y \\in [-2; 2]$<br><br>Vì $z(y)$ đạt giá trị nhỏ nhất tại $y = \\pm 2 \\Rightarrow z_{\\min} = -\\frac{h}{25} \\cdot 4 + h = \\frac{21h}{25}$<br><br>Hay $\\frac{21h}{25} \\ge 7 \\Rightarrow h \\ge \\frac{7 \\cdot 25}{21} = \\frac{175}{21} \\Rightarrow h \\ge \\frac{175}{21} \\approx 8,33 (\\text{m})$"
+  },
+  {
+    "id": "69",
+    "title": "Câu 69",
+    "type": "short_answer",
+    "text": "Một vùng núi được mô phỏng bằng mặt phẳng địa hình: $(P): x + 2y - z = 0$\n\nMột người bị nạn đang đứng tại điểm $B(2; 1; 6)$ không nằm trên mặt đất, mà đứng trên một mỏm đá cao.\n\nMột trực thăng xuất phát từ căn cứ tại điểm $H(1082; -809; 1624)$, bay theo đường thẳng hướng đến người bị nạn. Tuy nhiên, để đảm bảo an toàn, trực thăng chỉ được phép dừng lại tại một điểm $M$ trên đường bay, sao cho: $M$ cách mặt phẳng địa hình $(P)$ đúng 2 mét. Sau đó từ điểm $M$ (trong đó hoành độ, tung độ và cao độ được làm tròn đến hàng phần trăm), trực thăng thả cáp cứu hộ hỗ trợ người bị nạn\n\n\n\nHãy tính độ dài đoạn bay từ căn cứ $H$ đến điểm tiếp cận $M$ (làm tròn kết quả đến hàng đơn vị).",
+    "image": "data/im/PTDT6-32.png",
+    "correct": "2104",
+    "solution": "Ta có: $\\vec{u} = \\overrightarrow{HB} = (2 - 1082; 1 + 809; 6 - 1624) = (-1080; 810; -1618)$<br><br>Phương trình tham số của đường thẳng: $\\begin{cases} x = 1082 - 1080t \\\\ y = -809 + 810t \\\\ z = 1624 - 1618t \\end{cases} t \\in \\mathbb{R}$<br><br>Công thức khoảng cách từ điểm $M(x, y, z)$ đến mặt phẳng $x + 2y - z = 0$:<br><br>$d = \\frac{|x + 2y - z|}{\\sqrt{1^2 + 2^2 + (-1)^2}} = \\frac{|x + 2y - z|}{\\sqrt{6}} = 2 \\Rightarrow |x + 2y - z| = 2\\sqrt{6}$<br><br>Thay tọa độ điểm $M \\in d: x + 2y - z = (1082 - 1080t) + 2(-809 + 810t) - (1624 - 1618t)$<br><br>$= 1082 - 1080t - 1618 + 1620t - 1624 + 1618t = -2160 + 2158t$<br><br>$\\rightarrow |2158t - 2160| = 2\\sqrt{6} \\Rightarrow 2158t - 2160 = \\pm 2\\sqrt{6} \\Rightarrow t = \\frac{2160 \\pm 2\\sqrt{6}}{2158}$<br><br>Chọn nghiệm nhỏ hơn (vì $M$ nằm giữa $H$ và $B$): $t = \\frac{2160 - 2\\sqrt{6}}{2158}$<br><br>Tại đây ta tìm được tọa độ điểm đã được làm tròn đến hàng phần trăm là: $M(3,45; -0,09; 8,17)$<br><br>Suy ra: $HM \\approx 2104$"
+  },
+  {
+    "id": "70",
+    "title": "Câu 70",
+    "type": "short_answer",
+    "text": "Một nhà máy cần nối một đường ống nước thẳng từ bồn chứa tại điểm $A(0; 0; 0)$ đến máy xử lý đặt tại điểm $B(4; 3; 1)$. Do địa hình bị chắn giữa hai điểm, đường ống bắt buộc phải đi qua một điểm $M$ nằm trên mặt phẳng: $(P): x + y + z = 9$ rồi mới đến điểm $B$.\n\n\n\nBiết rằng hệ trục tọa độ $Oxyz$ được gắn trong mô hình nhà máy với mỗi đơn vị tương ứng 1 mét. Hỏi chiều dài ống nước nhỏ nhất mà nhà máy cần nối bằng bao nhiêu mét?",
+    "image": "data/im/PTDT6-33.png",
+    "correct": "6,16",
+    "solution": "Tổng độ dài hai đoạn thẳng $AM + MB$ là ngắn nhất khi điểm $M$ nằm trên đường thẳng $AB'$, với $B'$ là điểm đối xứng của $B$ qua mặt phẳng $(P)$.<br><br>\\noteImage{data/im/PTDT6-39.png}<br><br>Gọi $B'$ là điểm đối xứng của $B$ qua mặt phẳng $(P)$.<br><br>Khi đó toạ độ điểm $B'$ là: $(4; 3; 1) + \\frac{2}{3}(1; 1; 1) = \\left(\\frac{14}{3}; \\frac{11}{3}; \\frac{5}{3}\\right)$<br><br>Ta có: $AB': \\begin{cases} x = \\frac{14}{3}t \\\\ y = \\frac{11}{3}t \\\\ z = \\frac{5}{3}t \\end{cases}$, gọi $M \\in AB' \\Rightarrow M\\left(\\frac{14}{3}t; \\frac{11}{3}t; \\frac{5}{3}t\\right)$, vì $M \\in P$ nên<br><br>$\\frac{14t}{3} + \\frac{11t}{3} + \\frac{5t}{3} = 9 \\Rightarrow t = \\frac{9}{10}$. Vậy $M\\left(\\frac{21}{5}; \\frac{33}{10}; \\frac{3}{2}\\right)$<br><br>Khi đó: $AM = \\sqrt{\\frac{3078}{100}}; BM = \\sqrt{\\frac{38}{100}}$ ta có: $\\sqrt{\\frac{3078}{100}} + \\sqrt{\\frac{38}{100}} \\approx 6,16 (\\text{m})$"
+  }
+]

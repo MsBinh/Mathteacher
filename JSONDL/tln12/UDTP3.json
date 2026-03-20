@@ -1,0 +1,758 @@
+[
+  {
+    "id": "1",
+    "title": "Câu 1",
+    "type": "short_answer",
+    "text": "(Đề Tham Khảo 2025) Kiến trúc sư thiết kế một khu sinh hoạt cộng đồng có dạng hình chữ nhật với chiều rộng và chiều dài lần lượt là $60\\text{m}$ và $80\\text{m}$. Trong đó, phần được tô màu đậm là sân chơi, phần còn lại để trồng hoa. Mỗi phần trồng hoa có đường biên cong là một phần của parabol với đỉnh thuộc một trục đối xứng của hình chữ nhật và khoảng cách từ đỉnh đó đến trung điểm cạnh tương ứng của hình chữ nhật bằng $20\\text{m}$ (xem hình minh họa). Diện tích của phần sân chơi là bao nhiêu mét vuông?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-1.png}",
+    "image": "",
+    "correct": "3200",
+    "solution": "Đặt hệ trục tọa độ $Oxy$ như hình vẽ.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-2.png}<br>Nhận thấy hai phần trồng hoa dạng đường parabol có diện tích như nhau. Vậy ta xét đường parabol ở bồn hoa phía dưới có dạng $(P): y = ax^2 + bx + c$ với $a \\neq 0$.<br>Ta có đồ thị $(P)$ đi qua ba điểm là $O(0;0), I(30;20)$ và $A(60;0)$. Thay vào ta thu được hệ phương trình<br>$$ \\begin{cases} c = 0 \\\\ 900a + 30b + c = 20 \\\\ 3600a + 60b + c = 0 \\end{cases} \\Leftrightarrow \\begin{cases} a = -\\frac{1}{45} \\\\ b = \\frac{4}{3} \\\\ c = 0 \\end{cases} $$<br>Như vậy, ta có phương trình parabol đó là $y = -\\frac{1}{45}x^2 + \\frac{4}{3}x$ và diện tích của phần trồng hoa phía dưới là<br>$$ S_{\\text{hoa}} = \\int\\limits_0^{60} \\left| -\\frac{1}{45}x^2 + \\frac{4}{3}x \\right| \\mathrm{\\,d}x = \\int\\limits_0^{60} \\left( -\\frac{1}{45}x^2 + \\frac{4}{3}x \\right) \\mathrm{\\,d}x = 800 \\, (\\text{m}^2). $$<br>Khi đó, diện tích của phần sân chơi là $S = 60 \\cdot 80 - 2S_{\\text{hoa}} = 3200 \\, (\\text{m}^2)$.<br>\\shortans{3200}"
+  },
+  {
+    "id": "2",
+    "title": "Câu 2",
+    "type": "short_answer",
+    "text": "(Sở Hưng Yên 2025) Người ta lát gạch trang trí một mảnh sân hình chữ nhật có kích thước $14\\text{m} \\times 12\\text{m}$ như hình vẽ bên dưới, trong đó $(P_1), (P_2)$ là hai parabol đối xứng trục với nhau qua trục đối xứng vuông góc với chiều dài của mảnh sân, $(C)$ là đường tròn có tâm trùng với tâm của mảnh sân và lần lượt có duy nhất một điểm chung với các parabol đó (tham khảo hình vẽ biết phần gạch đậm là phần lát gạch). Chi phí cho phần lát gạch là $240$ nghìn đồng một mét vuông. Trong trường hợp hình tròn $(C)$ có diện tích lớn nhất thì chi phí lát gạch là bao nhiêu triệu đồng? (kết quả làm tròn tới hàng phần chục).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-2.png}",
+    "image": "",
+    "correct": "5361",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ như hình vẽ với $M(0; m) (m < 0)$ là đỉnh của parabol $P_1$.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-4.png}<br>Khi đó $P_1: y = \\frac{7 - m}{36}x^2 + m$ và $(C): x^2 + y^2 = m^2$.<br>Để $P_1, (C)$ có một điểm chung duy nhất thì phương trình sau có nghiệm duy nhất.<br>$$ x^2 + \\left( \\frac{7 - m}{36}x^2 + m \\right)^2 = m^2 \\Leftrightarrow x^2 \\left[ \\left( \\frac{7 - m}{36} \\right)^2 x^2 + \\frac{-m^2 + 7m + 18}{18} \\right] = 0 $$<br>Ycbt $\\Leftrightarrow -m^2 + 7m + 18 \\ge 0 \\Leftrightarrow -2 \\le m \\le 9$<br>Khi đó, bán kính lớn nhất của $(C)$ khi $m = -2 \\Rightarrow r = 2$.<br>Hoành độ giao điểm của $(P_1): y = \\frac{1}{4}x^2 - 2$ và trục hoành là $x = \\pm 2\\sqrt{2}$.<br>Diện tích phần lát gạch là $S = 4 \\int\\limits_{2\\sqrt{2}}^6 \\left( \\frac{1}{4}x^2 - 2 \\right) \\mathrm{\\,d}x + \\pi r^2 = \\frac{18 + 8\\sqrt{2}}{3} + 4\\pi$<br>Số tiền lát gạch là: $240S = 5361$ nghìn đồng.<br>\\shortans{5361}"
+  },
+  {
+    "id": "3",
+    "title": "Câu 3",
+    "type": "short_answer",
+    "text": "(Sở Sóc Trăng 2025) Một viên gạch hoa hình vuông cạnh $4\\text{ dm}$. Người thiết kế đã sử dụng bốn đường parabol có chung đỉnh tại tâm viên gạch để tạo ra bốn cánh hoa (được tô đen như hình vẽ dưới). Giả sử để hoàn thiện sơn và phủ bóng viên gạch thì chi phí phần cánh hoa (màu đen) là $400$ nghìn/$\\text{m}^2$, chi phí phần còn lại (màu trắng) là $300$ nghìn/$\\text{m}^2$. Tính chi phí (đơn vị nghìn đồng) để sơn và phủ bóng cả viên gạch (kết quả làm tròn đến hàng đơn vị).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-3.png}",
+    "image": "",
+    "correct": "53",
+    "solution": "Chọn hệ tọa độ như hình vẽ ($1$ đơn vị trên trục bằng $1\\text{ dm}$), các cánh hoa tạo bởi các đường parabol có phương trình $y = \\frac{x^2}{2}$, $y = -\\frac{x^2}{2}$, $x = -\\frac{y^2}{2}$, $x = \\frac{y^2}{2}$.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-6.png}<br>Diện tích một cánh hoa (nằm trong góc phần tư thứ nhất) bằng diện tích hình phẳng giới hạn bởi hai đồ thị hàm số $y = \\frac{x^2}{2}$, $y = \\sqrt{2x}$ và hai đường thẳng $x = 0$, $x = 2$.<br>Do đó diện tích một cánh hoa bằng: $\\int\\limits_0^2 \\left( \\sqrt{2x} - \\frac{x^2}{2} \\right) \\mathrm{\\,d}x = \\left. \\left( \\frac{2\\sqrt{2}}{3} \\sqrt{x^3} - \\frac{x^3}{6} \\right) \\right|_0^2 = \\frac{4}{3} \\, (\\text{dm}^2)$<br>Suy ra diện tích phần cánh hoa được tô đen là $\\frac{4}{3} \\cdot 4 = \\frac{16}{3} \\, (\\text{dm}^2) = \\frac{4}{75} \\, (\\text{m}^2)$<br>Diện tích phần màu trắng còn lại là: $4 \\cdot 4 - \\frac{16}{3} = \\frac{32}{3} \\, (\\text{dm}^2) = \\frac{8}{75} \\, (\\text{m}^2)$<br>Số tiền cần dùng là: $\\frac{4}{75} \\cdot 400 + \\frac{8}{75} \\cdot 300 = \\frac{160}{3} \\approx 53$ nghìn đồng.<br>\\shortans{53}"
+  },
+  {
+    "id": "4",
+    "title": "Câu 4",
+    "type": "short_answer",
+    "text": "(Sở Trà Vinh 2025) Khu vực trung tâm một quảng trường (xem hình vẽ bên dưới) có dạng hình tròn đường kính $AB$ bằng $12\\text{m}$. Người ta trang trí khu vực này bằng hai đường parabol đối xứng nhau qua $AB$, nằm trong hình tròn, đi qua các điểm $A, B$, và có đỉnh cách mép hình tròn $1\\text{m}$. Phần giới hạn bởi 2 parabol được trồng hoa với chi phí $300$ nghìn đồng mỗi mét vuông, phần còn lại được lát gốm sứ với chi phí $900$ nghìn đồng mỗi mét vuông. Tổng chi phí để hoàn thành khu vực này là bao nhiêu triệu đồng? (làm tròn kết quả đến hàng đơn vị).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-4.png}",
+    "image": "",
+    "correct": "54",
+    "solution": "Ta có diện tích phần parabol giới hạn bởi parabol đi qua $A, I, B$ và đường thẳng $AB$ bằng $\\frac{2}{3} AB \\cdot OI = \\frac{2}{3} \\cdot 12 \\cdot 5 = 40 \\, (\\text{m}^2)$. Do đó diện tích phần trồng hoa bằng $40 \\cdot 2 = 80 \\, (\\text{m}^2)$.<br>Suy ra diện tích phần lát gốm sứ bằng $\\pi \\cdot 6^2 - 80 = 36\\pi - 80 \\, (\\text{m}^2)$.<br>Vậy tổng chi phí bằng $80 \\cdot 0,3 + 0,9 \\cdot (36\\pi - 80) \\approx 53,7876$ (triệu đồng)<br>\\shortans{54}"
+  },
+  {
+    "id": "5",
+    "title": "Câu 5",
+    "type": "short_answer",
+    "text": "(Sở Sơn La 2025) Để tham gia lễ hội hóa trang, Bạn An dự định làm một chiếc mặt nạ nửa mặt bằng chất liệu giấy cứng. Hình dạng của chiếc mặt nạ được bạn thiết kế trên mặt phẳng tọa độ $Oxy$ là phần hình phẳng giới hạn bởi hai đường parabol $(P_1), (P_2)$ lần lượt có đỉnh là gốc tọa độ $O$ và điểm $I(0;12)$, cùng nhận trục $Oy$ làm trục đối xứng và cùng đi qua điểm $M(15;18)$. Mỗi đơn vị trên các trục tọa độ có độ dài $1\\text{cm}$. Sau đó, bạn vẽ hai hình thoi bằng nhau có độ dài các đường chéo là $2\\sqrt{2}\\text{ cm}$ và $4\\sqrt{2}\\text{ cm}$ để khoét làm mắt (minh họa như hình vẽ dưới đây)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-5.png}\nCông đoạn cuối cùng là tô màu xám cho một mặt của mặt nạ. Tính diện tích cần tô màu theo đơn vị $\\text{cm}^2$.",
+    "image": "",
+    "correct": "224",
+    "solution": "Gọi parabol có đỉnh $O$ có phương trình là $y = ax^2 \\, (a > 0)$, ta có parabol đi qua điểm $M(15;18)$ nên ta có $15^2 a = 18 \\Leftrightarrow a = \\frac{18}{225}$, phương trình parabol là $y = \\frac{18}{225}x^2$.<br>Gọi parabol có đỉnh là $I$ có phương trình dạng $y = bx^2 + 12$, parabol đi qua điểm $M$ nên ta có phương trình $15^2 b + 12 = 18 \\Leftrightarrow b = \\frac{6}{225}$, phương trình parabol là $y = \\frac{6}{225}x^2 + 12$.<br>Diện tích mặt nạ là $S_1 = 2 \\int\\limits_0^{15} \\left[ \\left( \\frac{6}{225}x^2 + 12 \\right) - \\frac{18}{225}x^2 \\right] \\mathrm{\\,d}x = 240 \\, (\\text{cm}^2)$<br>Diện tích hai hình thoi làm mắt là $S_2 = 2 \\cdot \\frac{1}{2} \\cdot 2\\sqrt{2} \\cdot 4\\sqrt{2} = 16 \\, (\\text{cm}^2)$.<br>Diện tích cần sơn mặt nạ là $S = S_1 - S_2 = 240 - 16 = 224 \\, (\\text{cm}^2)$.<br>\\shortans{224}"
+  },
+  {
+    "id": "6",
+    "title": "Câu 6",
+    "type": "short_answer",
+    "text": "(Sở Ninh Bình 2025) Một khu vườn hình elip $(E)$ có độ dài trục lớn bằng $10\\text{m}$ và trục nhỏ bằng $8\\text{m}$ (như hình vẽ). Khu vực $A$ để trồng hoa; khu vực $B$ để trồng cỏ, là nửa hình tròn có tâm là một tiêu điểm của elip $(E)$ bán kính bằng $1\\text{m}$ còn lại là khu vực $C$ (phần tô đậm) người ta lát gạch.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-6.png}\nDiện tích phần lát gạch bằng bao nhiêu $\\text{m}^2$ (kết quả làm tròn đến hàng phần trăm)",
+    "image": "",
+    "correct": "7,38",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ sao cho $(E)$ có trục lớn nằm trên trục hoành và trục nhỏ nằm trên trục tung. Khi đó $(E): \\frac{x^2}{25} + \\frac{y^2}{16} = 1 \\Rightarrow y^2 = \\frac{16}{25}(25 - x^2)$<br>Diện tích của phần $B$ là $S_1 = \\frac{\\pi}{2} \\, (\\text{m}^2)$<br>Diện tích của phần $C$ là $S = \\frac{8}{5} \\int\\limits_3^5 \\sqrt{25 - x^2} \\mathrm{\\,d}x - S_1 \\approx 7,38 \\, (\\text{m}^2)$.<br>\\shortans{7,38}"
+  },
+  {
+    "id": "7",
+    "title": "Câu 7",
+    "type": "short_answer",
+    "text": "(Sở Nghệ An 2025) Một công ty thuê thợ vẽ logo công ty như hình vẽ lên một bức tường lớn. Logo có dạng là một bông hoa có 6 cánh hoa giống nhau, sắp xếp cách đều như hình vẽ.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-7.png}\nĐể chính xác hóa kích thước và hình dạng như hình vẽ, mỗi cánh hoa được thiết kế như sau: Trong mặt phẳng $Oxy$ (một đơn vị ứng với 1 mét trên thực tế), một cánh hoa được xem là một hình phẳng giới hạn bởi đồ thị hàm số bậc ba $y = \\frac{(x - 3)^3}{27} + 1 \\, (C)$ và một đường parabol $(P): y = ax^2 + bx + c \\, (a \\neq 0)$. $(C)$ và $(P)$ cắt nhau tại hai điểm $O(0; 0), M(6; 2)$ và $(P)$ đi qua điểm $N(3; 0)$. Biết rằng chi phí vẽ logo nói trên được tính dựa trên mỗi mét vuông cánh hoa được vẽ, mỗi mét vuông được báo giá là $210$ nghìn đồng.\nHãy tính chi phí vẽ logo đó (đơn vị: nghìn đồng, làm tròn kết quả đến hàng đơn vị).",
+    "image": "",
+    "correct": "5040",
+    "solution": "$(P)$ đi qua điểm $O(0; 0)$ nên $c = 0$<br>$(P)$ đi qua 2 điểm $M(6; 2)$ và $N(3; 0)$ nên ta có hệ phương trình $\\begin{cases} 36a + 6b = 2 \\\\ 9a + 3b = 0 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{1}{9} \\\\ b = -\\frac{1}{3} \\end{cases}$<br>Suy ra: $(P): y = \\frac{1}{9}x^2 - \\frac{1}{3}x$<br>Khi đó, diện tích của logo là $S = 6 \\int\\limits_0^6 \\left( \\frac{(x - 3)^3}{27} + 1 - \\left( \\frac{1}{9}x^2 - \\frac{1}{3}x \\right) \\right) \\mathrm{\\,d}x = 24$<br>Chi phí vẽ logo là $24 \\cdot 210 = 5040$ (nghìn đồng)<br>\\shortans{5040}"
+  },
+  {
+    "id": "8",
+    "title": "Câu 8",
+    "type": "short_answer",
+    "text": "(Sở Hải Dương 2025) Sân trường có một bồn hoa hình tròn tâm $O$. Một nhóm học sinh lớp 12 được giao thiết kế bồn hoa, nhóm này định chia bồn hoa thành bốn phần bởi hai đường parabol có cùng đỉnh $O$ và đối xứng nhau qua $O$. Hai đường parabol này cắt đường tròn tại bốn điểm $A; B; C; D$ tạo thành một hình vuông có cạnh bằng $4\\text{ m}$ (như hình vẽ). Phần diện tích $S_1; S_2$ dùng để trồng hoa, phần diện tích $S_3; S_4$ dùng để trồng cỏ. Biết kinh phí trồng hoa là $150.000$ đồng/$\\text{m}^2$, kinh phí để trồng cỏ là $100.000$ đồng/$\\text{m}^2$. Hỏi nhà trường cần bao nhiêu triệu đồng để trồng bồn hoa đó? (kết quả làm tròn đến hàng phần trăm)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-8.png}",
+    "image": "",
+    "correct": "3,27",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-12.png}<br>Chọn hệ trục tọa độ như hình vẽ. Vì hình vuông $ABCD$ có cạnh bằng $4 \\Rightarrow AC = 4\\sqrt{2} \\Rightarrow OA = \\frac{AC}{2} = 2\\sqrt{2}$<br>Do đó phương trình đường tròn tâm $O$ bán kính $2\\sqrt{2}$ là $x^2 + y^2 = 8$.<br>Gọi phương trình parabol đi qua $O, A, B$ là $y = ax^2 + bx + c$<br>Parabol đi qua $O(0;0) \\Rightarrow c = 0$<br>Parabol đi qua $A(-2;2) \\Rightarrow 4a - 2b = 2$<br>Parabol đi qua $B(2;2) \\Rightarrow 4a + 2b = 2$. Do đó $a = \\frac{1}{2}; b = 0 \\Rightarrow y = \\frac{1}{2}x^2$<br>Diện tích $S_1 = \\int\\limits_{-2}^2 \\left( \\sqrt{8 - x^2} - \\frac{1}{2}x^2 \\right) \\mathrm{\\,d}x \\approx 7,6165$.<br>Tổng diện tích $S_3 + S_4 = \\pi R^2 - (S_1 + S_2) \\approx 9,8997$.<br>Do đó tổng số tiền là $0,15 \\cdot 2S_1 + 0,1 \\cdot (S_3 + S_4) \\approx 3,27$ (triệu đồng)<br>\\shortans{3,27}"
+  },
+  {
+    "id": "9",
+    "title": "Câu 9",
+    "type": "short_answer",
+    "text": "(Sở Lạng Sơn 2025) Cổng chính nhà bác Bình có 2 cánh cửa kẽm, sơn tĩnh điện, bằng nhau và có hoạ tiết giống hệt nhau. Khi khép cửa tạo ra một đường khép kín $ABGCDEFA$ (như hình ảnh dưới).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-9.png}\nBiết $AF = DE = 2,4 \\, (\\text{m}); AB = CD = 0,5 \\, (\\text{m}); OG = 3 \\, (\\text{m})$, $O$ là trung điểm của $EF$, đường cong $BGC$ là cung tròn có bán kính bằng $OG$ ($G$ là trung điểm cung $BC$). Do đã sử dụng lâu năm nên lớp sơn tĩnh điện đã bị xuống cấp. Bác Bình muốn sơn mới lại cửa, giá thành để sơn mới lại cửa là $300$ nghìn đồng trên một $\\text{m}^2$ diện tích cửa. Hỏi bác Bình phải trả khoản tiền bằng bao nhiêu triệu đồng (kết quả được làm tròn đến hàng phần trăm).",
+    "image": "",
+    "correct": "3,75",
+    "solution": "Dựng hệ trục toạ độ như hình vẽ<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-14.png}<br>Ta có $OH = AF = 2,4$ và $OB = OC = OG = 3$<br>$\\Rightarrow CH = BH = \\sqrt{OB^2 - OH^2} = \\sqrt{3^2 - 2,4^2} = 1,8$<br>$\\Rightarrow HA = HD = HC + CD = 1,8 + 0,5 = 2,3$<br>$\\Rightarrow AD = 4,6$<br>Diện tích hình chữ nhật $ADEF$ là $S_1 = AD \\cdot AF = 4,6 \\times 2,4 = 11,04 \\, (\\text{m}^2)$.<br>Toạ độ các điểm $B(-1,8; 2,4)$ và $C(1,8; 2,4) \\Rightarrow$ Phương trình đường thẳng $BC: y = 2,4$<br>Phương trình đường tròn tâm $O$, bán kính $OG = 3$: $x^2 + y^2 = 9$.<br>$\\Rightarrow$ Phương trình của cung tròn $\\overset{\\frown}{BGC}: y = \\sqrt{9 - x^2}$.<br>Diện tích hình phẳng giới hạn bởi cung $\\overset{\\frown}{BGC}$ và dây $BC$ là $S_2 = \\int\\limits_{-1,8}^{1,8} \\left( \\sqrt{9 - x^2} - 2,4 \\right) \\mathrm{\\,d}x$<br>Chi phí sơn: $(S_1 + S_2) \\cdot 0,3 \\approx 3,75$ (triệu đồng).<br>\\shortans{3,75}"
+  },
+  {
+    "id": "10",
+    "title": "Câu 10",
+    "type": "short_answer",
+    "text": "(Sở Cà Mau 2025) Hình vẽ bên dưới minh họa mặt cắt đứng của mặt trước một ngôi nhà có dạng hình chữ nhật $5\\text{ m} \\times 5,5\\text{ m}$ với các kích thước được cho như trong hình bên dưới. Phần tô đậm trong hình vẽ ứng với phần kính được lắp đặt, phần còn lại lót gạch men. Phần lắp kính được chia làm 2 miền $(H_1)$ và $(H_2)$, trong đó miền $(H_1)$ có đường biên cong là một phần của parabol. Chi phí lắp kính là $1,5$ triệu đồng cho $1\\text{ m}^2$ và chi phí lót gạch men là $0,28$ triệu đồng cho $1\\text{ m}^2$. Tổng chi phí cần hoàn thành mặt trước ngôi nhà là bao nhiêu triệu đồng? (làm tròn kết quả đến hàng phần mười).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-11.png}",
+    "image": "",
+    "correct": "36,6",
+    "solution": "Diện tích miền $(H_1)$ bằng $S_1 = \\frac{2}{3} \\cdot 5 \\cdot 2 = \\frac{20}{3} \\, (\\text{m}^2)$<br>Diện tích miền $(H_2)$ bằng $S_2 = 5 \\cdot 2,5 = 12,5 \\, (\\text{m}^2)$<br>Chi phí lắp kính bằng $1,8 \\cdot \\left( \\frac{20}{3} + 12,5 \\right) = \\frac{69}{2}$ (triệu đồng)<br>Chi phí lát gạch men bằng $0,25 \\cdot \\left( 5 \\cdot 5,5 - 12,5 - \\frac{20}{3} \\right) = \\frac{25}{12}$ (triệu đồng)<br>Tổng chi phí bằng $\\frac{69}{2} + \\frac{25}{12} = \\frac{439}{12} \\approx 36,583333$.<br>\\shortans{36,6}"
+  },
+  {
+    "id": "11",
+    "title": "Câu 11",
+    "type": "short_answer",
+    "text": "(Sở Nam Định 2025) Cho ba Parabol $(P_1): y = x^2; (P_2): y = 2x^2; (P_3): y = kx^2$ với $k > 2$. Gọi $P$ là điểm bất kỳ thuộc parabol $(P_2)$ và $S_1, S_2$ là diện tích các miền phẳng $(H_1), (H_2)$ (các miền được gạch chéo trong hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-12.png}\nNếu $S_1 = S_2$ thì giá trị của $k = \\frac{a}{b}$ với $a, b \\in \\mathbb{N}$ và $\\frac{a}{b}$ là phân số tối giản. Tính $a + b$.",
+    "image": "",
+    "correct": "41",
+    "solution": "Gọi $P(x_o; y_o) \\Rightarrow y_o = 2x_o^2$<br>+ Hình phẳng $(H_1)$ giới hạn bởi: $x = 0; x = x_o; (P_1): y = x^2; (P_2): y = 2x^2$<br>$\\Rightarrow diện tích hình phẳng $(H_1)$ là: $S_{(H_1)} = \\int\\limits_0^{x_o} (2x^2 - x^2) \\mathrm{\\,d}x = \\frac{x_o^3}{3}$<br>+ Hình phẳng $(H_2)$ giới hạn bởi: $y = 0; y = 2x_o^2; (P_2): y = 2x^2; (P_3): y = kx^2$<br>$\\Rightarrow diện tích hình phẳng $(H_2)$ là: $S_{(H_2)} = \\int\\limits_0^{2x_o^2} \\left( \\sqrt{\\frac{y}{2}} - \\sqrt{\\frac{y}{k}} \\right) \\mathrm{\\,d}y = \\left. \\left( \\frac{\\sqrt{2}}{3} y\\sqrt{y} - \\frac{2}{3\\sqrt{k}} y\\sqrt{y} \\right) \\right|_0^{2x_o^2}$<br>$= \\left( \\frac{\\sqrt{2}}{3} - \\frac{2}{3\\sqrt{k}} \\right) 2\\sqrt{2} x_o^3$<br>+ Theo giả thiết $S_1 = S_2 \\Rightarrow \\left( \\frac{\\sqrt{2}}{3} - \\frac{2}{3\\sqrt{k}} \\right) 2\\sqrt{2} x_o^3 = \\frac{x_o^3}{3} \\Leftrightarrow 4 - \\frac{4\\sqrt{2}}{\\sqrt{k}} = 1 \\Leftrightarrow \\sqrt{k} = \\frac{4\\sqrt{2}}{3} \\Leftrightarrow k = \\frac{32}{9}$<br>$\\Rightarrow \\begin{cases} a = 32 \\\\ b = 9 \\end{cases} \\Rightarrow a + b = 41$.<br>\\shortans{41}"
+  },
+  {
+    "id": "12",
+    "title": "Câu 12",
+    "type": "short_answer",
+    "text": "(Sở An Giang 2025) Hai hàm số $y = f(x); y = g(x)$ đều là những hàm số bậc hai có đồ thị như hình vẽ bên dưới.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-13.png}\nTính diện tích phần tô đậm (làm tròn đến hai chữ số thập phân).",
+    "image": "",
+    "correct": "5,21",
+    "solution": "Vì hàm số $y = f(x)$ là hàm số bậc hai và đồ thị $y = f(x)$ cắt trục $Ox$ tại các điểm có hoành độ $-1$ và $4$ nên $f(x) = a(x + 1)(x - 4)$.<br>Đồ thị $y = f(x)$ đi qua điểm $(0;3)$ nên $a = \\frac{-3}{4} \\Rightarrow f(x) = -\\frac{3}{4}(x + 1)(x - 4)$<br>Tương tự $g(x) = -\\frac{1}{2}(x + 1)(x - 4)$.<br>Do đó diện tích phần tô đậm bằng $\\int\\limits_{-1}^4 \\left[ \\frac{-3}{4}(x + 1)(x - 4) + \\frac{1}{2}(x + 1)(x - 4) \\right] \\mathrm{\\,d}x = \\frac{125}{24} \\approx 5,21$<br>\\shortans{5,21}"
+  },
+  {
+    "id": "13",
+    "title": "Câu 13",
+    "type": "short_answer",
+    "text": "(Sở Kiên Giang 2025) Một công ty đã đặt hàng việc xây dựng logo doanh nghiệp của mình bằng gỗ và đồng thiết kế theo mẫu bên dưới. Hình tròn sẽ làm bằng gỗ có tâm tại điểm $O(0; 0)$. Phần làm bằng đồng (là phần tô đậm) được giới hạn bởi đồ thị hàm số $y = x^3 - x$ và đường thẳng có phương trình $y = x$. ($1$ đơn vị = $1\\text{m}$).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-15.png}\nBiết rằng $1$ mét vuông tấm đồng có giá $600000$ đồng và không bị hao phí; chi phí nhân công làm phần đồng là $30\\",
+    "image": "",
+    "correct": "4,26",
+    "solution": "Đề nghị sửa bổ sung đơn vị phần đề bài: ($1$ đơn vị = $1\\text{m}$)<br>Ta có: $x^3 - x = x \\Leftrightarrow x^3 - 2x = 0 \\Leftrightarrow \\begin{cases} x = 0 \\\\ x = \\pm \\sqrt{2} \\end{cases}$<br>Diện tích phần đồng là: $S = 2 \\int\\limits_0^{\\sqrt{2}} (2x - x^3) \\mathrm{\\,d}x = 2 \\left. \\left[ x^2 - \\frac{x^4}{4} \\right] \\right|_0^{\\sqrt{2}} = 2$.<br>Số tiền phần đồng là: $600000 \\cdot 2 = 1200000$ đồng.<br>Số tiền nhân công làm phần đồng là: $1200000 \\cdot 30\\<br>Tổng số tiền công ty phải trả là:<br>$1200000 + 360000 + 2700000 = 4260000$ đồng $= 4,26$ triệu đồng.<br>\\shortans{4,26}"
+  },
+  {
+    "id": "14",
+    "title": "Câu 14",
+    "type": "short_answer",
+    "text": "(Sở Thái Bình 2025) Trong hình vẽ dưới đây, đoạn $AD$ được chia làm 3 bởi các điểm $B$ và $C$ sao cho $AB = BC = CD = 2$. Ba nửa đường tròn có bán kính bằng 1 là $\\overset{\\frown}{AEB}, \\overset{\\frown}{BFC}$ và $\\overset{\\frown}{CGD}$ có đường kính tương ứng là $AB, BC$ và $CD$. Các điểm $E, F, G$ lần lượt là tiếp điểm của tiếp tuyến chung $EG$ với 3 nửa đường tròn. Một đường tròn tâm $F$, bán kính bằng 2. Diện tích miền bên trong đường tròn tâm $F$ và bên ngoài 3 nửa đường tròn (miền tô đậm) bằng bao nhiêu? (kết quả làm tròn đến hàng phần mười).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-16.png}",
+    "image": "",
+    "correct": "9,6",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-23.png}<br>Diện tích hình tròn tâm $F$, bán bán kính bằng 2 là $S_F = \\pi \\cdot 2^2 = 4\\pi$.<br>Diện tích nửa hình tròn bán kính bằng 1 là $S_N = \\frac{1}{2} \\cdot \\pi \\cdot 1^2 = \\frac{\\pi}{2}$.<br>Diện tích góc phần tư $IBE$ là $S_I = \\frac{1}{4} \\pi \\cdot 1^2 = \\frac{\\pi}{4}$.<br>Dựng hệ trục toạ độ $Oxy$ như hình vẽ.<br>Toạ độ các điểm $F(0;1), I(-2;0)$.<br>Phương trình đường tròn tâm $F$, bán kính bằng 2 là $x^2 + (y - 1)^2 = 4$.<br>$\\Rightarrow$ Cung nhỏ $\\overset{\\frown}{EK}$ nằm trên đồ thị $y = 1 - \\sqrt{4 - x^2}$.<br>Hoành độ giao điểm $K$ là nghiệm của phương trình $1 - \\sqrt{4 - x^2} = 0, (x < 0)$.<br>Ta có $1 - \\sqrt{4 - x^2} = 0 \\Leftrightarrow 4 - x^2 = 1 \\Rightarrow x = -\\sqrt{3}$ (vì $x < 0$).<br>Diện tích tam giác cong $IEK$ là $S_C = \\int\\limits_{-2}^{-\\sqrt{3}} \\left( 1 - \\sqrt{4 - x^2} \\right) \\mathrm{\\,d}x$.<br>Diện tích miền tô đậm trong hình là:<br>$S = S_F - S_N - 2(S_I - S_C) = 4\\pi - \\frac{\\pi}{2} - 2 \\left( \\frac{\\pi}{4} - \\int\\limits_{-2}^{-\\sqrt{3}} \\left( 1 - \\sqrt{4 - x^2} \\right) \\mathrm{\\,d}x \\right) \\approx 9,6$.<br>\\shortans{9,6}"
+  },
+  {
+    "id": "15",
+    "title": "Câu 15",
+    "type": "short_answer",
+    "text": "(Cụm trường Nam Định 2025) Ông A có mảnh đất hình chữ nhật chiều dài $16\\text{m}$, chiều rộng $6\\text{m}$. Ông A muốn thiết kế mảnh đất đó thành ba phần bởi đường cong hypebol (như hình vẽ). Ông A dự định trồng hoa ở hai phần đất được giới hạn bởi đường cong hypebol và chiều dài mảnh đất, phần đất còn lại ông lát đá. Biết chi phí trồng hoa là $150.000$ đồng/$\\text{m}^2$ và lát đá là $300.000$ đồng/$\\text{m}^2$. Tính chi phí mà ông A bỏ ra để hoàn thành dự định của mình, (đơn vị triệu đồng, kết quả làm tròn đến hàng phần chục).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-17.png}",
+    "image": "",
+    "correct": "23,1",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-25.png}<br>Chọn hệ toạ độ $Oxy$ như hình vẽ, đơn vị trên hệ trục là mét.<br>Khi đó, hypebol có phương trình chính tắc là $\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1, (a > 0, b > 0)$.<br>Ta thấy hypebol đi qua hai điểm $P(1; 0), D(3; 8)$ nên $\\frac{1^2}{a^2} - \\frac{0^2}{b^2} = 1; \\frac{3^2}{a^2} - \\frac{8^2}{b^2} = 1 \\Rightarrow a^2 = 1; b^2 = 8$.<br>Vậy phương trình hypebol là $\\frac{x^2}{1} - \\frac{y^2}{8} = 1 \\Rightarrow y = \\pm \\sqrt{8x^2 - 8}$<br>Diện tích mảnh đất hình chữ nhật $ABCD$ là $S = 6 \\cdot 16 = 96\\text{m}^2$<br>Diện tích trồng hoa (hai phần đất được giới hạn bởi đường cong hypebol và chiều dài mảnh đất) là $S_1 = 4 \\int\\limits_1^3 \\sqrt{8x^2 - 8} \\mathrm{\\,d}x \\approx 38\\text{m}^2$<br>Diện tích phần lát đá là $S_2 = S - S_1 \\approx 58\\text{m}^2$<br>Tổng chi phí mà ông A bỏ ra để hoàn thành dự định của mình là<br>$0,15 \\cdot S_1 + 0,3 \\cdot S_2 \\approx 23,1$ triệu đồng.<br>Kết quả làm tròn đến hàng phần chục là $23,1$ triệu<br>\\shortans{23,1}"
+  },
+  {
+    "id": "16",
+    "title": "Câu 16",
+    "type": "short_answer",
+    "text": "(Chuyên Phan Bội Châu - Nghệ An 2025) Một nghệ sĩ đang thực hiện vẽ tranh tường 3D nghệ thuật để trang trí nội thất. Mỗi bức tranh gồm một hình lục giác đều có cạnh bằng $30\\text{ cm}$, trên mỗi cạnh của hình lục giác đều có một cánh hoa hình parabol, đỉnh của parabol cách cạnh lục giác đều $30\\text{ cm}$ và nằm phía ngoài hình lục giác, đường parabol đó đi qua hai đầu mút của mỗi cạnh (xem hình dưới). Biết tổng giá vẽ tranh 3D (bao gồm công và vật tư) là $500.000$ đồng/$\\text{m}^2$. Hỏi nghệ sĩ nhận được bao nhiêu tiền sau khi hoàn thành bức tranh? (Làm tròn đến nghìn đồng gần nhất.)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-18.png}",
+    "image": "",
+    "correct": "297",
+    "solution": "Diện tích lục giác là diện tích của 6 tam giác đều cạnh $0,3\\text{ m}$: $S_1 = 6 \\cdot \\frac{(0,3)^2\\sqrt{3}}{4} = \\frac{27\\sqrt{3}}{200} \\, (\\text{m}^2)$<br>Diện tích 6 cánh hoa là diện tích 6 parabol $d = 0,3\\text{m}; h = 0,3\\text{m}$<br>$S_2 = 6 \\cdot \\frac{2}{3} h \\cdot d = 6 \\cdot \\frac{2}{3} \\cdot 0,3 \\cdot 0,3 = \\frac{9}{25} \\, (\\text{m}^2)$<br>Tổng diện tích bức tranh: $S = S_1 + S_2$<br>Tổng giá tiền để vẽ bức tranh là: $\\left( \\frac{9}{25} + \\frac{27\\sqrt{3}}{200} \\right) \\cdot 500 \\approx 297$ (nghìn)<br>\\shortans{297}"
+  },
+  {
+    "id": "17",
+    "title": "Câu 17",
+    "type": "short_answer",
+    "text": "(Sở Phú Thọ 2025) Để trang trí một ô hình chữ nhật với kích thước $80\\text{ cm} \\times 60\\text{ cm}$ trên tường căn phòng của mình, anh Bình đã tô màu 2 hoạ tiết giới hạn bởi các parabol $(P)$, parabol $(C)$ và các cạnh của ô chữ nhật bằng màu vàng (kí hiệu sọc nghiêng) và màu xanh (vùng tô đậm) (như hình vẽ). Biết rằng các parabol $(P)$ và $(C)$ đối xứng nhau qua đường thẳng $AB$ và diện tích phần màu vàng bằng $\\frac{1600}{3}\\text{ cm}^2$. Tính tổng số tiền (đơn vị: triệu đồng) mà anh Bình cần phải trả để mua sơn trang trí. Biết mỗi lọ sơn, sơn được tối đa $30\\text{ cm}^2$. Cho biết giá của một lọ sơn vàng là $50\\,000$ đồng, giá của một lọ sơn xanh là $30\\,000$ đồng (biết rằng mỗi lọ sơn không được bán lẻ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-19.png}",
+    "image": "",
+    "correct": "667",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-28.png}<br>Chọn hệ trục $Oxy$ như hình vẽ.<br>$AB: y = ax + b$ đi qua $A(70;60), B(10;0)$.<br>Suy ra $\\begin{cases} 70a + b = 60 \\\\ 10a + b = 0 \\end{cases} \\Rightarrow \\begin{cases} a = 1 \\\\ b = -10 \\end{cases}$.<br>$AB: y = x - 10$.<br>$S_{\\text{vàng}} = \\frac{2}{3} \\cdot D \\cdot h$ trong đó $D$ là khoảng cách giữa hai điểm của parabol nằm trên $Ox$ và $h$ là khoảng cách từ đỉnh xuống trục $Ox$.<br>Suy ra $h = \\frac{3S}{2D} = \\frac{3 \\cdot \\frac{1600}{3}}{2 \\cdot 40} = 20$.<br>Gọi $I$ là đỉnh của parabol $(P): y = ax^2 + bx + c$ đi qua $C(0;60)$, có đỉnh $I(20;40)$<br>Suy ra $\\begin{cases} c = 60 \\\\ 400a + 20b + c = 40 \\\\ -\\frac{b}{2a} = 20 \\end{cases} \\Rightarrow \\begin{cases} a = \\frac{1}{20} \\\\ b = -2 \\\\ c = 60 \\end{cases}$.<br>$\\Rightarrow (P): y = \\frac{1}{20}x^2 - 2x + 60$.<br>$I'$ là đỉnh của $(C)$<br>$II'$ đi qua $I(20;40)$ và $\\perp AB$.<br>Suy ra phương trình $II': 1(x - 20) + 1(y - 40) = 0 \\Leftrightarrow x + y - 60 = 0$.<br>Gọi $H = AB \\cap II'$ thì tọa độ $H$ thỏa mãn hệ phương trình<br>$\\begin{cases} x - y - 10 = 0 \\\\ x + y - 60 = 0 \\end{cases} \\Leftrightarrow \\begin{cases} x = 35 \\\\ y = 25 \\end{cases} \\Rightarrow H(35;25)$.<br>$H$ là trung điểm của $II'$<br>Suy ra $\\begin{cases} x_{I'} = 2x_H - x_I = 50 \\\\ y_{I'} = 2y_H - y_I = 10 \\end{cases} \\Rightarrow I'(50;10)$.<br>$C'$ là điểm đối xứng của $C$ qua $H$.<br>Suy ra $C'(70;-10)$.<br>$(C): x = my^2 + ny + p$ đi qua $C'(70;-10)$ và có đỉnh $I'(50;10)$<br>$\\Rightarrow \\begin{cases} 100m - 10n + p = 70 \\\\ 20m + n = 0 \\\\ 100m + 10n + p = 50 \\end{cases} \\Rightarrow \\begin{cases} m = \\frac{1}{20} \\\\ n = -1 \\\\ p = 55 \\end{cases}$.<br>$(C): x = \\frac{1}{20}y^2 - y + 55$<br>Phương trình tung độ giao điểm của $DE$ và $(C)$ là<br>$80 = \\frac{1}{20}y^2 - y + 55 \\Rightarrow y = 10 + 10\\sqrt{6}$<br>$S_{(C)} = \\int\\limits_0^{10 + 10\\sqrt{6}} \\left( 80 - \\left( \\frac{1}{20}y^2 - y + 55 \\right) \\right) \\mathrm{\\,d}y \\approx 773 \\, (\\text{cm}^2)$.<br>Số hộp sơn vàng cần là $\\frac{773}{30} \\approx 26$ (hộp sơn), số hộp sơn xanh cần là $\\frac{1600}{3 \\cdot 30} \\approx 18$ (hộp sơn).<br>Số tiền cần là<br>$26 \\cdot 30\\,000 + 18 \\cdot 50\\,000 = 1\\,680\\,000$ (đồng) $= 1,68$ (triệu đồng).<br>\\shortans{667}"
+  },
+  {
+    "id": "18",
+    "title": "Câu 18",
+    "type": "short_answer",
+    "text": "(Sở Nam Định 2025) Bác An lên kế hoạch làm một cái biển quảng cáo phẳng, có thiết kế là phần được tô màu đậm trong hình vẽ bên. Đường cong $(P)$ là một parabol có đỉnh là điểm $F$, có trục đối xứng là $FH$ và đi qua các điểm $A, B$. Tứ giác $ABCD$ là hình chữ nhật, $AB = 8\\text{m}, BC = 3\\text{m}, EH = 6\\text{m}, FH = 2\\text{m}$. Bác An kí hợp đồng với công ty X với đơn giá là $1,1$ triệu đồng/ $1\\text{ m}^2$. Hỏi số tiền mà bác An phải trả sau khi làm xong cái biển quảng cáo là bao nhiêu triệu đồng (làm tròn kết quả đến hàng phần chục)?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-21.png}",
+    "image": "",
+    "correct": "27,9",
+    "solution": "Gắn hệ trục tọa độ như hình vẽ, một đơn vị trên trục là $1\\text{m}$, khi đó từ các giả thiết ta có:<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-32.png}<br>$H(0;0), A(-4;0), B(4;0), C(4;3), D(-4;3), E(0;6), F(0;2)$<br>Đường thẳng $DE$ đi qua D và E nên có phương trình là $y = \\frac{3}{4}x + 6$<br>Đường thẳng $CE$ đi qua C và E nên có phương trình là $y = -\\frac{3}{4}x + 6$<br>Parabol $(P)$ có phương trình dạng $y = ax^2 + 2$ đi qua $B(4;0)$ nên $a = -\\frac{1}{8}$. Suy ra phương trình của parabol là $y = -\\frac{1}{8}x^2 + 2$.<br>Diện tích phần tô đậm bằng<br>$\\int\\limits_{-4}^0 \\left[ \\frac{3}{4}x + 6 - \\left( -\\frac{1}{8}x^2 + 2 \\right) \\right] \\mathrm{\\,d}x + \\int\\limits_0^4 \\left[ -\\frac{3}{4}x + 6 - \\left( -\\frac{1}{8}x^2 + 2 \\right) \\right] \\mathrm{\\,d}x$<br>$= \\int\\limits_{-4}^0 \\left[ \\frac{3}{4}x - \\frac{1}{8}x^2 + 4 \\right] \\mathrm{\\,d}x + \\int\\limits_0^4 \\left[ -\\frac{3}{4}x - \\frac{1}{8}x^2 + 4 \\right] \\mathrm{\\,d}x = \\frac{76}{3} \\, \\text{m}^2$<br>Số tiền bác An phải trả là $\\frac{76}{3} \\times 1,1 \\approx 27,9$ triệu đồng.<br>\\shortans{27,9}"
+  },
+  {
+    "id": "19",
+    "title": "Câu 19",
+    "type": "short_answer",
+    "text": "(THPT Lê Quý Đôn - HCM 2025) Cho hàm số bậc hai trên bậc nhất $f(x) = \\frac{ax^2 + bx + c}{4x - d}$ và parabol $(P)$ có đồ thị như hình vẽ. Hàm số $y = f(x)$ có đường tiệm cận đứng $x = 1$ và đường tiệm cận xiên cắt parabol tại điểm $A(3;1)$. Ký hiệu các diện tích hình phẳng $S_1, S_2$ lần lượt là các phần diện tích được tô đậm và không tô màu như hình vẽ. Biết rằng giá trị $S_1 + S_2 = \\frac{32}{3}$ và $f(4) = \\frac{7}{4}$. Tính giá trị của $S_2$ (Kết quả làm tròn đến chữ số hàng phần chục).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-22.png}",
+    "image": "",
+    "correct": "0,94",
+    "solution": "Gọi điểm $B(x_2; y_2)$<br>Sử dụng công thức tính diện tích hình phẳng giới hạn bởi đường thẳng và parabol, ta có:<br>$\\frac{(x_1 - x_2)^3}{6} = S_1 + S_2 = \\frac{32}{3} \\Leftrightarrow (x_1 - x_2)^3 = 64 \\Leftrightarrow x_1 - x_2 = 4 \\Leftrightarrow \\begin{cases} x_1 = 3 \\\\ x_2 = -1 \\end{cases}$<br>Phương trình parabol $(P): y = a x(x - 4)$ đi qua điểm $A(1;3)$ nên suy ra $a = -\\frac{1}{3}$<br>Khi đó phương trình parabol $(P)$ là $y = -\\frac{1}{3}x(x - 4)$ khi đó $B\\left( -1; -\\frac{5}{3} \\right)$<br>Khi đó phương trình đường thẳng $AB$ cũng là đường tiệm cận xiên của hàm số $y = f(x)$ có phương trình là $y = \\frac{2}{3}x - 1$.<br>Đồ thị hàm số có đường tiệm cận đứng là đường thẳng $x = 1$ nên suy ra $d = 4$<br>Ta có $f(x) = \\frac{ax^2 + bx + c}{4x - d} = \\frac{\\left( \\frac{2}{3}x - 1 \\right)(4x - 4) + k}{(4x - 4)}$ mà $f(4) = \\frac{7}{4}$ nên $k = 1$<br>Vậy $f(x) = \\frac{ax^2 + bx + c}{4x - d} = \\frac{\\left( \\frac{2}{3}x - 1 \\right)(4x - 4) + 1}{(4x - 4)} = \\left( \\frac{2}{3}x - 1 \\right) + \\frac{1}{(4x - 4)}$<br>Phương trình hoành độ giao điểm giữa $y = f(x)$ và parabol là:<br>$\\left( \\frac{2}{3}x - 1 \\right) + \\frac{1}{(4x - 4)} = -\\frac{1}{3}x^2 + \\frac{4}{3}x \\Leftrightarrow -4x^3 + 12x^2 + 4x - 15 = 0 \\Leftrightarrow \\begin{cases} x = 2,89868083208 = a \\\\ x = 1,18919299296 = b \\\\ x = -1,08787382504 \\, (\\text{loại}) \\end{cases}$<br>Vậy $S_2 = \\int\\limits_a^b \\left[ \\left( \\frac{2}{3}x - 1 \\right) + \\frac{1}{(4x - 4)} - \\left( -\\frac{1}{3}x^2 + \\frac{4}{3}x \\right) \\right] \\mathrm{\\,d}x \\approx 0,94$<br>\\shortans{0,94}"
+  },
+  {
+    "id": "20",
+    "title": "Câu 20",
+    "type": "short_answer",
+    "text": "(Cụm trường Hải Dương 2025) Kiến trúc sư thiết kế một con đường để chia khu đất hình chữ nhật $ABCD$ với $AB = 40\\text{m}$, $AD = 60\\text{m}$ thành hai phần (hai lề đường là các đường cong $HEK$ và $PQIR$). Trong đó phần giới hạn bởi đường cong $HEK$ và các đoạn $AH, AB, BK$ là sân chơi, phần giới hạn bởi đường cong $PQIR$ và các đoạn $PD, DC, CR$ để trồng hoa (tham khảo hình vẽ). Nếu gắn một hệ trục tọa độ vuông góc có trục hoành, trục tung lần lượt cùng phương với các đường thẳng $AB, AD$ thì đường cong $PQIR$ là một phần của đồ thị hàm số bậc ba $y = f(x)$. Đường cong $HEK$ nhận được bằng cách tịnh tiến đường cong $PQIR$ theo phương thẳng đứng lên phía trên $10\\text{m}$. Biết $AP = 30\\text{m}, BR = 20\\text{m}$, điểm $Q$ cách các cạnh $AB, AD$ lần lượt $25\\text{m}$ và $20\\text{m}$, điểm $I$ cách các cạnh $AB, AD$ lần lượt $25\\text{m}$ và $35\\text{m}$. Gọi $S_1$ là diện tích phần sân chơi và $S_2$ là diện tích phần trồng hoa. Tính $\\frac{S_1}{S_2}$ (làm tròn kết quả đến hàng phần trăm).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-23.png}",
+    "image": "",
+    "correct": "0,43",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-35.png}<br>Chọn hệ trục tọa độ $Oxy$ sao cho trục $Ox$ trùng với cạnh $AB$, trục $Oy$ trùng với cạnh $AD$. Khi đó ta có $A(0;0), P(0; -30), Q(20; -25), I(35; -25), R(40; -20)$<br>Gọi đường cong $PQIR$ có phương trình là $y = f(x) = ax^3 + bx^2 + cx + d$, từ đó ta có hệ phương trình<br>$\\begin{cases} d = -30 \\\\ 8000a + 400b + 20c + d = -25 \\\\ 42875a + 1225b + 35c + d = -25 \\\\ 64000a + 1600b + 40c + d = -20 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{1}{700} \\\\ b = -\\frac{3}{35} \\\\ c = \\frac{39}{28} \\\\ d = -30 \\end{cases}$<br>Ta suy ra đường cong $PQIR$ là đồ thị hàm số $y = f(x) = \\frac{1}{700}x^3 - \\frac{3}{35}x^2 + \\frac{39}{28}x - 30$<br>Và đường cong $HEK$ là đồ thị hàm số $y = g(x) = \\frac{1}{700}x^3 - \\frac{3}{35}x^2 + \\frac{39}{28}x - 20$<br>Diện tích phần sân chơi $S_1 = \\int\\limits_0^{40} [-g(x)] \\mathrm{\\,d}x = \\int\\limits_0^{40} \\left[ -\\left( \\frac{1}{700}x^3 - \\frac{3}{35}x^2 + \\frac{39}{28}x - 20 \\right) \\right] \\mathrm{\\,d}x = 600\\text{m}^2$<br>Diện tích phần trồng hoa là<br>$S_2 = \\int\\limits_0^{40} [f(x) + 60] \\mathrm{\\,d}x = \\int\\limits_0^{40} \\left[ \\frac{1}{700}x^3 - \\frac{3}{35}x^2 + \\frac{39}{28}x - 30 + 60 \\right] \\mathrm{\\,d}x = 1400\\text{m}^2$.<br>Vậy tỉ số $\\frac{S_1}{S_2} = \\frac{600}{1400} = \\frac{3}{7} \\approx 0,43$.<br>\\shortans{0,43}"
+  },
+  {
+    "id": "21",
+    "title": "Câu 21",
+    "type": "short_answer",
+    "text": "(Sở Bắc Giang 2025) Hình vẽ dưới đây cho biết một miền D (được tô đậm) nằm trong hình vuông cạnh bằng 4, miền D này gồm những điểm có khoảng cách tới tâm hình vuông nhỏ hơn hoặc bằng khoảng cách tới cạnh gần nhất của hình vuông.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-24.png}\nTính diện tích miền D, với kết quả làm tròn đến chữ số thập phân thứ nhất.",
+    "image": "",
+    "correct": "3,5",
+    "solution": "Từ định nghĩa “tập hợp các điểm cách đều 1 điểm và 1 đường thẳng (điểm không thuộc đường thẳng) là một đường parabol”, ta suy ra miền D được giới hạn bởi 4 đường parabol có tiêu điểm là tâm hình vuông và đường chuẩn là cạnh của hình vuông.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-37.png}<br>Dựng hệ toạ độ như hình vẽ, tìm phương trình các đường parabol rồi dựa vào ứng dụng của tích phân tính được diện tích miền D là:<br>$S = 4 \\left[ \\int\\limits_0^{2\\sqrt{2} - 2} \\left( -\\frac{1}{4}x^2 + 1 \\right) \\mathrm{\\,d}x + \\int\\limits_{2\\sqrt{2} - 2}^1 (2\\sqrt{1 - x}) \\mathrm{\\,d}x \\right] = \\frac{64\\sqrt{2} - 80}{3} \\approx 3,5$.<br>\\shortans{3,5}"
+  },
+  {
+    "id": "22",
+    "title": "Câu 22",
+    "type": "short_answer",
+    "text": "(Chuyên Lê Quý Đôn - Đà Nẵng 2025) Nhà bác Ba có tất cả 8 cánh cửa sắt hình chữ nhật với chiều dài $2\\text{m}$ và chiều rộng $1\\text{m}$. Hai mặt của mỗi cánh cửa được thiết kế như hình vẽ dưới đây. Trong đó, phần được tô đậm được sơn màu xanh, phần còn lại được sơn màu trắng. Mỗi phần sơn màu trắng có đường biên cong là một phần của parabol có đỉnh nằm trên cạnh của hình chữ nhật. Biết rằng chi phí để sơn màu xanh là $120$ nghìn đồng/$\\text{m}^2$ và chi phí sơn màu trắng là $110$ nghìn đồng/$\\text{m}^2$. Hỏi, để sơn toàn bộ số cửa sắt trên, bác Ba phải tốn bao nhiêu triệu đồng (làm tròn kết quả đến hàng phần trăm theo đơn vị triệu đồng).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-25.png}",
+    "image": "",
+    "correct": "3.63",
+    "solution": "Xét đồ thị parabol trên hệ trục tọa độ $Oxy$ như sau:<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-39.png}<br>Gọi parabol có phương trình là: $y = ax^2 + bx + c$<br>Parabol đi qua các điểm có tọa độ $(-0.5; 1), (0.5; 1), (0; 0)$, nên ta có hệ sau:<br>$\\begin{cases} c = 0 \\\\ a \\cdot 0.5^2 + b \\cdot 0.5 = 1 \\\\ a \\cdot (-0.5)^2 + b \\cdot (-0.5) = 1 \\end{cases} \\Leftrightarrow \\begin{cases} c = 0 \\\\ a = 4 \\\\ b = 0 \\end{cases}$.<br>Vậy ta có phương trình parabol $y = 4x^2$.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-40.png}<br>Diện tích hình phẳng giới hạn bởi $y = 4x^2, y = 0, x = 0, x = 0.5$ là:<br>$S_1 = \\int\\limits_0^{0.5} 4x^2 \\mathrm{\\,d}x = \\frac{1}{6}$<br>Diện tích của phần tô đậm được sơn màu xanh của mỗi mặt cánh cửa là $S_2 = 4 \\cdot S_1 = 4 \\cdot \\frac{1}{6} = \\frac{2}{3}$.<br>Diện tích của phần không tô đậm được sơn màu trắng của mỗi mặt cánh cửa là $S_3 = 1 \\cdot 2 - S_2 = 2 - \\frac{2}{3} = \\frac{4}{3}$.<br>Có tất cả 8 cánh cửa sắt hình chữ nhật, mỗi cánh có 2 mặt, vậy có tất cả 16 mặt như hình vẽ.<br>Vậy tổng diện tích phần tô đậm được sơn màu xanh là: $16S_2 = 16 \\cdot \\frac{2}{3} = \\frac{32}{3} \\, (\\text{m}^2)$<br>Tổng diện tích phần không tô đậm được sơn màu trắng là: $16S_3 = 16 \\cdot \\frac{4}{3} = \\frac{64}{3} \\, (\\text{m}^2)$<br>Tổng chi phí để sơn màu xanh là: $\\frac{32}{3} \\cdot 120 = 1280$ (nghìn đồng) $= 1.28$ (triệu đồng)<br>Tổng chi phí để sơn màu trắng là: $\\frac{64}{3} \\cdot 110 \\approx 2346$ (nghìn đồng) $\\approx 2.35$ (triệu đồng)<br>Tổng chi phí sơn là: $1.28 + 2.35 = 3.63$ (triệu đồng).<br>\\shortans{3.63}"
+  },
+  {
+    "id": "23",
+    "title": "Câu 23",
+    "type": "short_answer",
+    "text": "(KHTN Hà Nội 2025) Một mảnh vườn hoa dạng hình tròn có bán kính bằng $6\\text{m}$. Phần đất trồng hoa là phần tô trong hình vẽ bên. Biết hai hình chữ nhật $ABCD, MNPQ$ có $AB = MQ = 6\\text{m}$ và kinh phí trồng hoa là $100000$ đồng/$\\text{m}^2$. Tính số tiền cần để trồng hoa? (đơn vị: triệu đồng, kết quả là tròn đến hàng phần chục).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-26.png}",
+    "image": "",
+    "correct": "33,1",
+    "solution": "Chọn hệ tọa độ $Oxy$ sao cho như hình vẽ<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-42.png}<br>Khi đó phương trình đường tròn tâm $O$ bán kính bằng 6 là $x^2 + y^2 = 36$<br>Diện tích phần trồng hoa là<br>$S = \\pi \\cdot 6^2 - 4 \\int\\limits_3^{3\\sqrt{3}} \\left( \\sqrt{36 - x^2} - 3 \\right) \\mathrm{\\,d}x \\approx 101,75 \\, (\\text{m}^2)$<br>Số tiền cần để trồng hoa là $S \\cdot 0,1 \\approx 10,2$ (triệu đồng)<br>\\shortans{33,1}"
+  },
+  {
+    "id": "24",
+    "title": "Câu 24",
+    "type": "short_answer",
+    "text": "(Sở Hà Nội 2025) Một cửa vòm có dạng hình parabol được lắp các tấm kính hình tròn đường kính 1 và các tấm kính hình vuông có cạnh 1 như hình vẽ. Phần còn lại của cửa được sơn màu trang trí với mức giá 1,2 triệu đồng /$\\text{m}^2$. Chi phí sơn màu là bao nhiêu triệu đồng (kết quả làm tròn đến hàng phần chục)?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-27.png}",
+    "image": "",
+    "correct": "8,1",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-44.png}<br>Chọn hệ trục tọa độ $Oxy$ như hình vẽ.<br>Gọi phương trình Parabol có dạng $y = ax^2 + bx + c$.<br>Do Parabol qua các điểm $(0; 4); (2; 2)$ và $(-2; 2)$ nên ta có $\\begin{cases} 4a + 2b + c = 2 \\\\ 4a - 2b + c = 2 \\\\ c = 4 \\end{cases} \\Rightarrow \\begin{cases} a = -\\frac{1}{2} \\\\ b = 0 \\\\ c = 4 \\end{cases}$.<br>$y = -\\frac{1}{2}x^2 + 4$.<br>Parabol cắt trục hoành tại hai điểm $A, B$ có hoành độ là nghiệm của phương trình $-\\frac{1}{2}x^2 + 4 = 0 \\Leftrightarrow \\begin{cases} x = 2\\sqrt{2} \\\\ x = -2\\sqrt{2} \\end{cases}$.<br>Diện tích vòm cửa là $S = \\int\\limits_{-2\\sqrt{2}}^{2\\sqrt{2}} \\left( -\\frac{1}{2}x^2 + 4 \\right) \\mathrm{\\,d}x = \\left. \\left( \\frac{-x^3}{6} + 4x \\right) \\right|_{-2\\sqrt{2}}^{2\\sqrt{2}} = \\frac{32\\sqrt{2}}{3}$.<br>Diện tích các tấm kính bằng: $6 + 3\\pi \\left( \\frac{1}{2} \\right)^2$.<br>Suy ra diện tích phần còn lại là: $S = \\frac{32\\sqrt{2}}{3} - 6 - \\frac{3\\pi}{4}$.<br>Giá tiền sơn là $\\left( \\frac{32\\sqrt{2}}{3} - 6 - \\frac{3\\pi}{4} \\right) 1,2 \\approx 8,1$ triệu.<br>\\shortans{8,1}"
+  },
+  {
+    "id": "25",
+    "title": "Câu 25",
+    "type": "short_answer",
+    "text": "(Chuyên Hùng Vương - Phú Thọ 2025) Để trang trí một bảng gỗ hình chữ nhật $ABCD$ có chiều dài $AB = 8\\text{dm}$ và chiều rộng $AD = 6\\text{ dm}$, người người ta thiết kế một logo là hình phẳng giới hạn bởi nửa đường tròn đường kính $MN = 6\\text{dm}$, tiếp xúc với $BC$, hai đường cong $IM, IN$ là một phần của các đường parabol có trục đối xứng lần lượt là $AB, CD$ với $I$ là trung điểm của $AD$ (tham khảo hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-28.png}\nPhần logo được sơn màu xanh với chi phí $50000$ đồng/ $1\\text{dm}^2$ và phần còn lại của bảng gỗ được sơn màu trắng với chi phí $30000$ đồng/ $1\\text{dm}^2$. Hỏi cần bỏ ra bao nhiêu nghìn đồng để trang trí bảng gỗ trên (kết quả làm tròn đến hàng đơn vị)?",
+    "image": "",
+    "correct": "1923",
+    "solution": "Diện tích hình chữ nhật $ABCD$ bằng $6 \\cdot 8 = 48\\text{dm}^2$.<br>Diện tích của nửa đường tròn đường kính $MN$ bằng $S = \\frac{1}{2}\\pi R^2 = \\frac{1}{2}\\pi \\cdot 3^2 = \\frac{9}{2}\\pi \\text{ dm}^2$.<br>Ta xác định phương trình của parabol.<br>Chọn hệ trục tọa độ $Oxy$ như hình vẽ:<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-46.png}<br>Gọi phương trình parabol có đỉnh $N$ là $y = ax^2 + bx + c$, theo bài ra ta có:<br>$\\begin{cases} y(0) = 5 \\\\ y(3) = 0 \\\\ \\frac{-b}{2a} = 3 \\end{cases} \\Leftrightarrow \\begin{cases} c = 5 \\\\ 9a + 3b + c = 0 \\\\ 6a + b = 0 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{5}{9} \\\\ b = \\frac{-10}{3} \\\\ c = 5 \\end{cases}$<br>Vậy $y = \\frac{5}{9}x^2 - \\frac{10}{3}x + 5$.<br>Diện tích của hình phẳng giới hạn bởi $y = \\frac{5}{9}x^2 - \\frac{10}{3}x + 5$, trục hoành và hai đường thẳng $x = 0; x = 3$ bằng: $S_1 = \\int\\limits_0^3 \\left( \\frac{5}{9}x^2 - \\frac{10}{3}x + 5 \\right) \\mathrm{\\,d}x = 5 \\, (\\text{dm}^2)$.<br>Do tính đối xứng nên hình phẳng giới hạn bởi parabol có đỉnh $M$, trục đối xứng $AB$, trục hoành và hai đường thẳng $x = 0; x = 3$ có diện tích bằng $5 \\, (\\text{dm}^2)$.<br>Tổng diện tích phần bảng gỗ sơn màu xanh là: $\\left( \\frac{9}{2}\\pi + 10 \\right) \\text{dm}^2$.<br>Diện tích của phần bảng gỗ sơn màu trắng là: $S' = 48 - \\left( \\frac{9}{2}\\pi + 10 \\right) = \\left( 38 - \\frac{9}{2}\\pi \\right) \\text{dm}^2$.<br>Chi phí cần bỏ ra là: $\\left( \\frac{9}{2}\\pi + 10 \\right) \\cdot 50000 + \\left( 38 - \\frac{9}{2}\\pi \\right) \\cdot 30000 \\approx 1923$ (nghìn đồng).<br>\\shortans{1923}"
+  },
+  {
+    "id": "26",
+    "title": "Câu 26",
+    "type": "short_answer",
+    "text": "(Chuyên KHTN Hà Nội 2025) Để chuẩn bị quảng bá sản phẩm, người ta trang trí tấm pano dạng parabol như hình vẽ, biết $OS = 8\\text{ m}, AB = 6\\text{ m}$ với $O$ là trung điểm của $AB$. Tấm pano được chia thành ba phần để trang trí với mức chi phí khác nhau: phần trên là phần kẻ sọc giá $100000$ đồng/$\\text{m}^2$, phần giữa là hình quạt tâm $O$ bán kính $3\\text{ m}$ được tô đậm giá $200000$ đồng/$\\text{m}^2$, phần còn lại giá $150000$ đồng/$\\text{m}^2$. Tính tổng chi phí để trang trí tấm pano (đơn vị triệu đồng, kết quả làm tròn đến hàng phần trăm).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-29.png}",
+    "image": "",
+    "correct": "4,44",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-48.png}<br>Chọn hệ trục $Oxy$ với tia $Ox$ trùng với tia $OB$, tia $Oy$ trùng với tia $OS$ như hình vẽ.<br>Khi đó ta có: $A(-3;0), B(3;0), S(0;8)$.<br>Suy ra parabol có phương trình là: $y = -\\frac{8}{9}x^2 + 8 \\, (P)$.<br>Rìa của hình quạt là cung tròn của đường tròn $(C)$ có phương trình:<br>$x^2 + y^2 = 9 \\Leftrightarrow y = \\pm \\sqrt{9 - x^2}$.<br>Hoành độ điểm $N$ là nghiệm phương trình<br>$-\\frac{8}{9}x^2 + 8 = \\sqrt{9 - x^2}, 0 < x < 3$<br>$\\Leftrightarrow x = \\pm \\frac{3\\sqrt{55}}{8}$.<br>Ta có $y_N = -\\frac{8}{9}x_N^2 + 8 = \\frac{9}{8}$.<br>Suy ra $N\\left( \\frac{3\\sqrt{55}}{8}; \\frac{9}{8} \\right)$.<br>Phương trình $ON: y = \\frac{3}{\\sqrt{55}}x$.<br>Vì tấm pano đối xứng qua trục $Oy$ nên ta có:<br>Diện tích phần kẻ sọc: $S_1 = 2 \\cdot \\int\\limits_0^{\\frac{3\\sqrt{55}}{8}} \\left( -\\frac{8}{9}x^2 + 8 - \\sqrt{9 - x^2} \\right) \\mathrm{\\,d}x \\approx 17,94\\text{ m}^2$.<br>Diện tích phần tô đậm: $S_2 = 2 \\cdot \\int\\limits_0^{\\frac{3\\sqrt{55}}{8}} \\left( \\sqrt{9 - x^2} - \\frac{3}{\\sqrt{55}}x \\right) \\mathrm{\\,d}x \\approx 10,68\\text{ m}^2$.<br>Diện tích phần còn lại: $S = \\int\\limits_{-3}^3 \\left( -\\frac{8}{9}x^2 + 8 \\right) \\mathrm{\\,d}x - (S_1 + S_2) \\approx 3,38\\text{ m}^2$.<br>Tổng chi phí để trang trí tấm pano là<br>$100S_1 + 200S_2 + 150S \\approx 4440$ (nghìn đồng) $\\approx 4,44$ (triệu đồng).<br>\\shortans{4,44}"
+  },
+  {
+    "id": "27",
+    "title": "Câu 27",
+    "type": "short_answer",
+    "text": "(Sở Bắc Ninh 2025) Trong cơ khí chế tạo, một chi tiết máy hình đĩa tròn có dạng như hình vẽ bên, nhận $AB$ và $CD$ làm các trục đối xứng. Người ta cần phủ sơn cả hai mặt của chi tiết. Biết rằng đường tròn lớn có bán kính $5\\text{ dm}$, các đường tròn nhỏ đều có bán kính bằng $2\\text{ dm}, AB = CD = 4\\text{dm}$ và chi phí sơn là $103.000$ đồng/$\\text{m}^2$. Chi phí để sơn hoàn thiện chi tiết máy bằng bao nhiêu nghìn đồng (kết quả được làm tròn đến hàng đơn vị)?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-30.png}",
+    "image": "",
+    "correct": "82",
+    "solution": "Dựa vào đề bài ta có hình vẽ như sau với hệ trục $Oxy$ tương ứng:<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-50.png}<br>Như vậy ta cần tính diện tích của hình $(O;5): x^2 + y^2 = 25$ trừ đi diện tích của 4 phần hình tròn nằm trên trong đường tròn.<br>Ta đi xét một $(I, IB)$, dễ thấy đường tròn này có tâm $I(4; 0)$ và bán kính $R = 2$ và phương trình đường tròn này là $(x - 4)^2 + y^2 = 4$<br>Gọi $E$ và $F$ lần lượt là giao của $(O)$ với $(I)$ và trục $Ox$ (như hình vẽ)<br>Suy ra $E\\left( \\frac{37}{8}; \\sqrt{25 - \\left( \\frac{37}{8} \\right)^2} \\right)$ và $F(5,0)$<br>Diện tích của một nửa phần hình tròn nằm bên trong $(O)$ được giới hạn bởi một phần của $(I): y = \\sqrt{4 - (x - 4)^2}$, một phần của $(O): y = \\sqrt{25 - x^2}$, và trục $Ox$<br>Suy ra diện tích của 4 phần hình tròn nằm bên trong $(O)$ là:<br>$M = 4 \\cdot \\left( 2 \\cdot \\left[ \\int\\limits_2^{\\frac{37}{8}} \\sqrt{4 - (x - 4)^2} \\mathrm{\\,d}x + \\int\\limits_{\\frac{37}{8}}^5 \\sqrt{25 - x^2} \\mathrm{\\,d}x \\right] \\right)$<br>Diện tích 2 mặt cần sơn của chi tiết máy là: $2 \\cdot (\\pi \\cdot 5^2 - M)$<br>Vậy chi phi để sơn chi tiết máy là: $1,03 \\cdot 2 \\cdot (\\pi \\cdot 5^2 - M) \\approx 82$ (nghìn đồng)<br>\\shortans{82}"
+  },
+  {
+    "id": "28",
+    "title": "Câu 28",
+    "type": "short_answer",
+    "text": "(Sở Bình Phước 2025) Một khoảng sân của một ngôi nhà có hình dạng là một phần của parabol, nếu chọn hệ trục tọa độ $Oxy$ như hình vẽ bên dưới thì parabol có phương trình là $y = x^2$. Chủ nhà muốn thiết kế một hồ nuôi cá cảnh có dạng hình tròn bán kính $1\\text{m}$, hình tròn được thiết kế tiếp xúc với 2 nhánh của parabol, phía trên của hình tròn ngăn bởi một bức tường mỏng tiếp xúc với hình tròn. Phần đất còn lại của khoảng sân giới hạn bởi đường tròn, 2 nhánh của parabol và bức tường được thiết kế trồng hoa (phần gạch sọc trong hình). Tính diện tích mà chủ nhà thiết kế để trồng hoa, biết rằng đơn vị trên mỗi trục tọa độ là mét. (Kết quả làm tròn đến hàng phần trăm).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-31.png}",
+    "image": "",
+    "correct": "1,36",
+    "solution": "+ Gọi $I(0, y_0)$ suy ra: $(C): x^2 + (y - y_0)^2 = 1 \\Rightarrow \\begin{cases} y = y_0 + \\sqrt{1 - x^2} \\\\ y = y_0 - \\sqrt{1 - x^2} \\end{cases}$<br>+ Do Parabol luôn tiếp xúc nửa dưới của đường tròn nên ta có<br>$\\begin{cases} y_0 - \\sqrt{1 - x^2} = x^2 \\\\ \\left( y_0 - \\sqrt{1 - x^2} \\right)' = (x^2)' \\end{cases} \\Rightarrow x^2 = \\frac{3}{4} \\Rightarrow y_0 = \\frac{5}{4}$<br>+ $(AB)$ có phương trình: $y = \\frac{9}{4}$ và $A\\left( \\frac{3}{2}; \\frac{9}{4} \\right), B\\left( -\\frac{3}{2}; \\frac{9}{4} \\right)$<br>Khi đó: Diện tích cần tìm là: $S = \\int\\limits_{-\\frac{3}{2}}^{\\frac{3}{2}} \\left( \\frac{9}{4} - x^2 \\right) \\mathrm{\\,d}x - 1^2 \\cdot \\pi \\approx 1,36$.<br>\\shortans{1,36}"
+  },
+  {
+    "id": "29",
+    "title": "Câu 29",
+    "type": "short_answer",
+    "text": "(Sở Hòa Bình 2025) Một biển quảng cáo có dạng hình vuông $ABCD$ cạnh bằng $4\\text{m}$ và $I$ là trung điểm của đoạn thẳng $CD$. Trên tấm biển đó có đường parabol đỉnh $I$ đi qua $A, B$ và cắt đường chéo $BD$ tại $M$ (tham khảo hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-32.png}\nChi phí sơn phần tô hình tổ ong (có diện tích $S_1$) là $200000$ đồng/$\\text{m}^2$, chi phí sơn phần tô đậm (có diện tích $S_2$) là $150000$ đồng/$\\text{m}^2$ và phần còn lại là $120000$ đồng/$\\text{m}^2$. Số tiền cần chi trả để sơn tấm biển quảng cáo là bao nhiêu nghìn đồng?",
+    "image": "",
+    "correct": "2465",
+    "solution": "• Gắn hệ trục tọa độ $Oxy$ như hình vẽ.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-53.png}<br>• Khi đó $BD: y = -x + 4$ và Parabol $(P): y = ax^2 + bx + c$ qua ba điểm $A \\equiv O(0;0), B(4;0), I(2;4)$ nên có dạng: $y = -x^2 + 4x$.<br>• $M(1; 3)$ là giao điểm của $BD$ và $(P)$.<br>• Suy ra: $S_1 = \\int\\limits_1^4 [(-x^2 + 4x) - (-x + 4)] \\mathrm{\\,d}x = \\frac{9}{2} \\, (\\text{m}^2)$ và $S_2 = \\int\\limits_0^4 |-x^2 + 4x| \\mathrm{\\,d}x - \\frac{9}{2} = \\frac{37}{6} \\, (\\text{m}^2)$.<br>Diện tích còn phần còn lại là $S_3 = 4^2 - \\int\\limits_0^4 |-x^2 + 4x| \\mathrm{\\,d}x = \\frac{16}{3} \\, (\\text{m}^2)$.<br>• Số tiền cần chi trả để sơn tấm biển quảng cáo là:<br>$200\\,000 \\cdot S_1 + 150\\,000 \\cdot S_2 + 120\\,000 \\cdot S_3 = 200\\,000 \\cdot \\frac{9}{2} + 150\\,000 \\cdot \\frac{37}{6} + 120\\,000 \\cdot \\frac{16}{3} = 2\\,465\\,000$ đồng.<br>\\shortans{2465}"
+  },
+  {
+    "id": "30",
+    "title": "Câu 30",
+    "type": "short_answer",
+    "text": "(Sở Phú Thọ 2025) Một bức tường hình chữ nhật $ABCD$ có kích thước lần lượt là $6\\text{ m}$ và $4\\text{m}$ được bạn Minh trang trí bằng cách vẽ hai đồ thị hàm số $f(x) = a^x \\, (0 < a \\neq 1)$ và $g(x) = \\log_b x \\, (0 < b \\neq 1)$ đối xứng nhau qua đường thẳng $y = x$. Bức tường được chia làm 3 phần (tham khảo hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-34.png}\nPhần $H_1$ được sơn màu xanh da trời, phần $H_2$ sơn màu vàng và phần $H_3$ được sơn màu xanh lá cây. Bạn Minh cần mua các hộp sơn mà mỗi hộp chỉ sơn được tối đa $3\\text{ m}^2$ tường, giá một hộp sơn màu xanh da trời là $120000$ đồng, giá một hộp sơn màu xanh lá cây là $140000$ đồng, giá một hộp sơn màu vàng là $160000$ đồng. Cửa hàng chỉ bán số các hộp sơn là các số nguyên dương. Bạn Minh cần bao nhiêu triệu đồng để sơn bức tường đó?",
+    "image": "",
+    "correct": "1,3",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-57.png}<br>Đồ thị hàm số $f(x) = a^x \\, (0 < a \\neq 1)$ và đồ thị hàm số $g(x) = \\log_b x \\, (0 < b \\neq 1)$ đối xứng nhau qua đường thẳng $y = x$ nên $a = b$.<br>Ta thấy: Đồ thị hàm số $g(x) = \\log_b x$ đi qua điểm $B(3; 2)$ nên suy ra $b = \\sqrt{3}$.<br>Vậy bạn Minh đã vẽ hai đồ thị của hàm số $f(x) = \\sqrt{3}^x$ và $g(x) = \\log_{\\sqrt{3}} x$.<br>Ta có:<br>$\\sqrt{3}^x = 2 \\Leftrightarrow x = \\log_{\\sqrt{3}} 2 \\Rightarrow S_{H_1} = \\int\\limits_{-3}^{\\log_{\\sqrt{3}} 2} (2 - \\sqrt{3}^x) \\mathrm{\\,d}x \\approx 5,23\\text{ m}^2$.<br>Do đó cần mua 2 hộp sơn để sơn phần $H_1$ với số tiền là $2 \\cdot 0,12 = 0,24$ (triệu đồng).<br>$\\log_{\\sqrt{3}} x = -2 \\Leftrightarrow x = \\frac{1}{3} \\Rightarrow S_{H_3} = \\int\\limits_{\\frac{1}{3}}^3 (\\log_{\\sqrt{3}} x + 2) \\mathrm{\\,d}x \\approx 7,15\\text{ m}^2$.<br>Do đó cần mua 3 hộp sơn để sơn phần $H_3$ với số tiền là $3 \\cdot 0,14 = 0,42$ (triệu đồng).<br>$S_{H_2} = S_{HCN} - S_{H_1} - S_{H_3} \\approx 6 \\cdot 4 - 5,23 - 7,15 \\Rightarrow S_{H_2} \\approx 11,62\\text{ m}^2$.<br>Do đó cần mua 4 hộp sơn để sơn phần $H_2$ với số tiền là $4 \\cdot 0,16 = 0,64$ (triệu đồng).<br>Vậy số tiền bạn Minh cần dùng để sơn bức tường đó là: $0,24 + 0,42 + 0,64 = 1,3$ (triệu đồng).<br>\\shortans{1,3}"
+  },
+  {
+    "id": "31",
+    "title": "Câu 31",
+    "type": "short_answer",
+    "text": "(Sở Bình Thuận 2025) Hưởng ứng chính sách hiện đại hóa nông thôn, người dân ở khu phố A đồng lòng cùng nhau góp tiền để bê tông một đường đi trong khu phố (phần được tô đậm trong hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-35.png}\nBiết rằng khi chọn hệ trục tọa độ $Oxy$ với đơn vị độ dài trên mỗi trục tọa độ là $10\\text{ m}$, các đường cong $AB, CD$ là mép đường được cho bởi đồ thị hàm số $f(x) = \\frac{1}{32}x^3 - \\frac{3}{8}x + \\frac{3}{2}$ và $g(x) = \\frac{1}{32}x^3 - \\frac{5}{8}x + \\frac{1}{2}$, đồng thời lớp bê tông được đổ dày $16\\text{cm}$ và giá tiền $1\\text{m}^3$ bê tông là $1080000$ đồng. Tính số tiền (đơn vị triệu đồng) cần dùng để đổ bê tông con đường đó (làm tròn kết quả đến hàng phần đơn vị).",
+    "image": "",
+    "correct": "253",
+    "solution": "Diện tích của hình phẳng giới hạn bởi hai đồ thị hàm số đã cho là:<br>$S = \\int\\limits_{-2}^7 (f(x) - g(x)) \\mathrm{\\,d}x = \\int\\limits_{-2}^7 \\left[ \\left( \\frac{1}{32}x^3 - \\frac{3}{8}x + \\frac{3}{2} \\right) - \\left( \\frac{1}{32}x^3 - \\frac{5}{8}x + \\frac{1}{2} \\right) \\right] \\mathrm{\\,d}x = \\frac{117}{8}$ (đvdt).<br>Do đơn vị độ dài trên mỗi trục tọa độ là $10\\text{ m}$ nên diện tích thực tế của con đường là $S_1 = \\frac{117}{8} \\cdot 10^2 = \\frac{2925}{2} \\, (\\text{m}^2)$.<br>Thể tích khối bê tông cần đổ là: $V = S \\cdot h = \\frac{2925}{2} \\cdot 0,16 = 234 \\, (\\text{m}^3)$.<br>Số tiền cần dùng để đổ bê tông con đường đó là: $234 \\cdot 1,08 \\approx 253$ triệu đồng.<br>\\shortans{253}"
+  },
+  {
+    "id": "32",
+    "title": "Câu 32",
+    "type": "short_answer",
+    "text": "(Sở Thái Nguyên 2025) Bác Bình muốn nhờ thợ trang trí một bức tường hình chữ nhật $ADEF$ với kích thước $EF = 6\\text{m}, DE = 3\\text{m}$ sao cho cân xứng hai nửa. Phần gạch chéo là hình giới hạn bởi đường gấp khúc $AFED$ và nửa đường tròn đường kính $AD$, được thuê sơn với đơn giá $250000$ đồng mỗi mét vuông. Phần màu trắng giới hạn bởi nửa đường tròn đường kính $AD$ và một đường parabol (có đỉnh $H$ cách đường thẳng $AB$ một khoảng bằng $2\\text{m}$ và đi qua hai điểm $B, C$ nằm trên cạnh $AD$ thỏa mãn $AB = CD = 1,5\\text{m}$) được thuê trang trí bằng bức phù điêu đắp bằng xi măng với đơn giá $1950000$ đồng mỗi mét vuông (tham khảo hình vẽ). Hỏi bác Bình phải trả bao nhiêu triệu đồng để trang trí bức tường như vậy (kết quả làm tròn đến hàng phần mười)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-36.png}",
+    "image": "",
+    "correct": "20,7",
+    "solution": "Ta có $S_{ADEF} = 6 \\cdot 3 = 18 \\, (\\text{m}^2)$<br>Diện tích nửa đường tròn đường kính $AD$ là $S_1 = \\frac{1}{2}\\pi 3^2 = \\frac{9\\pi}{2} \\, (\\text{m}^2)$<br>Chi phí cho phần gạch chéo là $F_1 = \\left( 18 - \\frac{9\\pi}{2} \\right) \\cdot 0,25$ (triệu đồng)<br>Xét hệ trục tọa độ $Oxy$ sao cho $D(3;0), E(3;3) \\Rightarrow H(0;2), C(1,5;0)$<br>Parabol nhận đỉnh là $H$ và đi qua $B, C$ có phương trình dạng $y = ax^2 + 2$ thỏa mãn $a\\left( \\frac{3}{2} \\right)^2 + 2 = 0 \\Leftrightarrow a = -\\frac{8}{9}$<br>$\\Rightarrow (P): y = -\\frac{8}{9}x^2 + 2$<br>Diện tích phần giới hạn bởi parabol và $AD$ là $S_2 = \\int\\limits_{-1,5}^{1,5} \\left( -\\frac{8}{9}x^2 + 2 \\right) \\mathrm{\\,d}x = 4 \\, (\\text{m}^2)$<br>Chi phí cho phần đắp phù điêu là $F_2 = (S_1 - S_2) \\cdot 1,95 = \\left( \\frac{9\\pi}{2} - 4 \\right) \\cdot 1,95$ (triệu đồng)<br>Vậy tổng chi phí là $F_1 + F_2 = \\left( 18 - \\frac{9\\pi}{2} \\right) \\cdot 0,25 + \\left( \\frac{9\\pi}{2} - 4 \\right) \\cdot 1,95 \\approx 20,7$ (triệu đồng).<br>\\shortans{20,7}"
+  },
+  {
+    "id": "33",
+    "title": "Câu 33",
+    "type": "short_answer",
+    "text": "(Sở Quảng Ninh 2025) Một công tỉ đang thiết kế một bảng quảng cáo hình chữ nhật $ABCD$ có kích thước $AB = 12\\text{m}$ và $AD = 8\\text{m}$. Phần trung tâm của bảng sẽ được in nội dung quảng cáo, được mô tả là phần tô đậm (xem hình minh họa). Hai đường cong trong hình là một phần của đồ thị hàm số có dạng $y = \\frac{ax + b}{cx + d}$, đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số này đều cách điểm $A$ một khoảng bằng $5\\text{ m}$. Đồ thị giao với cạnh $AB$ tại điểm $E$ thỏa mãn $\\frac{AE}{AB} = \\frac{7}{15}$. Diện tích phần in nội dung quảng cáo là bao nhiêu mét vuông (làm tròn kết quả đến hàng phần mười)?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-37.png}",
+    "image": "",
+    "correct": "73,5",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-61.png}<br>Gán hệ trục tọa độ $Oxy$ như hình vẽ. Đồ tị hàm số có TCD là: $x = 0$, TCN là: $y = 0$ nên ta có:<br>$\\begin{cases} d = 0 \\\\ a = 0 \\end{cases} \\Rightarrow y = \\frac{b}{cx}$.<br>Ta có: $\\frac{AE}{AB} = \\frac{7}{15} \\Leftrightarrow AE = \\frac{7}{15} \\cdot AB = \\frac{7}{15} \\cdot 12 = 5,6 \\Rightarrow E(0,6; -5)$.<br>Đồ thị hàm số đi qua điểm $E(0,6; -5)$ nên $-5 = \\frac{b}{c \\cdot 0,6} \\Leftrightarrow \\frac{b}{c} = -3 \\Rightarrow y = -\\frac{3}{x}$.<br>Ta có: $S = \\int\\limits_{-5}^{-1} \\left( 5 + \\frac{3}{x} \\right) \\mathrm{\\,d}x = 20 - 3\\ln 5, S' = \\int\\limits_{0,6}^7 \\frac{3}{x} \\mathrm{\\,d}x = 3\\ln \\frac{35}{3}$.<br>Diện tích phần in nội dung quảng cáo bằng:<br>$S_{ABCD} - S - S' = 12 \\cdot 8 - (20 - 3\\ln 5) - 3\\ln \\frac{35}{3} \\approx 73,5 \\, (\\text{đvdt})$.<br>\\shortans{73,5}"
+  },
+  {
+    "id": "34",
+    "title": "Câu 34",
+    "type": "short_answer",
+    "text": "(Chuyên Lương Thế Vinh - Đồng Nai 2025) Cho hình vuông OABC cạnh bằng 8, điểm M nằm trong hình vuông sao cho khoảng cách từ M đến các cạnh OA, OC cùng bằng 3. Parabol $(P_1)$ đi qua các điểm O, A, M, Parabol $(P_2)$ đi qua các điểm O, C, M. Tính diện tích phần tô đậm (hình vẽ bên). (kết quả làm tròn kết quả đến hàng đơn vị).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-39.png}",
+    "image": "",
+    "correct": "32",
+    "solution": "Cho hệ trục tọa độ Oxy sao cho tia Ox trùng tia OA, tia Oy trùng tia OB.<br>Gọi $S_1$ là diện tích hình phẳng giới hạn bởi các đường $(P_1), y = 0$;<br>$S_2$ là diện tích hình phẳng giới hạn bởi các đường $(P_2), x = 0$;<br>$S_3$ là diện tích hình phẳng giới hạn bởi các đường $(P_1)$ và $(P_2)$.<br>Từ hình vẽ ta thấy diện tích hình phẳng cần tìm là $S = S_{OABC} - [S_1 + S_2 - S_3]$ (*)<br>Gọi phương trình $(P_1)$ là $y = ax^2 + bx + c$.<br>Vì $(P_1)$ đi qua $O(0;0), M(3;3), A(8;0)$ nên $\\begin{cases} c = 0 \\\\ 9a + 3b + c = 3 \\\\ 64a + 8b + c = 0 \\end{cases} \\Leftrightarrow \\begin{cases} a = -\\frac{1}{5} \\\\ b = \\frac{8}{5} \\\\ c = 0 \\end{cases}$.<br>Suy ra $y = -\\frac{1}{5}x^2 + \\frac{8}{5}x$.<br>Ta thấy $(P_1)$ và $(P_2)$ đối xứng qua OM nên<br>$S_1 = S_2 = \\int\\limits_0^8 \\left( -\\frac{1}{5}x^2 + \\frac{8}{5}x \\right) \\mathrm{\\,d}x = \\frac{256}{15}$<br>Gọi $S_4$ là diện tích hình phẳng giới hạn bởi các đường $(P_1), OM: y = x$, do tính chất đối xứng nên<br>$S_3 = 2S_4 = 2 \\int\\limits_0^3 \\left[ \\left( -\\frac{1}{5}x^2 + \\frac{8}{5}x \\right) - x \\right] \\mathrm{\\,d}x = \\frac{9}{5}$<br>Thay và (*) ta được $S = 64 - \\left( \\frac{256}{15} + \\frac{256}{15} - \\frac{9}{5} \\right) = \\frac{95}{3} \\approx 32$.<br>\\shortans{32}"
+  },
+  {
+    "id": "35",
+    "title": "Câu 35",
+    "type": "short_answer",
+    "text": "(THPT Lê Quý Đôn - Hà Nội 2025) Kiến trúc sư thiết kế một khu sinh hoạt cộng đồng có dạng hình vuông $ABCD$ có độ dài đường chéo $AC = 45\\text{m}$. Trong đó, phần được tô màu đậm là sân chơi, phần còn lại để trồng hoa. Mỗi phần trồng hoa có đường biên cong là một phần của parabol với các đỉnh thuộc một trục đối xứng của hình vuông, khoảng cách từ đỉnh đó đến đỉnh tương ứng của hình vuông bằng $15\\text{m}$. Bản thiết kế khu sinh hoạt nhận tâm hình vuông $ABCD$ làm tâm đối xứng và trên hình bên ta có $AM = MN = NB$. Để trang trí cho phần sân chơi tốn $500$ nghìn đồng / $1\\text{m}^2$, để trồng hoa tốn $200$ nghìn đồng / $1\\text{m}^2$. Tổng số tiền cần dùng là bao nhiêu triệu đồng? (Kết quả làm tròn đến hàng đơn vị).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-40.png}",
+    "image": "",
+    "correct": "349",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-66.png}<br>Gắn hệ tọa độ $Oxy$ như hình vẽ: $A\\left( 0; \\frac{45}{2} \\right), B\\left( \\frac{45}{2}; 0 \\right), C\\left( 0; -\\frac{45}{2} \\right), D\\left( -\\frac{45}{2}; 0 \\right)$.<br>Do hình vuông $ABCD$ có $AC = 45\\text{m}$ nên độ dài cạnh hình vuông là: $AB = \\frac{AC}{\\sqrt{2}} = \\frac{45}{\\sqrt{2}}\\text{ m}$.<br>Diện tích hình vuông $ABCD$ là: $S_{ABCD} = AB^2 = \\frac{45^2}{2} = 1012,5\\text{ m}^2$.<br>Vì $AM = MN = NB$ nên $AM = MN = NB = \\frac{AB}{3} = \\frac{15\\sqrt{2}}{2}\\text{ m}$.<br>Độ dài cạnh $AH = AM \\cdot \\cos 45^\\circ = \\frac{15}{2}$, $OH = OA - AH = \\frac{45}{2} - \\frac{15}{2} = 15$; $HM = AM \\cdot \\sin 45^\\circ = \\frac{15}{2}$.<br>Vậy tọa độ của điểm $M = \\left( \\frac{15}{2}; 15 \\right)$.<br>Parabol đi qua điểm $M$ và có đỉnh là điểm $E\\left( 0; \\frac{15}{2} \\right)$ có phương trình dạng:<br>$(P): y = ax^2 + \\frac{15}{2}$ (1)<br>Thay tọa độ điểm $M\\left( \\frac{15}{2}; 15 \\right)$ vào (1) ta được: $15 = a \\cdot \\left( \\frac{15}{2} \\right)^2 + \\frac{15}{2} \\Leftrightarrow a = \\frac{2}{15}$.<br>Vậy phương trình parabol $(P): y = \\frac{2}{15}x^2 + \\frac{15}{2}$.<br>Diện tích hình phẳng giới hạn bởi $(P)$, đường thẳng $y = 15$, trục $Oy$ và đường thẳng $x = \\frac{15}{2}$ là: $S_1 = \\int\\limits_0^{\\frac{15}{2}} \\left[ 15 - \\left( \\frac{2}{15}x^2 + \\frac{15}{2} \\right) \\right] \\mathrm{\\,d}x = \\left. \\left[ \\frac{15}{2}x - \\frac{2x^3}{45} \\right] \\right|_0^{\\frac{15}{2}} = 37,5\\text{ m}^2$.<br>Diện tích tam giác $\\Delta AHM$ là: $S_2 = S_{AHM} = \\frac{1}{2} \\cdot AH \\cdot HM = \\frac{1}{2} \\cdot \\frac{15}{2} \\cdot \\frac{15}{2} = 28,125\\text{ m}^2$.<br>Diện tích trồng hoa là: $S_{HOA} = 8 \\cdot (S_1 + S_2) = 8 \\cdot (37,5 + 28,125) = 525\\text{ m}^2$<br>Diện tích sân chơi là: $S_{SAN} = S_{ABCD} - S_{HOA} = 1012,5 - 525 = 487,5\\text{ m}^2$.<br>Tổng số tiền cần dùng là: $487,5 \\cdot 500000 + 525 \\cdot 200000 = 348750000$ đ<br>Vậy số tiền cần dùng để trang trí sân và trồng hoa là $349$ triệu đồng.<br>\\shortans{349}"
+  },
+  {
+    "id": "36",
+    "title": "Câu 36",
+    "type": "short_answer",
+    "text": "(THPT Nguyễn Quốc Trinh - Hà Nội 2025) Bạn An thực hiện thiết kế một logo hình con mắt cho một phòng khám nhãn khoa. Logo là một hình phẳng giới hạn bởi hai parabol $y = f(x)$ và $y = g(x)$ có các kích thước như hình vẽ dưới đây (phần được tô màu đen) và một hình tròn có bán kính bằng $0,5\\text{ dm}$ ở giữa là phần con ngươi (phần được tô màu xanh), đơn vị trên mỗi trục tọa độ là decimet. Biết rằng chi phí để sơn phần con ngươi hình tròn màu xanh là $25000$ đồng/$\\text{dm}^2$ và chi phí để sơn phần còn lại màu đen là $20\\,000$ đồng/$\\text{dm}^2$. Chi phí để sơn logo trên là bao nhiêu nghìn đồng? (Kết quả làm tròn đến hàng đơn vị).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-41.png}",
+    "image": "",
+    "correct": "200",
+    "solution": "Gọi phương trình parabol $y = f(x)$ là $f(x) = ax^2 + bx + c$ với $a \\neq 0$ đi qua các điểm có tọa độ lần lượt là $(2;1), (0;2), (-2;1)$.<br>Lập hệ phương trình ba ẩn, từ đó suy ra được $\\begin{cases} a = -\\frac{1}{4} \\\\ b = 0 \\\\ c = 2 \\end{cases}$ nên $f(x) = -\\frac{1}{4}x^2 + 2$<br>Gọi phương trình parabol $y = g(x)$ là $g(x) = mx^2 + nx + p$ với $m \\neq 0$ đi qua các điểm có tọa độ lần lượt là $(-2;0), (0;-1), (2;0)$.<br>Lập hệ phương trình ba ẩn, từ đó suy ra được $\\begin{cases} m = \\frac{1}{4} \\\\ n = 0 \\\\ p = -1 \\end{cases}$ nên $g(x) = \\frac{1}{4}x^2 - 1$<br>Phương trình hoành độ giao điểm: $f(x) = g(x) \\Leftrightarrow -\\frac{1}{4}x^2 + 2 = \\frac{1}{4}x^2 - 1 \\Leftrightarrow \\frac{1}{2}x^2 = 3 \\Leftrightarrow x = \\pm \\sqrt{6}$<br>Diện tích hình tròn được sơn màu xanh là: $S_1 = \\pi r^2 = \\pi (0,5)^2 = 0,25\\pi \\, (\\text{dm}^2)$<br>Diện tích hình phẳng giới hạn bởi hai đường thẳng $y = f(x)$ và $y = g(x)$ là:<br>$S_2 = \\int\\limits_{-\\sqrt{6}}^{\\sqrt{6}} |f(x) - g(x)| \\mathrm{\\,d}x = \\int\\limits_{-\\sqrt{6}}^{\\sqrt{6}} \\left| \\left( -\\frac{1}{4}x^2 + 2 \\right) - \\left( \\frac{1}{4}x^2 - 1 \\right) \\right| \\mathrm{\\,d}x$<br>Diện tích phần sơn được tô màu đen là: $S_3 = S_2 - S_1 = \\int\\limits_{-\\sqrt{6}}^{\\sqrt{6}} \\left| \\left( -\\frac{1}{4}x^2 + 2 \\right) - \\left( \\frac{1}{4}x^2 - 1 \\right) \\right| \\mathrm{\\,d}x - 0,25\\pi$<br>Chi phí để sơn logo là:<br>$T = 0,25\\pi \\cdot 25000 + \\left[ \\int\\limits_{-\\sqrt{6}}^{\\sqrt{6}} \\left| \\left( -\\frac{1}{4}x^2 + 2 \\right) - \\left( \\frac{1}{4}x^2 - 1 \\right) \\right| \\mathrm{\\,d}x - 0,25\\pi \\right] \\cdot 20000 \\approx 249$ nghìn đồng.<br>\\shortans{200}"
+  },
+  {
+    "id": "37",
+    "title": "Câu 37",
+    "type": "short_answer",
+    "text": "(Cụm THPT Hoàn Kiếm - Hai Bà Trưng - Hà Nội 2025) Một hoa văn hình tròn tâm $O$, ngoại tiếp tam giác đều $ABC$ có cạnh $AB = 2\\sqrt{3}\\text{ cm}$. Đường cong qua ba điểm $A, B, C$ là một phần của parabol (xem hình vẽ).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-42.png}\nTính diện tích của phần hình phẳng giới hạn bởi đường tròn và parabol (phần không gạch) theo đơn vị $\\text{cm}^2$ (kết quả làm tròn đến chữ số thập phân thứ hai).",
+    "image": "",
+    "correct": "3,18",
+    "solution": "Gắn hệ trục tọa độ $Oxy$ như hình vẽ.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-69.png}<br>Khi đó $A(-\\sqrt{3};0), B(\\sqrt{3};0), C(0;3)$.<br>Parabol đi qua ba điểm $A(-\\sqrt{3};0), B(\\sqrt{3};0), C(0;3)$ nên parabol có phương trình là $y = -x^2 + 3$.<br>Đường tròn ngoại tiếp tam giác $ABC$ có tâm $O(0;1)$ và bán kính $R = 2$ nên có phương trình là $x^2 + (y - 1)^2 = 4$.<br>Suy ra $y = 1 - \\sqrt{4 - x^2}$ (Phần nằm dưới trục hoành).<br>Diện tích phần gạch là $S = \\int\\limits_{-\\sqrt{3}}^{\\sqrt{3}} \\left[ -x^2 + 3 - \\left( 1 - \\sqrt{4 - x^2} \\right) \\right] \\mathrm{\\,d}x$<br>Do đó diện tích phần không gạch là $S' = \\pi \\cdot 2^2 - S = 3,18 \\, (\\text{cm}^2)$.<br>\\shortans{3,18}"
+  },
+  {
+    "id": "38",
+    "title": "Câu 38",
+    "type": "short_answer",
+    "text": "(Sở Thái Bình 2025) Viên gạch men dùng để lát nền nhà là một hình vuông có cạnh bằng $80\\text{ cm}$ (xem hình bên dưới). Mỗi viên gạch có 4 bông hoa, mỗi bông hoa gồm 4 cánh hoa. Mỗi cánh hoa (phần màu xanh) là phần giao nhau của hai hình tròn có cùng bán kính và khoảng cách giữa hai tâm là $20\\sqrt{2}\\text{ cm}$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-43.png}\nƯớc tính ở công đoạn tráng men, phần màu xanh có chi phí $50$ nghìn đồng trên một mét vuông, còn phần màu trắng có chi phí $30$ nghìn đồng trên một mét vuông. Tính chi phí (đơn vị: tỉ đồng) của công đoạn tráng men này, khi cơ sở dự định sản xuất $100\\,000$ viên gạch như thế (làm tròn kết quả đến hàng phần trăm).",
+    "image": "",
+    "correct": "2,65",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-71.png}<br>Xét $\\frac{1}{16}$ viên gạch men (vùng hình vuông chứa một cánh hoa).<br>Vì phần cánh hoa (màu xanh) là phần giao nhau của các đường tròn có khoảng cách giữa các tâm là $20\\sqrt{2}$ nên một cánh hoa là phần giao của hai phần tư hình tròn tâm $A, B$ (hình vẽ), có bán kính $r = 20$.<br>Mỗi phần tư hình tròn tâm $A, B$ có diện tích $S = \\frac{1}{4}\\pi \\cdot 20^2$.<br>Diện tích hình vuông có $AB$ là đường chéo: $S_v = 20^2$.<br>Suy ra diện tích của một cánh hoa là $2S - S_v = \\frac{1}{2}\\pi \\cdot 20^2 - 20^2 = \\left( \\frac{\\pi}{2} - 1 \\right) \\cdot 20^2$.<br>Do đó<br>Diện tích phần màu xanh là $S_1 = 16 \\left( \\frac{\\pi}{2} - 1 \\right) \\cdot 20^2 \\, (\\text{cm}^2)$.<br>Diện tích phần màu trắng $S_2 = 80^2 - S_1 \\, (\\text{cm}^2)$.<br>Số tiền tráng men một viên gạch là $T = 5S_1 + 3S_2 = 26506,19298$ đồng.<br>Để sản xuất $100\\,000$ viên gạch thì số tiền tráng men là $100000T = 2650619298$ (đồng) $\\approx 2,65$ (tỉ đồng).<br>\\shortans{2,65}"
+  },
+  {
+    "id": "39",
+    "title": "Câu 39",
+    "type": "short_answer",
+    "text": "(Sở Lai Châu 2025) Khuôn viên nhà bạn Thùy Dương có dạng nửa hình tròn, trên đó người thiết kế phần để trồng hoa có dạng của một cánh hoa hình parabol có đỉnh trùng với tâm và có trục đối xứng vuông góc với đường kính của nửa hình tròn, hai đầu mút của cánh hoa nằm trên nửa đường tròn và cách nhau một khoảng bằng $4\\text{ m}$. Phần còn lại của khuôn viên dành để trồng cỏ Nhung Nhật. Biết các kích thước cho như hình vẽ, chi phí trồng hoa và cỏ Nhung Nhật tương ứng là $250.000$ đồng/$\\text{m}^2$ và $150.000$ đồng/$\\text{m}^2$. Hỏi chi phí để trồng hoa và trồng cỏ Nhung Nhật trong khuôn viên đó hết bao nhiêu triệu đồng (làm tròn kết quả đến hàng phần chục)?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-45.png}",
+    "image": "",
+    "correct": "5,9",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP5-75.png}<br>Chọn hệ trục tọa độ $Oxy$ như hình vẽ.<br>Xét parabol có đỉnh là gốc tọa độ và đi qua điểm $(2;4)$: Phương trình $(P)$ có dạng: $y = ax^2$<br>Vì $A(2;4) \\in (P)$ nên $4 = a \\cdot 2^2 \\Leftrightarrow a = 1 \\Rightarrow (P): y = x^2$.<br>Xét $\\Delta OAB$ vuông tại $B$, theo định lý Pythagore ta có:<br>$OA^2 = AB^2 + OB^2 = 4^2 + 2^2 = 16 + 4 = 20 \\Rightarrow R = OA = 2\\sqrt{5}$<br>Phương trình đường tròn $(C)$ có tâm $O$, bán kính $R = 2\\sqrt{5}$ là: $x^2 + y^2 = 20$.<br>$\\Rightarrow |y| = \\sqrt{20 - x^2}$<br>Diện tích phần trồng hoa là: $S_1 = \\int\\limits_{-2}^2 \\left( \\sqrt{20 - x^2} - x^2 \\right) \\mathrm{\\,d}x$.<br>Diện tích trồng cỏ Nhung Nhật là: $S_2 = \\frac{\\pi R^2}{2} - S_1 = 10\\pi - S_1$.<br>Tổng chi phí để trồng hoa và trồng cỏ Nhung Nhật trong khuôn viên đó là:<br>$250000 \\cdot S_1 + 150000 \\cdot S_2 = 250000 \\cdot S_1 + 150000 \\cdot (10\\pi - S_1) \\approx 5906351$ (đồng) $\\approx 5,9$ (triệu đồng).<br>Vậy chi phí để trồng hoa và trồng cỏ Nhung Nhật trong khuôn viên nhà bạn Thùy Dương gần bằng 5,9 triệu đồng.<br>\\shortans{5,9}"
+  },
+  {
+    "id": "40",
+    "title": "Câu 40",
+    "type": "short_answer",
+    "text": "(Sở Yên Bái 2025) Một vật trang trí có dạng một khối tròn xoay được tạo thành khi quay miền $(R)$ (phần gạch chéo trong hình vẽ) quanh trục $MN$. Biết rằng $ABCD$ là hình chữ nhật với $AB = 6\\text{cm}$, $AD = 10\\text{cm}$ và $M, N$ lần lượt là trung điểm của $AB, CD$. Hai đường cong là đường Elip có hình chữ nhật cơ sở là $ABCD$ và đường tròn tiếp xúc với hai cạnh $AD$ và $BC$ (tham khảo hình vẽ). Tính thể tích của vật trang trí đó (kết quả làm tròn đến hàng phần chục theo đơn vị $\\text{cm}^3$).\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-1.png}\n\\end{center}",
+    "image": "",
+    "correct": "75",
+    "solution": "Gắn vào hình chữ nhật $ABCD$ hệ trục tọa độ $Oxy$ với gốc $O$ trùng với giao hai đường chéo, các điểm $M, N$ nằm trên $Ox$ (tham khảo hình vẽ).<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-2.png}<br>\\end{center}<br>Do $MN$ là trục đối xứng của miền $(R)$ nên khối tròn xoay được tạo thành khi quay miền $(R)$ quanh trục $MN$ trùng với khối tròn xoay được tạo thành khi quay phần $(R)$ nằm phía trên $MN$ quanh $MN$.<br><br>Gọi $V, V_1, V_2$ tương ứng là thể tích của các khối tròn xoay được tạo thành khi quay Elips $(E)$, hình tròn $(C)$ và miền $(R)$ quanh $MN$ (hay quanh $Ox$), ta có $V = V_1 - V_2$.<br><br>Elip $(E)$ có các bán trục $a = \\frac{1}{2} AD = 5$, $b = \\frac{1}{2} AB = 3$ nên có phương trình $\\frac{x^2}{25} + \\frac{y^2}{9} = 1$.<br><br>Ta có $V_1 = \\pi \\int_{-5}^{5} 9\\left(1 - \\frac{x^2}{25}\\right) \\mathrm{d}x = \\pi \\left(9x - \\frac{9}{25} \\cdot \\frac{x^3}{3}\\right) \\Big|_{-5}^{5} = 60\\pi \\ (\\text{cm}^3)$.<br><br>Hình tròn $(C)$ có tâm tại $O$, bán kính $R = 3$ khi quay quanh $MN$ tạo thành khối cầu tâm $O$, bán kính bằng $3$. Do đó $V_2 = \\frac{4}{3} \\pi \\cdot 3^3 = 36\\pi \\ (\\text{cm}^3)$.<br><br>Vậy thể tích của vật trang trí đó là: $V = V_1 - V_2 = 24\\pi \\approx 75 \\ (\\text{cm}^3)$."
+  },
+  {
+    "id": "41",
+    "title": "Câu 41",
+    "type": "short_answer",
+    "text": "(Chuyên KHTN Hà Nội 2025) Cho hai khối trụ có bán kính đáy bằng $3$ và có trục là hai đường thẳng cắt nhau và vuông góc với nhau (xem hình vẽ).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-3.png}\n\\end{center}\nGọi $(H)$ là phần giao nhau của hai khối trụ đó. Tính thể tích của $(H)$.",
+    "image": "",
+    "correct": "144",
+    "solution": "Chọn hệ trục tọa độ như hình vẽ.<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-4.png}<br>\\end{center}<br>Mặt phẳng vuông góc với tia $Ox$ tại điểm có hoành độ $x$, cắt hình $(H)$ theo thiết diện là một hình vuông có cạnh $AB$.<br><br>Ta có $\\left(\\frac{1}{2} AB\\right)^2 = R^2 - x^2 = 9 - x^2 \\Rightarrow AB^2 = 36 - 4x^2$.<br><br>Vậy nên diện tích thiết diện là $S(x) = AB^2 = 36 - 4x^2$.<br><br>Thể tích của $(H)$ là $V = 2 \\int_{0}^{3} S(x) \\mathrm{d}x = 2 \\int_{0}^{3} (36 - 4x^2) \\mathrm{d}x = 144 \\ (\\text{đvtt})$."
+  },
+  {
+    "id": "42",
+    "title": "Câu 42",
+    "type": "short_answer",
+    "text": "(Cụm trường Nghệ An 2025) Một ly thủy tinh có hình dạng phần chứa nước là một hình parabol tròn xoay. Hình dạng này được tạo ra bằng cách quay một phần của đường parabol quanh trục đối xứng của nó. Biết phần chứa nước của ly có chiều cao tính từ đáy ly lên đến miệng ly là $10\\text{ cm}$, đường kính miệng ly là $8\\text{ cm}$ (chỉ tính phần chứa nước, không tính phần thủy tinh).\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-5.png}\n\\end{center}\nBan đầu, người ta đổ vào ly một lượng nước có thể tích bằng $\\frac{1}{4}$ thể tích của ly khi nó chứa đầy nước. Sau đó, người ta đổ thêm vào ly một lượng nước có thể tích bằng với lượng nước đã đổ ban đầu. Hỏi sau khi đổ thêm, chiều cao của mực nước trong ly đã tăng thêm bao nhiêu centimet so với lúc ban đầu (làm tròn đến hàng phần trăm)?",
+    "image": "",
+    "correct": "2,07",
+    "solution": "Ta có:<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-6.png}<br>\\end{center}<br>$(P): y^2 = 2px$<br><br>$x = 10, y = 4 \\Rightarrow p = \\frac{4}{5} \\Rightarrow (P): y^2 = \\frac{8}{5} x$<br><br>Thể tích nước trong ly: $V = \\pi \\int_{0}^{10} y^2 \\mathrm{d}x = \\pi \\int_{0}^{10} \\frac{8}{5} x \\mathrm{d}x = \\frac{4\\pi x^2}{5} \\Big|_{0}^{10} = 80\\pi$.<br><br>Chiều cao của nước ban đầu: $\\pi \\int_{0}^{h_1} \\frac{8}{5} x \\mathrm{d}x = \\frac{1}{4} \\cdot 80\\pi \\Leftrightarrow \\frac{4h_1^2}{5} = 20 \\Leftrightarrow h_1 = 5$.<br><br>Chiều cao của mực nước sau khi đổ thêm:<br>$\\pi \\int_{0}^{h_2} \\frac{8}{5} x \\mathrm{d}x = 2 \\cdot \\frac{1}{4} \\cdot 80\\pi \\Leftrightarrow \\frac{4h_2^2}{5} = 40 \\Leftrightarrow h_2 = 5\\sqrt{2}$.<br><br>Chiều cao của mực nước tăng thêm so với ban đầu: $h = h_2 - h_1 = 5\\sqrt{2} - 5 \\approx 2,07 \\ (\\text{cm})$."
+  },
+  {
+    "id": "43",
+    "title": "Câu 43",
+    "type": "short_answer",
+    "text": "(Sở Vĩnh Phúc 2025) Lớp vỏ của một lò phản ứng hạt nhân bằng kim loại và được tạo bởi hình phẳng $(S)$ giới hạn bởi nhánh bên phải trục tung của các đường hypebol $(H_1)$, $(H_2)$ và hai đường thẳng $y = -12, y = 6$ khi quay quanh trục $Oy$ (tham khảo hình vẽ).\n\\begin{center}\n\t\\noteImage[width=0.5\\linewidth]{data/im/UDTP6-7.png}\n\\end{center}\nBiết $(H_1)$ đi qua điểm $(\\sqrt{35}; 0)$ có tiêu cự bằng $10\\sqrt{7}$, $(H_2)$ đi qua điểm $(\\sqrt{30}; 0)$ có tiêu cự bằng $10\\sqrt{6}$ và đơn vị trên các trục toạ độ bằng mét. Thể tích khối kim loại cần sử dụng để làm vỏ lò phản ứng hạt nhân bằng bao nhiêu mét khối? (Kết quả làm tròn đến hàng đơn vị).",
+    "image": "",
+    "correct": "283",
+    "solution": "\\begin{center}<br>\t\\noteImage[width=0.5\\linewidth]{data/im/UDTP6-8.png}<br>\\end{center}<br>+ Giả sử $(H_1)$ có phương trình chính tắc: $\\frac{x^2}{a_1^2} - \\frac{y^2}{b_1^2} = 1$, $(H_2)$ có phương trình chính tắc: $\\frac{x^2}{a_2^2} - \\frac{y^2}{b_2^2} = 1$<br><br>Vì $(H_1)$ có tiêu cự bằng $10\\sqrt{7}$ suy ra $c_1 = 5\\sqrt{7} \\Rightarrow a_1^2 + b_1^2 = 175$. Mặt khác $(H_1)$ đi qua $(\\sqrt{35}; 0)$ suy ra $a_1^2 = 35 \\Rightarrow b_1^2 = 140$. Vậy $(H_1): \\frac{x^2}{35} - \\frac{y^2}{140} = 1$.<br><br>Từ đó ta có thể xem nhánh bên phải của $(H_1)$ là hàm số $x = g(y) = \\frac{1}{2} \\sqrt{y^2 + 140}$ (hàm số theo biến $y$).<br><br>Tương tự: $(H_2)$ có tiêu cự bằng $10\\sqrt{6}$ suy ra $c_2 = 5\\sqrt{6} \\Rightarrow a_2^2 + b_2^2 = 150$. Mặt khác $(H_2)$ đi qua $(\\sqrt{30}; 0)$ suy ra $a_2^2 = 30 \\Rightarrow b_2^2 = 120$. Vậy $(H_2): \\frac{x^2}{30} - \\frac{y^2}{120} = 1$.<br><br>Từ đó ta có thể xem nhánh bên phải của $(H_2)$ là hàm số $x = h(y) = \\frac{1}{2} \\sqrt{y^2 + 120}$ (hàm số theo biến $y$).<br><br>Đặt thể tích khối kim loại cần sử dụng để làm vỏ lò phản ứng hạt nhân bằng $V$. Từ đó ta có:<br>$$V = \\pi \\int_{-12}^{6} \\left(g^2(y) - h^2(y)\\right) \\mathrm{d}y = \\pi \\int_{-12}^{6} \\left[ \\frac{1}{4}(y^2 + 140) - \\frac{1}{4}(y^2 + 120) \\right] \\mathrm{d}y$$<br>$$\\Leftrightarrow V = \\pi \\int_{-12}^{6} (35 - 30) \\mathrm{d}y = 5\\pi \\int_{-12}^{6} \\mathrm{d}y = 90\\pi \\approx 283 \\ (\\text{m}^3).$$"
+  },
+  {
+    "id": "44",
+    "title": "Câu 44",
+    "type": "short_answer",
+    "text": "(Cụm trường Hưng Yên 2025) Nếu cắt chậu nước có hình dạng như hình bên bằng mặt phẳng song song và cách mặt đáy $x \\ (\\text{cm}) \\ (0 \\le x \\le 16)$ thì mặt cắt là hình tròn có bán kính $R = 10 + \\sqrt{x} \\ (\\text{cm})$. Tìm $x$ (đơn vị cm, làm tròn kết quả đến hàng phần trăm) để dung tích nước trong chậu bằng $\\frac{1}{2}$ thể tích của chậu?\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-9.png}\n\\end{center}",
+    "image": "",
+    "correct": "8,94",
+    "solution": "Diện tích mặt cắt của chậu là $S(x) = \\pi \\left(10 + \\sqrt{x}\\right)^2 = \\pi \\left(100 + x + 20\\sqrt{x}\\right)$<br><br>Thể tích của chậu là $V = \\int_{0}^{16} S(x) \\mathrm{d}x = \\pi \\left(100x + \\frac{x^2}{2} + 20 \\cdot \\frac{2}{3} x\\sqrt{x}\\right) \\Big|_{0}^{16} = \\frac{7744}{3} \\pi$.<br><br>Dung tích nước trong chậu là<br>$$V_{\\text{nước}} = \\int_{0}^{x} S(x) \\mathrm{d}x = \\pi \\left(100x + \\frac{x^2}{2} + \\frac{40}{3} x\\sqrt{x}\\right)$$<br><br>Để dung tích nước trong chậu bằng $\\frac{1}{2}$ thể tích của chậu thì<br>$$\\pi \\left(100x + \\frac{x^2}{2} + \\frac{40}{3} x\\sqrt{x}\\right) = \\frac{3872}{3} \\pi \\Leftrightarrow 100x + \\frac{x^2}{2} + \\frac{40}{3} x\\sqrt{x} = \\frac{3872}{3} \\Leftrightarrow x \\approx 8,94$$"
+  },
+  {
+    "id": "45",
+    "title": "Câu 45",
+    "type": "short_answer",
+    "text": "(Sở Thừa Thiên Huế 2025) Một lều cắm trại có dạng như hình vẽ dưới, khung lều được tạo thành từ hai parabol giống nhau có chung đỉnh $O$ và thuộc hai mặt phẳng vuông góc nhau (một parabol đi qua $A, O, C$ và một parabol đi qua $B, D, O$), bốn chân tạo thành hình vuông $ABCD$ có cạnh là $2\\sqrt{2} \\ (\\text{m})$, chiều cao tính từ đỉnh lều là $2 \\ (\\text{m})$. Biết mặt cắt của lều khi cắt bởi một mặt phẳng song song với mặt phẳng $(ABCD)$ luôn là một hình vuông. Tính thể tích của lều (đơn vị là $\\text{m}^3$).\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-10.png}\n\\end{center}",
+    "image": "",
+    "correct": "8",
+    "solution": "Ta có: $AB = 2\\sqrt{2} \\Rightarrow AC = 4$. Chọn hệ trục $Oxy$ như hình vẽ.<br>\\begin{center}<br>\t\\noteImage[width=0.5\\linewidth]{data/im/UDTP6-11.png}<br>\\end{center}<br>Khi đó, mặt cắt tại $x = t$ là hình vuông có diện tích $S(t) = \\frac{1}{2} \\left(2\\sqrt{2t}\\right)^2 = 4t$.<br><br>Vậy thể tích của lều là $V = \\int_{0}^{2} S(t) \\mathrm{d}t = \\int_{0}^{2} 4t \\mathrm{d}t = \\left[2t^2\\right] \\Big|_{0}^{2} = 8 \\ (\\text{m}^3)$."
+  },
+  {
+    "id": "46",
+    "title": "Câu 46",
+    "type": "short_answer",
+    "text": "(Chuyên Hoàng Văn Thụ - Hòa Bình 2025) Trong các làng nghề chế tạo đá mỹ nghệ, người ta làm được nhiều đồ trang sức bằng đá rất đẹp. Một người thợ thủ công chế tạo vòng đeo tay hình tròn bằng đá xanh, biết rằng bán kính vòng ngoài của vòng là $7\\text{cm}$, bán kính vòng trong là $5\\text{cm}$ (hình vẽ). Tính thể tích của chiếc vòng (theo đơn vị đo là $\\text{cm}^3$ và làm tròn đến hàng đơn vị).\n\\begin{center}\n\t\\noteImage[width=0.5\\linewidth]{data/im/UDTP6-12.png}\n\\end{center}",
+    "image": "",
+    "correct": "118",
+    "solution": "Gắn hệ trục tọa độ như hình vẽ. Gốc tọa độ là tâm của chiếc vòng, Trục $Ox$ là trục đối xứng của vòng, $Oy$ đi qua tâm một thiết diện cắt ngang của vòng. Khi đó phương trình đường tròn thiết diện là<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-13.png}<br>\\end{center}<br>$$(C): x^2 + (y - 6)^2 = 1 \\Leftrightarrow y = 6 \\pm \\sqrt{1 - x^2}$$<br><br>Vòng được tạo ra bằng cách quay đường tròn $(C): x^2 + (y - 6)^2 = 1$ quanh trục $Ox$<br><br>Thể tích của chiếc vòng là:<br>$$V_{Ox} = \\pi \\int_{-1}^{1} \\left[ \\left(6 + \\sqrt{1 - x^2}\\right)^2 - \\left(6 - \\sqrt{1 - x^2}\\right)^2 \\right] \\mathrm{d}x = \\pi \\int_{-1}^{1} 24\\sqrt{1 - x^2} \\mathrm{d}x = 12\\pi^2 \\approx 118 \\ (\\text{cm}^3).$$"
+  },
+  {
+    "id": "47",
+    "title": "Câu 47",
+    "type": "short_answer",
+    "text": "(Sở Bạc Liêu 2025) Một ly trà sữa dạng hình nón cụt, có đường kính đáy ly $6\\text{cm}$, đường kính miệng ly $9\\text{cm}$, chiều cao $13,4\\text{cm}$, ở miệng ly có sử dụng một nắp đậy có hình dạng nửa mặt cầu và ở đỉnh của nửa mặt cầu này có một hình tròn có đường kính $2\\text{cm}$ để cắm ống hút, mặt phẳng chứa hình tròn này song song với mặt phẳng chứa miệng ly (tham khảo hình vẽ sau).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-14.png}\n\\end{center}\nThể tích bên trong của ly bao gồm cả thể tích của nắp là bao nhiêu $\\text{cm}^3$? (làm tròn kết quả đến hàng đơn vị).",
+    "image": "",
+    "correct": "791",
+    "solution": "Chọn hệ trục $Oxy$ (đơn vị trên trục là centimet) với trục $Ox$ đi qua tâm của 2 đáy hình nón cụt và gốc tọa độ $O$ trùng với tâm của đáy lớn như hình vẽ trên.<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-15.png}<br>\\end{center}<br>Khi đó toạ độ các điểm $A, B, C$ lần lượt là $A(-13,4; 0), B(-13,4; 3), C(0; 4,5)$.<br><br>Gọi phương trình đường thẳng đi qua $BC$ có dạng $y = ax + b$. Ta có hệ phương trình<br>$$\\begin{cases} -13,4a + b = 3 \\\\ 0a + b = 4,5 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{15}{134} \\\\ b = \\frac{9}{2} \\end{cases}$$<br><br>Phương trình đường thẳng $BC$ là $y = \\frac{15}{134}x + \\frac{9}{2}$<br><br>Khi đó thể tích của phần thân ly trà sữa chưa bao gồm nắp là<br>$$V_1 = \\pi \\int_{-13,4}^{0} \\left(\\frac{15}{134}x + \\frac{9}{2}\\right)^2 \\mathrm{d}x = \\frac{3819\\pi}{20} \\quad (1)$$<br><br>Điểm $C, D$ thuộc phương trình đường tròn tâm $O(0; 0), R = 4,5$ có dạng: $x^2 + y^2 = \\frac{81}{4}$<br><br>Thay $y = 1$, ta được: $x = \\sqrt{\\frac{81}{4} - 1} = \\frac{\\sqrt{77}}{2} \\Rightarrow D\\left(\\frac{\\sqrt{77}}{2}; 1\\right)$<br><br>Suy ra $y = \\sqrt{\\frac{81}{4} - x^2}$<br><br>Khi đó thể tích nắp của ly trà sữa là<br>$$V_2 = \\pi \\int_{0}^{\\frac{\\sqrt{77}}{2}} \\left(\\frac{81}{4} - x^2\\right) \\mathrm{d}x = \\frac{83\\pi\\sqrt{77}}{12} \\quad (2)$$<br><br>Từ (1) và (2) thể tích bên trong của ly bao gồm cả thể tích của nắp là<br>$$V = V_1 + V_2 = \\frac{3819\\pi}{20} + \\frac{83\\pi\\sqrt{77}}{12} \\approx 791 \\ (\\text{cm}^3)$$"
+  },
+  {
+    "id": "48",
+    "title": "Câu 48",
+    "type": "short_answer",
+    "text": "(Chuyên Phan Bội Châu - Hà Tĩnh 2025) Một khối tròn xoay được tạo thành khi quay hình phẳng $(H)$ (phần màu xám trong hình vẽ) quanh trục $AB$.\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-16.png}\n\\end{center}\nMiền $(H)$ được giới hạn bởi đường tròn đường kính $AB$ và cung tròn tâm $A$. Biết $AB = 8\\text{cm}$ và điểm $K$ trong hình vẽ thỏa mãn $AK = 3\\text{cm}$. Thể tích của khối tròn xoay đó bằng bao nhiêu $\\text{cm}^3$ (làm tròn kết quả đến hàng đơn vị).",
+    "image": "",
+    "correct": "135",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ như hình vẽ, $A(-4; 0), B(4; 0), K(-1; 0)$.<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-17.png}<br>\\end{center}<br>Gọi $C$ là điểm trên cung tròn tâm $A$ sao cho $KC \\perp AB$,<br><br>$OK = 1 \\Rightarrow CK = \\sqrt{OC^2 - OK^2} = \\sqrt{16 - 1} = \\sqrt{15}$<br><br>$\\Rightarrow AC = \\sqrt{AK^2 + CK^2} = \\sqrt{3^2 + 15} = 2\\sqrt{6} \\Rightarrow OD = 2\\sqrt{6} - 4 \\Rightarrow D(2\\sqrt{6} - 4; 0)$.<br><br>Phương trình đường tròn đường kính $AB$: $x^2 + y^2 = 16$<br><br>$\\Rightarrow$ nửa trên trục $Ox$ có phương trình: $y = \\sqrt{16 - x^2}$.<br><br>Phương trình đường tròn tâm $A$, bán kính $AC$: $(x + 4)^2 + y^2 = 24 \\Rightarrow y = \\sqrt{24 - (x + 4)^2}$<br><br>Thể tích vật thể tròn xoay được tạo thành là<br>$$V = \\pi \\int_{-1}^{4} \\left(\\sqrt{16 - x^2}\\right)^2 \\mathrm{d}x - \\pi \\int_{-1}^{2\\sqrt{6} - 4} \\left(\\sqrt{24 - (x + 4)^2}\\right)^2 \\mathrm{d}x \\approx 135 \\ (\\text{cm}^3)$$"
+  },
+  {
+    "id": "49",
+    "title": "Câu 49",
+    "type": "short_answer",
+    "text": "(Sở Hải Phòng 2025) Sân vận động Sport Hub (Singapore) là sân có mái vòm kỳ vĩ nhất thế giới. Đây là nơi diễn ra lễ khai mạc Đại hội thể thao Đông Nam Á được tổ chức tại Singapore năm 2015. Nền sân là một elip $(E)$ có trục lớn dài $150\\text{m}$, trục bé dài $90\\text{m}$ (hình vẽ). Nếu cắt sân vận động theo một mặt phẳng vuông góc với trục lớn của $(E)$ và cắt elip ở $M, N$ (hình vẽ) thì ta được thiết diện luôn là một phần của hình tròn có tâm $I$ (phần tô đậm trong hình 4) với $MN$ là một dây cung và góc $\\widehat{MIN} = 90^\\circ$. Để lắp máy điều hòa không khí thì các kỹ sư cần tính thể tích phần không gian bên dưới mái che và bên trên mặt sân, coi như mặt sân là một mặt phẳng và thể tích vật liệu là mái không đáng kể. Biết rằng cách tính công suất cần đủ là $200 \\text{ BTU} / \\text{m}^3$. Hỏi cần ít nhất bao nhiêu chiếc điều hòa công suất $50000 \\text{ BTU}$?\n\\begin{center}\n\t\\noteImage[width=0.6\\linewidth]{data/im/UDTP6-18.png}\n\\end{center}",
+    "image": "",
+    "correct": "463",
+    "solution": "Chọn hệ trục như hình vẽ<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-19.png}<br>\\end{center}<br>Ta cần tìm diện tích của $S(x)$ thiết diện.<br><br>Gọi $d(O, MN) = x$<br><br>$(E): \\frac{x^2}{75^2} + \\frac{y^2}{45^2} = 1$.<br><br>Lúc đó $MN = 2y = 2\\sqrt{45^2\\left(1 - \\frac{x^2}{75^2}\\right)} = 90\\sqrt{1 - \\frac{x^2}{75^2}}$<br><br>$\\Rightarrow R = \\frac{MN}{\\sqrt{2}} = \\frac{90}{\\sqrt{2}} \\sqrt{1 - \\frac{x^2}{75^2}} \\Rightarrow R^2 = \\frac{90^2}{2} \\left(1 - \\frac{x^2}{75^2}\\right)$<br><br>$S(x) = \\frac{1}{4} \\pi R^2 - \\frac{1}{2} R^2 = \\left(\\frac{\\pi}{4} - \\frac{1}{2}\\right) R^2 = (\\pi - 2) \\frac{2025}{2} \\left(1 - \\frac{x^2}{75^2}\\right)$.<br><br>Vậy thể tích khoảng không bên dưới mái che và bên trên mặt sân là<br>$$V = \\int_{-75}^{75} (\\pi - 2) \\frac{2025}{2} \\left(1 - \\frac{x^2}{75^2}\\right) \\mathrm{d}x \\approx 115586 \\ (\\text{m}^3).$$<br><br>Số chiếc điều hòa cần lắp là<br>$$115586 \\cdot 200 : 50000 = 462,344$$<br><br>Vậy cần $463$ chiếc điều hòa."
+  },
+  {
+    "id": "50",
+    "title": "Câu 50",
+    "type": "short_answer",
+    "text": "(Cụm chuyên môn Đak Lak 2025) Chuẩn bị cho đêm hội diễn văn nghệ chào đón năm mới, nhóm bạn Lan đã làm một chiếc mũ “cách điệu” cho ông già Noel có dáng một khối tròn xoay. Mặt cắt qua trục của chiếc mũ như hình vẽ bên dưới. Biết rằng $OO' = 6\\text{cm}$, $OA = 10\\text{cm}$, $OB = 20\\text{cm}$, đường cong $AB$ là một phần của parabol có đỉnh là điểm $B$. Tính thể tích của chiếc mũ (làm tròn đến hàng đơn vị).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-20.png}\n\\end{center}",
+    "image": "",
+    "correct": "3142",
+    "solution": "Chọn hệ trục tọa độ như hình vẽ:<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-21.png}<br>\\end{center}<br>Parabol $(P)$ đi qua 2 điểm $A, B$ và có $B$ là đỉnh $\\Rightarrow (P)$ đi qua $A(20; 10)$ và $B(0; 0)$<br><br>Ta có $(P): y = ax^2 + bx + c$.<br><br>Vì $(P)$ qua $B(0; 0) \\Rightarrow c = 0$.<br><br>Vì $(P)$ qua $A(20; 10) \\Rightarrow 10 = 20^2 a + 20b \\quad (1)$.<br><br>Mà $B$ là đỉnh của parabol $(P)$ nên $-\\frac{b}{2a} = 0 \\Rightarrow b = 0$.<br><br>Thay $b = 0$ vào $(1) \\Rightarrow a = \\frac{1}{40}$.<br><br>$\\Rightarrow (P): y = \\frac{x^2}{40}$.<br><br>$\\Rightarrow V = \\pi \\int_{0}^{20} \\left(\\frac{x^2}{40}\\right)^2 \\mathrm{d}x + \\pi \\int_{20}^{26} (10)^2 \\mathrm{d}x = 1000\\pi \\approx 3142 \\ (\\text{cm}^3)$.<br><br>Vậy thể tích của chiếc mũ là: $3142 \\ (\\text{cm}^3)$."
+  },
+  {
+    "id": "51",
+    "title": "Câu 51",
+    "type": "short_answer",
+    "text": "(Sở Nghệ An 2025) Một kiến trúc sư chịu trách nhiệm thiết kế một tòa nhà cao $30$ mét. Mặt cắt ngang tại mọi độ cao, vuông góc với trục thẳng đứng, luôn là một hình vuông (xem hình vẽ).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-22.png}\n\\end{center}\nMặt đáy tòa nhà là hình vuông có cạnh $L_0 = 26\\text{ m}$, mặt đỉnh là hình vuông có cạnh $L_{30} = 20\\text{ m}$. Mặt cắt ngang tại vị trí hẹp nhất của tòa nhà: Hình vuông có cạnh $L_{\\min} = 13,75\\text{ m}$. Mặt cắt của tòa nhà theo mặt phẳng đứng chứa đường chéo đáy có dạng là hình phẳng giới hạn bởi hai đường cong parabol đối xứng nhau qua trục thẳng đứng đi qua tâm đáy của tòa nhà. Tính thể tích của tòa nhà đó (làm tròn đến hàng đơn vị, đơn vị tính: mét khối).",
+    "image": "",
+    "correct": "8976",
+    "solution": "Chọn hệ trục toạ độ $Oxy như hình vẽ$.<br>\\begin{center}<br>\t\\noteImage[width=0.5\\linewidth]{data/im/UDTP6-23.png}<br>\\end{center}<br>Gọi $L(x)$ là hàm biến thiên của độ dài đường chéo mặt cắt của toà nhà tại độ cao $x$.<br><br>Theo đề ta có, $L(x)$ là một parabol đi qua ba điểm $\\left(0; 13\\sqrt{2}\\right)$, $\\left(30; 10\\sqrt{2}\\right)$, $\\left(x_o; \\frac{55\\sqrt{2}}{8}\\right)$, trong đó $x_o$ là vị trí toà nhà có cạnh $L_{\\min} = 13,75\\text{ m}$.<br><br>$L(x) = a(x - x_o)^2 + \\frac{55\\sqrt{2}}{8}$.<br><br>Ta có hệ:<br>$$\\begin{cases} L(0) = a(0 - x_o)^2 + \\frac{55\\sqrt{2}}{8} = 13\\sqrt{2} \\\\ L(30) = a(30 - x_o)^2 + \\frac{55\\sqrt{2}}{8} = 10\\sqrt{2} \\end{cases} \\Leftrightarrow \\begin{cases} a x_o^2 = \\frac{49\\sqrt{2}}{8} \\\\ a(30 - x_o)^2 = \\frac{25\\sqrt{2}}{8} \\end{cases}$$<br><br>$$\\Rightarrow \\frac{x_o^2}{(30 - x_o)^2} = \\frac{49}{25} \\Rightarrow \\left[ \\begin{array}{l} x_o = 105 \\ (L) \\\\ x_o = 17,5 \\ (TM) \\Rightarrow a = \\frac{\\sqrt{2}}{50} \\end{array} \\right.$$<br><br>Suy ra $L(x) = \\frac{\\sqrt{2}}{50}(x - 17,5)^2 + \\frac{55\\sqrt{2}}{8}$<br><br>Do đó, diện tích thiết diện là $S(x) = 2[L(x)]^2 = 2\\left[ \\frac{\\sqrt{2}}{50}(x - 17,5)^2 + \\frac{55\\sqrt{2}}{8} \\right]^2$.<br><br>Vậy thể tích của toà nhà là $V = \\int_{0}^{30} S(x) \\mathrm{d}x = \\int_{0}^{30} 2\\left[ \\frac{\\sqrt{2}}{50}(x - 17,5)^2 + \\frac{55\\sqrt{2}}{8} \\right]^2 \\mathrm{d}x \\approx 8976 \\ (\\text{m}^3)$."
+  },
+  {
+    "id": "52",
+    "title": "Câu 52",
+    "type": "short_answer",
+    "text": "(THPT Khoa Học Giáo Dục - Hà Nội 2025) Một chiếc đồng hồ cát như hình vẽ gồm hai phần đối xứng nhau qua mặt phẳng nằm ngang và đặt trong một hình trụ. Thiết diện thẳng đứng qua trục của nó là hai parabol chung đỉnh và đối xứng nhau qua mặt phằng nằm ngang. Ban đầu lượng cát dồn hết ở phần trên của đồng hồ thì chiều cao của mực cát bằng $\\frac{2}{3}$ chiều cao của bên đó (xem hình vẽ). Cát chảy từ trên xuống dưới với tốc độ $v(t) = 0,2t + 13 \\ (\\text{cm}^3/\\text{phút})$. Khi chiều cao của cát còn $4\\text{cm}$ thì bề mặt trên cùng của cát tạo thành một đường tròn có chu vi bằng $8\\pi\\text{ cm}$. Biết sau $20$ phút thì cát chảy hết xuống phần bên dưới của đồng hồ. Hỏi chiều cao của khối trụ bên ngoài bằng bao nhiêu centimet? (Nếu kết quả là số thập phân thì làm tròn đến hàng đơn vị).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-24.png}\n\\end{center}",
+    "image": "",
+    "correct": "21",
+    "solution": "Thể tích cát ban đầu là: $\\int_{0}^{20} v(t) \\mathrm{d}t = \\int_{0}^{20} (0,2t + 13) \\mathrm{d}t = 300 \\ (\\text{cm}^3)$.<br><br>Bán kính đường tròn đáy parabol tròn xoay khi chiều cao cát còn $4\\text{cm}$ là: $\\frac{8\\pi}{2\\pi} = 4$.<br><br>Xét parabol $(P): y = a\\sqrt{x}$ đi qua điểm $A(4; 4)$ như hình vẽ<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-25.png}<br>\\end{center}<br>Ta có: $A(4; 4) \\in (P) \\Rightarrow 4 = a\\sqrt{4} \\Rightarrow a = 2$. Suy ra $(P): y = 2\\sqrt{x}$.<br><br>Khi đó thể tích parabol tròn xoay tạo ra bằng cách xoay hình phẳng giới hạn bởi parabol $(P)$, trục $Ox$ và hai đường thẳng $x = 0, x = h$ quanh trục $Ox$ là:<br>$$V = \\pi \\int_{0}^{h} \\left(2\\sqrt{x}\\right)^2 \\mathrm{d}x = \\frac{4\\pi x^2}{2} \\Big|_{0}^{h} = 2\\pi h^2 \\ (\\text{đvtt}).$$<br><br>Suy ra: $2\\pi h^2 = 300 \\Rightarrow h = \\sqrt{\\frac{150}{\\pi}}$<br><br>Vậy chiều cao khối trụ bên ngoài là: $2 \\cdot \\frac{3}{2} \\cdot \\sqrt{\\frac{150}{\\pi}} \\approx 21 \\ (\\text{cm})$."
+  },
+  {
+    "id": "53",
+    "title": "Câu 53",
+    "type": "short_answer",
+    "text": "(Sở Bắc Ninh 2025) Một nhà máy nhiệt điện sử dụng $90$ máng Parabol thu nhiệt năng lượng mặt trời có cùng kích thước, bề mặt cong đều nhau (tham khảo hình vẽ).\n\\begin{center}\n\t\\noteImage[width=0.6\\linewidth]{data/im/UDTP6-26.png}\n\\end{center}\nMỗi máng có chiều rộng $2\\text{m}$, bề dày của khối silic làm mặt máng là $2\\text{dm}$, chiều dài $3\\text{m}$. Đặt máng tiếp giáp mặt đất có điểm cao nhất của khối silic làm mặt máng so với mặt đất là $5\\text{dm}$. Khi đó thể tích của khối silic làm $90$ mặt máng bằng bao nhiêu $\\text{m}^3$?",
+    "image": "",
+    "correct": "108",
+    "solution": "Xét hệ trục $Oxy$ như hình vẽ.<br>\\begin{center}<br>\t\\noteImage[width=0.5\\linewidth]{data/im/UDTP6-27.png}<br>\\end{center}<br>Khi đó đường Parabol tương ứng với vành trên và vành dưới của máng lần lượt là $(P_1): f(x) = ax^2 + b$ và $(P_2): g(x) = mx^2 + n$.<br><br>Ta có $(P_1)$ đi qua các điểm $(0; 0,5)$ và $(-1,2; 0) \\Rightarrow f(x) = -\\frac{25}{72}x^2 + 0,5$.<br><br>$(P_2)$ đi qua các điểm $(0; 0,3)$ và $(-1; 0) \\Rightarrow g(x) = -\\frac{3}{10}x^2 + 0,3$.<br><br>Diện tích mặt cắt của máng $S = \\int_{-1,2}^{1,2} f(x) \\mathrm{d}x - \\int_{-1}^{1} g(x) \\mathrm{d}x = 0,4$.<br><br>Thể tích khối silic $V = 90 \\int_{0}^{3} S \\mathrm{d}x = 108 \\ (\\text{m}^3)$."
+  },
+  {
+    "id": "54",
+    "title": "Câu 54",
+    "type": "short_answer",
+    "text": "(Sở Đắk Lắk 2025) Một cốc thủy tinh có dạng hình trụ đang đựng một lượng nước, bán kính trong lòng đáy cốc là $8\\text{ cm}$, chiều cao trong lòng cốc là $10\\text{ cm}$. Tính thể tích lượng nước trong cốc (đơn vị $\\text{cm}^3$), biết khi nghiêng cố nước vừa lúc khi nước chạm miệng cốc thì ở đáy cốc mực nước trùng với đường kính của đáy cốc (làm tròn kết quả đến hàng đơn vị).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-28.png}\n\\end{center}",
+    "image": "",
+    "correct": "427",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ như hình vẽ.<br>\\begin{center}<br>\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-29.png}<br>\\end{center}<br>Đặt $OK = x \\ (0 < x < 8)$<br><br>$KN = \\sqrt{64 - x^2}$<br><br>Xét tam giác $KMN$, ta có $\\tan \\widehat{MKN} = \\frac{10}{8} = \\frac{MN}{\\sqrt{64 - x^2}} \\Rightarrow MN = \\frac{5}{4}\\sqrt{64 - x^2}$.<br><br>$\\Rightarrow S_{KMN} = \\frac{1}{2} KN \\cdot MN = \\frac{1}{2} \\sqrt{64 - x^2} \\cdot \\frac{5}{4} \\sqrt{64 - x^2} = \\frac{5}{8}(64 - x^2)$.<br><br>Vậy $V = \\int_{-8}^{8} \\frac{5}{8}(64 - x^2) \\mathrm{d}x \\approx 427 \\ (\\text{cm}^3)$."
+  },
+  {
+    "id": "55",
+    "title": "Câu 55",
+    "type": "short_answer",
+    "text": "(Sở Vĩnh Phúc 2025) Một thùng chứa rượu có dạng hình tròn xoay với đường sinh là một cung của đường tròn, hai đáy là hai hình tròn bằng nhau và có đường kính bằng $20\\text{cm}$, khoảng cách giữa hai đáy bằng $32\\text{cm}$, đường kính lớn nhất của thân thùng là $24\\text{cm}$ (biết các kích thước đã trừ lớp vỏ thùng, tham khảo hình vẽ). Hỏi phần không gian bên trong thùng chứa rượu đỏ có thể tích bằng bao nhiêu lít? (kết quả lấy đến chữ số hàng phần chục và không làm tròn).\n\\begin{center}\n\t\\noteImage[width=0.6\\linewidth]{data/im/UDTP6-30.png}\n\\end{center}",
+    "image": "",
+    "correct": "12,9",
+    "solution": "Đặt hệ trục tọa độ như hình vẽ:<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-31.png}<br>\\end{center}<br>Gọi phương trình đường tròn phía trên trục hoành là: $x^2 + y^2 - 2ax - 2by + c = 0 \\ (a^2 + b^2 = 0)$<br><br>Đường tròn đi qua các điểm có tọa độ: $(0; 12), (16; 10), (-16; 10)$ nên ta có hệ sau:<br>$$\\begin{cases} 0 + 144 - 24b + c = 0 \\\\ 256 + 100 - 32a - 20b + c = 0 \\\\ 256 + 100 + 32a - 20b + c = 0 \\end{cases} \\Leftrightarrow \\begin{cases} 24b - c = 144 \\\\ 32a + 20b - c = 356 \\\\ -32a + 20b - c = 356 \\end{cases} \\Leftrightarrow \\begin{cases} a = 0 \\\\ b = -53 \\\\ c = 1416 \\end{cases}$$<br><br>Vậy phương trình đường tròn là: $x^2 + y^2 + 106y - 1416 = 0$ hay $x^2 + (y + 53)^2 = 4225 = 65^2$<br><br>Xét nửa đường tròn phía trên trục hoành có phương trình: $y = \\sqrt{4225 - x^2} - 53$<br><br>Vậy thể tích của bình rượu chính là thể tích khối tròn xoay tạo bởi phần hình phẳng giới hạn bởi đồ thị hàm số $y = \\sqrt{4225 - x^2} - 53$, trục hoành và hai đường thẳng $x = -16, x = 16$ quay quanh trục $Ox$.<br><br>$$V = \\pi \\int_{-16}^{16} \\left(\\sqrt{4225 - x^2} - 53\\right)^2 \\mathrm{d}x = 12957 \\ (\\text{cm}^3) = 12,957 \\ (\\text{dm}^3) = 12,957 \\ (\\text{lít})$$<br><br>Kết quả lấy đến chữ số hàng phần chục và không làm tròn thì là $12,9$ lít."
+  },
+  {
+    "id": "56",
+    "title": "Câu 56",
+    "type": "short_answer",
+    "text": "(Sở Hải Phòng 2025) Cho các đồ thị hàm số: $y = a^x$, $y = a^{-x}$, $y = Ax^2 + Bx + C$, $a > 1$, $A, B, C \\in \\mathbb{R}$ và đường tròn $(C)$. Gọi $(D)$ là miền phẳng được tô đậm (hình vẽ). Quay miền $(D)$ quanh trục $Ox$ ta được một vật thể tròn xoay có thể tích bằng bao nhiêu (kết quả làm tròn đến hàng đơn vị)?\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-32.png}\n\\end{center}",
+    "image": "",
+    "correct": "652",
+    "solution": "Đồ thị hàm số $y = a^x$ đi qua điểm $(1; 2)$ nên ta có $a^1 = 2 \\Leftrightarrow a = 2$, ta được hàm số $y = 2^x, y = 2^{-x}$.<br><br>Đồ thị $(P)$ của hàm số $y = Ax^2 + Bx + C$ đi qua điểm $(1; 2)$, có đỉnh $(0; 4)$ nên ta có<br>$$\\begin{cases} A + B + C = 2 \\\\ C = 4 \\\\ -\\frac{B}{2A} = 0 \\end{cases} \\Leftrightarrow \\begin{cases} A = -2 \\\\ B = 0 \\\\ C = 4 \\end{cases}$$<br><br>Suy ra $(P): y = -2x^2 + 4$.<br><br>Đường tròn $(C)$ có tâm $(0; 4)$, bán kính bằng $3$ nên có phương trình $x^2 + (y - 4)^2 = 9$.<br><br>Ta có $x^2 + (y - 4)^2 = 9 \\Leftrightarrow \\left[ \\begin{array}{l} y = 4 + \\sqrt{9 - x^2} \\\\ y = 4 - \\sqrt{9 - x^2} \\end{array} \\right.$<br><br>Quay hình tròn $(C)$ quanh $Ox$ ta được vật thể tròn xoay có thể tích bằng<br>$$V_1 = \\pi \\int_{-3}^{3} \\left[ \\left(4 + \\sqrt{9 - x^2}\\right)^2 - \\left(4 - \\sqrt{9 - x^2}\\right)^2 \\right] \\mathrm{d}x = 16\\pi \\int_{-3}^{3} \\sqrt{9 - x^2} \\mathrm{d}x \\approx 710,611517.$$<br><br>Thể tích vật thể tròn xoay sinh bởi phần diện tích giới hạn bởi đồ thị $(P)$ và hai đồ thị $y = 2^x, y = 2^{-x}$ (phần không tô màu) bằng<br>$$V_2 = 2\\pi \\int_{0}^{1} \\left[ \\left(-2x^2 + 4\\right)^2 - (2^x)^2 \\right] \\mathrm{d}x \\approx 58,450111.$$<br><br>Vậy thể tích vật thể cần tìm là $V = V_1 - V_2 \\approx 710,611517 - 58,450111 \\approx 652$."
+  },
+  {
+    "id": "57",
+    "title": "Câu 57",
+    "type": "short_answer",
+    "text": "(Cụm Hưng Yên 2025) Một bồn hình trụ đang chứa dầu, được đặt nằm ngang, có chiều dài bồn là $5\\text{m}$, có bán kính đáy $1\\text{m}$. Người ta đã rút dầu trong bồn tương ứng với $0,5\\text{m}$ của đường kính đáy. Tính thể tích của lượng dầu còn lại trong bồn theo đơn vị $\\text{m}^3$. (làm tròn đến hàng phần chục)\n\\begin{center}\n\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-33.png}\n\\end{center}",
+    "image": "",
+    "correct": "12,6",
+    "solution": "Chọn hệ trục tọa độ như hình vẽ<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-34.png}<br>\\end{center}<br>Thiết diện cắt trục $Ox$ tại điểm có hoành độ là $x$.<br><br>Khi đó, ta có $AB = 2\\sqrt{1 - x^2}$.<br><br>Suy ra diện tích hìn chữ nhật $ABCD$ bằng $5 \\cdot 2\\sqrt{1 - x^2} = 10\\sqrt{1 - x^2}$.<br><br>Vậy thể tích lượng dầu còn lại trong bồn là<br>$$V = \\int_{-1}^{0,5} 10\\sqrt{1 - x^2} \\mathrm{d}x = 12,6 \\ (\\text{m}^3).$$"
+  },
+  {
+    "id": "58",
+    "title": "Câu 58",
+    "type": "short_answer",
+    "text": "(Mã 0102 - BGD 2025) Để đặt được một vật trang trí trên mặt bàn, người ta thiết kế một chân đế như sau. Lấy một khối gỗ có dạng khối chóp cụt tứ giác đều với độ dài hai cạnh đáy lần lượt bằng $7,4\\text{cm}$ và $10,4\\text{cm}$, bề dày khối gỗ bằng $1,5\\text{cm}$. Sau đó khoét bỏ đi một phần của khối gỗ sao cho phần đó có dạng vật thể $H$, ở đó $H$ nhận được bằng cách cắt khối cầu bán kính $5,5\\text{cm}$ bởi một mặt phẳng cắt mà mặt cắt là hình tròn bán kính $3,5\\text{cm}$ (xem hình dưới)\n\\begin{center}\n\t\\noteImage[width=0.6\\linewidth]{data/im/UDTP6-35.png}\n\\end{center}\nThể tích của khối chân đế bằng bao nhiêu centimét khối (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần mười)",
+    "image": "",
+    "correct": "94,7",
+    "solution": "Xét trên mặt phẳng tọa độ $Oxy$ có đường tròn tâm gốc tọa độ $O$, bán kính $5,5\\text{cm}$ là đường tròn thiết diện lớn nhất cắt khối cầu đề cho. Gọi $(P)$ là mặt phẳng đi qua tâm $O$ của khối cầu và $(Q)$ là mặt phẳng song song với $(P)$ sao cho cách khối cầu 1 khoảng là $a$ và biết rằng đường tròn giao tuyến tạo bởi $(Q)$ có bán kính bằng $3,5\\text{cm}$.<br><br>Khi ấy $a$ là nghiệm của phương trình hoành độ giao điểm giữa đường tròn $(C): y = \\sqrt{5,5^2 - x^2}$ và đường thẳng $y = 3,5$. Tức ta có phương trình sau:<br>$$\\sqrt{5,5^2 - x^2} = 3,5 \\Leftrightarrow x = \\sqrt{5,5^2 - 3,5^2} = 3\\sqrt{2}$$<br><br>Nhận thấy vật thể $H$ để khoét vào khối chóp cụt có dạng là chỏm cầu có bán kính bằng $3,5\\text{cm}$, khi ấy chiều cao của chỏm này chính bằng $h = 5,5 - a = 5,5 - 3\\sqrt{2} \\ (\\text{cm}) < 1,5\\text{cm}$ (hợp lệ)<br><br>Khi ấy thể tích $(H)$ là: $V_a = \\pi \\int_{3\\sqrt{2}}^{5,5} \\left(\\sqrt{5,5^2 - x^2}\\right)^2 \\mathrm{d}x = A \\ (\\text{cm}^3) \\quad (1)$<br><br>Tại khối chóp cụt, ta thực hiện cắt một mặt phẳng qua đường cao khối chóp và vuông góc với hai đáy, khi ấy ta mô hình hóa được mặt cắt là hình thang vuông $ABCD$ như hình vẽ dưới (trong đó $A, D$ lần lượt là tâm mặt đáy bé và đáy lớn của chóp cụt)<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-36.png}<br>\\end{center}<br>Gọi $E = AD \\cap BC$,<br><br>theo định lí Thales ta có: $\\frac{EA}{ED} = \\frac{AB}{CD} \\Leftrightarrow \\frac{EA}{EA + 1,5} = \\frac{3,7}{5,2} \\Leftrightarrow EA = 3,7 \\ (\\text{cm})$<br><br>Suy ra $ED = EA + AD = 5,2\\text{cm}$. Gọi $V_1$ là thể tích khối chóp đều đáy là hình vuông cạnh $7,4\\text{cm}$ và đường cao $EA = 3,7\\text{cm}$ và $V_2$ là thể tích khối chóp đều đáy là hình vuông cạnh $10,4\\text{cm}$ và đường cao $ED = 5,2\\text{cm}$ thì khi ấy thể tích khối chóp cụt bằng:<br>$$V_b = V_2 - V_1 = \\frac{1}{3} \\left( (10,4)^2 \\cdot 5,2 - (7,4)^2 \\cdot 3,7 \\right) = 119,94 \\ (\\text{cm}^3) \\quad (2)$$<br><br>Từ (1) và (2) ta suy ra thể tích khối chân đế là $V_b - V_a = 119,94 - A = 94,7 \\ (\\text{cm}^3)$"
+  },
+  {
+    "id": "59",
+    "title": "Câu 59",
+    "type": "short_answer",
+    "text": "(Liên trường Vĩnh Phúc 2025) Người ta cắt hai hình cầu có bán kính lần lượt là $R = 13\\text{ cm}$ và $r = \\sqrt{41}\\text{ cm}$ để làm hồ lô đựng rượu như hình vẽ bên. Biết đường tròn giao của hai hình cầu có bán kính $r' = 5\\text{ cm}$ và nút đựng rượu là một hình trụ có bán kính đáy bằng $\\sqrt{5}\\text{ cm}$, chiều cao bằng $4\\text{ cm}$. Giả sử độ dày vỏ hồ lô không đáng kể. Hỏi hồ lô đựng được bao nhiêu lít rượu? (kết quả làm tròn đến phần mười).\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-37.png}\n\\end{center}",
+    "image": "",
+    "correct": "10,2",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ như hình vẽ. Ta có:<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-38.png}<br>\\end{center}<br>$OM = R = 13, AM = r' = 5 \\Rightarrow OA = 12 \\Rightarrow A(12; 0)$.<br><br>$IM = r = \\sqrt{41}, AM = r' = 5 \\Rightarrow AI = \\sqrt{41 - 5^2} = 4 \\Rightarrow I(16; 0)$<br><br>$IN = r = \\sqrt{41}, BN = r_T = \\sqrt{5} \\Rightarrow IB = \\sqrt{41 - 5} = 6 \\Rightarrow B(22; 0), C(26; 0)$.<br><br>Ta có:<br>\\begin{center}<br>\t\\noteImage[width=0.4\\linewidth]{data/im/UDTP6-39.png}<br>\\end{center}<br>$(C_1): x^2 + y^2 = 13^2 \\Rightarrow y^2 = 169 - x^2 \\Rightarrow V_1 = \\pi \\int_{-13}^{12} (169 - x^2) \\mathrm{d}x = \\frac{8750\\pi}{3}$.<br><br>$(C_2): (x - 16)^2 + y^2 = 41 \\Rightarrow y^2 = 41 - (x - 16)^2 \\Rightarrow V_2 = \\pi \\int_{12}^{22} \\left[41 - (x - 16)^2\\right] \\mathrm{d}x = \\frac{950\\pi}{3}$.<br><br>$V_3 = \\pi \\int_{22}^{26} \\left(\\sqrt{5}\\right)^2 \\mathrm{d}x = 20\\pi$.<br><br>Vậy $V = V_1 + V_2 + V_3 = \\frac{9760\\pi}{3} \\approx 10220,65 \\ (\\text{cm}^3) \\approx 10,2 \\ (\\text{dm}^3)$."
+  },
+  {
+    "id": "60",
+    "title": "Câu 60",
+    "type": "short_answer",
+    "text": "(Sở Thanh Hóa 2025) Một vật trang trí có dạng một khối tròn xoay được tạo thành khi quay miền $(R)$ (phần được tô màu trong hình vẽ bên) quanh trục $AB$. Miền $(R)$ được giới hạn bởi các cạnh $AB, AD$ của hình vuông $ABCD$ và các cung phần tư của các đường tròn bán kính bằng $1\\text{ cm}$ với tâm lần lượt là trung điểm của các cạnh $AD, AB$. Tính thể tích của vật trang trí đó, làm tròn kết quả đến hàng phần mười.\n\\begin{center}\n\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-40.png}\n\\end{center}",
+    "image": "",
+    "correct": "12,3",
+    "solution": "Chọn trục $Ox$ chứa điểm $B$, trục $Oy$ chứa điểm $D$, và gốc tọa độ $O$ trùng điểm $A$ (như hình vẽ).<br>\\begin{center}<br>\t\\noteImage[width=0.3\\linewidth]{data/im/UDTP6-41.png}<br>\\end{center}<br>Gọi $E, F$ lần lượt là trung điểm của $AD, AB$. Khi đó $E(0; 1), F(1; 0)$.<br><br>+ Phương trình đường tròn có tâm $E(0; 1)$ và đường kính $AD = 2$ là: $x^2 + (y - 1)^2 = 1$.<br><br>Suy ra phương trình cung trên của đường tròn tâm $E$ là: $y = 1 + \\sqrt{1 - x^2}$<br><br>+ Phương trình đường tròn có tâm $F(1; 0)$ và đường kính $AB = 2$ là: $(x - 1)^2 + y^2 = 1$.<br><br>Suy ra phương trình cung trên của đường tròn tâm $F$ là: $y = \\sqrt{1 - (x - 1)^2}$<br><br>Vậy, thể tích vật trang trí là:<br>$$V = \\pi \\int_{0}^{1} \\left(1 + \\sqrt{1 - x^2}\\right)^2 \\mathrm{d}x + \\pi \\int_{1}^{2} \\left(1 - (x - 1)^2\\right) \\mathrm{d}x \\approx 12,3 \\ (\\text{cm}^3)$$"
+  },
+  {
+    "id": "61",
+    "title": "Câu 61",
+    "type": "short_answer",
+    "text": "Cho một thanh gỗ hình trụ $A$ có đáy là hình tròn bán kính 1, và một thanh gỗ hình lăng trụ đứng $B$ có đáy là hình vuông cạnh $\\sqrt{2}$ như hình vẽ.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-1.png}\nHai thanh gỗ có trục chính cắt nhau và tạo với nhau một góc $30^\\circ$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-1B.png}\nTrong hai đường chéo của tiết diện vuông góc với trục của thanh gỗ $B$, có một đường chéo vuông góc với mặt phẳng chứa trục của cả hai thanh gỗ, còn đường chéo còn lại thì nằm trong mặt phẳng đó. Khi đó, phần thể tích chung của hai thanh gỗ là $a\\pi + b$. Hãy tính giá trị của biểu thức $10a + 3b$, biết rằng $a$ và $b$ là các số hữu tỉ.",
+    "image": "",
+    "correct": "24",
+    "solution": "Đầu tiên, ta sẽ thực hiện 1 lát cắt ngang vuông góc với “đường chéo vuông góc với mặt phẳng chứa trục của cả hai thanh gỗ”<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-3.png}<br>Ta gọi $O$ là giao của 2 trục chính. Giả sử lát cắt ngang này, cắt trục $Ox$ tại điểm có hoành độ bằng $x$ với $x \\in [0;1]$.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-4.png}<br>Khi đó, ta cắt thanh gỗ $A$ có chiều rộng là $2\\sqrt{1-x^2}$ và thanh gỗ $B$ có chiều rộng là $2(1-x)$<br>Còn $ABCD$ là tứ giác là hình bình hành do lát cắt tạo thành vào phần chung của $A$ và $B$.<br>Dễ dàng tìm được diện tích tứ giác này là $S(x) = \\frac{1}{2} \\cdot 4(1-x) \\cdot 4\\sqrt{1-x^2}$<br>Vậy thể tích cần tìm là<br>$V = 2 \\int_0^1 \\left( \\frac{1}{2} \\cdot 4(1-x) \\cdot 4\\sqrt{1-x^2} \\right) \\mathrm{d}x = 16 \\int_0^1 \\left( (1-x)\\sqrt{1-x^2} \\right) \\mathrm{d}x$<br>$= 16 \\left[ \\int_0^1 \\sqrt{1-x^2} \\mathrm{d}x - \\int_0^1 x\\sqrt{1-x^2} \\mathrm{d}x \\right] = 16 \\left( \\frac{\\pi}{4} - \\frac{1}{3} \\right) = 4\\pi - \\frac{16}{3} \\Rightarrow \\begin{cases} a = 4 \\\\ b = -\\frac{16}{3} \\end{cases} \\Rightarrow 10a + 3b = 24$"
+  },
+  {
+    "id": "62",
+    "title": "Câu 62",
+    "type": "short_answer",
+    "text": "Hình 1 là một tác phẩm dự thi của nhà thiết kế sân khấu trong một cuộc thi thiết kế sân khấu ngoài trời tổ chức tại một quảng trường. Khi mở rộng sân khấu trung tâm, ta được Hình 2. Quá trình thiết kế sân khấu trung tâm được mô tả như sau:\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-2.png}\nBước 1. Vẽ hình vuông $ABCD$ có độ dài cạnh bằng 2, và lấy trung điểm của bốn cạnh lần lượt là $E, F, G, H$.\nBước 2. Vẽ đồ thị của các hàm bậc hai đi qua ba điểm $B, C, H$ và hàm bậc hai đi qua ba điểm $F, D, A$.\nBước 3. Tương tự như Bước 2, vẽ đồ thị của các hàm bậc hai đi qua ba điểm $A, B, G$ và ba điểm $C, D, E$.\nBiết rằng: Diện tích phần tô đen trong Hình 2 được cho bởi công thức: $\\frac{p\\sqrt{2} + q}{3}$\nHãy tính giá trị của $p - q$. (Với $p, q$ là các số nguyên.)",
+    "image": "",
+    "correct": "15",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ như hình vẽ:<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-6.png}<br>Gốc tọa độ $O$ là giao điểm của hai đường chéo $AC$ và $BD$<br>Trục $Ox \\equiv EG; Oy \\equiv HF$;<br>Khi đó ta dễ suy ra được: $AC: y = -x$ và đồ thị hàm số bậc hai đi qua $F, D, A$ là: $y = 2x^2 - 1$<br>Xét phương trình hoành độ giao điểm của đường thẳng $AC$ và đồ thị hàm số bậc hai đi qua $F, D, A$ ta được:<br>$2x^2 + x - 1 = 0 \\Leftrightarrow \\begin{bmatrix} x = -1 \\\\ x = \\frac{1}{2} \\end{bmatrix}$<br>Ta gọi $S_1$ là diện tích vùng được tô màu xanh như hình trên, khi đó:<br>$S_1 = \\int_{\\frac{1}{2}}^1 (1 - 2x^2) \\mathrm{d}x = \\left( x - \\frac{2}{3}x^3 \\right) \\bigg|_{\\frac{1}{2}}^1 = \\frac{\\sqrt{2}}{3} - \\frac{5}{12}$<br>Diện tích phần tô màu cam trong hình trên là: $S_2 = \\frac{1}{8}$<br>Vậy diện tích tô màu đen như hình 2 là $S = 8(S_1 + S_2) = 8 \\left( \\frac{\\sqrt{2}}{3} - \\frac{5}{12} + \\frac{1}{8} \\right) = \\frac{8\\sqrt{2} - 7}{3} \\Rightarrow \\begin{cases} p = 8 \\\\ q = 7 \\end{cases}$<br>Vậy $p - q = 15$"
+  },
+  {
+    "id": "63",
+    "title": "Câu 63",
+    "type": "short_answer",
+    "text": "Cho đường tròn tâm $O$, bán kính bằng 2. Trên đường tròn, lấy 6 điểm chia đều đường tròn, lần lượt là $A, B, C, D, E, F$. Vẽ cung tròn $C_1$ tiếp xúc với hai đoạn thẳng $OA$ và $OB$, đi qua hai điểm $A$ và $B$. Tương tự, vẽ cung tròn $C_2$ tiếp xúc với hai đoạn thẳng $OB$ và $OC$, đi qua hai điểm $B$ và $C$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-3.png}\nTiếp tục bằng cách tương tự, ta vẽ các cung tròn $C_3, C_4, C_5, C_6$ tiếp xúc với các cặp đoạn thẳng liên tiếp tạo bởi các điểm trên.\nHỏi: Diện tích phần được bao bởi 6 cung tròn $C_1$ đến $C_6$ là bao nhiêu? (làm tròn kết quả đến hàng phần trăm)",
+    "image": "",
+    "correct": "3,46",
+    "solution": "Gắn hệ trục tọa độ như hình vẽ<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-8.png}<br>Ta dễ có được góc $\\widehat{AOF} = \\frac{\\pi}{3}$ suy ra đường thẳng $OA: y = \\sqrt{3}x$ do đó điểm $A(1; \\sqrt{3})$<br>Để tiện tính toán: Ta xét riêng diện tích tô đậm được tạo bởi cung tròn $C_1$ với hai đoạn thẳng $OA; OB$<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-9.png}<br>Dễ thấy được đường cong $C_1$ là đồ thị hàm số parabol đối xứng qua trục $Oy$. Do đó hàm số parabol đó có dạng: $y = ax^2 + b$ và đồ thị hàm số này đi qua điểm $A, B$.<br>Ta có: $\\begin{cases} a + b = \\sqrt{3} \\\\ 2a = \\sqrt{3} \\end{cases} \\Rightarrow \\begin{cases} a = \\frac{\\sqrt{3}}{2} \\\\ b = \\frac{\\sqrt{3}}{2} \\end{cases}$. Vậy $(C_1): y = \\frac{\\sqrt{3}}{2}x^2 + \\frac{\\sqrt{3}}{2}$<br>Khi đó diện tích tô đậm được tạo bởi cung tròn $C_1$ với hai đoạn thẳng $OA; OB$ là:<br>$S_1 = 2 \\int_0^1 \\left( \\frac{\\sqrt{3}}{2}x^2 - \\sqrt{3}x + \\frac{\\sqrt{3}}{2} \\right) \\mathrm{d}x$<br>Suy ra diện tích phần được bao bởi 6 cung tròn $C_1$ đến $C_6$ là<br>$S = 6S_1 = 12 \\int_0^1 \\left( \\frac{\\sqrt{3}}{2}x^2 - \\sqrt{3}x + \\frac{\\sqrt{3}}{2} \\right) \\mathrm{d}x = 2\\sqrt{3} \\approx 3,46$"
+  },
+  {
+    "id": "64",
+    "title": "Câu 64",
+    "type": "short_answer",
+    "text": "Cho khối $V$ có đáy là miền phẳng bị giới hạn bởi:\n- Đồ thị hàm số $y = 3x + \\frac{2}{x}, x > 0$\n- Trục $Ox$\n- Hai đường thẳng $x = 1$ và $x = 2$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-4.png}\nKhi đó, mỗi tiết diện của khối $V$ cắt bởi mặt phẳng vuông góc với trục $Ox$ đều là một tam giác đều.\nHỏi: Thể tích của khối $V$ bằng bao nhiêu? (làm tròn kết quả đến hàng đơn vị)",
+    "image": "",
+    "correct": "15",
+    "solution": "Diện tích của tam giác đều là $S(x) = \\frac{\\sqrt{3}}{4} \\left( 9x^2 + 12 + \\frac{4}{x^2} \\right)$<br>Vậy $V = \\int_1^2 S(x) \\mathrm{d}x = \\int_1^2 \\frac{\\sqrt{3}}{4} \\left( 9x^2 + 12 + \\frac{4}{x^2} \\right) \\mathrm{d}x = \\frac{\\sqrt{3}}{4} \\left( 3x^3 + 12x - \\frac{4}{x} \\right) \\bigg|_1^2 = \\frac{35\\sqrt{3}}{4} \\approx 15$"
+  },
+  {
+    "id": "65",
+    "title": "Câu 65",
+    "type": "short_answer",
+    "text": "Một sảnh ga có thông số như hình dưới, được thông gió bằng hai quạt, mỗi quạt có lưu lượng khoảng $80 \\text{ m}^3/\\text{phút}$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-5.png}\nHỏi: Cần bao nhiêu phút để trao đổi toàn bộ không khí trong sảnh? Mái sảnh là kết cấu gỗ dạng parabol.",
+    "image": "",
+    "correct": "110",
+    "solution": "Chọn hệ trục tọa độ $Oxy$ như hình (trục $Ox$ ngang, trục $Oy$ thẳng đứng).<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-12.png}<br>- Phương trình parabol của mái<br>Gọi $y = f(x) = ax^2 + c$.<br>Điều kiện:<br>- $f(0) = 10 \\Rightarrow c = 10$.<br>- $f(10) = 0$ (vì nửa bề rộng sảnh là 10 m)<br>$\\Rightarrow a \\cdot 10^2 + 10 = 0 \\Rightarrow a = -\\frac{1}{10}$.<br>Vậy $y = f(x) = -\\frac{1}{10}x^2 + 10$<br>- Diện tích tiết diện ngang của sảnh<br>Tiết diện gồm hai phần:<br>- HCN đáy: $20 \\times 8 = 160 \\text{ m}^2$.<br>- Phần dưới parabol phía trên trục $Ox$ (lấy đối xứng hai bên):<br>$S_1 = 2 \\int_0^{10} f(x) \\mathrm{d}x = 2 \\left[ -\\frac{1}{30}x^3 + 10x \\right] \\bigg|_0^{10} = 2 \\left( -\\frac{1000}{30} + 100 \\right) = 133,3 \\text{ m}^2$<br>Tổng diện tích mặt trước: $S = 160 + 133,3 = 293,3 \\text{ m}^2$<br>- Thể tích không khí của sảnh<br>Chiều dài sảnh $= 60 \\text{ m}$,<br>$V = S \\cdot 60 = 293,3 \\cdot 60 \\approx 17600 \\text{ m}^3$.<br>- Thời gian trao đổi hết không khí<br>Hai quạt: $v = 2 \\cdot 80 = 160 \\text{ m}^3/\\text{phút}$.<br>Thời gian: $t = \\frac{V}{v} = \\frac{17600}{160} = 110 \\text{ phút}$"
+  },
+  {
+    "id": "66",
+    "title": "Câu 66",
+    "type": "short_answer",
+    "text": "Dọc bờ nước có một đường xe đạp. Trên một đoạn dài 20 m, người ta muốn thay bằng tuyến mới đi vòng một cái giếng (đường kính 2 m). Các đoạn nối phải trơn (chuyển tiếp êm).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-6.png}\nDiện tích phần tô màu cần lát giữa bờ và tuyến mới là bao nhiêu mét vuông (làm tròn kết quả đến hàng đơn vị)",
+    "image": "",
+    "correct": "61",
+    "solution": "1) Chọn mô hình hàm<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-14.png}<br>Đặt hệ trục $Oxy$ thuận tiện như hình; do hình dạng đối xứng qua trục $Oy$ và cần chuyển tiếp trơn vào trục $Ox$, ta chọn đa thức bậc 4: $f(x) = ax^4 + bx^2 + c$, $f'(x) = 4ax^3 + 2bx$<br>Các điểm đặc trưng:<br>- Điểm thấp nhất $T(0; -6)$.<br>- Đỉnh phải $H(10; 0)$ (chuyển tiếp trơn vào trục $Ox$); đỉnh trái đối xứng.<br>Suy ra các điều kiện:<br>$f(0) = -6 \\Rightarrow c = -6$,<br>$f'(0) = 0$ (đúng do đối xứng),<br>$f(10) = 0 \\Rightarrow 10000a + 100b - 6 = 0$,<br>$f'(10) = 0 \\Rightarrow 4000a + 20b = 0$.<br>Giải hệ: $a = -0,0006, b = 0,12, c = -6$.<br>Vậy $f(x) = -0,0006x^4 + 0,12x^2 - 6$<br>2) Diện tích phần lát<br>Diện tích nửa phải (từ 0 đến 10) được cho bởi tích phân:<br>$A_1 = \\int_0^{10} f(x) \\mathrm{d}x = \\left[ -0,00012x^5 + 0,04x^3 - 6x \\right] \\bigg|_0^{10}$<br>$= -12 + 40 - 60 = -32$<br>Giá trị âm chỉ do quy ước phía dưới trục $Ox$; nửa diện tích là $32 \\text{ m}^2$.<br>Đối xứng qua $Oy \\Rightarrow$ tổng diện tích hình tô (chưa trừ giếng): $A = 2 \\cdot 32 = 64 \\text{ m}^2$.<br>Trừ diện tích miệng giếng (bán kính $r = 1 \\text{ m}$): $S_g = \\pi r^2 \\approx 3,14 \\text{ m}^2$.<br>Vậy diện tích cần lát: $S_{\\text{lát}} = 64 - 3,14 \\approx 61 \\text{ m}^2$."
+  },
+  {
+    "id": "67",
+    "title": "Câu 67",
+    "type": "short_answer",
+    "text": "Mái của một nhà thi đấu rộng 20 m và dài 60 m được kéo theo dạng vòm parabol. Hỏi thể tích không khí tăng thêm là bao nhiêu mét khối nếu chọn chiều cao đỉnh mái 10 m thay vì phương án ban đầu 8 m?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-15.png}",
+    "image": "",
+    "correct": "1600",
+    "solution": "Ta chỉ cần tính diện tích phần chênh lệch giữa hai đường mái (mới và cũ) trong mặt cắt ngang, rồi nhân với chiều dài 60 m để ra thể tích tăng.<br>1) Xác định phương trình hai parabol<br>Giả sử (trong hệ trục như hình) parabol có dạng $y = ax^2 + bx + c$.<br>- Với mái cao 10 m:<br>Điều kiện: $f(0) = 0, f(10) = 10, f(20) = 0$.<br>Giải hệ thu được $a = -\\frac{1}{10}, b = 2, c = 0$.<br>$f(x) = -\\frac{1}{10}x^2 + 2x$<br>- Với mái cao 8 m:<br>Điều kiện: $g(0) = 0, g(10) = 8, g(20) = 0$.<br>Giải ra $a = -\\frac{2}{25}, b = \\frac{8}{5}, c = 0$.<br>$g(x) = -\\frac{2}{25}x^2 + \\frac{8}{5}x$.<br>2) Diện tích phần chênh lệch trong mặt cắt<br>$A = \\int_0^{20} (f(x) - g(x)) \\mathrm{d}x = \\int_0^{20} \\left( -\\frac{1}{50}x^2 + \\frac{2}{5}x \\right) \\mathrm{d}x = \\left[ -\\frac{1}{150}x^3 + \\frac{1}{5}x^2 \\right] \\bigg|_0^{20} = \\frac{80}{3} \\text{ m}^2$<br>3) Thể tích tăng thêm $V = A \\cdot 60 = \\frac{80}{3} \\cdot 60 = 1600 \\text{ m}^3$.<br>Kết luận: Chọn mái cao 10 m thay vì 8 m làm thể tích không khí tăng thêm $1600 \\text{ m}^3$."
+  },
+  {
+    "id": "68",
+    "title": "Câu 68",
+    "type": "short_answer",
+    "text": "Một đèn pha dạng parabol có đường biên (mặt cắt) cho bởi $f(x) = \\frac{3}{2}\\sqrt{x}$\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-16.png}\nChiều dài chóa là 4 cm. Hỏi: thể tích không khí bên trong là bao nhiêu $\\text{cm}^3$? (làm tròn kết quả đến hàng phần mười)",
+    "image": "",
+    "correct": "56,6",
+    "solution": "Thể tích khối tròn xoay quanh trục $Ox$:<br>$V = \\pi \\int_0^4 (f(x))^2 \\mathrm{d}x = \\pi \\int_0^4 \\left( \\frac{3}{2}\\sqrt{x} \\right)^2 \\mathrm{d}x = \\pi \\int_0^4 \\frac{9}{4}x \\mathrm{d}x$<br>$= \\pi \\left[ \\frac{9}{8}x^2 \\right] \\bigg|_0^4 = \\pi \\cdot \\frac{9}{8} \\cdot 16 = \\pi \\cdot 18 \\approx 56,6 \\text{ cm}^3$<br>Ghi chú: Nếu quay đồ thị quanh trục thẳng đứng thay vì trục $Ox$, ta cũng tính được thể tích khối tròn xoay, nhưng cần chọn hệ trục sao cho trục $Ox$ hướng lên trên."
+  },
+  {
+    "id": "69",
+    "title": "Câu 69",
+    "type": "short_answer",
+    "text": "Không khí trong lốp có thể xem là một vật thể thu được khi quay tiết diện của lốp quanh trục $Ox$. Bên dưới là miền $A$ bị chặn phía trên bởi $f(x) = -\\frac{1}{16}x^4 + 4$ và phía dưới bởi $g(x) = \\frac{1}{4}x^2 + 2$ trên đoạn $[-2; 2]$. Khi quay miền $A$ quanh trục $Ox$, ta được thể tích không khí trong lốp. Hãy tính thể tích đó bằng bao nhiêu $\\text{dm}^3$ (làm tròn kết quả đến hàng đơn vị)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-10.png}\n(Quy ước: $1 \\text{ đơn vị} = 1 \\text{dm}$.)",
+    "image": "",
+    "correct": "113",
+    "solution": "1. Thể tích $V_f$ do đường biên trên quay quanh trục $x$:<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-20.png}<br>$V_f = \\pi \\int_{-2}^2 (f(x))^2 \\mathrm{d}x = \\pi \\int_{-2}^2 \\left( -\\frac{1}{16}x^4 + 4 \\right)^2 \\mathrm{d}x$<br>$= \\pi \\left[ \\frac{1}{256}\\frac{x^9}{9} - \\frac{1}{2}\\frac{x^5}{5} + 16x \\right] \\bigg|_{-2}^2 \\approx 182,35 \\text{dm}^3$<br>2. Thể tích $V_g$ do đường biên dưới quay quanh trục $x$:<br>$V_g = \\pi \\int_{-2}^2 (g(x))^2 \\mathrm{d}x = \\pi \\int_{-2}^2 \\left( \\frac{1}{4}x^2 + 2 \\right)^2 \\mathrm{d}x$<br>$= \\pi \\left[ \\frac{1}{16}\\frac{x^5}{5} + \\frac{x^3}{3} + 4x \\right] \\bigg|_{-2}^2 \\approx 69,53 \\text{dm}^3$<br>3. Thể tích không khí trong lốp (miền kẹp giữa hai đường) là hiệu: $V = V_f - V_g \\approx 113 \\text{dm}^3$."
+  },
+  {
+    "id": "70",
+    "title": "Câu 70",
+    "type": "short_answer",
+    "text": "Con đường có phương trình $f(x) = x \\cdot e^{1-x}$. Con sông nằm dọc trục $Ox$. Miền đất trồng cây ăn quả được giới hạn bởi đồ thị của $f(x)$, trục $Ox$ và đường thẳng đứng qua điểm $P$ có hoành độ $x = 2$ (xem hình).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-12.png}\nQuy ước 1 đơn vị $= 100 \\text{ m}$.\nMỗi cây cần $20 \\text{ m}^2$. Hỏi trồng được bao nhiêu cây?\nBiết $F(x) = (-1 - x)e^{1-x}$ là một nguyên hàm của $f(x)$.",
+    "image": "",
+    "correct": "805",
+    "solution": "Diện tích miền cần tính<br>$A = \\int_0^2 f(x) \\mathrm{d}x = \\int_0^2 xe^{1-x} \\mathrm{d}x = \\left[ (-1 - x)e^{1-x} \\right] \\bigg|_0^2$<br>$= -\\frac{3}{e} + e \\approx 1,61$<br>Đổi ra $\\text{m}^2$: $A \\approx 1,61 \\cdot (100)^2 = 16100 \\text{ m}^2$.<br>Số cây trồng được: $B = \\frac{16100}{20} = 805 \\text{ cây.}$"
+  },
+  {
+    "id": "71",
+    "title": "Câu 71",
+    "type": "short_answer",
+    "text": "Mái chùa đối xứng qua trục, có biên dạng $f(x) = 6 \\cdot e^{-0,5x} + 1, \\quad 0 \\le x \\le 6$\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-13.png}\nCổng chùa dạng parabol, rộng 4 m và cao 3 m.\nMỗi cửa sổ kích thước $1 \\text{ m} \\times 0,5 \\text{ m}$.\nMặt tiền phía trước của mặt sẽ được sơn màu vàng dày $0,1 \\text{ mm}$.\nHỏi: Cần bao nhiêu lít nước sơn? (làm tròn kết quản đến hàng phần mười)",
+    "image": "",
+    "correct": "2,5",
+    "solution": "Ta cần diện tích mặt tiền trừ diện tích cổng và ba cửa sổ.<br>1) Diện tích mặt tiền $A_1 = 2 \\int_0^6 (6e^{-0,5x} + 1) \\mathrm{d}x = 2 \\left[ -12e^{-0,5x} + x \\right] \\bigg|_0^6 \\approx 34,81 \\text{ m}^2$<br>2) Phương trình, diện tích cổng<br>Giả sử $g(x) = ax^2 + b$. Điều kiện: $g(0) = 3 \\Rightarrow b = 3, g'(0) = 0, g(2) = 0 \\Rightarrow a = -\\frac{3}{4}$.<br>Vậy $g(x) = -\\frac{3}{4}x^2 + 3$.<br>Diện tích cổng: $A_2 = 2 \\int_0^2 \\left( -\\frac{3}{4}x^2 + 3 \\right) \\mathrm{d}x = 2 \\left[ -\\frac{1}{4}x^3 + 3x \\right] \\bigg|_0^2 = 8 \\text{ m}^2$<br>Ba cửa sổ, mỗi cái $0,5 \\text{ m}^2 \\Rightarrow 1,5 \\text{ m}^2$.<br>Vậy diện tích cần sơn vàng $A = A_1 - A_2 - 1,5 = 34,81 - 8 - 1,5 = 25,31 \\text{ m}^2$.<br>4) Thể tích nước sơn:<br>$25,31 \\text{ m}^2 = 253100 \\text{ cm}^2$, dày $0,1 \\text{ mm} = 0,01 \\text{ cm}$.<br>$V = A \\cdot \\text{dày} = 253100 \\cdot 0,01 = 2531 \\text{ cm}^3 (\\approx 2,5 \\text{ lít})$."
+  },
+  {
+    "id": "72",
+    "title": "Câu 72",
+    "type": "short_answer",
+    "text": "Ở bể bơi thành phố sẽ xây một cầu trượt nước mới. Cầu trượt dài 5 m và có thể trượt từ cả hai phía. Những người thận trọng trượt về bên trái, nơi mép trượt được cho bởi $f(x) = e^x$\nNhững người ưa mạo hiểm trượt về bên phải, nơi mép trượt cao và dốc hơn, mô hình bởi\n$g(x) = -\\frac{4}{9}x^2 + x + 1$\nTại $x = 0$ hai đường cong nối trơn với nhau (không gãy, không góc nhọn). (Đơn vị $x, y$ tính bằng mét.)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-14.png}\nHai thành bên của cầu trượt được ốp nhựa. Cần bao nhiêu $\\text{m}^2$ nhựa?",
+    "image": "",
+    "correct": "8,75",
+    "solution": "Diện tích ốp nhựa (một bên)<br>Trái: $A_f = \\int_{-2}^0 e^x \\mathrm{d}x = e^0 - e^{-2} \\approx 0,86 \\text{ m}^2$.<br>Phải: $A_g = \\int_0^3 \\left( -\\frac{4}{9}x^2 + x + 1 \\right) \\mathrm{d}x = \\left[ -\\frac{4}{27}x^3 + \\frac{1}{2}x^2 + x \\right] \\bigg|_0^3 = 3,50 \\text{ m}^2$.<br>Tổng một bên: $A_{1 \\text{ bên}} = 0,86 + 3,50 = 4,36 \\text{ m}^2$.<br>Hai bên: $A = 2 \\cdot 4,36 = 8,72 \\text{ m}^2$."
+  },
+  {
+    "id": "73",
+    "title": "Câu 73",
+    "type": "short_answer",
+    "text": "Cho ba hàm số $y = f(x), y = g(x)$ và $y = h(x)$ có đồ thị như hình vẽ.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-15.png}\nDiện tích mỗi miền được ghi bằng số trong hình.\nTính $\\int_1^6 [h(x) - g(x)] \\mathrm{d}x + \\int_0^6 [f(x) - g(x)] \\mathrm{d}x$",
+    "image": "",
+    "correct": "-3",
+    "solution": "$\\int_1^6 [h(x) - g(x)] \\mathrm{d}x + \\int_0^6 [f(x) - g(x)] \\mathrm{d}x$<br>$= \\int_1^6 [h(x) - g(x)] \\mathrm{d}x + \\int_0^3 [f(x) - g(x)] \\mathrm{d}x + \\int_3^6 [f(x) - g(x)] \\mathrm{d}x$<br>$= -(6 + 4 + 3) + (5 + 8) - 3 = -3$"
+  },
+  {
+    "id": "74",
+    "title": "Câu 74",
+    "type": "short_answer",
+    "text": "Bình chứa nhiên liệu của một chiếc máy bay phản lực được mô tả trong không gian là một khối tròn xoay thu được khi quay hình phẳng giới hạn bởi đồ thị hàm số $y = \\frac{1}{8}x^2\\sqrt{2-x}$ với $(0 \\le x \\le 2)$ và trục $Ox$ quanh trục $Ox$ ($x$ tính theo đơn vị m). Thể tích của bình chứa bằng $\\frac{a\\pi}{b} \\text{ m}^3$ với $\\frac{a}{b}$ là phân số tối giản. Khi đó $a + b$ bằng\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-19.png}",
+    "image": "",
+    "correct": "31",
+    "solution": "Thể tích của bình chứa là $V = \\int_0^2 \\pi \\left( \\frac{1}{8}x^2\\sqrt{2-x} \\right)^2 \\mathrm{d}x = \\frac{\\pi}{30} \\left( \\text{m}^3 \\right)$. Do đó, $a = 1$ và $b = 30$ nên $a + b = 31$."
+  },
+  {
+    "id": "75",
+    "title": "Câu 75",
+    "type": "short_answer",
+    "text": "Một bình hoa có dạng khối tròn xoay với chiều cao là 25 cm (tham khảo hình vẽ). Khi cắt bình hoa theo một mặt phẳng vuông góc với trục của nó thì ta luôn được thiết diện là một hình tròn có bán kính $R = \\frac{4}{9}x^3 - \\frac{5}{3}x^2 + \\frac{4}{3}x + \\frac{25}{36} (\\text{dm})$ với $x \\in \\left[ 0; \\frac{5}{2} \\right]$ là khoảng cách từ mặt cắt tới mặt đáy của bình hoa (tính theo đơn vị dm). Lượng nước cần đổ vào bình để mức nước trong bình cao bằng $\\frac{2}{3}$ chiều cao của bình chiếm tỉ lệ bao nhiêu phần trăm so với thể tích của bình hoa? (Kết quả làm tròn đến hàng đơn vị).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-20.png}",
+    "image": "",
+    "correct": "92",
+    "solution": "Diện tích của mặt cắt vuông góc với trục tại vị trí cách mặt đáy của bình hoa một khoảng $x (\\text{dm})$ là: $S(x) = \\pi R^2 = \\pi \\left( \\frac{4}{9}x^3 - \\frac{5}{3}x^2 + \\frac{4}{3}x + \\frac{25}{36} \\right)^2 \\left( \\text{dm}^2 \\right)$<br>Lượng nước đổ đầy bình hoa là: $V = \\int_0^{\\frac{5}{2}} S(x) \\mathrm{d}x = \\pi \\int_0^{\\frac{5}{2}} \\left( \\frac{4}{9}x^3 - \\frac{5}{3}x^2 + \\frac{4}{3}x + \\frac{25}{36} \\right)^2 \\mathrm{d}x \\approx 3,66 \\left( \\text{dm}^3 \\right)$<br>Lượng nước đổ vào bình cao bằng $\\frac{2}{3}$ chiều cao của bình là:<br>$V_1 = \\int_0^{\\frac{5}{3}} S(x) \\mathrm{d}x = \\pi \\int_0^{\\frac{5}{3}} \\left( \\frac{4}{9}x^3 - \\frac{5}{3}x^2 + \\frac{4}{3}x + \\frac{25}{36} \\right)^2 \\mathrm{d}x \\approx 3,37 \\left( \\text{dm}^3 \\right)$<br>Vậy tỉ lệ phần trăm lượng nước cần đổ vào bình để mức nước trong bình cao bằng $\\frac{2}{3}$ chiều cao của bình so với thể tích của bình hoa là $\\frac{V_1}{V} \\cdot 100$."
+  },
+  {
+    "id": "76",
+    "title": "Câu 76",
+    "type": "short_answer",
+    "text": "Hình bên minh hoạ mặt cắt đứng của một con kênh đật trong hệ trục toạ độ $Oxy$. Đáy của con kênh là một đường cong $AOB$ cho bởi hàm số bậc ba có dạng $y = f(x) = ax^3 + bx^2 + cx + d$. Hãy tính diện tích hình phẳng tô đậm trong hình vẽ, biết đơn vị trên mỗi trục tọa độ là mét và đồ thị hàm số $y = f(x)$ nhận gốc toạ độ $O$ và điểm $B$ là các điểm cực trị. Viết kết quả làm tròn đến hàng đơn vị của $\\text{m}^2$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-22.png}",
+    "image": "",
+    "correct": "42",
+    "solution": "Hàm số $y = f(x) = ax^3 + bx^2 + cx$ mà $f'(0) = 0 \\Rightarrow c = 0$<br>Mặt khác $\\begin{cases} f'(10) = 300a + 20b = 0 \\\\ f(10) = 5 \\Leftrightarrow 1000a + 100b = 5 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{-1}{100} \\\\ b = \\frac{3}{20} \\end{cases}$<br>Do đó $f(x) = \\frac{-1}{100}x^3 + \\frac{3}{20}x^2 = 5 \\Leftrightarrow \\begin{bmatrix} x = -5 \\\\ x = 10 \\end{bmatrix} \\Rightarrow S = \\int_{-5}^{10} [5 - f(x)] \\mathrm{d}x \\approx 42 \\text{ m}^2$."
+  },
+  {
+    "id": "77",
+    "title": "Câu 77",
+    "type": "short_answer",
+    "text": "Từ một miếng tôn hình vuông, người thợ làm chậu cảnh đã tạo mẫu và cắt đi phần hình phẳng không tô đậm trên hình, phần tô đậm được giữ lại làm khuôn quay thành các đôn để đặt các chậu hoa. Tính diện tích hình phẳng đã bị cắt bỏ (đơn vị $\\text{cm}^2$) biết đường cong trong hình là một parabol có đỉnh nằm trên đường chéo của hình vuông (làm tròn kết quả đến hàng phần mười)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-24.png}",
+    "image": "",
+    "correct": "58,7",
+    "solution": "Chọn hệ trụ như hình vẽ suy ra phương trình Parabol có dạng $y = a(x - 2\\sqrt{2})(x + 2\\sqrt{2})$.<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-38.png}<br>Đinh Parabol có tọa độ là $(0; \\sqrt{2})$ thuộc Parabol suy ra $a = -\\frac{1}{4\\sqrt{2}}$.<br>Diện tích phần Parabol là $\\frac{1}{4\\sqrt{2}} \\int_{-2\\sqrt{2}}^{2\\sqrt{2}} (8 - x^2) \\mathrm{d}x = \\frac{16}{3}$<br>Diện tích cần tìm là $S = \\frac{12^2}{2} - 4 \\cdot 2 - \\frac{16}{3} = \\frac{176}{3} \\text{ cm}^2$. Chọn D."
+  },
+  {
+    "id": "78",
+    "title": "Câu 78",
+    "type": "short_answer",
+    "text": "Khu vườn nhà ông Ba có dạng hình tròn, bán kính 10 m. Ông Ba dự định trồng hoa Hồng ở khu vực $S_1$ và hoa Ly ở khu vực hình bán nguyệt $S_2$. Với $S_1$ là phần diện tích giới hạn bởi đường parabol đi qua tâm hình tròn và $S_2$ là phần diện tích giới hạn bởi nửa đường elip không chứa tâm hình tròn (kích thước như hình vẽ). Biết rằng kinh phí trồng hoa Hồng là 100.000 đồng/$\\text{m}^2$, kinh phí trồng hoa Ly là 150.000 đồng/$\\text{m}^2$. Hỏi ông Ba phải mất bao nhiêu triệu đồng để trồng hoa lên hai dải đất đó (làm tròn kết quả đến hàng phần mười)\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-25.png}",
+    "image": "",
+    "correct": "22,7",
+    "solution": "Phương trình parabol đi qua tâm hình tròn là $y = \\frac{3}{32}x^2$ và phương trình đường tròn là $x^2 + y^2 = 100$.<br>Diện tích dải đất trồng hoa Hồng là diện tích hình phẳng được giới hạn bởi parabol $(P)$, hình tròn $(C)$ và hai đường thẳng $x = -8, x = 8$. Khi đó<br>$S_1 = \\int_{-8}^8 \\left| \\sqrt{100 - x^2} - \\frac{3x^2}{32} \\right| \\mathrm{d}x \\xrightarrow{\\text{casio}} S_1 = 108,73 \\text{ m}^2$.<br>Xét nữa hình tròn chứa hình bán nguyệt, ta thấy nữa hình tròn tạo bởi hình bán nguyệt và nữa hình elip với hình elip có độ dài hai bán trục $a = 5, b = 10 \\Rightarrow S_{(E)} = \\pi ab = 50\\pi \\text{ m}^2$.<br>Vậy diện tích hình bán nguyệt là $S_2 = \\frac{S_{(C)} - S_{(E)}}{2} = \\frac{10^2\\pi - 50\\pi}{2} = 25\\pi \\text{ m}^2$.<br>Tổng số tiền ông Ba cần phải chi để trồng hoa là $T = 100000S_1 + 150000 \\cdot S_2 \\approx 22,7 \\text{ triệu đồng.}$"
+  },
+  {
+    "id": "79",
+    "title": "Câu 79",
+    "type": "short_answer",
+    "text": "\"Bài toán tính diện tích hình càng cua\". Từ bảng gỗ hình vuông $ABCD$ độ dài cạnh 12 cm, người ta chia hình vuông này thành 9 hình vuông nhỏ bằng nhau rồi vẽ một hình càng cua được giới hạn bởi các cung phần tư của các đường tròn tâm $A, E, F, G$ (xem hình vẽ). Tính diện tích hình càng cua theo đơn vị $\\text{cm}^2$ (phần tô đậm trong hình vẽ). Viết kết quả làm tròn đến hàng đơn vị.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-27.png}",
+    "image": "",
+    "correct": "37",
+    "solution": "Đặt hệ trục tọa độ như hình vẽ ta có tọa độ các điểm:<br>$A(0; 12); B(12; 12); C(12; 0); D(0; 0); E(8; 0); G(4; 12); F(8; 4)$<br>\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-43.png}<br>Phương trình đường tròn tâm $A$ có bán kính $R = 12$<br>$(C_A): x^2 + (y - 12)^2 = 144 \\Rightarrow y = 12 - \\sqrt{144 - x^2}$<br>Phương trình đường tròn tâm $E$ có bán kính $R = 8$<br>$(C_E): (x - 8)^2 + y^2 = 64 \\Rightarrow y = \\sqrt{64 - (x - 8)^2}$<br>Phương trình đường tròn tâm $G$ có bán kính $R = 8$<br>$(C_G): (x - 4)^2 + (y - 12)^2 = 64 \\Rightarrow y = 12 - \\sqrt{64 - (x - 4)^2}$<br>Phương trình đường tròn tâm $F$ có bán kính $R = 4$<br>$(C_F): (x - 8)^2 + (y - 4)^2 = 16 \\Rightarrow y = 4 + \\sqrt{16 - (x - 8)^2}$<br>$S = \\int_0^4 \\left( \\sqrt{64 - (x - 8)^2} - 12 + \\sqrt{144 - x^2} \\right) \\mathrm{d}x + \\int_4^8 \\left( \\sqrt{64 - (x - 8)^2} - 4 - \\sqrt{16 - (x - 8)^2} \\right) \\mathrm{d}x$<br>$+ \\int_4^{12} \\left( 12 - \\sqrt{64 - (x - 4)^2} - 12 + \\sqrt{144 - x^2} \\right) \\mathrm{d}x$<br>$\\approx 37$"
+  },
+  {
+    "id": "80",
+    "title": "Câu 80",
+    "type": "short_answer",
+    "text": "Vào ngày 8/3, từ một tấm bìa hình vuông cạnh $8(\\text{dm})$, An dùng các đồ thị của hàm số $y = f(x)$ và $x = f(y)$ để vẽ hoa tặng mẹ, nhụy hoa được vẽ bằng đường tròn có tâm là tâm hình vuông và bán kính bằng $2(\\text{dm})$. Khi đặt trong hệ tọa độ $Oxy$ thì điểm $A(2; 0)$ và đường cong $AB$ là một phần của đồ thị hàm đa thức bậc ba $y = f(x) = \\frac{1}{2}x^3 + ax^2 + bx + c$. Biết rằng tỷ lệ phần tô đậm chiếm $\\frac{3}{4}$ diện tích hình vuông. Tính $abc$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-28.png}",
+    "image": "",
+    "correct": "72",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-45.png}<br>Diện tích hình vuông của hình vẽ là: $8 \\cdot 8 = 64 \\left( \\text{dm}^2 \\right)$<br>Dựa vào đồ thị hình vẽ ta có: $A(2; 0); B(4; 4)$.<br>Lại có $y = f(x) = \\frac{1}{2}x^3 + ax^2 + bx + c$ đi qua $A(2; 0); B(4; 4)$ nên ta có:<br>$\\begin{cases} \\frac{1}{2} \\cdot 8 + a \\cdot 4 + b \\cdot 2 + c = 0 \\\\ \\frac{1}{2} \\cdot 64 + a \\cdot 16 + b \\cdot 4 + c = 4 \\end{cases} \\Leftrightarrow \\begin{cases} 4a + 2b + c = -4 \\\\ 16a + 4b + c = -28 \\end{cases} (1)$<br>Ta có diện tích phần trắng là $8 \\cdot \\int_2^4 \\left( \\frac{1}{2}x^3 + ax^2 + bx + c \\right) \\mathrm{d}x$<br>Vậy diện tích phần in đậm là: $S_{\\text{indam}} = S_{\\text{hv}} - S_{\\text{ptrang}} = 64 - 8 \\cdot \\int_2^4 \\left( \\frac{1}{2}x^3 + ax^2 + bx + c \\right) \\mathrm{d}x$<br>Theo bài cho ta có: $\\frac{S_{\\text{indam}}}{S_{\\text{hv}}} = \\frac{64 - 8 \\cdot \\int_2^4 \\left( \\frac{1}{2}x^3 + ax^2 + bx + c \\right) \\mathrm{d}x}{64} = \\frac{3}{4}$<br>$\\Rightarrow \\int_2^4 \\left( \\frac{1}{2}x^3 + ax^2 + bx + c \\right) \\mathrm{d}x = 2 \\Leftrightarrow \\left[ \\frac{1}{8}x^4 + \\frac{1}{3}ax^3 + \\frac{1}{2}bx^2 + cx \\right] \\bigg|_2^4 = 2$<br>$\\Leftrightarrow 30 + \\frac{56}{3}a + 6b + 2c = 2 (2)$<br>Từ (1) (2) suy ra: $\\begin{cases} a = -3 \\\\ b = 6 \\\\ c = -4 \\end{cases}$.<br>Vậy $abc = 72$."
+  },
+  {
+    "id": "81",
+    "title": "Câu 81",
+    "type": "short_answer",
+    "text": "Một quả bóng bầu dục theo quy định được sử dụng trong giải bầu dục quốc gia có kích thước $28(\\text{cm})$ từ đầu này đến đầu kia và đường kính $17(\\text{cm})$ ở phần dày nhất (quy định có phép thay đổi một chút về các kích thước này) (Nguồn: NFL).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-29.png}\nHình dạng của một quả bóng bầu dục có kích thước nói trên có thể được tạo thành khi quay phần diện tích hình phẳng giới hạn bởi đồ thị hàm số $f(x) = ax^2 + bx + c$, trục hoành và các đường thẳng $x = -4; x = 24$, trong đó $x$ tính bằng centimet (cm). Thể tích (đơn vị: $\\text{cm}^3$, kết quả làm tròn đến hàng đơn vị) của quả bóng bầu dục có kích thước nói trên bằng bao nhiêu?",
+    "image": "",
+    "correct": "3390",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-47.png}<br>Ta thấy đồ thị hàm số $f(x) = ax^2 + bx + c$ đi qua các điểm $(-4; 0), (24; 0)$ và $\\left( 10; \\frac{17}{2} \\right)$ nên ta có hệ phương trình:<br>$\\begin{cases} (-4)^2a + (-4)b + c = 0 \\\\ 24^2a + 24b + c = 0 \\\\ 10^2a + 10b + c = \\frac{17}{2} \\end{cases} \\Leftrightarrow \\begin{cases} a = -\\frac{17}{392} \\\\ b = \\frac{85}{98} \\\\ c = \\frac{204}{49} \\end{cases}$<br>Vậy thể tích của quả bóng bầu dục trên là:<br>$V = \\pi \\int_{-4}^{24} \\left( -\\frac{17}{392}x^2 + \\frac{85}{98}x + \\frac{204}{49} \\right)^2 \\mathrm{d}x = \\frac{16284}{15}\\pi \\approx 3390 \\left( \\text{cm}^3 \\right)$"
+  },
+  {
+    "id": "82",
+    "title": "Câu 82",
+    "type": "short_answer",
+    "text": "Ông An có một cái bình đựng rượu, thân bình có hai phần: phằn phía dưới là hình nón cụt, phần trên là hình cầu bị cắt bỏ 2 đầu chỏm (hình 1).\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-32.png}\nThiết diện qua trục của bình như hình 2.\nBiết $AB = CD = 16 \\text{ cm}, EF = 30 \\text{ cm}, h = 12 \\text{ cm}, h' = 30 \\text{ cm}$ và giá mỗi lít rượu là 100000 đồng. Hỏi số tiền ông An cần để đổ đầy bình rượu là bao nhiêu triệu đồng (giả sử độ dày của vỏ bình rượu không đáng kể)? (làm tròn kết quả đến hàng phần trăm)",
+    "image": "",
+    "correct": "1,62",
+    "solution": "\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-52.png}<br>Ta có: $CB = \\sqrt{CD^2 + DB^2} = 20$, Gọi $O, K, I$ lần lượt là tâm mặt cầu, trung điểm của cạnh $AB$ và cung $AB$. Ta có bán kính mặt cầu $R = \\frac{CB}{2} = 10, IK = 4$.<br>Thể tích khối nón cụt $V_1 = \\frac{1}{3}\\pi \\cdot 30 \\left( 15^2 + 15 \\cdot 8 + 8^2 \\right) = 4090\\pi$.<br>Thể tích khối cầu: $V_c = \\frac{4000\\pi}{3}$<br>Thể tích chỏm cầu: $V' = 2 \\cdot \\pi \\cdot 16 \\left( 10 - \\frac{4}{3} \\right) = \\frac{832\\pi}{3}$.<br>Thể tích bình rượu bằng:<br>$V = V_1 + V_C - V' = 4090\\pi + \\frac{4000\\pi}{3} - \\frac{832\\pi}{3} = \\frac{15438\\pi}{3} \\approx 16166.64 \\left( \\text{cm}^3 \\right) \\approx 16,2 (l)$<br>Vậy, số tiền ông An cần để đổ đầy bình rượu gần bằng: $16,2 \\times 100.000 = 1,62$ (triệu đồng)."
+  },
+  {
+    "id": "83",
+    "title": "Câu 83",
+    "type": "short_answer",
+    "text": "Trong Công viên Toán học có những mảnh đất mang hình dáng khác nhau. Mỗi mảnh được trồng một loài hoa và nó được tạo thành bởi một trong những đường cong đẹp trong toán học. Ở đó có một mảnh đất mang tên Bernoulli, nó được tạo thành từ đường Lemmiscate có phương trình trong hệ tọa độ $Oxy$ là $16y^2 = x^2(25 - x^2)$ như hình vẽ bên dưới (đơn vị trên trục là mét). Biết chi phí để trồng hoa trên mảnh đất Bernoulli là 150 nghìn đồng/$\\text{m}^2$. Số tiền cần dùng để trồng hoa trên mảnh đất này bằng bao nhiêu nghìn đồng?\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-33.png}",
+    "image": "",
+    "correct": "6250",
+    "solution": "Ta có $y = 0 \\Leftrightarrow x^2(25 - x^2) = 0 \\Leftrightarrow \\begin{bmatrix} x = 0 \\\\ x = \\pm 5 \\end{bmatrix}$.<br>Suy ra đường Lemmiscate cắt trục hoành tại ba điểm là $A(-5; 0), O(0; 0)$ và $B(5; 0)$.<br>Từ phương trình $16y^2 = x^2(25 - x^2) \\Leftrightarrow y^2 = \\frac{1}{16}x^2(25 - x^2)$<br>Suy ra $y = \\pm \\frac{1}{4}x\\sqrt{25 - x^2}$.<br>Xét góc phần tư thứ nhất, đường Lemmiscate có phương trình là $y = \\frac{1}{4}x\\sqrt{25 - x^2}; x \\in [0; 5]$<br>Khi đó $S_{(I)} = \\int_0^5 \\frac{1}{4}x\\sqrt{25 - x^2} \\mathrm{d}x = \\frac{125}{12} \\Rightarrow S = 4S_{(I)} = \\frac{125}{3} \\left( \\text{m}^2 \\right)$.<br>Số tiền cần dùng để trồng hoa trên mảnh đất này là: $\\frac{125}{3} \\cdot 150 = 6250$ nghìn đồng"
+  },
+  {
+    "id": "84",
+    "title": "Câu 84",
+    "type": "short_answer",
+    "text": "Cho hàm số $y = f(x)$. Đồ thị hàm số $y = f'(x)$ là đường cong trong hình dưới. Biết rằng diện tích của các phần hình phẳng $A$ và $B$ lần lượt là $S_A = 4$ và $S_B = 10$. Tính giá trị của $f(3)$, biết giá trị của $f(0) = 2$.\n\\noteImage[width=0.4\\linewidth]{data/im/UDTP7-34.png}",
+    "image": "",
+    "correct": "-4",
+    "solution": "Ta có:<br>Hình phẳng $A$ được giới hạn bởi đồ thị hàm số $y = f'(x)$, trục hoành $y = 0$, trục tung $x = 0$ và đường thẳng $x = 1$ nên diện tích hình phẳng $A$ là:<br>$S_A = \\int_0^1 |f'(x)| \\mathrm{d}x = \\int_0^1 f'(x) \\mathrm{d}x = f(x) \\bigg|_0^1 = f(1) - f(0)$<br>$\\Rightarrow f(1) = S_A + f(0) = 4 + 2 = 6$.<br>Lại có:<br>Hình phẳng $B$ được giới hạn bởi đồ thị hàm số $y = f'(x)$, trục hoành $y = 0$, đường thẳng $x = 1$ và đường thẳng $x = 3$ nên diện tích hình phẳng $B$ là:<br>$S_B = \\int_1^3 |f'(x)| \\mathrm{d}x = -\\int_1^3 f'(x) \\mathrm{d}x = -f(x) \\bigg|_1^3 = -[f(3) - f(1)] = -f(3) + f(1)$.<br>Suy ra $f(3) = f(1) - S_B = 6 - 10 = -4$.<br>Vậy $f(3) = -4$."
+  }
+]

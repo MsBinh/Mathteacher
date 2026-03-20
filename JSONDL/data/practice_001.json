@@ -1,0 +1,128 @@
+[
+  {
+    "id": "Q1",
+    "type": "multiple_choice",
+    "title": "Câu 1 (Nhận biết)",
+    "text": "Tập xác định của hàm số $y = \\frac{1}{x-2}$ là:",
+    "level": "nhan_biet",
+    "chapter": "Hàm số",
+    "options": {
+      "A": "$\\mathbb{R}$",
+      "B": "$\\mathbb{R} \\setminus \\{0\\}$",
+      "C": "$\\mathbb{R} \\setminus \\{2\\}$",
+      "D": "$\\mathbb{R} \\setminus \\{-2\\}$"
+    },
+    "correct": "C",
+    "solution": "Hàm số xác định khi $x-2 \\neq 0 \\Leftrightarrow x \\neq 2$. Vậy tập xác định là $\\mathbb{R} \\setminus \\{2\\}$."
+  },
+  {
+    "id": "Q2",
+    "type": "multiple_choice",
+    "title": "Câu 2 (Thông hiểu)",
+    "text": "Đồ thị hàm số $y = x^3 - 3x + 2$ có bao nhiêu điểm cực trị?",
+    "level": "thong_hieu",
+    "chapter": "Cực trị",
+    "options": {
+      "A": "0",
+      "B": "1",
+      "C": "2",
+      "D": "3"
+    },
+    "correct": "C",
+    "solution": "$y' = 3x^2 - 3 = 0 \\Leftrightarrow x = \\pm 1$. Vậy hàm số có 2 điểm cực trị."
+  },
+  {
+    "id": "Q3",
+    "type": "true_false",
+    "title": "Câu 3 (Đúng/Sai)",
+    "text": "Xét tính đúng sai của các mệnh đề sau về hàm số $y = \\frac{2x+1}{x-1}$:",
+    "level": "thong_hieu",
+    "chapter": "Hàm phân thức",
+    "statements": [
+      {
+        "text": "Tập xác định: $D = \\mathbb{R} \\setminus \\{1\\}$"
+      },
+      {
+        "text": "Tiệm cận đứng: $x = 1$"
+      },
+      {
+        "text": "Tiệm cận ngang: $y = 1$"
+      },
+      {
+        "text": "Hàm số đồng biến trên từng khoảng xác định"
+      }
+    ],
+    "answers": [true, true, false, true],
+    "solution": "a) Đúng. b) Đúng. c) Sai vì tiệm cận ngang là $y = 2$. d) Đúng vì $y' = \\frac{-3}{(x-1)^2} < 0$ nên hàm số nghịch biến."
+  },
+  {
+    "id": "Q4",
+    "type": "short_answer",
+    "title": "Câu 4 (Vận dụng)",
+    "text": "Tìm giá trị nhỏ nhất của hàm số $y = x + \\frac{4}{x}$ trên khoảng $(0; +\\infty)$.",
+    "level": "van_dung",
+    "chapter": "GTNN",
+    "placeholder": "Nhập kết quả",
+    "answer": "4",
+    "solution": "Áp dụng BĐT Cauchy: $x + \\frac{4}{x} \\geq 2\\sqrt{x \\cdot \\frac{4}{x}} = 4$. Dấu '=' xảy ra khi $x = 2$."
+  },
+  {
+    "id": "Q5",
+    "type": "multiple_choice",
+    "title": "Câu 5 (Vận dụng cao)",
+    "text": "Cho hàm số $y = \\frac{x+2}{x-1}$ có đồ thị (C). Số tiếp tuyến của (C) đi qua điểm $A(3, 5)$ là:",
+    "level": "van_dung_cao",
+    "chapter": "Tiếp tuyến",
+    "options": {
+      "A": "0",
+      "B": "1",
+      "C": "2",
+      "D": "3"
+    },
+    "correct": "C",
+    "solution": "Phương trình tiếp tuyến tại $x_0$: $y = f'(x_0)(x-x_0) + f(x_0)$. Thay $A(3,5)$ giải được 2 nghiệm $x_0$."
+  },
+  {
+    "id": "Q6",
+    "type": "true_false",
+    "title": "Câu 6 (Nhận biết)",
+    "text": "Các khẳng định về hàm số bậc ba:",
+    "level": "nhan_biet",
+    "chapter": "Hàm bậc 3",
+    "statements": [
+      "Hàm số bậc ba luôn có cực trị",
+      "Đồ thị hàm số bậc ba luôn có tâm đối xứng",
+      "Hàm số bậc ba luôn đồng biến trên ℝ",
+      "Đồ thị hàm số bậc ba luôn cắt trục hoành"
+    ],
+    "answers": [false, true, false, true],
+    "solution": "a) Sai (ví dụ $y=x^3$ không có cực trị). b) Đúng. c) Sai. d) Đúng vì bậc lẻ."
+  },
+  {
+    "id": "Q7",
+    "type": "short_answer",
+    "title": "Câu 7 (Thông hiểu)",
+    "text": "Tìm đạo hàm của hàm số $y = \\ln(x^2 + 1)$ tại $x = 1$.",
+    "level": "thong_hieu",
+    "chapter": "Đạo hàm",
+    "placeholder": "Nhập kết quả dạng phân số",
+    "answer": "1",
+    "solution": "$y' = \\frac{2x}{x^2+1}$. Tại $x=1$: $y'(1) = \\frac{2}{2} = 1$."
+  },
+  {
+    "id": "Q8",
+    "type": "multiple_choice",
+    "title": "Câu 8 (Vận dụng)",
+    "text": "Hàm số nào sau đây đồng biến trên ℝ?",
+    "level": "van_dung",
+    "chapter": "Tính đơn điệu",
+    "options": {
+      "A": "$y = x^3 - 3x^2 + 3x$",
+      "B": "$y = x^3 + x^2 + x$",
+      "C": "$y = \\frac{x+1}{x-1}$",
+      "D": "$y = x^4 - 2x^2$"
+    },
+    "correct": "A",
+    "solution": "Xét $y = x^3 - 3x^2 + 3x = (x-1)^3 + 2$, có $y' = 3(x-1)^2 \\geq 0$ ∀x nên đồng biến trên ℝ."
+  }
+]

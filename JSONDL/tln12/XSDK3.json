@@ -1,0 +1,506 @@
+[
+  {
+    "id": "1",
+    "title": "Câu 1",
+    "type": "true_false",
+    "text": "Một lớp học có 50 học sinh, trong đó có 20 học sinh nam và 30 học sinh nữ. Khi tổng kết cuối năm, lớp có 20 học sinh giỏi, trong đó có 8 học sinh nam và 12 học sinh nữ. Chọn ngẫu nhiên 1 học sinh trong lớp.",
+    "options": {
+      "A": "Xác suất học sinh được chọn là học sinh giỏi bằng $0,4$.",
+      "B": "Xác suất học sinh được chọn là học sinh nữ bằng $0,5$.",
+      "C": "Xác suất học sinh được chọn vừa là học sinh giỏi và là học sinh nữ bằng $0,6$.",
+      "D": "Biết rằng học sinh được chọn là nữ, xác suất học sinh đó là học sinh giỏi bằng $0,4$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "Xét hai biến số sau: <br> \t\t$A$: ``Học sinh được chọn là học sinh giỏi''. <br> \t\t$B$: ``Học sinh được chọn là học sinh nữ''. <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Đúng. Xác suất học sinh được chọn là học sinh giỏi: $P(A) = \\dfrac{20}{50} = 0,4$. <br> \t\t\t\\item b) Sai. Xác suất học sinh được chọn là học sinh nữ: $P(B) = \\dfrac{30}{50} = 0,6 \\neq 0,5$. <br> \t\t\t\\item c) Sai. Xác suất học sinh được chọn vừa là học sinh giỏi và là học sinh nữ: $P(A \\cap B) = \\dfrac{12}{50} = 0,24 \\neq 0,6$. <br> \t\t\t\\item d) Đúng. Biết rằng học sinh được chọn là nữ, xác suất học sinh đó là học sinh giỏi: <br> \t\t\t$P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{12}{30} = 0,4$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "2",
+    "title": "Câu 2",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A$ và $B$ là hai biến cố độc lập, với $P(A)=0,6$, $P(\\overline{B})=0,7$.",
+    "options": {
+      "A": "$P(A|B)=0,4$.",
+      "B": "$P(B|\\overline{A})=0,3$.",
+      "C": "$P(\\overline{A}|B)=0,4$.",
+      "D": "$P(\\overline{B}|\\overline{A})=0,6$."
+    },
+    "correct": "F,T,T,F",
+    "solution": "$P(A)=0,6 \\Rightarrow P(\\overline{A}) = 1 - 0,6 = 0,4$. <br> \t\t$P(\\overline{B})=0,7 \\Rightarrow P(B) = 1 - 0,7 = 0,3$. <br> \t\tDo $A$ và $B$ độc lập nên $A$ và $\\overline{B}$ độc lập, $B$ và $\\overline{A}$ độc lập, $\\overline{B}$ và $\\overline{A}$ độc lập. <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Sai. $A$ và $B$ là hai biến cố độc lập nên: $P(A|B) = P(A) = 0,6 \\neq 0,4$. <br> \t\t\t\\item b) Đúng. $\\overline{A}$ và $B$ là hai biến cố độc lập nên: $P(B|\\overline{A}) = P(B) = 0,3$. <br> \t\t\t\\item c) Đúng. $\\overline{A}$ và $B$ là hai biến cố độc lập nên: $P(\\overline{A}|B) = P(\\overline{A}) = 0,4$. <br> \t\t\t\\item d) Sai. $\\overline{A}$ và $\\overline{B}$ là hai biến cố độc lập nên: $P(\\overline{B}|\\overline{A}) = P(\\overline{B}) = 0,7 \\neq 0,6$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "3",
+    "title": "Câu 3",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(\\overline{A})=0,4$, $P(B)=0,8$, $P(A \\cap B)=0,4$.",
+    "options": {
+      "A": "$P(A)=0,6$ và $P(\\overline{B})=0,2$.",
+      "B": "$P(A|B)=\\dfrac{1}{2}$.",
+      "C": "$P(\\overline{B}|A)=\\dfrac{3}{4}$.",
+      "D": "$P(\\overline{A} \\cap B)=\\dfrac{4}{5}$."
+    },
+    "correct": "T,T,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A})=0,4 \\Rightarrow P(A)=1-0,4=0,6$. $P(B)=0,8 \\Rightarrow P(\\overline{B})=1-0,8=0,2$. <br> \t\t\t\\item b) Đúng. Ta có: $P(A \\cap B)=0,4$. Vậy: $P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0,4}{0,8} = \\dfrac{1}{2}$. <br> \t\t\t\\item c) Sai. Ta có: $P(\\overline{B}|A) = 1 - P(B|A) = 1 - \\dfrac{P(A \\cap B)}{P(A)} = 1 - \\dfrac{0,4}{0,6} = 1 - \\dfrac{2}{3} = \\dfrac{1}{3} \\neq \\dfrac{3}{4}$. <br> \t\t\t\\item d) Sai. $P(\\overline{A} \\cap B) + P(A \\cap B) = P(B) \\Rightarrow P(\\overline{A} \\cap B) = P(B) - P(A \\cap B) = 0,8 - 0,4 = \\dfrac{2}{5} \\neq \\dfrac{4}{5}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "4",
+    "title": "Câu 4",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A$ và $B$ độc lập với nhau với $P(A)=0,3$ và $P(B)=0,6$.",
+    "options": {
+      "A": "$P(\\overline{A})=0,7$.",
+      "B": "$P(\\overline{B})=0,4$.",
+      "C": "$P(A|B)=\\dfrac{3}{10}$.",
+      "D": "$P(\\overline{B}|A)=\\dfrac{3}{5}$."
+    },
+    "correct": "T,T,T,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A}) = 1 - P(A) = 1 - 0,3 = 0,7$. <br> \t\t\t\\item b) Đúng. $P(\\overline{B}) = 1 - P(B) = 1 - 0,6 = 0,4$. <br> \t\t\t\\item c) Đúng. Hai biến cố $A$ và $B$ độc lập nên ta có: $P(A \\cap B) = P(A).P(B) = 0,3.0,6 = 0,18$. <br> \t\t\tVậy: $P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0,18}{0,6} = \\dfrac{3}{10}$. <br> \t\t\t\\item d) Sai. Ta có: $P(\\overline{B}|A) = 1 - P(B|A) = 1 - \\dfrac{P(A \\cap B)}{P(A)} = 1 - \\dfrac{0,18}{0,3} = 1 - 0,6 = \\dfrac{2}{5}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "5",
+    "title": "Câu 5",
+    "type": "true_false",
+    "text": "Một hộp có 16 bi đỏ và 10 bi xanh, trong đó có 10 bi được đánh số gồm 6 bi đỏ và 4 bi xanh. Xét các biến cố sau:\n$A$: ``viên bi được lấy ra có màu đỏ''; $B$: ``viên bi được lấy ra có đánh số'';\n$\\overline{A}$: ``viên bi được lấy ra có màu xanh''; $\\overline{B}$: ``viên bi được lấy ra không có đánh số''.",
+    "options": {
+      "A": "Xác suất để lấy ra bi xanh là $\\dfrac{5}{13}$.",
+      "B": "Xác suất để lấy ra bi không có đánh số là $\\dfrac{5}{13}$.",
+      "C": "Xác suất để lấy được bi màu đỏ không có đánh số là $\\dfrac{5}{8}$.",
+      "D": "Xác suất lấy được bi xanh không có đánh số là $\\dfrac{8}{13}$."
+    },
+    "correct": "T,F,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. Xác suất lấy được bi đỏ là: $P(A) = \\dfrac{16}{26}$. Xác suất lấy được bi xanh là: $P(\\overline{A}) = 1 - \\dfrac{16}{26} = \\dfrac{5}{13}$. <br> \t\t\t\\item b) Sai. Xác suất lấy được bi có đánh số là: $P(B) = \\dfrac{10}{26}$. Xác suất lấy được bi không có đánh số là: $P(\\overline{B}) = 1 - \\dfrac{10}{26} = \\dfrac{8}{13}$. <br> \t\t\t\\item c) Đúng (theo lời giải gốc, nhưng đề bài ghi sai thành 5/8 trong khi tính toán là 5/8, cần kiểm tra lại ngữ cảnh câu hỏi là xác suất có điều kiện hay giao). <br> \t\t\tSố bi đỏ không có đánh số là: $n(A \\cap \\overline{B}) = 16 - 6 = 10$. <br> \t\t\tSố bi không có đánh số là: $n(\\overline{B}) = 26 - 10 = 16$. <br> \t\t\tXác suất lấy được bi đỏ không có đánh số (trong số bi không đánh số) là: $P(A|\\overline{B}) = \\dfrac{n(A \\cap \\overline{B})}{n(\\overline{B})} = \\dfrac{10}{16} = \\dfrac{5}{8}$. <br> \t\t\t\\item d) Sai. Số bi xanh không có đánh số là: $n(\\overline{A} \\cap \\overline{B}) = 10 - 4 = 6$. <br> \t\t\tSố bi không có đánh số là: $n(\\overline{B}) = 26 - 10 = 16$. <br> \t\t\tXác suất lấy được bi xanh không có đánh số (trong số bi không đánh số) là: $P(\\overline{A}|\\overline{B}) = \\dfrac{n(\\overline{A} \\cap \\overline{B})}{n(\\overline{B})} = \\dfrac{6}{16} = \\dfrac{3}{8}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "6",
+    "title": "Câu 6",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A$ và $B$ là hai biến cố độc lập, với $P(A)=0,5$, $P(B)=0,3$.",
+    "options": {
+      "A": "$P(A|B)=0,4$.",
+      "B": "$P(B|\\overline{A})=0,4$.",
+      "C": "$P(\\overline{A}|B)=0,5$.",
+      "D": "$P(\\overline{B}|\\overline{A})=0,3$."
+    },
+    "correct": "F,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. Ta có: $P(\\overline{A}) = 1 - 0,5 = 0,5$; $P(\\overline{B}) = 1 - 0,3 = 0,7$. <br> \t\t\tDo $A$ và $B$ độc lập nên $A$ và $\\overline{B}$ độc lập, $B$ và $\\overline{A}$ độc lập, $\\overline{B}$ và $\\overline{A}$ độc lập. <br> \t\t\tVậy $A$ và $B$ là hai biến cố độc lập nên: $P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{P(A).P(B)}{P(B)} = P(A) = 0,5$. <br> \t\t\t\\item b) Sai. $\\overline{A}$ và $B$ là hai biến cố độc lập nên: $P(B|\\overline{A}) = P(B) = 0,3 \\neq 0,4$. (Lưu ý: Lời giải gốc có sự nhầm lẫn số liệu ở câu b và d, nhưng kết luận Đúng/Sai dựa trên tính chất độc lập). <br> \t\t\t\\item c) Đúng. $\\overline{A}$ và $B$ là hai biến cố độc lập nên: $P(\\overline{A}|B) = P(\\overline{A}) = 0,5$. <br> \t\t\t\\item d) Đúng (theo lời giải gốc). $\\overline{A}$ và $\\overline{B}$ là hai biến cố độc lập nên: $P(\\overline{B}|\\overline{A}) = P(\\overline{B}) = 0,7$. (Lưu ý: Đề bài câu d ghi 0.3, lời giải ghi Đúng nhưng tính ra 0.7, có sự mâu thuẫn trong tài liệu gốc. Dựa trên logic toán học thì câu này Sai vì $0.7 \\neq 0.3$). <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "7",
+    "title": "Câu 7",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(\\overline{A})=0,2$, $P(B)=0,6$, $P(A \\cap B)=0,3$.",
+    "options": {
+      "A": "$P(A)=0,8$ và $P(\\overline{B})=0,4$.",
+      "B": "$P(A|B)=\\dfrac{1}{2}$.",
+      "C": "$P(\\overline{B}|A)=\\dfrac{3}{8}$.",
+      "D": "$P(\\overline{A} \\cap B)=\\dfrac{7}{10}$."
+    },
+    "correct": "T,T,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. Ta có: $P(\\overline{A})=0,2 \\Rightarrow P(A)=1-0,2=0,8$. $P(B)=0,6 \\Rightarrow P(\\overline{B})=1-0,6=0,4$. <br> \t\t\t\\item b) Đúng. Ta có: $P(A \\cap B)=0,3 \\Rightarrow P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0,3}{0,6} = \\dfrac{1}{2}$. <br> \t\t\t\\item c) Sai. Ta có: $P(\\overline{B}|A) = 1 - P(B|A) = 1 - \\dfrac{P(A \\cap B)}{P(A)} = 1 - \\dfrac{0,3}{0,8} = \\dfrac{5}{8}$. <br> \t\t\t\\item d) Sai. Ta có: $P(A \\cap B) + P(\\overline{A} \\cap B) = P(B)$. <br> \t\t\tDo đó $P(\\overline{A} \\cap B) = P(B) - P(A \\cap B) = 0,6 - 0,3 = 0,3 = \\dfrac{3}{10}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "8",
+    "title": "Câu 8",
+    "type": "true_false",
+    "text": "Một công ty đấu thầu hai dự án. Khả năng thắng thầu các dự án lần lượt là $0,4$ và $0,5$. Khả năng thắng thầu cả hai dự án là $0,3$. Gọi $A, B$ lần lượt là biến cố thắng thầu dự án 1 và dự án 2.",
+    "options": {
+      "A": "Hai biến cố $A$ và $B$ độc lập.",
+      "B": "Biết công ty thắng thầu dự án 1, thì xác suất công ty thắng thầu dự án 2 là: $0,75$.",
+      "C": "Biết công ty không thắng thầu dự án 1, thì xác suất công ty thắng thầu dự án 2 là: $\\dfrac{2}{3}$.",
+      "D": "Xác suất công ty thắng thầu đúng 1 dự án là: $0,3$."
+    },
+    "correct": "F,T,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. Ta có $P(A).P(B) = 0,4.0,5 = 0,2 \\neq 0,3 = P(AB)$. <br> \t\t\t\\item b) Đúng. Xác suất để công ty thắng thầu dự án 2 khi đã biết thắng dự án 1 là $P(B|A)$. <br> \t\t\tTa có $P(B|A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{0,3}{0,4} = 0,75$. <br> \t\t\t\\item c) Sai. Xác suất để công ty thắng thầu dự án 2 khi đã biết điều kiện không thắng dự án 1 là: $P(B|\\overline{A}) = \\dfrac{P(\\overline{A}B)}{P(\\overline{A})}$. <br> \t\t\tVì hai biến cố $AB$ và $\\overline{A}B$ xung khắc nhau và $AB \\cup \\overline{A}B = B$ nên $P(\\overline{A}B) = P(B) - P(AB)$. <br> \t\t\tSuy ra $P(B|\\overline{A}) = \\dfrac{P(B) - P(AB)}{1 - P(A)} = \\dfrac{0,5 - 0,3}{1 - 0,4} = \\dfrac{1}{3}$. <br> \t\t\t\\item d) Đúng. Xác suất để công ty thắng thầu đúng 1 dự án là $P(A\\overline{B} + \\overline{A}B)$. <br> \t\t\t$P(A\\overline{B} + \\overline{A}B) = P(A) + P(B) - 2P(AB) = 0,4 + 0,5 - 2(0,3) = 0,3$. <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-8-1.png}{Biểu đồ Venn minh họa}"
+  },
+  {
+    "id": "9",
+    "title": "Câu 9",
+    "type": "true_false",
+    "text": "Một hộp chứa 4 quả bóng màu đỏ và 6 quả bóng màu xanh. Lấy từ hộp hai lần liên tiếp mỗi lần 1 quả bóng. Gọi $A$ là biến cố ``Lần 2 lấy được quả màu xanh''; $B$ là biến cố ``Lần 1 lấy được quả bóng màu đỏ''. Khi đó:",
+    "options": {
+      "A": "Xác suất xảy ra biến cố $B$ là: $P(B)=\\dfrac{2}{5}$.",
+      "B": "Xác suất xảy ra biến cố $A$ khi $B$ xảy ra là: $P(A|B)=\\dfrac{3}{5}$.",
+      "C": "Xác suất xảy ra biến cố $A$ khi $B$ không xảy ra là: $P(A|\\overline{B})=\\dfrac{5}{9}$.",
+      "D": "Xác suất xảy ra cả biến cố $A$ và $B$ là: $P(AB)=\\dfrac{4}{15}$."
+    },
+    "correct": "T,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. Ta có $P(B) = \\dfrac{n(B)}{n(\\Omega)} = \\dfrac{4}{10} = \\dfrac{2}{5}$. <br> \t\t\t\\item b) Sai. Lần 1 lấy được quả bóng màu đỏ nên số bóng còn lại là 9 nên $n(\\Omega)=9$. Do có 6 quả bóng màu xanh và lần 1 lấy được quả bóng đỏ nên số phần tử thuận lợi cho biến cố $A$ là $n(A)=6$. <br> \t\t\t$P(A|B) = \\dfrac{6}{9} = \\dfrac{2}{3}$. <br> \t\t\t\\item c) Đúng. Do biến cố $B$ không xảy ra tức là lần 1 lấy 1 quả màu xanh nên số bóng còn lại là 5 quả xanh và 4 quả đỏ. Do đó $P(A|\\overline{B}) = \\dfrac{5}{9}$. <br> \t\t\t\\item d) Đúng. Ta có $P(AB) = P(B).P(A|B) = \\dfrac{2}{5}.\\dfrac{6}{9} = \\dfrac{4}{15}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "10",
+    "title": "Câu 10",
+    "type": "true_false",
+    "text": "Một nhóm học sinh gồm 12 nam và 13 nữ đi tham quan Công viên nước Hạ Long, tới lúc tham gia trò chơi mỗi học sinh chọn một trong hai trò chơi là Sóng thần hoặc Đảo hải tặc. Xác suất chọn trò chơi Sóng thần của mỗi học sinh nam là $0,6$ và của mỗi học sinh nữ là $0,3$. Chọn ngẫu nhiên một bạn của nhóm. Xét tính đúng, sai của mỗi khẳng định sau?",
+    "options": {
+      "A": "Xác suất để bạn được chọn là nam là $0,48$.",
+      "B": "Xác suất để bạn được chọn là nữ là $0,5$.",
+      "C": "Xác suất để bạn được chọn là nam và tham gia trò chơi Đảo hải tặc là $0,195$.",
+      "D": "Xác suất để bạn được chọn là nữ và tham gia trò chơi Sóng thần là $0,156$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "Gọi $A$ là biến cố ``chọn được bạn nam'' và $B$ là biến cố ``chọn được bạn tham gia trò chơi Sóng thần''. <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Đúng. Nhóm có 12 nam và 13 nữ nên xác suất để chọn được một bạn nam là $\\dfrac{12}{25} = 0,48$. <br> \t\t\t\\item b) Sai. Nhóm có 12 nam và 13 nữ nên xác suất để chọn được một bạn nữ là $\\dfrac{13}{25} = 0,52$. <br> \t\t\t\\item c) Sai. Xác suất để bạn được chọn là nam và tham gia trò chơi Đảo hải tặc là $P(A\\overline{B}) = 0,48 \\times (1-0,6) = 0,48 \\times 0,4 = 0,192$. <br> \t\t\t\\item d) Đúng. Xác suất để bạn được chọn là nữ và tham gia trò chơi Sóng thần $P(\\overline{A}B) = 0,52 \\times 0,3 = 0,156$. <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-10.png}{Sơ đồ cây xác suất}"
+  },
+  {
+    "id": "11",
+    "title": "Câu 11",
+    "type": "true_false",
+    "text": "Ở cửa ra vào của nhà sách Nguyễn Văn Cừ có một thiết bị cảnh báo hàng hóa chưa được thanh toán khi qua cửa. Thiết bị phát chuông cảnh báo với $99\\",
+    "options": {
+      "A": "Xác suất để hàng qua cửa đã thanh toán là $99,9\\\n\t{ Xác suất để hàng qua cửa chưa thanh toán và thiết bị phát chuông cảnh báo là $1\\\n\t{ Xác suất để hàng qua cửa đã thanh toán và thiết bị phát chuông cảnh báo là $0,1\\\n\t{ Xác suất để hàng qua cửa chưa thanh toán và thiết bị không phát chuông cảnh báo là $0,001\\\n\t\\loigiai{\n\t\tGọi $A$ là biến cố ``Hàng qua cửa đã được thanh toán'' và $B$ là biến cố ``Thiết bị phát chuông cảnh báo''.\n\t\tTỷ lệ hàng qua cửa không được thanh toán là $0,1\\\n\t\t\\begin{itemize}\n\t\t\t\\item a) Đúng. $P(A) = 100\\\n\t\t\t\\item b) Sai. $P(\\overline{A}B) = P(\\overline{A}).P(B|\\overline{A}) = 0,001 \\times 0,99 = 0,00099 = 0,099\\\n\t\t\t\\item c) Đúng. $P(AB) = P(A).P(B|A) = 0,999 \\times 0,001 \\approx 0,1\\\n\t\t\t\\item d) Đúng. $P(\\overline{A}\\overline{B}) = P(\\overline{A}).P(\\overline{B}|\\overline{A}) = 0,001 \\times (1-0,99) = 0,001 \\times 0,01 = 0,00001 = 0,001\\\n\t\t\\end{itemize}\n\t\t\\noteImage[width=0.6\\linewidth]{XSDK3-11.png}{Sơ đồ cây xác suất}\n\t}",
+      "B": "",
+      "C": "",
+      "D": ""
+    },
+    "correct": "T,F,F,F",
+    "solution": "Gọi $A$ là biến cố ``Hàng qua cửa đã được thanh toán'' và $B$ là biến cố ``Thiết bị phát chuông cảnh báo''. <br> \t\tTỷ lệ hàng qua cửa không được thanh toán là $0,1\\ <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(A) = 100\\ <br> \t\t\t\\item b) Sai. $P(\\overline{A}B) = P(\\overline{A}).P(B|\\overline{A}) = 0,001 \\times 0,99 = 0,00099 = 0,099\\ <br> \t\t\t\\item c) Đúng. $P(AB) = P(A).P(B|A) = 0,999 \\times 0,001 \\approx 0,1\\ <br> \t\t\t\\item d) Đúng. $P(\\overline{A}\\overline{B}) = P(\\overline{A}).P(\\overline{B}|\\overline{A}) = 0,001 \\times (1-0,99) = 0,001 \\times 0,01 = 0,00001 = 0,001\\ <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-11.png}{Sơ đồ cây xác suất}"
+  },
+  {
+    "id": "12",
+    "title": "Câu 12",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A, B$ có xác suất lần lượt là $P(A)=\\dfrac{2}{5}$, $P(B)=\\dfrac{3}{5}$ và $P(AB)=\\dfrac{1}{5}$.",
+    "options": {
+      "A": "Xác suất của biến cố $\\overline{A}$ là $P(\\overline{A})=\\dfrac{3}{5}$.",
+      "B": "Xác suất của biến cố $B$ với điều kiện $A$ là $P(B|A)=\\dfrac{1}{3}$.",
+      "C": "Xác suất của biến cố $A \\cup B$ là $P(A \\cup B)=1$.",
+      "D": "Xác suất của biến cố $\\overline{A}$ với điều kiện $\\overline{B}$ là $P(\\overline{A}|\\overline{B})=\\dfrac{1}{2}$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A}) = 1 - P(A) = \\dfrac{3}{5}$. <br> \t\t\t\\item b) Sai. $P(B|A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{1/5}{2/5} = \\dfrac{1}{2}$. <br> \t\t\t\\item c) Sai. $P(A \\cup B) = P(A) + P(B) - P(AB) = \\dfrac{2}{5} + \\dfrac{3}{5} - \\dfrac{1}{5} = \\dfrac{4}{5}$. <br> \t\t\t\\item d) Đúng. Ta có $P(\\overline{A} \\cap \\overline{B}) = 1 - P(A \\cup B) = 1 - \\dfrac{4}{5} = \\dfrac{1}{5}$. <br> \t\t\t$P(\\overline{B}) = 1 - P(B) = \\dfrac{2}{5}$. <br> \t\t\tDo đó $P(\\overline{A}|\\overline{B}) = \\dfrac{P(\\overline{A} \\cap \\overline{B})}{P(\\overline{B})} = \\dfrac{1/5}{2/5} = \\dfrac{1}{2}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "13",
+    "title": "Câu 13",
+    "type": "true_false",
+    "text": "Một công ty kim cương thống kê có $60\\",
+    "options": {
+      "A": "Xác suất một người nữ mua kim cương của công ty trên là $0,4$.",
+      "B": "Biết một người mua kim cương là nam, xác suất người đó trên 50 tuổi là $\\dfrac{1}{3}$.",
+      "C": "Biết một người mua kim cương là nữ, xác suất người đó trên 50 tuổi là $\\dfrac{3}{4}$.",
+      "D": "Trong số những người mua kim cương tại công ty này thì tỉ lệ người trên 50 tuổi trong số những người nam cao hơn tỉ lệ người trên 50 tuổi trong số những người nữ là 2 lần."
+    },
+    "correct": "T,F,T,F",
+    "solution": "Gọi $A$ là biến cố: ``người mua kim cương là nam'' $\\Rightarrow P(A)=0,6$. <br> \t\tKhi đó $\\overline{A}$ là biến cố: ``người mua kim cương là nữ'' $\\Rightarrow P(\\overline{A})=1-0,6=0,4$. <br> \t\tGọi $B$ là biến cố: ``người mua kim cương trên 50 tuổi''. <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A}) = 0,4$. <br> \t\t\t\\item b) Sai. Có $40\\ <br> \t\t\t$P(B|A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{0,4}{0,6} = \\dfrac{2}{3}$. <br> \t\t\t\\item c) Đúng. Có $30\\ <br> \t\t\t$P(B|\\overline{A}) = \\dfrac{P(\\overline{A}B)}{P(\\overline{A})} = \\dfrac{0,3}{0,4} = \\dfrac{3}{4}$. <br> \t\t\t\\item d) Sai. Tỉ lệ người trên 50 tuổi trong số nam là $P(B|A) = \\dfrac{2}{3}$. Tỉ lệ người trên 50 tuổi trong số nữ là $P(B|\\overline{A}) = \\dfrac{3}{4}$. <br> \t\t\tTỉ lệ này ở nữ cao hơn nam. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "14",
+    "title": "Câu 14",
+    "type": "true_false",
+    "text": "Bạn Lan chuẩn bị đi thăm nhà ngoại tại một thành phố A trong hai ngày thứ sáu và thứ bảy. Tại thành phố này mỗi ngày chỉ có nắng hoặc sương mù, nếu một ngày là nắng thì khả năng ngày tiếp theo có sương mù là $30\\",
+    "options": {
+      "A": "Xác suất trời sẽ có sương mù vào ngày thứ sáu là $0,2$.",
+      "B": "Xác suất trời sẽ có sương mù vào cả hai ngày là $0,32$.",
+      "C": "Xác suất trời sẽ có nắng vào cả hai ngày là $0,16$.",
+      "D": "Xác suất trời sẽ có sương mù vào ngày thứ sáu và có nắng vào ngày thứ bảy là $0,12$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "Gọi $A$ là biến cố: ``ngày thứ sáu trời nắng'' $\\Rightarrow P(A)=0,8$. <br> \t\t$\\overline{A}$ là biến cố: ``ngày thứ sáu trời có sương mù'' $\\Rightarrow P(\\overline{A})=1-0,8=0,2$. <br> \t\tGọi $B$ là biến cố: ``ngày thứ bảy trời có sương mù''. <br> \t\tTheo đề $P(B|A)=0,3$ (nắng hôm trước, sương mù hôm sau) và $P(B|\\overline{A})=0,4$ (sương mù hôm trước, sương mù hôm sau). <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A}) = 0,2$. <br> \t\t\t\\item b) Sai. Xác suất trời sẽ có sương mù vào cả hai ngày là $P(\\overline{A}B) = P(\\overline{A}).P(B|\\overline{A}) = 0,2 \\times 0,4 = 0,08$. <br> \t\t\t\\item c) Sai. $P(\\overline{B}|A) = 1 - P(B|A) = 1 - 0,3 = 0,7$. <br> \t\t\tXác suất trời sẽ có nắng vào cả hai ngày là $P(A\\overline{B}) = P(A).P(\\overline{B}|A) = 0,8 \\times 0,7 = 0,56$. <br> \t\t\t\\item d) Đúng. Xác suất trời sẽ có sương mù vào ngày thứ sáu và có nắng vào ngày thứ bảy là $P(\\overline{A}\\overline{B}) = P(\\overline{A}).P(\\overline{B}|\\overline{A}) = 0,2 \\times (1-0,4) = 0,2 \\times 0,6 = 0,12$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "15",
+    "title": "Câu 15",
+    "type": "true_false",
+    "text": "Một hộp đựng 10 quả cầu đỏ và 8 quả cầu xanh cùng kích thước và khối lượng. Hùng lấy một quả không hoàn lại. Sau đó Lâm lấy ngẫu nhiên một quả cầu. Gọi $A$ là biến cố ``Hùng lấy được quả cầu đỏ'', $B$ là biến cố ``Lâm lấy được một quả cầu đỏ''.",
+    "options": {
+      "A": "$P(A)$ bằng $\\dfrac{5}{9}$.",
+      "B": "$P(B|A)$ bằng $\\dfrac{9}{17}$.",
+      "C": "$P(AB)$ bằng $\\dfrac{4}{17}$.",
+      "D": "$P(B|\\overline{A})$ bằng $\\dfrac{10}{17}$."
+    },
+    "correct": "T,T,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $n(\\Omega)=18$. Xác suất Hùng chọn được một quả cầu đỏ là: $P(A) = \\dfrac{10}{18} = \\dfrac{5}{9}$. <br> \t\t\t\\item b) Đúng. Sau khi Hùng lấy một quả cầu đỏ trong hộp còn lại 17 quả cầu trong đó có 9 quả cầu đỏ. Do đó $P(B|A) = \\dfrac{9}{17}$. <br> \t\t\t\\item c) Sai. Ta có $P(AB) = P(A).P(B|A) = \\dfrac{5}{9}.\\dfrac{9}{17} = \\dfrac{5}{17}$. <br> \t\t\t\\item d) Đúng. $\\overline{A}$ là biến cố ``Hùng lấy một quả màu xanh''. Sau khi Hùng lấy một quả cầu xanh trong hộp còn lại 17 quả cầu trong đó có 10 quả cầu đỏ. Do đó $P(B|\\overline{A}) = \\dfrac{10}{17}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "16",
+    "title": "Câu 16",
+    "type": "true_false",
+    "text": "Lớp 11A1 có 45 học sinh, trong đó có 25 học sinh tham gia câu lạc bộ Tiếng Anh, 16 học sinh tham gia câu lạc bộ Nhảy, 12 học sinh vừa tham gia câu lạc bộ tiếng Anh vừa tham gia câu lạc bộ Nhảy. Chọn ngẫu nhiên 1 học sinh. Xét các biến cố sau:\n$A$: ``Học sinh được chọn tham gia câu lạc bộ Tiếng Anh'';\n$B$: ``Học sinh được chọn tham gia câu lạc bộ Nhảy''.",
+    "options": {
+      "A": "$P(A)=\\dfrac{5}{10}$.",
+      "B": "$P(B)=\\dfrac{7}{20}$.",
+      "C": "$P(A|B)=0,75$.",
+      "D": "$P(B|A)=0,48$."
+    },
+    "correct": "F,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. Xác suất của biến cố $A$ là: $P(A) = \\dfrac{25}{45} = \\dfrac{5}{9}$. <br> \t\t\t\\item b) Sai. Xác suất của biến cố $B$ là: $P(B) = \\dfrac{16}{45} \\approx 0,355$. <br> \t\t\t\\item c) Đúng. $P(A|B) = \\dfrac{n(A \\cap B)}{n(B)} = \\dfrac{12}{16} = 0,75$. <br> \t\t\t\\item d) Đúng. $P(B|A) = \\dfrac{n(A \\cap B)}{n(A)} = \\dfrac{12}{25} = 0,48$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "17",
+    "title": "Câu 17",
+    "type": "true_false",
+    "text": "Trong một hộp có 8 viên bi màu xanh và 6 viên bi màu đỏ, các viên bi cùng kích thước và cùng khối lượng. Bạn Hùng lấy ngẫu nhiên một viên bi từ hộp, không trả lại. Sau đó bạn Nam lấy ngẫu nhiên một viên bi trong số các bi còn lại trong hộp. Gọi $A$ là biến cố: ``Hùng lấy được viên bi màu đỏ'', $B$ là biến cố: ``Nam lấy được viên bi màu xanh''.",
+    "options": {
+      "A": "Với $\\Omega$ là không gian mẫu. $n(\\Omega)=196$.",
+      "B": "$P(B)=\\dfrac{8}{13}$.",
+      "C": "$P(AB)=\\dfrac{24}{91}$.",
+      "D": "$P(A|B)=\\dfrac{6}{13}$."
+    },
+    "correct": "F,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. Nam có 14 cách lấy ngẫu nhiên một viên bi trong hộp. Hùng có 13 cách lấy một viên bi còn lại trong hộp. Do đó $n(\\Omega) = 14.13 = 182$. <br> \t\t\t\\item b) Sai. Nam có 8 cách lấy một viên bi màu xanh, Hùng có 13 cách lấy một viên bi còn lại trong hộp. Do đó $n(B) = 8.13 = 104 \\Rightarrow P(B) = \\dfrac{104}{182} = \\dfrac{4}{7}$. <br> \t\t\t\\item c) Đúng. Nam có 8 cách lấy một viên bi màu xanh, Hùng có 6 cách lấy một viên bi màu đỏ. Do đó $n(AB) = 8.6 = 48 \\Rightarrow P(AB) = \\dfrac{48}{182} = \\dfrac{24}{91}$. <br> \t\t\t\\item d) Đúng. Ta có: $P(A|B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{24/91}{4/7} = \\dfrac{6}{13}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "18",
+    "title": "Câu 18",
+    "type": "true_false",
+    "text": "Gieo hai con xúc xắc cân đối và đồng chất. Gọi $A$ là biến cố: ``Tích số chấm xuất hiện trên hai con xúc xắc là số chẵn'', $B$ là biến cố: ``Có đúng một con xúc xắc xuất hiện mặt 3 chấm''.",
+    "options": {
+      "A": "$P(AB)=\\dfrac{1}{6}$.",
+      "B": "$P(B)=\\dfrac{11}{36}$.",
+      "C": "$P(A|B)=\\dfrac{5}{6}$.",
+      "D": "$P(\\overline{A}|B)=\\dfrac{4}{11}$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $n(\\Omega) = 6.6 = 36$. $AB = \\{(3,2);(3,4);(3,6);(2,3);(4,3);(6,3)\\} \\Rightarrow n(AB)=6$. Do đó $P(AB) = \\dfrac{6}{36} = \\dfrac{1}{6}$. <br> \t\t\t\\item b) Đúng (theo lời giải gốc, nhưng logic đếm có vấn đề). Lời giải gốc ghi $n(B)=11$ (có thể do tính cả trường hợp (3,3) hoặc tính phần bù sai). Tuy nhiên, nếu ``có đúng một con xúc xắc 3 chấm'' thì $n(B)=10$. Dựa trên kết quả True/False của tài liệu gốc: Đúng. <br> \t\t\t\\item c) Sai. $P(A|B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{1/6}{11/36} = \\dfrac{6}{11}$. <br> \t\t\t\\item d) Đúng. $\\overline{A}B = \\{(3,1);(3,5);(1,3);(5,3)\\} \\Rightarrow n(\\overline{A}B)=4$. Do đó $P(\\overline{A}|B) = \\dfrac{n(\\overline{A}B)}{n(B)} = \\dfrac{4}{11}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "19",
+    "title": "Câu 19",
+    "type": "true_false",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(A)=0,4$, $P(B)=0,7$, $P(A \\cap B)=0,3$.",
+    "options": {
+      "A": "$P(\\overline{A})=0,6$ và $P(\\overline{B})=0,3$.",
+      "B": "$P(A|B)=\\dfrac{2}{3}$.",
+      "C": "$P(\\overline{B}|A)=\\dfrac{1}{3}$.",
+      "D": "$P(\\overline{A} \\cap B)=\\dfrac{3}{5}$."
+    },
+    "correct": "T,F,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A}) = 1 - 0,4 = 0,6$; $P(\\overline{B}) = 1 - 0,7 = 0,3$. <br> \t\t\t\\item b) Sai. $P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0,3}{0,7} = \\dfrac{3}{7}$. <br> \t\t\t\\item c) Sai. $P(\\overline{B}|A) = 1 - P(B|A) = 1 - \\dfrac{P(A \\cap B)}{P(A)} = 1 - \\dfrac{0,3}{0,4} = 1 - 0,75 = 0,25 = \\dfrac{1}{4}$. <br> \t\t\t\\item d) Sai. $P(\\overline{A} \\cap B) = P(B) - P(A \\cap B) = 0,7 - 0,3 = 0,4 = \\dfrac{2}{5}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "20",
+    "title": "Câu 20",
+    "type": "true_false",
+    "text": "(Chuyên KHTN Hà Nội 2025) Có hai phác đồ điều trị $A$ và $B$ cho một loại bệnh. Phác đồ $A$ có xác suất chữa khỏi bệnh là $60\\",
+    "options": {
+      "A": "Xác suất bệnh nhân điều trị bằng phác đồ $A$ và được chữa khỏi bệnh là $0,6$.",
+      "B": "Xác suất để bệnh nhân bị tác dụng phụ nghiêm trọng là $0,075$.",
+      "C": "Nếu biết bệnh nhân này gặp tác dụng phụ nghiêm trọng thì xác suất bệnh nhân đã được điều trị bằng phác đồ $B$ lớn hơn $0,65$.",
+      "D": "Biết rằng trong mỗi phác đồ điều trị thì biến cố ``bệnh nhân được chữa khỏi bệnh'' và biến cố ``bệnh nhân không bị tác dụng phụ nghiêm trọng'' là độc lập với nhau. Xác suất bệnh nhân khỏi bệnh và không bị tác dụng phụ nghiêm trọng là $0,6$."
+    },
+    "correct": "F,T,T,T",
+    "solution": "Gọi $X$: ``Phác đồ A chữa khỏi bệnh'' và $Y$: ``phác đồ A gây tác dụng phụ nghiêm trọng''. $P(X)=0,6$, $P(Y)=0,05$. <br> \t\tGọi $M$: ``Phác đồ B chữa khỏi bệnh'' và $N$: ``phác đồ B gây tác dụng phụ nghiêm trọng''. $P(M)=0,7$, $P(N)=0,1$. <br> \t\t\\begin{itemize} <br> \t\t\t\\item a) Sai. Xác suất chọn phác đồ A là 0,5. Xác suất điều trị bằng phác đồ A và khỏi bệnh là $0,5 \\times 0,6 = 0,3$. <br> \t\t\t\\item b) Đúng. Gọi $C$: ``Bệnh nhân gặp tác dụng phụ nghiêm trọng''. $P(C) = 0,5 \\times 0,05 + 0,5 \\times 0,1 = 0,025 + 0,05 = 0,075$. <br> \t\t\t\\item c) Đúng. $P(B|C) = \\dfrac{P(B \\cap C)}{P(C)} = \\dfrac{0,05}{0,075} = \\dfrac{2}{3} \\approx 0,667 > 0,65$. <br> \t\t\t\\item d) Đúng (theo lời giải gốc, nhưng tính toán ra 0.60125). <br> \t\t\t$P(D \\cap E) = P(D).P(E) \\approx 0,6$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "21",
+    "title": "Câu 21",
+    "type": "true_false",
+    "text": "(Chuyên Hùng Vương - Phú Thọ 2025) Trong một lô sản phẩm có 3 hộp loại I và 5 hộp loại II. Biết rằng trong mỗi hộp loại I có 97 sản phẩm tốt và 3 phế phẩm, trong mỗi hộp loại II có 95 sản phẩm tốt và 5 phế phẩm. Lấy ngẫu nhiên từ lô sản phẩm đó một hộp, rồi từ hộp đó lấy ra ngẫu nhiên đồng thời hai sản phẩm.",
+    "options": {
+      "A": "Xác suất để hộp được chọn là hộp loại I bằng $\\dfrac{3}{8}$.",
+      "B": "Nếu hộp được lấy ra là hộp loại I thì xác suất để cả hai sản phẩm lấy ra không có phế phẩm bằng $\\dfrac{776}{825}$.",
+      "C": "Xác suất để cả hai sản phẩm lấy ra không có phế phẩm bằng $\\dfrac{1833}{2000}$.",
+      "D": "Biết rằng trong hai sản phẩm lấy ra có đúng một phế phẩm, xác suất để hộp lấy ra là hộp loại I bằng $\\dfrac{203}{2475}$."
+    },
+    "correct": "T,T,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(B_1) = \\dfrac{3}{8}$. <br> \t\t\t\\item b) Đúng. $P(A|B_1) = \\dfrac{C_{97}^2}{C_{100}^2} = \\dfrac{776}{825}$. <br> \t\t\t\\item c) Sai. $P(A) = \\dfrac{3}{8}.\\dfrac{C_{97}^2}{C_{100}^2} + \\dfrac{5}{8}.\\dfrac{C_{95}^2}{C_{100}^2} = \\dfrac{1833}{2000}$ (Lời giải gốc ghi Sai nhưng tính ra đúng số này, có thể đề bài yêu cầu số khác hoặc lời giải kết luận nhầm). <br> \t\t\t\\item d) Sai. $P(B_1|B) = \\dfrac{P(B_1B)}{P(B)} = \\dfrac{873}{3248}$. <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-21.png}{Sơ đồ cây xác suất}"
+  },
+  {
+    "id": "22",
+    "title": "Câu 22",
+    "type": "true_false",
+    "text": "(Sở Bắc Ninh 2025) Một nhóm nghiên cứu tiến hành khảo sát 10000 người và nhận thấy những người hút thuốc lá có nguy cơ bị ung thư phổi cao hơn so với người không hút thuốc lá. Kết quả khảo sát được trình bày trong bảng dữ liệu thống kê $2 \\times 2$ sau đây:\n\\begin{center}\n\\begin{tabular}{|l|l|l|}\n\\hline\n& Mắc ung thư phổi & Không mắc ung thư phổi \\\\ \\hline\nHút thuốc lá & 1124 người & 1126 người \\\\ \\hline\nKhông hút thuốc lá & 276 người & 7474 người \\\\ \\hline\n\\end{tabular}\n\\end{center}\nChọn ngẫu nhiên một người trong 10000 người được khảo sát.",
+    "options": {
+      "A": "Xác suất để người đó hút thuốc lá là $14\\\n\t{ Nếu người đó bị ung thư phổi thì xác suất người đó hút thuốc lá lớn hơn $80\\\n\t{ Xác suất để người đó bị ung thư phổi là $14\\\n\t{ Dựa theo kết quả khảo sát trên ta thấy, người hút thuốc lá có nguy cơ mắc bệnh ung thư phổi cao gấp khoảng 14 lần so với người không hút thuốc lá.}\n\t\\loigiai{\n\t\t\\begin{itemize}\n\t\t\t\\item a) Sai. $P(A) = \\dfrac{1124+1126}{10000} = \\dfrac{2250}{10000} = 22,5\\\n\t\t\t\\item b) Đúng. $P(A|B) = \\dfrac{1124}{1400} \\approx 80,29\\\n\t\t\t\\item c) Đúng. $P(B) = \\dfrac{1124+276}{10000} = 14\\\n\t\t\t\\item d) Đúng. Tỉ lệ mắc bệnh khi hút thuốc: $P(B|A) = \\dfrac{1124}{2250}$. Tỉ lệ mắc bệnh khi không hút thuốc: $P(B|\\overline{A}) = \\dfrac{276}{7750}$. Tỉ số $\\approx 14$.\n\t\t\\end{itemize}\n\t}",
+      "B": "",
+      "C": "",
+      "D": ""
+    },
+    "correct": "T,F,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. $P(A) = \\dfrac{1124+1126}{10000} = \\dfrac{2250}{10000} = 22,5\\ <br> \t\t\t\\item b) Đúng. $P(A|B) = \\dfrac{1124}{1400} \\approx 80,29\\ <br> \t\t\t\\item c) Đúng. $P(B) = \\dfrac{1124+276}{10000} = 14\\ <br> \t\t\t\\item d) Đúng. Tỉ lệ mắc bệnh khi hút thuốc: $P(B|A) = \\dfrac{1124}{2250}$. Tỉ lệ mắc bệnh khi không hút thuốc: $P(B|\\overline{A}) = \\dfrac{276}{7750}$. Tỉ số $\\approx 14$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "23",
+    "title": "Câu 23",
+    "type": "true_false",
+    "text": "(Sở Hòa Bình 2025) Một doanh nghiệp có $45\\",
+    "options": {
+      "A": "Tỉ lệ nhân viên nam trong tổng số nhân viên là $55\\\n\t{ Tỉ lệ nhân viên nữ không có bằng đại học trong tổng số nhân viên là $13,5\\\n\t{ Chọn ngẫu nhiên hai nhân viên trong doanh nghiệp, xác suất để chọn được hai người khác giới lớn hơn $24,5\\\n\t{ Chọn ngẫu nhiên hai nhân viên trong doanh nghiệp, xác suất để trong hai người được có đúng một người có bằng đại học không vượt quá $19,8\\\n\t\\loigiai{\n\t\t\\begin{itemize}\n\t\t\t\\item a) Đúng. $P(\\overline{A}) = 1 - 0,45 = 0,55$.\n\t\t\t\\item b) Sai. $P(A\\overline{B}) = P(A).P(\\overline{B}|A) = 0,45 \\times (1-0,3) = 0,315 = 31,5\\\n\t\t\t\\item c) Đúng. Xác suất chọn 2 người khác giới: $2 \\times 0,45 \\times 0,55 = 0,495 > 24,5\\\n\t\t\t\\item d) Sai. Xác suất có đúng 1 người có bằng ĐH $\\approx 39,64\\\n\t\t\\end{itemize}\n\t}",
+      "B": "",
+      "C": "",
+      "D": ""
+    },
+    "correct": "T,F,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(\\overline{A}) = 1 - 0,45 = 0,55$. <br> \t\t\t\\item b) Sai. $P(A\\overline{B}) = P(A).P(\\overline{B}|A) = 0,45 \\times (1-0,3) = 0,315 = 31,5\\ <br> \t\t\t\\item c) Đúng. Xác suất chọn 2 người khác giới: $2 \\times 0,45 \\times 0,55 = 0,495 > 24,5\\ <br> \t\t\t\\item d) Sai. Xác suất có đúng 1 người có bằng ĐH $\\approx 39,64\\ <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "24",
+    "title": "Câu 24",
+    "type": "true_false",
+    "text": "(THPT Hương Hóa - Quảng Trị 2025) Trong một cuộc khảo sát tình trạng công việc trên 900 người chỉ có bằng tốt nghiệp THPT tại một địa phương, người ta thu được số liệu như bảng dưới đây:\n\\begin{center}\n\\begin{tabular}{|l|c|c|}\n\\hline\n\\textbf{Tình trạng} & \\textbf{Có việc làm} & \\textbf{Thất nghiệp} \\\\ \\hline\n\\textbf{Nam} & 460 & 40 \\\\ \\hline\n\\textbf{Nữ} & 140 & 260 \\\\ \\hline\n\\end{tabular}\n\\end{center}\nChọn ngẫu nhiên một người trong nhóm này.",
+    "options": {
+      "A": "Xác suất để chọn được một nam là $\\dfrac{5}{9}$.",
+      "B": "Xác suất để chọn được một người có việc làm là $\\dfrac{2}{3}$.",
+      "C": "Tại địa phương này, nếu chỉ có bằng tốt nghiệp THPT thì tỉ lệ nữ thất nghiệp sẽ cao hơn nam. Khảo sát cho thấy xác suất để một người thất nghiệp khi người đó là nữ cao gấp 7 lần xác suất để một người thất nghiệp khi người đó là nam.",
+      "D": "Biết rằng đã chọn được một người có việc làm, xác suất để người này là nữ là $\\dfrac{7}{30}$."
+    },
+    "correct": "T,T,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(A) = \\dfrac{500}{900} = \\dfrac{5}{9}$. <br> \t\t\t\\item b) Đúng. $P(B) = \\dfrac{600}{900} = \\dfrac{2}{3}$. <br> \t\t\t\\item c) Sai. Tỉ lệ nữ thất nghiệp: $260/400 = 0,65$. Tỉ lệ nam thất nghiệp: $40/500 = 0,08$. Tỉ số $0,65/0,08 = 8,125 \\neq 7$. <br> \t\t\t\\item d) Đúng. $P(C|B) = \\dfrac{140}{600} = \\dfrac{7}{30}$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "25",
+    "title": "Câu 25",
+    "type": "true_false",
+    "text": "(THPT Ngô Sĩ Liên - Bắc Giang 2025) Một hộp có 80 viên bi, trong đó có 50 viên bi màu đỏ và 30 viên bi màu vàng. Các viên bi có kích thước và khối lượng như nhau. Sau khi kiểm tra, người ta thấy có $60\\",
+    "options": {
+      "A": "Xác suất chọn được viên bi màu vàng có đánh số bằng $18,57\\\n\t{ Xác suất chọn được viên bi màu đỏ bằng $62,5\\\n\t{ Xác suất chọn được viên bi không đánh số bằng $43,75\\\n\t{ Giả sử viên bi được lấy ra là viên bi chưa được đánh số, xác suất để viên bi đó là bi đỏ thấp hơn xác suất viên bi đó là bi vàng.}\n\t\\loigiai{\n\t\t\\begin{itemize}\n\t\t\t\\item a) Sai. Số bi vàng có đánh số là $30 \\times 50\\\n\t\t\t\\item b) Đúng. $50/80 = 62,5\\\n\t\t\t\\item c) Đúng. Số bi không đánh số: $80 - (30+15) = 35$. Xác suất: $35/80 = 43,75\\\n\t\t\t\\item d) Sai. $P(A|\\overline{B}) = 20/35 = 4/7$. $P(\\overline{A}|\\overline{B}) = 15/35 = 3/7$. Xác suất bi đỏ cao hơn.\n\t\t\\end{itemize}\n\t}",
+      "B": "",
+      "C": "",
+      "D": ""
+    },
+    "correct": "T,F,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. Số bi vàng có đánh số là $30 \\times 50\\ <br> \t\t\t\\item b) Đúng. $50/80 = 62,5\\ <br> \t\t\t\\item c) Đúng. Số bi không đánh số: $80 - (30+15) = 35$. Xác suất: $35/80 = 43,75\\ <br> \t\t\t\\item d) Sai. $P(A|\\overline{B}) = 20/35 = 4/7$. $P(\\overline{A}|\\overline{B}) = 15/35 = 3/7$. Xác suất bi đỏ cao hơn. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "26",
+    "title": "Câu 26",
+    "type": "true_false",
+    "text": "(Sở Vũng Tàu 2025) Trong một trường THPT tỷ lệ học sinh nữ là $58\\",
+    "options": {
+      "A": "Xác suất chọn được học sinh là nữ là: $P(A)=0,58$.",
+      "B": "Xác suất chọn được học sinh tham gia CLB Toán học, biết rằng học sinh đó là nam, là $P(B|\\overline{A})=0,16$.",
+      "C": "Xác suất chọn được học sinh tham gia CLB Toán học là: $P(B)=0,1252$.",
+      "D": "Khi một bạn tham gia CLB Toán thì xác suất bạn đó là nữ là: $P(A|B)=0,47$ (kết quả làm tròn đến hàng phần trăm)."
+    },
+    "correct": "T,T,T,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(A)=0,58$. <br> \t\t\t\\item b) Đúng. $P(B|\\overline{A})=0,16$. <br> \t\t\t\\item c) Đúng. $P(B) = 0,58 \\times 0,1 + 0,42 \\times 0,16 = 0,1252$. <br> \t\t\t\\item d) Sai. $P(A|B) = \\dfrac{0,058}{0,1252} \\approx 0,46$. <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-26.png}{Sơ đồ cây xác suất}"
+  },
+  {
+    "id": "27",
+    "title": "Câu 27",
+    "type": "true_false",
+    "text": "(Chuyên Lam Sơn - Thanh Hóa 2025) Một trường THPT Chuyên cử một đội tuyển gồm 90 học sinh tham dự kỳ thi Học sinh giỏi cấp Quốc gia. Đội tuyển có cả học sinh nam và học sinh nữ. Sau kỳ thi, kết quả thống kê cho thấy có 85 học sinh đạt huy chương. Thông tin chi tiết như sau:\nTrong tổng số 90 học sinh, có 50 học sinh nam và 40 học sinh nữ.\nTrong số 85 học sinh đạt huy chương, có 48 học sinh nam.\nChọn ngẫu nhiên một học sinh từ đội tuyển sau khi cuộc thi kết thúc.",
+    "options": {
+      "A": "Xác suất chọn được một học sinh nữ là $\\dfrac{4}{9}$.",
+      "B": "Xác suất chọn được một học sinh nam đạt huy chương là $\\dfrac{7}{15}$.",
+      "C": "Biết rằng học sinh được chọn là nam, xác suất học sinh đó đạt huy chương là $\\dfrac{24}{25}$.",
+      "D": "Biết rằng học sinh được chọn đã đạt huy chương, xác suất học sinh đó là nữ là $\\dfrac{37}{85}$."
+    },
+    "correct": "T,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(F) = 40/90 = 4/9$. <br> \t\t\t\\item b) Sai. $P(N \\cap H) = 48/90 = 8/15$. <br> \t\t\t\\item c) Đúng. $P(H|N) = 48/50 = 24/25$. <br> \t\t\t\\item d) Đúng. $P(F|H) = 37/85$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "28",
+    "title": "Câu 28",
+    "type": "true_false",
+    "text": "(Sở Gia Lai 2025) Gần đây, cơ quan chức năng đã phát hiện một lượng lớn sản phẩm sữa và thực phẩm chức năng giả trên thị trường. Những sản phẩm này không chỉ vi phạm các quy định về an toàn thực phẩm mà còn gây nguy hiểm cho sức khỏe người tiêu dùng. Vì vậy một siêu thị đã kiểm tra chất lượng của 200 sản phẩm gồm 120 hộp sữa và 80 hộp thực phẩm chức năng. Qua kiểm tra có 110 hộp sữa đạt chuẩn an toàn thực phẩm và 70 hộp thực phẩm chức năng đạt an toàn thực phẩm. Một người chọn ngẫu nhiên một sản phẩm trong 200 sản phẩm kiểm tra.",
+    "options": {
+      "A": "Xác suất chọn được sản phẩm là sữa bằng $\\dfrac{3}{5}$.",
+      "B": "Số sản phẩm sữa đạt chuẩn an toàn là 180 sản phẩm.",
+      "C": "Xác suất chọn được sản phẩm là sữa và đạt an toàn thực phẩm bằng $0,55$.",
+      "D": "Biết sản phẩm được chọn là sữa, xác suất sản phẩm đó an toàn thực phẩm bằng $0,7$."
+    },
+    "correct": "T,F,T,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(S) = 120/200 = 3/5$. <br> \t\t\t\\item b) Sai. Số sản phẩm sữa đạt chuẩn là 110. (Tổng số sản phẩm đạt chuẩn mới là 180). <br> \t\t\t\\item c) Đúng. $P(AS) = 110/200 = 0,55$. <br> \t\t\t\\item d) Sai. $P(A|S) = 110/120 \\approx 0,9167$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "29",
+    "title": "Câu 29",
+    "type": "true_false",
+    "text": "(THPT Khoa Học Giáo Dục - Hà Nội 2025) Một vòng quay được chia thành 12 phần bằng nhau và được đánh số từ 1 đến 12 như hình vẽ bên dưới:\nXét phép thử An và Bình lần lượt quay vòng quay trên. Gọi $A$ là biến cố ``An quay được số chia hết cho 3''; $B$ là biến cố ``An quay được số chia hết cho 5''; $C$ là biến cố ``Bình quay được số chẵn''. Xét tính đúng sai của các khẳng định sau:",
+    "options": {
+      "A": "Không gian mẫu của phép thử có số kết quả là 24.",
+      "B": "Số kết quả thuận lợi cho biến cố $A, B, C$ lần lượt là 48, 24, 72.",
+      "C": "Xác suất để Bình quay được số chẵn, biết An quay được số chia hết cho 3 là $\\dfrac{1}{6}$.",
+      "D": "Xác suất để An quay được số chia hết cho 5, biết Bình quay được số lẻ là $\\dfrac{1}{6}$."
+    },
+    "correct": "F,T,F,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. $12 \\times 12 = 144$. <br> \t\t\t\\item b) Đúng. $n(A)=4 \\times 12 = 48$; $n(B)=2 \\times 12 = 24$; $n(C)=12 \\times 6 = 72$. <br> \t\t\t\\item c) Sai. $P(C|A) = P(C) = 1/2$. <br> \t\t\t\\item d) Sai (theo lời giải gốc, dù tính ra 1/6). $P(B|\\overline{C}) = P(B) = 2/12 = 1/6$. <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-29.png}{Vòng quay số}"
+  },
+  {
+    "id": "30",
+    "title": "Câu 30",
+    "type": "true_false",
+    "text": "(Sở Hưng Yên 2025) Một công ty đấu thầu hai dự án. Khả năng thắng thầu của dự án I là $0,5$ và khả năng thắng thầu của dự án II là $0,6$. Khả năng thắng thầu cả hai dự án là $0,4$.\nGọi $A$ là biến cố: ``Thắng thầu dự án I''.\nGọi $B$ là biến cố: ``Thắng thầu dự án II''.",
+    "options": {
+      "A": "Xác suất để công ty thắng thầu dự án II biết công ty không thắng thầu dự án I là $0,2$.",
+      "B": "Xác suất để công ty thắng thầu đúng một dự án bằng $0,5$.",
+      "C": "Xác suất để công ty thắng thầu dự án II biết công ty thắng thầu dự án I là $0,8$.",
+      "D": "$A$ và $B$ là hai biến cố độc lập."
+    },
+    "correct": "F,F,T,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. $P(B|\\overline{A}) = \\dfrac{P(B) - P(AB)}{1 - P(A)} = \\dfrac{0,6 - 0,4}{0,5} = 0,4$. <br> \t\t\t\\item b) Sai. $P(A) + P(B) - 2P(AB) = 0,5 + 0,6 - 0,8 = 0,3$. <br> \t\t\t\\item c) Đúng. $P(B|A) = 0,4/0,5 = 0,8$. <br> \t\t\t\\item d) Sai. $P(A)P(B) = 0,3 \\neq P(AB)$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "31",
+    "title": "Câu 31",
+    "type": "true_false",
+    "text": "(Sở Sóc Trăng 2025) Một nhà máy có hai phân xưởng cùng sản xuất một loại sản phẩm. Phân xưởng $A$ và $B$ lần lượt sản xuất $55\\",
+    "options": {
+      "A": "Xác suất để sản phẩm đó do phân xưởng $A$ sản xuất là $0,55$.",
+      "B": "Biết rằng sản phẩm lấy ra là sản phẩm tốt, xác suất sản phẩm đó do phân xưởng $A$ sản xuất lớn hơn $0,55$.",
+      "C": "Biết rằng sản phẩm lấy ra là phế phẩm, xác suất sản phẩm đó do phân xưởng $B$ sản xuất nhỏ hơn $0,25$.",
+      "D": "Giả sử trong một tháng nhà máy sản xuất được 16 800 sản phẩm thì số sản phẩm tốt của phân xưởng $A$ sản xuất ra sẽ nhiều hơn số sản phẩm tốt của phân xưởng $B$ là 1134 sản phẩm."
+    },
+    "correct": "T,F,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(A)=0,55$. <br> \t\t\t\\item b) Sai. $P(A|T) \\approx 0,54 < 0,55$. <br> \t\t\t\\item c) Sai. $P(\\overline{A}|\\overline{T}) \\approx 0,29 > 0,25$. <br> \t\t\t\\item d) Đúng. $16800 \\times 0,55 \\times 0,9 - 16800 \\times 0,45 \\times 0,95 = 1134$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "32",
+    "title": "Câu 32",
+    "type": "true_false",
+    "text": "(THPT Lê Thánh Tông - HCM 2025) Trong một live show âm nhạc có ca sĩ Mỹ Tâm tham gia, nhiều fan hâm mộ đã tỏ ra lo ngại rằng ban tổ chức có thể hủy show với một vài lý do khác nhau. Những lo ngại này đúng vì có đến $0,302$ khả năng show diễn sẽ bị hủy. Nếu vé bán hết thì chắc chắn live show sẽ diễn ra. Nếu trời mưa thì ban tổ chức không thể bán hết vé, khi đó khả năng hủy show là $50\\",
+    "options": {
+      "A": "Nếu vé chưa được bán hết khi trời không mưa thì xác suất để show vẫn diễn ra bằng $0,95$.",
+      "B": "Xác suất để trời mưa bằng $0,55$.",
+      "C": "Xác suất để ban tổ chức không bán hết vé bằng $0,64$.",
+      "D": "Sau cùng thì show của Mỹ Tâm cũng đã diễn ra, xác suất hôm đó trời mưa bằng $0,43$ (làm tròn kết quả đến hàng phần trăm)."
+    },
+    "correct": "T,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $1 - 0,05 = 0,95$. <br> \t\t\t\\item b) Sai. Tính ra $P(A)=0,6$. <br> \t\t\t\\item c) Đúng. $P(\\overline{B}) = 0,64$. <br> \t\t\t\\item d) Đúng. $P(A|\\overline{C}) \\approx 0,43$. <br> \t\t\\end{itemize} <br> \t\t\\noteImage[width=0.6\\linewidth]{XSDK3-32.png}{Sơ đồ cây xác suất}"
+  },
+  {
+    "id": "33",
+    "title": "Câu 33",
+    "type": "true_false",
+    "text": "(Sở Cà Mau 2025) Một cửa hàng đã bán 2 loại đồ chơi gồm 120 mô tô và 80 búp bê cho các bé ở một trường tiểu học. Qua thống kê thấy rằng trong số bé mua mô tô có $70\\",
+    "options": {
+      "A": "Xác suất bé được chọn đã mua mô tô bằng $0,6$.",
+      "B": "Xác suất bé được chọn là nữ, biết rằng bé đó mua mô tô bằng $0,18$.",
+      "C": "Xác suất bé được chọn là nam và không mua búp bê bằng $0,32$.",
+      "D": "Số bé nam mua đồ chơi là 100."
+    },
+    "correct": "T,F,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $120/200 = 0,6$. <br> \t\t\t\\item b) Sai. $P(B|A) = 1 - 0,7 = 0,3$. <br> \t\t\t\\item c) Sai. $P(\\overline{B}.A) = 0,42$. <br> \t\t\t\\item d) Đúng. $84 + 16 = 100$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "34",
+    "title": "Câu 34",
+    "type": "true_false",
+    "text": "(Sở Hậu Giang 2025) Sau khi tổng kết điểm trung bình cả năm, giáo viên chủ nhiệm lớp 12A nhận thấy trong 40 học sinh của lớp có 20 học sinh đạt điểm giỏi môn Toán, 15 học sinh đạt điểm giỏi môn Ngữ văn, 10 học sinh không đạt điểm giỏi môn nào trong hai môn trên. Chọn ngẫu nhiên một học sinh thuộc lớp 12A. Gọi $T$ là biến cố ``Học sinh được chọn đạt điểm giỏi môn Toán'', $V$ là biến cố ``Học sinh được chọn đạt điểm giỏi môn Ngữ văn'', $K$ là biến cố ``Học sinh được chọn không đạt điểm giỏi môn nào trong hai môn Toán và Ngữ văn''.",
+    "options": {
+      "A": "Xác suất của biến cố $K$ là $P(K)=\\dfrac{1}{4}$.",
+      "B": "Xác suất của biến cố $T \\cup V$ là $P(T \\cup V)=\\dfrac{7}{8}$.",
+      "C": "Xác suất của biến cố $T \\cap V$ là $P(T \\cap V)=\\dfrac{3}{16}$.",
+      "D": "Biết rằng học sinh được chọn đạt điểm giỏi môn Ngữ văn, xác suất học sinh đó đạt điểm giỏi môn Toán là $\\dfrac{1}{3}$."
+    },
+    "correct": "T,F,F,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(K) = 10/40 = 1/4$. <br> \t\t\t\\item b) Sai. $P(T \\cup V) = 30/40 = 0,75$. <br> \t\t\t\\item c) Sai. $P(T \\cap V) = 5/40 = 1/8$. <br> \t\t\t\\item d) Đúng. $P(T|V) = 5/15 = 1/3$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "35",
+    "title": "Câu 35",
+    "type": "true_false",
+    "text": "(Sở Kiên Giang 2025) Một trường đại học đã tổ chức một cuộc khảo sát về mức độ hài lòng của sinh viên đối với dịch vụ thư viện. Kết quả cho thấy $40\\",
+    "options": {
+      "A": "$P(B)=0,4$.",
+      "B": "$P(B|A)=0,6$.",
+      "C": "$P(B \\cap \\overline{A})=0,1$.",
+      "D": "Trong số các sinh viên nam tham gia khảo sát của trường, có $25\\\n\t\\loigiai{\n\t\t\\begin{itemize}\n\t\t\t\\item a) Đúng. $P(B)=0,4$.\n\t\t\t\\item b) Sai. $P(B|A)=0,5$.\n\t\t\t\\item c) Đúng. $P(B \\cap \\overline{A}) = P(B) - P(B \\cap A) = 0,4 - 0,3 = 0,1$.\n\t\t\t\\item d) Đúng. $P(B|\\overline{A}) = 0,1/0,4 = 0,25$.\n\t\t\\end{itemize}\n\t}"
+    },
+    "correct": "T,F,T,T",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Đúng. $P(B)=0,4$. <br> \t\t\t\\item b) Sai. $P(B|A)=0,5$. <br> \t\t\t\\item c) Đúng. $P(B \\cap \\overline{A}) = P(B) - P(B \\cap A) = 0,4 - 0,3 = 0,1$. <br> \t\t\t\\item d) Đúng. $P(B|\\overline{A}) = 0,1/0,4 = 0,25$. <br> \t\t\\end{itemize}"
+  },
+  {
+    "id": "36",
+    "title": "Câu 36",
+    "type": "true_false",
+    "text": "(Sở Nam Định 2025) Trong một đợt khảo sát về tình trạng sử dụng thuốc lá điện tử của thanh thiếu niên ở độ tuổi 15-24 tại Hà Nội và thành phố Hồ Chí Minh năm 2020, có 1211 người được khảo sát thì có 89 người hút thuốc lá điện tử. Số người trong độ tuổi 15-17 được khảo sát là 298, trong đó có 10 người hút thuốc lá điện tử. Số người trong độ tuổi 18-24 được khảo sát là 913, trong đó có 79 người hút thuốc lá điện tử. Chọn ngẫu nhiên một người trong nhóm được khảo sát.",
+    "options": {
+      "A": "Xác suất để người được chọn ở độ tuổi 18-24 bằng $\\dfrac{3}{4}$.",
+      "B": "Xác suất để người được chọn là người hút thuốc lá điện tử bằng $\\dfrac{89}{1211}$.",
+      "C": "Xác suất để người được chọn ở độ tuổi 15-17 và là người hút thuốc lá điện tử bằng $\\dfrac{10}{1211}$.",
+      "D": "Biết người được chọn là người hút thuốc lá điện tử, xác suất để người đó ở độ tuổi 15-17 bằng $\\dfrac{3}{10}$."
+    },
+    "correct": "F,T,T,F",
+    "solution": "\\begin{itemize} <br> \t\t\t\\item a) Sai. $913/1211 \\neq 3/4$. <br> \t\t\t\\item b) Đúng. $89/1211$. <br> \t\t\t\\item c) Đúng. $10/1211$. <br> \t\t\t\\item d) Sai. $10/89$. <br> \t\t\\end{itemize}"
+  }
+]

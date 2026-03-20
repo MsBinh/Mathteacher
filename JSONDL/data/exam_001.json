@@ -1,0 +1,147 @@
+[
+  {
+    "id": "E1",
+    "type": "multiple_choice",
+    "title": "Câu 1",
+    "text": "Cho hàm số $y = f(x)$ có bảng biến thiên:\n\n\\begin{tabular}{|c|c|c|c|c|}\n\\hline\n$x$ & $-\\infty$ & 1 & 3 & $+\\infty$ \\\\\n\\hline\n$y'$ & + & 0 & - & 0 & + \\\\\n\\hline\n$y$ & $-\\infty$ & 5 & 1 & $+\\infty$ \\\\\n\\hline\n\\end{tabular}\n\nHàm số đạt cực đại tại:",
+    "level": "nhan_biet",
+    "chapter": "Cực trị",
+    "options": {
+      "A": "$x = 1$",
+      "B": "$x = 3$",
+      "C": "$x = 5$",
+      "D": "$x = 0$"
+    },
+    "correct": "A",
+    "solution": "Dựa vào bảng biến thiên: $y'$ đổi dấu từ + sang - tại $x=1$ nên hàm số đạt cực đại tại $x=1$."
+  },
+  {
+    "id": "E2",
+    "type": "multiple_choice",
+    "title": "Câu 2",
+    "text": "Đường thẳng nào là tiệm cận ngang của đồ thị hàm số $y = \\frac{2x-1}{x+3}$?",
+    "level": "thong_hieu",
+    "chapter": "Tiệm cận",
+    "options": {
+      "A": "$y = -3$",
+      "B": "$y = 2$",
+      "C": "$y = \\frac{1}{3}$",
+      "D": "$y = -\\frac{1}{3}$"
+    },
+    "correct": "B",
+    "solution": "$\\lim_{x\\to\\pm\\infty} \\frac{2x-1}{x+3} = 2$ nên TCN là $y=2$."
+  },
+  {
+    "id": "E3",
+    "type": "true_false",
+    "title": "Câu 3",
+    "text": "Cho hàm số $y = x^3 - 3x + 1$. Xét tính đúng sai:",
+    "level": "van_dung",
+    "chapter": "Khảo sát",
+    "statements": [
+      "Hàm số đồng biến trên $(-\\infty, -1)$",
+      "Hàm số nghịch biến trên $(-1, 1)$",
+      "Điểm cực đại là $(-1, 3)$",
+      "Điểm cực tiểu là $(1, -1)$"
+    ],
+    "answers": [false, true, true, true],
+    "solution": "$y' = 3x^2 - 3 = 0 \\Leftrightarrow x = \\pm 1$. BBT: ĐB trên $(-\\infty,-1)$, NB trên $(-1,1)$, ĐB trên $(1,+\\infty)$. CĐ $(-1,3)$, CT $(1,-1)$."
+  },
+  {
+    "id": "E4",
+    "type": "short_answer",
+    "title": "Câu 4",
+    "text": "Tìm giá trị lớn nhất của hàm số $f(x) = -x^2 + 4x - 3$ trên đoạn $[0, 3]$.",
+    "level": "van_dung",
+    "chapter": "GTLN",
+    "placeholder": "Nhập kết quả",
+    "answer": "1",
+    "solution": "$f'(x) = -2x + 4 = 0 \\Rightarrow x = 2$. Tính $f(0) = -3$, $f(2) = 1$, $f(3) = 0$. Vậy $\\max f(x) = 1$."
+  },
+  {
+    "id": "E5",
+    "type": "multiple_choice",
+    "title": "Câu 5",
+    "text": "Đồ thị sau đây là của hàm số nào?\n\n(Hình vẽ parabol quay bề lõm lên trên, đi qua điểm (0,-1), (1,0), (-1,0))",
+    "level": "thong_hieu",
+    "chapter": "Đồ thị",
+    "options": {
+      "A": "$y = x^2 - 1$",
+      "B": "$y = -x^2 + 1$",
+      "C": "$y = x^2 + 1$",
+      "D": "$y = -x^2 - 1$"
+    },
+    "correct": "A",
+    "solution": "Parabol có dạng $y = ax^2 + bx + c$. Qua (0,-1) ⇒ $c = -1$. Qua (1,0) ⇒ $a + b - 1 = 0$. Qua (-1,0) ⇒ $a - b - 1 = 0$. Giải được $a=1, b=0$."
+  },
+  {
+    "id": "E6",
+    "type": "multiple_choice",
+    "title": "Câu 6",
+    "text": "Hàm số $y = \\frac{mx+1}{x+m}$ đồng biến trên từng khoảng xác định khi:",
+    "level": "van_dung_cao",
+    "chapter": "Tham số",
+    "options": {
+      "A": "$m > 1$",
+      "B": "$m < -1$",
+      "C": "$-1 < m < 1$",
+      "D": "$m > 1$ hoặc $m < -1$"
+    },
+    "correct": "D",
+    "solution": "$y' = \\frac{m^2 - 1}{(x+m)^2}$. Hàm số đồng biến khi $y' > 0 \\Leftrightarrow m^2 - 1 > 0 \\Leftrightarrow m > 1$ hoặc $m < -1$."
+  },
+  {
+    "id": "E7",
+    "type": "short_answer",
+    "title": "Câu 7",
+    "text": "Tìm số giao điểm của đồ thị hàm số $y = x^3 - 3x^2 + 2$ với trục hoành.",
+    "level": "thong_hieu",
+    "chapter": "Tương giao",
+    "placeholder": "Nhập số nguyên",
+    "answer": "3",
+    "solution": "Giải $x^3 - 3x^2 + 2 = 0 \\Leftrightarrow (x-1)(x^2 - 2x - 2) = 0$ có 3 nghiệm phân biệt."
+  },
+  {
+    "id": "E8",
+    "type": "true_false",
+    "title": "Câu 8",
+    "text": "Xét hàm số $y = \\sin x$ trên $[0, 2\\pi]$:",
+    "level": "nhan_biet",
+    "chapter": "Lượng giác",
+    "statements": [
+      "Hàm số đạt GTLN bằng 1",
+      "Hàm số đạt GTNN bằng -1",
+      "Hàm số đồng biến trên $(0, \\pi/2)$",
+      "Hàm số nghịch biến trên $(\\pi, 3\\pi/2)$"
+    ],
+    "answers": [true, true, true, true],
+    "solution": "Tất cả đều đúng theo tính chất của hàm sin."
+  },
+  {
+    "id": "E9",
+    "type": "multiple_choice",
+    "title": "Câu 9",
+    "text": "Đạo hàm của hàm số $y = e^{2x} \\cdot \\cos x$ là:",
+    "level": "van_dung",
+    "chapter": "Đạo hàm",
+    "options": {
+      "A": "$y' = 2e^{2x} \\cos x - e^{2x} \\sin x$",
+      "B": "$y' = e^{2x} (2\\cos x - \\sin x)$",
+      "C": "$y' = 2e^{2x} \\sin x + e^{2x} \\cos x$",
+      "D": "$y' = e^{2x} (\\cos x - 2\\sin x)$"
+    },
+    "correct": "B",
+    "solution": "$y' = (e^{2x})'\\cos x + e^{2x}(\\cos x)' = 2e^{2x}\\cos x - e^{2x}\\sin x = e^{2x}(2\\cos x - \\sin x)$."
+  },
+  {
+    "id": "E10",
+    "type": "short_answer",
+    "title": "Câu 10",
+    "text": "Tính đạo hàm của hàm số $y = \\ln(3x+1)$ tại $x = 0$.",
+    "level": "nhan_biet",
+    "chapter": "Logarit",
+    "placeholder": "Nhập kết quả",
+    "answer": "3",
+    "solution": "$y' = \\frac{3}{3x+1}$. Tại $x=0$: $y'(0) = \\frac{3}{1} = 3$."
+  }
+]
