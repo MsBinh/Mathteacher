@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <title>QUẢN LÝ MATH HUB - THẦY BÌNH</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root { --primary: #00f2fe; --dark: #0f172a; --glass: rgba(255, 255, 255, 0.05); }
+        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--primary); padding-bottom: 10px; }
+        .card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { color: var(--primary); text-transform: uppercase; font-size: 0.8rem; }
+        .btn { padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; margin-right: 5px; }
+        .btn-pdf { background: #ff4757; color: white; }
+        .btn-view { background: #4facfe; color: white; }
+        .btn-export { background: #2ecc71; color: white; }
+        .filter-bar { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 10px; border-radius: 8px; width: 250px; }
+        .modal { display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); }
+        .modal-content { background:#1e293b; margin:5% auto; padding:20px; width:80%; border-radius:15px; max-height:80vh; overflow-y:auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>📊 QUẢN LÝ & XỬ LÝ KHIẾU NẠI 2026</h2>
+            <button class="btn btn-export" onclick="exportSummaryList()">📥 Xuất Danh Sách Điểm</button>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="filterIDDe" placeholder="🔍 Lọc theo ID Đề (vd: GK1...)" oninput="filterData()">
+            <input type="text" id="filterMaHS" placeholder="🔍 Lọc theo Mã/Tên HS..." oninput="filterData()">
+        </div>
+
+        <div class="card">
+            <table id="mainTable">
+                <thead>
+                    <tr>
+                        <th>Thời gian</th>
+                        <th>Mã HS</th>
+                        <th>Họ tên</th>
+                        <th>ID Đề</th>
+                        <th>Điểm tổng</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="resultBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="color:var(--primary)"></h3>
+            <div id="modalBody" style="margin:20px 0; line-height:1.8"></div>
+            <button class="btn" onclick="document.getElementById('detailModal').style.display='none'">Đóng</button>
+        </div>
+    </div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+        databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "daytoantructuyen-149d9"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    let currentData = [];
+
+    async function loadResults() {
+        const snapshot = await db.ref('attempts').once('value');
+        const data = snapshot.val();
+        if (!data) return;
+        currentData = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+        renderTable(currentData);
+    }
+
+    function renderTable(dataArray) {
+        const tbody = document.getElementById('resultBody');
+        tbody.innerHTML = '';
+        dataArray.forEach(item => {
+            tbody.innerHTML += `
+                <tr class="result-row">
+                    <td>${new Date(item.timestamp).toLocaleString('vi-VN')}</td>
+                    <td><b>${item.studentCode}</b></td>
+                    <td>${item.studentName}</td>
+                    <td>${item.examId}</td>
+                    <td><b style="color:var(--primary)">${item.totalScore}</b></td>
+                    <td>
+                        <button class="btn btn-view" onclick="viewDetails('${item.attemptId}')">👁 Xem chi tiết</button>
+                        <button class="btn btn-pdf" onclick="exportSummaryPDF('${item.attemptId}')">📄 Xuất Điểm</button>
+                    </td>
+                </tr>`;
+        });
+    }
+
+    function filterData() {
+        const idDe = document.getElementById('filterIDDe').value.toLowerCase();
+        const maHS = document.getElementById('filterMaHS').value.toLowerCase();
+        const filtered = currentData.filter(item => 
+            item.examId.toLowerCase().includes(idDe) && 
+            (item.studentCode.toLowerCase().includes(maHS) || item.studentName.toLowerCase().includes(maHS))
+        );
+        renderTable(filtered);
+    }
+
+    // Xem thành phần để xử lý khiếu nại (Chỉ hiển thị trên web cho thầy)
+    async function viewDetails(id) {
+        const snap = await db.ref('attempts/' + id).once('value');
+        const d = snap.val();
+        document.getElementById('modalTitle').innerText = `Chi tiết bài làm: ${d.studentName}`;
+        let html = `<p><b>Mã đề:</b> ${d.examId} | <b>Điểm:</b> ${d.totalScore}</p><hr>`;
+        
+        // Duyệt qua kết quả từng câu
+        if(d.details) {
+            d.details.forEach((q, idx) => {
+                const color = q.isCorrect ? '#2ecc71' : '#ff4757';
+                html += `<div style="color:${color}">Câu ${idx+1}: ${q.userAnswer} - ${q.isCorrect ? 'Đúng' : 'Sai (ĐA: '+q.correctAnswer+')'}</div>`;
+            });
+        } else {
+            html += `<p>Dữ liệu thành phần không tồn tại hoặc bài làm cũ.</p>`;
+        }
+        
+        document.getElementById('modalBody').innerHTML = html;
+        document.getElementById('detailModal').style.display = 'block';
+    }
+
+    // Xuất PDF chỉ có điểm tổng hợp cho học sinh
+    async function exportSummaryPDF(id) {
+        const snap = await db.ref('attempts/' + id).once('value');
+        const d = snap.val();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.setFont("helvetica", "bold");
+        doc.text("PHIEU XAC NHAN DIEM SO", 105, 20, null, null, "center");
+        doc.setFont("helvetica", "normal");
+        doc.text(`Hoc sinh: ${d.studentName} (${d.studentCode})`, 20, 40);
+        doc.text(`Ma de thi: ${d.examId}`, 20, 50);
+        doc.text(`Thoi gian: ${new Date(d.timestamp).toLocaleString()}`, 20, 60);
+        doc.setFontSize(16);
+        doc.text(`TONG DIEM: ${d.totalScore}`, 20, 80);
+        doc.setFontSize(10);
+        doc.text("--------------------------------------------------", 20, 95);
+        doc.text("Luu y: Ket qua da duoc he thong ghi nhan vao so diem.", 20, 105);
+        doc.save(`Diem_${d.studentCode}.pdf`);
+    }
+
+    // Xuất danh sách điểm tổng hợp theo bộ lọc hiện tại
+    function exportSummaryList() {
+        const idDe = document.getElementById('filterIDDe').value || "Tat_Ca";
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.text(`DANH SACH DIEM - DE: ${idDe.toUpperCase()}`, 105, 20, null, null, "center");
+        let y = 40;
+        doc.text("Ma HS", 20, y); doc.text("Ho Ten", 60, y); doc.text("Diem", 160, y);
+        doc.line(20, y+2, 190, y+2);
+        
+        const rows = document.querySelectorAll('.result-row');
+        rows.forEach(row => {
+            if(row.style.display !== 'none') {
+                y += 10;
+                const cells = row.querySelectorAll('td');
+                doc.text(cells[1].innerText, 20, y);
+                doc.text(cells[2].innerText, 60, y);
+                doc.text(cells[4].innerText, 160, y);
+            }
+        });
+        doc.save(`Bang_Diem_${idDe}.pdf`);
+    }
+
+    window.onload = loadResults;
+</script>
+</body>
+</html>

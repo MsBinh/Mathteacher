@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Sinh Thái Giáo Dục Số - NTB DIGITAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET & VARIABLE */
+        :root {
+            --primary-color: #007bff;
+            --dark-bg: #0f172a; /* Xanh Navy đậm thay cho màu đen cũ */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-color: #00f2fe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* TOPBAR - ELEVATOR NAV */
+        .elevator-nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 12px 0;
+            border-bottom: none;
+            transition: all 0.3s ease;
+        }
+
+        .elevator-nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #007bff, 
+                #00f2fe, 
+                #7000ff, 
+                #00f2fe, 
+                #007bff, 
+                transparent
+            );
+            background-size: 200% 100%;
+            animation: gradient-run 3s linear infinite;
+            transition: background 0.5s ease;
+        }
+
+        @keyframes gradient-run {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .corp-name { color: #fff; }
+        .corp-suffix { 
+            color: var(--primary-color);
+            text-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Mobile Toggle Button */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1100;
+            padding: 10px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Hamburger to X animation */
+        .mobile-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* GRAND LOBBY SECTION - BANNER SLIDER */
+        .grand-lobby {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 80px;
+            margin-top: 60px;
+        }
+
+        .banner-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .banner-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+            animation: slideShow 20s infinite;
+        }
+
+        .banner-slide:nth-child(1) {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072') center/cover;
+            animation-delay: 0s;
+        }
+
+        .banner-slide:nth-child(2) {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070') center/cover;
+            animation-delay: 5s;
+        }
+
+        .banner-slide:nth-child(3) {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2064') center/cover;
+            animation-delay: 10s;
+        }
+
+        .banner-slide:nth-child(4) {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128') center/cover;
+            animation-delay: 15s;
+        }
+
+        @keyframes slideShow {
+            0%, 20% { opacity: 1; }
+            25%, 45% { opacity: 0; }
+            50%, 70% { opacity: 0; }
+            75%, 95% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .lobby-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .lobby-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 5px 20px rgba(0, 242, 254, 0.3);
+            line-height: 1.1;
+        }
+
+        .lobby-content p {
+            font-size: 1.4rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.2s both;
+            line-height: 1.8;
+        }
+
+        .lobby-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 150px;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 30px rgba(0, 123, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-item b {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* LOBBY STYLE */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .lobby-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            position: relative;
+            padding-left: 20px;
+            display: inline-block;
+        }
+
+        .lobby-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.5; transform: translateY(-50%) scale(1.2); }
+        }
+
+        /* PROJECT HUB */
+        .project-hub {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .hub-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            min-height: 320px;
+        }
+
+        .hub-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        .hub-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hub-card:nth-child(1) { transition-delay: 0.1s; }
+        .hub-card:nth-child(2) { transition-delay: 0.2s; }
+        .hub-card:nth-child(3) { transition-delay: 0.3s; }
+
+        .hub-card:not(.locked):hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 25px 50px rgba(0, 123, 255, 0.25);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+        }
+
+        .hub-icon { 
+            font-size: 3.5rem; 
+            margin-bottom: 25px; 
+            transition: 0.3s; 
+            filter: drop-shadow(0 0 15px rgba(0, 123, 255, 0.4));
+        }
+        
+        .hub-card:hover .hub-icon { 
+            transform: scale(1.2) rotate(5deg); 
+        }
+
+        .hub-info h3 { 
+            color: #fff; 
+            font-size: 1.8rem; 
+            margin-bottom: 15px; 
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hub-info p { 
+            color: #94a3b8; 
+            line-height: 1.7; 
+            font-size: 15px; 
+            flex-grow: 1; 
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .status-tag {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 15px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-tag.online { 
+            background: rgba(0, 210, 255, 0.15); 
+            color: #00d2ff; 
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+        
+        .status-tag.dev { 
+            background: rgba(255, 193, 7, 0.15); 
+            color: #ffc107; 
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .arrow {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.6));
+        }
+
+        .hub-card:hover .arrow {
+            transform: translateX(15px);
+        }
+
+        .locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .locked:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* FEATURE SHOWCASE - DỰ ÁN TIÊU BIỂU */
+        .feature-display {
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            margin-bottom: 120px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(15px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .feature-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-item.reverse { flex-direction: row-reverse; }
+
+        .feature-image {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 20px;
+            height: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.8s ease;
+        }
+
+        .feature-item:hover .feature-image img { 
+            transform: scale(1.05); 
+            filter: brightness(1.1);
+        }
+
+        .feature-text { 
+            flex: 1; 
+        }
+
+        .feature-text h3 { 
+            font-size: 2.5rem; 
+            color: var(--accent-color); 
+            margin-bottom: 20px; 
+            background: linear-gradient(to right, var(--accent-color), #007bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-text p { 
+            color: #94a3b8; 
+            line-height: 1.8; 
+            margin-bottom: 30px; 
+            font-size: 16px;
+        }
+
+        .btn-more {
+            padding: 14px 35px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-more:hover { 
+            background: var(--primary-color); 
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        /* STAIRCASE FOOTER */
+        .staircase-footer {
+            background: #070a0f;
+            padding: 100px 0 30px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .staircase-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 3fr;
+            gap: 80px;
+            padding: 0 20px;
+        }
+
+        .footer-brand .brand-logo {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-brand .brand-logo span {
+            color: var(--primary-color);
+        }
+
+        .footer-brand p { 
+            color: #94a3b8; 
+            margin: 25px 0; 
+            line-height: 1.8; 
+            font-size: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: #94a3b8;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .footer-links { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 40px; 
+        }
+
+        .link-group h4 { 
+            color: #fff; 
+            margin-bottom: 25px; 
+            font-size: 18px; 
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .link-group h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .link-group a { 
+            display: block; 
+            color: #94a3b8; 
+            text-decoration: none; 
+            margin-bottom: 15px; 
+            transition: 0.3s; 
+            font-size: 15px;
+            padding: 5px 0;
+        }
+
+        .link-group a:hover { 
+            color: var(--primary-color); 
+            padding-left: 10px;
+        }
+
+        .link-group p { 
+            color: #94a3b8; 
+            margin-bottom: 12px; 
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .link-group i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .footer-bottom { 
+            text-align: center; 
+            color: #64748b; 
+            font-size: 13px; 
+            margin-top: 80px; 
+            padding-top: 30px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            letter-spacing: 0.5px;
+        }
+
+        /* RIPPLE EFFECT */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .lobby-content h1 {
+                font-size: 3rem;
+            }
+            
+            .project-hub {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .feature-item {
+                gap: 40px;
+                padding: 40px;
+            }
+            
+            .feature-image {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Toggle Button */
+            .mobile-toggle {
+                display: flex;
+            }
+
+            /* Navigation Menu */
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                z-index: 999;
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                padding: 10px 20px;
+            }
+
+            /* Grand Lobby */
+            .grand-lobby {
+                height: 70vh;
+                margin-top: 50px;
+                margin-bottom: 60px;
+            }
+
+            .lobby-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .lobby-content p {
+                font-size: 1.1rem;
+            }
+
+            .lobby-stats {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .stat-item {
+                width: 80%;
+                max-width: 250px;
+            }
+
+            /* Project Hub */
+            .project-hub {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-bottom: 60px;
+            }
+
+            .hub-card {
+                padding: 30px;
+            }
+
+            /* Feature Display */
+            .feature-display {
+                gap: 60px;
+                margin-bottom: 80px;
+            }
+
+            .feature-item {
+                flex-direction: column !important;
+                padding: 30px;
+                gap: 30px;
+            }
+
+            .feature-image {
+                height: 250px;
+                width: 100%;
+            }
+
+            .feature-text h3 {
+                font-size: 2rem;
+            }
+
+            /* Footer */
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lobby-content h1 {
+                font-size: 2rem;
+            }
+
+            .lobby-content p {
+                font-size: 1rem;
+            }
+
+            .nav-container {
+                padding: 0 15px;
+            }
+
+            .brand-logo {
+                font-size: 20px;
+            }
+
+            .hub-info h3 {
+                font-size: 1.5rem;
+            }
+
+            .feature-text h3 {
+                font-size: 1.8rem;
+            }
+        }
+        .author-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.author-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.author-image {
+    flex: 1;
+    max-width: 450px;
+}
+
+.author-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border: 2px solid var(--border-color);
+}
+
+.author-info {
+    flex: 1.2;
+}
+
+.author-info h2 {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.philosophy-box {
+    margin-top: 30px;
+    padding-left: 20px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.philosophy-box i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+/* Tối ưu cho Mobile */
+@media (max-width: 992px) {
+    .author-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .author-image {
+        max-width: 100%;
+    }
+    .philosophy-box {
+        border-left: none;
+        padding-left: 0;
+    }
+}
+    </style>
+</head>
+<section class="author-section">
+    <div class="author-container">
+        <div class="author-image">
+            <img src="ANHCN.png" alt="Nguyễn Thanh Bình">
+        </div>
+        <div class="author-info">
+            <span class="sub-title">Người xây dựng và chia sẻ</span>
+            <h2>Nguyễn Thanh Bình</h2>
+            <p class="position">Phó Hiệu trưởng Trường THPT Trần Trường Sinh</p>
+            <div class="philosophy-box">
+                <i class="fas fa-quote-left"></i>
+                <p>Giáo dục không phải là việc đổ đầy một cái bình, mà là thắp sáng một ngọn lửa. Công nghệ chính là cầu nối để ngọn lửa ấy lan tỏa xa hơn.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<body>
+    <!-- TOP NAVIGATION -->
+    <nav class="elevator-nav">
+        <div class="nav-container">
+            <div class="brand-logo" onclick="window.location.reload()">
+                <span class="corp-name">NTB</span><span class="corp-suffix">DIGITAL</span>
+            </div>
+            <div class="mobile-toggle" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="JSONDL/DUNGSAI.html"><i class="fas fa-chalkboard"></i> Chuyên đề- ĐS</a></li>
+                <li><a href="JSONDL/TLN.html"><i class="fas fa-edit"></i> Chuyên đề-TLN</a></li>
+                 <li><a href="JSONDL/TN.html"><i class="fas fa-edit"></i> Chuyên đề-TN</a></li>
+                <li><a href="JSONDL/nganhangde12.html"><i class="fas fa-layer-group"></i> Đề-Ma Trận </a></li>
+                <li><a href="JSONDL/PTLTNTM.html   "><i class="fas fa-layer-group"></i> PTL-Ma Trận </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- GRAND LOBBY WITH BANNER SLIDER -->
+    <header class="grand-lobby">
+        <div class="banner-slider">
+            <div class="banner-slide" style="background-color: #0f172a;"></div>
+            <div class="banner-slide" style="background-color: #1e293b;"></div>
+            <div class="banner-slide" style="background-color: #334155;"></div>
+            <div class="banner-slide" style="background-color: #475569;"></div>
+        </div>
+        <div class="lobby-content">
+            <h1>Hệ Sinh Thái Giáo Dục Số</h1>
+            <p>Mục tiêu:Nơi kết nối các giải pháp giảng dạy và thi trực tuyến chuyên nghiệp - Đột phá công nghệ giáo dục 4.0</p>
+            <div class="lobby-stats">
+                <div class="stat-item"><b>10+</b> Dự án giáo dục</div>
+                <div class="stat-item"><b>24/7</b> Hệ thống sẵn sàng</div>
+                <div class="stat-item"><b>100%</b> Công nghệ số hóa</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container" id="main-container">
+        <!-- TRUNG TÂM ĐIỀU HÀNH -->
+        <div class="lobby-label">🚀 TRUNG TÂM ĐIỀU HÀNH</div>
+        <div class="project-hub">
+            <a href="DAYCD/Mb.html" class="hub-card animate-hover" id="eduboard-card">
+                <div class="hub-icon">🎨</div>
+                <div class="hub-info">
+                    <h3>EduBoard Pro</h3>
+                    <p>Trung tâm giảng dạy tương tác: Bảng vẽ Canvas chuyên sâu, tích hợp vẽ hình học 3D và kho học liệu PDF tự động. Hỗ trợ dạy học trực tuyến chuyên nghiệp.</p>
+                    <div class="card-footer">
+                        <span class="status-tag online">Đang vận hành</span>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="hub-card locked">
+                <div class="hub-icon">📊</div>
+                <div class="hub-info">
+                    
+                    <h3>Exam Hub 24/7</h3>
+                    <p>Trung tâm khảo thí: Ngân hàng đề thi trắc nghiệm lớp 12, ma trận đề tự động và hệ thống chấm điểm Real-time. Quản lý kết quả học tập thông minh.</p>
+                    <div class="card-footer">
+                        <span class="status-tag dev">Đang phát triển</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hub-card locked">
+                <div class="hub-icon">🤖</div>
+                <div class="hub-info">
+                    <h3>Math AI Research</h3>
+                    <p>Trung tâm nghiên cứu: Trợ lý trí tuệ nhân tạo hỗ trợ giải toán và phân tích lỗi sai cho học sinh. Công nghệ AI tiên tiến trong giáo dục.</p>
+                    <div class="card-footer">
+                        <span class="status-tag dev">Nghiên cứu AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DỰ ÁN TIÊU BIỂU -->
+        <div class="lobby-label">💎 DỰ ÁN TIÊU BIỂU</div>
+        <div class="feature-display">
+            <div class="feature-item animate-reveal" id="feature1">
+                <div class="feature-image">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000" alt="EduBoard Pro">
+                </div>
+                <div class="feature-text">
+                    <h3>EduBoard Pro v26.0</h3>
+                    <p>Công nghệ bảng vẽ tương tác thời gian thực với Canvas API tiên tiến. Hỗ trợ vẽ hình học 3D, ghi hình bài giảng tự động và xuất bản PDF chất lượng cao. Tích hợp Firebase cho dạy học trực tuyến.</p>
+                    <button class="btn-more">Xem chi tiết</button>
+                </div>
+            </div>
+            
+            <div class="feature-item reverse animate-reveal" id="feature2">
+                <div class="feature-text">
+                    <h3>Hệ Thống Khảo Thí AI</h3>
+                    <p>Nền tảng khảo thí thông minh với trí tuệ nhân tạo. Tự động hóa việc tạo ma trận đề thi, chấm điểm và phân tích điểm yếu của học sinh qua dữ liệu Firebase. Hệ thống báo cáo chi tiết cho giáo viên.</p>
+                    <button class="btn-more">Khám phá</button>
+                </div>
+                <div class="feature-image">
+                    <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=2070" alt="Exam Hub AI">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHÂN TRANG CHUYÊN NGHIỆP -->
+    <footer class="staircase-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="brand-logo">NTB<span>DIGITAL</span></div>
+                <p>Tiên phong trong lĩnh vực công nghệ giáo dục số tại Việt Nam. Kết nối tri thức - Kiến tạo tương lai với các giải pháp đột phá 4.0.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://zalo.me/0822351447"><i class="fas fa-comment-dots"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Hệ Sinh Thái</h4>
+                    <a href="index_new.html">Phòng Dạy Học</a>
+                    <a href="#">Phòng Khảo Thí</a>
+                    <a href="#">Ma Trận Đề</a>
+                    <a href="#">Thư viện học liệu</a>
+                    <a href="#">Hệ thống báo cáo</a>
+                </div>
+                <div class="link-group">
+                    <h4>Hỗ Trợ</h4>
+                    <a href="#">Hướng dẫn sử dụng</a>
+                    <a href="#">Tài liệu hướng dẫn</a>
+                    <a href="#">Chính sách bảo mật</a>
+                    <a href="#">Câu hỏi thường gặp</a>
+                    <a href="#">Liên hệ kỹ thuật</a>
+                </div>
+                <div class="link-group">
+                    <h4>Trụ Sở & Liên hệ</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Vĩnh Long, Việt Nam</p>
+                    <p><i class="fas fa-phone"></i> 0822.351.447</p>
+                    <p><i class="fas fa-envelope"></i> 20c21001@student.hcmus.edu.vn</p>
+                    <p><i class="fas fa-clock"></i> Hỗ trợ 24/7</p>
+                    <p><i class="fas fa-globe"></i> www.nguyethanhbinh.edu.vn</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 NGUYEN THANH BINH DIGITAL. All Rights Reserved. | Designed with ❤️ for Education
+        </div>
+    </footer>
+
+    <script>
+        // Xử lý đóng mở Menu trên điện thoại
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuBtn.classList.toggle('open');
+            
+            // Ngăn scroll khi menu mở
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Đóng menu khi bấm vào một link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuBtn.classList.remove('open');
+                document.body.style.overflow = 'auto';
+                
+                // Thêm hiệu ứng loading cho link được click
+                link.classList.add('loading');
+                setTimeout(() => {
+                    link.classList.remove('loading');
+                }, 300);
+            });
+        });
+
+        // RIPPLE EFFECT cho các card
+        document.querySelectorAll('.hub-card:not(.locked), .btn-more').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (this.classList.contains('locked')) return;
+                
+                // Tạo hiệu ứng ripple
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                // Xử lý chuyển trang cho card
+                if (this.classList.contains('hub-card') && this.hasAttribute('href')) {
+                    setTimeout(() => {
+                        window.location.href = this.getAttribute('href');
+                    }, 400);
+                }
+                
+                // Xử lý cho nút Xem chi tiết
+                if (this.classList.contains('btn-more')) {
+                    e.preventDefault();
+                    setTimeout(() => {
+                        alert('Tính năng đang được phát triển. Vui lòng quay lại sau!');
+                    }, 300);
+                }
+                
+                ripple.addEventListener('animationend', () => {
+                    ripple.remove();
+                });
+            });
+        });
+
+        // TOPBAR COLOR CHANGE EFFECT
+        const departmentColors = {
+            'EduBoard Pro': 'linear-gradient(90deg, transparent, #00ff88, #60efff, #00ff88, transparent)',
+            'Exam Hub 24/7': 'linear-gradient(90deg, transparent, #ff0080, #ff8c00, #ff0080, transparent)',
+            'Math AI Research': 'linear-gradient(90deg, transparent, #7000ff, #00d2ff, #7000ff, transparent)',
+            'EduBoard Pro v26.0': 'linear-gradient(90deg, transparent, #00ff88, #60efff, #00ff88, transparent)',
+            'Hệ Thống Khảo Thí AI': 'linear-gradient(90deg, transparent, #ff0080, #ff8c00, #ff0080, transparent)'
+        };
+
+        const topbarNav = document.querySelector('.elevator-nav');
+
+        // Thêm hiệu ứng đổi màu cho cả card và feature items
+        document.querySelectorAll('.hub-card, .feature-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const title = this.querySelector('h3')?.innerText;
+                if (title && departmentColors[title]) {
+                    topbarNav.style.setProperty('--topbar-gradient', departmentColors[title]);
+                }
+            });
+
+            item.addEventListener('mouseleave', function() {
+                // Trở về màu mặc định
+                const defaultGradient = 'linear-gradient(90deg, transparent, #007bff, #00f2fe, #7000ff, #00f2fe, #007bff, transparent)';
+                topbarNav.style.setProperty('--topbar-gradient', defaultGradient);
+            });
+        });
+
+        // Thêm biến CSS cho topbar gradient mặc định
+        document.documentElement.style.setProperty('--topbar-gradient', 
+            'linear-gradient(90deg, transparent, #007bff, #00f2fe, #7000ff, #00f2fe, #007bff, transparent)');
+
+        // Hiệu ứng cho social links
+        document.querySelectorAll('.social-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.querySelector('.fa-comment-dots')) {
+                    e.preventDefault();
+                    alert('Zalo: 0822.351.447\nLiên hệ ngay để được hỗ trợ!');
+                }
+            });
+        });
+
+        // SCROLL REVEAL ANIMATION NÂNG CAO
+        function revealOnScroll() {
+            const container = document.getElementById('main-container');
+            const cards = document.querySelectorAll('.hub-card');
+            const features = document.querySelectorAll('.feature-item');
+            
+            // Hiện container chính
+            const containerPosition = container.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (containerPosition < screenPosition) {
+                container.classList.add('visible');
+            }
+            
+            // Hiện từng card
+            cards.forEach((card, index) => {
+                const cardPosition = card.getBoundingClientRect().top;
+                
+                if (cardPosition < screenPosition) {
+                    setTimeout(() => {
+                        card.classList.add('revealed');
+                    }, index * 150);
+                }
+            });
+            
+            // Hiện từng feature item
+            features.forEach((feature, index) => {
+                const featurePosition = feature.getBoundingClientRect().top;
+                
+                if (featurePosition < screenPosition) {
+                    setTimeout(() => {
+                        feature.classList.add('revealed');
+                    }, index * 200);
+                }
+            });
+        }
+
+        // Thêm shadow khi scroll
+        function handleScroll() {
+            const nav = document.querySelector('.elevator-nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.4)';
+                nav.style.background = 'rgba(15, 23, 42, 0.98)';
+            } else {
+                nav.style.boxShadow = 'none';
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
+            
+            revealOnScroll();
+        }
+
+        // Gọi hàm khi load và scroll
+        window.addEventListener('load', () => {
+            revealOnScroll();
+            handleScroll();
+            
+            // Khởi động animations
+            document.querySelectorAll('.hub-card, .feature-item').forEach(item => {
+                item.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Banner slide tự động
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        
+        function nextSlide() {
+            slides[currentSlide].style.opacity = 0;
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].style.opacity = 1;
+        }
+        
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+        
+        // Khởi tạo slide đầu tiên
+        slides[0].style.opacity = 1;
+
+        // Hiệu ứng cho các link trong footer
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

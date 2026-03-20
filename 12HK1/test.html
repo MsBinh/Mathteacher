@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <title>Test Firebase Connection</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="css/js/config.js"></script>
+</head>
+<body>
+    <h1>Test Firebase Connection</h1>
+    <div id="status">Đang kiểm tra...</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Initialize Firebase like in the original working file
+                firebase.initializeApp(window.firebaseConfig);
+                const db = firebase.database();
+
+                console.log("Testing Firebase connection...");
+
+                db.ref('.info/connected').on('value', snap => {
+                    const status = document.getElementById('status');
+                    if (snap.val() === true) {
+                        status.innerHTML = "✅ Firebase Database đã kết nối thành công!";
+                        status.style.color = "green";
+
+                        // Test write operation
+                        const testRef = db.ref('test/connection');
+                        testRef.set({
+                            timestamp: Date.now(),
+                            message: "Connection test successful"
+                        }).then(() => {
+                            status.innerHTML += "<br>✅ Test write operation successful!";
+                        }).catch(error => {
+                            status.innerHTML += "<br>❌ Test write failed: " + error.message;
+                            status.style.color = "orange";
+                        });
+                    } else {
+                        status.innerHTML = "❌ Firebase Database chưa kết nối";
+                        status.style.color = "red";
+                    }
+                });
+
+            } catch (error) {
+                document.getElementById('status').innerHTML = "❌ Lỗi: " + error.message;
+                document.getElementById('status').style.color = "red";
+                console.error("Firebase test error:", error);
+            }
+        });
+    </script>
+</body>
+</html>

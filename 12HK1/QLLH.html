@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Lớp Học & Báo Cáo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* === CSS GIAO DIỆN CHÍNH === */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f7f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: #1a237e; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; }
+        
+        #controls { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; justify-content: center; margin-bottom: 20px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0; }
+        
+        /* Form elements */
+        .control-group { display: flex; flex-direction: column; gap: 5px; }
+        .control-group label { font-weight: bold; font-size: 14px; }
+        select, input[type="text"], textarea { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
+        
+        /* Buttons */
+        button { padding: 10px 15px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; height: 42px; transition: 0.2s; color: white; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-primary { background-color: #28a745; } .btn-primary:hover { background-color: #218838; }
+        .btn-warning { background-color: #ff9800; } .btn-warning:hover { background-color: #e68900; }
+        .btn-info { background-color: #17a2b8; } .btn-info:hover { background-color: #138496; }
+        .btn-danger { background-color: #dc3545; } .btn-danger:hover { background-color: #c82333; }
+        .btn-purple { background-color: #6f42c1; } .btn-purple:hover { background-color: #59359a; }
+        .btn-disabled { background-color: #ccc !important; cursor: not-allowed; }
+
+        .data-source-group { display: flex; gap: 15px; align-items: center; background-color: #e9ecef; padding: 0 15px; border-radius: 5px; height: 42px; border: 1px solid #ccc; }
+        .data-source-group label { cursor: pointer; display: flex; align-items: center; gap: 5px; margin: 0; font-weight: normal; }
+        
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #e0e0e0; padding: 10px; text-align: left; vertical-align: middle; }
+        th { background-color: #1a237e; color: white; font-weight: 600; text-align: center; }
+        tr:nth-child(even) { background-color: #fcfcfd; }
+        tr:hover { background-color: #f1f1f1; }
+        
+        .score { font-weight: bold; font-size: 1.1em; text-align: center; }
+        .score-high { color: #28a745; } .score-medium { color: #ffc107; } .score-low { color: #dc3545; }
+        .btn-sm { padding: 5px 10px; font-size: 12px; height: auto; }
+
+        /* === MODAL CSS === */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+        .modal-content { background-color: #fff; padding: 25px; border-radius: 8px; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+        .modal-header h3 { margin: 0; color: #1a237e; }
+        .modal-close { font-size: 28px; font-weight: bold; cursor: pointer; color: #888; }
+        .modal-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: right; }
+
+        /* Announcement Form */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea { width: 100%; box-sizing: border-box; }
+        .form-group textarea { height: 150px; resize: vertical; font-family: inherit; }
+
+        /* Loader */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 2s linear infinite; display: inline-block; vertical-align: middle; margin-right: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hệ Thống Quản Lý Lớp Học</h1>
+
+        <div id="controls">
+            <div class="control-group">
+                <label for="exam-select">1. Chọn đề thi:</label>
+                <select id="exam-select" style="min-width: 200px;">
+                    <option value="">Đang tải danh sách...</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>2. Nguồn dữ liệu:</label>
+                <div class="data-source-group">
+                    <label><input type="radio" name="dataSource" value="new" checked> Mới</label>
+                    <label><input type="radio" name="dataSource" value="old"> Cũ</label>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button id="load-results-btn" class="btn-primary">📥 Tải Kết Quả</button>
+                <button id="export-summary-btn" class="btn-warning btn-disabled" disabled>📊 Báo Cáo Tổng Hợp</button>
+                <button id="create-announce-btn" class="btn-purple">📢 Tạo Thông Báo</button>
+            </div>
+        </div>
+        
+        <h2 id="report-title" style="text-align: center; color: #3949ab; margin-top: 0;"></h2>
+
+        <div id="results-container">
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">STT</th>
+                        <th>Mã HS</th>
+                        <th>Họ Tên</th>
+                        <th style="width: 100px;">Điểm</th>
+                        <th style="width: 160px;">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 20px; color: #777;">
+                            Vui lòng chọn đề thi và nhấn "Tải Kết Quả" hoặc tạo thông báo mới.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-student-name">Chi tiết bài làm</h3>
+                <span class="modal-close" onclick="closeModal('details-modal')">&times;</span>
+            </div>
+            <div id="modal-body-content" style="flex:1; overflow-y: auto;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #e9ecef;">
+                    <strong>Điểm số: </strong><span id="modal-score" style="font-size: 1.2em; font-weight: bold;"></span><br>
+                    <strong>Đề thi: </strong><span id="modal-exam-name"></span>
+                </div>
+                <ul id="modal-details-list" style="list-style: none; padding: 0;"></ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-info" id="export-pdf-btn">🖨️ Xuất PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="announce-modal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>📢 Soạn Thảo Thông Báo</h3>
+                <span class="modal-close" onclick="closeModal('announce-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Tiêu đề thông báo:</label>
+                    <input type="text" id="ann-title" placeholder="VD: Thông báo lịch nghỉ tết..." value="THÔNG BÁO">
+                </div>
+                <div class="form-group">
+                    <label>Nội dung chi tiết:</label>
+                    <textarea id="ann-content" placeholder="Nhập nội dung thông báo vào đây..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Người gửi (Ký tên):</label>
+                    <input type="text" id="ann-sender" value="Lớp Toán Thầy Bình">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="exportAnnouncementPDF()">🖨️ Xuất PDF Gửi Lớp</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <script>
+        // ===== CẤU HÌNH FIREBASE =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+            authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+            databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "daytoantructuyen-149d9",
+            storageBucket: "daytoantructuyen-149d9.firebasestorage.app",
+            messagingSenderId: "258454714393",
+            appId: "1:258454714393:web:bcf66624668e516934d288"
+        };
+        
+        const EXAMS_LIST_URL = 'https://raw.githubusercontent.com/MsBinh/Mathteacher/main/12HK1/12Hk1.json';
+        const EXAMS_FOLDER_URL = 'https://raw.githubusercontent.com/MsBinh/Mathteacher/main/12HK1/';
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let currentStudentDetails = null; 
+        let currentSummaryData = null;    
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadExamsList();
+            
+            // Event Listeners
+            document.getElementById('load-results-btn').addEventListener('click', handleLoadResults);
+            document.getElementById('export-pdf-btn').addEventListener('click', exportToPDF);
+            document.getElementById('export-summary-btn').addEventListener('click', exportSummaryReport);
+            
+            // Announcement Events
+            document.getElementById('create-announce-btn').addEventListener('click', () => {
+                document.getElementById('announce-modal').style.display = 'flex';
+            });
+            
+            // Close modals when clicking outside
+            window.onclick = (e) => {
+                if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+            };
+        });
+
+        // Hàm đóng modal
+        window.closeModal = function(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // --- CÁC HÀM XỬ LÝ DỮ LIỆU (GIỮ NGUYÊN) ---
+        async function loadExamsList() {
+            const examSelect = document.getElementById('exam-select');
+            try {
+                const response = await fetch(EXAMS_LIST_URL);
+                if (!response.ok) throw new Error('Lỗi tải danh sách đề.');
+                const data = await response.json();
+                examSelect.innerHTML = '<option value="">-- Chọn đề thi --</option>';
+                data.exams.forEach(exam => {
+                    examSelect.innerHTML += `<option value="${exam.id}" data-file="${exam.file}" data-name="${exam.name}">${exam.name}</option>`;
+                });
+            } catch (error) { examSelect.innerHTML = `<option>${error.message}</option>`; }
+        }
+
+        async function handleLoadResults() {
+            const examSelect = document.getElementById('exam-select');
+            const examId = examSelect.value;
+            if (!examId) return alert('Vui lòng chọn đề thi!');
+            
+            const examFile = examSelect.options[examSelect.selectedIndex].dataset.file;
+            const examName = examSelect.options[examSelect.selectedIndex].dataset.name;
+            const source = document.querySelector('input[name="dataSource"]:checked').value;
+            
+            document.getElementById('export-summary-btn').disabled = true;
+            document.getElementById('export-summary-btn').classList.add('btn-disabled');
+            document.getElementById('results-body').innerHTML = `<tr><td colspan="5" style="text-align:center"><div class="loader"></div> Đang tải...</td></tr>`;
+
+            try {
+                document.getElementById('report-title').innerText = `Kết quả: ${examName}`;
+                if(source === 'new') await loadNewResults(examId, examFile, examName);
+                else await loadOldResults(examId, examFile, examName);
+            } catch (e) { document.getElementById('results-body').innerHTML = `<tr><td colspan="5" style="color:red; text-align:center">Lỗi: ${e.message}</td></tr>`; }
+        }
+
+        async function loadNewResults(id, file, name) {
+            const [examData, snapshot] = await Promise.all([
+                fetch(EXAMS_FOLDER_URL + file).then(r => r.json()),
+                db.ref(`homeworkResults/${id}`).once('value')
+            ]);
+            const key = createAnswerKey(examData);
+            const data = snapshot.val() || {};
+            processAndRender(data, key, name, 'new', id);
+        }
+
+        async function loadOldResults(id, file, name) {
+            const [examData, snapshot] = await Promise.all([
+                fetch(EXAMS_FOLDER_URL + file).then(r => r.json()),
+                db.ref('attempts').once('value')
+            ]);
+            const key = createAnswerKey(examData);
+            const all = snapshot.val() || {};
+            const filtered = {};
+            for(const k in all) {
+                if(all[k].testId === id) filtered[k] = all[k]; // Giữ key gốc để xóa
+            }
+            processAndRender(filtered, key, name, 'old', id);
+        }
+
+        function processAndRender(data, key, examName, type, examId) {
+            const results = {};
+            for(const k in data) {
+                const item = data[k];
+                // Xử lý sự khác biệt cấu trúc data cũ/mới
+                const code = type === 'new' ? k : item.code;
+                const name = type === 'new' ? (Object.values(item)[0]?.studentName || 'N/A') : item.name;
+                const details = type === 'new' ? item : item.studentAnswers;
+                const score = calculateScore(details, key);
+                
+                // Logic lấy điểm cao nhất
+                if(!results[code] || score > results[code].score) {
+                    results[code] = { 
+                        name, score, details, 
+                        path: type === 'new' ? `homeworkResults/${examId}/${code}` : `attempts/${k}`
+                    };
+                }
+            }
+
+            const sortedCodes = Object.keys(results).sort((a,b) => results[b].score - results[a].score);
+            
+            // Lưu data cho báo cáo tổng hợp
+            currentSummaryData = { examName, students: sortedCodes.map(c => ({ code: c, ...results[c] })) };
+            if(sortedCodes.length > 0) {
+                document.getElementById('export-summary-btn').disabled = false;
+                document.getElementById('export-summary-btn').classList.remove('btn-disabled');
+            }
+
+            let html = '';
+            if(sortedCodes.length === 0) html = '<tr><td colspan="5" style="text-align:center">Chưa có bài làm nào.</td></tr>';
+            else {
+                sortedCodes.forEach((code, idx) => {
+                    const r = results[code];
+                    const cls = r.score >= 8 ? 'score-high' : r.score >= 5 ? 'score-medium' : 'score-low';
+                    const safeDetails = encodeURIComponent(buildDetailsHtml(r.details, key));
+                    const safeName = r.name.replace(/"/g, "&quot;");
+                    
+                    html += `<tr>
+                        <td style="text-align:center">${idx+1}</td>
+                        <td><strong>${code}</strong></td>
+                        <td>${r.name}</td>
+                        <td class="score ${cls}">${r.score.toFixed(2)}</td>
+                        <td style="text-align:center">
+                            <button class="btn-info btn-sm" onclick="openDetails('${safeName}', '${code}', '${r.score.toFixed(2)}', '${examName}', '${safeDetails}')">👁️</button>
+                            <button class="btn-danger btn-sm" onclick="deleteResult('${safeName}', '${encodeURIComponent(r.path)}')">🗑️</button>
+                        </td>
+                    </tr>`;
+                });
+            }
+            document.getElementById('results-body').innerHTML = html;
+        }
+
+        // --- CÁC HÀM XỬ LÝ SỰ KIỆN (UI) ---
+        window.openDetails = function(name, code, score, examName, encodedDetails) {
+            currentStudentDetails = { name, code, score, examName, detailsHtml: decodeURIComponent(encodedDetails) };
+            document.getElementById('modal-student-name').innerText = `${name} (${code})`;
+            document.getElementById('modal-score').innerText = `${score} điểm`;
+            document.getElementById('modal-exam-name').innerText = examName;
+            document.getElementById('modal-details-list').innerHTML = currentStudentDetails.detailsHtml;
+            document.getElementById('details-modal').style.display = 'flex';
+        }
+
+        window.deleteResult = async function(name, encodedPath) {
+            if(confirm(`Xóa bài của ${name}? Không thể khôi phục!`)) {
+                try {
+                    await db.ref(decodeURIComponent(encodedPath)).remove();
+                    document.getElementById('load-results-btn').click();
+                } catch(e) { alert('Lỗi xóa: ' + e.message); }
+            }
+        }
+
+        // --- 1. XUẤT PDF CÁ NHÂN ---
+        window.exportToPDF = function() {
+            if (!currentStudentDetails) return;
+            const content = createPdfContainer();
+            content.innerHTML = `
+                <h2 style="text-align:center; color:#1a237e">PHIẾU KẾT QUẢ BÀI THI</h2>
+                <div style="border:1px solid #333; padding:15px; margin:15px 0;">
+                    <p><strong>Học sinh:</strong> ${currentStudentDetails.name} (${currentStudentDetails.code})</p>
+                    <p><strong>Đề thi:</strong> ${currentStudentDetails.examName}</p>
+                    <p><strong>Điểm số:</strong> <span style="font-size:24px; font-weight:bold">${currentStudentDetails.score}</span></p>
+                </div>
+                <h3>Chi tiết bài làm:</h3>
+                <ul style="list-style:none; padding:0">${currentStudentDetails.detailsHtml}</ul>
+                <p style="text-align:center; margin-top:30px; font-style:italic; font-size:12px">Hệ thống Lớp Toán Thầy Bình</p>
+            `;
+            generatePdf(content, `KetQua_${currentStudentDetails.code}.pdf`);
+        }
+
+        // --- 2. XUẤT BÁO CÁO TỔNG HỢP ---
+        window.exportSummaryReport = function() {
+            if (!currentSummaryData) return;
+            const s = currentSummaryData.students;
+            let stats = { g:0, k:0, tb:0, y:0, sum:0 };
+            s.forEach(i => {
+                stats.sum += i.score;
+                if(i.score>=8) stats.g++; else if(i.score>=6.5) stats.k++; else if(i.score>=5) stats.tb++; else stats.y++;
+            });
+
+            const content = createPdfContainer();
+            content.innerHTML = `
+                <div style="text-align:center; margin-bottom:20px">
+                    <h2 style="margin:0; text-transform:uppercase">BÁO CÁO KẾT QUẢ THI</h2>
+                    <p>Đề thi: ${currentSummaryData.examName}</p>
+                    <p>Ngày: ${new Date().toLocaleDateString('vi-VN')}</p>
+                </div>
+                <div style="background:#f0f0f0; padding:10px; border:1px solid #ccc; margin-bottom:20px; font-size:14px">
+                    <strong>THỐNG KÊ LỚP:</strong><br>
+                    Sĩ số: ${s.length} | ĐTB: ${(stats.sum/s.length).toFixed(2)}<br>
+                    Giỏi: ${stats.g} | Khá: ${stats.k} | TB: ${stats.tb} | Yếu: ${stats.y}
+                </div>
+                <table style="width:100%; border-collapse:collapse; font-size:13px">
+                    <thead><tr style="background:#ccc; font-weight:bold"><th style="border:1px solid #000; padding:5px">STT</th><th style="border:1px solid #000; padding:5px">Mã HS</th><th style="border:1px solid #000; padding:5px">Họ Tên</th><th style="border:1px solid #000; padding:5px">Điểm</th></tr></thead>
+                    <tbody>
+                        ${s.map((st,i) => `<tr>
+                            <td style="border:1px solid #000; padding:5px; text-align:center">${i+1}</td>
+                            <td style="border:1px solid #000; padding:5px">${st.code}</td>
+                            <td style="border:1px solid #000; padding:5px">${st.name}</td>
+                            <td style="border:1px solid #000; padding:5px; text-align:center; font-weight:bold">${st.score.toFixed(2)}</td>
+                        </tr>`).join('')}
+                    </tbody>
+                </table>
+                <div style="margin-top:40px; text-align:right"><p><strong>Giáo viên bộ môn</strong></p></div>
+            `;
+            generatePdf(content, `BaoCao_Lop_${new Date().toISOString().slice(0,10)}.pdf`);
+        }
+
+        // --- 3. XUẤT THÔNG BÁO (NEW FEATURE) ---
+        window.exportAnnouncementPDF = function() {
+            const title = document.getElementById('ann-title').value || 'THÔNG BÁO';
+            const bodyText = document.getElementById('ann-content').value || '';
+            const sender = document.getElementById('ann-sender').value;
+            const date = new Date();
+            const dateStr = `Ngày ${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`;
+
+            // Xử lý xuống dòng cho nội dung
+            const formattedBody = bodyText.replace(/\n/g, '<br>');
+
+            const content = createPdfContainer();
+            // Thiết kế giao diện thông báo đẹp
+            content.innerHTML = `
+                <div style="padding: 30px; font-family: 'Times New Roman', serif; border: 3px double #1a237e; border-radius: 10px; min-height: 800px; position: relative;">
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h3 style="margin: 0; text-transform: uppercase; font-size: 16px;">LỚP TOÁN 12A1</h3>
+                        <div style="width: 100px; height: 1px; background: #000; margin: 5px auto 20px auto;"></div>
+                        
+                        <h1 style="margin: 20px 0; color: #b71c1c; text-transform: uppercase; font-size: 26px;">${title}</h1>
+                    </div>
+
+                    <div style="text-align: right; margin-bottom: 30px; font-style: italic;">
+                        ${dateStr}
+                    </div>
+
+                    <div style="font-size: 18px; line-height: 1.8; text-align: justify; margin-bottom: 50px;">
+                        ${formattedBody}
+                    </div>
+
+                    <div style="position: absolute; bottom: 50px; right: 50px; text-align: center; min-width: 200px;">
+                        <p style="font-weight: bold; margin-bottom: 60px;">NGƯỜI GỬI THÔNG BÁO</p>
+                        <p style="font-weight: bold; font-size: 18px; color: #1a237e;">${sender}</p>
+                    </div>
+                </div>
+            `;
+            
+            generatePdf(content, `ThongBao_${date.getTime()}.pdf`);
+            closeModal('announce-modal');
+        }
+
+        // --- UTILS ---
+        function createPdfContainer() {
+            const el = document.createElement('div');
+            el.style.padding = '20px';
+            el.style.fontFamily = 'Times New Roman, serif';
+            el.style.color = '#000';
+            return el;
+        }
+
+        function generatePdf(element, filename) {
+            const opt = {
+                margin: 10,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function createAnswerKey(json) {
+            const key = {};
+            const list = (json.questions || (Array.isArray(json) ? json : []));
+            list.forEach(q => { if(q.id) key[q.id] = q; });
+            return key;
+        }
+
+        function calculateScore(details, key) {
+            let total = 0;
+            for(const qId in details) {
+                const q = key[qId];
+                if(!q) continue;
+                
+                // Logic tính điểm đơn giản hóa (ưu tiên flag isCorrect nếu có)
+                const ans = details[qId];
+                let isCorrect = false;
+                
+                if(ans.isCorrect !== undefined) isCorrect = ans.isCorrect;
+                else {
+                    // Fallback check (nếu data cũ chưa có flag)
+                    const userVal = String(ans.userAnswer || ans).trim().toLowerCase();
+                    const correctVal = String(q.correct || q.answer).trim().toLowerCase();
+                    isCorrect = userVal === correctVal;
+                }
+
+                if(isCorrect) {
+                    if(q.type === 'multiple_choice') total += 0.2; // 0.2 or 0.25 tùy đề
+                    else if(q.type === 'short_answer') total += 0.5;
+                    else total += 0.2; 
+                }
+            }
+            return total; // Có thể cần điều chỉnh thang điểm tùy logic đề thi của bạn
+        }
+
+        function buildDetailsHtml(details, key) {
+            let html = '';
+            for(const qId in key) {
+                const q = key[qId];
+                if(q.type === 'welcome') continue;
+                
+                const item = details[qId];
+                let val = item ? (item.userAnswer ?? item) : '';
+                if(Array.isArray(val)) val = val.join(', ');
+                
+                let isCorrect = item?.isCorrect;
+                if(isCorrect === undefined && val) {
+                    // Fallback display logic
+                    isCorrect = String(val).toLowerCase() == String(q.correct||q.answer).toLowerCase();
+                }
+
+                const icon = !val ? '⚪' : (isCorrect ? '✅' : '❌');
+                const color = !val ? '#777' : (isCorrect ? 'green' : 'red');
+                const displayVal = val || 'Chưa làm';
+
+                html += `<li style="border-bottom:1px solid #eee; padding:5px 0; display:flex; justify-content:space-between">
+                    <span><b>${qId}:</b> ${displayVal}</span>
+                    <span style="color:${color}; font-weight:bold">${icon}</span>
+                </li>`;
+            }
+            return html;
+        }
+    </script>
+</body>
+</html>

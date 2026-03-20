@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>📊 Quản lý kết quả học sinh</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body { background:#f5f7fa; padding:20px; font-family:Arial, sans-serif; }
+    h2 { margin-bottom:20px; text-align:center; }
+    table { font-size:14px; }
+    th { background:#34495e; color:white; text-align:center; }
+    td { text-align:center; vertical-align:middle; }
+    .btn { border-radius:8px; padding:6px 14px; }
+    #filterInput { width:200px; display:inline-block; margin-right:10px; }
+    .delete-row { color:red; cursor:pointer; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <h2>📊 Quản lý kết quả học sinh</h2>
+
+  <div class="mb-3 text-center">
+    <input id="filterInput" class="form-control d-inline-block" placeholder="Nhập mã lớp (code)...">
+    <button id="filterBtn" class="btn btn-primary">🔍 Lọc</button>
+    <button id="loadBtn" class="btn btn-success">🔄 Làm mới</button>
+    <button id="exportBtn" class="btn btn-warning">📤 Xuất Excel</button>
+    <button id="deleteAllBtn" class="btn btn-danger">🗑️ Xoá tất cả</button>
+  </div>
+
+  <table class="table table-bordered table-striped align-middle">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Mã lớp</th>
+        <th>Họ tên</th>
+        <th>Đề</th>
+        <th>Điểm</th>
+        <th>Thời gian</th>
+        <th>Xoá</th>
+      </tr>
+    </thead>
+    <tbody id="resultsBody"></tbody>
+  </table>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDACFZgZazMOnjzmGM_lrKswVcsoTFHxA",
+  authDomain: "veonline-3bcbf.firebaseapp.com",
+  projectId: "veonline-3bcbf"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ========== HIỂN THỊ DỮ LIỆU ==========
+async function loadResults(filterCode = "") {
+  const body = document.getElementById("resultsBody");
+  body.innerHTML = "<tr><td colspan='10'>⏳ Đang tải dữ liệu...</td></tr>";
+
+  const snap = await getDocs(collection(db, "attempts"));
+  const rows = [];
+
+  snap.forEach(docSnap => {
+    const d = docSnap.data();
+    const code = d.code || "";
+    const name = d.name || "";
+    const testId = d.testId || "";
+    const score = d.score || "";
+    const createdAt = d.createdAt?.toDate ? d.createdAt.toDate() : null;
+    const timeStr = createdAt ? createdAt.toLocaleString("vi-VN") : "";
+    const id = docSnap.id;
+
+    if (!filterCode || code.toLowerCase().includes(filterCode.toLowerCase())) {
+      rows.push({ id, code, name, testId, score, createdAt, timeStr });
+    }
+  });
+
+  // Sắp xếp theo thời gian (mới nhất → cũ nhất)
+  rows.sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+
+  // Hiển thị
+  if (rows.length === 0) {
+    body.innerHTML = "<tr><td colspan='10'>⚠️ Không có dữ liệu</td></tr>";
+    return;
+  }
+
+  body.innerHTML = rows.map((r, i) => `
+    <tr data-id="${r.id}">
+      <td>${i + 1}</td>
+      <td>${r.code}</td>
+      <td>${r.name}</td>
+      <td>${r.testId}</td>
+      <td>${r.score}</td>
+      <td>${r.timeStr}</td>
+      <td><span class="delete-row" title="Xoá bài này">✖</span></td>
+    </tr>
+  `).join("");
+
+  // Thêm sự kiện xoá từng hàng
+  document.querySelectorAll(".delete-row").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const tr = e.target.closest("tr");
+      const id = tr.getAttribute("data-id");
+      const name = tr.children[2].textContent;
+      if (confirm(`❌ Xoá kết quả của "${name}"?`)) {
+        await deleteDoc(doc(db, "attempts", id));
+        tr.remove();
+      }
+    });
+  });
+}
+
+// ========== XUẤT EXCEL ==========
+document.getElementById("exportBtn").addEventListener("click", () => {
+  const table = document.querySelector("table");
+  let csv = [];
+  for (const row of table.rows) {
+    const cells = Array.from(row.cells).map(cell => `"${cell.textContent.replace(/"/g, '""')}"`);
+    csv.push(cells.join(","));
+  }
+  const blob = new Blob([csv.join("\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ket_qua_hoc_sinh.csv";
+  a.click();
+});
+
+// ========== XOÁ TẤT CẢ ==========
+document.getElementById("deleteAllBtn").addEventListener("click", async () => {
+  if (!confirm("⚠️ Bạn có chắc muốn xoá TOÀN BỘ dữ liệu không?")) return;
+  const snap = await getDocs(collection(db, "attempts"));
+  let deleted = 0;
+  for (const docSnap of snap.docs) {
+    await deleteDoc(doc(db, "attempts", docSnap.id));
+    deleted++;
+  }
+  alert(`✅ Đã xoá ${deleted} bản ghi.`);
+  loadResults();
+});
+
+// ========== SỰ KIỆN ==========
+document.getElementById("loadBtn").addEventListener("click", () => loadResults());
+document.getElementById("filterBtn").addEventListener("click", () => {
+  const val = document.getElementById("filterInput").value.trim();
+  loadResults(val);
+});
+
+// tự động tải
+loadResults();
+</script>
+</body>
+</html>

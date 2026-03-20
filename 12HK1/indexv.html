@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title>LỚP TOÁN THẦY BÌNH</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+<script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' },
+      startup: { ready: () => { MathJax.startup.defaultReady(); MathJax.startup.promise.then(() => console.log('MathJax ready')); } }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+    /* ================= CẤU HÌNH GIAO DIỆN (CSS) ================= */
+    :root {
+        --primary: #1a237e;      /* Xanh đậm chủ đạo */
+        --bg-body: #f4f7f6;      /* Nền xám nhạt */
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-body);
+        color: #333;
+        padding-top: 65px; /* Chừa chỗ cho Topbar */
+        min-height: 100vh;
+    }
+
+    /* --- 1. THANH TOPBAR GỌN GÀNG --- */
+    .topbar {
+        position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+        background: var(--primary); color: white; z-index: 1000;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .brand { font-weight: 800; font-size: 18px; text-transform: uppercase; white-space: nowrap; display:flex; align-items:center; gap:5px;}
+    .brand span { color: #ffeb3b; }
+
+    /* Khu vực nút bấm bên phải */
+    .controls-area { display: flex; gap: 8px; align-items: center; justify-content: flex-end; flex: 1; }
+    
+    /* Nút bấm chuẩn */
+    .btn {
+        height: 34px; padding: 0 12px; border: none; border-radius: 17px;
+        cursor: pointer; font-weight: 600; font-size: 13px;
+        display: flex; align-items: center; gap: 5px; white-space: nowrap;
+        background: rgba(255,255,255,0.15); color: white; transition: 0.2s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-1px); }
+    
+    .btn-login { background: #ffca28; color: #333; } /* Nút đăng nhập màu vàng */
+    .btn-submit { background: #00c853; color: white; } /* Nút nộp bài màu xanh lá */
+    
+    #selectExam {
+        height: 34px; border-radius: 17px; border: none; padding: 0 10px;
+        max-width: 250px; font-weight: 600; cursor: pointer; color: #333;
+    }
+
+    /* Ô tìm kiếm ID (Chỉ hiện khi đăng nhập) */
+    .search-box {
+        display: none; /* Mặc định ẩn */
+        background: rgba(255,255,255,0.2); border-radius: 20px; padding: 0 8px;
+        align-items: center; border: 1px solid rgba(255,255,255,0.3); margin-right: 5px;
+    }
+    .search-box input {
+        background: transparent; border: none; color: white; width: 60px;
+        padding: 5px 0; outline: none; text-align: center; font-size: 13px;
+    }
+    .search-box input::placeholder { color: rgba(255,255,255,0.7); }
+    .search-box button { background:none; border:none; cursor:pointer; font-size:14px; }
+
+    /* --- RESPONSIVE MOBILE (Điện thoại) --- */
+    @media (max-width: 768px) {
+        .topbar { padding: 0 10px; height: 55px; }
+        .brand { font-size: 14px; max-width: 90px; overflow: hidden; }
+        .btn-text { display: none; } /* Ẩn chữ, chỉ hiện icon */
+        #selectExam { max-width: 120px; font-size: 12px; }
+        #fullscreenBtn { display: none; } /* Ẩn nút full màn hình */
+        .btn { padding: 0 10px; }
+    }
+
+    /* --- 2. KHUNG ĐỀ THI (2 CỘT TRÊN MÁY TÍNH) --- */
+    .page-container { max-width: 1300px; width: 98%; margin: 0 auto; padding-bottom: 50px; }
+    .slide-section { 
+        background: white; border-radius: 8px; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+        margin-bottom: 20px; padding: 20px; 
+        border-left: 4px solid var(--primary); 
+    }
+    .slide-section.active-section { border-left-color: #ffeb3b; }
+
+    /* Laptop: Chia 2 cột (Trái: Đề - Phải: Đáp án) */
+    @media (min-width: 992px) {
+        .question { display: grid; grid-template-columns: 1fr 350px; gap: 30px; align-items: start; }
+        .q-left { grid-column: 1 / 2; } 
+        .q-right { 
+            grid-column: 2 / 3; background: #f8f9fa; padding: 15px; border-radius: 10px; 
+            position: sticky; top: 70px; /* Dính khi cuộn */
+        }
+    }
+    /* Mobile: 1 cột dọc */
+    @media (max-width: 991px) {
+        .question { display: block; }
+        .q-right { margin-top: 15px; background: #f8f9fa; padding: 15px; border-radius: 8px; }
+    }
+
+    .question img { max-width: 100%; height: auto; border-radius: 5px; margin: 10px 0; display: block; border: 1px solid #eee; }
+    
+    .option-row { 
+        display: flex; align-items: center; margin-bottom: 8px; padding: 8px; 
+        background: white; border: 1px solid #eee; border-radius: 6px; cursor: pointer; 
+    }
+    .option-row:hover { background: #e8eaf6; border-color: var(--primary); }
+    .option-row input { margin-right: 10px; transform: scale(1.2); }
+
+    /* --- 3. BẢNG ĐIỂM (HIỆN MÀU XANH ĐỎ) --- */
+    #score-result-final {
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 90%; max-width: 600px; background: white; border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 2000;
+        display: none; flex-direction: column; max-height: 80vh;
+    }
+    .sr-header { padding: 15px; text-align: center; color: white; font-weight: bold; font-size: 1.2rem; background: var(--primary); }
+    .sr-body { padding: 20px; overflow-y: auto; }
+    
+    .scoreboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; }
+    .score-bubble {
+        width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-weight: bold; color: white; cursor: pointer; font-size: 14px;
+    }
+    .score-bubble:hover { transform: scale(1.1); }
+    .sb-correct { background: #28a745; } /* Xanh */
+    .sb-wrong { background: #dc3545; }   /* Đỏ */
+    .sb-empty { background: #999; }      /* Xám */
+
+    /* --- 4. MODAL & THÔNG BÁO --- */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1500; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; }
+    .modal-close { position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer; }
+
+    .notification {
+        position: fixed; top: 80px; right: 20px; background: white; padding: 15px;
+        border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        border-left: 5px solid var(--primary); transform: translateX(150%); transition: 0.3s; z-index: 3000; font-weight: bold;
+    }
+    .notification.show { transform: translateX(0); }
+
+    /* Nút xem giải (Chỉ hiện khi nộp bài) */
+    .toggle-solution-btn { display: none; width: 100%; margin-top: 10px; background: #17a2b8; color: white; padding: 8px; border: none; border-radius: 6px; cursor: pointer; }
+    .exam-submitted .toggle-solution-btn { display: block; }
+    .solution-box { display: none; background: #e0f2f1; padding: 15px; margin-top: 10px; border-radius: 8px; border-left: 4px solid #009688; }
+
+    
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <div class="brand">📚 <span>THẦY BÌNH</span></div>
+
+    <div class="controls-area">
+        <div id="student-search-box" class="search-box">
+            <input type="text" id="lookupIdInput" placeholder="ID...">
+            <button onclick="lookupQuestion()">🔍</button>
+        </div>
+
+        <select id="selectExam">
+            <option value="">-- Chọn đề thi --</option>
+        </select>
+
+        <button id="loginBtn" class="btn btn-login">
+            🔑 <span class="btn-text">Đăng nhập</span>
+        </button>
+        
+        <button id="scoreBtn" class="btn btn-submit">
+            📊 <span class="btn-text">Nộp bài</span>
+        </button>
+        
+        <button id="slideMenuBtn" class="btn" title="Danh sách câu">📋</button>
+        <button id="fullscreenBtn" class="btn" title="Toàn màn hình">📺</button>
+    </div>
+</div>
+
+<div class="page-container">
+    <div id="slides-container">
+        <div style="text-align: center; margin-top: 100px; color: #666;">
+            <h2>🧮 HỆ THỐNG THI TRỰC TUYẾN</h2>
+            <p>Vui lòng đăng nhập và chọn đề thi để bắt đầu.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="login-modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="hideModal('login-modal')">×</button>
+        <h3 style="margin-bottom: 20px; color: #1a237e;">🔐 Đăng nhập</h3>
+        <form id="code-login-form">
+            <div style="margin-bottom: 15px;">
+                <label>Mã số (HS123 hoặc admin79):</label>
+                <input id="login-code" type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 5px;" required>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label>Họ tên:</label>
+                <input id="student-name" type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 5px;" placeholder="Nhập tên bạn">
+            </div>
+            <button type="submit" class="btn btn-submit" style="width: 100%; justify-content: center; height: 40px;">🚀 Vào thi ngay</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="menu-modal">
+    <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+        <button class="modal-close" onclick="hideModal('menu-modal')">×</button>
+        <h3>📋 Danh sách câu hỏi</h3>
+        <div id="slideList" style="margin-top: 15px;"></div>
+    </div>
+</div>
+
+<div id="notification" class="notification"></div>
+
+<script>
+// --- CẤU HÌNH FIREBASE ---
+const firebaseConfig = {
+    apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+    authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+    databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "daytoantructuyen-149d9",
+    storageBucket: "daytoantructuyen-149d9.firebasestorage.app",
+    messagingSenderId: "258454714393",
+    appId: "1:258454714393:web:bcf66624668e516934d288"
+};
+
+// --- BIẾN TOÀN CỤC ---
+let db;
+let currentQuestions = [];
+let currentUser = null;
+let currentExamId = "";
+window.studentAnswers = {}; 
+window.correctAnswers = {};
+
+// --- KHỞI TẠO ---
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.database();
+        console.log("🔥 Firebase OK");
+        loadExamList();
+        setupEvents();
+    } catch (e) {
+        showNotification("Lỗi kết nối: " + e.message, "error");
+    }
+});
+
+function setupEvents() {
+    // Sự kiện Login
+    document.getElementById('loginBtn').onclick = () => showModal('login-modal');
+    document.getElementById('code-login-form').onsubmit = handleLogin;
+    
+    // Sự kiện Menu & Fullscreen
+    document.getElementById('slideMenuBtn').onclick = () => showModal('menu-modal');
+    document.getElementById('fullscreenBtn').onclick = toggleFullScreen;
+    
+    // Sự kiện Tra cứu
+    const lookupInput = document.getElementById('lookupIdInput');
+    if(lookupInput) {
+        lookupInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") lookupQuestion();
+        });
+    }
+    
+    // Chọn đề & Nộp bài
+    document.getElementById('selectExam').onchange = handleExamSelection;
+    document.getElementById('scoreBtn').onclick = calculateFinalScore;
+}
+
+// --- XỬ LÝ ĐĂNG NHẬP ---
+function handleLogin(e) {
+    e.preventDefault();
+    const code = document.getElementById('login-code').value.trim();
+    const name = document.getElementById('student-name').value.trim() || 'Học sinh';
+    
+    if (!code) return showNotification("Chưa nhập mã!", "error");
+
+    let role = (code === 'admin79') ? 'teacher' : 'student';
+    currentUser = { code: code, name: name, role: role, uid: 'user_' + code };
+
+    hideModal('login-modal');
+    
+    const btn = document.getElementById('loginBtn');
+    btn.innerHTML = (role === 'teacher') ? `👨‍🏫 ${name}` : `👤 ${name}`;
+    btn.classList.remove('btn-login');
+    btn.style.background = '#28a745'; // Xanh lá
+    
+    // Hiện ô tra cứu
+    document.getElementById('student-search-box').style.display = 'flex';
+    showNotification(`Xin chào ${name}!`, "success");
+}
+
+// --- TẢI DANH SÁCH ĐỀ THI ---
+async function loadExamList() {
+    try {
+        // Thử tải file mới, nếu lỗi thì tải file cũ
+        let response = await fetch('matrix_exams.json').catch(() => null);
+        if (!response || !response.ok) response = await fetch('12Hk1.json');
+        
+        const data = await response.json();
+        const select = document.getElementById('selectExam');
+        
+        // Hỗ trợ cả 2 định dạng JSON (mảng trực tiếp hoặc object chứa mảng exams)
+        const exams = Array.isArray(data) ? data : (data.exams || []);
+        
+        exams.forEach(ex => {
+            const opt = document.createElement('option');
+            opt.value = ex.id; 
+            opt.textContent = ex.name || ex.title || "Đề thi";
+            // Lưu đường dẫn file vào dataset để dùng sau
+            opt.dataset.file = ex.file || ""; 
+            select.appendChild(opt);
+        });
+    } catch (e) {
+        console.error(e);
+        showNotification("Lỗi tải danh sách đề (kiểm tra file json)", "error");
+    }
+}
+
+// --- CHỌN ĐỀ & HIỂN THỊ ---
+async function handleExamSelection() {
+    const select = document.getElementById('selectExam');
+    const option = select.options[select.selectedIndex];
+    const fileUrl = option.dataset.file;
+    currentExamId = select.value;
+
+    if (!currentExamId) return;
+    
+    showNotification("Đang tải câu hỏi...", "info");
+    
+    try {
+        // Tải file câu hỏi chi tiết
+        const response = await fetch(fileUrl || currentExamId + '.json'); 
+        const data = await response.json();
+        
+        // Xử lý dữ liệu câu hỏi (Mảng hoặc Object)
+        currentQuestions = Array.isArray(data) ? data : (data.questions || []);
+        
+        renderQuestions(currentQuestions);
+        showNotification(`Đã tải ${currentQuestions.length} câu hỏi`, "success");
+        
+    } catch (e) {
+        console.error(e);
+        showNotification("Không tải được nội dung đề thi!", "error");
+    }
+}
+
+// --- RENDER CÂU HỎI (LAYOUT 2 CỘT) ---
+function renderQuestions(questions) {
+    const container = document.getElementById('slides-container');
+    container.innerHTML = '';
+    
+    questions.forEach((q, idx) => {
+        // Tạo ID nếu chưa có
+        if(!q.id) q.id = `Q${idx+1}`;
+        
+        const div = document.createElement('div');
+        div.className = 'slide-section';
+        div.id = q.id;
+        
+        // HTML Cấu trúc 2 cột
+        let html = `<div class="question">`;
+        
+        // --- CỘT TRÁI (ĐỀ + ẢNH) ---
+        html += `<div class="q-left">
+                    <h4 style="margin-bottom:15px; color:#1a237e;">
+                        <strong>Câu ${idx+1}:</strong> ${processContent(q.text || q.question)}
+                    </h4>
+                    <div class="q-image">`;
+        
+        // Xử lý ảnh (Mảng hoặc chuỗi)
+        if (q.images && Array.isArray(q.images)) {
+            q.images.forEach(img => html += `<img src="${img}">`);
+        } else if (q.image) {
+            html += `<img src="${q.image}">`;
+        }
+        
+        html += `   </div></div>`; // Đóng q-left
+        
+        // --- CỘT PHẢI (ĐÁP ÁN) ---
+        html += `<div class="q-right">`;
+        
+        // Render trắc nghiệm (Mặc định)
+        if (q.type === 'multiple_choice' || !q.type) {
+            for (let [key, val] of Object.entries(q.options || {})) {
+                html += `<label class="option-row">
+                            <input type="radio" name="${q.id}" value="${key}">
+                            <span><b>${key}.</b> ${processContent(val)}</span>
+                         </label>`;
+            }
+        } 
+        // Render Đúng/Sai
+        else if (q.type === 'true_false') {
+            html += `<div style="font-weight:bold;margin-bottom:10px;">Chọn Đúng / Sai:</div>`;
+            ['a','b','c','d'].forEach(char => {
+                html += `<div style="display:flex; justify-content:space-between; margin-bottom:5px; padding:5px; border-bottom:1px dashed #eee;">
+                            <span>${char})</span>
+                            <div>
+                                <label style="margin-right:10px"><input type="radio" name="${q.id}_${char}" value="True"> Đ</label>
+                                <label><input type="radio" name="${q.id}_${char}" value="False"> S</label>
+                            </div>
+                         </div>`;
+            });
+        }
+        
+        // Nút xem giải (Mặc định ẩn)
+        html += `<button class="toggle-solution-btn" onclick="toggleSolution('${q.id}')">👁️ Xem lời giải</button>
+                 <div id="sol-${q.id}" class="solution-box">
+                    <strong>Hướng dẫn:</strong><br>
+                    ${processContent(q.solution || 'Đang cập nhật...')}
+                 </div>`;
+        
+        html += `</div></div>`; // Đóng q-right & question
+        
+        div.innerHTML = html;
+        container.appendChild(div);
+        
+        // Lưu đáp án đúng để chấm
+        window.correctAnswers[q.id] = q.correct || q.answer;
+    });
+    
+    // Cập nhật menu danh sách
+    updateSlideList(questions);
+    
+    // Render công thức toán
+    MathJax.typesetPromise();
+}
+
+function updateSlideList(questions) {
+    const list = document.getElementById('slideList');
+    list.innerHTML = '';
+    questions.forEach((q, i) => {
+        const btn = document.createElement('div');
+        btn.style.padding = '10px';
+        btn.style.borderBottom = '1px solid #eee';
+        btn.style.cursor = 'pointer';
+        btn.innerHTML = `<b>Câu ${i+1}</b>`;
+        btn.onclick = () => {
+            document.getElementById(q.id).scrollIntoView({behavior: 'smooth', block:'center'});
+            hideModal('menu-modal');
+        }
+        list.appendChild(btn);
+    });
+}
+
+// --- TÍNH ĐIỂM & BẢNG MÀU ---
+function calculateFinalScore() {
+    if (!currentUser) return showNotification("Vui lòng đăng nhập trước!", "error");
+    if (!currentQuestions.length) return;
+
+    let score = 0;
+    let answered = 0;
+    let gridHtml = '<div class="scoreboard-grid">';
+
+    currentQuestions.forEach((q, idx) => {
+        // Lấy đáp án học sinh
+        let userAns = "";
+        let isCorrect = false;
+        
+        // Xử lý trắc nghiệm
+        if(q.type === 'multiple_choice' || !q.type) {
+            const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+            if(selected) {
+                userAns = selected.value;
+                answered++;
+                // So sánh đáp án
+                if(userAns.toUpperCase() === String(window.correctAnswers[q.id]).toUpperCase()) {
+                    score += 0.2; // 0.2 điểm/câu (Ví dụ)
+                    isCorrect = true;
+                }
+            }
+        }
+        
+        // Lưu vào biến toàn cục
+        window.studentAnswers[q.id] = userAns;
+
+        // Tạo ô màu
+        let status = userAns ? (isCorrect ? 'sb-correct' : 'sb-wrong') : 'sb-empty';
+        gridHtml += `<div class="score-bubble ${status}" onclick="scrollToQ('${q.id}')">${idx+1}</div>`;
+    });
+
+    // Hiện bảng kết quả
+    const old = document.getElementById('score-result-final');
+    if (old) old.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'score-result-final';
+    
+    // Màu tiêu đề
+    let headerColor = score >= 8 ? '#28a745' : (score >= 5 ? '#ffc107' : '#dc3545');
+    
+    modal.innerHTML = `
+        <div class="sr-header" style="background:${headerColor}">KẾT QUẢ: ${score.toFixed(2)} ĐIỂM</div>
+        <div class="sr-body">
+            <div style="text-align:center; margin-bottom:15px; color:#666;">
+                Đã làm: <b>${answered}/${currentQuestions.length}</b> câu
+            </div>
+            ${gridHtml}
+            <div style="margin-top:20px; display:flex; justify-content:center; gap:15px; font-size:12px;">
+                <span style="display:flex;align-items:center"><div class="score-bubble sb-correct" style="width:15px;height:15px;font-size:0;margin-right:5px"></div> Đúng</span>
+                <span style="display:flex;align-items:center"><div class="score-bubble sb-wrong" style="width:15px;height:15px;font-size:0;margin-right:5px"></div> Sai</span>
+                <span style="display:flex;align-items:center"><div class="score-bubble sb-empty" style="width:15px;height:15px;font-size:0;margin-right:5px"></div> Trống</span>
+            </div>
+        </div>
+        <div style="padding:15px; text-align:center; background:#f1f1f1; border-top:1px solid #ddd;">
+            <button onclick="document.getElementById('score-result-final').style.display='none'" 
+                class="btn btn-submit" style="width:100%; justify-content:center;">Đóng & Xem lại</button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    modal.style.display = 'flex';
+    
+    // Kích hoạt chế độ đã nộp -> Hiện lời giải
+    document.body.classList.add('exam-submitted');
+    
+    // Lưu điểm lên Firebase (nếu có hàm này)
+    if(window.saveAttempt) {
+        window.saveAttempt(currentExamId, window.studentAnswers, window.correctAnswers, score);
+    }
+}
+
+// --- CÁC HÀM TIỆN ÍCH ---
+function scrollToQ(id) {
+    document.getElementById('score-result-final').style.display = 'none';
+    const el = document.getElementById(id);
+    if(el) {
+        el.scrollIntoView({behavior:'smooth', block:'center'});
+        el.style.border = "2px solid #ffeb3b";
+        toggleSolution(id); // Mở luôn lời giải
+    }
+}
+
+function toggleSolution(id) {
+    const el = document.getElementById(`sol-${id}`);
+    if(el) el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+function lookupQuestion() {
+    const id = document.getElementById('lookupIdInput').value.trim();
+    const targetQ = currentQuestions.find(q => q.id.toLowerCase() === id.toLowerCase());
+    if(targetQ) {
+        scrollToQ(targetQ.id);
+    } else {
+        showNotification("Không tìm thấy câu hỏi!", "error");
+    }
+}
+
+function processContent(text) {
+    if(!text) return '';
+    return text.replace(/\n/g, '<br>');
+}
+
+function showModal(id) { document.getElementById(id).classList.add('active'); }
+function hideModal(id) { document.getElementById(id).classList.remove('active'); }
+
+function showNotification(msg, type) {
+    const n = document.getElementById('notification');
+    n.textContent = msg;
+    n.className = `notification show`;
+    n.style.borderLeftColor = type === 'error' ? '#dc3545' : '#28a745';
+    setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else if (document.exitFullscreen) document.exitFullscreen();
+}
+</script>
+
+</body>
+</html>

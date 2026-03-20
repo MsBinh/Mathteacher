@@ -1,0 +1,70 @@
+{
+  "title": "Chuyên đề Hàm số",
+  "description": "Bài giảng về các tính chất và ứng dụng của hàm số trong Toán học",
+  "sections": [
+    {
+      "title": "1. Lý thuyết cơ bản",
+      "description": "Nắm vững các khái niệm cơ bản về hàm số",
+      "content": [
+        {
+          "type": "definition",
+          "title": "Định nghĩa hàm số",
+          "content": "Hàm số $f$ từ tập hợp $D$ vào tập hợp $Y$ là một quy tắc cho tương ứng mỗi phần tử $x \\in D$ với một và chỉ một phần tử $y \\in Y$.",
+          "formula": "$y = f(x)$, với $x \\in D$ (gọi là biến số) và $y \\in Y$ (gọi là giá trị của hàm số tại $x$).",
+          "note": "Tập hợp $D$ được gọi là tập xác định (TXĐ) của hàm số $f$."
+        },
+        {
+          "type": "theorem",
+          "title": "Tính đơn điệu của hàm số",
+          "content": "Cho hàm số $y = f(x)$ xác định trên khoảng $(a;b)$.",
+          "statements": [
+            {
+              "content": "Hàm số $f$ được gọi là đồng biến trên $(a;b)$ nếu với mọi $x_1, x_2 \\in (a;b)$ mà $x_1 < x_2$ thì $f(x_1) < f(x_2)$.",
+              "proof": "Điều này tương đương với $\\frac{f(x_2) - f(x_1)}{x_2 - x_1} > 0$ với mọi $x_1 \\neq x_2$."
+            },
+            {
+              "content": "Hàm số $f$ được gọi là nghịch biến trên $(a;b)$ nếu với mọi $x_1, x_2 \\in (a;b)$ mà $x_1 < x_2$ thì $f(x_1) > f(x_2)$."
+            }
+          ],
+          "note": "Nếu hàm số có đạo hàm trên $(a;b)$ thì: $f'(x) > 0$ với mọi $x \\in (a;b)$ khi và chỉ khi $f$ đồng biến trên $(a;b)$."
+        },
+        {
+          "type": "example",
+          "problem": "Xét tính đơn điệu của hàm số $y = x^3 - 3x + 1$ trên $\\mathbb{R}$.",
+          "solution": "Ta có $y' = 3x^2 - 3 = 3(x^2 - 1) = 3(x-1)(x+1)$.\n\nBảng biến thiên:\n\n| $x$ | $-\\infty$ | $-1$ | $1$ | $+\\infty$ |\n|-----|-----------|------|-----|-----------|\n| $y'$ | $+$ | $0$ | $-$ | $0$ | $+$ |\n| $y$ | $\\nearrow$ | $3$ | $\\searrow$ | $-1$ | $\\nearrow$ |\n\nVậy hàm số đồng biến trên $(-\\infty; -1)$ và $(1; +\\infty)$, nghịch biến trên $(-1; 1)$."
+        }
+      ]
+    },
+    {
+      "title": "2. Bài tập vận dụng",
+      "description": "Luyện tập các dạng bài về hàm số",
+      "content": [
+        {
+          "type": "multiple_choice",
+          "id": "q1",
+          "title": "Câu 1",
+          "text": "Hàm số nào sau đây đồng biến trên $\\mathbb{R}$?",
+          "level": "nhan_biet",
+          "options": {
+            "A": "$y = x^2 + 1$",
+            "B": "$y = x^3 + 2x$",
+            "C": "$y = -x + 1$",
+            "D": "$y = \\frac{1}{x}$"
+          },
+          "correct": "B",
+          "solution": "Xét từng hàm số:\n- $y = x^2 + 1$: $y' = 2x$, không đồng biến trên $\\mathbb{R}$\n- $y = x^3 + 2x$: $y' = 3x^2 + 2 > 0$ với mọi $x \\in \\mathbb{R}$ nên đồng biến trên $\\mathbb{R}$\n- $y = -x + 1$: $y' = -1 < 0$ nên nghịch biến\n- $y = \\frac{1}{x}$: không xác định tại $x = 0$\n\nVậy đáp án đúng là B."
+        },
+        {
+          "type": "short_answer",
+          "id": "q2",
+          "title": "Câu 2",
+          "text": "Tìm giá trị nhỏ nhất của hàm số $y = x^2 - 4x + 5$ trên đoạn $[0; 3]$.",
+          "level": "van_dung",
+          "answer": "1",
+          "placeholder": "Nhập đáp án (số)",
+          "solution": "Ta có $y' = 2x - 4 = 0 \\Leftrightarrow x = 2$.\n\nTính giá trị tại các điểm:\n- $y(0) = 5$\n- $y(2) = 4 - 8 + 5 = 1$\n- $y(3) = 9 - 12 + 5 = 2$\n\nVậy giá trị nhỏ nhất là $1$ tại $x = 2$."
+        }
+      ]
+    }
+  ]
+}

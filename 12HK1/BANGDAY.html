@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <title>BẢNG TOÁN THẦY BÌNH v5.8 - PHIÊN BẢN PDF MAX 80%</title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+        :root { 
+            --board-green: #0b6b3a; 
+            --accent: #2ecc71; 
+            --yellow: #ffeb3b; 
+            --dark-bg: #1e1e1e;
+            --border: #444;
+        }
+    
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            background: #000; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            color: white; 
+        }
+    
+        /* --- THANH CÔNG CỤ --- */
+        .toolbar { 
+            background: #252526; 
+            padding: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border); 
+            user-select: none;
+        }
+        .group { display: flex; gap: 8px; align-items: center; }
+        
+        .btn { 
+            padding: 6px 12px; 
+            border-radius: 4px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold; 
+            color: #fff; 
+            transition: transform 0.1s, opacity 0.2s;
+            font-size: 13px;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn:hover { opacity: 0.9; }
+    
+        /* --- BỐ CỤC CHÍNH --- */
+        .main-layout { display: flex; flex: 1; overflow: hidden; }
+        .left-panel { width: 60%; display: flex; flex-direction: column; border-right: 2px solid var(--border); }
+        
+        /* --- BẢNG VẼ (Đã thêm lưới ô vuông) --- */
+        .board-zone { 
+            height: 70%; 
+            position: relative; 
+            background-color: var(--board-green);
+            /* Tạo hiệu ứng bảng kẻ ô ly mờ */
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 25px 25px;
+            overflow: hidden; 
+        }
+    
+        #mainCanvas { 
+            position: absolute; 
+            top: 0; left: 0; 
+            /* Mặc định ở dưới để không che ảnh/pdf, 
+               khi bật chế độ Annotation Mode JS sẽ đổi thành 2000 */
+            z-index: 1; 
+            cursor: crosshair; 
+            touch-action: none; 
+        }
+    
+        /* --- ĐỐI TƯỢNG DÁN VÀO (ẢNH & PDF) --- */
+        /* Quan trọng: z-index phải là 10 để nằm trên Canvas thường (1) 
+           nhưng nằm dưới Canvas Vẽ Đè (2000) */
+        .pasted-image, .pasted-pdf { 
+            position: absolute; 
+            z-index: 10; 
+            cursor: move; 
+            border: 2px dashed rgba(255,255,255,0.3); 
+            transition: border 0.2s ease, box-shadow 0.2s; 
+        }
+    
+        .pasted-image:hover, .pasted-pdf:hover { 
+            border: 2px solid #ffffff; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        
+        /* Tooltip hướng dẫn khi hover vào ảnh/pdf */
+        .pasted-image:hover::after, .pasted-pdf:hover::after, .latex-element:hover::after {
+            content: "Kéo để di chuyển - Lăn chuột để zoom";
+            position: absolute;
+            bottom: -30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white; padding: 4px 8px;
+            border-radius: 4px; font-size: 11px;
+            white-space: nowrap; pointer-events: none; z-index: 1000;
+        }
+    
+        .pasted-pdf { 
+            background: white; 
+            display: flex; 
+            flex-direction: column; 
+        }
+    
+        /* --- LATEX ELEMENTS --- */
+        .latex-element { 
+            position: absolute; 
+            z-index: 10; 
+            cursor: move; 
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 8px; 
+            border-radius: 4px; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            font-size: 1.2em; color: white; 
+        }
+    
+        /* --- VÙNG NHẬP LIỆU (EDITOR) --- */
+        .input-zone { 
+            height: 30%; 
+            background: var(--dark-bg); 
+            display: flex; flex-direction: column; 
+            border-top: 2px solid var(--border); 
+        }
+        .snippets { 
+            display: grid; grid-template-columns: repeat(7, 1fr); 
+            gap: 2px; padding: 5px; background: #2d2d2d; 
+            overflow-y: auto; max-height: 80px; 
+        }
+        .snippet-btn { 
+            padding: 5px; font-size: 12px; 
+            background: #3c3c3c; color: #eee; 
+            border: 1px solid #555; cursor: pointer; 
+            transition: background 0.2s;
+        }
+        .snippet-btn:hover { background: #505050; }
+    
+        textarea { 
+            flex: 1; width: 100%; 
+            background: #121212; color: #d4d4d4; 
+            border: none; padding: 12px; 
+            font-family: 'Consolas', monospace; font-size: 15px; 
+            resize: none; outline: none; box-sizing: border-box;
+        }
+    
+        /* --- BẢNG PREVIEW BÊN PHẢI --- */
+        .right-panel { 
+            width: 40%; 
+            background: var(--board-green); 
+            overflow-y: auto; 
+            padding: 30px; box-sizing: border-box; 
+        }
+        #preview { font-size: 1.3em; line-height: 1.8; color: white; }
+        
+        .loi-giai { 
+            background: rgba(255, 235, 59, 0.15); 
+            border-left: 4px solid var(--yellow); 
+            padding: 12px; margin: 10px 0; 
+            color: var(--yellow); border-radius: 4px; 
+        }
+        ul.enumerate { list-style-type: decimal; padding-left: 30px; }
+        
+        /* Indicator màu sắc */
+        #colorStatus { width: 15px; height: 15px; background: white; border-radius: 50%; border: 2px solid #555; }
+    
+        /* --- TÙY CHỈNH THANH CUỘN (Scrollbar đẹp hơn) --- */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #1e1e1e; }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #777; }
+        .pagination-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #252526;
+    padding: 8px 15px;
+    border-radius: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    border: 1px solid #444;
+    z-index: 5000; /* Luôn nổi lên trên cùng */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+#pageIndicator {
+    font-weight: bold;
+    color: var(--yellow);
+    min-width: 80px;
+    text-align: center;
+}
+.pasted-web { 
+    position: absolute; 
+    z-index: 10; 
+    border: 2px solid #ccc; 
+    background: white; 
+    display: flex; 
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+/* Khi ở chế độ vẽ đè, class này sẽ giúp iframe mờ đi và không nhận chuột */
+.disable-interaction {
+    pointer-events: none !important;
+    opacity: 0.8;
+}
+    </style>
+</head>
+<body>
+
+<div class="toolbar">
+    <div class="group">
+        <strong style="color: var(--accent);">THẦY BÌNH v5.8 MAX 80%</strong>
+        <button class="btn" onclick="undo()" title="Hoàn tác (Ctrl+Z)" style="background:#444">↩️</button>
+         <button class="btn" onclick="redo()" title="Làm lại (Ctrl+Y)" style="background:#444">↪️</button>
+        <select id="drawTool">
+            <option value="pen">✏️ Bút mượt</option>
+            <option value="highlighter">🖍️ Bút nhớ dòng</option>
+            <option value="line">📏 Đường thẳng</option>
+            <option value="circle">⚪ Hình tròn</option>
+            <option value="rect">⬛ Hình chữ nhật</option>
+            <option value="box">📦 Hình hộp 3D</option>
+            <option value="pyramid">🔺 Hình chóp</option>
+            <option value="sphere">⚽ Hình cầu</option>
+        </select>
+        <button class="btn" id="btnToggleDraw" style="background:#555">✏️ Đang Vẽ</button>
+        <div id="colorStatus" title="Màu: 1, 2, 3, 4"></div>
+        <button class="btn" id="btnAnnotate" style="background:#e67e22; margin-left:5px;">📝 Vẽ Đè: TẮT</button>
+    </div>
+    <div class="group">
+        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+        <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+        <button class="btn" style="background:#27ae60" onclick="document.getElementById('imageInput').click()">🖼️ Tải Ảnh</button>
+        <button class="btn" style="background:#8e44ad" onclick="addWebsite()">🌐 Web</button>
+        <button class="btn" style="background:#3498db" onclick="document.getElementById('pdfInput').click()">📄 Tải PDF</button>
+        <button class="btn" style="background:var(--accent)" onclick="exportFullPDF()">📑 Tải PDF Đầy Đủ</button>
+        <button class="btn" style="background:#e74c3c" onclick="location.reload()">🧹 Xóa Sạch</button>
+    </div>
+</div>
+
+<div class="main-layout" id="captureArea">
+    <div class="left-panel">
+        <div class="board-zone" id="boardWrapper"><canvas id="mainCanvas"></canvas></div>
+        <div class="input-zone">
+            <div class="snippets">
+                <button class="snippet-btn" style="background:#007acc" data-code="$$">➕ Ctrl+M ($)</button>
+                <button class="snippet-btn" data-code="\widehat{}" title="Góc">∠ Góc</button>
+                <button class="snippet-btn" data-code="\begin{cases}  \end{cases}">{ Hệ</button>
+                <button class="snippet-btn" data-code="\Rightarrow">$\Rightarrow$</button>
+                <button class="snippet-btn" data-code="\frac{}{}">a/b</button>
+                <button class="snippet-btn" data-code="\sqrt{}">√x</button>
+                <button class="snippet-btn" data-code="^{}">xⁿ</button>
+                <button class="snippet-btn" data-code="\int_{}^{}">∫</button>
+                <button class="snippet-btn" data-code="\lim_{x \to }">lim</button>
+                <button class="snippet-btn" data-code="\vec{}">vec</button>
+                <button class="snippet-btn" data-code="\Delta">Δ</button>
+                <button class="snippet-btn" data-code="\perp">⊥</button>
+                <button class="snippet-btn" data-code="\parallel">∥</button>
+                <button class="snippet-btn" data-code="\text{}">🇻🇳 Chữ</button>
+            </div>
+            <div style="display: flex; gap: 5px; align-items: center; padding: 5px; background: #2d2d2d;">
+                <input type="text" id="latexInput" placeholder="Nhập công thức LaTeX để tạo element di động (zoom bằng lăn chuột)" style="flex: 1; background: #121212; color: #d4d4d4; border: 1px solid #555; padding: 4px; font-family: 'Consolas', monospace; font-size: 12px;">
+                <button class="btn" id="btnCreateLatex" style="background: var(--accent); padding: 4px 8px; font-size: 11px;">📐 Tạo LaTeX</button>
+            </div>
+            <textarea id="editor" placeholder="Ctrl+M để chèn $. Dán đề hỗ trợ enumerate, loigiai..."></textarea>
+        </div>
+    </div>
+    <div class="right-panel" id="renderPanel"><div id="preview"></div></div>
+</div>
+
+<script>
+    const canvas = document.getElementById('mainCanvas'); const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('boardWrapper'); const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview'); const colorStatus = document.getElementById('colorStatus');
+    const drawTool = document.getElementById('drawTool');
+
+    let canDraw = true, drawing = false, points = [], snapshot;
+    // Thêm dòng này ngay sau dòng: let canDraw = true, drawing = false...
+    let history = [];
+    let historyStep = -1;
+    function init() {
+        canvas.width = wrapper.offsetWidth; canvas.height = wrapper.offsetHeight;
+        ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        colorStatus.style.background = 'white';
+    }
+    window.onload = init; window.onresize = init;
+
+    // PHÍM TẮT Ctrl+M & ĐỔI MÀU (1, 2, 3, 4)
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
+            e.preventDefault(); const s = editor.selectionStart;
+            editor.value = editor.value.substring(0, s) + "$$" + editor.value.substring(editor.selectionEnd);
+            editor.focus(); editor.setSelectionRange(s + 1, s + 1); return;
+        }
+        if (document.activeElement === editor) return;
+        const colors = { '1': '#ffffff', '2': '#ff4757', '3': '#ffeb3b', '4': '#3498db' };
+        if (colors[e.key]) { ctx.strokeStyle = colors[e.key]; colorStatus.style.background = colors[e.key]; }
+    });
+
+    
+    // VẼ 2D/3D ĐẦY ĐỦ
+    // --- CẬP NHẬT LOGIC VẼ (Đã thêm Bút nhớ & Save History) ---
+    
+    canvas.onmousedown = (e) => { 
+        if (!canDraw) return; 
+        drawing = true; 
+        points = [{ x: e.offsetX, y: e.offsetY }]; 
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height); 
+    };
+
+    canvas.onmousemove = (e) => {
+        if (!drawing || !canDraw) return;
+        const tool = drawTool.value; 
+        const cur = { x: e.offsetX, y: e.offsetY };
+        
+        // Khôi phục ảnh cũ để không bị vệt dài khi kéo chuột
+        ctx.putImageData(snapshot, 0, 0); 
+        
+        ctx.beginPath();
+
+        // --- XỬ LÝ CÁC LOẠI BÚT ---
+        if (tool === 'pen' || tool === 'highlighter') {
+            ctx.save(); // Lưu cấu hình bút hiện tại
+
+            if (tool === 'highlighter') {
+                ctx.globalAlpha = 0.3;      // Độ trong suốt 30%
+                ctx.lineWidth = 20;         // Nét to đùng
+                ctx.strokeStyle = "yellow"; // Mặc định màu vàng (hoặc bỏ dòng này để dùng màu đang chọn)
+                ctx.lineCap = "butt";       // Đầu bút vuông cho giống bút nhớ
+            }
+
+            // Logic vẽ đường cong (smooth)
+            points.push(cur); 
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length - 2; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2; 
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            if (points.length > 2) {
+                ctx.quadraticCurveTo(
+                    points[points.length-2].x, points[points.length-2].y, 
+                    points[points.length-1].x, points[points.length-1].y
+                );
+            }
+            ctx.stroke();
+            
+            ctx.restore(); // Khôi phục lại cấu hình (để không ảnh hưởng nét vẽ sau)
+        } 
+        // --- XỬ LÝ HÌNH HỌC (Giữ nguyên) ---
+        else if (tool === 'line') { ctx.moveTo(points[0].x, points[0].y); ctx.lineTo(cur.x, cur.y); ctx.stroke(); }
+        else if (tool === 'circle') { let r = Math.sqrt((cur.x-points[0].x)**2 + (cur.y-points[0].y)**2); ctx.arc(points[0].x, points[0].y, r, 0, 2*Math.PI); ctx.stroke(); }
+        else if (tool === 'rect') { ctx.strokeRect(points[0].x, points[0].y, cur.x - points[0].x, cur.y - points[0].y); }
+        else if (tool === 'box') drawBox(points[0].x, points[0].y, cur.x, cur.y);
+        else if (tool === 'pyramid') drawPyramid(points[0].x, points[0].y, cur.x, cur.y);
+        else if (tool === 'sphere') drawSphere(points[0].x, points[0].y, cur.x, cur.y);
+    };
+
+    canvas.onmouseup = () => {
+        if (drawing) {
+            drawing = false;
+            saveHistory(); // <--- LƯU LỊCH SỬ MỖI KHI NHẤC CHUỘT
+        }
+    };
+
+    function drawBox(x1,y1,x2,y2){ const w=x2-x1,h=y2-y1,d=w*0.3; ctx.strokeRect(x1,y1,w,h); ctx.strokeRect(x1+d,y1-d,w,h); [[x1,y1,x1+d,y1-d],[x1+w,y1,x1+w+d,y1-d],[x1,y1+h,x1+d,y1+h-d],[x1+w,y1+h,x1+w+d,y1+h-d]].forEach(p=>{ctx.moveTo(p[0],p[1]);ctx.lineTo(p[2],p[3]);}); ctx.stroke(); }
+    function drawPyramid(x1,y1,x2,y2){ const tx=(x1+x2)/2, ty=y1-Math.abs(x2-x1); ctx.moveTo(x1,y2); ctx.lineTo(x2,y2); ctx.lineTo(x2+20,y2-15); [x1,x2,x2+20].forEach(px=>{ctx.moveTo(tx,ty); ctx.lineTo(px, (px===x2+20?y2-15:y2));}); ctx.stroke(); }
+    function drawSphere(x1,y1,x2,y2){ let r=Math.abs(x2-x1); ctx.arc(x1,y1,r,0,2*Math.PI); ctx.moveTo(x1+r,y1); ctx.ellipse(x1,y1,r,r/3,0,0,2*Math.PI); ctx.stroke(); }
+
+    // DÁN NHIỀU ẢNH VÀ PDF VỚI KHẢ NĂNG THAY ĐỔI KÍCH THƯỚC
+    // DÁN ẢNH VÀ PDF TỪ CLIPBOARD (Hỗ trợ Multi-page)
+    document.addEventListener('paste', (e) => {
+        const items = Array.from(e.clipboardData.items);
+        const imageItem = items.find(i => i.type.includes('image'));
+        const fileItem = items.find(i => i.type === 'application/pdf' || i.kind === 'file');
+
+        if (imageItem) {
+            // Xử lý ảnh dán vào
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(imageItem.getAsFile());
+            img.className = 'pasted-image';
+            img.style.left = '50px';
+            img.style.top = '50px';
+            img.style.width = 'auto';
+            img.style.height = 'auto';
+            img.dataset.page = currentPage; // <--- Gán cho trang hiện tại
+
+            let isDragging = false, offsetX, offsetY;
+            let isResizing = false, initWidth, initHeight, initX, initY;
+
+            // Di chuyển ảnh
+            img.onmousedown = (e) => {
+                if (isResizing) return;
+                if (canDraw) return;
+                isDragging = true;
+                offsetX = e.clientX - img.offsetLeft;
+                offsetY = e.clientY - img.offsetTop;
+                e.preventDefault();
+            };
+
+            // Tạo tay cầm thay đổi kích thước ảnh
+            const resizeHandle = document.createElement('div');
+            resizeHandle.style.position = 'absolute';
+            resizeHandle.style.right = '0';
+            resizeHandle.style.bottom = '0';
+            resizeHandle.style.width = '20px';
+            resizeHandle.style.height = '20px';
+            resizeHandle.style.backgroundColor = 'rgba(255,255,255,0.7)';
+            resizeHandle.style.cursor = 'se-resize';
+            resizeHandle.style.borderRadius = '2px';
+            img.appendChild(resizeHandle);
+
+            resizeHandle.onmousedown = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                isResizing = true;
+                initWidth = img.offsetWidth;
+                initHeight = img.offsetHeight;
+                initX = e.clientX;
+                initY = e.clientY;
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    img.style.left = (e.clientX - offsetX) + 'px';
+                    img.style.top = (e.clientY - offsetY) + 'px';
+                }
+                if (isResizing) {
+                    const deltaX = e.clientX - initX;
+                    const deltaY = e.clientY - initY;
+                    img.style.width = Math.max(50, initWidth + deltaX) + 'px';
+                    img.style.height = Math.max(50, initHeight + deltaY) + 'px';
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                isResizing = false;
+            });
+
+            // Zoom ảnh bằng lăn chuột
+            img.onwheel = (e) => {
+                e.preventDefault();
+                const scale = e.deltaY > 0 ? 0.9 : 1.1;
+                const currentWidth = img.offsetWidth;
+                const currentHeight = img.offsetHeight;
+                const newWidth = currentWidth * scale;
+                const newHeight = currentHeight * scale;
+
+                if (newWidth >= 50 && newWidth <= wrapper.offsetWidth * 2 && newHeight >= 50 && newHeight <= wrapper.offsetHeight * 2) {
+                    img.style.width = newWidth + 'px';
+                    img.style.height = newHeight + 'px';
+                }
+            };
+
+            img.ondblclick = () => {
+                if (!canDraw && confirm("Xóa ảnh?")) img.remove();
+            };
+
+            wrapper.appendChild(img);
+            
+        } else if (fileItem && fileItem.getAsFile().type === 'application/pdf') {
+            // Xử lý PDF dán vào
+            const pdfFile = fileItem.getAsFile();
+            createPDFElement(pdfFile);
+        }
+    });
+
+    // TẠO PHẦN TỬ LATEX CÓ THỂ DI CHUYỂN
+    // TẠO PHẦN TỬ LATEX CÓ THỂ DI CHUYỂN (Đã cập nhật Multi-page)
+    function createLatexElement(latex) {
+        const latexDiv = document.createElement('div');
+        latexDiv.className = 'latex-element';
+        
+        // --- CẬP NHẬT: Gán LaTeX cho trang hiện tại ---
+        latexDiv.dataset.page = currentPage;
+        // ---------------------------------------------
+
+        latexDiv.textContent = latex;
+        latexDiv.style.left = '50px';
+        latexDiv.style.top = '50px';
+
+        let isDragging = false, offsetX, offsetY;
+
+        latexDiv.onmousedown = (e) => {
+            if (canDraw) return;
+            isDragging = true;
+            offsetX = e.clientX - latexDiv.offsetLeft;
+            offsetY = e.clientY - latexDiv.offsetTop;
+            e.preventDefault();
+        };
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                latexDiv.style.left = `${e.clientX - offsetX}px`;
+                latexDiv.style.top = `${e.clientY - offsetY}px`;
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Zoom LaTeX element bằng lăn chuột
+        latexDiv.onwheel = (e) => {
+            e.preventDefault();
+            const scale = e.deltaY > 0 ? 0.9 : 1.1; 
+            const currentFontSize = parseFloat(getComputedStyle(latexDiv).fontSize);
+            const newFontSize = currentFontSize * scale;
+
+            if (newFontSize >= 12 && newFontSize <= 48) {
+                latexDiv.style.fontSize = newFontSize + 'px';
+                MathJax.typesetPromise([latexDiv]);
+            }
+        };
+
+        latexDiv.ondblclick = () => {
+            if (!canDraw && confirm("Xóa công thức LaTeX?")) latexDiv.remove();
+        };
+
+        wrapper.appendChild(latexDiv);
+        MathJax.typesetPromise([latexDiv]);
+    }
+// --- TÍNH NĂNG UNDO / REDO ---
+function saveHistory() {
+    // Nếu đang ở giữa lịch sử mà vẽ tiếp, xóa các bước tương lai đi
+    if (historyStep < history.length - 1) {
+        history = history.slice(0, historyStep + 1);
+    }
+    // Lưu trạng thái hiện tại của Canvas
+    history.push(canvas.toDataURL());
+    historyStep++;
+}
+
+function undo() {
+    if (historyStep > 0) {
+        historyStep--;
+        restoreHistory(history[historyStep]);
+    } else if (historyStep === 0) {
+        // Nếu lùi về bước đầu tiên (trắng tinh)
+        historyStep = -1;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
+function redo() {
+    if (historyStep < history.length - 1) {
+        historyStep++;
+        restoreHistory(history[historyStep]);
+    }
+}
+
+function restoreHistory(dataUrl) {
+    const img = new Image();
+    img.src = dataUrl;
+    img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+    };
+}
+
+// Phím tắt: Ctrl+Z (Undo), Ctrl+Y (Redo)
+window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+        e.preventDefault();
+        undo();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+        e.preventDefault();
+        redo();
+    }
+});     
+    // TẠO PHẦN TỬ PDF CÓ THỂ DI CHUYỂN - HIỂN THỊ TẤT CẢ TRANG
+    // HÀM TẢI PDF CẢI TIẾN (FIX LỖI HIỂN THỊ & RESIZE & MULTI-PAGE)
+    async function createPDFElement(pdfFile) {
+        const pdfContainer = document.createElement('div');
+        pdfContainer.className = 'pasted-pdf';
+        
+        // --- CẬP NHẬT: Gán PDF cho trang hiện tại ---
+        pdfContainer.dataset.page = currentPage;
+        // -------------------------------------------
+        
+        // Đặt vị trí ban đầu
+        pdfContainer.style.left = '50px';
+        pdfContainer.style.top = '50px';
+        // Kích thước mặc định rộng hơn để dễ nhìn (60% màn hình)
+        pdfContainer.style.width = '60%'; 
+        pdfContainer.style.height = '80%';
+        pdfContainer.style.overflow = 'hidden'; 
+        pdfContainer.style.position = 'relative';
+        pdfContainer.style.border = '2px dashed #ccc';
+        pdfContainer.style.background = '#fff';
+        pdfContainer.style.display = 'flex';
+        pdfContainer.style.flexDirection = 'column';
+
+        try {
+            const pdf = await pdfjsLib.getDocument(URL.createObjectURL(pdfFile)).promise;
+            const numPages = pdf.numPages;
+
+            // Tạo container cuộn cho nội dung PDF
+            const pdfScrollContainer = document.createElement('div');
+            pdfScrollContainer.style.flex = '1'; 
+            pdfScrollContainer.style.width = '100%';
+            pdfScrollContainer.style.overflowY = 'auto'; 
+            pdfScrollContainer.style.position = 'relative';
+            
+            // Render từng trang
+            for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                const page = await pdf.getPage(pageNum);
+                
+                // Render với chất lượng cao (scale 2 để nét)
+                const viewport = page.getViewport({ scale: 2 });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                canvas.style.width = '100%'; 
+                canvas.style.height = 'auto'; 
+                canvas.style.display = 'block';
+                canvas.style.marginBottom = '10px'; 
+
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+                pdfScrollContainer.appendChild(canvas);
+            }
+
+            pdfContainer.appendChild(pdfScrollContainer);
+
+            // --- BỘ ĐIỀU KHIỂN RESIZE ---
+            const resizeHandle = document.createElement('div');
+            Object.assign(resizeHandle.style, {
+                position: 'absolute', right: '0', bottom: '0',
+                width: '20px', height: '20px',
+                backgroundColor: '#ff4757', cursor: 'se-resize',
+                zIndex: '100',
+                borderTopLeftRadius: '4px'
+            });
+            pdfContainer.appendChild(resizeHandle);
+
+            // --- BỘ ĐIỀU KHIỂN DI CHUYỂN ---
+            const dragHandle = document.createElement('div');
+            Object.assign(dragHandle.style, {
+                position: 'absolute', top: '0', left: '0', right: '0',
+                height: '30px', background: 'rgba(0,0,0,0.6)',
+                cursor: 'move', color: 'white', fontSize: '13px',
+                display: 'flex', alignItems: 'center', paddingLeft: '10px',
+                zIndex: '100',
+                fontWeight: 'bold',
+                borderBottom: '1px solid #555'
+            });
+            dragHandle.innerText = `📄 ${pdfFile.name} (Kéo tại đây)`;
+            
+            const closeBtn = document.createElement('span');
+            closeBtn.innerText = '✕';
+            Object.assign(closeBtn.style, {
+                marginLeft: 'auto', marginRight: '10px', cursor: 'pointer',
+                color: '#ff4757', fontWeight: 'bold', fontSize: '16px'
+            });
+            closeBtn.onclick = () => { if(confirm("Xóa file PDF này?")) pdfContainer.remove(); };
+            dragHandle.appendChild(closeBtn);
+            
+            pdfContainer.appendChild(dragHandle);
+            pdfScrollContainer.style.marginTop = '30px'; 
+
+            // LOGIC KÉO THẢ & RESIZE
+            let isDragging = false, isResizing = false;
+            let startX, startY, startW, startH, startL, startT;
+
+            dragHandle.onmousedown = (e) => {
+                if (e.target === closeBtn) return;
+                isDragging = true;
+                startX = e.clientX; startY = e.clientY;
+                startL = pdfContainer.offsetLeft; startT = pdfContainer.offsetTop;
+                e.preventDefault();
+            };
+
+            resizeHandle.onmousedown = (e) => {
+                isResizing = true;
+                e.stopPropagation();
+                startX = e.clientX; startY = e.clientY;
+                startW = pdfContainer.offsetWidth; startH = pdfContainer.offsetHeight;
+                e.preventDefault();
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    pdfContainer.style.left = (startL + e.clientX - startX) + 'px';
+                    pdfContainer.style.top = (startT + e.clientY - startY) + 'px';
+                }
+                if (isResizing) {
+                    const newW = startW + e.clientX - startX;
+                    const newH = startH + e.clientY - startY;
+                    if (newW > 200) pdfContainer.style.width = newW + 'px';
+                    if (newH > 150) pdfContainer.style.height = newH + 'px';
+                }
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; isResizing = false; });
+
+            document.getElementById('boardWrapper').appendChild(pdfContainer);
+
+        } catch (error) {
+            console.error(error);
+            alert('Lỗi tải PDF: ' + error.message);
+        }
+    }
+// HÀM NHÚNG TRANG WEB (IFRAME)
+// HÀM NHÚNG WEBSITE (Cấu trúc y hệt PDF: Resize + Drag Header)
+function addWebsite() {
+        let url = prompt("Nhập địa chỉ trang web (Ví dụ: https://desmos.com/calculator):", "https://desmos.com/calculator");
+        if (!url) return;
+        
+        // Tự động thêm https:// nếu người dùng quên
+        if (!url.startsWith('http')) url = 'https://' + url;
+
+        const webContainer = document.createElement('div');
+        webContainer.className = 'pasted-web';
+        
+        // --- QUAN TRỌNG: Gán trang hiện tại ---
+        webContainer.dataset.page = currentPage; 
+        
+        // Kích thước và vị trí mặc định
+        // --- CẢI TIẾN: Tính kích thước động dựa trên bảng vẽ ---
+        // Lấy kích thước hiện tại của vùng bảng
+        const boardW = wrapper.offsetWidth;
+        const boardH = wrapper.offsetHeight;
+
+        // Đặt kích thước mặc định bằng 60% chiều rộng và 70% chiều cao của bảng
+        // Điều này đảm bảo khung web luôn nhỏ hơn bảng và nhìn thấy được góc kéo
+        webContainer.style.width = (boardW * 0.6) + 'px'; 
+        webContainer.style.height = (boardH * 0.7) + 'px';
+
+        // Vị trí mặc định: Cách trái 20px, cách trên 20px (để gọn gàng hơn)
+        webContainer.style.left = '20px';
+        webContainer.style.top = '20px';
+        // 1. THANH TIÊU ĐỀ (DRAG HANDLE) - Giống PDF
+        const header = document.createElement('div');
+        Object.assign(header.style, {
+            height: '32px', 
+            background: '#2c3e50', 
+            cursor: 'move',
+            display: 'flex', alignItems: 'center', padding: '0 10px',
+            color: 'white', fontWeight: 'bold', fontSize: '13px',
+            borderBottom: '1px solid #ccc'
+        });
+        header.innerHTML = `🌐 ${url}`; // Hiển thị URL ngắn gọn
+        
+        // Nút xóa (X)
+        const closeBtn = document.createElement('span');
+        closeBtn.innerText = '✕';
+        Object.assign(closeBtn.style, {
+            marginLeft: 'auto', cursor: 'pointer', color: '#e74c3c', fontSize: '16px', fontWeight: 'bold'
+        });
+        closeBtn.onclick = () => { if(confirm("Đóng trang web này?")) webContainer.remove(); };
+        header.appendChild(closeBtn);
+        webContainer.appendChild(header);
+
+        // 2. KHUNG CHỨA IFRAME
+        const iframeContainer = document.createElement('div');
+        Object.assign(iframeContainer.style, {
+            flex: '1', position: 'relative', overflow: 'hidden', background: 'white'
+        });
+
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        Object.assign(iframe.style, {
+            width: '100%', height: '100%', border: 'none'
+        });
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframeContainer.appendChild(iframe);
+        
+        // Tấm khiên bảo vệ (giúp kéo thả mượt mà không bị iframe bắt chuột)
+        const overlay = document.createElement('div');
+        Object.assign(overlay.style, {
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+            display: 'none', zIndex: 10 // Mặc định ẩn
+        });
+        iframeContainer.appendChild(overlay);
+        
+        webContainer.appendChild(iframeContainer);
+
+        // 3. TAY CẦM RESIZE (Góc phải dưới) - Giống PDF
+        const resizeHandle = document.createElement('div');
+        Object.assign(resizeHandle.style, {
+            position: 'absolute', right: '0', bottom: '0',
+            width: '20px', height: '20px', 
+            backgroundColor: '#f1c40f', // Màu vàng để dễ thấy
+            cursor: 'se-resize', 
+            zIndex: '100',
+            borderTopLeftRadius: '5px'
+        });
+        webContainer.appendChild(resizeHandle);
+
+        // --- LOGIC KÉO THẢ VÀ RESIZE ---
+        let isDragging = false, isResizing = false;
+        let startX, startY, startW, startH, startL, startT;
+
+        // Xử lý kéo (Drag)
+        header.onmousedown = (e) => {
+            if (e.target === closeBtn) return;
+            isDragging = true;
+            overlay.style.display = 'block'; // Bật khiên lên che iframe
+            startX = e.clientX; startY = e.clientY;
+            startL = webContainer.offsetLeft; startT = webContainer.offsetTop;
+            e.preventDefault();
+        };
+
+        // Xử lý co giãn (Resize)
+        resizeHandle.onmousedown = (e) => {
+            isResizing = true;
+            overlay.style.display = 'block'; // Bật khiên lên che iframe
+            e.stopPropagation();
+            startX = e.clientX; startY = e.clientY;
+            startW = webContainer.offsetWidth; startH = webContainer.offsetHeight;
+            e.preventDefault();
+        };
+
+        // Lắng nghe sự kiện di chuột toàn màn hình
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                webContainer.style.left = (startL + e.clientX - startX) + 'px';
+                webContainer.style.top = (startT + e.clientY - startY) + 'px';
+            }
+            if (isResizing) {
+                const newW = startW + e.clientX - startX;
+                const newH = startH + e.clientY - startY;
+                // Giới hạn kích thước tối thiểu
+                if (newW > 300) webContainer.style.width = newW + 'px';
+                if (newH > 200) webContainer.style.height = newH + 'px';
+            }
+        });
+
+        // Kết thúc kéo/giãn
+        window.addEventListener('mouseup', () => {
+            if (isDragging || isResizing) {
+                isDragging = false;
+                isResizing = false;
+                overlay.style.display = 'none'; // Tắt khiên đi để dùng web bình thường
+            }
+        });
+
+        wrapper.appendChild(webContainer);
+    }
+    // RENDER THÔNG MINH (Enumerate, Loigiai, Mixed Text/Latex)
+    function processLatex(text) {
+        let html = text.replace(/\\begin\{enumerate\}(\[.*?\])?/g, '<ul class="enumerate">').replace(/\\end\{enumerate\}/g, '</ul>')
+                       .replace(/\\item/g, '</li><li>').replace(/\\loigiai\{([\s\S]*?)\}/g, '<div class="loi-giai"><strong>Lời giải:</strong><br>$1</div>');
+        return html.replace(/<ul class="enumerate">\s*<\/li>/g, '<ul class="enumerate">').replace(/<li>\s*<\/ul>/g, '</ul>');
+    }
+    editor.oninput = () => {
+        preview.innerHTML = processLatex(editor.value).replace(/\n/g, '<br>');
+        MathJax.typesetPromise([preview]).then(() => { document.getElementById('renderPanel').scrollTop = document.getElementById('renderPanel').scrollHeight; });
+    };
+
+    // TẠO LATEX ELEMENT TỪ INPUT
+    document.getElementById('btnCreateLatex').onclick = () => {
+        const latexInput = document.getElementById('latexInput');
+        const latex = latexInput.value.trim();
+        if (latex) {
+            createLatexElement(latex);
+            latexInput.value = ''; // Clear input after creating
+        }
+    };
+
+    // Enter key để tạo LaTeX element
+    document.getElementById('latexInput').onkeydown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('btnCreateLatex').click();
+        }
+    };
+
+    // XỬ LÝ TẢI FILE ẢNH TỪ MÁY TÍNH (Đã cập nhật Multi-page)
+    document.getElementById('imageInput').onchange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.className = 'pasted-image';
+            
+            // --- CẬP NHẬT: Gán ảnh cho trang hiện tại ---
+            img.dataset.page = currentPage; 
+            // -------------------------------------------
+
+            img.style.left = '50px';
+            img.style.top = '50px';
+            img.style.width = 'auto';
+            img.style.height = 'auto';
+
+            let isDragging = false, offsetX, offsetY;
+            let isResizing = false, initWidth, initHeight, initX, initY;
+
+            img.onmousedown = (e) => {
+                if (isResizing) return;
+                if (canDraw) return;
+                isDragging = true;
+                offsetX = e.clientX - img.offsetLeft;
+                offsetY = e.clientY - img.offsetTop;
+                e.preventDefault();
+            };
+
+            const resizeHandle = document.createElement('div');
+            resizeHandle.style.position = 'absolute';
+            resizeHandle.style.right = '0';
+            resizeHandle.style.bottom = '0';
+            resizeHandle.style.width = '20px';
+            resizeHandle.style.height = '20px';
+            resizeHandle.style.backgroundColor = 'rgba(255,255,255,0.7)';
+            resizeHandle.style.cursor = 'se-resize';
+            resizeHandle.style.borderRadius = '2px';
+            img.appendChild(resizeHandle);
+
+            resizeHandle.onmousedown = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                isResizing = true;
+                initWidth = img.offsetWidth;
+                initHeight = img.offsetHeight;
+                initX = e.clientX;
+                initY = e.clientY;
+            };
+
+            window.addEventListener('mousemove', (e) => { // Dùng addEventListener để không đè sự kiện vẽ
+                if (isDragging) {
+                    img.style.left = (e.clientX - offsetX) + 'px';
+                    img.style.top = (e.clientY - offsetY) + 'px';
+                }
+                if (isResizing) {
+                    const deltaX = e.clientX - initX;
+                    const deltaY = e.clientY - initY;
+                    img.style.width = (initWidth + deltaX) + 'px';
+                    img.style.height = (initHeight + deltaY) + 'px';
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                isResizing = false;
+            });
+
+            img.onwheel = (e) => {
+                e.preventDefault();
+                const scale = e.deltaY > 0 ? 0.9 : 1.1;
+                const currentWidth = img.offsetWidth;
+                const currentHeight = img.offsetHeight;
+                const newWidth = currentWidth * scale;
+                const newHeight = currentHeight * scale;
+
+                if (newWidth >= 50 && newWidth <= wrapper.offsetWidth * 2 && newHeight >= 50 && newHeight <= wrapper.offsetHeight * 2) {
+                    img.style.width = newWidth + 'px';
+                    img.style.height = newHeight + 'px';
+                }
+            };
+
+            img.ondblclick = () => {
+                if (!canDraw && confirm("Xóa ảnh?")) img.remove();
+            };
+
+            wrapper.appendChild(img);
+        }
+        e.target.value = '';
+    };
+
+    // XỬ LÝ TẢI FILE PDF
+    document.getElementById('pdfInput').onchange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            createPDFElement(file);
+        }
+        // Reset input để có thể chọn cùng file lần nữa
+        e.target.value = '';
+    };
+
+    // SNIPPETS (Gõ nhanh)
+    document.querySelectorAll('.snippet-btn').forEach(btn => {
+        btn.onclick = () => {
+            const code = btn.dataset.code, s = editor.selectionStart;
+            editor.value = editor.value.substring(0, s) + code + editor.value.substring(editor.selectionEnd);
+            editor.focus(); const pos = code.includes('{}') ? s + code.indexOf('{') + 1 : s + code.length;
+            editor.setSelectionRange(pos, pos); editor.dispatchEvent(new Event('input'));
+        };
+    });
+
+    // XUẤT PDF VÔ TẬN
+   // HÀM XUẤT TOÀN BỘ BÀI GIẢNG (TẤT CẢ CÁC TRANG) RA PDF
+   async function exportFullPDF() {
+        // 1. Chuẩn bị
+        const { jsPDF } = window.jspdf;
+        const btn = document.querySelector('button[onclick="exportFullPDF()"]');
+        const originalText = btn.innerText;
+        const originalPage = currentPage; // Lưu lại trang đang đứng để tí quay về
+        
+        btn.innerText = "⏳ Đang xử lý trang 1...";
+        btn.disabled = true;
+
+        try {
+            // Tạo file PDF nằm ngang (Landscape) khổ A4
+            const pdf = new jsPDF('l', 'mm', 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            // Lưu trạng thái trang hiện tại trước khi bắt đầu quy trình
+            saveCurrentPageState();
+
+            // 2. Duyệt qua từng trang trong mảng pages
+            for (let i = 0; i < pages.length; i++) {
+                // Cập nhật trạng thái nút bấm
+                btn.innerText = `⏳ Đang xử lý trang ${i + 1}/${pages.length}...`;
+
+                // Chuyển tới trang i (để hiển thị nội dung trang đó lên màn hình)
+                // Lưu ý: Chúng ta gọi trực tiếp logic chuyển trang để DOM cập nhật
+                currentPage = i;
+                const pageData = pages[i];
+
+                // a. Vẽ lại nét bút của trang đó
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (pageData.canvasData) {
+                    await new Promise((resolve) => {
+                        const img = new Image();
+                        img.src = pageData.canvasData;
+                        img.onload = () => {
+                            ctx.drawImage(img, 0, 0);
+                            resolve();
+                        };
+                    });
+                }
+
+                // b. Hiện các ảnh/PDF/LaTeX của trang đó, ẩn trang khác
+                const elements = document.querySelectorAll('.pasted-image, .pasted-pdf, .latex-element');
+                elements.forEach(el => {
+                    if (!el.dataset.page) el.dataset.page = 0;
+                    if (parseInt(el.dataset.page) === currentPage) {
+                        el.style.display = 'flex'; // Hiện
+                    } else {
+                        el.style.display = 'none'; // Ẩn
+                    }
+                });
+
+                // Cập nhật số trang hiển thị (để chụp ảnh cho đẹp)
+                updatePageIndicator();
+
+                // Chờ 1 chút để trình duyệt kịp render lại giao diện (quan trọng với ảnh/PDF)
+                await new Promise(r => setTimeout(r, 300));
+
+                // 3. Chụp ảnh vùng bảng dạy (boardWrapper)
+                // scale: 2 để ảnh nét, useCORS để tải được ảnh từ nguồn ngoài
+                const canvasCapture = await html2canvas(wrapper, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#0b6b3a', // Màu nền bảng
+                    ignoreElements: (element) => {
+                        // Bỏ qua các thành phần điều khiển không cần thiết khi in
+                        return element.classList.contains('pagination-bar');
+                    }
+                });
+
+                const imgData = canvasCapture.toDataURL('image/jpeg', 0.8); // Nén JPEG 0.8 cho nhẹ
+
+                // 4. Thêm vào PDF
+                if (i > 0) pdf.addPage(); // Trang đầu tự có, trang sau phải thêm
+                pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+            }
+
+            // 5. Lưu file
+            const date = new Date().toISOString().slice(0, 10);
+            pdf.save(`BaiGiang_ThayBinh_${date}.pdf`);
+
+        } catch (error) {
+            console.error(error);
+            alert("Lỗi khi xuất PDF: " + error.message);
+        } finally {
+            // 6. Dọn dẹp: Quay về trang ban đầu
+            switchPage(originalPage);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+    // --- TÍNH NĂNG: VẼ ĐÈ LÊN PDF (ANNOTATION MODE) ---
+    let isAnnotationMode = false;
+    const btnAnnotate = document.getElementById('btnAnnotate');
+    
+    // LOGIC NÚT VẼ ĐÈ (ANNOTATION MODE) - ĐÃ CẬP NHẬT WEB
+    btnAnnotate.onclick = () => {
+        isAnnotationMode = !isAnnotationMode;
+        
+        // --- CẬP NHẬT: Chọn thêm .pasted-web ---
+        const elements = document.querySelectorAll('.pasted-pdf, .pasted-image, .pasted-web');
+
+        if (isAnnotationMode) {
+            // 1. KÍCH HOẠT CHẾ ĐỘ VẼ ĐÈ
+            // Đưa Canvas lên lớp cao nhất
+            canvas.style.zIndex = "2000"; 
+            
+            // Bắt buộc bật chế độ vẽ (nếu đang tắt)
+            if (!canDraw) {
+                document.getElementById('btnToggleDraw').click(); 
+            }
+            
+            // Đổi giao diện nút
+            btnAnnotate.innerHTML = "✏️ Vẽ Đè: BẬT";
+            btnAnnotate.style.background = "#d35400"; // Cam đậm
+            btnAnnotate.style.border = "2px solid white";
+            btnAnnotate.style.boxShadow = "0 0 10px rgba(230, 126, 34, 0.8)";
+            
+            // TẮT TƯƠNG TÁC VỚI PDF/ẢNH/WEB ĐỂ VẼ LÊN TRÊN
+            elements.forEach(el => {
+                el.style.opacity = "0.9";
+                el.style.pointerEvents = "none"; // Quan trọng: Ngăn chuột click vào phần tử
+                
+                // Với Iframe (Web), cần tắt thêm pointer-events bên trong để chắc chắn
+                const iframe = el.querySelector('iframe');
+                if (iframe) iframe.style.pointerEvents = 'none';
+            });
+
+        } else {
+            // 2. TẮT CHẾ ĐỘ VẼ ĐÈ (QUAY VỀ CHẾ ĐỘ THƯỜNG)
+            canvas.style.zIndex = canDraw ? "100" : "1"; 
+            
+            // Trả lại giao diện nút
+            btnAnnotate.innerHTML = "📝 Vẽ Đè: TẮT";
+            btnAnnotate.style.background = "#e67e22"; // Cam thường
+            btnAnnotate.style.border = "none";
+            btnAnnotate.style.boxShadow = "none";
+            
+            // BẬT LẠI TƯƠNG TÁC (Kéo thả, Click link)
+            elements.forEach(el => {
+                el.style.opacity = "1";
+                el.style.pointerEvents = "auto"; 
+                
+                // Bật lại iframe
+                const iframe = el.querySelector('iframe');
+                if (iframe) iframe.style.pointerEvents = 'auto';
+            });
+            
+            canvas.style.zIndex = "1"; 
+        }
+    };
+
+    // CẬP NHẬT LẠI LOGIC NÚT "ĐANG VẼ / DI CHUYỂN" CŨ ĐỂ KHỚP VỚI TÍNH NĂNG MỚI
+    document.getElementById('btnToggleDraw').onclick = () => {
+        canDraw = !canDraw;
+        const btn = document.getElementById('btnToggleDraw');
+        
+        btn.textContent = canDraw ? '✏️ Đang Vẽ' : '🖐️ Di Chuyển';
+        btn.style.background = canDraw ? '#555' : '#2ecc71';
+        
+        // Logic z-index thông minh:
+        if (isAnnotationMode) {
+            // Nếu đang bật vẽ đè, Canvas luôn phải ở trên cùng bất kể chế độ vẽ hay không
+            canvas.style.zIndex = "2000";
+        } else {
+            // Nếu không vẽ đè:
+            // - Muốn vẽ bảng đen (nền): zIndex 100
+            // - Muốn di chuyển PDF: zIndex 1
+            canvas.style.zIndex = canDraw ? "5" : "1"; // Để 5 để thấp hơn PDF (10)
+        }
+    };
+// --- QUẢN LÝ NHIỀU TRANG (MULTI-PAGE) ---
+let pages = [{ 
+    canvasData: null, 
+    history: [], 
+    historyStep: -1 
+}];
+let currentPage = 0; // Trang hiện tại (bắt đầu từ 0)
+
+function updatePageIndicator() {
+    document.getElementById('pageIndicator').innerText = `Trang ${currentPage + 1} / ${pages.length}`;
+}
+
+// Hàm lưu trạng thái trang hiện tại trước khi chuyển
+function saveCurrentPageState() {
+    // 1. Lưu nội dung bảng vẽ
+    pages[currentPage].canvasData = canvas.toDataURL();
+    // 2. Lưu lịch sử Undo/Redo của trang này
+    pages[currentPage].history = [...history]; // Copy mảng
+    pages[currentPage].historyStep = historyStep;
+}
+
+// Hàm chuyển đổi hiển thị (Ẩn hiện DOM + Load Canvas)
+// Hàm chuyển đổi hiển thị (Ẩn hiện DOM + Load Canvas) - ĐÃ CẬP NHẬT WEB
+function switchPage(newPageIndex) {
+        if (newPageIndex < 0 || newPageIndex >= pages.length) return;
+
+        // A. LƯU TRANG CŨ
+        saveCurrentPageState();
+
+        // B. CHUYỂN DATA SANG TRANG MỚI
+        currentPage = newPageIndex;
+        const pageData = pages[currentPage];
+
+        // 1. Khôi phục lịch sử Undo/Redo
+        history = [...pageData.history];
+        historyStep = pageData.historyStep;
+
+        // 2. Xóa bảng & Vẽ lại hình của trang mới
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (pageData.canvasData) {
+            const img = new Image();
+            img.src = pageData.canvasData;
+            img.onload = () => ctx.drawImage(img, 0, 0);
+        }
+
+        // 3. Ẩn/Hiện các phần tử DOM (PDF, Ảnh, LaTeX, WEB)
+        // --- CẬP NHẬT: Thêm .pasted-web vào danh sách chọn ---
+        const elements = document.querySelectorAll('.pasted-image, .pasted-pdf, .latex-element, .pasted-web');
+        
+        elements.forEach(el => {
+            // Nếu phần tử chưa có data-page (được tạo từ trước khi có tính năng này), gán cho trang 0
+            if (!el.dataset.page) el.dataset.page = 0; 
+            
+            if (parseInt(el.dataset.page) === currentPage) {
+                el.style.display = 'flex'; // Hiện
+            } else {
+                el.style.display = 'none'; // Ẩn
+            }
+        });
+
+        updatePageIndicator();
+    }
+
+function nextPage() {
+    if (currentPage < pages.length - 1) {
+        switchPage(currentPage + 1);
+    } else {
+        // Nếu đang ở trang cuối, hỏi có tạo mới không
+        if(confirm("Hết trang rồi. Tạo trang mới nhé?")) addPage();
+    }
+}
+
+function prevPage() {
+    switchPage(currentPage - 1);
+}
+
+function addPage() {
+    saveCurrentPageState();
+    // Thêm trang trắng mới vào mảng
+    pages.push({ canvasData: null, history: [], historyStep: -1 });
+    // Chuyển tới trang mới vừa tạo
+    switchPage(pages.length - 1);
+}
+
+</script>
+<div class="pagination-bar">
+    <button class="btn" onclick="prevPage()" title="Trang trước">◀</button>
+    <span id="pageIndicator">Trang 1 / 1</span>
+    <button class="btn" onclick="nextPage()" title="Trang sau">▶</button>
+    <button class="btn" onclick="addPage()" title="Thêm trang mới" style="background:var(--accent)">➕</button>
+</div>
+</body>
+</html>

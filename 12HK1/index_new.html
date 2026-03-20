@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title>HỌC KỲ 1</title>
+<link rel="stylesheet" href="css/style.css">
+<!-- Google Fonts for Vietnamese and Math support -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Hệ thống dạy học Toán trực tuyến đầy đủ tính năng - Lớp Toán Thầy Bình">
+<meta name="keywords" content="toán, học trực tuyến, lớp 12, ôn thi, firebase, real-time, canvas, bảng vẽ">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+<!-- MathJax with improved configuration -->
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      svg: {
+        fontCache: 'global',
+        scale: 1.1  // Slightly larger for better readability
+      },
+      chtml: {
+        fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2'
+      },
+      startup: {
+        ready: function () {
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            console.log('MathJax ready');
+          });
+        }
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['color', 'ams']}
+      }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- html2pdf.js for PDF Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</head>
+
+<body class="not-logged-in">
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+    <div class="topbar-title">LỚP TOÁN THẦY BÌNH</div>
+    <div class="desktop-controls">
+        <button id="slideMenuBtn">📋 DS Bài</button>
+        <select id="selectExam">
+            <option value="">-- Chọn đề --</option>
+        </select>
+        <button id="studentInteractBtn">🎮 Tương tác</button>
+        <button id="teacherMonitorBtn">👁️ Theo dõi</button>
+        <button id="loginBtn">🔑 Đăng nhập</button>
+        <button id="scoreBtn">📊 Tính điểm</button>
+        <button id="exportPdfBtn">🖨️ Xuất PDF</button>
+        <button id="toggleMenu">✏️ Bảng vẽ</button>
+        <button id="classManagementBtn">🏫 Quản lý Lớp</button>
+        <button id="toggleStyleBtn">🌙 Chế độ tối</button>
+        <button id="fullscreenBtn">📺 Fullscreen</button>
+    </div>
+</div>
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress">
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+</div>
+
+<!-- Firebase Status -->
+<div id="firebaseStatus" class="firebase-status firebase-disconnected">
+    <span class="loading-spinner"></span> Đang kết nối...
+</div>
+
+<!-- Notification -->
+<div id="notification" class="notification"></div>
+
+<!-- ===== MAIN CONTENT (SCROLL MODE) ===== -->
+<div class="page-container">
+    <div class="slides" id="slides-container">
+        <section class="slide-section active-section" id="section-0">
+            <h2 style="text-align: center; color: #666; margin-top: 50px;">
+                🧮 LỚP TOÁN THẦY BÌNH
+            </h2>
+            <p style="text-align: center; color: #888; font-size: 1.2em;">
+                Vui lòng đăng nhập và chọn một đề từ menu để bắt đầu.
+            </p>
+        </section>
+    </div>
+</div>
+
+<!-- ===== SLIDE MENU ===== -->
+<div class="slide-menu" id="slideMenu">
+    <div class="menu-header">
+        <h3>📋 Danh sách Bài</h3>
+        <button class="close-btn" id="closeSlideMenu">×</button>
+    </div>
+    <div class="menu-content">
+        <div class="slide-list" id="slideList">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<!-- ===== CANVAS ===== -->
+<canvas id="drawCanvas"></canvas>
+<div class="toolbar" id="drawToolbar">
+    <a href="index.html" title="Về trang chủ">
+        <button id="homeBtn" style="font-size:22px;">🏠</button>
+    </a>
+    <select id="tool">
+        <option value="pen">✏️ Bút</option>
+        <option value="line">📏 Đường</option>
+        <option value="rect">⬛ Chữ nhật</option>
+        <option value="parallelogram">▱ Bình hành</option>
+        <option value="circle">⚪ Tròn</option>
+        <option value="dashedLineBtn">– –</option>
+        <option value="ellipseBtn">⬭ Elip</option>
+        <option value="box">📦 Hộp 3D</option>
+        <option value="pyramid3">🔺 Chóp tam giác</option>
+        <option value="pyramid4">🔲 Chóp tứ giác</option>
+        <option value="sphere">⚽ Cầu</option>
+    </select>
+    <input id="draw-width" max="10" min="1" type="range" value="2"/>
+    <input id="colorPicker" type="color" value="#6b21a8">
+    <button id="undoBtn" title="Undo">↩️</button>
+    <button id="clearBtn">🧹 Xoá</button>
+    <button id="saveBtn">💾 Lưu</button>
+    <button id="exitBtn">❌ Thoát</button>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Login Modal -->
+<div class="modal" id="login-modal">
+    <div class="modal-content">
+        <button class="modal-close" id="close-modal">×</button>
+        <h3>🔐 Đăng nhập hệ thống</h3>
+        <form id="code-login-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Mã đăng nhập:</label>
+                <input id="login-code" placeholder="Nhập mã học sinh/giáo viên" required type="text"/>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600;">Họ tên:</label>
+                                <input id="student-name" placeholder="Nhập họ tên của bạn" type="text"/>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+                <button type="submit" style="flex: 1;">🚀 Đăng nhập</button>
+            </div>
+        </form>
+        <div id="auth-status" style="margin-top: 15px;"></div>
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+            <p style="margin: 0; font-size: 0.9em; color: #666;">
+                <strong>Hướng dẫn:</strong><br>
+                • Giáo viên: cấp mã gồm mã và họ tên<br>
+                • Học sinh nhập chính xác cả 2
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Class Management Modal -->
+<div class="modal" id="class-management-modal">
+    <div class="modal-content modal-content-scrollable">
+        <button class="modal-close" id="close-class-management">×</button>
+        <h3>🏫 Quản lý Lớp và Học sinh</h3>
+        
+        <div style="display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap;">
+            <button id="create-class-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                ➕ Tạo Lớp Mới
+            </button>
+            <button id="assign-student-btn-main" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                🎓 Cấp Mã HS
+            </button>
+            <button id="view-student-codes-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #6f42c1, #5a2d91); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                📋 DS Mã HS
+            </button>
+            <button id="refresh-classes-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #ffc107, #e0a800); color: #000; border: none; border-radius: 10px; font-weight: 600;">
+                🔄 Làm mới
+            </button>
+            <button id="class-poll-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #ffc107, #e0a800); color: #000; border: none; border-radius: 10px; font-weight: 600;">
+                🗳️ Poll Lớp
+            </button>
+            <button id="class-sync-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #6f42c1, #5a2d91); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                🔄 Đồng bộ Slide
+            </button>
+            <button id="view-poll-results-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                📊 Xem Kết quả Poll
+            </button>
+            <button id="view-interactions-btn" style="flex: 1; min-width: 120px; padding: 12px; background: linear-gradient(135deg, #fd7e14, #e55a00); color: white; border: none; border-radius: 10px; font-weight: 600;">
+                💬 Xem Tương tác
+            </button>
+        </div>
+
+        <!-- Class List -->
+        <div style="margin-bottom: 25px;">
+            <h4 style="color: #1a237e; margin-bottom: 15px;">📚 Danh sách Lớp học</h4>
+            <div class="table-container" style="max-height: 300px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Lớp</th>
+                            <th>Mã Lớp</th>
+                            <th>Số HS</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classes-list-body">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải danh sách lớp...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Student List -->
+        <div>
+            <h4 style="color: #1a237e; margin-bottom: 15px;">👥 Danh sách Học sinh</h4>
+            <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                <input type="text" id="search-student-global" placeholder="🔍 Tìm học sinh..." style="flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                <select id="filter-class" style="padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                    <option value="all">Tất cả lớp</option>
+                </select>
+            </div>
+            <div class="table-container" style="max-height: 400px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã HS</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Lần cuối hoạt động</th>
+                            <th>Tổng bài làm</th>
+                            <th>Điểm TB</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-list-body">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 20px; color: #666;">
+                                Đang tải danh sách học sinh...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Class Modal -->
+<div class="modal" id="create-class-modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" id="cancel-create-class">×</button>
+        <h3>🏫 Tạo Lớp Mới</h3>
+        <form id="create-class-form">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Tên lớp:</label>
+                <input type="text" id="class-name" placeholder="Ví dụ: 12A1, Toán Nâng cao..." required style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Mô tả:</label>
+                <textarea id="class-description" placeholder="Mô tả về lớp học..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; height: 80px;"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="submit" style="padding: 12px 25px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                    🏫 Tạo Lớp
+                </button>
+                <button type="button" id="cancel-create-class-btn" style="padding: 12px 25px; background: #6c757d; color: white; border: none; border-radius: 8px;">Hủy</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Assign Student Modal -->
+<div class="modal" id="assign-student-modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <button class="modal-close" id="cancel-assign-student">×</button>
+        <h3>🎓 Cấp Mã Học Sinh</h3>
+        
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Chọn lớp:</label>
+            <select id="select-class-for-student" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+                <option value="">-- Chọn lớp --</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Thông tin học sinh:</label>
+            <input type="text" id="student-fullname" placeholder="Họ và tên học sinh" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
+            <input type="email" id="student-email" placeholder="Email (tuỳ chọn)" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;">
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <h4 style="margin: 0 0 10px 0; color: #1a237e;">Mã học sinh sẽ được tạo:</h4>
+            <div id="generated-student-code" style="font-family: monospace; font-size: 1.2em; font-weight: bold; color: #1a237e; background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                HS_XXXXXX
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button id="generate-student-code-btn" style="padding: 12px 25px; background: linear-gradient(135deg, #17a2b8, #138496); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                🎲 Tạo Mã
+            </button>
+            <button id="assign-student-btn" style="padding: 12px 25px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                ✅ Cấp Mã
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Student Codes Modal -->
+<div class="modal" id="student-codes-modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <button class="modal-close" id="close-student-codes">×</button>
+        <h3>📋 Danh sách Mã Học Sinh</h3>
+        
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <select id="filter-class-codes" style="flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                <option value="all">Tất cả lớp</option>
+            </select>
+            <button id="export-codes-btn" style="padding: 10px 20px; background: linear-gradient(135deg, #6f42c1, #5a2d91); color: white; border: none; border-radius: 8px; font-weight: 600;">
+                📤 Xuất Excel
+            </button>
+        </div>
+
+        <div class="table-container" style="max-height: 500px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã HS</th>
+                        <th>Họ tên</th>
+                        <th>Lớp</th>
+                        <th>Ngày cấp</th>
+                        <th>Trạng thái</th>
+                        <th>Mật khẩu</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="student-codes-list">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: #666;">
+                            Đang tải danh sách mã học sinh...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="confirm-modal" id="confirm-delete-modal">
+    <div class="confirm-content">
+        <h3>⚠️ Xác nhận Xóa</h3>
+        <p id="confirm-delete-message">Bạn có chắc chắn muốn xóa?</p>
+        <div class="confirm-buttons">
+            <button class="confirm-yes" id="confirm-delete-yes">Xóa</button>
+            <button class="confirm-no" id="confirm-delete-no">Hủy</button>
+        </div>
+    </div>
+</div>
+
+<!-- Teacher Monitor -->
+<div id="teacher-monitor">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h3 style="margin: 0; color: #1a237e;">📊 Bảng theo dõi học sinh - REAL TIME</h3>
+        <div>
+            <button id="monitor-create-session" style="background: #17a2b8; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-right: 10px;">
+                🆔 Tạo lớp
+            </button>
+            <button id="monitor-start-poll" style="background: #ffc107; color: black; border: none; padding: 8px 15px; border-radius: 5px; margin-right: 10px;">
+                🗳️ Poll
+            </button>
+            <button id="monitor-sync-slides" style="background: #6f42c1; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-right: 10px;">
+                🔄 Đồng bộ
+            </button>
+            <button id="closeMonitor" style="background: #ff4757; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600;">
+                ✕ Đóng
+            </button>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 20px; display: flex; gap: 30px; align-items: center;">
+        <div>
+            <strong>Mã lớp:</strong> <code id="monitor-session-code" style="background: #1a237e; color: white; padding: 5px 10px; border-radius: 5px;">Chưa có</code>
+        </div>
+        <div>
+            <strong>Học sinh online:</strong> <span id="live-student-count" style="font-size: 1.2em; font-weight: bold; color: #1a237e;">0</span>
+        </div>
+    </div>
+
+    <!-- Filter -->
+    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+        <input type="text" id="search-student" placeholder="🔍 Tìm theo tên học sinh..." style="padding: 12px; border: 2px solid #ddd; border-radius: 10px; flex: 1; font-size: 1rem;">
+        <select id="filter-status" style="padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem;">
+            <option value="all">Tất cả trạng thái</option>
+            <option value="active">Đang làm bài</option>
+            <option value="finished">Đã hoàn thành</option>
+            <option value="not-started">Chưa bắt đầu</option>
+        </select>
+    </div>
+
+    <!-- Results Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Học sinh</th>
+                    <th style="text-align: center;">Trạng thái</th>
+                    <th style="text-align: center;">Điểm số</th>
+                    <th style="text-align: center;">Thời gian làm</th>
+                    <th style="text-align: center;">Tiến độ</th>
+                    <th style="text-align: center;">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody id="student-results-body">
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">📊</div>
+                        Chưa có học sinh nào tham gia lớp học
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Statistics -->
+    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%); border-radius: 15px; border: 2px solid #e0e0e0;">
+        <h4 style="margin-top: 0; color: #1a237e; margin-bottom: 20px;">📈 Thống kê tổng quan lớp học</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #17a2b8;" id="stats-total">0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Tổng số HS</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #28a745;" id="stats-completed">0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Đã hoàn thành</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #ffc107;" id="stats-average">0.0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Điểm TB</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 2em; font-weight: bold; color: #dc3545;" id="stats-failed">0</div>
+                <div style="font-size: 0.9em; color: #6c757d; font-weight: 600;">Dưới 5 điểm</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Poll Results Area -->
+    <div id="poll-results-area" style="display: none; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+        <h4 id="poll-results-title" style="color: #1a237e; margin-bottom: 15px;">📊 Kết quả khảo sát</h4>
+        <canvas id="pollChartInMonitor" width="700" height="300"></canvas>
+        <div id="poll-stats-in-monitor" style="margin-top: 15px;"></div>
+    </div>
+</div>
+
+<!-- Poll Modal -->
+<div class="modal" id="poll-modal">
+    <div class="modal-content">
+        <button class="modal-close" id="poll-close-btn">×</button>
+        <h3 id="poll-title">🗳️ Khảo sát nhanh</h3>
+        <div id="poll-options"></div>
+        <div style="margin-top:20px; display:flex; justify-content:space-between;">
+            <button id="poll-submit-btn" style="background:linear-gradient(135deg, #28a745, #20c997); color:#fff; font-weight: 600;">✅ Gửi phản hồi</button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Modal -->
+<div class="modal" id="custom-class-modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" onclick="hideModal(this.closest('.modal'))">×</button>
+        <div id="custom-class-content"></div>
+    </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<!-- Main Application Logic -->
+<script src="js/main.js"></script>
+
+<!-- Mobile UI Enhancements -->
+<script src="ui-mobile.js"></script>
+
+<!-- Mobile Cache Fix -->
+<script>
+if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
+    const oldFetch = window.fetch;
+    window.fetch = function(url, opts) {
+        if (typeof url === 'string' && url.includes('exams.json')) {
+            const newUrl = url + (url.includes('?') ? '&' : '?') + 'mobile_fix=' + Date.now();
+            return oldFetch(newUrl, { cache: 'no-store', ...opts });
+        }
+        return oldFetch(url, opts);
+    };
+}
+</script></body>
+</html>

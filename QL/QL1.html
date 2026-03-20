@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Quản lý & Cấp mã học sinh (Firestore)</title>
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #fff;
+    margin: 0; padding: 0;
+  }
+  header {
+    background: rgba(0,0,0,0.4);
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 1.4em;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  main {
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.08);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+  h2 {
+    color: #38bdf8;
+    border-left: 4px solid #38bdf8;
+    padding-left: 8px;
+  }
+  textarea, input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+  textarea {
+    height: 80px;
+    resize: vertical;
+  }
+  button {
+    background: #38bdf8;
+    border: none;
+    padding: 10px 18px;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  button:hover { background: #0ea5e9; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  th, td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    text-align: left;
+  }
+  th {
+    background: rgba(255,255,255,0.1);
+  }
+  .danger {
+    background: #ef4444;
+  }
+  .danger:hover {
+    background: #dc2626;
+  }
+  .info-box {
+    background: rgba(255,255,255,0.06);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.95em;
+    line-height: 1.5em;
+  }
+  footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: rgba(255,255,255,0.6);
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>⚙️ Quản lý & Cấp mã học sinh (Firebase Firestore)</header>
+<main>
+  <h2>1️⃣ Nhập thông tin Firebase của bạn</h2>
+  <div class="info-box">
+    <p>👉 Đăng nhập <b>Firebase Console → Project → Cài đặt → General → Config</b> và dán vào đây:</p>
+  </div>
+  <input id="apiKey" placeholder="apiKey" />
+  <input id="authDomain" placeholder="authDomain" />
+  <input id="projectId" placeholder="projectId" />
+
+  <button id="connectBtn">🔗 Kết nối Firebase</button>
+
+  <div id="appSection" style="display:none;">
+    <h2>2️⃣ Cấp mã học sinh</h2>
+    <textarea id="codeInput" placeholder="Nhập 1 hoặc nhiều mã học sinh, cách nhau bằng dấu phẩy hoặc xuống dòng..."></textarea>
+    <input id="nameInput" placeholder="Tên học sinh (tùy chọn, sẽ áp dụng cho tất cả mã nhập)" />
+    <button id="addCodeBtn">➕ Thêm mã</button>
+
+    <h2>3️⃣ Danh sách mã hiện có</h2>
+    <div id="codeList"><em>Chưa kết nối...</em></div>
+  </div>
+
+  <h2>📘 Hướng dẫn quy trình chi tiết</h2>
+  <div class="info-box">
+    <ol>
+      <li>Vào <a href="https://console.firebase.google.com" target="_blank" style="color:#38bdf8;">Firebase Console</a>, tạo project (nếu chưa có).</li>
+      <li>Chọn menu <b>Firestore Database</b> → nhấn “Create database”.</li>
+      <li>Tạo collection <code>codes</code> (dùng để lưu mã học sinh).</li>
+      <li>Tạo collection <code>attempts</code> (dùng để lưu kết quả làm bài).</li>
+      <li>Vào tab <b>Rules</b> → Dán quy tắc sau và nhấn “Publish”:
+        <pre style="background:#0f172a;color:#38bdf8;padding:10px;border-radius:8px;">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /codes/{codeId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    match /attempts/{docId} {
+      allow read: if true;
+      allow write: if request.resource.data.code is string
+                   && exists(/databases/$(database)/documents/codes/$(request.resource.data.code));
+    }
+  }
+}
+        </pre>
+      </li>
+      <li>Sau khi đã nhập xong mã học sinh, bạn có thể sửa phần <code>allow write: if true</code> của <b>/codes</b> thành <code>false</code> để khóa danh sách mã.</li>
+    </ol>
+  </div>
+</main>
+
+<footer>© 2025 - Trang quản lý mã học sinh | Tích hợp Firebase Firestore</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { 
+  getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+let db = null;
+
+document.getElementById("connectBtn").addEventListener("click", () => {
+  const apiKey = document.getElementById("apiKey").value.trim();
+  const authDomain = document.getElementById("authDomain").value.trim();
+  const projectId = document.getElementById("projectId").value.trim();
+  if (!apiKey || !authDomain || !projectId) return alert("⚠️ Nhập đầy đủ thông tin Firebase!");
+
+  const firebaseConfig = { apiKey, authDomain, projectId };
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  document.getElementById("appSection").style.display = "block";
+  loadCodes();
+});
+
+// ===== THÊM MÃ HỌC SINH =====
+document.getElementById("addCodeBtn").addEventListener("click", async () => {
+  if (!db) return alert("⚠️ Kết nối Firebase trước đã!");
+  const codesText = document.getElementById("codeInput").value.trim();
+  if (!codesText) return alert("⚠️ Nhập ít nhất một mã!");
+  const lines = codesText.split(/\n|,/).map(s => s.trim()).filter(Boolean);
+  const name = document.getElementById("nameInput").value.trim() || null;
+
+  for (const c of lines) {
+    await addDoc(collection(db, "codes"), {
+      code: c,
+      name: name,
+      createdAt: serverTimestamp()
+    });
+  }
+
+  alert(`✅ Đã thêm ${lines.length} mã học sinh.`);
+  document.getElementById("codeInput").value = "";
+  document.getElementById("nameInput").value = "";
+  loadCodes();
+});
+
+// ===== HIỂN THỊ DANH SÁCH MÃ =====
+async function loadCodes() {
+  if (!db) return;
+  const listDiv = document.getElementById("codeList");
+  listDiv.innerHTML = "<em>Đang tải...</em>";
+  const snapshot = await getDocs(collection(db, "codes"));
+  let html = `<table><tr><th>Mã học sinh</th><th>Tên</th><th>Xóa</th></tr>`;
+  snapshot.forEach(docSnap => {
+    const d = docSnap.data();
+    html += `<tr>
+      <td>${d.code}</td>
+      <td>${d.name || ""}</td>
+      <td><button class="danger" onclick="deleteCode('${docSnap.id}')">❌</button></td>
+    </tr>`;
+  });
+  html += "</table>";
+  listDiv.innerHTML = html;
+}
+
+// ===== XOÁ MÃ =====
+window.deleteCode = async function(id) {
+  if (!confirm("Bạn có chắc muốn xóa mã này không?")) return;
+  await deleteDoc(doc(db, "codes", id));
+  loadCodes();
+};
+</script>
+
+</body>
+</html>
