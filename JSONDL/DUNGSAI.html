@@ -31,9 +31,10 @@
 }
 
 :root {
-    --primary: #1a237e;
-    --primary-light: #5c6bc0;
-    --primary-dark: #0d1757;
+    --primary: #1a5e1a;
+    --primary-light: #4caf4c;
+    --primary-dark: #0d3f0d;
+    --secondary: #ff8f00;
     --success: #2e7d32;
     --success-light: #e8f5e9;
     --danger: #c62828;
@@ -46,7 +47,6 @@
     --gray-200: #e9ecef;
     --gray-300: #dee2e6;
     --gray-400: #ced4da;
-    --gray-500: #adb5bd;
     --text-primary: #212121;
     --text-secondary: #757575;
     --border-radius: 12px;
@@ -60,7 +60,7 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    padding-top: 60px; /* Giảm từ 80px xuống 60px */
+    padding-top: 80px; /* Đảm bảo padding-top là 80px giống TLN */
 }
 
 /* ===== TOPBAR ===== */
@@ -69,15 +69,16 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px; /* Giảm từ 80px xuống 60px */
+    height: 80px; /* Tăng từ 60px lên 80px */
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px; /* Giảm padding */
+    padding: 0 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    gap: 8px;
 }
 
 .brand {
@@ -509,17 +510,17 @@ body {
 }
 
 .tf-container-compact {
-    display: flex;
-    padding: 12px;
-    gap: 15px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Chia 2 cột đều nhau */
+    gap: 10px;
+    padding: 15px;
 }
 
 .tf-item {
     display: flex;
+    flex-direction: column; /* Chữ a, b, c, d nằm trên cặp nút Đ/S */
     align-items: center;
-    gap: 6px;
-    min-width: 90px;
+    gap: 5px;
 }
 
 .tf-label {
@@ -817,63 +818,18 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    body { padding-top: 55px; }
-    
-    .topbar { 
-        padding: 0 10px; 
-        height: 55px; 
+    body { padding-top: 130px; } /* Đẩy nội dung xuống để Topbar không che mất */
+    .topbar {
+        height: auto;
+        min-height: 80px;
+        flex-wrap: wrap;
+        padding: 10px 12px;
+        gap: 8px;
     }
-    
-    .brand { 
-        font-size: 1rem; 
-    }
-    
-    .brand span {
-        display: none; /* Ẩn phần phụ của logo */
-    }
-    
-    .btn-text { 
-        display: none; /* Ẩn chữ trong nút */
-    }
-    
-    .topbar select { 
-        min-width: 100px; 
-        max-width: 140px;
-        font-size: 0.8rem;
-    }
-    
-    .topbar button {
-        padding: 0 10px;
-    }
-    
-    .hero-title { 
-        font-size: 1.6rem; 
-    }
-    
-    .hero-section { 
-        padding: 25px 20px; 
-    }
-    
-    .stats-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-    }
-    
-    .tf-container-compact { 
-        flex-direction: column; 
-        gap: 8px; 
-    }
-    
-    .tf-item { 
-        min-width: auto; 
-    }
-    
-    .tf-buttons { 
-        flex: 1; 
-    }
-    
-    .scoreboard-grid { 
-        grid-template-columns: 1fr; 
-    }
+    .brand { width: 100%; justify-content: center; text-align: center; }
+    .controls-area { width: 100%; flex-wrap: nowrap; justify-content: space-between; }
+    .controls-area select { flex: 1 1 45%; min-width: 0; font-size: 0.8rem; }
+    #loginBtn .btn-label, #scoreBtn .btn-label { display: none; } /* Ẩn chữ, chỉ hiện Icon trên điện thoại */
 }
 
 @media (max-width: 480px) {
