@@ -498,8 +498,78 @@
         margin-right: 8px;
         font-size: 1.1em;
     }
+/* =========================================
+   GIAO DIỆN DASHBOARD Ở GIỮA TRANG
+   ========================================= */
+.dashboard-card {
+    background: white; padding: 25px; border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 25px;
+    border-top: 5px solid var(--primary);
+    transition: transform 0.3s;
+}
+.dashboard-card:hover { transform: translateY(-5px); }
 
+.dashboard-select {
+    width: 100%; height: 45px; padding: 0 15px; font-size: 15px;
+    border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 15px;
+    font-weight: 600; color: #333; outline: none; transition: 0.3s;
+}
+.dashboard-select:focus { border-color: var(--primary); }
+
+.dashboard-search {
+    display: flex; width: 100%; border: 2px solid #ffca28; border-radius: 30px;
+    overflow: hidden; background: white;
+}
+.dashboard-search input {
+    flex: 1; border: none; padding: 12px 20px; outline: none; font-size: 15px;
+}
+.dashboard-search button {
+    background: #ffca28; border: none; padding: 0 25px; cursor: pointer;
+    font-weight: bold; font-size: 15px; transition: 0.2s;
+}
+.dashboard-search button:hover { background: #ffb300; }
+
+/* =========================================
+   KHÓA LỜI GIẢI KHI ĐANG LÀM BÀI (MẠNH NHẤT)
+   ========================================= */
+/* 1. Mặc định ẨN HOÀN TOÀN nút xem giải và khung lời giải */
+.secure-solution-container { 
+    display: none !important; 
+}
+
+/* 2. CHỈ HIỆN LÊN khi: Giáo viên xem HOẶC Học sinh đã nộp bài xong */
+body.exam-submitted .secure-solution-container,
+body.teacher-role .secure-solution-container {
+    display: block !important;
+    margin-top: 15px;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(-10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+/* =========================================
+   HIỆN RÕ CHỮ "NỘP BÀI" TRÊN ĐIỆN THOẠI
+   ========================================= */
+@media (max-width: 768px) {
+    /* Ép hiển thị chữ của nút Nộp Bài */
+    #scoreBtn .btn-text {
+        display: inline !important; 
+        margin-left: 5px;
+        font-weight: bold;
+    }
+    
+    /* Mở rộng nút Nộp Bài ra cho cân đối và đẹp mắt */
+    #scoreBtn {
+        padding: 0 16px !important;
+        font-size: 14px !important;
+        border-radius: 20px !important;
+        box-shadow: 0 2px 8px rgba(0, 200, 83, 0.4); /* Thêm viền sáng xanh lá cho nổi bật */
+    }
+}
 </style>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Hệ thống dạy học Toán trực tuyến đầy đủ tính năng - Lớp Toán Thầy Bình">
 <meta name="keywords" content="toán, học trực tuyến, lớp 12, ôn thi, firebase, real-time, canvas, bảng vẽ">
@@ -539,41 +609,23 @@
 
 <body class="not-logged-in">
 <div class="topbar">
-    
-    <div class="brand">🚀 <span>MATH HUB</span></div>
+    <div class="brand" style="cursor: pointer;" onclick="showWelcomeScreen()">🚀 <span>MATH HUB</span></div>
    
     <div class="controls-area">
-        <div id="student-search-box" class="search-box">
-            <input type="text" id="lookupIdInput" placeholder="Nhập mã câu hỏi (VD: Q1)...">
-            <button onclick="lookupQuestion()" title="Tìm kiếm">🔍</button>
-        </div>
-
-        <div class="filter-container">
-            <select id="filterGroup" onchange="filterExamList()">
-                <option value="">📚 Chọn nhóm đề thi</option>
-            </select>
-            
-            <select id="selectExam" onchange="handleExamSelection()">
-                <option value="">-- Vui lòng chọn nhóm trước --</option>
-            </select>
-        </div>
-
+        <!-- Chỉ giữ lại các nút, mặc định ẩn nút Nộp bài và Menu -->
         <button id="loginBtn">
             🔑 <span class="btn-text">Đăng nhập</span>
         </button>
 
-        <button id="scoreBtn">
+        <button id="scoreBtn" style="display: none;">
             📊 <span class="btn-text">Nộp bài</span>
         </button>
 
-        <button id="slideMenuBtn" title="Menu">☰</button>
+        <button id="slideMenuBtn" title="Menu" style="display: none;">☰</button>
         <button id="fullscreenBtn" title="Toàn màn hình">📺</button>
     </div>
 </div>
-<!-- Scroll Progress Bar -->
-<div class="scroll-progress">
-    <div class="scroll-progress-bar" id="scrollProgress"></div>
-</div>
+
 
 <!-- Firebase Status -->
 <div id="firebaseStatus" class="firebase-status firebase-disconnected">
@@ -739,13 +791,15 @@ let autoScoreData = {
 };
 
 // ===== INITIALIZATION (ĐÃ RÚT GỌN) =====
+// ===== INITIALIZATION (ĐÃ SỬA LỖI NÚT NỘP BÀI) =====
 document.addEventListener('DOMContentLoaded', function() {
     console.log("🚀 Hệ thống Lớp Toán Thầy Bình khởi động (Chế độ thi)...");
 
     if (initializeFirebase()) {
         loadExamList();
-        // Nếu là giáo viên, khởi tạo tìm kiếm nâng cao
+        
         if (isTeacherLoggedIn) setTimeout(initAdvancedSearch, 1000);
+        
         setupModalSystem();
         setupAuthentication();
         setupSessionManagement();
@@ -755,17 +809,20 @@ document.addEventListener('DOMContentLoaded', function() {
         setupSlideMenu();
         setupFullscreen();
 
-        // Xử lý chọn đề
-        document.getElementById('selectExam').addEventListener('change', handleExamSelection);
+        // ❌ ĐÃ XÓA DÒNG GÂY LỖI SELECT-EXAM Ở ĐÂY VÌ GIAO DIỆN ĐÃ CHUYỂN VÀO DASHBOARD
 
-        // Xử lý nút nộp bài
-        document.getElementById('scoreBtn').addEventListener('click', function() {
-            window.isScoreCalculated = false;
-            window.calculateFinalScore();
-        });
+        // ✅ GÁN SỰ KIỆN NÚT NỘP BÀI MỘT CÁCH AN TOÀN
+        const scoreBtn = document.getElementById('scoreBtn');
+        if (scoreBtn) {
+            scoreBtn.addEventListener('click', function() {
+                console.log("Đã bấm nút nộp bài!"); // Log để kiểm tra
+                window.isScoreCalculated = false;
+                window.calculateFinalScore();
+            });
+        }
 
         showWelcomeScreen();
-        showNotification('✅ Hệ thống đã sẵn sàng! Mời đăng nhập và làm bài.', 'info');
+        showNotification('✅ Hệ thống đã sẵn sàng! Mời đăng nhập.', 'info');
     } else {
         showNotification('❌ Lỗi kết nối Firebase.', 'error');
     }
@@ -938,6 +995,13 @@ async function handleExamSelection() {
         }
 
         renderContent(currentQuestions);
+
+        // --- CODE MỚI: BẬT CHẾ ĐỘ THI VÀ HIỆN NÚT TOPBAR ---
+        document.body.classList.add('exam-mode');
+        document.getElementById('scoreBtn').style.display = 'flex';
+        document.getElementById('slideMenuBtn').style.display = 'flex';
+        // ---------------------------------------------------
+
         showNotification(`✅ Đã sẵn sàng!`, 'success');
     } catch (err) {
         showNotification('❌ Lỗi nạp dữ liệu: ' + err.message, 'error');
@@ -1053,9 +1117,13 @@ function suggestPopularGroup() {
     if (month >= 9 && month <= 12) suggestedGroup = "Lớp 12";
     else if (month >= 1 && month <= 5) suggestedGroup = "Luyện Thi THPT";
     else if (month >= 6 && month <= 8) suggestedGroup = "Đánh Giá Năng Lực";
+    
     if (suggestedGroup) {
         setTimeout(() => {
             const groupSelect = document.getElementById('filterGroup');
+            // Thêm dòng kiểm tra null này
+            if (!groupSelect) return; 
+            
             const option = Array.from(groupSelect.options).find(opt => opt.text.includes(suggestedGroup));
             if (option) showNotification(`💡 Gợi ý: Thử nhóm "${suggestedGroup}" phù hợp với thời điểm hiện tại`, 'info', 8000);
         }, 3000);
@@ -1157,65 +1225,81 @@ function showWelcomeScreen() {
     const slidesContainer = document.getElementById('slides-container');
     if (!slidesContainer) return;
     
+    // Ẩn nút Nộp bài và Menu trên Topbar khi quay về màn hình chính
+    document.getElementById('scoreBtn').style.display = 'none';
+    document.getElementById('slideMenuBtn').style.display = 'none';
+    
+    // Xóa trạng thái làm bài (nếu có)
+    document.body.classList.remove('exam-mode');
+    document.body.classList.remove('exam-submitted');
+
     const isLoggedIn = currentUser !== null;
     const welcomeName = isLoggedIn ? currentUser.name : "Bạn";
 
-    slidesContainer.innerHTML = `
+    let html = `
         <section class="slide-section active-section" id="section-0" style="padding: 40px 20px; background: #fff; min-height: 80vh;">
-            <div style="text-align: center; margin-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
                 <h1 style="color: #1a237e; font-size: 2.5em; margin-bottom: 10px; border:none;">Chào mừng ${welcomeName} đến với MATH HUB!</h1>
-                <p style="color: #666; font-size: 1.2em;">Nền tảng luyện toán thông minh - Học sâu, hiểu thấu, thi cao.</p>
-                <hr style="width: 100px; border: 2px solid #ffca28; margin: 20px auto;">
-            </div>
+                <p style="color: #666; font-size: 1.1em;">Nền tảng luyện toán thông minh - Học sâu, hiểu thấu, thi cao.</p>
+            </div>`;
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto;">
+    if (isLoggedIn) {
+        // --- GIAO DIỆN SAU KHI ĐĂNG NHẬP (DASHBOARD) ---
+        html += `
+            <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 
-                <div style="background: #f8f9ff; padding: 30px; border-radius: 20px; border: 1px solid #e3f2fd; transition: 0.3s; text-align: center;">
-                    <div style="font-size: 3em; margin-bottom: 15px;">📝</div>
-                    <h3 style="color: #1a237e;">LUYỆN ĐỀ TỰ DO</h3>
-                    <p style="color: #555;">Hệ thống đề đa dạng (15, 22, 50 câu). Có báo đúng/sai và xem lời giải chi tiết ngay lập tức.</p>
-                    <span style="font-size: 0.8em; color: #1a237e; font-weight: bold;">(Yêu cầu Đăng nhập để xem giải)</span>
+                <!-- Bảng chọn Đề thi -->
+                <div class="dashboard-card">
+                    <h3 style="color: var(--primary); margin-top:0; display:flex; align-items:center; gap:10px;">
+                        📚 Chọn Chuyên Đề / Đề Thi
+                    </h3>
+                    <p style="font-size: 0.9em; color:#666; margin-bottom: 20px;">Hãy chọn nhóm bài và đề thi để bắt đầu làm bài. Lời giải sẽ mở sau khi bạn Nộp bài.</p>
+                    
+                    <select id="filterGroup" class="dashboard-select" onchange="filterExamList()">
+                        <option value="">📚 Trình tự 1: Chọn nhóm chuyên đề</option>
+                    </select>
+                    
+                    <select id="selectExam" class="dashboard-select" onchange="handleExamSelection()">
+                        <option value="">-- Trình tự 2: Chọn đề thi --</option>
+                    </select>
                 </div>
 
-                <div style="background: #fff8e1; padding: 30px; border-radius: 20px; border: 1px solid #ffe0b2; transition: 0.3s; text-align: center;">
-                    <div style="font-size: 3em; margin-bottom: 15px;">⏱️</div>
-                    <h3 style="color: #f57c00;">KIỂM TRA ĐỊNH KỲ</h3>
-                    <p style="color: #555;">Chế độ thi nghiêm túc, tính giờ và tự động lưu điểm số lên hệ thống để thầy theo dõi tiến độ.</p>
-                    <span style="font-size: 0.8em; color: #f57c00; font-weight: bold;">(Dành cho học sinh chính thức)</span>
+                <!-- Bảng tra cứu ID -->
+                <div class="dashboard-card" style="border-top-color: #ffca28;">
+                    <h3 style="color: #f57f17; margin-top:0; display:flex; align-items:center; gap:10px;">
+                        🔍 Tra cứu nhanh ID
+                    </h3>
+                    <p style="font-size: 0.9em; color:#666; margin-bottom: 20px;">Gặp câu khó trên lớp? Nhập mã ID (VD: Q102) để xem ngay đáp án và hướng dẫn giải.</p>
+                    
+                    <div class="dashboard-search">
+                        <input type="text" id="lookupIdInput" placeholder="Nhập mã câu hỏi..." onkeypress="if(event.key === 'Enter') lookupQuestion()">
+                        <button onclick="lookupQuestion()">Tìm Kiếm</button>
+                    </div>
                 </div>
 
-                <div style="background: #e8f5e9; padding: 30px; border-radius: 20px; border: 1px solid #c8e6c9; transition: 0.3s; text-align: center;">
-                    <div style="font-size: 3em; margin-bottom: 15px;">📚</div>
-                    <h3 style="color: #2e7d32;">KHO LÝ THUYẾT</h3>
-                    <p style="color: #555;">Tra cứu công thức, phương pháp giải toán theo chuyên đề với ví dụ minh họa sinh động.</p>
-                    <span style="font-size: 0.8em; color: #2e7d32; font-weight: bold;">(Công khai toàn bộ)</span>
-                </div>
+            </div>`;
+    } else {
+        // --- GIAO DIỆN TRƯỚC KHI ĐĂNG NHẬP ---
+        html += `
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2941/2941658.png" style="width: 150px; margin-bottom: 20px; opacity: 0.8;">
+                <h2 style="color: #333; border:none;">Vui lòng đăng nhập để sử dụng hệ thống</h2>
+                <p style="color: #666; margin-bottom: 30px;">Hệ thống yêu cầu đăng nhập để lưu trữ kết quả học tập và hiển thị ma trận đề thi dành riêng cho bạn.</p>
+                <button onclick="showModal('login-modal')" style="background: var(--primary); color: white; border: none; padding: 15px 40px; font-size: 1.2em; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(26,35,126,0.3);">
+                    🔑 Bắt đầu Đăng nhập
+                </button>
+            </div>`;
+    }
 
-                <div style="background: #f3e5f5; padding: 30px; border-radius: 20px; border: 1px solid #e1bee7; transition: 0.3s; text-align: center;">
-                    <div style="font-size: 3em; margin-bottom: 15px;">🔍</div>
-                    <h3 style="color: #7b1fa2;">TRA CỨU ID CÂU HỎI</h3>
-                    <p style="color: #555;">Khi đăng nhập bạn gặp câu hỏi khó trên lớp? Chỉ cần nhập mã ID (ví dụ: Q102) để tìm ngay lời giải.</p>
-                    <span style="font-size: 0.8em; color: #7b1fa2; font-weight: bold;">(Sử dụng ô tìm kiếm trên Topbar)</span>
-                </div>
-            </div>
+    html += `</section>`;
+    slidesContainer.innerHTML = html;
 
-            <div style="margin-top: 60px; padding: 40px; background: #1a237e; color: white; border-radius: 30px; text-align: center; box-shadow: 0 10px 30px rgba(26,35,126,0.3);">
-                <h2 style="color: white; border:none; margin-bottom:15px;">Bạn muốn tham gia cộng đồng MATH HUB</h2>
-                <p style="font-size: 1.1em; opacity: 0.9; margin-bottom: 25px;">
-                    Để được cấp tài khoản luyện đề có lưu kết quả và xem kho lời giải chi tiết (PDF/Drive), vui lòng liên hệ trực tiếp:
-                </p>
-                <div style="display: inline-block; background: #ffca28; color: #1a237e; padding: 15px 40px; border-radius: 50px; font-weight: 800; font-size: 1.3em;">
-                    📞 Thầy Nguyễn Thanh Bình: 0822 351 447
-                </div>
-                <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.7;">
-                    (Hãy đăng nhập ngay nếu bạn đã có tài khoản để kích hoạt đầy đủ tính năng)
-                </p>
-            </div>
-        </section>
-    `;
-    
-    if (typeof createSlideList === 'function') setTimeout(createSlideList, 100);
+    // Nếu đã đăng nhập, tự động load lại danh sách Nhóm (vì dropdown mới được tạo lại)
+    if (isLoggedIn) {
+        populateGroupFilter();
+    }
 }
+
 function resetToWelcomeScreen() {
     const slidesContainer = document.getElementById('slides-container');
     slidesContainer.innerHTML = `
@@ -1615,10 +1699,8 @@ function renderTrueFalseQuestion(item) {
         questionImagesHtml = `<img src="${item.image}" style="max-width: 100%; margin: 15px 0; border-radius: 10px;" onerror="this.style.display='none'">`;
     }
 
-    // --- 3. ĐOẠN SỬA QUAN TRỌNG NHẤT: Tự động nhận diện cả statements lẫn options ---
-    // Lấy dữ liệu từ statements hoặc options
-    let rawData = item.statements || item.options || [];
-    // Chuyển đổi về mảng nếu dữ liệu đang là Đối tượng {A:..., B:...}
+    // 3. Tự động nhận diện mệnh đề
+    let rawData = item.statements || item.options ||[];
     const sentences = Array.isArray(rawData) ? rawData : Object.values(rawData);
 
     let statementsHtml = '';
@@ -1648,14 +1730,16 @@ function renderTrueFalseQuestion(item) {
             </div>`;
     });
 
-    // 4. Xử lý lời giải và đáp án
+    // 4. Lời giải được đưa vào Cụm Bảo Mật (secure-solution-container)
     let solutionHtml = item.solution ? `
-        <button onclick="toggleSolution('${item.id}')" class="btn-sol">👁️ Xem giải chi tiết</button>
-        <div id="solution-${item.id}" class="solution-box" style="display: none; margin-top: 10px; padding: 10px; background: #f8f9fa; border-left: 4px solid #17a2b8;">
-            ${processContent(item.solution)}
+        <div class="secure-solution-container">
+            <button onclick="toggleSolution('${item.id}')" class="btn-sol" style="margin-top: 15px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">👁️ Xem giải chi tiết</button>
+            <div id="solution-${item.id}" class="solution-box" style="display: none; margin-top: 10px; padding: 10px; background: #f8f9fa; border-left: 4px solid #17a2b8;">
+                ${processContent(item.solution)}
+            </div>
         </div>` : '';
 
-    const answersArray = JSON.stringify(item.answers || item.correct || []);
+    const answersArray = JSON.stringify(item.answers || item.correct ||[]);
 
     return `
         <div class="question" id="${item.id}" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
@@ -1686,33 +1770,18 @@ function renderShortAnswerQuestion(item) {
     const levelInfo = levelMap[item.level] || { class: 'nb', text: 'NB' };
     const chapterBadge = item.chapter ? `<span class="chapter-badge">${item.chapter}</span>` : '';
     
-    // 2. XỬ LÝ ẢNH (Tách logic ra ngoài để an toàn hơn)
+    // 2. Xử lý ảnh
     let imagesHtml = '';
-
-    // Ưu tiên 1: JSON mới (mảng images)
     if (item.images && Array.isArray(item.images) && item.images.length > 0) {
         imagesHtml = `
             <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0;">
-                ${item.images.map(src => 
-                    `<img src="${src}" 
-                          style="max-width: 48%; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" 
-                          onerror="this.style.display='none'" 
-                          alt="Hình ảnh câu hỏi">`
-                ).join('')}
+                ${item.images.map(src => `<img src="${src}" style="max-width: 48%; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" onerror="this.style.display='none'">`).join('')}
             </div>`;
-    } 
-    // Ưu tiên 2: JSON cũ (string image) - Tương thích ngược
-    else if (item.image) {
-        imagesHtml = `
-            <div style="text-align: center; margin: 15px 0;">
-                <img src="${item.image}" 
-                     style="max-width: 100%; border-radius: 10px; border: 1px solid #ddd;" 
-                     onerror="this.style.display='none'" 
-                     alt="Hình ảnh câu hỏi">
-            </div>`;
+    } else if (item.image) {
+        imagesHtml = `<div style="text-align: center; margin: 15px 0;"><img src="${item.image}" style="max-width: 100%; border-radius: 10px; border: 1px solid #ddd;" onerror="this.style.display='none'"></div>`;
     }
 
-    // 3. Render HTML
+    // 3. Render HTML với lời giải được bọc bảo mật
     return `
         <div class="question" id="${item.id}" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
             <div class="question-header" style="margin-bottom: 10px;">
@@ -1725,16 +1794,12 @@ function renderShortAnswerQuestion(item) {
                 ${processContent(item.text)}
             </div>
 
-            ${imagesHtml} <div class="answer-check" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+            ${imagesHtml} 
+            
+            <div class="answer-check" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
                 <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                    <input id="input-${item.id}" 
-                           placeholder="${item.placeholder || 'Nhập đáp án (VD: 5.5)'}" 
-                           type="text"
-                           style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em;"
-                           onchange="handleAutoScore('${item.id}', 'short_answer', '${item.answer || ''}', this.value)"/>
-                    
-                    <button onclick="checkShortAnswer('${item.id}', '${item.answer || ''}')"
-                            style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                    <input id="input-${item.id}" placeholder="${item.placeholder || 'Nhập đáp án (VD: 5.5)'}" type="text" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em;" onchange="handleAutoScore('${item.id}', 'short_answer', '${item.answer || ''}', this.value)"/>
+                    <button onclick="checkShortAnswer('${item.id}', '${item.answer || ''}')" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
                         ✅ Kiểm tra
                     </button>
                 </div>
@@ -1744,13 +1809,14 @@ function renderShortAnswerQuestion(item) {
             <div id="result-${item.id}"></div>
 
             ${item.solution ? `
-                <button onclick="toggleSolution('${item.id}')" 
-                        style="margin-top: 15px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                    👁️ Xem lời giải chi tiết
-                </button>
-                <div id="solution-${item.id}" class="solution-box" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-left: 4px solid #17a2b8; border-radius: 4px;">
-                    <div class="solution-title" style="font-weight: bold; color: #006064; margin-bottom: 8px;">Hướng dẫn giải:</div>
-                    <div class="solution-content">${processContent(item.solution)}</div>
+                <div class="secure-solution-container">
+                    <button onclick="toggleSolution('${item.id}')" style="margin-top: 15px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                        👁️ Xem lời giải chi tiết
+                    </button>
+                    <div id="solution-${item.id}" class="solution-box" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-left: 4px solid #17a2b8; border-radius: 4px;">
+                        <div class="solution-title" style="font-weight: bold; color: #006064; margin-bottom: 8px;">Hướng dẫn giải:</div>
+                        <div class="solution-content">${processContent(item.solution)}</div>
+                    </div>
                 </div>
             ` : ''}
         </div>
@@ -2743,9 +2809,8 @@ function updateUIAfterLogin() {
     hideModal(document.getElementById('login-modal'));
 
     const loginBtn = document.getElementById('loginBtn');
-    const searchBox = document.getElementById('student-search-box');
 
-    // Logic hiển thị nút đăng nhập & ô tìm kiếm
+    // Logic hiển thị nút đăng nhập
     if (loginBtn) {
         if (isTeacherLoggedIn) {
             loginBtn.innerHTML = '👨‍🏫 ' + currentUser.name;
@@ -2755,8 +2820,8 @@ function updateUIAfterLogin() {
         }
     }
 
-    // Hiện ô tra cứu sau khi đăng nhập (cho cả GV và HS)
-    if(searchBox) searchBox.style.display = 'flex';
+    // Load lại màn hình chính để hiển thị Dashboard chọn đề/tra cứu sau khi đăng nhập
+    showWelcomeScreen();
 }
 
 // ===== SESSION MANAGEMENT =====
@@ -3853,7 +3918,7 @@ window.calculateFinalScore = async function() {
         // Lấy đáp án đúng từ dữ liệu đề
         if (q.type === 'multiple_choice') correctAnswers[q.id] = q.correct || '';
         else if (q.type === 'short_answer') correctAnswers[q.id] = q.answer || '';
-        else if (q.type === 'true_false') correctAnswers[q.id] = q.answers || [];
+        else if (q.type === 'true_false') correctAnswers[q.id] = q.answers ||[];
 
         // Lấy đáp án học sinh đã chọn trên giao diện
         let userAnswer = null;
@@ -3864,7 +3929,7 @@ window.calculateFinalScore = async function() {
             const input = document.getElementById(`input-${q.id}`);
             userAnswer = input ? input.value.trim() : null;
         } else if (q.type === 'true_false') {
-            userAnswer = [null, null, null, null];
+            userAnswer =[null, null, null, null];
             ['a', 'b', 'c', 'd'].forEach((char, idx) => {
                 const selected = document.querySelector(`input[name="${q.id}_${char}"]:checked`);
                 if (selected) userAnswer[idx] = (selected.value === 'true');
@@ -3908,13 +3973,15 @@ window.calculateFinalScore = async function() {
     console.log(`📊 Kết quả: ${totalAnswered}/${realTotalQuestions} câu - Điểm: ${totalScore}`);
 
     // 4. LƯU VÀ HIỂN THỊ
-    // Sử dụng hàm saveAttempt (Hàm số 2 - Lưu đầy đủ thông tin)
+    // Sử dụng hàm saveAttempt
     await window.saveAttempt(currentExam.id, studentAnswers, correctAnswers, totalScore);
+
+    // --- CODE MỚI: MỞ KHÓA LỜI GIẢI KHI ĐÃ NỘP BÀI ---
+    document.body.classList.add('exam-submitted');
 
     // Hiện bảng điểm với thông số đã được lọc sạch
     showFinalScoreResult(totalScore, totalAnswered, realTotalQuestions);
 };
-// GIỮ LẠI 1 PHIÊN BẢN DUY NHẤT cho mỗi hàm
 
 // ===== SCROLL TO QUESTION (CHỈ GIỮ 1 PHIÊN BẢN) =====
 function scrollToQuestion(qId) {
@@ -3940,12 +4007,14 @@ function scrollToQuestion(qId) {
 /* =======================================================
    HỆ THỐNG HIỂN THỊ BẢNG ĐIỂM VÀ THÔNG BÁO LỜI GIẢI CHUNG
    ======================================================= */
-
+/* =======================================================
+   HỆ THỐNG HIỂN THỊ BẢNG ĐIỂM VÀ TẢI PDF
+   ======================================================= */
 function showFinalScoreResult(score, answered, total) {
     const old = document.getElementById('score-result-final');
     if (old) old.remove();
 
-    // 1. TÌM LINK LỜI GIẢI TỔNG TỪ ID 0
+    // 1. TÌM LINK LỜI GIẢI TỔNG TỪ ID 0 (Nếu có)
     const key0 = currentQuestions.find(q => String(q.id) === "0");
     const globalSolutionHtml = (key0 && key0.solution) 
         ? `<div style="margin-bottom:20px; padding:15px; background:#fff3cd; border-radius:10px; border:2px solid #ffeeba; text-align:center;">
@@ -3959,7 +4028,7 @@ function showFinalScoreResult(score, answered, total) {
     let displayIdx = 1; 
 
     currentQuestions.forEach((q) => {
-        if (String(q.id) === "0") return; // Bỏ qua không vẽ ô cho ID 0
+        if (String(q.id) === "0") return; // Bỏ qua không vẽ ô cho thông báo chung
 
         const qId = q.id;
         const userAns = window.studentAnswers ? window.studentAnswers[qId] : null;
@@ -3969,10 +4038,13 @@ function showFinalScoreResult(score, answered, total) {
         let maxPoint = q.type === 'short_answer' ? 0.5 : (q.type === 'true_false' ? 1.0 : 0.25);
         let colorClass = point === 0 ? 'sc-zero' : (point === maxPoint ? 'sc-max' : 'sc-part');
 
+        // Tạo màu số điểm cho nổi bật (Đỏ: 0, Xanh: tối đa, Vàng: điểm thành phần)
+        let pointColor = point === 0 ? '#dc3545' : (point === maxPoint ? '#28a745' : '#d39e00');
+
         gridHtml += `
-            <div class="score-card ${colorClass}" onclick="scrollToQuestion('${qId}')" style="cursor:pointer; padding:10px; border-radius:8px; text-align:center;">
+            <div class="score-card ${colorClass}" onclick="scrollToQuestion('${qId}')" style="cursor:pointer; padding:10px; border-radius:8px; text-align:center; border: 1px solid #ddd;">
                 <div class="sc-idx" style="font-size:12px; color:#666;">Câu ${displayIdx}</div>
-                <div class="sc-point" style="font-weight:bold; font-size:1.1em;">${point > 0 ? point : 0}</div>
+                <div class="sc-point" style="font-weight:bold; font-size:1.1em; color: ${pointColor};">${point > 0 ? point : 0}</div>
             </div>`;
         displayIdx++;
     });
@@ -3981,34 +4053,67 @@ function showFinalScoreResult(score, answered, total) {
     // 3. TẠO GIAO DIỆN MODAL
     const modal = document.createElement('div');
     modal.id = 'score-result-final';
+    
+    // Đổi màu header dựa theo điểm (Xanh >= 8, Vàng >= 5, Đỏ < 5)
     let headerColor = score >= 8 ? '#28a745' : (score >= 5 ? '#ffc107' : '#dc3545');
 
     modal.innerHTML = `
         <div class="sr-header" style="background:${headerColor}; color:white; padding:18px; text-align:center; font-weight:bold; font-size:1.4em; border-radius:15px 15px 0 0;">
             KẾT QUẢ: ${score.toFixed(2)} ĐIỂM
         </div>
-<div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:15px; font-size:0.95em; line-height:1.5; color:#333; text-align:left;">
-            <div style="display:flex; justify-content:space-between;"><b>👤 Học sinh:</b> <span>${(typeof currentUser !== 'undefined' && currentUser) ? currentUser.name : 'Thí sinh'}</span></div>
-            <div style="display:flex; justify-content:space-between;"><b>🆔 Mã số:</b> <span>${(typeof currentUser !== 'undefined' && currentUser) ? currentUser.code : 'N/A'}</span></div>
-            <div style="display:flex; justify-content:space-between;"><b>📝 Đề thi:</b> <span>${(typeof currentExam !== 'undefined' && currentExam) ? currentExam.name : 'Đề thi'}</span></div>
-            <div style="display:flex; justify-content:space-between;"><b>⏰ Lúc:</b> <span>${new Date().toLocaleString('vi-VN')}</span></div>
+        
+        <div class="sr-body" style="padding:20px; background:white; overflow-y:auto; flex: 1;">
+            
+            <!-- Khung thông tin chi tiết -->
+            <div style="background:#f8fafc; padding:15px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:20px; font-size:0.95em; line-height:1.6; color:#333; text-align:left;">
+                <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; margin-bottom: 5px;">
+                    <b>👤 Học sinh:</b> <span>${(typeof currentUser !== 'undefined' && currentUser) ? currentUser.name : 'Thí sinh'}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; margin-bottom: 5px;">
+                    <b>🆔 Mã số:</b> <span>${(typeof currentUser !== 'undefined' && currentUser) ? currentUser.code : 'N/A'}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; margin-bottom: 5px;">
+                    <b>📝 Đề thi:</b> <span>${(typeof currentExam !== 'undefined' && currentExam) ? currentExam.name : 'Đề thi'}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <b>⏰ Lúc:</b> <span>${new Date().toLocaleString('vi-VN')}</span>
+                </div>
+            </div>
+            
+            ${globalSolutionHtml}
+            
+            <div style="text-align:center; margin-bottom:15px; color:#666; font-style:italic; font-size: 0.9em;">
+                (Bấm vào ô điểm để xem lại chi tiết bài làm)
+            </div>
+            <div style="text-align:center; margin-bottom:15px; font-size: 1.05em;">
+                Đã làm: <b style="color:var(--primary);">${answered}/${total}</b> câu
+            </div>
+            
+            <!-- In lưới điểm -->
+            ${gridHtml}
             
         </div>
-        <div class="sr-body" style="padding:20px; background:white; max-height:75vh; overflow-y:auto;">
-            ${globalSolutionHtml}
-            <div style="text-align:center; margin-bottom:15px; color:#666; font-style:italic;">(Bấm vào ô điểm để xem lại bài làm)</div>
-            <div style="text-align:center; margin-bottom:15px;">Đã làm: <b>${answered}/${total}</b> câu</div>
-            ${gridHtml}
-        </div>
-        <div style="padding:15px; text-align:center; background:#f1f1f1; border-top:1px solid #ddd; border-radius: 0 0 15px 15px;">
+        
+        <!-- Khung chứa các nút bấm (Thêm class sr-footer) -->
+        <div class="sr-footer" style="padding:15px; text-align:center; background:#f1f1f1; border-top:1px solid #ddd; border-radius: 0 0 15px 15px; display: flex; justify-content: center; gap: 15px;">
+            <button onclick="downloadScorePDF()"
+                style="background:#28a745; color:white; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold; font-size: 1em; display:flex; align-items:center; gap:8px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); transition: 0.2s;">
+                📥 Tải PDF
+            </button>
+            
             <button onclick="document.getElementById('score-result-final').style.display='none'"
-                style="background:#333; color:white; padding:12px 40px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Đóng</button>
+                style="background:#6c757d; color:white; padding:10px 30px; border:none; border-radius:25px; cursor:pointer; font-weight:bold; font-size: 1em; box-shadow: 0 2px 5px rgba(0,0,0,0.15); transition: 0.2s;">
+                Đóng
+            </button>
         </div>`;
 
     document.body.appendChild(modal);
     modal.style.display = 'flex';
+    
+    // Mở khóa cho phép xem lời giải
     document.body.classList.add('exam-submitted');
 }
+
 // ===== NOTIFICATION SYSTEM =====
 function showNotification(message, type = 'info', duration = 6000) {
     const notification = document.getElementById('notification');
@@ -4061,28 +4166,32 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ===== DARK MODE =====
+// ===== DARK MODE (ĐÃ SỬA AN TOÀN) =====
 document.addEventListener("DOMContentLoaded", () => {
     const toggleBtn = document.getElementById("toggleStyleBtn");
-    let isDark = localStorage.getItem('darkMode') === "True";
+    
+    // Chỉ chạy logic Dark mode NẾU CÓ NÚT TRÊN GIAO DIỆN
+    if (toggleBtn) {
+        let isDark = localStorage.getItem('darkMode') === "True";
 
-    if (isDark) {
-        document.documentElement.classList.add("dark-mode");
-        toggleBtn.textContent = "☀️ Chế độ sáng";
-    }
-
-    toggleBtn.addEventListener("click", () => {
-        isDark = !isDark;
-        document.documentElement.classList.toggle("dark-mode", isDark);
-        toggleBtn.textContent = isDark ? "☀️ Chế độ sáng" : "🌙 Chế độ tối";
-        
-        localStorage.setItem('darkMode', isDark);
-
-        if (window.MathJax) {
-            MathJax.typesetPromise();
+        if (isDark) {
+            document.documentElement.classList.add("dark-mode");
+            toggleBtn.textContent = "☀️ Chế độ sáng";
         }
-    });
-});
 
+        toggleBtn.addEventListener("click", () => {
+            isDark = !isDark;
+            document.documentElement.classList.toggle("dark-mode", isDark);
+            toggleBtn.textContent = isDark ? "☀️ Chế độ sáng" : "🌙 Chế độ tối";
+            
+            localStorage.setItem('darkMode', isDark);
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        });
+    }
+});
 // ===== POLL SYSTEM =====
 function setupPollSystem() {
     const pollBtn = document.getElementById('poll-submit-btn');
@@ -4621,7 +4730,61 @@ function calculateQuestionPoint(q, userAns, correctAns) {
 
     return 0;
 }
+// ==========================================
+// HÀM XUẤT BẢNG ĐIỂM RA FILE PDF
+// ==========================================
+window.downloadScorePDF = function() {
+    const element = document.getElementById('score-result-final');
+    if (!element) return;
 
+    showNotification('⏳ Đang tạo file PDF, vui lòng đợi...', 'info');
+
+    // 1. Tạo một bản sao của bảng điểm để không làm hỏng giao diện đang hiển thị
+    const clone = element.cloneNode(true);
+    
+    // 2. Chỉnh lại CSS của bản sao để nó bung hết nội dung ra (không bị cuộn)
+    clone.style.position = 'relative';
+    clone.style.transform = 'none';
+    clone.style.top = '0';
+    clone.style.left = '0';
+    clone.style.width = '100%';
+    clone.style.maxHeight = 'none';
+    clone.style.boxShadow = 'none';
+
+    const bodyPart = clone.querySelector('.sr-body');
+    if (bodyPart) {
+        bodyPart.style.maxHeight = 'none';
+        bodyPart.style.overflowY = 'visible';
+    }
+
+    // 3. Xóa phần nút bấm ở dưới cùng (để lúc in ra PDF không dính nút "Đóng" và "Tải PDF")
+    const footerPart = clone.querySelector('.sr-footer');
+    if (footerPart) {
+        footerPart.remove();
+    }
+
+    // 4. Lấy tên học sinh và tên đề để đặt tên file
+    const studentName = currentUser ? currentUser.name.replace(/\s+/g, '_') : 'Hoc_Sinh';
+    const examName = currentExam ? currentExam.name.replace(/\s+/g, '_') : 'De_Thi';
+    const fileName = `Ket_Qua_${studentName}_${examName}.pdf`;
+
+    // 5. Cấu hình thư viện html2pdf
+    const opt = {
+        margin:[10, 10, 10, 10], // Căn lề trên, trái, dưới, phải
+        filename:     fileName,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // 6. Chạy lệnh xuất PDF
+    html2pdf().set(opt).from(clone).save().then(() => {
+        showNotification('✅ Đã tải bảng kết quả PDF thành công!', 'success');
+    }).catch(err => {
+        console.error("Lỗi xuất PDF:", err);
+        showNotification('❌ Có lỗi xảy ra khi tạo PDF', 'error');
+    });
+};
 </script>
 <a href="../index.html" class="floating-home-btn" title="Về trang giới thiệu">
     <i class="fas fa-house"></i>
@@ -4629,5 +4792,5 @@ function calculateQuestionPoint(q, userAns, correctAns) {
 </a>
 
 </body>
-</html>
+
 </html>
