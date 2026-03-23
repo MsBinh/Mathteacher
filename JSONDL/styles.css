@@ -1536,3 +1536,35 @@ button[onclick*="toggleSolution"],
         max-height: 200px;
     }
 }
+
+/* Topbar Styles */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+    padding: 0 10px;
+}
+
+.topbar-right {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Mobile/Desktop Separation */
+.mobile-only { display: none; }
+.desktop-only { display: flex; }
+
+@media (max-width: 768px) {
+    .mobile-only { display: flex; }
+    .desktop-only { display: none; }
+}
+
+/* Button Styles */
+.topbar button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 16px;
+}

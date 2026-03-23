@@ -1488,10 +1488,11 @@ button[onclick*="toggleSolution"],
     /* Xếp dọc mệnh đề Đúng/Sai để dễ bấm */
     .option-row:has(> div) {
         flex-direction: column !important;
-        align-items: flex-start !important;
-        padding: 15px !important;
-        background: #fff;
-        border: 1px solid #eee;
+        align-items: flex-end !important;
+        gap: 10px;
+    }
+    .options-container .option-row > div:first-child {
+        width: 100%; padding-right: 0 !important; text-align: left;
     }
 
     /* Nội dung chữ */
@@ -1535,4 +1536,48 @@ button[onclick*="toggleSolution"],
         width: 100%;
         max-height: 200px;
     }
+}
+
+/* --- TỐI ƯU HÓA GIAO DIỆN MOBILE --- */
+@media (max-width: 768px) {
+    /* Sắp xếp lại Topbar: Xếp hộp tìm kiếm và nút bấm lên trên, lọc xuống dưới nếu cần */
+    .filter-container {
+        display: none; /* Ẩn bộ lọc trên topbar, nên tích hợp bộ lọc vào Slide Menu */
+    }
+
+    .search-box input {
+        width: 120px !important;
+        font-size: 12px;
+    }
+
+    .brand {
+        max-width: 80px; /* Nhỏ lại để nhường chỗ */
+    }
+
+    /* Bố cục Đúng/Sai */
+    .options-container .option-row {
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        gap: 10px;
+    }
+    .options-container .option-row > div:first-child {
+        width: 100%; padding-right: 0 !important; text-align: left;
+    }
+
+    /* Bảng điểm tổng kết Modal */
+    .scoreboard-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)) !important;
+    }
+
+    /* Modal dialogs */
+    .modal-content, .confirm-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    /* Slide menu */
+    .slide-menu { width: 85%; }
+
+    /* Thống kê float */
+    #filter-stats { display: none !important; }
 }

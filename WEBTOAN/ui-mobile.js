@@ -190,3 +190,34 @@ function observeLoginChanges() {
     
     observer.observe(loginBtn, { childList: true, characterData: true, subtree: true });
 }
+
+// Slide Menu Functions
+function openExamSelector() {
+    document.getElementById('selectExam').click();
+}
+
+function openFilter() {
+    document.getElementById('filterGroup').click();
+}
+
+// Fix Selecting Answers
+document.addEventListener('click', function(e) {
+    const row = e.target.closest('.option-row');
+    if (row) {
+        const input = row.querySelector('input');
+        if (input) input.checked = true;
+    }
+});
+
+// Fix Overlay Blocking Clicks
+function closeAllOverlay() {
+    document.querySelectorAll('.menu-overlay, .modal, .confirm-modal')
+    .forEach(el => el.classList.remove('active'));
+}
+
+// Fix Mobile Scrolling
+const pageContainer = document.querySelector('.page-container');
+if (pageContainer) {
+    pageContainer.style.overflowY = 'auto';
+    pageContainer.style.webkitOverflowScrolling = 'touch';
+}
