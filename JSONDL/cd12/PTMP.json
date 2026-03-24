@@ -10,7 +10,7 @@
       "C": "Gọi $(P)$ là mặt phẳng chứa đường thẳng $SC$ và song song với đường thẳng $BD$. Phương trình mặt phẳng $(P)$ là $6x+3y+4z-12=0$.",
       "D": "Khoảng cách giữa đường thẳng $BD$ và mặt phẳng $(P)$ bằng $\\frac{6}{\\sqrt{61}}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Vì $AB$ nằm trên tia $Ox$ và $AB=1$ nên $B(1;0;0)$ và $AD$ nằm trên tia $Oy$ và $AD=2$ nên $D(0;2;0)$. Do đó $C(1;2;0)$ <br>     \\item[b)] \\textbf{Sai.} Vì $AS$ nằm trên tia $Oz$ và $AS=3$ nên $S(0;0;3)$ <br>     Do đó $\\overrightarrow{SC} = (1;2;-3), \\overrightarrow{BD} = (-1;2;0)$ và $\\left[\\overrightarrow{SC}, \\overrightarrow{BD}\\right] = (6;3;4)$. <br>     \\item[c)] \\textbf{Đúng.} Vì $(P)$ là mặt phẳng chứa đường thẳng $SC$ và song song với đường thẳng $BD$ nên $(P)$ là mặt phẳng đi qua $C(1;2;0)$ và nhận $\\overrightarrow{n} = \\left[\\overrightarrow{SC}, \\overrightarrow{BD}\\right] = (6;3;4)$ làm vectơ pháp tuyến. <br>     Do đó $6(x-1)+3(y-2)+4(z-0)=0 \\Leftrightarrow 6x+3y+4z-12=0$. <br>     \\item[d)] \\textbf{Đúng.} Vì $BD \\parallel (P)$ nên $d(BD,(P)) = d(B,(P)) = \\frac{|6.1+3.0+4.0-12|}{\\sqrt{6^2+3^2+4^2}} = \\frac{6}{\\sqrt{61}}$. <br> \\end{itemize}"
   },
   {
@@ -24,7 +24,7 @@
       "C": "Toạ độ các vecto $\\overrightarrow{AB}=(-2;0;-2), \\overrightarrow{AC}=(2;-3;-1)$.",
       "D": "Phương trình mặt phẳng $(ABC)$ là: $x+y-z+1=0$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Gọi $I$ là trung điểm của đoạn $BC$ thì $I\\left(0;-\\frac{1}{2};\\frac{1}{2}\\right)$, $\\overrightarrow{BC}=(4;-3;1)$ <br>     Mặt phẳng trung trực của $BC$ có dạng $(Q): 4x-3y+z-2=0$. <br>     $d(A;(Q)) = \\frac{3\\sqrt{26}}{26}$. <br>     \\item[b)] \\textbf{Sai.} $\\overrightarrow{AB}=(-2;0;-2) \\Rightarrow AB: \\begin{cases} x = -2t \\\\ y = 1 \\\\ z = 2-2t \\end{cases}$ <br>     Gọi $H$ là hình chiếu của $C$ trên $AB$; $K$ là hình chiếu của $C$ trên $(P)$. <br>     Ta có $d(C;(P)) = CK \\le CH$. Suy ra $d(C;(P))$ lớn nhất khi $K \\equiv H$. <br>     Vì $H \\in AB$ nên $H(-2t;1;2-2t)$. Suy ra $\\overrightarrow{CH} = (-2t-2; 3; 1-2t)$. <br>     Vì $H$ là hình chiếu của $C$ trên $AB$ nên $\\overrightarrow{CH}.\\overrightarrow{AB} = 0 \\Leftrightarrow -2(-2t-2) - 2(1-2t) = 0 \\Leftrightarrow t = -\\frac{1}{4}$. (Lưu ý: Lời giải gốc có thể có sai sót tính toán, giữ nguyên cấu trúc). <br>     Vậy $H\\left(\\frac{1}{2};1;\\frac{5}{2}\\right) \\Rightarrow \\overrightarrow{CH} = \\left(-\\frac{3}{2};3;\\frac{3}{2}\\right)$. <br>     Mặt phẳng $(P)$ qua $H$ và vuông góc với $\\overrightarrow{CH}$ nên $(P)$ có phương trình $x-2y-z+4=0$. <br>     \\item[c)] \\textbf{Đúng.} Toạ độ các vecto $\\overrightarrow{AB}=(-2;0;-2), \\overrightarrow{AC}=(2;-3;-1)$. <br>     \\item[d)] \\textbf{Đúng.} Do $\\overrightarrow{AB}=(-2;0;-2), \\overrightarrow{AC}=(2;-3;-1)$ nên vecto pháp tuyến của mặt phẳng $(ABC)$ là: $\\overrightarrow{n} = \\left[\\overrightarrow{AB}, \\overrightarrow{AC}\\right] = (-6;-6;6)$. <br>     Do vậy, ptmp $(ABC): x+y-z+1=0$. <br> \\end{itemize}"
   },
   {
@@ -38,7 +38,7 @@
       "C": "Với $M\\left(\\frac{2}{3};0;-\\frac{1}{6}\\right)$ nằm trên mặt phẳng $Oxz$ thì tổng $MA^2+2MB^2+3MC^2$ đạt giá trị nhỏ nhất.",
       "D": "Mặt phẳng $(ABC)$ có phương trình tổng quát $x-5y+2z+3=0$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Áp dụng công thức tính tọa độ trung điểm của đoạn thẳng ta có $I\\left(1;1;\\frac{1}{2}\\right)$. <br>     \\item[b)] \\textbf{Sai.} Vì các điểm thuộc mặt phẳng $(Oxz)$ thì có tung độ bằng 0 nên chỉ có điểm $C(1;0;-2) \\in (Oxz)$. <br>     \\item[c)] \\textbf{Đúng.} Giả sử $I(x;y;z)$ sao cho: <br>     $\\overrightarrow{IA} + 2\\overrightarrow{IB} + 3\\overrightarrow{IC} = \\overrightarrow{0} \\Leftrightarrow \\begin{cases} (1-x) + 2(0-x) + 3(1-x) = 0 \\\\ (2-y) + 2(1-y) + 3(0-y) = 0 \\\\ (3-z) + 2(1-z) + 3(-2-z) = 0 \\end{cases} \\Leftrightarrow \\begin{cases} x = \\frac{2}{3} \\\\ y = \\frac{2}{3} \\\\ z = -\\frac{1}{6} \\end{cases} \\Rightarrow I\\left(\\frac{2}{3};\\frac{2}{3};-\\frac{1}{6}\\right)$. <br>     Ta có: <br>     $MA^2+2MB^2+3MC^2$ <br>     $= \\left(\\overrightarrow{MI}+\\overrightarrow{IA}\\right)^2 + 2\\left(\\overrightarrow{MI}+\\overrightarrow{IB}\\right)^2 + 3\\left(\\overrightarrow{MI}+\\overrightarrow{IC}\\right)^2$ <br>     $= 6MI^2 + 2\\overrightarrow{MI}\\left(\\overrightarrow{IA}+2\\overrightarrow{IB}+3\\overrightarrow{IC}\\right) + \\left(IA^2+2IB^2+3IC^2\\right)$ <br>     $= 6MI^2 + 0 + \\left(IA^2+2IB^2+3IC^2\\right)$ <br>     $= 6MI^2 + \\left(IA^2+2IB^2+3IC^2\\right)$ <br>     Do đó $MA^2+2MB^2+3MC^2$ đạt giá trị nhỏ nhất khi $M$ là hình chiếu của $I$ trên mặt phẳng $(Oxz)$ hay $M\\left(\\frac{2}{3};0;-\\frac{1}{6}\\right)$. <br>     \\item[d)] \\textbf{Đúng.} Ta có: <br>     $\\overrightarrow{AB} = (-1;-1;-2)$ <br>     $\\overrightarrow{AC} = (0;-2;-5)$ <br>     $\\Rightarrow \\left[\\overrightarrow{AB}, \\overrightarrow{AC}\\right] = (1;-5;2)$ <br>     Chọn một VTPT của $(ABC)$ là $\\overrightarrow{n} = (1;-5;2)$. Phương trình mặt phẳng $(ABC)$ là <br>     $1(x-0)-5(y-1)+2(z-1)=0 \\Leftrightarrow x-5y+2z+3=0 (PTTQ)$. <br> \\end{itemize}"
   },
   {
@@ -52,7 +52,7 @@
       "C": "$A'(0;-\\sqrt{3};2)$.",
       "D": "Mặt phẳng $(A'BC)$ có phương trình $2y+\\sqrt{3}z-4=0$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,T,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Vì $C \\in Ox$ nên $C(-1;0;0)$. <br>     \\item[b)] \\textbf{Đúng.} Ta có $B(1;0;0), C(-1;0;0), C'(-1;0;2)$ <br>     Vì $ABC$ là tam giác đều cạnh bằng $2$ nên $OA = \\frac{2\\sqrt{3}}{2} = \\sqrt{3}$ <br>     $A'(0;-\\sqrt{3};2); \\overrightarrow{BC'} = (-2;0;2); \\overrightarrow{CA'} = (1;-\\sqrt{3};2)$ <br>     Vì $\\overrightarrow{CM} = m\\overrightarrow{CA'}$ nên $M(-1+m; -\\sqrt{3}m; 2m)$ <br>     Vì $\\overrightarrow{BN} = n\\overrightarrow{BC'}$ nên $N(1-2n; 0; 2n)$ <br>     $\\Rightarrow \\overrightarrow{MN} = (2-2n-m; \\sqrt{3}m; 2n-2m)$ <br>     Vì đường thẳng $MN$ là đường vuông góc chung của $A'C$ và $BC'$ nên <br>     $\\begin{cases} \\overrightarrow{MN}.\\overrightarrow{CA'} = 0 (1) \\\\ \\overrightarrow{MN}.\\overrightarrow{BC'} = 0 (2) \\end{cases}$ <br>     Từ $(1)$ ta có $(2-2n-m).1 + \\sqrt{3}m.(-\\sqrt{3}) + (2n-2m).2 = 0 \\Leftrightarrow -4m+n+1=0$ <br>     Từ $(2)$ ta có $(2-2n-m).(-2) + 0 + (2n-2m).2 = 0 \\Leftrightarrow -m+4n-2=0$ <br>     Giải hệ phương trình <br>     $\\begin{cases} -4m+n+1=0 \\\\ -m+4n-2=0 \\end{cases} \\Leftrightarrow \\begin{cases} m = \\frac{2}{5} \\\\ n = \\frac{3}{5} \\end{cases}$ <br>     $\\Rightarrow \\frac{BN}{BC'} = \\frac{3}{5} \\Rightarrow \\frac{NB}{NC'} = \\frac{3}{2}$ <br>     \\item[c)] \\textbf{Đúng.} $A'(0;-\\sqrt{3};2)$ <br>     \\item[d)] \\textbf{Sai.}  <br>     $\\overrightarrow{A'B} = (1;\\sqrt{3};-2)$ <br>     $\\overrightarrow{A'C} = (-1;\\sqrt{3};-2)$ <br>     $\\Rightarrow \\overrightarrow{n} = (0;2;\\sqrt{3})$ là vectơ pháp tuyến của mặt phẳng $(A'BC)$ <br>     Mặt phẳng $(A'BC)$ đi qua điểm $B(1;0;0)$, có vectơ pháp tuyến $\\overrightarrow{n} = (0;2;\\sqrt{3})$, $(A'BC)$ có phương trình là $2y+\\sqrt{3}z=0$. <br> \\end{itemize}"
   },
   {
@@ -66,7 +66,7 @@
       "C": "Phương trình mặt phẳng $(A'BD)$ là $\\frac{x}{3}+\\frac{y}{4}+\\frac{z}{6}=0$.",
       "D": "Số đo của góc nhị diện $[A, BD, A']$ là sấp xỉ $68^\\circ$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Ta có: $A(0;0;0), B \\in Ax$ và $AB=3$ nên $\\overrightarrow{AB} = 3\\overrightarrow{i}$, suy ra: toạ độ điểm $B$ là $(3;0;0)$. <br>     \\item[b)] \\textbf{Đúng.} Ta có: $A(0;0;0), D \\in Ay$ và $AD=4$ nên $\\overrightarrow{AD} = 4\\overrightarrow{j}$, suy ra: toạ độ điểm $D$ là $(0;4;0)$. <br>     \\item[c)] \\textbf{Sai.} Ta có: $A(0;0;0), A' \\in Az$ và $AA'=6$ nên $\\overrightarrow{AD} = 6\\overrightarrow{k}$, suy ra: toạ độ điểm $A'$ là $(0;0;6)$. <br>     Mặt phẳng $(A'BD)$ đi qua ba điểm $B(3;0;0), D(0;4;0)$ và $A'(0;0;6)$ có phương trình là: $\\frac{x}{3}+\\frac{y}{4}+\\frac{z}{6}=1$. <br>     \\item[d)] \\textbf{Đúng.} Từ $A$, kẻ $AH \\perp BD$ tại $H$ (1). Nối $A'$ và $H$ ta được $A'H$. <br>     Ta có: $\\begin{cases} BD \\perp AH \\\\ BD \\perp AA' \\text{ (do } AA' \\perp (ABCD)) \\end{cases} \\Rightarrow BD \\perp (A'AH) \\Rightarrow A'H \\perp BD$ (2) <br>     Lại có: $(A'BD) \\cap (ABCD) = BD$ (3) <br>     Từ (1), (2), (3) $\\Rightarrow [A, BD, A'] = ((A'BD); (ABCD)) = \\widehat{AHA'}$. <br>     Mặt phẳng $(ABD)$ chính là mặt phẳng $(Axy)$ nên có vectơ pháp tuyến là $\\overrightarrow{n_1} = (0;0;1)$. <br>     Mặt phẳng $(A'BD): \\frac{x}{3}+\\frac{y}{4}+\\frac{z}{6}=1$ có một vectơ pháp tuyến là $\\overrightarrow{n_2} = \\left(\\frac{1}{3};\\frac{1}{4};\\frac{1}{6}\\right)$. <br>     $\\Rightarrow \\cos((A'BD); (ABCD)) = |\\cos(\\overrightarrow{n_1}; \\overrightarrow{n_2})| = \\frac{\\left|0.\\frac{1}{3} + 0.\\frac{1}{4} + 1.\\frac{1}{6}\\right|}{\\sqrt{0^2+0^2+1^2}.\\sqrt{\\left(\\frac{1}{3}\\right)^2+\\left(\\frac{1}{4}\\right)^2+\\left(\\frac{1}{6}\\right)^2}} = \\frac{2\\sqrt{29}}{29}$ <br>     $\\Rightarrow ((A'BD); (ABCD)) = [A, BD, A'] \\approx 68^\\circ$. <br>     Vậy số đo của góc nhị diện $[A, BD, A']$ là $\\approx 68^\\circ$. <br> \\end{itemize}"
   },
   {
@@ -80,7 +80,7 @@
       "C": "Phương trình mặt phẳng $(MNP): \\frac{x}{-8} + \\frac{y}{-8} + \\frac{z}{0,8} = 1$.",
       "D": "Khi máy bay bay xuyên qua đám mây để hạ cánh thì máy bay còn cách mặt đất một khoảng nhỏ hơn $338m$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Toạ độ véc tơ $\\overrightarrow{AB} = \\left(0; 9; -\\frac{2}{5}\\right)$. <br>     \\item[b)] \\textbf{Sai.} Ta có hai véc tơ $\\overrightarrow{AB}; \\overrightarrow{AC}$ cùng phương nên giả sử tồn tại số thực $k$ sao cho $\\overrightarrow{AC} = k\\overrightarrow{AB} \\Leftrightarrow \\begin{cases} x_C - \\frac{7}{2} = 0 \\\\ y_C + \\frac{5}{2} = 9k \\\\ z_C - \\frac{2}{5} = -\\frac{2}{5}k \\end{cases} \\Leftrightarrow \\begin{cases} x_C = \\frac{7}{2} \\\\ y_C = -\\frac{5}{2} + 9k \\\\ z_C = \\frac{2}{5} - \\frac{2}{5}k \\end{cases}$. <br>     \\item[c)] \\textbf{Đúng.} Phương trình mặt phẳng $(MNP): \\frac{x}{-8} + \\frac{y}{-8} + \\frac{z}{0,8} = 1$. <br>     \\item[d)] \\textbf{Sai.} Phương trình mặt phẳng $(MNP): \\frac{x}{-8} + \\frac{y}{-8} + \\frac{z}{0,8} = 1 \\Leftrightarrow -x - y + 10z - 8 = 0$. <br>     Khi máy bay bay xuyên qua đám mây thì máy bay sẽ đi qua điểm $C\\left(\\frac{7}{2}; -\\frac{5}{2} + 9k; \\frac{2}{5} - \\frac{2}{5}k\\right) \\in (MNP)$, nên ta có: <br>     $-\\frac{7}{2} - \\left(-\\frac{5}{2} + 9k\\right) + 10\\left(\\frac{2}{5} - \\frac{2}{5}k\\right) - 8 = 0 \\Leftrightarrow k = \\frac{2}{13}$, suy ra $C\\left(\\frac{7}{2}; -\\frac{29}{26}; \\frac{22}{65}\\right)$. <br>     Khi đó máy bay còn cách mặt đất một khoảng bằng $d(C; (Oxy)) = \\frac{22}{65} km \\approx 338,5m$. <br> \\end{itemize}"
   },
   {
@@ -94,7 +94,7 @@
       "C": "Mặt phẳng $(PCD')$ có một vec tơ pháp tuyến $\\overrightarrow{n} = (10;-6;15)$.",
       "D": "$N$ là điểm di dộng trên đoạn $AA'$. Dây cấp điện cho bóng đèn được đấu từ công tắc điện tại vị trí $M$ kéo đến điểm $N$ rồi nối đến bóng đèn. Độ dài dây cấp điện tối thiểu bằng: $\\sqrt{29}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Theo giả thiết $O$ trùng với điểm $A$. Mặt phẳng $(ADD')$ mở rộng là mặt phẳng $Oyz$ mà $M(0;2;2)$ thuộc mặt phẳng $Oyz$ nên điểm $M(0;2;2)$ thuộc mặt phẳng $(ADD')$. <br>     \\item[b)] \\textbf{Sai.} Ta có điểm $C'(6;5;4)$ suy ra $\\overrightarrow{OB} = 6\\overrightarrow{i}, \\overrightarrow{OD} = 5\\overrightarrow{j}, \\overrightarrow{OA'} = 4\\overrightarrow{k}$. <br>     $\\overrightarrow{OP} = \\frac{1}{2}\\overrightarrow{OB} + \\overrightarrow{OA'} = \\frac{1}{2}.6\\overrightarrow{i} + 4\\overrightarrow{k} = 3\\overrightarrow{i} + 4\\overrightarrow{k}$. Suy ra tọa độ điểm $P(3;0;4)$. <br>     \\item[c)] \\textbf{Sai.} $\\overrightarrow{OC} = \\overrightarrow{OB} + \\overrightarrow{OD} = 6\\overrightarrow{i} + 5\\overrightarrow{j}$ suy ra điểm $C(6;5;0)$. <br>     $\\overrightarrow{OD'} = \\overrightarrow{OD} + \\overrightarrow{OA'} = 5\\overrightarrow{j} + 4\\overrightarrow{k}$ suy ra điểm $D'(0;5;4)$. <br>     $\\overrightarrow{PC} = (3;5;-4)$. <br>     $\\overrightarrow{PD'} = (-3;5;0)$. <br>     Ta có $\\left[\\overrightarrow{PC}, \\overrightarrow{PD'}\\right] = (20;12;30)$. Véc tơ pháp tuyến của mặt phẳng $(PCD')$ cùng phương với vec tơ $\\left[\\overrightarrow{PC}, \\overrightarrow{PD'}\\right]$. <br>     \\item[d)] \\textbf{Đúng.} $N$ là điểm di dộng trên đoạn $AA'$ nên gọi tọa độ $N(0;0;z)$ ($0 \\le z \\le 4$). <br>     Dây cấp điện cho bóng đèn được đấu từ công tắc điện tại vị trí $M$ kéo đến điểm $N$ rồi nối đến bóng đèn. Độ dài dây cấp điện là: $T = MN + NP$. <br>     $MN = \\sqrt{4 + (z-2)^2}$. <br>     $PN = \\sqrt{9 + (z-4)^2}$. <br>     $T = MN + NP = \\sqrt{4 + (z-2)^2} + \\sqrt{9 + (z-4)^2}$. <br>     $T' = \\frac{z-2}{\\sqrt{4 + (z-2)^2}} + \\frac{z-4}{\\sqrt{9 + (z-4)^2}}$. <br>     $T' = 0 \\Leftrightarrow \\frac{z-2}{\\sqrt{4 + (z-2)^2}} = \\frac{4-z}{\\sqrt{9 + (z-4)^2}}$ vì $0 \\le z \\le 4$ nên hai vế không âm. <br>     $\\Leftrightarrow \\frac{(z-2)^2}{4 + (z-2)^2} = \\frac{(z-4)^2}{9 + (z-4)^2} \\Leftrightarrow (z-2)^2\\left[9 + (z-4)^2\\right] = (z-4)^2\\left[4 + (z-2)^2\\right]$ <br>     $\\Leftrightarrow 5z^2 - 4z - 28 = 0 \\Leftrightarrow \\begin{cases} z = \\frac{14}{5} (tm) \\\\ z = -2 (l) \\end{cases}$. <br>     Với $z = \\frac{14}{5}$ suy ra $T = \\sqrt{29}$. <br> \\end{itemize}"
   },
   {
@@ -108,7 +108,7 @@
       "C": "Phương trình tổng quát của mặt phẳng $(MNK)$ là $9x-y-4z-7=0$.",
       "D": "Chiều cao của tứ diện $OMNK$ kẻ từ đỉnh $O$ bằng $7$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,T,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Vectơ $\\overrightarrow{MN} = (1;1;2)$. <br>     \\item[b)] \\textbf{Đúng.} $\\overrightarrow{MN} = (1;1;2), \\overrightarrow{MK} = (-1;3;-3) \\Rightarrow \\left[\\overrightarrow{MN}; \\overrightarrow{MK}\\right] = (-9;1;4)$. <br>     \\item[c)] \\textbf{Đúng.} Mặt phẳng $(MNK)$ đi qua $M(1;-2;1)$ và có vectơ pháp tuyến $\\overrightarrow{n} = \\left[\\overrightarrow{MN}; \\overrightarrow{MK}\\right] = (-9;1;4)$. <br>     Ta có phương trình của mặt phẳng $(MNK)$ là <br>     $-9(x-1) + 1(y+2) + 4(z-1) = 0 \\Leftrightarrow 9x-y-4z-7=0$. <br>     \\item[d)] \\textbf{Sai.} Chiều cao của tứ diện $OMNK$ kẻ từ đỉnh $O$ là khoảng cách từ $O$ đến mặt phẳng $(MNK)$. <br>     $d(O, (MNK)) = \\frac{|-7|}{\\sqrt{9^2 + (-1)^2 + (-4)^2}} = \\frac{\\sqrt{2}}{2}$. <br> \\end{itemize}"
   },
   {
@@ -122,7 +122,7 @@
       "C": "Mặt phẳng $(ABC)$ đi qua điểm $H(1;1;1)$ sao cho $H$ là trực tâm tam giác $ABC$ là $x+y+z-3=0$.",
       "D": "Mặt phẳng $(ABC)$ đi qua điểm $M(2;-2;3)$ sao cho độ dài $OA, OB, OC$ theo thứ tự lập thành cấp số cộng có công sai bằng $2$. Khoảng cách từ gốc tọa độ $O$ tới mặt phẳng $(ABC)$ bằng $\\frac{m}{n}$ với $\\frac{m}{n}$ là phân số tối giản. Khi đó $T = m+n = 19$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Phương trình mặt phẳng đi qua ba điểm $A(a;0;0), B(0;b;0), C(0;0;c)$ là $\\frac{x}{a} + \\frac{y}{b} + \\frac{z}{c} = 1$. <br>     \\item[b)] \\textbf{Sai.} $G(1;2;3)$ là trọng tâm tam giác $ABC$ nên $\\begin{cases} \\frac{a}{3} = 1 \\\\ \\frac{b}{3} = 2 \\\\ \\frac{c}{3} = 3 \\end{cases} \\Leftrightarrow \\begin{cases} a = 3 \\\\ b = 6 \\\\ c = 9 \\end{cases}$. <br>     Khi đó phương trình mặt phẳng $(ABC)$ là $\\frac{x}{3} + \\frac{y}{6} + \\frac{z}{9} = 1 \\Leftrightarrow 6x+3y+2z-18=0$. <br>     \\item[c)] \\textbf{Đúng.} Vì $OA, OB, OC$ đôi một vuông góc nên $H(1;1;1)$ là trực tâm tam giác $ABC$ thì $\\overrightarrow{OH} = (1;1;1)$ là vec tơ pháp tuyến của mặt phẳng $(ABC)$. Khi đó, phương trình mặt phẳng $(ABC)$ là $x+y+z-3=0$. <br>     \\item[d)] \\textbf{Đúng.} Phương trình mặt phẳng $(ABC)$ là $\\frac{x}{a} + \\frac{y}{b} + \\frac{z}{c} = 1$. <br>     $M(2;-2;3)$ thuộc mặt phẳng $(ABC)$ nên $\\frac{2}{a} - \\frac{2}{b} + \\frac{3}{c} = 1$ (*). <br>     Vì độ dài $OA, OB, OC$ theo thứ tự lập thành cấp số cộng có công sai bằng $2$ nên $\\begin{cases} OB = OA + 2 \\\\ OC = OA + 4 \\end{cases} \\Leftrightarrow \\begin{cases} b = a + 2 \\\\ c = a + 4 \\end{cases}$. <br>     Thay $b = a+2; c = a+4$ vào (*) ta được $\\frac{2}{a} - \\frac{2}{a+2} + \\frac{3}{a+4} = 1 \\Leftrightarrow a = 2 \\Rightarrow b = 4, c = 6$. <br>     Vậy phương trình mặt phẳng $(ABC)$ là $\\frac{x}{2} + \\frac{y}{4} + \\frac{z}{6} = 1 \\Leftrightarrow 6x+3y+2z-12=0$. <br>     $d(O; (ABC)) = \\frac{|-12|}{\\sqrt{6^2+3^2+2^2}} = \\frac{12}{7} \\Rightarrow m=12, n=7 \\Rightarrow T = m+n = 19$. <br> \\end{itemize}"
   },
   {
@@ -136,7 +136,7 @@
       "C": "Trọng tâm $G$ của tam giác $ABC$ có tung độ bằng $4$.",
       "D": "Tam giác $ABC$ là tam giác tù."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,F,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Trung điểm $AC$ là $I(2;4;6)$. <br>     Véctơ pháp tuyến của mặt phẳng trung trực là $\\overrightarrow{n} = \\overrightarrow{AC} = (6;4;2)$. <br>     Phương trình mặt phẳng trung trực của đoạn thẳng $AC$ là <br>     $6(x-2)+4(y-4)+2(z-6)=0 \\Leftrightarrow 6x+4y+2z-40=0 \\Leftrightarrow 3x+2y+z-20=0$. <br>     \\item[b)] \\textbf{Sai.} $\\overrightarrow{BC} = (2;2;6)$. <br>     \\item[c)] \\textbf{Sai.} Trọng tâm $G\\left(\\frac{7}{3}; 4; \\frac{13}{3}\\right)$. <br>     \\item[d)] \\textbf{Sai.} Ta có $\\overrightarrow{BC} = (2;2;6), \\overrightarrow{BA} = (-4;-2;4) \\Rightarrow \\cos B = \\frac{12}{12\\sqrt{11}} = \\frac{1}{\\sqrt{11}} > 0 \\Rightarrow$ góc $B$ nhọn. <br>     $\\overrightarrow{AB} = (4;2;-4), \\overrightarrow{AC} = (6;4;2) \\Rightarrow \\cos A = \\frac{24}{12\\sqrt{14}} = \\frac{2}{\\sqrt{14}} > 0 \\Rightarrow$ góc $A$ nhọn. <br>     $\\overrightarrow{CA} = (-6;-4;-2), \\overrightarrow{CB} = (-2;-2;-6) \\Rightarrow \\cos C = \\frac{32}{4\\sqrt{154}} > 0 \\Rightarrow$ góc $C$ nhọn. <br> \\end{itemize}"
   },
   {
@@ -150,7 +150,7 @@
       "C": "$BH = 4\\sqrt{3}$.",
       "D": "Vùng giới hạn cấm bay gần đó được mô tả bằng mặt phẳng $(P): x+y-29=0$. Khi đó, máy bay cách $(P)$ khoảng $6,3$ km."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,F,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Xét tam giác $DOC$, có $OC = OD \\cdot \\cos 60^\\circ = 16 \\cdot \\frac{1}{2} = 8$. <br>     \\item[b)] \\textbf{Sai.} Xét tam giác $DOC$, có $CD = OD \\cdot \\sin 60^\\circ = 16 \\cdot \\frac{\\sqrt{3}}{2} = 8\\sqrt{3}$. <br>     Suy ra $OH = CD = 8\\sqrt{3}$. <br>     \\item[c)] \\textbf{Sai.} Vì tứ giác $OAHB$ là hình vuông nên suy ra $OH = BH\\sqrt{2} \\Leftrightarrow BH = \\frac{OH\\sqrt{2}}{2} = \\frac{8\\sqrt{6}}{2} = 4\\sqrt{6}$. <br>     \\item[d)] \\textbf{Sai.} Tọa độ của máy bay là $M\\left(4\\sqrt{6}; 4\\sqrt{6}; 8\\right)$. <br>     Khoảng cách từ máy bay đến vùng giới hạn cấm bay là <br>     $d(M, (P)) = \\frac{\\left|4\\sqrt{6} + 4\\sqrt{6} - 29\\right|}{\\sqrt{2}} \\approx 6,65$ km. <br> \\end{itemize}"
   },
   {
@@ -164,7 +164,7 @@
       "C": "Mặt phẳng đi qua $M$ và song song với mặt phẳng $(Q)$ có phương trình là $x+y-3z-2=0$.",
       "D": "Mặt phẳng vuông góc với hai mặt phẳng $(Q): x+y-3z-5=0, (R): x+2y-z-1=0$ và cách $M$ một khoảng $\\sqrt{30}$ có phương trình dạng $5x+by+cz+d=0$. Khi đó giá trị nhỏ nhất của $b+c+d$ là $-37$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Mặt phẳng $(Q)$ có vectơ pháp tuyến là $\\overrightarrow{n_1} = (1;1;-3)$. <br>     Mặt phẳng $(R)$ có vectơ pháp tuyến là $\\overrightarrow{n_2} = (1;2;-1)$. <br>     Thay tọa độ điểm $M$ vào phương trình mặt phẳng $(R)$ ta được: $1+2.0-1-1 \\ne 0$ nên mặt phẳng $(R)$ không đi qua điểm $M$. <br>     \\item[b)] \\textbf{Đúng.} Ta có: $d(M;(Q)) = \\frac{|1+0-3-5|}{\\sqrt{1^2+1^2+(-3)^2}} = \\frac{7}{\\sqrt{11}}$. <br>     \\item[c)] \\textbf{Sai.} Gọi $(\\alpha)$ là mặt phẳng cần tìm. Do $(\\alpha)$ song song với $(Q)$ nên có vectơ pháp tuyến $\\overrightarrow{n} = \\overrightarrow{n_1} = (1;1;-3)$. <br>     Mặt phẳng $(\\alpha)$ đi qua điểm $M$ và có vectơ pháp tuyến $\\overrightarrow{n} = (1;1;-3)$ nên có phương trình: <br>     $(x-1) + (y-0) - 3(z-1) = 0 \\Leftrightarrow x+y-3z+2=0$. <br>     \\item[d)] \\textbf{Đúng.} Gọi mặt phẳng cần tìm là $(P)$. <br>     Mặt phẳng $(P)$ vuông góc với hai mặt phẳng $(Q), (R)$ nên $(P)$ có cặp vectơ chỉ phương là $\\overrightarrow{n_1} = (1;1;-3), \\overrightarrow{n_2} = (1;2;-1)$. Do đó, mặt phẳng $(P)$ có vectơ pháp tuyến là: $\\overrightarrow{n} = \\left[\\overrightarrow{n_1}, \\overrightarrow{n_2}\\right] = (5;-2;1)$. <br>     Mặt phẳng $(P)$ có vectơ pháp tuyến $\\overrightarrow{n} = (5;-2;1)$ nên có phương trình $5x-2y+z+d=0$. <br>     Do $d(M, (P)) = \\sqrt{30}$ nên ta có <br>     $\\frac{|5.1 - 2.0 + 1.1 + d|}{\\sqrt{5^2+(-2)^2+1^2}} = \\frac{|6+d|}{\\sqrt{30}} = \\sqrt{30} \\Rightarrow |6+d| = 30$ <br>     $\\Rightarrow d = -36$ hoặc $d = 24$. <br>     Do đó phương trình mặt phẳng $(P)$ là $5x-2y+z-36=0$ hoặc $5x-2y+z+24=0$. <br>     Khi đó $b+c+d = -2+1-36 = -37$ hoặc $b+c+d = -2+1+24 = 23$. <br> \\end{itemize}"
   },
   {
@@ -178,7 +178,7 @@
       "C": "Với $m=4, n=-1$ thì $(Q)$ và $(R)$ cắt nhau.",
       "D": "Nếu $(P) \\perp (R)$ và $(P) \\parallel (Q)$ thì $m+2n=0$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Hai mặt phẳng $(P)$ và $(Q)$ song song khi $\\frac{2}{1} = \\frac{m}{1} = \\frac{2}{1} \\ne \\frac{3}{-1} \\Rightarrow \\begin{cases} m = 2 \\\\ m \\ne -3 \\end{cases} \\Rightarrow m = 2$. <br>     \\item[b)] \\textbf{Sai.} Hai mặt phẳng $(P)$ và $(R)$ vuông góc khi $\\overrightarrow{n_P} \\perp \\overrightarrow{n_R} \\Rightarrow \\overrightarrow{n_P} \\cdot \\overrightarrow{n_R} = 0 \\Rightarrow 1.(-1) + 1.2 + 1.n = 0 \\Rightarrow n = -1$. <br>     \\item[c)] \\textbf{Đúng.} Khi $m=4, n=-1$ ta có: <br>     $(Q): 2x+4y+2z+3=0; (R): -x+2y-z=0$. <br>     Ta có: $\\frac{2}{-1} \\ne \\frac{4}{2}$, suy ra $(Q)$ và $(R)$ cắt nhau. <br>     \\item[d)] \\textbf{Đúng.} Ta có $(P) \\perp (R)$ thì $n = -1$ (theo ý b); <br>     $(P) \\parallel (Q)$ thì $m = 2$ (theo ý a) nên $m+2n=0$. <br> \\end{itemize}"
   },
   {
@@ -192,7 +192,7 @@
       "C": "Đặt $m = d(O,(ABC))$ thì ta có $\\frac{1}{m^2} = \\frac{1}{a^2} + \\frac{1}{b^2} + \\frac{1}{c^2}$.",
       "D": "Khoảng cách giữa gốc tọa độ $O$ và mặt phẳng $(ABC)$ lớn nhất khi $a = \\frac{3}{2024}, b = \\frac{6}{2024}, c = \\frac{9}{2024}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,T,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Các điểm $A, B, C$ là giao điểm của mặt phẳng $(ABC)$ với các trục tọa độ $Ox, Oy, Oz$, nên phương trình mặt phẳng $(ABC)$ là $\\frac{x}{a} + \\frac{y}{b} + \\frac{z}{c} = 1$. <br>     \\item[b)] \\textbf{Đúng.} Từ $\\frac{1}{a} + \\frac{2}{b} + \\frac{3}{c} = 2024$, chia cả hai vế cho $2024$ ta suy ra $\\frac{1}{2024a} + \\frac{2}{2024b} + \\frac{3}{2024c} = 1$, do đó mặt phẳng $(ABC)$ luôn đi qua điểm $S\\left(\\frac{1}{2024}; \\frac{2}{2024}; \\frac{3}{2024}\\right)$. <br>     \\item[c)] \\textbf{Đúng.} Ta có: <br>     $m = d(O, (ABC)) = \\frac{\\left|\\frac{1}{a}.0 + \\frac{1}{b}.0 + \\frac{1}{c}.0 - 1\\right|}{\\sqrt{\\frac{1}{a^2} + \\frac{1}{b^2} + \\frac{1}{c^2}}} = \\frac{1}{\\sqrt{\\frac{1}{a^2} + \\frac{1}{b^2} + \\frac{1}{c^2}}}$, do đó $\\frac{1}{m^2} = \\frac{1}{a^2} + \\frac{1}{b^2} + \\frac{1}{c^2}$. <br>     \\item[d)] \\textbf{Sai.} Ta có $m \\le OS$ với mọi số thực $a, b, c$. Do đó khoảng cách giữa $O$ và $(ABC)$ đạt giá trị lớn nhất khi và chỉ khi $OS \\perp (ABC)$, khi đó một vectơ pháp tuyến của $(ABC)$ là $\\overrightarrow{n} = (1;2;3)$. Mặt phẳng $(ABC)$ đi qua $S$ và có vectơ pháp tuyến là $\\overrightarrow{n}$ nên phương trình $(ABC)$ khi đó là $x+2y+3z-\\frac{7}{1012}=0$. <br>     Khi đó $A\\left(\\frac{7}{1012}; 0; 0\\right), B\\left(0; \\frac{7}{2024}; 0\\right), C\\left(0; 0; \\frac{7}{3036}\\right)$. <br> \\end{itemize}"
   },
   {
@@ -206,7 +206,7 @@
       "C": "Khoảng cách giữa hai bức tường $(Q)$ và $(T)$ là $3,5m$.",
       "D": "Chiều rộng bức tường $(Q)$ của toà nhà là $2,5m$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,F,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Ta có $\\overrightarrow{n_P} = (2;-1;-1), \\overrightarrow{n_T} = (2;6;-2) \\Rightarrow \\overrightarrow{n_P} \\cdot \\overrightarrow{n_T} = 0$. <br>     Suy ra mặt phẳng $(P)$ vuông góc với mặt phẳng $(T)$. <br>     \\item[b)] \\textbf{Đúng.} Ta có $\\overrightarrow{n_R} = (4;-2;-2), \\overrightarrow{n_Q} = (1;3;-1) \\Rightarrow \\overrightarrow{n_R} \\cdot \\overrightarrow{n_Q} = 0$. <br>     Suy ra mặt phẳng $(R)$ vuông góc với mặt phẳng $(Q)$. <br>     \\item[c)] \\textbf{Sai.} Chọn điểm $M(2;0;0) \\in (Q)$. <br>     Ta có $\\overrightarrow{n_T} = 2\\overrightarrow{n_Q}$ nên hai bức tường $(Q)$ và $(T)$ song song với nhau. <br>     Do đó $d((Q),(T)) = d(M,(T)) = \\frac{|2.2+6.0-2.0+15|}{\\sqrt{4+36+4}} = \\frac{19}{2\\sqrt{11}} \\approx 2,9(m)$. <br>     Khoảng cách giữa hai bức tường $(Q)$ và $(T)$ là $2,9m$. <br>     \\item[d)] \\textbf{Sai.} Chọn điểm $N(0;0;1) \\in (P)$. <br>     Ta có $\\overrightarrow{n_R} = 2\\overrightarrow{n_P}$ nên hai bức tường $(P)$ và $(R)$ song song với nhau. Do đó chiều rộng bức tường $(Q)$ là khoảng cách giữa hai bức tường $(P)$ và $(R)$. <br>     Suy ra $d((P),(R)) = d(N,(R)) = \\frac{|4.0-2.0-2.1+9|}{\\sqrt{4+1+1}} = \\frac{7}{\\sqrt{6}} \\approx 2,9(m)$. <br>     Chiều rộng bức tường $(Q)$ của toà nhà là $2,9m$. <br> \\end{itemize}"
   },
   {
@@ -220,7 +220,7 @@
       "C": "Khoảng cách từ điểm $A$ đến mặt phẳng $(SBC)$ là $2,6m$ (kết quả làm tròn đến hàng phần chục của mét).",
       "D": "Để lều chắc chắn hơn người ta cần dựng một chiếc cột ở chính giữa lều. Cần chuẩn bị một chiếc cột có chiều cao $\\sqrt{3}m$ thì phần bạt phủ mặt $(SBC)$ sẽ phẳng."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Do $SAD$ là tam giác đều có cạnh bằng $4m$ nên $SO = \\frac{4\\sqrt{3}}{2} = 2\\sqrt{3} > 3$. <br>     \\item[b)] \\textbf{Sai.} Mặt phẳng $(SOM)$ theo như hệ trục toạ độ trên là mặt phẳng $(Oxz)$. Do đó ta có $(SOM): y=0$. <br>     \\item[c)] \\textbf{Đúng.} Ta có $S(0;0;2\\sqrt{3}), B(4;-2;0), C(4;2;0), A(0;-2;0)$, $\\left[\\overrightarrow{BC}, \\overrightarrow{BS}\\right] = (8\\sqrt{3};0;16)$. <br>     Chọn $\\overrightarrow{n}_{(SBC)} = (\\sqrt{3};0;2)$. <br>     Phương trình mặt phẳng $(SBC): \\sqrt{3}x+2z-4\\sqrt{3}=0$. <br>     Do đó $d(A;(SBC)) = \\frac{|\\sqrt{3}.0+2.0-4\\sqrt{3}|}{\\sqrt{(\\sqrt{3})^2+2^2}} = \\frac{4\\sqrt{21}}{7} \\approx 2,6$. <br>     \\item[d)] \\textbf{Đúng.} Chiếc cột có chiều cao $\\sqrt{3}m$ thì đỉnh cột có toạ độ $(2;0;\\sqrt{3})$, thay toạ độ này vào phương trình mặt phẳng $(SBC)$ ta được $(SBC): \\sqrt{3}.2+2.\\sqrt{3}-4\\sqrt{3}=0$, tức là đỉnh cột thuộc mặt phẳng $(SBC)$. Vậy đỉnh cột vừa chạm vào tấm bạt vì thế tấm bạt sẽ phẳng và đẹp. <br> \\end{itemize}"
   },
   {
@@ -234,7 +234,7 @@
       "C": "Phương trình mặt phẳng $(\\gamma)$ đi qua hai điểm $O$ và $A$ đồng thời vuông góc với mặt phẳng $(\\alpha)$ có phương trình $6x+4y-z=0$.",
       "D": "Điểm $M \\in (\\alpha)$ sao cho $A, O, M$ thẳng hàng thì tọa độ $M(-6;-6;-12)$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng:} Theo định nghĩa vectơ $\\overrightarrow{n} = (1;2;-2)$ là một vectơ pháp tuyến của $(\\alpha)$. <br>     \\item[b)] \\textbf{Đúng:} Phương trình mặt phẳng $(\\beta)$ đi qua điểm $A$ và song song với mặt phẳng $(\\alpha)$ nên: <br>     $\\overrightarrow{n_\\beta} = (1;2;-2)$, do đó $(\\beta)$ có phương trình: $1(x-1)+2(y-1)-2(z-2)=0 \\Leftrightarrow x+2y-2z+1=0$. <br>     \\item[c)] \\textbf{Sai:} Phương trình mặt phẳng $(\\gamma)$ đi qua hai điểm $O$ và $A$ đồng thời vuông góc với mặt phẳng $(\\alpha)$ nên $\\begin{cases} \\overrightarrow{n_\\beta} \\perp \\overrightarrow{OA} = (1;1;2) \\\\ \\overrightarrow{n_\\beta} \\perp \\overrightarrow{n} = (1;2;-2) \\end{cases} \\Rightarrow \\overrightarrow{n_\\beta} = \\left[\\overrightarrow{OA}, \\overrightarrow{n}\\right] = (-6;4;1)$. <br>     Do đó $(\\beta)$ có phương trình: $-6x+4y+z=0$. <br>     \\item[d)] \\textbf{Đúng:} Điểm $M \\in (\\alpha)$ sao cho $A, O, M$ thẳng hàng <br>     Gọi $M(x;y;z)$; vì $A, O, M$ thẳng hàng nên $\\overrightarrow{OM}(x;y;z) = k.\\overrightarrow{OA} = (k;k;2k) \\Leftrightarrow \\begin{cases} x = k \\\\ y = k \\\\ z = 2k \\end{cases}$ <br>     Do $M(x;y;z) \\in (\\alpha): x+2y-2z-6=0$ nên $k+2k-2.2k-6=0 \\Leftrightarrow k=-6 \\Rightarrow M(-6;-6;-12)$. <br> \\end{itemize}"
   },
   {
@@ -248,7 +248,7 @@
       "C": "Điểm $M(3;0;-2)$ thuộc mặt phẳng $(P)$.",
       "D": "Khoảng cách từ gốc tọa độ $O$ đến mặt phẳng $(P)$ bằng $\\frac{6}{7}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Gọi $A, B, C$ lần lượt là hình chiếu vuông góc của điểm $M(1;2;3)$ lên $Ox, Oy, Oz$. <br>     Suy ra: $A(1;0;0), B(0;2;0), C(0;0;3)$. <br>     Vậy phương trình mặt phẳng $(ABC)$ theo đoạn chắn là $\\frac{x}{1} + \\frac{y}{2} + \\frac{z}{3} = 1 \\Leftrightarrow 6x+3y+2z-6=0$. <br>     Từ đó ta có a) đúng và b) sai. <br>     \\item[b)] \\textbf{Sai.} <br>     \\item[c)] \\textbf{Sai:} Thay tọa độ điểm $M(3;0;-2)$ vào phương trình $6x+3y+2z-6=0$ ta có $6.3+3.0+2.(-2)-6=8 \\ne 0$ nên điểm $M(3;0;-2)$ không thuộc mặt phẳng $(P)$. <br>     \\item[d)] \\textbf{Đúng:} Ta có $d(O,(P)) = \\frac{|-6|}{\\sqrt{6^2+3^2+2^2}} = \\frac{6}{7}$. <br> \\end{itemize}"
   },
   {
@@ -262,7 +262,7 @@
       "C": "Phương trình mặt phẳng đi qua $M$, song song với mặt phẳng $(Oxz)$ là $y-1=0$.",
       "D": "Mặt phẳng $(Q)$ qua $M$, cắt các trục $Ox, Oy, Oz$ lần lượt tại các điểm $A, B, C$ sao cho tam giác $ABC$ nhận $M$ làm trực tâm. Phương trình mặt phẳng $(Q)$ là $3x-y-2z+14=0$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Toạ độ điểm $M$ thoả mãn phương trình $z+2=0$. <br>     \\item[b)] \\textbf{Đúng.} Mặt phẳng cần tìm song song với $(\\alpha)$ nên có véc tơ pháp tuyến $\\overrightarrow{n} = (3;-1;2)$. Phương trình mặt phẳng đi qua $M$, song song với mặt phẳng $(\\alpha)$ là $3(x-3)-(y+1)+2(z+2)=0 \\Leftrightarrow 3x-y+2z-6=0$. <br>     \\item[c)] \\textbf{Sai.} Mặt phẳng $(Oxz)$ có phương trình là $y=0$ nên phương trình mặt phẳng đi qua $M$, song song với mặt phẳng $(Oxz)$ là $y+1=0$. <br>     \\item[d)] \\textbf{Sai.} Ta có <br>     $\\begin{cases} BC \\perp AD \\\\ BC \\perp OA \\end{cases} \\Rightarrow BC \\perp (OAD) \\Rightarrow BC \\perp OM$ (1) <br>     $\\begin{cases} AB \\perp CE \\\\ AB \\perp OC \\end{cases} \\Rightarrow AB \\perp (OCE) \\Rightarrow AB \\perp OM$ (2) <br>     Từ (1), (2) suy ra $OM \\perp (ABC)$. <br>     Mặt phẳng $(Q)$ qua $M$, cắt các trục $Ox, Oy, Oz$ lần lượt tại các điểm $A, B, C$ sao cho tam giác $ABC$ nhận $M$ làm trực tâm, có véc tơ pháp tuyến là $\\overrightarrow{OM}(3;-1;-2)$. Phương trình mặt phẳng $(Q)$ là $3(x-3)-(y+1)-2(z+2)=0 \\Leftrightarrow 3x-y-2z-14=0$. <br> \\end{itemize}"
   },
   {
@@ -276,7 +276,7 @@
       "C": "Điểm $N(1;2;-1)$ đối xứng với $A(1;2;1)$ qua mặt phẳng $(Oyz)$.",
       "D": "Mặt phẳng $(P)$ vuông góc với đường thẳng $AB$ và cắt các trục $Ox, Oy$ và $Oz$ lần lượt tại các điểm $D, E$ và $F$. Khi thể tích của tứ diện $ODEF$ bằng $\\frac{3}{2}$, phương trình mặt phẳng $(P)$ là $2x-3y+4z+6=0$ hoặc $2x-3y+4z-6=0$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Vectơ $\\overrightarrow{AB} = (2;-3;4)$ không cùng phương với $\\overrightarrow{n} = (2;3;4)$ là VTPT của mp $(\\alpha)$ nên $\\overrightarrow{AB}$ không là một VTPT của mp $(\\alpha)$. <br>     \\item[b)] \\textbf{Đúng.} Trung điểm của đoạn thẳng $AB$ là điểm $I\\left(2;\\frac{1}{2};3\\right)$. Vậy mp trung trực của $AB$ đi qua $I\\left(2;\\frac{1}{2};3\\right)$ và nhận $\\overrightarrow{AB}(2;-3;4)$ làm VTPT nên có phương trình: <br>     $2(x-2)-3\\left(y-\\frac{1}{2}\\right)+4(z-3)=0 \\Leftrightarrow 2x-3y+4z-\\frac{29}{2}=0$. <br>     \\item[c)] \\textbf{Sai.} Điểm đối xứng với $A(1;2;1)$ qua mặt phẳng $(Oyz)$ có tọa độ $(-1;2;1)$. <br>     \\item[d)] \\textbf{Đúng.} Vì $AB \\perp (P)$ nên mặt phẳng $(P)$ có một vectơ pháp tuyến là $\\overrightarrow{AB} = (2;-3;4)$, do đó phương trình mặt phẳng $(P)$ có dạng $2x-3y+4z+d=0$. <br>     Từ đây tìm được $D\\left(-\\frac{d}{2};0;0\\right), E\\left(0;\\frac{d}{3};0\\right), F\\left(0;0;-\\frac{d}{4}\\right)$. Suy ra $OD = \\frac{|d|}{2}, OE = \\frac{|d|}{3}, OF = \\frac{|d|}{4}$. <br>     Mặt khác tứ diện $ODEF$ có $OD, OE, OF$ đôi một vuông góc nên <br>     $V_{ODEF} = \\frac{1}{3}OD.S_{OEF} = \\frac{1}{6}OD.OE.OF \\Leftrightarrow \\frac{|d|^3}{144} = \\frac{3}{2} \\Leftrightarrow |d| = 6 \\Leftrightarrow d = \\pm 6$. <br>     Vậy phương trình mặt phẳng $(P)$ là $2x-3y+4z \\pm 6 = 0$. <br> \\end{itemize}"
   },
   {
@@ -290,7 +290,7 @@
       "C": "Hai điểm $A, B$ nằm về hai phía so với mặt phẳng $(P)$.",
       "D": "Điểm $M(a;b;c)$ thuộc $(P)$ sao cho $MA+MB$ đạt giá trị nhỏ nhất. Khi đó $a+b+c=2$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Thay tọa độ điểm $A$ vào phương trình mặt phẳng $(P)$ ta có $5-1-3+3 \\ne 0$. Vậy điểm $A(5;-1;3)$ không thuộc mặt phẳng $(P)$. <br>     \\item[b)] \\textbf{Đúng.} Ta có $\\overrightarrow{AB} = (-10;1;-1)$ và vectơ pháp tuyến của mặt phẳng $(P)$ là $\\overrightarrow{n_P} = (1;1;-1)$. <br>     Suy ra $\\left[\\overrightarrow{AB}, \\overrightarrow{n_P}\\right] = (0;-11;-11)$. Do đó mặt phẳng $(Q)$ có vectơ pháp tuyến $\\overrightarrow{n_Q} = (0;1;1)$. <br>     Vậy phương trình mặt phẳng $(Q)$ là: $y-1+z-3=0 \\Leftrightarrow y+z-2=0$. <br>     \\item[c)] \\textbf{Đúng.} Đặt $f(x;y;z) = x+y-z+3$. Ta có <br>     $f(5;-1;3).f(-5;0;2) = (5-1-3+3).(-5+0-2+3) = 4.(-4) = -16 < 0$. <br>     Vậy hai điểm $A, B$ nằm về hai phía so với mặt phẳng $(P)$. <br>     \\item[d)] \\textbf{Đúng.} Vì hai điểm $A, B$ nằm về hai phía so với mặt phẳng $(P)$ và điểm $M(a;b;c)$ thuộc $(P)$ nên $MA+MB \\ge AB$. Vậy $MA+MB$ đạt giá trị nhỏ nhất khi $M, A, B$ thẳng hàng. <br>     Điểm $M(a;b;c)$ thuộc $(P)$ nên $a+b-c+3=0$ (1). <br>     Ta có $\\overrightarrow{AM} = (a-5; b+1; c-3), \\overrightarrow{AB} = (-10;1;-1)$. Ba điểm $M, A, B$ thẳng hàng nên <br>     $\\frac{a-5}{-10} = \\frac{b+1}{1} = \\frac{c-3}{-1} \\Leftrightarrow \\begin{cases} a+10b = -5 \\quad (2) \\\\ a-10c = -25 \\quad (3) \\end{cases}$ <br>     Từ (1), (2), (3) suy ra $a=0, b=-\\frac{1}{2}, c=\\frac{5}{2} \\Rightarrow a+b+c=2$. <br> \\end{itemize}"
   },
   {
@@ -304,7 +304,7 @@
       "C": "Phương trình mặt phẳng $(ABC)$ là: $6x+4y+3z-12=0$.",
       "D": "Bốn điểm $A, B, C, D$ là bốn đỉnh của tứ diện và chiều cao của tứ diện xuất phát từ đỉnh $D$ bằng $\\frac{5\\sqrt{61}}{61}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Ba điểm $A, B, C$ lần lượt nằm trên các tia $Ox, Oy, Oz$ là đúng. <br>     \\item[b)] \\textbf{Sai.} Ta có: $\\overrightarrow{AB} = (-2;3;0), \\overrightarrow{CD} = (1;-3;1) \\Rightarrow \\left[\\overrightarrow{AB}, \\overrightarrow{CD}\\right] = (3;2;3)$. Mặt phẳng $(P)$ chứa đường thẳng $AB$ và song song với đường thẳng $CD$ nên mp $(P)$ có vectơ pháp tuyến là $\\overrightarrow{n} = \\left[\\overrightarrow{AB}, \\overrightarrow{CD}\\right] = (3;2;3)$. <br>     Vậy phương trình mp $(P)$ là: $3(x-2)+2y+3z=0 \\Leftrightarrow 3x+2y+3z-6=0$. <br>     \\item[c)] \\textbf{Đúng.} Phương trình mặt phẳng $(ABC)$ là: $\\frac{x}{2} + \\frac{y}{3} + \\frac{z}{4} = 1 \\Leftrightarrow 6x+4y+3z-12=0$. <br>     \\item[d)] \\textbf{Sai.} Ta có $d(D, (ABC)) = \\frac{|6.1+4.(-3)+3.5-12|}{\\sqrt{6^2+4^2+3^2}} = \\frac{3\\sqrt{61}}{61}$, suy ra $D \\notin (ABC)$. Vậy bốn điểm $A, B, C, D$ là bốn đỉnh của tứ diện và chiều cao của tứ diện xuất phát từ đỉnh $D$ bằng $\\frac{3\\sqrt{61}}{61}$. <br> \\end{itemize}"
   },
   {
@@ -318,7 +318,7 @@
       "C": "Phương trình mặt phẳng $(OBED)$ là: $2x+z=0$.",
       "D": "Biết mặt đáy $OAGD$ và mặt trần $BCFE$ đều là các hình chữ nhật và các mặt bên đều là các hình thang cân. Khi đó vị trí chính giữa của trần $BCFE$ là $I(25;10;3)$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Mặt phẳng $(OAGD)$ là mp $(Oxy): z=0$, mặt phẳng $(BCFE)$ có phương trình là $z=3$. Vậy hai mặt phẳng $(BCFE)$ và $(OAGD)$ song song với nhau. <br>     \\item[b)] \\textbf{Đúng.} Vì $B(4k;3k;2k) \\in (BCFE) \\Rightarrow 2k=3 \\Leftrightarrow k=\\frac{3}{2}$. Vậy $B\\left(6; \\frac{9}{2}; 3\\right)$. <br>     \\item[c)] \\textbf{Sai.} Ta có $\\overrightarrow{OD} = (0;20;0), \\overrightarrow{OB} = \\left(6; \\frac{9}{2}; 3\\right) \\Rightarrow \\left[\\overrightarrow{OD}, \\overrightarrow{OB}\\right] = (60;0;-120)$, suy ra mặt phẳng $(OBED)$ có vecto pháp tuyến là $\\overrightarrow{n} = (1;0;-2)$. Vậy phương trình mặt phẳng $(OBED)$ là $x-2z=0$. <br>     \\item[d)] \\textbf{Đúng.} Gọi $I, I'$ lần lượt là tâm của các hình chữ nhật $BCFE$ và $OAGD$. Khi đó $II' \\perp (Oxy)$. <br>     Ta có $I'$ là trung điểm của đoạn thẳng $AD$ nên $I'(25;10;0)$. Mà $II' \\perp (Oxy)$ và $I \\in (BCFE)$ suy ra $I(25;10;3)$. <br> \\end{itemize}"
   },
   {
@@ -332,7 +332,7 @@
       "C": "Đường thẳng $d: \\frac{x}{1} = \\frac{y+1}{1} = \\frac{z-2}{-2}$ vuông góc với mặt phẳng trung trực của đoạn thẳng $AB$.",
       "D": "Biết $M$ là điểm thuộc mặt phẳng trung trực của đoạn $AB$ sao cho $MA+MB$ nhỏ nhất. Tọa độ điểm $M$ là $(2;1;-5)$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} $I$ là trung điểm điểm của đoạn thẳng $AB$ nên $\\begin{cases} x_I = \\frac{x_A+x_B}{2} = 2 \\\\ y_I = \\frac{y_A+y_B}{2} = 1 \\\\ z_I = \\frac{z_A+z_B}{2} = -5 \\end{cases}$. Vậy $I(2;1;-5)$. <br>     \\item[b)] \\textbf{Đúng.} Mặt phẳng trung trực $(Q)$ của đoạn $AB$ đi qua trung điểm $I$ và vuông góc $AB$ nên nhận $\\overrightarrow{AB}(2;2;-4)$ làm một vectơ pháp tuyến $\\Rightarrow (Q): x+y-2z-13=0$. <br>     \\item[c)] \\textbf{Đúng.} Đường thẳng $d$ có một vectơ chỉ phương $\\overrightarrow{u}(1;1;-2)$ cùng phương với $\\overrightarrow{AB}$ nên $d$ vuông góc với mặt phẳng trung trực của đoạn $AB$. <br>     \\item[d)] \\textbf{Đúng.} $A, B$ khác phía với $(Q) \\Rightarrow (MA+MB)_{\\min} = AB \\Leftrightarrow A, M, B$ thẳng hàng $\\Rightarrow M$ là giao điểm của $AB$ và $(Q)$. <br>     $M \\in AB \\Rightarrow M(1+a; a; -3-2a)$. <br>     $M \\in (Q) \\Rightarrow 1+a+a-2(-3-2a)-13=0 \\Rightarrow a=1 \\Rightarrow M(2;1;-5)$. <br> \\end{itemize}"
   },
   {
@@ -346,7 +346,7 @@
       "C": "Phương trình mặt phẳng $(SBD)$ là $2x+2y+z-2=0$.",
       "D": "Khoảng cách từ điểm $C$ đến mặt phẳng $(SBD)$ là $\\frac{2}{3}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,F",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Dựa vào hình vẽ dễ thấy tọa độ điểm $C$ là $C(1;2;0)$. <br>     \\item[b)] \\textbf{Sai.} Ta có: $S(0;0;2); C(1;2;0); D(-1;2;0)$ <br>     Suy ra toạ độ trọng tâm $G$ của tam giác $SCD$ là $\\begin{cases} x_G = \\frac{x_S+x_C+x_D}{3} = 0 \\\\ y_G = \\frac{y_S+y_C+y_D}{3} = \\frac{4}{3} \\\\ z_G = \\frac{z_S+z_C+z_D}{3} = \\frac{2}{3} \\end{cases}$ <br>     Vậy $G\\left(0; \\frac{4}{3}; \\frac{2}{3}\\right)$. <br>     \\item[c)] \\textbf{Đúng.} Ta có: $S(0;0;2); B(1;0;0); D(-1;2;0); \\overrightarrow{SB} = (1;0;-2); \\overrightarrow{SD} = (-1;2;-2)$ <br>     Suy ra vectơ pháp tuyến của mặt phẳng $(SBD)$ có toạ độ là $\\overrightarrow{n_{SBD}} = \\left[\\overrightarrow{SB}; \\overrightarrow{SD}\\right] = (4;4;2)$ <br>     Hay mặt phẳng $(SBD)$ có vectơ pháp tuyến là $(2;2;1)$ <br>     Vậy phương trình mặt phẳng $(SBD)$ đi qua điểm $S(0;0;2)$ và có vectơ pháp tuyến $(2;2;1)$ là $2x+2y+z-2=0$. <br>     \\item[d)] \\textbf{Sai.} Khoảng cách từ $C$ đến mặt phẳng $(SBD)$ là $\\frac{|2.1+2.2+0-2|}{\\sqrt{2^2+2^2+1^2}} = \\frac{4}{3}$. <br> \\end{itemize}"
   },
   {
@@ -360,7 +360,7 @@
       "C": "Phương trình mặt phẳng $(O'BM)$ là $x+y+z-3=0$.",
       "D": "Thể tích khối chóp $G.BMO'$ bằng $\\frac{15}{2}$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Ta có: $C(3;6;0), B'(3;0;3), D'(0;6;3)$ suy ra $G(2;4;2)$. <br>     \\item[b)] \\textbf{Sai.} Tam giác $O'BM$ là tam giác đều có cạnh bằng $3\\sqrt{2}$ nên có diện tích là $S = \\frac{(3\\sqrt{2})^2\\sqrt{3}}{4} = \\frac{9\\sqrt{3}}{2}$. <br>     \\item[c)] \\textbf{Đúng.} Phương trình mặt phẳng $(O'BM)$ là $\\frac{x}{3} + \\frac{y}{3} + \\frac{z}{3} = 1 \\Leftrightarrow x+y+z-3=0$. <br>     \\item[d)] \\textbf{Đúng.} $d(G; (O'BM)) = \\frac{5}{\\sqrt{3}} \\Rightarrow V_{GBMO'} = \\frac{1}{3} \\cdot \\frac{9\\sqrt{3}}{2} \\cdot \\frac{5}{\\sqrt{3}} = \\frac{15}{2}$. <br> \\end{itemize}"
   },
   {
@@ -374,7 +374,7 @@
       "C": "$B'C' \\perp OO'$.",
       "D": "Tọa độ của điểm $C'$ là $C'(5;-1;0)$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,F,T,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Sai.} Phương trình mặt phẳng chứa trần mái nhà là phương trình mặt phẳng $BCC'B'$ hay mặt phẳng $Oxy: z=0$. <br>     \\item[b)] \\textbf{Sai.} Phương trình mặt phẳng chứa phần mái nhà không cắt tia $Oy$ bao gồm mặt phẳng $(ABB'A')$ và $(ACC'A')$. <br>     Ta có $\\overrightarrow{AB} = (0;1;-2), \\overrightarrow{AA'} = (5;0;0) \\Rightarrow \\overrightarrow{n} = \\left[\\overrightarrow{AB}, \\overrightarrow{AA'}\\right] = (0;10;-5)$ <br>     Khi đó $(ABB'A')$ đi qua $A(0;0;2)$ và nhận $\\overrightarrow{n_1} = (0;2;-1)$ làm VTPT có phương trình là $2y-z+2=0$ hay $-2y+z-2=0$. <br>     Ta có $\\overrightarrow{AC} = (0;-1;-2), \\overrightarrow{AA'} = (5;0;0) \\Rightarrow \\overrightarrow{n'} = \\left[\\overrightarrow{AC}, \\overrightarrow{AA'}\\right] = (0;10;5)$ <br>     Khi đó $(ABC'A')$ đi qua $A(0;0;2)$ và nhận $\\overrightarrow{n_1} = (0;2;1)$ làm VTPT có phương trình là $2y+z-2=0$. <br>     \\item[c)] \\textbf{Đúng.} Ta có $B'C' \\parallel BC$ và $BC \\perp OO'$ nên $B'C' \\perp OO'$. <br>     \\item[d)] \\textbf{Đúng.} Tọa độ của điểm $C'$ là $C'(5;-1;0)$. <br> \\end{itemize}"
   },
   {
@@ -388,7 +388,7 @@
       "C": "Khoảng cách $d(C; (A'MD)) = \\frac{4}{3}$.",
       "D": "Điểm $K(4;4;-2)$ thuộc mặt phẳng $(A'MC)$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,T",
     "solution": "\\begin{itemize} <br>     \\item[a)] \\textbf{Đúng.} Gắn hệ trục tọa độ như hình vẽ: <br>     \\noteImage[width=0.4\\linewidth]{data/im/PTMP3-37.png} <br>     Ta có: <br>     $A(0;0;0), B(2;0;0), D(0;2;0), A'(0;0;2), B'(2;0;2), C(2;2;0), M(2;0;1), D'(0;2;2); C'(2;2;2)$ <br>     Ta có phương trình mặt phẳng $(A'BD)$ là phương trình mặt chắn, nên $\\frac{x}{2} + \\frac{y}{2} + \\frac{z}{2} = 1 \\Leftrightarrow x+y+z=2$. <br>     \\item[b)] \\textbf{Đúng.} Ta có $\\overrightarrow{AC'} = (2;2;2)$ là một vectơ pháp tuyến của mặt phẳng $(A'BD)$. <br>     \\item[c)] \\textbf{Sai.} Phương trình $(A'MD)$ là $x+2y+2z-4=0$. <br>     Do đó: $d(C, (A'DM)) = \\frac{|2+4+0-4|}{3} = \\frac{2}{3}$. <br>     \\item[d)] \\textbf{Đúng.} Ta có: $\\left[\\overrightarrow{A'M}, \\overrightarrow{A'C}\\right] = (2;2;4)$, nên phương trình mặt phẳng $(A'MC): x+y+2z-4=0$. <br>     Lại có $4+4+2.(-2)-4=0 \\Rightarrow K \\in (A'MC)$. <br> \\end{itemize}"
   }
 ]

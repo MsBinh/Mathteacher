@@ -10,7 +10,7 @@
       "C": "Giá trị $f(2)$ bằng $11$.",
       "D": "$\\int f(x)\\mathrm{d}x = \\frac{1}{3}x^3 + \\frac{3}{2}x^2 - x + C$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,T,F",
     "solution": "a) Sai. Vì $f'(x) = 0$ có một nghiệm bội lẻ $x = -\\frac{3}{2}$. Hàm số đồng biến trên khoảng $\\left(-\\frac{3}{2}; +\\infty\\right)$ và hàm số nghịch biến trên khoảng $\\left(-\\infty; -\\frac{3}{2}\\right)$. <br>  <br> b) Đúng. Ta có $f'(0) = 3$. Suy ra phương trình tiếp tuyến của đồ thị hàm số $f(x)$ tại điểm $M(0;1)$ là $y = 3(x - 0) + 1 = 3x + 1$. <br>  <br> c) Đúng. Ta có $f(x) = \\int f'(x)\\mathrm{d}x = \\int (2x + 3)\\mathrm{d}x = x^2 + 3x + C$.  <br> Điểm $M(0;1) \\in f(x) \\Rightarrow C = 1 \\Rightarrow f(x) = x^2 + 3x + 1$.  <br> Vậy $f(2) = 2^2 + 3\\cdot 2 + 1 = 11$. <br>  <br> d) Sai. $\\int f(x)\\mathrm{d}x = \\int (x^2 + 3x + 1)\\mathrm{d}x = \\frac{1}{3}x^3 + \\frac{3}{2}x^2 + x + C$."
   },
   {
@@ -24,7 +24,7 @@
       "C": "$\\int (2x - 2024)^2\\mathrm{d}x = x - 1012 + C$.",
       "D": "$\\int \\left(\\frac{1}{4}x^4 + 4x^3\\right)\\mathrm{d}x = \\frac{1}{20}x^5 + \\frac{4}{3}x^4 + C$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,F,F",
     "solution": "a) Đúng. $\\int (\\sqrt[3]{x^2} + x - 2)\\mathrm{d}x = \\int \\left(x^{\\frac{2}{3}} + x - 2\\right)\\mathrm{d}x = \\frac{3}{5}x^{\\frac{5}{3}} + \\frac{1}{2}x^2 - 2x + C = \\frac{3}{5}\\sqrt[3]{x^5} + \\frac{1}{2}x^2 - 2x + C$. <br>  <br> b) Sai. $\\int \\frac{1}{2023x^{2024}}\\mathrm{d}x = \\frac{1}{2023}\\int x^{-2024}\\mathrm{d}x = \\frac{-1}{2023 \\cdot 2023 \\cdot x^{2023}} + C$. <br>  <br> c) Sai. $\\int (2x - 2024)^2\\mathrm{d}x = \\frac{1}{2}\\int (2x - 2024)^2\\mathrm{d}(2x - 2024) = \\frac{1}{6}(2x - 2024)^3 + C$. <br>  <br> d) Sai. $\\int \\left(\\frac{1}{4}x^4 + 4x^3\\right)\\mathrm{d}x = \\frac{1}{20}x^5 + x^4 + C$."
   },
   {
@@ -38,7 +38,7 @@
       "C": "$f(x) = 2x^4 - \\cos x + 3$.",
       "D": "$\\int f(x)\\mathrm{d}x = \\frac{2}{5}x^5 - \\sin x + 3x + C$, với $C$ là hằng số."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,F",
     "solution": "a) Đúng. <br>  <br> b) Đúng. Ta có: $f(x) = \\int (8x^3 + \\sin x)\\mathrm{d}x = 8\\int x^3\\mathrm{d}x + \\int \\sin x\\mathrm{d}x = 2x^4 - \\cos x + C$.  <br> Lại có: $f(0) = 3 \\Rightarrow -1 + C = 3 \\Rightarrow C = 4 \\Rightarrow f(x) = 2x^4 - \\cos x + 4$.  <br> Khi đó: $F(x) = \\int f(x)\\mathrm{d}x = \\int (2x^4 - \\cos x + 4)\\mathrm{d}x = \\frac{2}{5}x^5 - \\sin x + 4x + C$.  <br> Mà $F(0) = 2 \\Rightarrow C = 2 \\Rightarrow F(x) = \\frac{2}{5}x^5 - \\sin x + 4x + 2 \\Rightarrow F(1) = \\frac{2}{5} - \\sin 1 + 4 + 2 = \\frac{32}{5} - \\sin 1$. <br>  <br> c) Sai. Ta có: $f(x) = \\int (8x^3 + \\sin x)\\mathrm{d}x = 2x^4 - \\cos x + C$.  <br> Lại có: $f(0) = 3 \\Rightarrow -1 + C = 3 \\Rightarrow C = 4 \\Rightarrow f(x) = 2x^4 - \\cos x + 4$. <br>  <br> d) Sai. $\\int f(x)\\mathrm{d}x = \\int (2x^4 - \\cos x + 4)\\mathrm{d}x = \\frac{2}{5}x^5 - \\sin x + 4x + C$."
   },
   {
@@ -52,7 +52,7 @@
       "C": "$\\int f'(2x)\\mathrm{d}x = -\\frac{1}{4x} + C$.",
       "D": "Gọi $G(x)$ là một nguyên hàm của hàm số $f(x)$. Biết $G(2) = 1$ và $G(5) + G(-5) = 0$. Khi đó tìm được $G(-10) = a\\ln 10 + b\\ln 5 + c\\ln 2 + d$, với $a, b, c$ là các số hữu tỷ. Khi đó $a + b + c + d = -19$."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,F",
     "solution": "a) Đúng. $\\int f(x)\\mathrm{d}x = 2x + \\ln|x| + C$.  <br> Ta có $f(x) = \\frac{2x + 1}{x} = 2 + \\frac{1}{x} \\Rightarrow \\int f(x)\\mathrm{d}x = \\int \\left(2 + \\frac{1}{x}\\right)\\mathrm{d}x = 2x + \\ln|x| + C$. <br>  <br> b) Đúng. Gọi $F(x)$ là một nguyên hàm của hàm số $f(x)$ và thỏa mãn $F(1) = 3$. Khi đó $F(x) = 2x + \\ln|x| + 1$.  <br> Theo câu a): $F(x) = \\int f(x)\\mathrm{d}x = 2x + \\ln|x| + C$.  <br> Vì $F(1) = 3$ nên $C = 1$.  <br> Vậy $F(x) = 2x + \\ln|x| + 1$. <br>  <br> c) Sai. $\\int f'(2x)\\mathrm{d}x = -\\frac{1}{4x} + C$.  <br> Ta có $f'(x) = -\\frac{1}{x^2} \\Rightarrow f'(2x) = -\\frac{1}{4x^2}$.  <br> $\\int f'(2x)\\mathrm{d}x = \\int -\\frac{1}{4x^2}\\mathrm{d}x = \\frac{1}{4x} + C$. <br>  <br> d) Sai. Gọi $G(x)$ là một nguyên hàm của hàm số $f(x)$. Biết $G(2) = 1$ và $G(5) + G(-5) = 0$. Khi đó tìm được $G(-10) = a\\ln 10 + b\\ln 5 + c\\ln 2 + d$, với $a, b, c$ là các số hữu tỷ. Khi đó $a + b + c + d = -17$. <br> Ta có $G(x) = 2x + \\ln|x| + C = \\begin{cases} 2x + \\ln x + C_1 & \\text{nếu } x > 0 \\\\ 2x + \\ln(-x) + C_2 & \\text{nếu } x < 0 \\end{cases}$. <br> $G(2) = 1 \\Rightarrow 2\\cdot 2 + \\ln 2 + C_1 = 1 \\Rightarrow C_1 = -3 - \\ln 2$. <br> $G(5) + G(-5) = 0 \\Leftrightarrow 2\\cdot 5 + \\ln 5 - 3 - \\ln 2 + 2\\cdot(-5) + \\ln 5 + C_2 = 0 \\Rightarrow C_2 = 3 + \\ln 2 - 2\\ln 5$. <br> Do đó $G(-10) = 2\\cdot(-10) + \\ln 10 + 3 + \\ln 2 - 2\\ln 5 = \\ln 10 - 2\\ln 5 + \\ln 2 - 17$. <br> Vậy $a + b + c + d = 1 + (-2) + 1 + (-17) = -17$."
   },
   {
@@ -66,7 +66,7 @@
       "C": "$\\int F(x)\\mathrm{d}x = f(x) + C$.",
       "D": "$\\int F(x)\\mathrm{d}x = x^2 - \\ln|x| + C$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,F,T",
     "solution": "a) Sai. Theo đề ta có $f(x) = F'(x) = \\left(\\frac{2x^2 - 1}{x}\\right)' = \\left(2x - \\frac{1}{x}\\right)' = 2 + \\frac{1}{x^2}$. <br>  <br> b) Đúng. Theo đề ta có $\\int f(x)\\mathrm{d}x = F(x) + C = \\frac{2x^2 - 1}{x} + C$. <br>  <br> c) Sai. Theo đề ta có $\\int f(x)\\mathrm{d}x = F(x) + C$. <br>  <br> d) Đúng. $\\int F(x)\\mathrm{d}x = \\int \\frac{2x^2 - 1}{x}\\mathrm{d}x = \\int \\left(2x - \\frac{1}{x}\\right)\\mathrm{d}x = x^2 - \\ln|x| + C$."
   },
   {
@@ -80,7 +80,7 @@
       "C": "Xe máy dừng hẳn tại vị trí đèn tín hiệu sau $10$ giây kể từ khi bắt đầu giảm tốc lần thứ nhất.",
       "D": "Khoảng cách từ vị trí đèn tín hiệu đến vị trí quán ăn là $200$ m."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,T,F",
     "solution": "Đổi: $36$ km/h = $10$ m/s; $54$ km/h = $15$ m/s. <br>  <br> a) Sai. Sau $3$ giây xe máy đi được quãng đường là: $10\\cdot 3 = 30$ m.  <br> Khi đó xe máy bắt đầu giảm tốc và quãng đường xe máy đi được từ lúc bắt đầu giảm tốc lần thứ nhất đến khi dừng hẳn tại vị trí đèn tín hiệu là: $80 - 30 = 50$ m. <br>  <br> b) Đúng. Khi xe bắt đầu giảm tốc lần thứ nhất ta có: $v_1(0) = a\\cdot 0 + b = 10$ m/s $\\Rightarrow b = 10$. <br>  <br> c) Đúng. Ta có: $s_1(t) = \\int v_1(t)\\mathrm{d}t = \\int (at + b)\\mathrm{d}t = \\frac{at^2}{2} + bt + C_1$ (m).  <br> Theo đề: $s_1(0) = 0 \\Rightarrow C_1 = 0 \\Rightarrow s_1(t) = \\frac{at^2}{2} + bt$ (m).  <br> Khi xe dừng tại vị trí đèn tín hiệu thì thời gian đi được của xe kể từ khi giảm tốc lần thứ nhất là:  <br> $v_1(t) = 0 \\Rightarrow at + 10 = 0 \\Rightarrow t = -\\frac{10}{a}$ (s).  <br> Từ câu a ta có: $s_1\\left(-\\frac{10}{a}\\right) = 50 \\Rightarrow \\frac{a}{2} \\cdot \\left(-\\frac{10}{a}\\right)^2 + 10\\left(-\\frac{10}{a}\\right) = 50 \\Rightarrow a = -1$ (thỏa).  <br> Do đó $t = \\frac{-10}{-1} = 10$ (s). <br>  <br> d) Sai. Khi xe dừng lại quán ăn khi xe máy bắt đầu đi tại vị trí đèn tín hiệu thì  <br> $v_2(30) = m\\cdot 30^2 + n\\cdot 30 = 0 \\Rightarrow 30m = -n \\Rightarrow 60m = -2n$.  <br> Theo đề $v_{2\\max} = v_2\\left(-\\frac{n}{2m}\\right) = m\\cdot\\left(-\\frac{n}{2m}\\right)^2 + n\\cdot\\left(-\\frac{n}{2m}\\right) = 15 \\Rightarrow n^2 + 60m = 0 \\Rightarrow n^2 - 2n = 0 \\Rightarrow \\left[\\begin{array}{l} n = 0 \\text{ (loại)} \\\\ n = 2 \\text{ (nhận)} \\end{array}\\right. \\Rightarrow m = -\\frac{1}{15}$ (nhận). <br> $\\Rightarrow v_2(t) = -\\frac{1}{15}t^2 + 2t$ (m/s) $\\Rightarrow s_2(t) = \\int v_2(t)\\mathrm{d}t = -\\frac{t^3}{45} + t^2 + C_2$.  <br> Theo đề: $s_2(0) = 0 \\Rightarrow C_2 = 0 \\Rightarrow s_2(t) = -\\frac{t^3}{45} + t^2$ (m).  <br> Do đó khoảng cách từ vị trí đèn tín hiệu đến vị trí quán ăn là: $s_2(30) = 300$ m."
   },
   {
@@ -94,7 +94,7 @@
       "C": "Độ cao tối đa của khinh khí cầu bay là $540$m.",
       "D": "Sau $15$ phút từ khi xuất phát thì khinh khí cầu trở lại độ cao khi bắt đầu xuất phát."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,T,T",
     "solution": "a) Sai. Độ cao của khinh khí cầu (so với mặt nước biển) tại thời điểm $t$ là  <br> $h(t) = \\int v(t)\\mathrm{d}t = \\int (-0,12t^2 + 1,2t)\\mathrm{d}t = -0,04t^3 + 0,6t^2 + C$.  <br> Tại thời điểm xuất phát ($t = 0$) khinh khí cầu ở độ cao $520$m nên $C = 520$.  <br> Vậy $h(t) = -0,04t^3 + 0,6t^2 + 520$. <br>  <br> b) Đúng. Tại thời điểm $t = 3$ phút độ cao của khinh khí cầu là  <br> $h(3) = -0,04\\cdot 3^3 + 0,6\\cdot 3^2 + 520 = 524,32$ m. <br>  <br> c) Đúng. Độ cao tối đa của khinh khí cầu bay là $540$m.  <br> Xét $h(t) = -0,04t^3 + 0,6t^2 + 520$.  <br> $h'(t) = -0,12t^2 + 1,2t = 0 \\Leftrightarrow \\left[\\begin{array}{l} t = 0 \\\\ t = 10 \\end{array}\\right.$. <br> Bảng biến thiên: <br>  <br> Từ bảng biến thiên, độ cao tối đa của khinh khí cầu khi bay là $540$m. <br>  <br> d) Đúng. Khinh khí cầu trở lại độ cao xuất phát khi:  <br> $h(t) = 520 \\Leftrightarrow -0,04t^3 + 0,6t^2 + 520 = 520 \\Leftrightarrow -0,04t^3 + 0,6t^2 = 0 \\Leftrightarrow \\left[\\begin{array}{l} t = 0 \\\\ t = 15 \\end{array}\\right.$.  <br> Vậy sau $15$ phút thì khinh khí cầu trở lại độ cao xuất phát."
   },
   {
@@ -108,7 +108,7 @@
       "C": "$T(t) = \\int\\limits_0^2 T'(t)\\mathrm{d}t$ với $T(0) = 100$.",
       "D": "$T(t) = 65\\cdot e^{-2t} + 35$."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,F,F,T",
     "solution": "a) Sai. Ta có: $T(t) = \\int T'(t)\\mathrm{d}t = \\int \\left(-130\\cdot e^{-2t}\\right)\\mathrm{d}t = 65\\cdot e^{-2t} + C$.  <br> Khi $t = 0$, $T(0) = 100 \\Rightarrow 65 + C = 100 \\Rightarrow C = 35$.  <br> Nhiệt độ của vật tại thời điểm $t = 2$ phút là $T(2) = 65\\cdot e^{-2\\cdot 2} + 35 = \\frac{65}{e^4} + 35$. <br>  <br> b) Sai. $T'(t) = -130\\cdot e^{-2t} \\Rightarrow T''(t) = 260\\cdot e^{-2t} > 0, \\forall t$.  <br> Vậy tốc độ giảm nhiệt độ của vật tăng dần theo thời gian. <br>  <br> c) Sai. <br>  <br> d) Đúng. Ta có: $T(t) = \\int T'(t)\\mathrm{d}t = \\int \\left(-130\\cdot e^{-2t}\\right)\\mathrm{d}t = 65\\cdot e^{-2t} + C$.  <br> Khi $t = 0$, $T(0) = 100 \\Rightarrow C = 35$.  <br> Vậy $T(t) = 65\\cdot e^{-2t} + 35$."
   },
   {
@@ -122,7 +122,7 @@
       "C": "Doanh thu cao nhất của tất cả gian hàng mà người đó có thể thu về là $12$ tỷ $250$ triệu đồng.",
       "D": "Để doanh thu cao nhất của tất cả gian hàng thì mỗi gian hàng đã tăng giá cho thuê thêm $15$ triệu đồng."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,T",
     "solution": "a) Đúng. Ta có: $T(x) = \\int T'(x)\\mathrm{d}x = \\int (-20x + 300)\\mathrm{d}x = -10x^2 + 300x + C, C \\in \\mathbb{R}$.  <br> Khi người đó tăng giá cho thuê mỗi gian hàng thêm $10$ triệu đồng thì doanh thu là $12$ tỷ đồng.  <br> Nên ứng với $x = 10$ ta có $T(10) = 12000 \\Rightarrow 12000 = -10\\cdot 10^2 + 300\\cdot 10 + C \\Rightarrow C = 10000$.  <br> Vậy $T(x) = -10x^2 + 300x + 10000$. <br>  <br> b) Sai. $T(12) = -10\\cdot 12^2 + 300\\cdot 12 + 10000 = 12160$ (triệu đồng). <br>  <br> c) Đúng, d) Đúng. Ta có bảng biến thiên: <br>  <br> Vậy doanh thu cao nhất mà người đó có thể thu về là $12$ tỷ $250$ triệu đồng và khi đó mỗi gian hàng đã tăng giá cho thuê thêm $15$ triệu đồng."
   },
   {
@@ -136,7 +136,7 @@
       "C": "Lượng khách tham quan lớn nhất là $1296$ người.",
       "D": "Tại thời điểm $t = 13$ giờ, lượng khách tham quan là lớn nhất."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,F,F",
     "solution": "a) Sai. $Q(t) = \\int Q'(t)\\mathrm{d}t = \\int (4t^3 - 72t^2 + 288t)\\mathrm{d}t = t^4 - 24t^3 + 144t^2 + C$.  <br> $Q(2) = 500 \\Rightarrow C = 100$. Vậy $Q(t) = t^4 - 24t^3 + 144t^2 + 100$. <br>  <br> b) Đúng. $Q(5) = 1325$. <br>  <br> c) Sai. Với $0 \\le t \\le 13$, $Q'(t) = 0 \\Leftrightarrow t \\in \\{0; 6; 12\\}$.  <br> $Q(0) = 100$, $Q(6) = 1396$, $Q(12) = 100$, $Q(13) = 269$.  <br> Lượng khách tham quan lớn nhất là $1396$ người. <br>  <br> d) Sai. Thời điểm lượng khách tham quan lớn nhất là $t = 6$ giờ."
   },
   {
@@ -150,7 +150,7 @@
       "C": "Độ cao của tên lửa đạt được tại thời điểm $t = 10$s là $660$m.",
       "D": "Độ cao lớn nhất tên lửa đạt được (làm tròn kết quả đến hàng đơn vị) là $766$m."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,F",
     "solution": "a) Đúng. Ta có $v(t) = \\int a(t)\\mathrm{d}t = -t^2 + 10t + C_1$, mà $v(0) = 50$ nên $C_1 = 50$ hay $v(t) = -t^2 + 10t + 50$ với $t \\in [0;10]$.  <br> Gọi $h(t)$ là hàm biểu thị độ cao của tên lửa thì $h(t) = \\int v(t)\\mathrm{d}t = -\\frac{t^3}{3} + 5t^2 + 50t + C_2$, mà $h(0) = 0$ nên $C_2 = 0$ hay $h(t) = -\\frac{t^3}{3} + 5t^2 + 50t$.  <br> Sau thời gian $10$ s, tên lửa bay với vận tốc $v(t) = -9,8(t - 10) + 50$.  <br> Độ cao của tên lửa từ thời điểm $t = 10$ s trở đi là $h(t) = -4,9(t - 10)^2 + 50t + C_3$, vì $h(10) = \\frac{2000}{3}$ nên $C_3 = \\frac{500}{3}$ hay $h(t) = -4,9(t - 10)^2 + 50t + \\frac{500}{3}$.  <br> Thời điểm vận tốc bằng $0$ là $-9,8(t - 10) + 50 = 0 \\Leftrightarrow t = \\frac{740}{49} \\approx 15$ s.  <br> Do đó tên lửa đạt độ cao lớn nhất tại thời điểm $t = 15$ s. <br>  <br> b) Đúng. Vận tốc của tên lửa đạt được tại thời điểm $t = 10$ s là $v(10) = -10^2 + 10\\cdot 10 + 50 = 50$ m/s. <br>  <br> c) Sai. Độ cao của tên lửa đạt được tại thời điểm $t = 10$ s là $h(10) = -\\frac{10^3}{3} + 5\\cdot 10^2 + 50\\cdot 10 = 666,7$ m. <br>  <br> d) Sai. Độ cao lớn nhất tên lửa đạt được là $h\\left(\\frac{740}{49}\\right) \\approx 794$ m."
   },
   {
@@ -164,7 +164,7 @@
       "C": "Sau $16$ giờ bơm liên tục, thể tích dầu trong bể đạt được là $148.000$ lít.",
       "D": "Trong quá trình bơm dầu, nếu sau mỗi giờ lượng dầu bị rò rỉ đều đặn với tốc độ $500$ lít/giờ, thì tại thời điểm $t$ bằng $9$ giờ, thể tích dầu trong bể là $72.000$ lít."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,F",
     "solution": "a) Đúng. Vì $V(t)$ là một nguyên hàm của hàm số $V'(t)$ tức là $V(t)$ là một nguyên hàm của hàm số $f(t) = k\\sqrt{t}$. <br>  <br> b) Đúng. $V(t) = \\int k\\sqrt{t}\\mathrm{d}t = \\int k\\cdot t^{\\frac{1}{2}}\\mathrm{d}t = k \\cdot \\frac{t^{\\frac{3}{2}}}{\\frac{3}{2}} + C = \\frac{2k}{3}t\\sqrt{t} + C$, với $0 \\le t \\le 24$ và $k, C$ là các hằng số. <br>  <br> c) Sai. Theo giả thiết $V(0) = 50.000$ và $V(4) = 58.000$ nên $\\begin{cases} C = 50.000 \\\\ \\frac{2k}{3} \\cdot 4\\sqrt{4} + C = 58.000 \\end{cases} \\Rightarrow \\begin{cases} C = 50.000 \\\\ \\frac{16k}{3} + 50.000 = 58.000 \\Rightarrow k = 1500 \\end{cases}$.  <br> Suy ra $V(t) = 1000t\\sqrt{t} + 50000$, vì vậy sau $16$ giờ thể tích dầu trong bể đạt được là $V(16) = 1000\\cdot 16\\sqrt{16} + 50000 = 114000$ (lít). <br>  <br> d) Sai. Vì lượng dầu bị rò rỉ đều đặn với tốc độ $500$ lít/giờ, nên tại thời điểm $t$ giờ thì lượng dầu bị rò rỉ là $500t$ (lít).  <br> Vì vậy thể tích dầu trong bể là $V_1(t) = V(t) - 500t = 1000t\\sqrt{t} + 50000 - 500t$, do đó tại thời điểm $t$ bằng $9$ giờ, thể tích dầu trong bể là $V_1(9) = 1000\\cdot 9\\sqrt{9} + 50000 - 500\\cdot 9 = 72500$ (lít)."
   },
   {
@@ -178,7 +178,7 @@
       "C": "So với lúc ban đầu ($t = 0$) số lượng vi khuẩn (làm tròn đến hàng phần mười) đã tăng thêm $454,4$ tỷ tế bào tại thời điểm $t = 3$.",
       "D": "Tại thời điểm kết thúc quá trình lên men, lượng vi khuẩn trong bồn lên men lớn hơn $7389$ tỷ tế bào."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,T,T",
     "solution": "a) Đúng. Ta có: <br> $N(t) = \\int N'(t)\\mathrm{d}t = \\int 10\\cdot 2^{2t}\\mathrm{d}t = 10\\cdot \\frac{2^{2t}}{2\\ln 2} + C = \\frac{5}{\\ln 2}\\cdot 2^{2t} + C$. <br> $N(0) = 10 \\Rightarrow \\frac{5}{\\ln 2} + C = 10 \\Rightarrow C = 10 - \\frac{5}{\\ln 2}$. <br> $\\Rightarrow N(t) = \\frac{5}{\\ln 2}(2^{2t} - 1) + 10$. <br>  <br> b) Sai. Sau $1$ h, thay $t = 1$ vào $N(t)$, ta được: $N(1) = \\frac{5}{\\ln 2}(2^2 - 1) + 10 \\approx 31,64$. <br>  <br> c) Đúng. Ta có $N(3) = \\frac{5}{\\ln 2}(2^6 - 1) + 10 \\approx 464,4$ (tỷ tế bào).  <br> Suy ra $N(3) - N(0) = 464,4 - 10 = 454,4$. <br>  <br> d) Đúng. $N(5) = \\frac{5}{\\ln 2}(2^{10} - 1) + 10 \\approx 7389,4 > 7389$."
   },
   {
@@ -192,7 +192,7 @@
       "C": "Tại thời điểm người đó tròn $30$ tuổi tổng lượng vi nhựa tích lũy khoảng $1184$ microgram (làm tròn kết quả đến hàng đơn vị).",
       "D": "Lượng vi nhựa tích lũy trong cơ thể người trong khoảng thời gian từ khi người đó tròn $24$ tuổi đến khi tròn $30$ tuổi là $750$ microgram (làm tròn kết quả đến hàng đơn vị)."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,F,F,F",
     "solution": "a) Đúng. Vì tại thời điểm người đó vừa tròn $20$ tuổi cơ thể đã tích lũy sẵn $800$ microgram vi nhựa nên $M(0) = 800$ microgram. <br>  <br> b) Sai. Ta có $M(t) = \\int m(t)\\mathrm{d}t = \\int (2t + 4\\sqrt{t} + 100)\\mathrm{d}t = t^2 + \\frac{8}{3}t\\sqrt{t} + 100t + C$.  <br> Vì $M(0) = 800 \\Rightarrow C = 800$. Suy ra $M(t) = t^2 + \\frac{8}{3}t\\sqrt{t} + 100t + 800$. <br>  <br> c) Sai. Tại thời điểm người đó tròn $30$ tuổi ($10$ năm sau $20$ tuổi) tổng lượng vi nhựa tích lũy là  <br> $M(10) = 10^2 + \\frac{8}{3}\\sqrt{10^3} + 100\\cdot 10 + 800 \\approx 1984$ microgram (làm tròn kết quả đến hàng đơn vị). <br>  <br> d) Sai. Ta có $M(4) = 4^2 + \\frac{8}{3}\\sqrt{4^3} + 100\\cdot 4 + 800 \\approx 1237$.  <br> Lượng vi nhựa tích lũy trong cơ thể người trong khoảng thời gian từ khi người đó tròn $24$ tuổi đến khi tròn $30$ tuổi là $M(10) - M(4) = 1984 - 1237 \\approx 747$ microgram (làm tròn kết quả đến hàng đơn vị)."
   },
   {
@@ -206,7 +206,7 @@
       "C": "$C = 3\\ln 2$.",
       "D": "Nồng độ thuốc tồn dư trong nước tại thời điểm $t = 20$ (ngày) kể từ lúc sử dụng thuốc lớn hơn $0,4$ mg/lít."
     },
-    "correct": "F,F,F,F",
+    "correct": "T,T,F,F",
     "solution": "a) Đúng. Vì $y(t) > 0$ và $y'(t) = k\\cdot y(t) \\Leftrightarrow \\frac{y'(t)}{y(t)} = k \\Rightarrow \\ln y(t) = kt + C \\Leftrightarrow y(t) = e^{kt+C}$ (1).  <br> Ta có: $y(t) = e^{g(t)}$, ($t \\ge 0$), kết hợp với (1) suy ra $g(t) = kt + C$ ($t \\ge 0$) với $C$ là một hằng số xác định. <br>  <br> b) Đúng. Ta có: $y(t) = e^{g(t)}$, ($t \\ge 0$) suy ra: $\\begin{cases} y(6) = e^{g(6)} = 2 \\Leftrightarrow g(6) = \\ln 2 \\\\ y(12) = e^{g(12)} = 1 \\Leftrightarrow g(12) = 0 \\end{cases}$.  <br> Ta lại có: $g(t) = kt + C$ ($t \\ge 0$) suy ra: $\\begin{cases} g(6) = 6k + C = \\ln 2 \\\\ g(12) = 12k + C = 0 \\end{cases} \\Rightarrow -6k = \\ln 2 \\Leftrightarrow k = -\\frac{\\ln 2}{6}$. <br>  <br> c) Sai. Ta có: $g(12) = -\\frac{\\ln 2}{6} \\cdot 12 + C = 0 \\Rightarrow C = 2\\ln 2$. <br>  <br> d) Sai. $y(20) = e^{g(20)} = e^{-\\frac{\\ln 2}{6} \\cdot 20 + 2\\ln 2} \\approx 0,3968 < 0,4$."
   },
   {
@@ -220,7 +220,7 @@
       "C": "Tính từ lúc phanh xe, sau $4$ giây thì xe dừng hẳn.",
       "D": "Quãng đường xe đi được tính từ lúc phanh xe đến khi dừng hẳn nằm trong khoảng từ $35$ mét đến $40$ mét."
     },
-    "correct": "F,F,F,F",
+    "correct": "F,T,F,T",
     "solution": "a) Sai. $v(t) = \\int a(t)\\mathrm{d}t$. <br>  <br> b) Đúng. $a(t) = v'(t) = s''(t)$. <br>  <br> c) Sai. $v(t) = \\int a(t)\\mathrm{d}t = \\int -3\\mathrm{d}t = -3t + C$.  <br> $v(0) = -3\\cdot 0 + C = 15 \\Rightarrow C = 15$. Suy ra $v(t) = -3t + 15$.  <br> Xe dừng hẳn khi $v(t) = 0 \\Rightarrow -3t + 15 = 0 \\Rightarrow t = 5$ giây. <br>  <br> d) Đúng. $s(t) = \\int v(t)\\mathrm{d}t = \\int (-3t + 15)\\mathrm{d}t = -\\frac{3}{2}t^2 + 15t + C$.  <br> $s(0) = -\\frac{3}{2} \\cdot 0^2 + 15\\cdot 0 + C = 0 \\Rightarrow C = 0$.  <br> $s(5) = 37,5$ mét."
   }
 ]
