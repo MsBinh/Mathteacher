@@ -4271,10 +4271,19 @@ function processContent(text) {
     let processedText = text.trim();
 
     // 1. TÌM VÀ CHÈN ẢNH (Biến data/im/... thành thẻ <img>)
+   // 1. TÌM VÀ CHÈN ẢNH (Ép đường dẫn tìm vào sâu trong JSONDL)
     const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp))/gi;
+
     processedText = processedText.replace(imgRegex, function(match) {
+        let finalPath = match.toLowerCase(); // Ép chữ thường cho chuẩn GitHub
+        
+        // Nếu đường dẫn là nội bộ, ta chỉ cho nó vào đúng kho JSONDL/
+        if (!finalPath.startsWith('http') && !finalPath.startsWith('jsondl/')) {
+            finalPath = 'JSONDL/' + finalPath;
+        }
+        
         return `<div style="text-align:center; margin:15px 0;">
-                    <img src="${match}" 
+                    <img src="${finalPath}" 
                          style="max-width:100%; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #eee;"
                          onerror="this.style.display='none'">
                 </div>`;
