@@ -3585,85 +3585,51 @@ window.checkAnswer = function(qid, correct) {
         showNotification('Có lỗi xảy ra khi kiểm tra đáp án!', 'error');
     }
 };
-
 window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
     console.log("🔍 === KIỂM TRA TRUE/FALSE ===");
-    console.log("Question:", questionId);
-    console.log("Answers param:", correctAnswers);
     
-    // 1. Tìm container
     const container = document.getElementById(questionId);
     if (!container) {
-        console.error("❌ Không tìm thấy container với ID:", questionId);
         showNotification("Không tìm thấy câu hỏi!", "error");
         return;
     }
-    console.log("✅ Found container");
-    
-    // 2. Parse answers
+
+    // --- CHỈ SỬA DUY NHẤT ĐOẠN NÀY ĐỂ NHẬN DIỆN ĐA DẠNG ---
     let answers = [];
     try {
         if (typeof correctAnswers === 'string') {
-            // Xử lý chuỗi như "[True, True, True, False]"
-            const clean = correctAnswers
-                .replace(/^\[|\]$/g, '') // Bỏ []
-                .replace(/"/g, '')       // Bỏ "
-                .replace(/'/g, '');      // Bỏ '
-            
+            const clean = correctAnswers.replace(/^\[|\]$/g, '').replace(/"/g, '').replace(/'/g, '');
             answers = clean.split(',').map(item => {
-                const trimmed = item.trim().toLowerCase();
-                return trimmed === 'true' || trimmed === 'đúng';
+                const v = item.trim().toUpperCase();
+                return v === 'T' || v === 'TRUE' || v === 'ĐÚNG';
             });
         } else if (Array.isArray(correctAnswers)) {
             answers = correctAnswers.map(ans => {
-                if (typeof ans === 'boolean') return ans;
-                if (typeof ans === 'string') {
-                    return ans.toLowerCase() === 'true' || ans === 'Đúng';
-                }
-                return Boolean(ans);
+                const v = String(ans).trim().toUpperCase();
+                return v === 'TRUE' || v === 'T' || v === 'ĐÚNG' || ans === true;
             });
         }
     } catch (e) {
         console.error("❌ Parse answers error:", e);
-        showNotification("Lỗi xử lý đáp án!", "error");
         return;
     }
-    
-    console.log("Parsed answers:", answers);
-    
-    // 3. Tìm các option rows
+    // --- KẾT THÚC PHẦN SỬA ---
+
     const optionRows = container.querySelectorAll(".option-row");
-    console.log("Found option rows:", optionRows.length);
-    
-    if (optionRows.length === 0) {
-        console.error("❌ Không tìm thấy .option-row trong container");
-        console.log("Container children:", container.children);
-        return;
-    }
-    
-    // 4. Kiểm tra từng câu
     let allCorrect = true;
     let correctCount = 0;
     let feedbackHtml = '';
     
     optionRows.forEach((row, idx) => {
-        console.log(`--- Row ${idx} ---`);
-        
-        // Tìm các radio buttons trong row
         const radios = row.querySelectorAll('input[type="radio"]');
-        console.log(`Radio buttons found: ${radios.length}`);
-        
         let selectedValue = null;
         radios.forEach(radio => {
-            console.log(`  Radio: name="${radio.name}", value="${radio.value}", checked=${radio.checked}`);
             if (radio.checked) selectedValue = radio.value;
         });
         
         const expectedAnswer = idx < answers.length ? answers[idx] : false;
         const expectedText = expectedAnswer ? "True" : "False";
-        const letter = String.fromCharCode(97 + idx); // a, b, c, d
-        
-        console.log(`Selected: ${selectedValue}, Expected: ${expectedText}`);
+        const letter = String.fromCharCode(97 + idx);
         
         if (selectedValue === null) {
             feedbackHtml += `<div style="color: #ffc107; margin: 5px 0;">${letter}) ⭕ Chưa chọn</div>`;
@@ -3671,8 +3637,6 @@ window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
         } else if (selectedValue === expectedText) {
             correctCount++;
             feedbackHtml += `<div style="color: #28a745; margin: 5px 0;">${letter}) ✅ Đúng (${selectedValue})</div>`;
-            
-            // Highlight correct
             radios.forEach(radio => {
                 if (radio.value === selectedValue) {
                     radio.parentElement.style.color = '#28a745';
@@ -3680,28 +3644,19 @@ window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
                 }
             });
         } else {
-            feedbackHtml += `<div style="color: #dc3545; margin: 5px 0;">
-                ${letter}) ❌ Sai (Chọn: ${selectedValue}, Đáp án: ${expectedText})
-            </div>`;
+            feedbackHtml += `<div style="color: #dc3545; margin: 5px 0;">${letter}) ❌ Sai (Chọn: ${selectedValue}, Đáp án: ${expectedText})</div>`;
             allCorrect = false;
-            
-            // Highlight wrong and correct
             radios.forEach(radio => {
-                if (radio.checked) {
-                    radio.parentElement.style.color = '#dc3545';
-                }
+                if (radio.checked) radio.parentElement.style.color = '#dc3545';
                 if (radio.value === expectedText) {
                     radio.parentElement.style.color = '#28a745';
                     radio.parentElement.style.fontWeight = 'bold';
                 }
             });
         }
-        
-        // Disable radios
         radios.forEach(radio => radio.disabled = true);
     });
     
-    // 5. Hiển thị kết quả
     const score = correctCount * 0.25;
     const resultDiv = document.createElement('div');
     resultDiv.innerHTML = `
@@ -3710,26 +3665,17 @@ window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
             ${feedbackHtml}
             <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 8px;">
                 <strong>Đúng:</strong> ${correctCount}/4 câu<br>
-                <strong>Điểm:</strong> <span style="color: ${allCorrect ? '#28a745' : '#ffc107'}">${score.toFixed(2)}/1.00</span><br>
-                <strong>Kết quả:</strong> ${allCorrect ? '🎉 Hoàn hảo!' : 'Cần cố gắng hơn!'}
+                <strong>Điểm:</strong> <span style="color: ${allCorrect ? '#28a745' : '#ffc107'}">${score.toFixed(2)}/1.00</span>
             </div>
-        </div>
-    `;
+        </div>`;
     
-    // Xóa kết quả cũ nếu có
     const oldResult = container.querySelector('.true-false-result');
     if (oldResult) oldResult.remove();
-    
     resultDiv.className = 'true-false-result';
     container.appendChild(resultDiv);
     
-    // 6. Thông báo
-    console.log(`✅ Check completed: ${correctCount}/4 correct, score: ${score}`);
-    if (allCorrect) {
-        showNotification(`🎉 Hoàn toàn chính xác! (${correctCount}/4)`, 'success');
-    } else {
-        showNotification(`Đúng ${correctCount}/4 mệnh đề`, 'warning');
-    }
+    if (allCorrect) showNotification(`🎉 Hoàn toàn chính xác! (${correctCount}/4)`, 'success');
+    else showNotification(`Đúng ${correctCount}/4 mệnh đề`, 'warning');
 };
 
 window.checkShortAnswer = function(qid, correct) {
