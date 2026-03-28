@@ -4265,34 +4265,43 @@ window.viewStudentDetail = function(studentId) {
 };
 
 
+// ===== TEXT PROCESSING HELPERS =====
 function processContent(text) {
     if (!text || typeof text !== 'string') return '';
     let processedText = text.trim();
 
-    // 1. TÌM VÀ CHÈN ẢNH
-    const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp))/gi;
+    // 1. TÌM VÀ CHÈN ẢNH (VỚI CƠ CHẾ XỬ LÝ ĐƯỜNG DẪN THÔNG MINH)
+    const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP))/gi;
 
     processedText = processedText.replace(imgRegex, function(match) {
-        let finalPath = match; // Giữ nguyên chữ hoa/thường gốc của thầy
-
-        // Nếu đường dẫn nội bộ (data/im/...), ta xử lý thông minh:
+        let finalPath = match;
+        
+        // Xử lý đường dẫn nội bộ
         if (!finalPath.startsWith('http')) {
-            // Loại bỏ 'JSONDL/' nếu lỡ có ở đầu để tránh lặp thư mục
-            finalPath = finalPath.replace(/^JSONDL\//i, '');
+            // Bước 1: Chuẩn hóa về chữ thường
+            finalPath = finalPath.toLowerCase();
+            
+            // Bước 2: Xử lý đường dẫn data/im/
+            if (finalPath.includes('data/im/')) {
+                // Giữ nguyên từ data/im/ trở đi
+                const dataIndex = finalPath.indexOf('data/im/');
+                finalPath = finalPath.substring(dataIndex);
+            }
+            // Bước 3: Xử lý trường hợp có jsondl/ ở đầu
+            else if (finalPath.startsWith('jsondl/')) {
+                finalPath = finalPath.replace(/^jsondl\//i, '');
+            }
         }
         
-        // Render thẻ img với cơ chế dự phòng (nếu .png lỗi thì thử .PNG)
+        // Tạo thẻ img với onerror handler mới
         return `<div style="text-align:center; margin:15px 0;">
                     <img src="${finalPath}" 
                          style="max-width:100%; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #eee;"
-                         onerror="if(!this.triedUpper){this.src=this.src.replace('.png','.PNG');this.triedUpper=true;}else{this.style.display='none';}">
+                         onerror="handleImageError(this)">
                 </div>`;
     });
 
-    return processedText;
-}
-
-    // 2. TÌM VÀ CHÈN LINK PDF/DRIVE
+    // 2. TÌM VÀ CHÈN LINK PDF/DRIVE (Giữ nguyên)
     const pdfRegex = /(https?:\/\/drive\.google\.com[^\s]+|https?:\/\/[^\s]+?\.pdf)/gi;
     processedText = processedText.replace(pdfRegex, function(match) {
         return `<div style="margin:15px 0; text-align:center;">
@@ -4302,7 +4311,7 @@ function processContent(text) {
                 </div>`;
     });
 
-    // 3. XỬ LÝ MATHJAX & TABLE (Giữ nguyên phần xử lý bảng của thầy)
+    // 3. XỬ LÝ MATHJAX & TABLE (Giữ nguyên)
     const placeholders = [];
     const tableRegex = /\\begin\{tabular\}\s*\{([^}]+)\}([\s\S]*?)\\end\{tabular\}/g;
     processedText = processedText.replace(tableRegex, function(match, colSpecs, content) {
@@ -4323,6 +4332,41 @@ function processContent(text) {
     return processedText;
 }
 
+// THÊM HÀM XỬ LÝ LỖI ẢNH MỚI VÀO SAU HÀM processContent
+function handleImageError(imgElement) {
+    let currentSrc = imgElement.src;
+    
+    // Loại bỏ tham số URL nếu có
+    currentSrc = currentSrc.split('?')[0];
+    
+    // Các phương án thử
+    const attempts = [
+        // Thử 1: Đổi .png thành .PNG (hoặc ngược lại)
+        () => currentSrc.replace(/\.(png|PNG)$/, match => match === '.png' ? '.PNG' : '.png'),
+        
+        // Thử 2: Thêm 'jsondl/' vào đầu nếu chưa có
+        () => currentSrc.startsWith('data/') ? 'jsondl/' + currentSrc : null,
+        
+        // Thử 3: Bỏ 'jsondl/' nếu có
+        () => currentSrc.startsWith('jsondl/') ? currentSrc.replace('jsondl/', '') : null,
+        
+        // Thử 4: Thử với đường dẫn tuyệt đối từ gốc
+        () => currentSrc.startsWith('data/') ? '/' + currentSrc : null
+    ];
+    
+    // Thử từng phương án
+    for (let attempt of attempts) {
+        let newSrc = attempt();
+        if (newSrc && newSrc !== currentSrc) {
+            imgElement.src = newSrc;
+            return; // Thành công, thoát
+        }
+    }
+    
+    // Không còn cách nào, ẩn ảnh đi
+    imgElement.style.display = 'none';
+    console.warn('Không thể tải ảnh:', currentSrc);
+}
 function convertSingleTableToHTML(colSpecs, content) {
     try {
         let cleanContent = content
