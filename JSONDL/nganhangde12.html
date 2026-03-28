@@ -4270,30 +4270,22 @@ function processContent(text) {
     if (!text || typeof text !== 'string') return '';
     let processedText = text.trim();
 
-    // 1. TÌM VÀ CHÈN ẢNH (VỚI CƠ CHẾ XỬ LÝ ĐƯỜNG DẪN THÔNG MINH)
+    // 1. TÌM VÀ CHÈN ẢNH (GIỮ NGUYÊN CHỮ HOA/THƯỜNG)
     const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP))/gi;
 
     processedText = processedText.replace(imgRegex, function(match) {
         let finalPath = match;
         
-        // Xử lý đường dẫn nội bộ
+        // Xử lý đường dẫn nội bộ - KHÔNG ép chữ thường
         if (!finalPath.startsWith('http')) {
-            // Bước 1: Chuẩn hóa về chữ thường
-            finalPath = finalPath.toLowerCase();
-            
-            // Bước 2: Xử lý đường dẫn data/im/
-            if (finalPath.includes('data/im/')) {
-                // Giữ nguyên từ data/im/ trở đi
-                const dataIndex = finalPath.indexOf('data/im/');
-                finalPath = finalPath.substring(dataIndex);
-            }
-            // Bước 3: Xử lý trường hợp có jsondl/ ở đầu
-            else if (finalPath.startsWith('jsondl/')) {
+            // Chỉ xóa 'jsondl/' nếu có ở đầu
+            if (finalPath.toLowerCase().startsWith('jsondl/')) {
                 finalPath = finalPath.replace(/^jsondl\//i, '');
             }
+            // Giữ nguyên chữ hoa/thường như trong JSON
         }
         
-        // Tạo thẻ img với onerror handler mới
+        // Tạo thẻ img với onerror handler thông minh
         return `<div style="text-align:center; margin:15px 0;">
                     <img src="${finalPath}" 
                          style="max-width:100%; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #eee;"
@@ -4332,41 +4324,82 @@ function processContent(text) {
     return processedText;
 }
 
-// THÊM HÀM XỬ LÝ LỖI ẢNH MỚI VÀO SAU HÀM processContent
+// HÀM XỬ LÝ LỖI ẢNH VỚI BỘ ĐẾM RETRY VÀ ĐỔI ĐUÔI 2 CHIỀU
 function handleImageError(imgElement) {
-    let currentSrc = imgElement.src;
+    // Khởi tạo bộ đếm nếu chưa có
+    if (!imgElement.retryCount) {
+        imgElement.retryCount = 0;
+    }
     
-    // Loại bỏ tham số URL nếu có
-    currentSrc = currentSrc.split('?')[0];
+    // Nếu đã thử quá 3 lần, ẩn ảnh và thoát
+    if (imgElement.retryCount >= 3) {
+        imgElement.style.display = 'none';
+        console.warn('Không thể tải ảnh sau 3 lần thử:', imgElement.src);
+        return;
+    }
     
-    // Các phương án thử
-    const attempts = [
-        // Thử 1: Đổi .png thành .PNG (hoặc ngược lại)
-        () => currentSrc.replace(/\.(png|PNG)$/, match => match === '.png' ? '.PNG' : '.png'),
-        
-        // Thử 2: Thêm 'jsondl/' vào đầu nếu chưa có
-        () => currentSrc.startsWith('data/') ? 'jsondl/' + currentSrc : null,
-        
-        // Thử 3: Bỏ 'jsondl/' nếu có
-        () => currentSrc.startsWith('jsondl/') ? currentSrc.replace('jsondl/', '') : null,
-        
-        // Thử 4: Thử với đường dẫn tuyệt đối từ gốc
-        () => currentSrc.startsWith('data/') ? '/' + currentSrc : null
-    ];
+    // Tăng bộ đếm
+    imgElement.retryCount++;
     
-    // Thử từng phương án
-    for (let attempt of attempts) {
-        let newSrc = attempt();
-        if (newSrc && newSrc !== currentSrc) {
-            imgElement.src = newSrc;
-            return; // Thành công, thoát
+    // Lấy src gốc
+    let currentSrc = imgElement.getAttribute('src') || imgElement.src;
+    let newSrc = '';
+    
+    // Chiến thuật thử theo từng lần
+    if (imgElement.retryCount === 1) {
+        // Lần 1: Đổi đuôi file (HOA <-> thường) - Hỗ trợ cả 2 chiều
+        if (currentSrc.toLowerCase().endsWith('.png')) {
+            // Nếu đang là .png -> đổi thành .PNG
+            newSrc = currentSrc.replace(/\.png$/i, '.PNG');
+        } else if (currentSrc.toLowerCase().endsWith('.jpg')) {
+            newSrc = currentSrc.replace(/\.jpg$/i, '.JPG');
+        } else if (currentSrc.toLowerCase().endsWith('.jpeg')) {
+            newSrc = currentSrc.replace(/\.jpeg$/i, '.JPEG');
+        } else if (currentSrc.toLowerCase().endsWith('.gif')) {
+            newSrc = currentSrc.replace(/\.gif$/i, '.GIF');
+        } else if (currentSrc.toLowerCase().endsWith('.webp')) {
+            newSrc = currentSrc.replace(/\.webp$/i, '.WEBP');
+        }
+        // Nếu đuôi đang là chữ HOA, sẽ tự động đổi sang chữ thường
+        else if (currentSrc.endsWith('.PNG')) {
+            newSrc = currentSrc.replace(/\.PNG$/i, '.png');
+        } else if (currentSrc.endsWith('.JPG')) {
+            newSrc = currentSrc.replace(/\.JPG$/i, '.jpg');
+        } else if (currentSrc.endsWith('.JPEG')) {
+            newSrc = currentSrc.replace(/\.JPEG$/i, '.jpeg');
+        } else if (currentSrc.endsWith('.GIF')) {
+            newSrc = currentSrc.replace(/\.GIF$/i, '.gif');
+        } else if (currentSrc.endsWith('.WEBP')) {
+            newSrc = currentSrc.replace(/\.WEBP$/i, '.webp');
+        }
+    } 
+    else if (imgElement.retryCount === 2) {
+        // Lần 2: Thử thêm/bớt jsondl/
+        if (currentSrc.startsWith('data/')) {
+            newSrc = 'jsondl/' + currentSrc;
+        } else if (currentSrc.startsWith('jsondl/')) {
+            newSrc = currentSrc.replace('jsondl/', '');
+        }
+    }
+    else if (imgElement.retryCount === 3) {
+        // Lần 3: Thử đường dẫn tuyệt đối từ gốc
+        if (currentSrc.startsWith('data/')) {
+            newSrc = '/' + currentSrc;
+        } else if (currentSrc.startsWith('jsondl/')) {
+            newSrc = '/' + currentSrc;
         }
     }
     
-    // Không còn cách nào, ẩn ảnh đi
-    imgElement.style.display = 'none';
-    console.warn('Không thể tải ảnh:', currentSrc);
+    // Thử đường dẫn mới nếu có
+    if (newSrc && newSrc !== currentSrc) {
+        imgElement.src = newSrc;
+    } else {
+        // Không có phương án mới, ẩn ảnh
+        imgElement.style.display = 'none';
+        console.warn('Không có phương án thử cho ảnh:', currentSrc);
+    }
 }
+
 function convertSingleTableToHTML(colSpecs, content) {
     try {
         let cleanContent = content
