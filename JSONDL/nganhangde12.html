@@ -1606,14 +1606,11 @@ function renderWelcomeSection(item) {
         </div>
     `;
 }
-
 function renderMultipleChoiceQuestion(item) {
-    // 1. Logic Badge mức độ (GIỮ NGUYÊN)
     const levelMap = { 'nhan_biet': {class:'nb', text:'NB'}, 'thong_hieu': {class:'th', text:'TH'}, 'van_dung': {class:'vd', text:'VD'}, 'van_dung_cao': {class:'vdc', text:'VDC'} };
     const levelInfo = levelMap[item.level] || { class: 'nb', text: 'NB' };
     const chapterBadge = item.chapter ? `<span class="chapter-badge">${item.chapter}</span>` : '';
 
-    // 2. Logic tạo phương án (GIỮ NGUYÊN ID VÀ ONCHANGE)
     let optionsHtml = '';
     for (const [key, value] of Object.entries(item.options || {})) {
         const cleanValue = value.replace(/^[\$]?[A-Z]\.\s*/, '');
@@ -1629,22 +1626,21 @@ function renderMultipleChoiceQuestion(item) {
         `;
     }
 
-    // 3. Logic hiển thị ảnh (GIỮ NGUYÊN)
+    // ĐỒNG BỘ: Ép ảnh đi qua processContent để kích hoạt handleImageError
     let imagesHtml = '';
-    if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+    if (item.images && Array.isArray(item.images)) {
         imagesHtml = `<div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0;">
-            ${item.images.map(src => `<img src="${src}" style="border: 1px solid #ddd;">`).join('')}
+            ${item.images.map(src => processContent(src)).join('')}
         </div>`;
     } else if (item.image) {
-        imagesHtml = `<img src="${item.image}" style="max-width: 100%; margin: 15px 0;">`;
+        imagesHtml = processContent(item.image);
     }
 
-    // --- 4. TRẢ VỀ HTML VỚI CẤU TRÚC 2 CỘT MỚI ---
     return `
         <div class="question" id="${item.id}">
             <div class="question-grid">
                 <div class="q-left-col">
-                    <div class="question-title" style="font-size: 1.1em; line-height: 1.5;">
+                    <div class="question-title">
                         <strong style="color:var(--primary)">${item.title}</strong>
                         <span class="status-tag ${levelInfo.class}">${levelInfo.text}</span>
                         ${chapterBadge}
@@ -1652,22 +1648,16 @@ function renderMultipleChoiceQuestion(item) {
                     </div>
                     ${imagesHtml}
                 </div>
-
                 <div class="q-right-col">
                     <div class="options">${optionsHtml}</div>
-
-                    <div class="answer-check" style="margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
-                        <button onclick="checkAnswer('${item.id}', '${item.correct}')" class="btn" style="background:#17a2b8; width:100%; justify-content:center; color: white;">
+                    <div class="answer-check" style="margin-top:15px;">
+                        <button onclick="checkAnswer('${item.id}', '${item.correct}')" class="btn" style="background:#17a2b8; width:100%; color: white;">
                             ✅ Kiểm tra câu này
                         </button>
-                        <span id="result-${item.id}" style="display:block; margin-top:5px;"></span>
                     </div>
-
                     ${item.solution ? `
                     <div class="secure-solution-container">
-                        <button onclick="toggleSolution('${item.id}')" class="toggle-solution-btn">
-                            👁️ Xem hướng dẫn giải
-                        </button>
+                        <button onclick="toggleSolution('${item.id}')" class="toggle-solution-btn">👁️ Xem hướng dẫn giải</button>
                         <div id="solution-${item.id}" class="solution-box" style="display:none;">
                             ${processContent(item.solution)}
                         </div>
@@ -1679,70 +1669,45 @@ function renderMultipleChoiceQuestion(item) {
 }
 
 function renderTrueFalseQuestion(item) {
-    // 1. Tạo badge mức độ
-    const levelMap = {
-        'nhan_biet': { class: 'nb', text: 'NB' },
-        'thong_hieu': { class: 'th', text: 'TH' },
-        'van_dung': { class: 'vd', text: 'VD' },
-        'van_dung_cao': { class: 'vdc', text: 'VDC' }
-    };
+    const levelMap = { 'nhan_biet': { class: 'nb', text: 'NB' }, 'thong_hieu': { class: 'th', text: 'TH' }, 'van_dung': { class: 'vd', text: 'VD' }, 'van_dung_cao': { class: 'vdc', text: 'VDC' } };
     const levelInfo = levelMap[item.level] || { class: 'nb', text: 'NB' };
     const chapterBadge = item.chapter ? `<span class="chapter-badge">${item.chapter}</span>` : '';
     
-    // 2. Xử lý ảnh đề bài
+    // ĐỒNG BỘ: Ép ảnh đi qua processContent
     let questionImagesHtml = '';
-    if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+    if (item.images && Array.isArray(item.images)) {
         questionImagesHtml = `<div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0;">
-            ${item.images.map(src => `<img src="${src}" style="max-width: 48%; border-radius: 8px; border: 1px solid #ddd;">`).join('')}
+            ${item.images.map(src => processContent(src)).join('')}
         </div>`;
     } else if (item.image) {
-        questionImagesHtml = `<img src="${item.image}" style="max-width: 100%; margin: 15px 0; border-radius: 10px;" onerror="this.style.display='none'">`;
+        questionImagesHtml = processContent(item.image);
     }
 
-    // 3. Tự động nhận diện mệnh đề
-    let rawData = item.statements || item.options ||[];
+    let rawData = item.statements || item.options || [];
     const sentences = Array.isArray(rawData) ? rawData : Object.values(rawData);
-
     let statementsHtml = '';
     sentences.forEach((stmt, idx) => {
-        const letter = String.fromCharCode(97 + idx); // a, b, c, d
+        const letter = String.fromCharCode(97 + idx);
         let stmtText = (typeof stmt === 'object' && stmt !== null) ? (stmt.text || '') : stmt;
-        let stmtImage = (typeof stmt === 'object' && stmt !== null && stmt.image) ? 
-            `<div style="margin-top:5px;"><img src="${stmt.image}" style="max-height: 150px; border-radius: 5px;"></div>` : '';
-
-        // Xóa các từ khóa Đúng/Sai dư thừa ở đầu chuỗi
-        stmtText = String(stmtText).replace(/^(True|False|Right|Wrong|Đúng|Sai)\s*/i, '');
+        let stmtImage = (typeof stmt === 'object' && stmt !== null && stmt.image) ? processContent(stmt.image) : '';
 
         statementsHtml += `
-            <div class="option-row" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px dashed #eee;">
+            <div class="option-row" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #eee;">
                 <div style="flex: 1; padding-right: 20px;">
                     <strong>${letter})</strong> ${processContent(stmtText)}
                     ${stmtImage} 
                 </div>
                 <div style="display: flex; gap: 15px; min-width: 120px;">
-                    <label style="cursor: pointer; color: #28a745; font-weight: bold;">
-                        <input type="radio" name="${item.id}_${letter}" value="True" onchange="handleAutoScoreForStatement('${item.id}', ${idx}, 'True')"> Đ
-                    </label>
-                    <label style="cursor: pointer; color: #dc3545; font-weight: bold;">
-                        <input type="radio" name="${item.id}_${letter}" value="False" onchange="handleAutoScoreForStatement('${item.id}', ${idx}, 'False')"> S
-                    </label>
+                    <label style="cursor: pointer; color: #28a745; font-weight: bold;"><input type="radio" name="${item.id}_${letter}" value="True" onchange="handleAutoScoreForStatement('${item.id}', ${idx}, 'True')"> Đ</label>
+                    <label style="cursor: pointer; color: #dc3545; font-weight: bold;"><input type="radio" name="${item.id}_${letter}" value="False" onchange="handleAutoScoreForStatement('${item.id}', ${idx}, 'False')"> S</label>
                 </div>
             </div>`;
     });
 
-    // 4. Lời giải được đưa vào Cụm Bảo Mật (secure-solution-container)
-    let solutionHtml = item.solution ? `
-        <div class="secure-solution-container">
-            <button onclick="toggleSolution('${item.id}')" class="btn-sol" style="margin-top: 15px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">👁️ Xem giải chi tiết</button>
-            <div id="solution-${item.id}" class="solution-box" style="display: none; margin-top: 10px; padding: 10px; background: #f8f9fa; border-left: 4px solid #17a2b8;">
-                ${processContent(item.solution)}
-            </div>
-        </div>` : '';
-
-    const answersArray = JSON.stringify(item.answers || item.correct ||[]);
+    const answersArray = JSON.stringify(item.answers || item.correct || []);
 
     return `
-        <div class="question" id="${item.id}" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+        <div class="question" id="${item.id}">
             <div class="question-header">
                 <strong style="color: #0d47a1;">${item.title}</strong>
                 <span class="status-tag ${levelInfo.class}">${levelInfo.text}</span> ${chapterBadge}
@@ -1754,73 +1719,56 @@ function renderTrueFalseQuestion(item) {
                 <button onclick='checkTrueFalseAnswer("${item.id}", ${answersArray})' class="btn-check">✅ Kiểm tra</button>
                 <span id="result-${item.id}"></span>
             </div>
-            ${solutionHtml}
+            ${item.solution ? `
+                <div class="secure-solution-container">
+                    <button onclick="toggleSolution('${item.id}')" class="btn-sol">👁️ Xem giải chi tiết</button>
+                    <div id="solution-${item.id}" class="solution-box" style="display: none;">
+                        ${processContent(item.solution)}
+                    </div>
+                </div>` : ''}
         </div>`;
 }
 
 function renderShortAnswerQuestion(item) {
-    // 1. Tạo badge mức độ
-    const levelMap = {
-        'nhan_biet': { class: 'nb', text: 'NB' },
-        'thong_hieu': { class: 'th', text: 'TH' },
-        'van_dung': { class: 'vd', text: 'VD' },
-        'van_dung_cao': { class: 'vdc', text: 'VDC' }
-    };
-    
+    const levelMap = { 'nhan_biet': { class: 'nb', text: 'NB' }, 'thong_hieu': { class: 'th', text: 'TH' }, 'van_dung': { class: 'vd', text: 'VD' }, 'van_dung_cao': { class: 'vdc', text: 'VDC' } };
     const levelInfo = levelMap[item.level] || { class: 'nb', text: 'NB' };
     const chapterBadge = item.chapter ? `<span class="chapter-badge">${item.chapter}</span>` : '';
     
-    // 2. Xử lý ảnh
+    // ĐỒNG BỘ: Ép ảnh đi qua processContent
     let imagesHtml = '';
-    if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-        imagesHtml = `
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0;">
-                ${item.images.map(src => `<img src="${src}" style="max-width: 48%; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" onerror="this.style.display='none'">`).join('')}
-            </div>`;
+    if (item.images && Array.isArray(item.images)) {
+        imagesHtml = `<div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 15px 0;">
+            ${item.images.map(src => processContent(src)).join('')}
+        </div>`;
     } else if (item.image) {
-        imagesHtml = `<div style="text-align: center; margin: 15px 0;"><img src="${item.image}" style="max-width: 100%; border-radius: 10px; border: 1px solid #ddd;" onerror="this.style.display='none'"></div>`;
+        imagesHtml = processContent(item.image);
     }
 
-    // 3. Render HTML với lời giải được bọc bảo mật
     return `
-        <div class="question" id="${item.id}" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
-            <div class="question-header" style="margin-bottom: 10px;">
-                <strong style="color: #2c3e50; font-size: 1.1em;">${item.title}</strong>
-                <span class="status-tag ${levelInfo.class}" style="margin-left:5px;">${levelInfo.text}</span>
-                ${chapterBadge}
+        <div class="question" id="${item.id}">
+            <div class="question-header">
+                <strong>${item.title}</strong>
+                <span class="status-tag ${levelInfo.class}">${levelInfo.text}</span> ${chapterBadge}
             </div>
-            
-            <div class="question-content" style="margin-bottom: 15px; font-size: 1.05em;">
-                ${processContent(item.text)}
-            </div>
-
+            <div class="question-content">${processContent(item.text)}</div>
             ${imagesHtml} 
-            
-            <div class="answer-check" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                    <input id="input-${item.id}" placeholder="${item.placeholder || 'Nhập đáp án (VD: 5.5)'}" type="text" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em;" onchange="handleAutoScore('${item.id}', 'short_answer', '${item.answer || ''}', this.value)"/>
-                    <button onclick="checkShortAnswer('${item.id}', '${item.answer || ''}')" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
-                        ✅ Kiểm tra
-                    </button>
+            <div class="answer-check">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input id="input-${item.id}" placeholder="Nhập đáp án..." type="text" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" 
+                           onchange="handleAutoScore('${item.id}', 'short_answer', '${item.correct || ''}', this.value)"/>
+                    <button onclick="checkShortAnswer('${item.id}', '${item.correct || ''}')" class="btn" style="background:#28a745; color:white;">✅ Kiểm tra</button>
                 </div>
                 <span id="icon-${item.id}" style="display: block; margin-top: 10px;"></span>
+                <div id="result-${item.id}"></div>
             </div>
-
-            <div id="result-${item.id}"></div>
-
             ${item.solution ? `
                 <div class="secure-solution-container">
-                    <button onclick="toggleSolution('${item.id}')" style="margin-top: 15px; padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                        👁️ Xem lời giải chi tiết
-                    </button>
-                    <div id="solution-${item.id}" class="solution-box" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-left: 4px solid #17a2b8; border-radius: 4px;">
-                        <div class="solution-title" style="font-weight: bold; color: #006064; margin-bottom: 8px;">Hướng dẫn giải:</div>
-                        <div class="solution-content">${processContent(item.solution)}</div>
+                    <button onclick="toggleSolution('${item.id}')" class="toggle-solution-btn">👁️ Xem lời giải chi tiết</button>
+                    <div id="solution-${item.id}" class="solution-box" style="display: none;">
+                        ${processContent(item.solution)}
                     </div>
-                </div>
-            ` : ''}
-        </div>
-    `;
+                </div>` : ''}
+        </div>`;
 }
 function renderTheorySection(item) {
     // Tạo badge mức độ
@@ -3681,73 +3629,37 @@ window.checkTrueFalseAnswer = function(questionId, correctAnswers) {
 window.checkShortAnswer = function(qid, correct) {
     const input = document.getElementById(`input-${qid}`);
     const icon = document.getElementById(`icon-${qid}`);
-    const resultBox = input?.closest(".answer-check");
+    const feedback = document.getElementById(`result-${qid}`);
 
-    if (!input) return;
+    if (!input || !feedback) return;
 
-    const userAnswer = input.value.trim();
+    // Làm sạch dữ liệu: Xóa khoảng trắng, chuyển dấu phẩy thành chấm
+    const userAns = input.value.trim().toLowerCase().replace(/\s+/g, '').replace(',', '.');
+    const correctAns = String(correct).trim().toLowerCase().replace(/\s+/g, '').replace(',', '.');
 
-    let feedback = resultBox.querySelector(".result");
-    if (!feedback) {
-        feedback = document.createElement("div");
-        feedback.className = "result";
-        feedback.style.marginTop = "10px";
-        feedback.style.padding = "12px";
-        feedback.style.borderRadius = "8px";
-        feedback.style.background = "rgba(255,255,255,0.9)";
-        feedback.style.border = "1px solid #e0e0e0";
-        feedback.style.fontSize = "0.95em";
-        resultBox.appendChild(feedback);
-    }
-
-    if (userAnswer === "") {
-        icon.textContent = "⚠️";
-        feedback.innerHTML = "❗ <b>Báo thầy kiểm trực tiếp vì chưa giải.</b>";
-        playSound('wrong');
+    if (userAns === "") {
+        showNotification("Vui lòng nhập đáp án!", 'warning');
         return;
     }
 
-    const normalizedUser = userAnswer.toLowerCase().replace(/\s+/g, '');
-    const normalizedCorrect = correct.trim().toLowerCase().replace(/\s+/g, '');
-
-    if (normalizedUser === normalizedCorrect) {
+    input.disabled = true;
+    if (userAns === correctAns) {
         icon.textContent = "✅";
-        feedback.innerHTML = `
-            <div style="color: #28a745; font-weight: bold;">
-                🎯 <b>Đúng rồi!</b>
-            </div>
-            <div style="margin-top: 5px;">Đáp án của bạn: <b>${userAnswer}</b></div>
-        `;
-        input.style.borderColor = '#28a745';
+        feedback.innerHTML = `<div style="color: #28a745; margin-top: 10px; padding: 10px; background: #d4edda; border-radius: 8px;">
+            <b>Chính xác!</b><br>Đáp án: <b>${userAns}</b></div>`;
         input.style.background = '#d4edda';
-        input.disabled = true;
-        
-        if (currentUser) {
-            try { savePartial(qid, userAnswer, correct, true); } catch(e){}
-        }
         playSound('correct');
-        showNotification(`✅ Câu ${qid}: Chính xác!`, 'success');
+        if (typeof savePartial === 'function') savePartial(qid, userAns, correct, true);
     } else {
         icon.textContent = "❌";
-        feedback.innerHTML = `
-            <div style="color: #dc3545; font-weight: bold;">
-                ❌ <b>Sai rồi.</b>
-            </div>
-            <div style="margin-top: 5px;">Đáp án của bạn: <b>${userAnswer}</b></div>
-            <div>Đáp án đúng là: <b style="color: #28a745">${correct}</b></div>
-        `;
-        input.style.borderColor = '#dc3545';
+        feedback.innerHTML = `<div style="color: #dc3545; margin-top: 10px; padding: 10px; background: #f8d7da; border-radius: 8px;">
+            <b>Sai rồi.</b><br>Bạn nhập: <b>${userAns}</b><br>Đáp án đúng là: <b style="color:#28a745">${correct}</b></div>`;
         input.style.background = '#f8d7da';
-        input.disabled = true;
-        
-        if (currentUser) {
-            try { savePartial(qid, userAnswer, correct, false); } catch(e){}
-        }
         playSound('wrong');
-        showNotification(`❌ Câu ${qid}: Chưa chính xác`, 'error');
+        if (typeof savePartial === 'function') savePartial(qid, userAns, correct, false);
     }
+    updateActiveSlideInMenu();
 };
-
 function playSound(type) {
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance();
@@ -4270,22 +4182,21 @@ function processContent(text) {
     if (!text || typeof text !== 'string') return '';
     let processedText = text.trim();
 
-    // 1. TÌM VÀ CHÈN ẢNH (GIỮ NGUYÊN CHỮ HOA/THƯỜNG)
-    const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP))/gi;
+    // 1. TÌM VÀ CHÈN ẢNH (GIỮ NGUYÊN CHỮ HOA/THƯỜNG + XỬ LÝ KHOẢNG TRẮNG)
+    const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|(?:TNS|TNNL)[^\s]+?\.(?:png|PNG))/gi;
 
     processedText = processedText.replace(imgRegex, function(match) {
-        let finalPath = match;
+        let finalPath = match.trim(); // Xóa khoảng trắng ma trong JSON
         
-        // Xử lý đường dẫn nội bộ - KHÔNG ép chữ thường
         if (!finalPath.startsWith('http')) {
-            // Chỉ xóa 'jsondl/' nếu có ở đầu
-            if (finalPath.toLowerCase().startsWith('jsondl/')) {
-                finalPath = finalPath.replace(/^jsondl\//i, '');
+            // Tự động thêm thư mục nếu JSON chỉ ghi tên file (Ví dụ: TNS2-1.png)
+            if (!finalPath.includes('/') && (finalPath.startsWith('TNS') || finalPath.startsWith('TNNL'))) {
+                finalPath = 'data/im/' + finalPath;
             }
-            // Giữ nguyên chữ hoa/thường như trong JSON
+            // Xóa jsondl/ ở đầu nếu bị lặp
+            finalPath = finalPath.replace(/^jsondl\//i, '');
         }
         
-        // Tạo thẻ img với onerror handler thông minh
         return `<div style="text-align:center; margin:15px 0;">
                     <img src="${finalPath}" 
                          style="max-width:100%; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #eee;"
@@ -4293,7 +4204,7 @@ function processContent(text) {
                 </div>`;
     });
 
-    // 2. TÌM VÀ CHÈN LINK PDF/DRIVE (Giữ nguyên)
+    // 2. LINK PDF/DRIVE
     const pdfRegex = /(https?:\/\/drive\.google\.com[^\s]+|https?:\/\/[^\s]+?\.pdf)/gi;
     processedText = processedText.replace(pdfRegex, function(match) {
         return `<div style="margin:15px 0; text-align:center;">
@@ -4303,7 +4214,7 @@ function processContent(text) {
                 </div>`;
     });
 
-    // 3. XỬ LÝ MATHJAX & TABLE (Giữ nguyên)
+    // 3. MATHJAX & TABLE
     const placeholders = [];
     const tableRegex = /\\begin\{tabular\}\s*\{([^}]+)\}([\s\S]*?)\\end\{tabular\}/g;
     processedText = processedText.replace(tableRegex, function(match, colSpecs, content) {
@@ -4323,7 +4234,6 @@ function processContent(text) {
 
     return processedText;
 }
-
 // HÀM XỬ LÝ LỖI ẢNH VỚI BỘ ĐẾM RETRY VÀ ĐỔI ĐUÔI 2 CHIỀU
 function handleImageError(imgElement) {
     // Khởi tạo bộ đếm nếu chưa có
