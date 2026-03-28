@@ -4265,29 +4265,32 @@ window.viewStudentDetail = function(studentId) {
 };
 
 
-// ===== TEXT PROCESSING HELPERS =====
 function processContent(text) {
     if (!text || typeof text !== 'string') return '';
     let processedText = text.trim();
 
-    // 1. TÌM VÀ CHÈN ẢNH (Biến data/im/... thành thẻ <img>)
-   // 1. TÌM VÀ CHÈN ẢNH (Ép đường dẫn tìm vào sâu trong JSONDL)
+    // 1. TÌM VÀ CHÈN ẢNH
     const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp))/gi;
 
     processedText = processedText.replace(imgRegex, function(match) {
-        let finalPath = match.toLowerCase(); // Ép chữ thường cho chuẩn GitHub
-        
-        // Nếu đường dẫn là nội bộ, ta chỉ cho nó vào đúng kho JSONDL/
-        if (!finalPath.startsWith('http') && !finalPath.startsWith('jsondl/')) {
-            finalPath = 'JSONDL/' + finalPath;
+        let finalPath = match; // Giữ nguyên chữ hoa/thường gốc của thầy
+
+        // Nếu đường dẫn nội bộ (data/im/...), ta xử lý thông minh:
+        if (!finalPath.startsWith('http')) {
+            // Loại bỏ 'JSONDL/' nếu lỡ có ở đầu để tránh lặp thư mục
+            finalPath = finalPath.replace(/^JSONDL\//i, '');
         }
         
+        // Render thẻ img với cơ chế dự phòng (nếu .png lỗi thì thử .PNG)
         return `<div style="text-align:center; margin:15px 0;">
                     <img src="${finalPath}" 
                          style="max-width:100%; border-radius:8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #eee;"
-                         onerror="this.style.display='none'">
+                         onerror="if(!this.triedUpper){this.src=this.src.replace('.png','.PNG');this.triedUpper=true;}else{this.style.display='none';}">
                 </div>`;
     });
+
+    return processedText;
+}
 
     // 2. TÌM VÀ CHÈN LINK PDF/DRIVE
     const pdfRegex = /(https?:\/\/drive\.google\.com[^\s]+|https?:\/\/[^\s]+?\.pdf)/gi;
