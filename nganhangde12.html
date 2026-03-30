@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title>Ngân hàng đề thi toán THPT - Lớp Toán Thầy Bình</title>
+<style>
+    /* 1. CẤU HÌNH CƠ BẢN */
+    :root { --primary: #1a237e; --bg: #f4f7f6; }
+    body { background-color: var(--bg); font-family: 'Segoe UI', sans-serif; color: #333; margin: 0; padding-top: 70px; transition: 0.3s; }
+    * { box-sizing: border-box; }
+
+    /* 2. TOPBAR */
+    .topbar {
+        position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+        background: var(--primary); color: white; z-index: 1000;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .brand { font-weight: 800; font-size: 18px; text-transform: uppercase; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+    .brand span { color: #ffeb3b; }
+
+    .controls-area { display: flex; gap: 8px; align-items: center; justify-content: flex-end; flex: 1; }
+
+    .topbar button, .topbar select {
+        height: 36px; padding: 0 12px; border: none; border-radius: 18px;
+        cursor: pointer; font-weight: 600; font-size: 13px;
+        display: flex; align-items: center; gap: 5px; white-space: nowrap;
+        background: rgba(255,255,255,0.15); color: white; transition: 0.2s;
+    }
+    .topbar button:hover { background: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+    #loginBtn { background: #ffca28; color: #333; }
+    #scoreBtn { background: #00c853; color: white; }
+
+    /* 3. LAYOUT */
+    .page-container { max-width: 1300px; width: 98%; margin: 0 auto; padding-bottom: 50px; }
+    .question {
+        background: white; border-radius: 10px; padding: 20px;
+        margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        border-left: 5px solid var(--primary); animation: fadeIn 0.5s;
+    }
+    .question-title { font-size: 1.1em; line-height: 1.5; margin-bottom: 15px; }
+    .status-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; color: white; font-weight: bold; margin-left: 5px; vertical-align: middle; }
+    .nb { background: #4caf50; } .th { background: #2196f3; } .vd { background: #ff9800; } .vdc { background: #f44336; }
+
+    .option-row {
+        display: flex; align-items: center; margin-bottom: 10px; padding: 12px;
+        background: #f8f9fa; border: 1px solid #eee; border-radius: 8px; cursor: pointer; transition: 0.2s;
+    }
+    .option-row:hover { background: #e8eaf6; border-color: var(--primary); }
+    .option-row input { margin-right: 12px; transform: scale(1.3); }
+
+    /* 4. DASHBOARD */
+    .dashboard-card {
+        background: white; padding: 25px; border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 25px;
+        border-top: 5px solid var(--primary); transition: 0.3s;
+    }
+    .dashboard-select {
+        width: 100%; height: 45px; padding: 0 15px; font-size: 15px;
+        border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 15px;
+        font-weight: 600; color: #333; outline: none;
+    }
+    .dashboard-search { display: flex; border: 2px solid #ffca28; border-radius: 30px; overflow: hidden; }
+    .dashboard-search input { flex: 1; border: none; padding: 12px 20px; outline: none; }
+    .dashboard-search button { background: #ffca28; border: none; padding: 0 20px; cursor: pointer; font-weight: bold; }
+
+    /* 5. MODALS & UI */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; position: relative; }
+    .modal-close { position: absolute; top: 10px; right: 15px; font-size: 24px; border: none; background: none; cursor: pointer; color: #999; }
+    .notification { position: fixed; top: 75px; right: 20px; z-index: 3000; background: #333; color: white; padding: 12px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display:none; }
+    .notification.success { background: #2e7d32; }
+    .notification.error { background: #c62828; }
+    .notification.show { display: block; animation: slideIn 0.3s; }
+
+    /* MENU SLIDE */
+    .slide-menu { position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background: white; z-index: 2500; transition: 0.3s; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+    .slide-menu.active { right: 0; }
+    .menu-header { padding: 15px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; }
+    .menu-content { flex: 1; overflow-y: auto; padding: 10px; background: #f5f5f5; }
+    .slide-item { padding: 12px; background: white; margin-bottom: 5px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+    .slide-item:hover { background: #e3f2fd; }
+    .slide-item.active { border-left: 5px solid var(--primary); background: #e8eaf6; font-weight: bold; }
+    .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2400; display: none; }
+    .menu-overlay.active { display: block; }
+
+    .solution-box { background: #e8f5e9; border-radius: 8px; padding: 15px; margin-top: 10px; border: 1px solid #c8e6c9; }
+    .secure-solution-container { display: none !important; }
+    body.exam-submitted .secure-solution-container { display: block !important; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+    .floating-home-btn { position: fixed; bottom: 30px; left: 30px; width: 55px; height: 55px; background: var(--primary); color: white !important; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999; }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script>
+    window.MathJax = { tex: { inlineMath: [['$', '$']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+<div class="topbar">
+    <div class="brand" onclick="showWelcomeScreen()" style="cursor:pointer;">🚀 <span>MATH HUB</span></div>
+    <div class="controls-area">
+        <button id="loginBtn">🔑 <span class="btn-text">Đăng nhập</span></button>
+        <button id="scoreBtn" style="display: none;">📊 <span class="btn-text">Nộp bài</span></button>
+        <button id="slideMenuBtn" style="display: none;">☰</button>
+    </div>
+</div>
+
+<div id="notification" class="notification"></div>
+
+<div class="page-container" id="slides-container">
+    </div>
+
+<div class="slide-menu" id="slideMenu">
+    <div class="menu-header">
+        <h3>📋 Danh sách Câu hỏi</h3>
+        <button onclick="toggleMenu()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">&times;</button>
+    </div>
+    <div class="menu-content" id="slideList"></div>
+</div>
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<div class="modal" id="login-modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="hideModal('login-modal')">&times;</button>
+        <h3>🔐 Đăng nhập hệ thống</h3>
+        <form id="login-form">
+            <input id="login-code" class="dashboard-select" placeholder="Mã đăng nhập (HS... hoặc admin79)" required type="password" style="margin-bottom:10px; border:1px solid #ddd;"/>
+            <input id="student-name" class="dashboard-select" placeholder="Họ tên của bạn" required type="text" style="margin-bottom:20px; border:1px solid #ddd;"/>
+            <button type="submit" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🚀 Đăng nhập</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// 1. CONFIG & GLOBALS
+const firebaseConfig = {
+    apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+    authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+    databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "daytoantructuyen-149d9",
+    storageBucket: "daytoantructuyen-149d9.firebasestorage.app",
+    messagingSenderId: "258454714393",
+    appId: "1:258454714393:web:bcf66624668e516934d288"
+};
+
+let db, fullExamList = [], examGroups = [], currentQuestions = [], currentExam = null, currentUser = null;
+
+// 2. HÀM CHUẨN HÓA (QUAN TRỌNG NHẤT)
+function norm(s) { return (s || "").toString().trim().toLowerCase(); }
+
+// 3. INITIALIZATION
+document.addEventListener('DOMContentLoaded', async () => {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    
+    await loadMatrixData();
+    setupEvents();
+    showWelcomeScreen();
+});
+
+function setupEvents() {
+    document.getElementById('loginBtn').onclick = () => document.getElementById('login-modal').classList.add('active');
+    document.getElementById('login-form').onsubmit = handleLogin;
+    document.getElementById('slideMenuBtn').onclick = toggleMenu;
+    document.getElementById('scoreBtn').onclick = calculateFinalScore;
+}
+
+async function loadMatrixData() {
+    try {
+        const res = await fetch('matrix_exams.json?v=' + Date.now());
+        const data = await res.json();
+        fullExamList = data.exams || [];
+        examGroups = data.groups || [];
+    } catch (e) { showNotification("Lỗi nạp ma trận đề!", "error"); }
+}
+
+// 4. AUTHENTICATION
+async function handleLogin(e) {
+    e.preventDefault();
+    const code = document.getElementById('login-code').value.trim();
+    const name = document.getElementById('student-name').value.trim();
+    
+    if(code === 'admin79' || code.startsWith('HS')) {
+        currentUser = { name, code, uid: 'user_' + Date.now() };
+        document.getElementById('loginBtn').innerHTML = '👤 ' + name;
+        document.getElementById('login-modal').classList.remove('active');
+        showNotification("Đăng nhập thành công!", "success");
+        showWelcomeScreen();
+    } else {
+        showNotification("Mã đăng nhập không đúng!", "error");
+    }
+}
+
+// 5. SCREEN LOGIC
+function showWelcomeScreen() {
+    const container = document.getElementById('slides-container');
+    document.getElementById('scoreBtn').style.display = 'none';
+    document.getElementById('slideMenuBtn').style.display = 'none';
+    document.body.classList.remove('exam-submitted');
+
+    if (!currentUser) {
+        container.innerHTML = `<div style="text-align:center; padding:50px;">
+            <h1>🧮 LỚP TOÁN THẦY BÌNH</h1>
+            <p>Vui lòng đăng nhập để bắt đầu học tập.</p>
+            <button onclick="document.getElementById('login-modal').classList.add('active')" style="padding:15px 30px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold;">🔑 Đăng nhập ngay</button>
+        </div>`;
+        return;
+    }
+
+    let groupOptions = examGroups.map(g => `<option value="${g.name}">${g.icon || '📁'} ${g.name}</option>`).join('');
+    
+    container.innerHTML = `
+        <div class="dashboard-card">
+            <h3>📚 Chọn Đề Thi</h3>
+            <select id="filterGroup" class="dashboard-select" onchange="updateExamDropdown()">
+                <option value="">-- Bước 1: Chọn nhóm --</option>
+                ${groupOptions}
+            </select>
+            <select id="selectExam" class="dashboard-select" onchange="loadExamContent()">
+                <option value="">-- Bước 2: Chọn đề --</option>
+            </select>
+        </div>
+        <div class="dashboard-card" style="border-top-color:#ffca28">
+            <h3>🔍 Tra cứu ID</h3>
+            <div class="dashboard-search">
+                <input type="text" id="lookupId" placeholder="Nhập mã ID (ví dụ: MATH_001)">
+                <button onclick="lookupID()">Tìm</button>
+            </div>
+        </div>
+    `;
+}
+
+function updateExamDropdown() {
+    const group = norm(document.getElementById('filterGroup').value);
+    const examSelect = document.getElementById('selectExam');
+    const filtered = fullExamList.filter(e => norm(e.group) === group);
+    
+    examSelect.innerHTML = '<option value="">-- Chọn đề thi --</option>' + 
+        filtered.map(e => `<option value="${e.id}">${e.name} (${e.question_count || 0} câu)</option>`).join('');
+}
+
+async function loadExamContent() {
+    const examId = document.getElementById('selectExam').value;
+    const exam = fullExamList.find(e => e.id === examId);
+    if (!exam) return;
+    
+    currentExam = exam;
+    showNotification("⏳ Đang nạp đề...", "info");
+    
+    try {
+        const res = await fetch(exam.file);
+        currentQuestions = await res.json();
+        
+        renderExam();
+        document.getElementById('scoreBtn').style.display = 'flex';
+        document.getElementById('slideMenuBtn').style.display = 'flex';
+    } catch (e) { showNotification("Lỗi nạp nội dung file JSON!", "error"); }
+}
+
+// 6. RENDER & LOGIC
+function renderExam() {
+    const container = document.getElementById('slides-container');
+    container.innerHTML = currentQuestions.map((q, i) => `
+        <div class="question" id="${q.id}">
+            <div class="question-title">
+                <strong>Câu ${i+1}.</strong> <span class="status-tag ${q.level || 'nb'}">${(q.level || 'NB').toUpperCase()}</span>
+                <div>${processContent(q.text)}</div>
+            </div>
+            <div class="options-area">${renderOptions(q)}</div>
+            <div class="secure-solution-container" id="sol-${q.id}">
+                <div class="solution-box"><strong>💡 Lời giải:</strong><br>${processContent(q.solution || "Đang cập nhật...")}</div>
+            </div>
+        </div>
+    `).join('');
+    
+    if (window.MathJax) MathJax.typesetPromise();
+    updateMenu();
+}
+
+function renderOptions(q) {
+    if (q.type === 'multiple_choice') {
+        return Object.entries(q.options).map(([k, v]) => `
+            <div class="option-row" onclick="selectRadio('${q.id}', '${k}')">
+                <input type="radio" name="r-${q.id}" value="${k}" id="opt-${q.id}-${k}">
+                <label><strong>${k}.</strong> ${processContent(v)}</label>
+            </div>
+        `).join('');
+    }
+    if (q.type === 'short_answer') {
+        return `<input type="text" class="dashboard-select" id="ans-${q.id}" placeholder="Nhập đáp án số...">`;
+    }
+    return '';
+}
+
+function selectRadio(qid, val) {
+    const rad = document.getElementById(`opt-${qid}-${val}`);
+    if(rad) rad.checked = true;
+}
+
+function calculateFinalScore() {
+    let score = 0;
+    currentQuestions.forEach(q => {
+        let isCorrect = false;
+        if(q.type === 'multiple_choice') {
+            const selected = document.querySelector(`input[name="r-${q.id}"]:checked`);
+            if(selected && selected.value === q.correct) isCorrect = true;
+        } else {
+            const val = document.getElementById(`ans-${q.id}`)?.value.trim().replace(',', '.');
+            if(val === q.correct.toString().replace(',', '.')) isCorrect = true;
+        }
+        if(isCorrect) score += (10 / currentQuestions.length);
+        
+        // Hiện màu sắc
+        const el = document.getElementById(q.id);
+        el.style.borderColor = isCorrect ? "#4caf50" : "#f44336";
+    });
+    
+    document.body.classList.add('exam-submitted');
+    alert(`Kết quả của bạn: ${score.toFixed(2)} / 10 điểm`);
+    showNotification("Đã mở khóa lời giải chi tiết!", "success");
+}
+
+// 7. UTILS
+function processContent(text) {
+    if(!text) return "";
+    // Xử lý ảnh tự động
+    return text.replace(/([A-Za-z0-9_-]+\.(png|jpg|jpeg|gif))/gi, '<img src="data/im/$1" onerror="handleImageError(this)" style="max-width:100%; display:block; margin:10px auto;">');
+}
+
+function handleImageError(img) {
+    if (!img.tried) { 
+        img.tried = true; 
+        img.src = img.src.replace('data/im/', 'exams/im/'); // Thử đường dẫn dự phòng
+    } else { img.style.display = 'none'; }
+}
+
+function toggleMenu() {
+    document.getElementById('slideMenu').classList.toggle('active');
+    document.getElementById('menuOverlay').classList.toggle('active');
+}
+
+function updateMenu() {
+    const list = document.getElementById('slideList');
+    list.innerHTML = currentQuestions.map((q, i) => `
+        <div class="slide-item" onclick="scrollToQ('${q.id}')">
+            <span style="background:#eee; padding:2px 8px; border-radius:10px;">${i+1}</span> Câu ${i+1}
+        </div>
+    `).join('');
+}
+
+function scrollToQ(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    toggleMenu();
+}
+
+function showNotification(msg, type) {
+    const n = document.getElementById('notification');
+    n.innerHTML = msg; n.className = 'notification ' + type + ' show';
+    setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function hideModal(id) { document.getElementById(id).classList.remove('active'); }
+</script>
+
+<a href="../index.html" class="floating-home-btn" title="Về trang chủ">
+    <i class="fas fa-house"></i>
+</a>
+</body>
+</html>

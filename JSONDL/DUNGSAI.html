@@ -1956,38 +1956,61 @@ function switchPreviewTab(tabName) {
             }
         }
 
-        async function saveAttempt(score, correctStatements, totalStatements, questionDetails) {
-            if (!currentUser || !currentExam || isTeacherLoggedIn) return;
-            
-            const attempt = {
-                studentCode: currentUser.code,
-                studentName: currentUser.name,
-                examId: currentExam.id,
-                examName: currentExam.name,
-                score: score,
-                correctStatements: correctStatements,
-                totalStatements: totalStatements,
-                answers: window.studentAnswers,
-                questionDetails: questionDetails,
-                timestamp: firebase.database.ServerValue.TIMESTAMP,
-                className: currentUser.className || 'Chưa có lớp'
-            };
-            
-            try {
-                const attemptId = `${currentExam.id}_${currentUser.code}_${Date.now()}`;
-                await db.ref(`attempts/${attemptId}`).set(attempt);
-                await db.ref(`students/${currentUser.code}/attempts/${attemptId}`).set({
-                    examId: currentExam.id,
-                    examName: currentExam.name,
-                    score: score,
-                    timestamp: attempt.timestamp
-                });
-                
-                console.log("✅ Đã lưu kết quả lên Firebase");
-            } catch (e) {
-                console.error('Save attempt error:', e);
-            }
-        }
+        async function saveAttempt(score, correctCount, dummyTotal, questionDetails) {
+    // 1. Chống lưu dữ liệu ảo (Giáo viên xem thử hoặc chưa đăng nhập)
+    if (!currentUser || !currentExam || (typeof isTeacherLoggedIn !== 'undefined' && isTeacherLoggedIn)) return;
+    
+    // 2. LẤY TỔNG SỐ CÂU THỰC TẾ HỌC SINH ĐÃ LÀM
+    // Chúng ta quét mảng câu trả lời để biết học sinh thực sự đã chọn/nhập bao nhiêu câu
+    const answeredIds = Object.keys(window.studentAnswers || {}).filter(id => {
+        const val = window.studentAnswers[id];
+        if (val === undefined || val === null || val === "") return false;
+        // Nếu là bài Đúng/Sai (dạng mảng), kiểm tra xem có ý nào được chọn không
+        if (Array.isArray(val)) return val.some(v => v !== null);
+        return true;
+    });
+    
+    const actualTotal = answeredIds.length; 
+
+    // 3. Cấu trúc dữ liệu gửi lên Firebase
+    const attemptId = `${currentExam.id}_${currentUser.code}_${Date.now()}`;
+    const attempt = {
+        attemptId: attemptId,
+        studentCode: currentUser.code,
+        studentName: currentUser.name, // Tên định danh lúc đăng nhập
+        examId: currentExam.id,
+        examName: currentExam.name,
+        
+        // Dữ liệu quan trọng cho trang Quản lý
+        score: score,                   // Điểm hệ 10 (để học sinh xem)
+        correctCount: correctCount,     // Số câu đúng thực tế
+        totalQuestions: actualTotal,    // TỔNG SỐ CÂU THỰC LÀM (Mẫu số để tính %)
+        
+        answers: window.studentAnswers,
+        questionDetails: questionDetails,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        className: currentUser.className || 'Tự do'
+    };
+    
+    try {
+        // Lưu vào nhánh tổng để trang Quản lý quét (Tối ưu cho thầy)
+        await db.ref(`attempts/${attemptId}`).set(attempt);
+        
+        // Lưu vào nhánh học sinh để các em xem lại lịch sử
+        await db.ref(`students/${currentUser.code}/attempts/${attemptId}`).set({
+            examId: currentExam.id,
+            examName: currentExam.name,
+            score: score,
+            correctCount: correctCount,
+            totalQuestions: actualTotal,
+            timestamp: attempt.timestamp
+        });
+        
+        console.log(`✅ MATH HUB: Đã lưu kết quả ${correctCount}/${actualTotal}`);
+    } catch (e) {
+        console.error('Lỗi lưu kết quả:', e);
+    }
+}
 
         // ==================== UTILITIES ====================
         function showNotification(msg, type = 'info') {

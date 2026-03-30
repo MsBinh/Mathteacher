@@ -925,6 +925,11 @@ function updateStudentProgressFromScroll(section) {
 }
 
 // ===== EXAM MANAGEMENT =====
+// ===== BẮT ĐẦU HÀM CHUẨN HÓA =====
+function norm(s) {
+    return (s || "").toString().trim().toLowerCase();
+}
+// ===== KẾT THÚC HÀM CHUẨN HÓA =====
 async function loadExamList() {
     try {
         const response = await fetch('matrix_exams.json');
@@ -1009,19 +1014,19 @@ async function handleExamSelection() {
 }
 // ===== CONTENT RENDERING =====
 // --- Helper functions for filtering, groups, search, info panel ---
+// ===== BẮT ĐẦU HÀM POPULATEGROUPFILTER =====
 function populateGroupFilter() {
     const groupSelect = document.getElementById('filterGroup');
     if (!groupSelect) return;
     groupSelect.innerHTML = '<option value="">📚 Chọn nhóm đề thi</option>';
     
     examGroups.forEach(group => {
-        const examCount = fullExamList.filter(exam => exam.group === group.name).length;
+        // Sử dụng norm() để đếm chính xác số đề trong nhóm
+        const examCount = fullExamList.filter(exam => norm(exam.group) === norm(group.name)).length;
         if (examCount > 0) {
             const option = document.createElement('option');
-            option.value = group.name;
+            option.value = group.name; // Giữ value gốc để khớp với JSON
             option.textContent = `${group.icon || '📁'} ${group.name} `;
-            option.dataset.color = group.color || '';
-            option.dataset.description = group.description || '';
             groupSelect.appendChild(option);
         }
     });
@@ -1029,10 +1034,10 @@ function populateGroupFilter() {
     const allOption = document.createElement('option');
     allOption.value = "__ALL__";
     allOption.textContent = "🌐 Tất cả đề thi";
-    allOption.style.fontWeight = 'bold';
     groupSelect.appendChild(allOption);
 }
-
+// ===== KẾT THÚC HÀM POPULATEGROUPFILTER =====
+// ===== BẮT ĐẦU HÀM FILTEREXAMLIST =====
 function filterExamList() {
     const selectedGroup = document.getElementById('filterGroup').value;
     const examSelect = document.getElementById('selectExam');
@@ -1041,7 +1046,8 @@ function filterExamList() {
     if (!selectedGroup || selectedGroup === "__ALL__") {
         currentFilteredExams = [...fullExamList];
     } else {
-        currentFilteredExams = fullExamList.filter(exam => exam.group === selectedGroup);
+        // SỬA LỖI: Dùng norm() ở cả 2 vế để so sánh chính xác tuyệt đối
+        currentFilteredExams = fullExamList.filter(exam => norm(exam.group) === norm(selectedGroup));
     }
 
     currentFilteredExams.sort((a,b) => (a.name||'').localeCompare(b.name||''));
@@ -1051,21 +1057,16 @@ function filterExamList() {
         option.value = exam.id;
         let badge = '';
         if (exam.difficulty) {
-            const color = getDifficultyColor(exam.difficulty);
             badge = ` [${exam.difficulty.toUpperCase()}]`;
         }
         if (exam.question_count) badge += ` (${exam.question_count} câu)`;
         option.textContent = `${exam.name}${badge}`;
-        option.title = exam.description || exam.name;
         examSelect.appendChild(option);
     });
 
     updateFilterStats(selectedGroup, currentFilteredExams.length);
-    if (currentFilteredExams.length === 1) {
-        examSelect.value = currentFilteredExams[0].id;
-        showNotification(`Tự động chọn đề duy nhất trong nhóm`, 'info');
-    }
 }
+// ===== KẾT THÚC HÀM FILTEREXAMLIST =====
 
 function updateFilterStats(groupName, count) {
     const statsElement = document.getElementById('filter-stats') || createStatsElement();
@@ -4181,7 +4182,11 @@ window.viewStudentDetail = function(studentId) {
 function processContent(text) {
     if (!text || typeof text !== 'string') return '';
     let processedText = text.trim();
-
+processedText = processedText
+        .replace(/\\begin\{(enumerate|itemize|center|flushleft|flushright)\}(\[.*?\])?/g, '') 
+        .replace(/\\end\{(enumerate|itemize|center|flushleft|flushright)\}/g, '')            
+        .replace(/\\item/g, '<br>• ') // Chuyển \item thành dấu chấm xuống dòng cho đẹp
+        .replace(/\\label\{.*?\}/g, ''); // Loại bỏ các nhãn tham chiếu nếu có
     // 1. TÌM VÀ CHÈN ẢNH (GIỮ NGUYÊN CHỮ HOA/THƯỜNG + XỬ LÝ KHOẢNG TRẮNG)
     const imgRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|data\/im\/[^\s]+?\.(?:png|jpg|jpeg|gif|webp|PNG|JPG|JPEG|GIF|WEBP)|(?:TNS|TNNL)[^\s]+?\.(?:png|PNG))/gi;
 
