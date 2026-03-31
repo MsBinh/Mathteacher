@@ -597,7 +597,7 @@
     <div class="toolbar">
         <div class="toolbar-content">
             <button class="btn" onclick="toggleFullScreen()" title="Toàn màn hình">🖥️</button>
-
+            <button class="btn" id="btnTheme" onclick="toggleBoardTheme()" title="Đổi màu nền (Xanh/Trắng)" style="background: #555;">🎨</button>
             <button class="btn" id="btnHand" onclick="setTool('hand')" title="Chế độ Cuộn trang (Hand)">🖐️</button>
             <button class="btn" onclick="loadProjectFile()" title="Mở Project cũ (.json)">📂</button>
             <button class="btn" onclick="saveProjectFile()" title="Lưu Project để sửa sau">💾</button>
@@ -2472,7 +2472,47 @@ async function loadAdminLibrary() {
 
 // 3. Đảm bảo nạp thư viện công khai khi vừa mở web
 window.addEventListener('load', autoLoadLibrary);
+// HÀM CHUYỂN ĐỔI NỀN BẢNG CHUẨN HÓA - NGUYEN THANH BINH
+function toggleBoardTheme() {
+    const board = document.getElementById('boardWrapper');
+    const btn = document.getElementById('btnTheme');
+    
+    // Kiểm tra trạng thái hiện tại (mặc định ban đầu là nền xanh)
+    const isWhite = board.style.backgroundColor === 'rgb(255, 255, 255)' || board.style.backgroundColor === 'white';
 
+    if (!isWhite) {
+        // CHUYỂN SANG NỀN TRẮNG (TRANG GIẤY)
+        board.style.backgroundColor = "#ffffff";
+        board.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), 
+                                       linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)`;
+        btn.style.background = "#ffffff";
+        btn.style.color = "#000000";
+        
+        // Tự động đổi màu tất cả MathBox hiện có sang nền sáng để dễ nhìn
+        document.querySelectorAll('.math-box').forEach(box => {
+            box.style.backgroundColor = "rgba(240, 240, 240, 0.95)";
+            box.style.borderLeft = "4px solid #2ecc71"; // Đổi viền sang xanh lá cho dịu
+            box.style.color = "#000000"; // Chữ đen cho nổi trên nền trắng
+        });
+    } else {
+        // QUAY LẠI NỀN XANH (BẢNG PHẤN)
+        board.style.backgroundColor = "#0b6b3a";
+        board.style.backgroundImage = `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), 
+                                       linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`;
+        btn.style.background = "#555";
+        btn.style.color = "#ffffff";
+
+        // Khôi phục màu MathBox về phong cách bảng xanh
+        document.querySelectorAll('.math-box').forEach(box => {
+            box.style.backgroundColor = "rgba(21, 76, 39, 0.95)";
+            box.style.borderLeft = "4px solid var(--yellow)";
+            box.style.color = currentColor; // Lấy theo màu bút hiện tại
+        });
+    }
+    
+    // Cập nhật lại các SVG trong MathBox để khớp màu mới
+    MathJax.typesetPromise();
+}
 </script>
 <div id="libraryModal" class="modal" style="display:none; width: 500px; max-width: 95%; background: #2d3436; border: 1px solid #6c5ce7;">
     <div style="display:flex; justify-content:space-between; margin-bottom:20px; border-bottom:1px solid #555; padding-bottom:10px;">
