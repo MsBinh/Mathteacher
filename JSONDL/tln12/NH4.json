@@ -1,0 +1,446 @@
+[
+ 
+  {
+    "id": "1",
+    "title": "Câu 1",
+    "type": "short_answer",
+    "text": "(THPT Lý Thường Kiệt - Hà Nội 2025) Cho $F(x) = me^{2x} + nx^2 + p$ ($m, n, p \\in \\mathbb{R}$) là một nguyên hàm của hàm số $f(x) = e^{2x} + 2x$ thỏa mãn $F(0) = \\frac{3}{2}$. Tìm giá trị của biểu thức $A = -10m - 20n + 10p$.",
+    "image": "",
+    "correct": "-15",
+    "solution": "Đáp án: $-15$.\n\nTa có: $F(x) = \\int (e^{2x} + 2x) \\mathrm{d}x = \\frac{1}{2}e^{2x} + x^2 + C$.\n\nTheo bài ra ta có: $F(0) = \\frac{1}{2} \\Leftrightarrow \\frac{1}{2}e^0 + 0^2 + C = \\frac{3}{2} \\Leftrightarrow C = 1$.\n\nSuy ra: $m = \\frac{1}{2}$, $n = 1$, $p = 1 \\Rightarrow A = -15$."
+  },
+  {
+    "id": "2",
+    "title": "Câu 2",
+    "type": "short_answer",
+    "text": "(Sở Bạc Liêu 2025) Cho $F(x)$ là nguyên hàm của $f(x) = \\cos x$ thỏa mãn $F(0) = 2025$. Giá trị $F\\left(\\frac{\\pi}{2}\\right)$ bằng bao nhiêu?",
+    "image": "",
+    "correct": "2026",
+    "solution": "Đáp án: $2026$.\n\n$F(x) = \\int \\cos x \\mathrm{d}x = \\sin x + C$\n\n$F(0) = 2025 \\Leftrightarrow C = 2025$\n\n$F\\left(\\frac{\\pi}{2}\\right) = \\sin \\frac{\\pi}{2} + 2025 = 2026$."
+  },
+  {
+    "id": "3",
+    "title": "Câu 3",
+    "type": "short_answer",
+    "text": "(THPT DTNT - Nghệ An 2025) Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = 2^x$, thỏa mãn $F(0) = \\frac{1}{\\ln 2}$. Giá trị biểu thức $T = F(0) + F(1) + \\dots + F(2018) + F(2019)$ có dạng $T = \\frac{2^m - 1}{\\ln n}$ (với $m, n \\in \\mathbb{N}$). Tính giá trị $2m - 3n$?",
+    "image": "",
+    "correct": "4034",
+    "solution": "Đáp án: $4034$.\n\nTa có $\\int f(x) \\mathrm{d}x = \\int 2^x \\mathrm{d}x = \\frac{2^x}{\\ln 2} + C$.\n\n$F(x)$ là một nguyên hàm của hàm số $f(x) = 2^x$, ta có $F(x) = \\frac{2^x}{\\ln 2} + C$ mà $F(0) = \\frac{1}{\\ln 2}$.\n\n$\\Rightarrow C = 0 \\Rightarrow F(x) = \\frac{2^x}{\\ln 2}$.\n\n$T = F(0) + F(1) + \\dots + F(2018) + F(2019)$\n\n$= \\frac{1}{\\ln 2} \\left(1 + 2 + 2^2 + \\dots + 2^{2018} + 2^{2019}\\right) = \\frac{1}{\\ln 2} \\cdot \\frac{2^{2020} - 1}{2 - 1} = \\frac{2^{2020} - 1}{\\ln 2}$.\n\nVậy $T = \\frac{2^{2020} - 1}{\\ln 2}$ nên $2 \\cdot 2020 - 3 \\cdot 2 = 4034$."
+  },
+  {
+    "id": "4",
+    "title": "Câu 4",
+    "type": "short_answer",
+    "text": "(Cụm Ninh Giang - Tứ Kỳ - Gia Lộc 2025) Cho $F(x) = (ax^2 + bx + c)e^{2x}$ là một nguyên hàm của hàm số $f(x) = (2x^2 + 6x)e^{2x}$. Tính tổng $a + b + 2c$.",
+    "image": "",
+    "correct": "1",
+    "solution": "Trả lời: $1$\n\nCách 1:\n\\begin{center}\n\\begin{tabular}{c|c}\n$2x^2 + 6x$ & $e^{2x}$ <br>\n\\hline\n$4x + 6$ & $\\frac{1}{2}e^{2x}$ <br>\n\\hline\n$4$ & $\\frac{1}{4}e^{2x}$ <br>\n\\hline\n$0$ & $\\frac{1}{8}e^{2x}$\n\\end{tabular}\n\\end{center}\n\n$F(x) = \\int (2x^2 + 6x)e^{2x} \\mathrm{d}x = (2x^2 + 6x) \\cdot \\frac{1}{2}e^{2x} - (4x + 6) \\cdot \\frac{1}{4}e^{2x} + \\frac{1}{2}e^{2x} + C = (x^2 + 2x - 1)e^{2x} + C$.\n\nSuy ra $a + b + 2c = 1 + 2 + 2(-1) = 1$.\n\nCách 2:\n\n$f(x) = F'(x) = \\left(2ax^2 + (2a + 2b)x + b + 2c\\right)e^{2x}$.\n\nSuy ra $\\begin{cases} 2a = 2 <br> 2a + 2b = 6 <br> b + 2c = 0 \\end{cases} \\Rightarrow \\begin{cases} a = 1 <br> b = 2 <br> c = -1 \\end{cases}$.\n\nVậy $a + b + 2c = 1 + 2 + 2(-1) = 1$."
+  },
+  {
+    "id": "5",
+    "title": "Câu 5",
+    "type": "short_answer",
+    "text": "(Sở Thanh Hóa 2025) Một gia đình sản xuất chiếu cói ở Nga Sơn mỗi ngày sản xuất được $x$ chiếc chiếu ($0 \\le x \\le 20$). Chi phí biên để sản xuất $x$ chiếc chiếu (tính bằng nghìn đồng) cho bởi hàm số sau: $C'(x) = 3x^2 - 4x + 10$. Biết rằng chi phí cố định ban đầu để sản xuất là $500$ nghìn đồng. Giả sử gia đình này bán hết chiếu mỗi ngày với giá $270$ nghìn đồng / chiếc chiếu. Tính lợi nhuận tối đa theo đơn vị nghìn đồng mà gia đình đó thu được?",
+    "image": "data/im/NH4-4.png",
+    "correct": "1300",
+    "solution": "Đáp án: $1300$\n\nChi phí để sản xuất $x$ chiếc chiếu (tính bằng nghìn đồng) là hàm số:\n\n$C(x) = \\int C'(x) \\mathrm{d}x = \\int (3x^2 - 4x + 10) \\mathrm{d}x = x^3 - 2x^2 + 10x + c$.\n\nDo chi phí cố định ban đầu để sản xuất là $500$ nghìn đồng nên $c = 500$\n\nTừ đó ta có lợi nhuận theo đơn vị nghìn đồng mà mỗi ngày gia đình đó thu được là:\n\n$L(x) = 270x - (x^3 - 2x^2 + 10x + 500) = -x^3 + 2x^2 + 260x - 500$\n\n$L'(x) = -3x^2 + 4x + 260 = 0 \\Leftrightarrow \\left[\\begin{aligned} & x = 10 <br> & x = -\\frac{26}{3} \\end{aligned}\\right.$.\n\nMà $0 \\le x \\le 20$ nên $x = 10$.\n\nLợi nhuận tối đa mà gia đình đó thu được là: $L(10) = 1300$ (nghìn đồng)"
+  },
+  {
+    "id": "6",
+    "title": "Câu 6",
+    "type": "short_answer",
+    "text": "(Cụm trường THPT Hải Dương 2025) Một viên đạn được bắn thẳng đứng lên trên từ độ cao $2 m$ với vận tốc tại thời điểm $t$ cho bởi công thức $v(t) = 100 - 9,8t (m/s)$, ($t = 0$ là thời điểm viên đạn được bắn lên). Tìm độ cao (tính theo $km$) của viên đạn so với mặt đất ở thời điểm $1$ giây sau khi viên đạn đạt độ cao lớn nhất (làm tròn đến hàng phần trăm).",
+    "image": "",
+    "correct": "0,51",
+    "solution": "Đáp án: $0,51$.\n\nGọi $h(t)$ là độ cao (tính bằng mét) của viên đạn tại thời điểm $t$ (tính bằng giây).\n\nTa có: $h(t) = \\int v(t) \\mathrm{d}t = \\int (100 - 9,8t) \\mathrm{d}t = -4,9t^2 + 100t + C$.\n\nTại thời điểm $t = 0$, ta có $h(t) = 2 \\Rightarrow C = 2$.\n\nVậy $h(t) = -4,9t^2 + 100t + 2$.\n\n$h'(t) = -9,8t + 100$;\n\n$h'(t) = 0 \\Leftrightarrow t = \\frac{500}{49}$.\n\nBBT:\n\n\nTừ bảng biến thiên suy ra viên đạn đạt độ cao lớn nhất tại thời điểm $t = \\frac{500}{49}$.\n\nDo đó độ cao của viên đạn so với mặt đất ở thời điểm $1$ giây sau khi viên đạn đạt độ cao lớn nhất là $h\\left(\\frac{500}{49} + 1\\right) \\approx 507,3m \\approx 0,51km$."
+  },
+  {
+    "id": "7",
+    "title": "Câu 7",
+    "type": "short_answer",
+    "text": "(THPT Nguyễn Gia Thiều - Hà Nội 2025) Hai công ty, công ty A và công ty B, cùng ra mắt sản phẩm cạnh tranh thị trường mới vào cùng thời điểm. Thị phần được đo bằng số lượng khách hàng lũy kế.\n\nCông ty A: Bắt đầu với $0$ khách hàng. Trong giai đoạn đầu, chiến dịch marketing hiệu quả giúp tốc độ thu hút khách hàng mới của họ tăng dần theo thời gian, được mô tả bởi hàm $f(t) = 2t + 7$ (nghìn khách hàng/tháng), với $t$ là số tháng kể từ khi ra mắt.\n\nCông ty B: Nhờ có uy tín từ trước, họ bắt đầu với $10$ nghìn khách hàng đặt trước sản phẩm. Sau đó, họ duy trì một tốc độ thu hút khách hàng mới ổn định là $10$ nghìn khách hàng/tháng.\n\nHỏi sau khoảng bao nhiêu tháng kể từ khi ra mắt, tổng số lượng khách hàng lũy kế của công ty A bằng tổng số lượng khách hàng lũy kế của công ty B (tính cả $10$ nghìn khách hàng ban đầu)?",
+    "image": "",
+    "correct": "5",
+    "solution": "Đáp án: $5$\n\nGọi $P_A(t)$ là số lượng khách hàng luỹ kế của công ty A với $t$ là số tháng kể từ khi ra mắt sản phẩm ($t > 0$)\n\nTa có $P_A(t) = \\int f(t) \\mathrm{d}t = \\int (2t + 7) \\mathrm{d}t = t^2 + 7t + C$.\n\nCông ty A bắt đầu với $0$ khách hàng nên $P_A(0) = 0 \\Leftrightarrow 0^2 + 7 \\cdot 0 + C = 0 \\Leftrightarrow C = 0$.\n\nVậy $P_A(t) = t^2 + 7t$.\n\nVì công ty B bắt đầu với $10$ nghìn khách hàng đặt trước sản phẩm. Sau đó, họ duy trì một tốc độ thu hút khách hàng mới ổn định là $10$ nghìn khách hàng/tháng, nên số lượng khách hàng lũy kế của công ty B sau $t$ tháng ra mắt sản phẩm là $P_B(t) = 10 + 10t$ ($t > 0$).\n\nTa có $P_A(t) = P_B(t) \\Leftrightarrow t^2 + 7t = 10 + 10t \\Leftrightarrow \\left[\\begin{aligned} & t = -10 <br> & t = 5 \\end{aligned}\\right.$\n\nVì $t > 0$ nên $t = 5$.\n\nVậy sau $5$ tháng ra mắt, tổng số lượng khách hàng lũy kế của công ty A bằng tổng số lượng khách hàng lũy kế của công ty B (tính cả $10$ nghìn khách hàng ban đầu)."
+  },
+  {
+    "id": "8",
+    "title": "Câu 8",
+    "type": "short_answer",
+    "text": "(Sở Hậu Giang 2025) Người ta thả một vật từ một vị trí trên cao cho rơi xuống mặt đất theo phương thẳng đứng. Biết gia tốc trọng trường tại nơi thả vật bằng $9,8 m/s^2$. Giả sử lực tác động của không khí đối với vật trong quá trình rơi là không đáng kể. Biết rằng sau $4$ giây thì vật bắt đầu chạm mặt đất. Hỏi vị trí của vật trước khi thả rơi cao bao nhiêu mét so với mặt đất? (kết quả làm tròn đến hàng phần mười)",
+    "image": "data/im/NH4-7.png",
+    "correct": "78,4",
+    "solution": "Đáp án: $78,4$.\n\nTa có vận tốc của vật $v(t) = \\int a \\mathrm{d}t = \\int 9,8 \\mathrm{d}t = 9,8t + C$ (m/s) với $t$ (giây) là thời gian tính từ lúc bắt đầu thả\n\nVới $t = 0$ thì $v = 0$ nên $C = 0$ suy ra $v(t) = 9,8t$ (m/s).\n\nĐộ cao (mét) của vật $h(t) = \\int v \\mathrm{d}t = \\int 9,8t \\mathrm{d}t = 4,9t^2 + C_1$\n\nVới $t = 0$ thì $h = 0$ nên $C_1 = 0$ suy ra $h(t) = 4,9t^2$ (m).\n\nSau $4$ giây thì chạm mặt đất nên độ cao của vật trước khi thả rơi bằng $h(4) = 4,9 \\cdot 4^2 = 78,4$ (m)"
+  },
+  {
+    "id": "9",
+    "title": "Câu 9",
+    "type": "short_answer",
+    "text": "(Liên Trường Bắc Ninh 2025) Người ta quan sát một quần thể vi khuẩn đang tăng trưởng, ban đầu gồm $500$ vi khuẩn. Sau một ngày và sau bốn ngày kể từ khi bắt đầu quan sát, số lượng vi khuẩn của quần thể đó tương ứng là $600$ vi khuẩn, $1300$ vi khuẩn. Gọi $P(t)$ là số lượng vi khuẩn của quần thể đó tại thời điểm $t$ ngày kể từ khi bắt đầu quan sát, $0 \\le t \\le 10$. Người ta ước tính tốc độ tăng trưởng của quần thể vi khuẩn đó được mô tả bởi $P'(t) = at + b\\sqrt{t}$ (vi khuẩn/ngày), trong đó $a, b$ là hằng số. Hỏi số lượng vi khuẩn của quần thể đó sau $9$ ngày kể từ khi bắt đầu quan sát là bao nhiêu?",
+    "image": "data/im/NH4-8.png",
+    "correct": "3200",
+    "solution": "Đáp án: $3200$.\n\nTa có $P'(t) = at + b\\sqrt{t} \\Rightarrow P(t) = \\int \\left(at + b\\sqrt{t}\\right) \\mathrm{d}t = \\frac{1}{2}at^2 + \\frac{2}{3}bt\\sqrt{t} + C$\n\nBan đầu gồm $500$ vi khuẩn nên $P(0) = 500 \\Rightarrow C = 500 \\Rightarrow P(t) = \\frac{1}{2}at^2 + \\frac{2}{3}bt\\sqrt{t} + 500$.\n\nSau $1$ ngày có $600$ vi khuẩn nên $P(1) = 600 \\Rightarrow \\frac{1}{2}a + \\frac{2}{3}b + 500 = 600 \\Rightarrow \\frac{1}{2}a + \\frac{2}{3}b = 100$ (1)\n\nSau $4$ ngày có $1300$ vi khuẩn nên $P(4) = 1300 \\Rightarrow 8a + \\frac{16}{3}b + 500 = 1300 \\Rightarrow 8a + \\frac{16}{3}b = 800$ (2).\n\nTừ (1) và (2) ta có $a = 0$ và $b = 150 \\Rightarrow P(t) = 100t\\sqrt{t} + 500$.\n\nVậy số vi khuẩn sau $9$ ngày là $P(9) = 3200$."
+  },
+  {
+    "id": "10",
+    "title": "Câu 10",
+    "type": "short_answer",
+    "text": "Kí hiệu $h(x)$ là chiều cao của một cây (tính theo mét) sau khi trồng $x$ năm. Biết rằng sau năm đầu tiên cây cao $3 m$. Trong các năm tiếp theo, cây phát triển với tốc độ $h'(x) = \\frac{\\sqrt{2}}{x}$ (tính theo mét/năm). Chiều cao của cây đó sau $5$ năm (làm tròn đến hàng phần mười) bằng bao nhiêu mét?",
+    "image": "",
+    "correct": "5,3",
+    "solution": "Trả lời: $5,3$\n\n$\\int h'(x) \\mathrm{d}x = \\int \\frac{\\sqrt{2}}{x} \\mathrm{d}x = \\sqrt{2}\\ln|x| + C$, suy ra $h(x) = \\sqrt{2}\\ln|x| + C$.\n\nTa có $h(1) = \\sqrt{2}\\ln 1 + C = 3$, suy ra $C = 3$. Do đó $h(5) = \\sqrt{2}\\ln 5 + 3 \\approx 5,3 (m)$."
+  },
+  {
+    "id": "11",
+    "title": "Câu 11",
+    "type": "short_answer",
+    "text": "Cá hồi Thái Bình Dương đến mùa sinh sản thường bơi từ biển ngược dòng vào sông và đến thượng nguồn các dòng sông để đẻ trứng. Giả sử cá bơi ngược dòng sông với vận tốc là $v(t) = -\\frac{2t}{5} + 4 (km/h)$. Nếu coi thời điểm ban đầu $t = 0$ là lúc cá bắt đầu bơi vào dòng sông thì khoảng cách xa nhất mà con cá có thể bơi được là bao nhiêu km?",
+    "image": "data/im/NH4-10.png",
+    "correct": "20",
+    "solution": "Trả lời: $20$\n\nQuãng đường con cá bơi được khi bơi ngược dòng là:\n\n$S(t) = \\int v(t) \\mathrm{d}t = \\int \\left(-\\frac{2t}{5} + 4\\right) \\mathrm{d}t = -\\frac{1}{5}t^2 + 4t + C$\n\nVì $S(0) = 0$ nên suy ra $C = 0$.\n\nDo đó: $S(t) = -\\frac{1}{5}t^2 + 4t = -\\frac{1}{5}(t^2 - 20t + 100) + 20 = -\\frac{1}{5}(t - 10)^2 + 20 \\le 20$.\n\nVậy khoảng cách xa nhất mà con cá có thể bơi được là $20 km$."
+  },
+  {
+    "id": "12",
+    "title": "Câu 12",
+    "type": "short_answer",
+    "text": "Một vật được ném lên từ độ cao $300 m$ với vận tốc được cho bởi công thức $v(t) = -9,81t + 29,43 (m/s)$. Gọi $h(t) (m)$ là độ cao của vật tại thời điểm $t (s)$. Sau bao nhiêu giây kể từ khi bắt đầu được ném lên thì vật đó chạm đất (làm tròn kết quả đến hàng đơn vị của mét)?",
+    "image": "",
+    "correct": "11",
+    "solution": "Trả lời: $11$\n\nTa có $h(t) = \\int v(t) \\mathrm{d}t = \\int (-9,81t + 29,43) \\mathrm{d}t = -\\frac{9,81}{2}t^2 + 29,43t + C$.\n\nVì vật được ném lên từ độ cao $300 m$ nên $h(0) = 300$. Suy ra $C = 300$.\n\nVậy $h(t) = -\\frac{9,81}{2}t^2 + 29,43t + 300$. Khi vật bắt đầu chạm đất ứng với $h(t) = 0$.\n\nNên ta có $-\\frac{9,81}{2}t^2 + 29,43t + 300 = 0 \\Leftrightarrow t \\approx 11$ hoặc $t \\approx -5$.\n\nDo $t > 0$ nên $t \\approx 11 (s)$."
+  },
+  {
+    "id": "13",
+    "title": "Câu 13",
+    "type": "short_answer",
+    "text": "Một máy bay đang chuyển động thẳng đều trên mặt đất với vận tốc $v = 3 (m/s)$ thì bắt đầu tăng tốc với độ biến thiên vận tốc là hàm số $a(t)$ có đồ thị hàm số là đường thẳng như hình vẽ.\n\nSau $15s$ tăng tốc thì máy bay đạt đến vận tốc đủ lớn để phóng khỏi mặt đất. Hãy tính vận tốc (m/s) khi máy bay bắt đầu rời khỏi mặt đất.",
+    "image": "data/im/NH4-13.png",
+    "correct": "678",
+    "solution": "Trả lời: $678$\n\nĐường thẳng $a(t) = mt + n$ đi qua gốc tọa độ $O(0;0)$ và điểm $A(16;90)$ nên suy ra\n\n$\\begin{cases} m \\cdot 0 + n = 0 <br> m \\cdot 15 + n = 90 \\end{cases} \\Leftrightarrow \\begin{cases} n = 0 <br> m = 6 \\end{cases} \\Rightarrow a(t) = 6t$.\n\nTa hiểu rằng, nguyên hàm của gia tốc $a(t)$ chính là vận tốc của vật chuyển động. Do đó ta có\n\n$v(t) = \\int a(t) \\mathrm{d}t = \\int 6t \\mathrm{d}t = 3t^2 + C$.\n\nTại thời điểm bắt đầu tăng tốc thì xem như $t = 0$ và vận tốc lúc đó là $v = 3 (m/s)$\n\nSuy ra $v(0) = 3 \\Leftrightarrow 3 \\cdot 0^2 + C = 3 \\Leftrightarrow C = 3 \\Rightarrow v(t) = 3t^2 + 3$.\n\nVậy vận tốc máy bay đạt được khi bắt đầu phóng khỏi mặt đất là\n\n$v(15) = 3 \\cdot 15^2 + 3 = 678 (m/s)$."
+  },
+  {
+    "id": "14",
+    "title": "Câu 14",
+    "type": "short_answer",
+    "text": "Một nghiên cứu chỉ ra rằng sau $x$ tháng kể từ bây giờ, dân số của thành phố A sẽ tăng với tốc độ $v(x) = 10 + 2\\sqrt{2x + 1}$ (người/tháng). Dân số của thành phố sẽ tăng thêm bao nhiêu trong $4$ tháng tới. Viết kết quả làm tròn đến hàng đơn vị. Cho biết $\\int (ax + b)^n \\mathrm{d}x = \\frac{1}{a}\\frac{(ax + b)^{n+1}}{n+1} + C$",
+    "image": "",
+    "correct": "57",
+    "solution": "Trả lời: $57$\n\nGọi $f(x)$ là dân số của thành phố sau $x$ tháng kể từ bây giờ.\n\nTốc độ thay đổi của dân số là $v(x) = 10 + 2\\sqrt{2x + 1}$.\n\nSuy ra $f(x) = \\int (10 + 2\\sqrt{2x + 1}) \\mathrm{d}x = 10x + 2\\int \\sqrt{2x + 1} \\mathrm{d}x$.\n\nDo $\\int \\sqrt{2x + 1} \\mathrm{d}x = \\frac{1}{2} \\int (2x + 1)^{\\frac{1}{2}} \\mathrm{d}(2x + 1) = \\frac{1}{3}(2x + 1)^{\\frac{3}{2}} + C$, nên ta có\n\n$f(x) = 10x + \\frac{2}{3}(2x + 1)^{\\frac{3}{2}} + C$\n\nSố dân trong $4$ tháng tới là\n\n$f(4) - f(0) = 10 \\cdot 4 + \\frac{2}{3}(2 \\cdot 4 + 1)^{\\frac{3}{2}} + C - \\left(0 + \\frac{2}{3} + C\\right) \\approx 57$ (người)."
+  },
+  {
+    "id": "15",
+    "title": "Câu 15",
+    "type": "short_answer",
+    "text": "Sản phẩm A có hàm lợi nhuận biên theo sản lượng là $M\\pi = -100Q + 1000$\nBiết rằng, nếu chỉ bán được $100$ sản phẩm thì công ti lỗ $50000$ đơn vị tiền tệ ($1$ đơn vị tiền tệ là $1000$ đồng). Ta tìm được hàm lợi nhuận theo $Q$ là một hàm số bậc hai có dạng $\\pi(Q) = aQ^2 + bQ + c$, tính $7000a + \\frac{b}{1000} + c$?",
+    "image": "",
+    "correct": "1",
+    "solution": "Trả lời: $1$\n\nTa có\n\n$\\pi = \\int (-100Q + 1000) \\mathrm{d}Q = -50Q^2 + 1000Q + C$, $C$ là hằng số.\n\nVì $\\pi(100) = -50000$ đơn vị tiền do bị lỗ, nên ta có\n\n$\\pi(100) = -50(100)^2 + 1000(100) + C = -50000$.\n\nVậy $C = 350000$.\n\nHàm lợi nhuận là $\\pi(Q) = -50Q^2 + 1000Q + 350000$\n\nKhi đó $7000a + \\frac{b}{1000} + c = 1$"
+  },
+  {
+    "id": "16",
+    "title": "Câu 16",
+    "type": "short_answer",
+    "text": "(ĐH Sư Phạm-ĐGNL-2020) Một vật chuyển động với hàm số gia tốc là $a(t)$. Biết rằng đồ thị hàm số $a(t)$ trên đoạn $[0;6]$ được cho như hình dưới đây và vận tốc tại thời điểm $t = 0$ là $v(0) = 1 (m/s)$.\n\nTại thời điểm $t = 6$ giây, vận tốc của vật là bao nhiêu? (làm tròn kết quả đến chữ số thập phân thứ nhất).",
+    "image": "data/im/NH4-16.png",
+    "correct": "8,7",
+    "solution": "Trả lời: $8,7$\n\nTừ đồ thị ta có $a(t) = \\begin{cases} \\frac{\\sqrt{2}}{2}t & , 0 \\le t \\le 2 <br> \\frac{\\sqrt{3} - \\sqrt{2}}{4}t + \\frac{3\\sqrt{2} - \\sqrt{3}}{2} & , 2 \\le t \\le 6 \\end{cases}$.\n\nMà $v(0) = 1 (m/s)$ nên $v(t) = \\int a(t) \\mathrm{d}t = \\begin{cases} \\frac{\\sqrt{2}}{4}t^2 + 1 & , 0 \\le t \\le 2 <br> \\frac{\\sqrt{3} - \\sqrt{2}}{8}t^2 + \\frac{3\\sqrt{2} - \\sqrt{3}}{2}t + C & , 2 \\le t \\le 6 \\end{cases}$.\n\nVì vận tốc là hàm số liên tục nên\n\n$\\lim\\limits_{t \\to 2^-} v(t) = \\lim\\limits_{x \\to 2^+} v(t) \\Leftrightarrow \\sqrt{2} + 1 = \\frac{\\sqrt{3} - \\sqrt{2}}{2} + 3\\sqrt{2} - \\sqrt{3} + C \\Leftrightarrow C = \\frac{\\sqrt{3} - 3\\sqrt{2} + 2}{2}$.\n\nDo đó $v(6) = 1 + 3\\sqrt{2} + 2\\sqrt{3} \\approx 8,7 (m/s)$."
+  },
+  {
+    "id": "17",
+    "title": "Câu 17",
+    "type": "short_answer",
+    "text": "Chủ một trung tâm thương mại muốn cho thuê một số gian hàng như nhau. Người đó muốn tăng giá cho thuê của mỗi gian hàng thêm $x$ (triệu đồng) ($x \\ge 0$). Tốc độ thay đổi doanh thu từ các gian hàng đó được biểu diễn bởi hàm số $T'(x) = -20x + 300$, trong đó $T'(x)$ tính bằng triệu đồng. Biết rằng nếu người đó tăng giá thuê cho mỗi gian hàng thêm $10$ triệu đồng thì doanh thu là $12000$ triệu đồng. Tìm giá trị của $x$ (triệu đồng) để người đó có doanh thu là cao nhất?",
+    "image": "",
+    "correct": "15",
+    "solution": "Trả lời: $15$\n\nTa có: $T(x) = \\int T'(x) \\mathrm{d}x = \\int (-20x + 300) \\mathrm{d}x = -10x^2 + 300x + C, C \\in \\mathbb{R}$.\n\nKhi người đó tăng giá cho thuê mỗi gian hàng thêm $10$ triệu đồng thì doanh thu là $12000$ triệu đồng. Nên ứng với $x = 10$ ta có $T(10) = 12000$ suy ra\n\n$12000 = -10 \\cdot 10^2 + 300 \\cdot 10 + C \\Rightarrow C = 10000$.\n\nVậy $T(x) = -10x^2 + 300x + 10000$. Ta có $T(x)$ là một hàm số bậc hai với hệ số $a < 0$ và đồ thị hàm số có đỉnh là $I(15; 12250)$.\n\nVậy doanh thu cao nhất mà người đó có thể thu về là $12250$ triệu đồng và khi đó mỗi gian hàng đã tăng giá cho thuê thêm $15$ triệu đồng."
+  },
+  {
+    "id": "18",
+    "title": "Câu 18",
+    "type": "short_answer",
+    "text": "Một vật chuyền động với gia tốc được cho bởi hàm số $a(t) = 5\\cos t (m/s^2)$. Lúc bắt đầu chuyển động vật có vận tốc $2,5 m/s$. Tính gia tốc của vật tại thời điểm vận tốc đạt giá trị lớn nhất trong $\\pi (s)$ đầu tiên.",
+    "image": "",
+    "correct": "0",
+    "solution": "Trả lời: $0$\n\nVận nốc của vật được biểu diễn bởi hàm số $v(t) = \\int a(t) \\mathrm{d}t = \\int 5\\cos t \\mathrm{d}t = 5\\sin t + C$.\n\nKhi bắt đầu chuyển động, vật có vận tốc $2,5 m/s$ nên ta có:\n\n$v(0) = 2,5 \\Leftrightarrow 5\\sin 0 + C = 2,5 \\Leftrightarrow C = 2,5$.\n\nSuy ra $v(t) = 5\\sin t + 2,5$. Mà $5\\sin t + 2,5 \\le 7,5$. Vậy vận tốc đạt giá trị lớn nhất tại $t = \\frac{\\pi}{2}$. Khi đó, gia tốc của vật tại thời điểm $t = \\frac{\\pi}{2}$ là $a\\left(\\frac{\\pi}{2}\\right) = 5\\cos\\left(\\frac{\\pi}{2}\\right) = 0 (m/s^2)$."
+  },
+  {
+    "id": "19",
+    "title": "Câu 19",
+    "type": "short_answer",
+    "text": "Một viên đạn được bắn thẳng đứng lên trên từ mặt đất với vận tốc tại thời điểm $t$ ($t = 0$ là thời điểm viên đạn được bắn lên) cho bởi $v(t) = 180 - 9,8t (m/s)$. Tìm độ cao của viên đạn (tính từ mặt đất) khi nó đạt độ cao cực đại (làm tròn kết quả đến hàng đơn vị).",
+    "image": "data/im/NH4-18.png",
+    "correct": "1653",
+    "solution": "Trả lời: $1653$\n\nĐộ cao $h(t)$ của viên đạn tại thời điểm $t$ là\n\n$h(t) = \\int (180 - 9,8t) \\mathrm{d}t = 180t - 9,8\\frac{t^2}{2} + C = 180t - 4,9t^2 + C$.\n\nThay $t = 0$ ta được $h(0) = C = 0$. Vậy $h(t) = 180t - 4,9t^2 (m)$.\n\nViên đạn đạt độ cao cực đại tại thời điểm $t_{\\max} = \\frac{180}{9,8}$. Khi đó,\n\n$h_{\\max} = 180t_{\\max} - 4,9t_{\\max}^2 \\approx 1653 (m)$."
+  },
+  {
+    "id": "20",
+    "title": "Câu 20",
+    "type": "short_answer",
+    "text": "Một hồ nuớc bị ô nhiễm được xử lí bằng một chất diệt khuẩn. Tốc độ phát triển của số lượng vi khuẩn sống sót được mô hình bởi $B'(t) = -\\frac{3000}{(1 + 0,2t)^2}, t \\ge 0$ với $B(t)$ là số lượng vi khuẩn trên mỗi $ml$ nuớc và $t$ là số ngày tính từ khi hồ nuớc được xử lí. Biết số lượng vi khuẩn ban đầu là $10000 con/ml$ nước. Sử dụng mô hình này xác định lượng vi khuẩn sau $5$ ngày.\n\nCho biết $\\int (ax + b)^n \\mathrm{d}x = \\frac{1}{a}\\frac{(ax + b)^{n+1}}{n+1} + C$",
+    "image": "",
+    "correct": "2500",
+    "solution": "Trả lời: $2500$\n\nTốc độ phát triển của số lượng vi khuẩn sống sót được mô hình cho bởi công thức đạo hàm\n\n$B'(t) = -\\frac{3000}{(1 + 0,2t)^2}, t \\ge 0$\n\nNguyên hàm của $B'(t)$ là hàm $B(t)$ biểu diễn số lượng vi khuẩn sống sót trong ngày thứ $t$.\n\nTa có\n\n$B(t) = \\int \\frac{-3000}{(1 + 0,2t)^2} \\mathrm{d}t = -3000 \\int (1 + 0,2t)^{-2} \\mathrm{d}t$\n\n$= 15000(1 + 0,2t)^{-1} + C = \\frac{15000}{1 + 0,2t} + C$.\n\nVì số lượng vi khuẩn ban đầu là $10000 con/ml$ nước nên ta có\n\n$B(0) = 10000 \\Rightarrow 15000 + C = 10000 \\Rightarrow C = -5000$.\n\nVậy hàm số biểu thị số lượng vi khuẩn sống sót tại ngày thứ $t$ là\n\n$B(t) = \\frac{15000}{1 + 0,2t} - 5000$.\n\nSố vi khuẩn sau $5$ ngày sẽ là $B(5) = 2500 (con/ml)$."
+  },
+  {
+    "id": "21",
+    "title": "Câu 21",
+    "type": "short_answer",
+    "text": "Người ta thay nước mới cho một bể bơi có dạng hình hộp chữ nhật có độ sâu là $h_1 = 280 cm$. Giả sử $h(t)$ là chiều cao (tính bằng $cm$) của mực nước bơm được tại thời điểm $t$ giây, biết rằng tốc độ tăng của chiều cao mực nước tại giây thứ $t$ là $h'(t) = \\frac{1}{500}\\sqrt[3]{t + 3}$ và lúc đầu hồ bơi không có nước. Hỏi sau bao nhiêu giây thì nước bơm được $\\frac{3}{4}$ độ sâu của hồ bơi? (làm tròn kết quả đến hàng đơn vị).\n\nCho biết $\\int (ax + b)^n \\mathrm{d}x = \\frac{1}{a}\\frac{(ax + b)^{n+1}}{n+1} + C$",
+    "image": "",
+    "correct": "7234",
+    "solution": "Trả lời: $7234$\n\nTa biết rằng, chiều cao $h(t)$ của mực nước bơm được chính là nguyên hàm của tốc độ tăng $h'(t)$ của chiều cao mực nước.\n\n$h(t) = \\int h'(t) \\mathrm{d}t = \\int \\frac{1}{500}\\sqrt[3]{t + 3} \\mathrm{d}t = \\frac{3}{2000}(t + 3)^{\\frac{4}{3}} + C$.\n\nLúc ban đầu (tại $t = 0$) hồ bơi không chứa nước, nghĩa là\n\n$h(t) = 0 \\Leftrightarrow \\frac{3}{2000}(0 + 3)^{\\frac{4}{3}} + C = 0 \\Leftrightarrow C = -\\frac{3^{\\frac{7}{3}}}{2000}$.\n\nSuy ra mực nước bơm được tại thời điểm $t$ giây là\n\n$h(t) = \\frac{3}{2000}(t + 3)^{\\frac{4}{3}} - \\frac{3^{\\frac{7}{3}}}{2000}$.\n\nTheo giả thiết, lượng nước bơm được bằng $\\frac{3}{4}$ độ sâu của hồ bơi nên ta có\n\n$h(t) = \\frac{3}{4}h_1 \\Leftrightarrow \\frac{3}{2000}(t + 3)^{\\frac{4}{3}} - \\frac{3^{\\frac{7}{3}}}{2000} = \\frac{3}{4} \\cdot 280$\n\n$\\Leftrightarrow (t + 3)^{\\frac{4}{3}} = 140004,33$\n\n$\\Leftrightarrow t \\approx 7234 (s)$."
+  },
+  {
+    "id": "22",
+    "title": "Câu 22",
+    "type": "short_answer",
+    "text": "Đối với các dự án xây dựng, chi phí nhân công lao động được tính theo số ngày công. Gọi $m(t)$ là số lượng công nhân được sử dụng ở ngày thứ $t$ (kể từ khi khởi công dự án). Gọi $M(t)$ là số ngày công được tính đến hết ngày thứ $t$ (kể từ khi khởi công dự án). Trong kinh tế xây dựng, người ta đã biết rằng $M'(t) = m(t)$. Một công trình xây dựng dự kiến hoàn thành trong $400$ ngày. Số lượng công nhân được sử dụng cho bởi hàm số $m(t) = 800 - 2t$, trong đó $t$ tính theo ngày ($0 \\le t \\le 400$), $m(t)$ tính theo người. Đơn giá cho một ngày công lao động là $400000$ đồng. Tính chi phí (tỷ đồng) nhân công lao động của công trình đó (cho đến lúc hoàn thành).",
+    "image": "",
+    "correct": "64",
+    "solution": "Trả lời: $64$\n\n$\\int m(t) \\mathrm{d}t = \\int (800 - 2t) \\mathrm{d}t = 800t - t^2 + C$\n\nTại $t = 0$ thì $M(t) = 0 \\Leftrightarrow C = 0$\n\nVậy $M(t) = 800t - t^2$\n\nSố ngày công tính đến khi hoàn thành dự án là: $M(400) = 800 \\cdot 400 - 400^2 = 160000$ (ngày)\n\nChi phí nhân công lao động của công trình đó là: $160000 \\cdot 400000 = 64$ tỷ VND"
+  },
+  {
+    "id": "23",
+    "title": "Câu 23",
+    "type": "short_answer",
+    "text": "Một quần thể vi sinh vật có tốc độ tăng số lượng cá thể được ước lượng bởi\n$P'(t) = 150\\sqrt{t}$ (cá thể/ngày) với $0 \\le t \\le 10$ trong đó $P(t)$ là số lượng cá thể vi sinh vật tại thời điểm $t$ ngày kể từ thời điểm ban đầu. Biết rằng ban đầu quần thể có $1000$ cá thể.\nƯớc lượng số cá thể của quần thể sau $5$ ngày kể từ thời điểm ban đầu (kết quả làm tròn đến hàng trăm).",
+    "image": "",
+    "correct": "2100",
+    "solution": "Trả lời: $2100$\n\n$P(t) = \\int P'(t) \\mathrm{d}t = \\int 150\\sqrt{t} \\mathrm{d}t = 150 \\int t^{\\frac{1}{2}} \\mathrm{d}t = 150 \\cdot \\frac{2}{3}t^{\\frac{3}{2}} + C = 100t\\sqrt{t} + C$.\n\nTheo giả thiết, ta có $P(0) = 1000$, suy ra $C = 1000$.\n\nDo đó $P(t) = 100t\\sqrt{t} + 1000$.\n\n$P(5) = 100 \\cdot 5 \\cdot \\sqrt{5} + 1000 = 500\\sqrt{5} + 1000 \\approx 2100$ (cá thể)."
+  },
+  {
+    "id": "24",
+    "title": "Câu 24",
+    "type": "short_answer",
+    "text": "Một vật chuyển động dọc theo một đường thẳng (có gắn trục toạ độ $Ox$ với độ dài đơn vị bằng $1m$). Biết rằng vật chuyển động với vận tốc (tính theo $m/s$) là $v(t) = 2t - t^2$ ($0 \\le t \\le 10$, tính theo giây) và lúc đầu vật ở vị trí có toạ độ $x_0 = 2$. Tại thời điểm $t = 6$ giây, vật cách vị trí ban đầu bao xa?",
+    "image": "",
+    "correct": "36",
+    "solution": "Trả lời: $36$\n\nTa có $x(t) = \\int v(t) \\mathrm{d}t = \\int (2t - t^2) \\mathrm{d}t = 2\\int t \\mathrm{d}t - \\int t^2 \\mathrm{d}t = t^2 - \\frac{t^3}{3} + C$.\n\nTheo giả thiết, $x(0) = x_0 = 2$, suy ra $C = 2$.\n\nVậy $x(t) = t^2 - \\frac{t^3}{3} + 2, 0 \\le t \\le 10$.\n\nTa có $|x(6) - x(0)| = \\left|6^2 - \\frac{6^3}{3} + 2 - 2\\right| = |-36| = 36$.\n\nVậy tại thời điểm $t = 6$, vật cách vị trí ban đầu $36 m$."
+  },
+  {
+    "id": "25",
+    "title": "Câu 25",
+    "type": "short_answer",
+    "text": "Giả sử tốc độ tăng trưởng của một quần thể muỗi thoả mãn công thức\n$N'(t) = 0,2N(t), 0 \\le t \\le 5$, trong đó $t$ là thời gian tính theo ngày, $N(t)$ là số cá thể muỗi tại thời điểm $t$. Biết rằng ban đầu quần thể muỗi có $2000$ cá thể. Đặt $y(t) = \\ln N(t), 0 \\le t \\le 5$. Chứng tỏ rằng $y'(t) = 0,2$. Từ đó, tìm được $N(t)$ với $0 \\le t \\le 5$.\n\nKhí đó, hãy tìm số lượng cá thể của quần thể muỗi sau $3$ ngày (kết quả làm tròn đến hàng trăm).",
+    "image": "",
+    "correct": "3600",
+    "solution": "Trả lời: $3600$\n\n$y'(t) = [\\ln N(t)]' = \\frac{N'(t)}{N(t)} = \\frac{0,2N(t)}{N(t)} = 0,2$.\n\nSuy ra $y(t) = \\int y'(t) \\mathrm{d}t = \\int 0,2 \\mathrm{d}t = 0,2t + C$.\n\nDo đó, $\\ln N(t) = 0,2t + C$, suy ra $N(t) = e^{0,2t + C} = C_0 \\cdot e^{0,2t}$ (với $C_0 = e^C$).\n\nTa có $N(0) = 2000$, suy ra $C_0 = 2000$, suy ra $N(t) = 2000 \\cdot e^{0,2t}, 0 \\le t \\le 5$.\n\n$N(3) = 2000 \\cdot e^{0,2 \\cdot 3} \\approx 3600$ (cá thể)."
+  },
+  {
+    "id": "26",
+    "title": "Câu 26",
+    "type": "short_answer",
+    "text": "Trong một dịch cúm, tốc độ tăng số trường hợp mắc bệnh của một thành phố được ước lượng bởi $N'(t) = 10 \\cdot e^{0,2t}$ (trường hợp/ngày) trong đó $N(t)$ là số trường hợp mắc bệnh sau thời gian $t$ ngày kể từ khi bắt đầu dịch. Biết rằng thời điểm bắt đầu dịch có $5$ trường hợp mắc bệnh. Ước lượng số trường hợp mắc bệnh của thành phố sau $10$ ngày dịch bắt đầu.",
+    "image": "",
+    "correct": "324",
+    "solution": "Trả lời: $324$\n\nTa có $N(t) = \\int N'(t) \\mathrm{d}t = \\int 10 \\cdot e^{0,2t} \\mathrm{d}t = 10 \\int \\left(e^{0,2}\\right)^t \\mathrm{d}t = 10 \\cdot \\frac{e^{0,2t}}{\\ln e^{0,2}} + C = 50 \\cdot e^{0,2t} + C$.\n\nTheo giả thiết, $N(0) = 5$ suy ra $50 + C = 5$, suy ra $C = -45$.\n\nVậy $N(t) = 50 \\cdot e^{0,2t} - 45$.\n\n$N(10) = 50 \\cdot e^{0,2 \\cdot 10} - 45 \\approx 324$ (trường hợp).\n\nVậy sau $10$ ngày kể từ khi dịch bắt đầu, thành phố có khoảng $324$ trường hợp mắc bệnh."
+  },
+  {
+    "id": "27",
+    "title": "Câu 27",
+    "type": "short_answer",
+    "text": "Khi nghiên cứu dịch sốt xuất huyết ở một địa phương, các chuyên gia y tế ước tính rằng tại ngày thứ $m$ có $F(m)$ người mắc bệnh (sau khi đã làm tròn đến chữ số hàng đơn vị). Biết rằng tốc độ lan truyền bệnh là $F'(m) = \\frac{150}{2m + 1}$ và ngày đầu tiên ($m = 0$) người ta phát hiện ra $50$ bệnh nhân. Hãy xác định số người mắc bệnh ở ngày thứ $10$.",
+    "image": "",
+    "correct": "278",
+    "solution": "Trả lời: $278$\n\nTừ giả thiết ta có\n\n$F(m) = \\int F'(m) \\mathrm{d}m = \\int \\frac{150}{2m + 1} \\mathrm{d}m = 75\\ln|2m + 1| + C$\n\n$F(0) = C = 50$\n\nVậy $F(m) = 75\\ln|2m + 1| + 50$.\n\nSố người mắc bệnh ở ngày thứ $10$ là: $F(10) \\approx 278$."
+  },
+  {
+    "id": "28",
+    "title": "Câu 28",
+    "type": "short_answer",
+    "text": "Cây cà chua khi trồng có chiều cao $5 cm$. Tốc độ tăng chiều cao của cây cà chua sau khi trồng được cho bởi hàm số $v(t) = -0,1t^3 + t^2$, trong đó $t$ tính theo tuần, $v(t)$ tính bằng centimét/tuần. Gọi $h(t)$ là độ cao của cây cà chua ở tuần thứ $t$. Vào thời điểm cây cà chua đó phát triển nhanh nhất thì cây cà chua cao bao nhiêu centimét? (làm tròn kết quả đến hàng phần mười).",
+    "image": "data/im/NH4-27.png",
+    "correct": "88,3",
+    "solution": "Đáp số: $88,3$.\n\nTa có: $h(t) = \\int (-0,1t^3 + t^2) \\mathrm{d}t = \\int -0,1t^3 \\mathrm{d}t + \\int t^2 \\mathrm{d}t = \\frac{-t^4}{40} + \\frac{t^3}{3} + C$.\n\nCây cà chua khi trồng có chiều cao $5 cm$ nên $h(0) = 5$, suy ra $C = 5$.\n\nDo đó $h(t) = \\frac{-t^4}{40} + \\frac{t^3}{3} + 5$.\n\nTa chi cần tìm giá trị lớn nhất của $h(t) = \\frac{-t^4}{40} + \\frac{t^3}{3} + 5$ với $t \\in [0; 10]$.\n\nTa có: $h'(t) = \\frac{-t^3}{10} + t^2 = \\frac{t^2}{10}(-t + 10)$, suy ra $h'(t) = 0$ khi $t$ bằng $0$ hoặc $10$.\n\nTa thấy $h(0) = 5, h(10) = \\frac{265}{3}$. Khi đó, $h(t)$ đạt giá trị lớn nhất bằng $\\frac{265}{3}$ trên đoạn $[0; 10]$.\n\nVậy chiều cao tối đa của cây cà chua đó là $\\frac{265}{3} \\approx 88,3 (cm)$."
+  },
+  {
+    "id": "29",
+    "title": "Câu 29",
+    "type": "short_answer",
+    "text": "Cường độ dòng điện trong một dây dẫn tại thời điểm $t$ giây là:\n$I(t) = Q'(t) = 3t^2 - 6t + 5$, với $Q(t)$ là điện lượng truyền trong dây dẫn tại thời điểm $t$. Biết khi $t = 1$ giây, điện lượng truyền trong dây dẫn là $Q(1) = 4$. Tính điện lượng truyền trong dây dẫn khi $t = 3$.",
+    "image": "data/im/NH4-28.png",
+    "correct": "16",
+    "solution": "Đáp số: $16$.\n\nTa có: $Q(t) = \\int Q'(t) \\mathrm{d}t = \\int (3t^2 - 6t + 5) \\mathrm{d}t = t^3 - 3t^2 + 5t + C$.\n\nDo $Q(1) = 4$ nên $1^3 - 3 \\cdot 1^2 + 5 \\cdot 1 + C = 4 \\Rightarrow C = 1$\n\nNhư vậy $Q(t) = t^3 - 3t^2 + 5t + 1$.\n\nVậy $Q(3) = 3^3 - 3 \\cdot 3^2 + 5 \\cdot 3 + 1 = 16$."
+  },
+  {
+    "id": "30",
+    "title": "Câu 30",
+    "type": "short_answer",
+    "text": "Một xe ô tô sau khi chờ hết đèn đỏ đã bắt đầu chuyển động với vận tốc được biểu thị bằng đồ thị là đường cong parabol như hình bên dưới. Biết rằng sau $5$ phút thì xe đạt đến vận tốc cao nhất $1000m/phút$ và bắt đầu giảm vận tốc, đi được $6$ phút thì xe chuyển động đều.\n\nHỏi quãng đường xe đã đi được trong khoảng $10$ phút đầu tiên là bao nhiêu mét?",
+    "image": "data/im/NH4-30.png",
+    "correct": "8160",
+    "solution": "Trả lời: $8160$\n\nDựa vào đồ thị ta có phương trình vận tốc của ô tô là $v(t) = -40t^2 + 400t$ với $t \\in [0; 6]$ và $v = 960$ với $t > 6$. Trong khoảng $6$ phút đầu phương trình quãng đường là\n\n$S(t) = \\int (-40t^2 + 400t) \\mathrm{d}t = -\\frac{40}{3}t^3 + 200t^2 + C$.\n\nTại thời điểm xe ô tô xuất phát ta có $t_0 = 0$ và $S(t_0) = 0$ suy ra $C = 0$ nên phương trình quãng đường là $S(t) = -\\frac{40}{3}t^3 + 200t^2$.\n\nTrong khoảng $6$ phút đầu ô tô đi được quãng đường là $S(6) = 4320m$ và $4$ phút tiếp theo ô tô đi được quãng đường là $960 \\times 4 = 3840m$\n\nVậy quãng đường ô tô đi được trong $10$ phút đầu là $4320 + 3840 = 8160m$."
+  },
+  {
+    "id": "31",
+    "title": "Câu 31",
+    "type": "short_answer",
+    "text": "Một vật chuyển động trong $4$ giờ với vận tốc $v (km/h)$ phụ thuộc vào thời gian $t (h)$ có đồ thị vận tốc là một đường parabol có đỉnh $I(3; 10)$ và trục đối xứng vuông góc với trục hoành như hình vẽ. Tính quãng đường vật di chuyển được trong nửa thời gian sau của chuyển động đó (kết quả làm tròn đến hàng phần chục và tính theo đơn vị $km$)",
+    "image": "data/im/NH4-31.png",
+    "correct": "19,3",
+    "solution": "Đáp số: $19,3$\n\nDựa vào đồ thị ta tìm được vận tốc $v(t) = -t^2 + 6t + 1, t \\in [0; 4]$.\n\nQuãng đường $s(t)$ vật di chuyển được trong thời gian 4h là một nguyên hàm của $v(t), t \\in [0; 4]$\n\nTa có $s(t) = \\int (-t^2 + 6t + 1) \\mathrm{d}t = -\\frac{t^3}{3} + 3t^2 + t + C$.\n\nQuãng đường vật di chuyển được trong 2h đầu là $s(2) = \\frac{34}{3} + C (km)$.\n\nQuãng đường vật di chuyển được trong 4h là $s(4) = \\frac{92}{3} + C (km)$.\n\nQuãng đường vật di chuyển được trong nửa thời gian sau của chuyển động là:\n\n$s(4) - s(2) = \\frac{58}{3} (km) \\approx 19,3 (km)$."
+  },
+  {
+    "id": "32",
+    "title": "Câu 32",
+    "type": "short_answer",
+    "text": "Một bác thợ xây bơm nước vào bể chứa nước. Gọi $h(t)$ là thể tích nước bơm được sau $t$ giây. Cho $h'(t) = 3at^2 + bt (m^3/s)$ và ban đầu bể không có nước. Sau $5$ giây thì thể tích nước trong bể là $150m^3$. Sau $10$ giây thì thể tích nước trong bể là $1100m^3$. Hỏi thể tích nước trong bể là bao nhiêu $m^3$ sau khi bơm được $20$ giây.",
+    "image": "",
+    "correct": "8400",
+    "solution": "Trả lời: $8400$\n\nTa có: $h'(t) = 3at^2 + bt$\n\n$\\Rightarrow h(t) = \\int (3at^2 + bt) \\mathrm{d}t = at^3 + \\frac{1}{2}bt^2 + C \\Rightarrow h(t) = at^3 + \\frac{1}{2}bt^2 + C$\n\nChọn $t = 0 \\Rightarrow h(0) = 0 \\Rightarrow C = 0 \\Rightarrow h(t) = at^3 + \\frac{1}{2}bt^2$\n\nSau $5$ giây thì thể tích nước trong bể là $150m^3$: $h(5) = 150 \\Leftrightarrow 125a + \\frac{25}{2}b = 150$\n\nSau $10$ giây thì thể tích nước trong bể là $1100m^3$: $h(10) = 1100 \\Leftrightarrow 1000a + 50b = 1100$\n\nTa có hệ: $\\begin{cases} 125a + \\frac{25}{2}b = 150 <br> 1000a + 50b = 1100 \\end{cases} \\Leftrightarrow \\begin{cases} a = 1 <br> b = 2 \\end{cases}$\n\n$\\Rightarrow h(t) = t^3 + t^2$\n\nNên thể tích nước trong bể sau khi bơm được $20$ giây là $h(20) = 20^3 + 20^2 = 8400m^3$"
+  },
+  {
+    "id": "33",
+    "title": "Câu 33",
+    "type": "short_answer",
+    "text": "Doanh thu bán hàng của một doanh nghiệp khi bán một loại sản phẩm là số tiền $R(x)$ (triệu đồng) thu được khi $x$ đơn vị sản phẩm được bán ra. Tốc độ biến động (thay đổi) của doanh thu khi $x$ đơn vị sản phẩm đã được bán là hàm số $M_R(x) = R'(x)$. Đại diện của doanh nghiệp cho biết tốc độ biến đổi của doanh thu khi bán một loại sản phẩm được cho bởi $M_R(x) = 500 - 0,1x$, ở đó $x$ là số lượng sản phẩm đã bán. Tìm doanh thu của doanh nghiệp khi đã bán $2000$ sản phẩm là bao nhiêu trăm triệu đồng?",
+    "image": "",
+    "correct": "800",
+    "solution": "Trả lời: $800$\n\nDoanh thu của doanh nghiệp là $R(x) = \\int M_R(x) \\mathrm{d}x = \\int (500 - 0,1x) \\mathrm{d}x = 500x - \\frac{1}{20}x^2 + C$.\n\nVì $R(0) = 0$ nên $C = 0$. Vậy $R(x) = 500x - \\frac{1}{20}x^2$.\n\nDoanh thu của doanh nghiệp khi bán $2000$ sản phẩm là:\n\n$R(2000) = 500 \\cdot 2000 - \\frac{1}{20} \\cdot 2000^2 = 800000$ triệu đồng."
+  },
+  {
+    "id": "34",
+    "title": "Câu 34",
+    "type": "short_answer",
+    "text": "Trọng lượng của một bào thai người nặng khoảng $0,04$ ounce ($1$ ounce = $28,3485$ gram) sau $8$ tuần tuổi. Trong suốt $35$ tuần tiếp theo, trọng lượng của bào thai này được dự đoán tăng với tốc độ $B'(t) = \\frac{2436e^{-0,193t}}{(1 + 784e^{-0,193t})^2}$, $8 \\le t \\le 43$ với $B(t)$ là cân nặng tính bằng ounce và $t$ là thời gian tính bằng tuần. Hãy tính trọng lượng của bao thai sau $25$ tuần tuổi (Làm tròn kết quả đến chữ số hàng phần trăm).",
+    "image": "data/im/NH4-33.png",
+    "correct": "2,15",
+    "solution": "Trả lời: $2,15$\n\nTheo giả thiết, trọng lượng của bào thai này được dự đoán tăng với tốc độ là hàm số $B'(t)$, nên $B(t)$ chính là nguyên hàm của $B'(t)$:\n\n$B(t) = \\int B'(t) \\mathrm{d}t = \\int \\frac{2436e^{-0,193t}}{(1 + 784e^{-0,193t})^2} \\mathrm{d}t$\n\nĐặt $u = 1 + 784e^{-0,193t}$\n\n$\\Rightarrow \\mathrm{d}u = 784 \\cdot (-0,193) \\cdot e^{-0,193t} \\mathrm{d}t = -151,312e^{-0,193t} \\mathrm{d}t$\n\n$B(t) = -\\frac{2436}{151,312} \\int \\frac{\\mathrm{d}u}{u^2} = \\frac{2436}{151,312u} + C = \\frac{2436}{151,312 \\cdot (1 + 784e^{-0,193t})} + C$.\n\nSau $8$ tuần tuổi thì bào thai cân nặng khoảng $0,04$ ounce nên:\n\n$B(8) = 0,04 \\Leftrightarrow \\frac{2436}{151,312(1 + 784e^{-0,193 \\cdot 8})} + C = 0,04 \\Leftrightarrow C = 0,04 - \\frac{2436}{151,312(1 + 784e^{-1,544})}$\n\nDo đó ta có hàm số cân nặng của bào thai là:\n\n$B(t) = \\frac{2436}{151,312(1 + 784e^{-0,193t})} + 0,04 - \\frac{2436}{151,312(1 + 784e^{-1,544})}$, $8 \\le t \\le 43$.\n\nCân nặng của bào thai sau $25$ tuần tuổi là:\n\n$B(25) = \\frac{2436}{151,312(1 + 784e^{-0,193 \\cdot 25})} + 0,04 - \\frac{2436}{151,312(1 + 784e^{-1,544})} \\approx 2,15$."
+  },
+  {
+    "id": "35",
+    "title": "Câu 35",
+    "type": "short_answer",
+    "text": "Tốc độ phát triển của số lượng vi khuẩn trong hồ bơi được mô hình bởi hàm số $B'(t) = \\frac{1000}{(1 + 0,3t)^2}$, $t \\ge 0$, trong đó $B(t)$ là số lượng vi khuẩn trên mỗi $ml$ nước tại ngày thứ $t$. Số lượng vi khuẩn ban đầu là $500$ con trên mỗi $ml$ nước. Biết rằng mức độ an toàn cho người sử dụng hồ bơi là số vi khuẩn phải dưới $3000$ con trên mỗi $ml$ nước. Hỏi sau bao nhiêu ngày thì người ta phải xử lí và thay nước mới cho hồ bơi.",
+    "image": "",
+    "correct": "10",
+    "solution": "Trả lời: $10$\n\nTheo giả thiết, số lượng vi khuẩn tăng với tốc độ là hàm số $B'(t)$, nên $B(t)$ chính là nguyên hàm của $B'(t)$:\n\n$B(t) = \\int B'(t) \\mathrm{d}t = \\int \\frac{1000}{(1 + 0,3t)^2} \\mathrm{d}t = 1000 \\int (1 + 0,3t)^{-2} \\mathrm{d}t = -\\frac{1000}{0,3(1 + 0,3t)} + C$\n\nSố lượng vi khuẩn lúc ban đầu là $500$ con trên mỗi $ml$ nước nên:\n\n$B(0) = 500 \\Leftrightarrow -\\frac{1000}{0,3(1 + 0,3 \\cdot 0)} + C = 500 \\Leftrightarrow C = \\frac{11500}{3}$.\n\nSuy ra hàm số biểu thị cho số lượng vi khuẩn tại ngày thứ $t$ là:\n\n$B(t) = -\\frac{1000}{0,3(1 + 0,3t)} + \\frac{11500}{3}$.\n\nSố lượng vi khuẩn dưới $3000$ con trên mỗi $ml$ nước thì người bơi vẫn an toàn, ta có:\n\n$B(t) < 3000 \\Leftrightarrow -\\frac{1000}{0,3(1 + 0,3t)} + \\frac{11500}{3} < 3000$\n\n$\\Leftrightarrow -\\frac{1000}{0,3(1 + 0,3t)} < -\\frac{2500}{3} \\Leftrightarrow 1 + 0,3t < 4 \\Leftrightarrow t < 10$.\n\nVậy vào ngày thứ $10$ hồ bơi không còn an toàn, cần phải thay nước mới."
+  },
+  {
+    "id": "36",
+    "title": "Câu 36",
+    "type": "short_answer",
+    "text": "Một hồ bơi có dạng hình hộp chữ nhật có chiều cao $3,0 (m)$ đang không chứa nước. Người ta cần thay nước mới cho hồ bơi nên dùng máy bơm để bơm nước vào hồ, giả sử $h(t) (m)$ là chiều cao của mực nước đã được bơm vào tại thời điểm $t$ giờ. Biết rằng tốc độ tăng chiều cao của mực nước tại giờ thứ $t$ kể từ lúc bắt đầu bơm nước vào hồ là $h'(t) = \\frac{\\sqrt[3]{t + 3}}{5}$. Hỏi sau bao nhiêu giờ kể từ lúc bắt đầu bơm thì hồ đạt được độ sâu $2,1 (m)$ (Kết quả làm tròn đến hàng đơn vị).",
+    "image": "data/im/NH4-35.png",
+    "correct": "6",
+    "solution": "Trả lời: $6$.\n\n* $h(t) = \\int h'(t) \\mathrm{d}t = \\frac{1}{5} \\int (t + 3)^{\\frac{1}{3}} \\mathrm{d}t = \\frac{3}{20}(t + 3)^{\\frac{4}{3}} + C$.\n\n* $h(0) = 0 \\Leftrightarrow \\frac{9\\sqrt[3]{3}}{20} + C = 0 \\Leftrightarrow C = -\\frac{9\\sqrt[3]{3}}{20} \\rightarrow h(t) = \\frac{3}{20}(t + 3)^{\\frac{4}{3}} - \\frac{9\\sqrt[3]{3}}{20}$.\n\n* $h(t) = 2,1 \\Leftrightarrow \\frac{3}{20}(t + 3)^{\\frac{4}{3}} - \\frac{9\\sqrt[3]{3}}{20} = 2,1 \\Leftrightarrow (t + 3)^{\\frac{4}{3}} \\approx 18,33 \\rightarrow t \\approx 6$.\n\nVậy sau khi bơm khoảng $6$ giờ thì độ sâu của mực nước trong hồ là $2,1 (m)$."
+  },
+  {
+    "id": "37",
+    "title": "Câu 37",
+    "type": "short_answer",
+    "text": "Một xe ô tô đang chuyển động đều thì người lái xe nhìn thấy chướng ngại vật trên đường. Sau $1$ giây thì người lái xe bắt đầu đạp phanh. Ô tô chuyển động chậm dần đều với gia tốc $a = -5m/s^2$. Biết rằng kể từ lúc nhìn thấy chướng ngại vật cho đến khi dừng hẳn thì xe đi thêm được quãng đường $41,6$ mét. Vận tốc của xe khi người lái xe bắt đầu phanh là bao nhiêu $m/s$?",
+    "image": "data/im/NH4-36.png",
+    "correct": "16",
+    "solution": "Kết quả: $16$\n\nGọi vận tốc của xe khi bắt đầu phanh là $v_0 (m/s)$\n\nVận tốc tại thời điểm $t$ kể từ lúc bắt đầu phanh là: $v(t) = \\int (-5) \\mathrm{d}t = -5t + C$.\n\nVận tốc của vật tại thời điểm bắt đầu phanh xe là $v_0 (m/s)$ nên ta có\n\n$v(0) = v_0 \\Rightarrow C = v_0 \\Rightarrow v(t) = -5t + v_0$\n\nQuãng đường vật đi được tại thời điểm $t$ kể từ khi bắt đầu đạp phanh là $S(t) = \\int v(t) \\mathrm{d}t$\n\n$= \\int (-5t + v_0) \\mathrm{d}t = -\\frac{5}{2}t^2 + v_0t + C$.\n\nTa có $S(0) = 0 \\Rightarrow C = 0 \\Rightarrow S(t) = -\\frac{5}{2}t^2 + v_0t$.\n\nKhi xe dừng hẳn ta có $v(t) = 0 \\Leftrightarrow -5t + v_0 = 0 \\Leftrightarrow t = \\frac{v_0}{5}$.\n\nQuãng đường xe đi được từ khi bắt đầu đạp phanh đến khi dừng hẳn là\n\n$S = S\\left(\\frac{v_0}{5}\\right) = -\\frac{5}{2}\\left(\\frac{v_0}{5}\\right)^2 + \\frac{v_0^2}{5} = \\frac{v_0^2}{10} (m)$.\n\nQuãng đường người lái xe đi từ khi nhìn thấy chướng ngại vật đến khi đạp phanh là $v_0 (m)$.\n\nTheo bài ra ta có phương trình $\\frac{v_0^2}{10} + v_0 = 41,6$.\n\nGiải phương trình ta được $\\left[\\begin{aligned} & v_0 = 16 <br> & v_0 = -26 \\end{aligned}\\right.$.\n\nVậy vận tốc khi người lái xe bắt đầu phanh là $16 (m/s)$."
+  },
+  {
+    "id": "38",
+    "title": "Câu 38",
+    "type": "short_answer",
+    "text": "Nước bốc hơi từ một bát hình bán cầu có bán kính $r (cm)$ với tốc độ $V'(t) = -r^2$, trong đó $t$ là thời gian tính bằng giờ. Giả sử bán kính của bát là $r = 10cm$ và ban đầu (lúc $t = 0$) bát chứa đầy nước. Hỏi sau bao nhiêu giờ (làm tròn kết quả đến hàng phần chục) thì bát cạn nước?",
+    "image": "data/im/NH4-37.png",
+    "correct": "20,9",
+    "solution": "Trả lời: $20,9$\n\nVì bát có dạng là $1$ nửa hình cầu với bán kính $r = 10cm$ nên ta có thể tích của bát khi chứa đầy nước là $V = \\frac{1}{2} \\cdot \\frac{4}{3}\\pi \\cdot 10^3 = \\frac{2000\\pi}{3} (cm^3)$\n\nTheo định nghĩa nguyên hàm, ta có lượng nước trong bát là\n\n$V(t) = \\int V'(t) \\mathrm{d}t = \\int (-r^2) \\mathrm{d}t = -r^2t + C$.\n\nBiết tại thời điểm ban đầu ($t = 0$) thì bát đầy nước nên ta có $V(0) = \\frac{2000\\pi}{3} \\Leftrightarrow C = \\frac{2000\\pi}{3}$.\n\nSuy ra $V(t) = -10^2t + \\frac{2000\\pi}{3}$, ($r = 10$)\n\nBát cạn nước khi $V(t) = 0 \\Leftrightarrow -10^2t + \\frac{2000\\pi}{3} = 0 \\Rightarrow t \\approx 20,9$ giờ."
+  },
+  {
+    "id": "39",
+    "title": "Câu 39",
+    "type": "short_answer",
+    "text": "Một tấm ván gỗ chỉ được hỗ trợ ở hai đầu $O$ và $L$, cách nhau $4 m$. Tấm ván võng xuống dưới do trọng lượng của nó tạo thành một đường cong. Xét trên hệ trục $Oxy$ như hình vẽ dưới, đơn vị mỗi trục là mét, đường cong trong hình vẽ có phương trình $y = f(x)$.\n\nKhi đó $f''(x) = \\frac{1}{350}(12x - 3x^2)$ với $0 \\le x \\le 4$. Hỏi tấm ván bị võng xuống so với phương ngang một khoảng lớn nhất bao nhiêu cm (kết quả làm tròn đến hàng phần mười).",
+    "image": "data/im/NH4-38.png",
+    "correct": "5,7",
+    "solution": "Trả lời: $5,7$\n\nKhoảng võng xuống lớn nhất so với phương ngang của tấm ván là bằng với $f(x)$ min. Do đó, ta cần đi tìm hàm $f(x)$. Và ta sẽ sử dụng các công thức $\\begin{cases} f'(x) = \\int f''(x) \\mathrm{d}x <br> f(x) = \\int f'(x) \\mathrm{d}x \\end{cases}$ để tìm được hàm $f(x)$. Thực hiện như sau:\n\nTa có $f'(x) = \\int f''(x) \\mathrm{d}x = \\int \\left(\\frac{1}{350}(12x - 3x^2)\\right) \\mathrm{d}x = \\frac{1}{350}\\left(\\frac{12}{2}x^2 - x^3\\right) + C = \\frac{1}{350}(6x^2 - x^3) + C$\n\nTiếp đến, ta có $f(x) = \\int f'(x) \\mathrm{d}x = \\int \\left(\\frac{1}{350}(6x^2 - x^3) + C\\right) \\mathrm{d}x = \\frac{1}{350}\\left(\\frac{6}{3}x^3 - \\frac{x^4}{4}\\right) + Cx + D$\n\n$= \\frac{x^3}{175} - \\frac{x^4}{1400} + Cx + D$\n\nDựa vào hình vẽ, ta có $\\begin{cases} f(0) = 0 <br> f(4) = 0 \\end{cases} \\Leftrightarrow \\begin{cases} D = 0 <br> \\frac{4^3}{175} - \\frac{4^4}{1400} + 4C + D = 0 \\end{cases} \\Leftrightarrow \\begin{cases} D = 0 <br> C = -\\frac{8}{175} \\end{cases}$\n\nSuy ra $f(x) = \\frac{x^3}{175} - \\frac{x^4}{1400} - \\frac{8}{175}x$.\n\nXét hàm số $f(x) = \\frac{x^3}{175} - \\frac{x^4}{1400} - \\frac{8}{175}x$ trên đoạn $[0; 4]$\n\nTa có $f'(x) = \\frac{1}{350}(6x^2 - x^3) - \\frac{8}{175} = 0 \\Leftrightarrow \\frac{1}{350}(6x^2 - x^3) = \\frac{8}{175} \\Leftrightarrow 6x^2 - x^3 = 16 \\Leftrightarrow -x^3 + 6x^2 - 16 = 0$\n\n$\\Leftrightarrow \\left[\\begin{aligned} & x = 2 - 2\\sqrt{3} (L) <br> & x = 2 + 2\\sqrt{3} (L) <br> & x = 2 (tm) \\end{aligned}\\right.$\n\n$f(0) = f(4) = 0; f(2) = -\\frac{2}{35} \\approx -0,057$.\n\nVậy tấm ván bị võng xuống so với phương ngang một khoảng lớn nhất là $0,057 m$ hay $5,7 cm$."
+  },
+  {
+    "id": "40",
+    "title": "Câu 40",
+    "type": "short_answer",
+    "text": "Tốc độ giải ngân $2$ tỷ tiền trợ cấp $M'(t)$ dành cho một vùng A bị thiệt hại về lũ lụt tỉ lệ thuận với bình phương của $(100 - t)$, trong đó $t$ là thời gian tính bằng ngày ($0 \\le t \\le 100$) và $M(t)$ là số tiền còn lại chưa giải ngân. Hỏi số tiền còn lại chưa giải ngân sau $40$ ngày là bao nhiêu triệu đồng, biết rằng toàn bộ số tiền sẽ được giải ngân trong $100$ ngày.",
+    "image": "",
+    "correct": "432",
+    "solution": "Trả lời: $432$\n\nVì $M'(t)$ tỉ lệ thuận với bình phương của $(100 - t)$, nên ta có\n\n$\\frac{M'(t)}{(100 - t)^2} = k \\Rightarrow M'(t) = k(100 - t)^2$\n\nTheo công thức nguyên hàm, ta có\n\n$M(t) = \\int M'(t) \\mathrm{d}t = \\int k(100 - t)^2 \\mathrm{d}t = \\int k(10000 - 200t + t^2) \\mathrm{d}t = k\\left(10000t - 100t^2 + \\frac{t^3}{3}\\right) + C$\n\nTừ giả thiết, ta có số tiền còn lại chưa giải ngân tại thời điểm $t = 0$ là bằng $2000$ triệu đồng $\\Rightarrow M(0) = 2000 \\Leftrightarrow C = 2000$.\n\nKhi đó $M(t) = k\\left(10000t - 100t^2 + \\frac{t^3}{3}\\right) + 2000$\n\nVì toàn bộ số tiền sẽ được giải ngân trong $100$ ngày nên ta có\n\n$M(100) = 0 \\Leftrightarrow k\\left(10000 \\cdot 100 - 100 \\cdot 100^2 + \\frac{100^3}{3}\\right) + 2000 = 0$\n\n$\\Leftrightarrow k = \\frac{-2000}{10000 \\cdot 100 - 100 \\cdot 100^2 + \\frac{100^3}{3}}$\n\n$\\Leftrightarrow k = -0,006$.\n\nSuy ra $M(t) = -0,006\\left(10000t - 100t^2 + \\frac{t^3}{3}\\right) + 2000 = -0,002t^3 + 0,6t^2 - 60t + 2000$\n\nVậy số tiền còn lại chưa giải ngân sau $40$ ngày là $M(40) = 432$ (triệu đồng)"
+  },
+  {
+    "id": "41",
+    "title": "Câu 41",
+    "type": "short_answer",
+    "text": "Một bác thợ xây bơm nước vào bể chứa nước. Gọi $V(t)$ là thể tích nước bơm được sau $t$ giây. Biết rằng $V'(t) = at^2 + bt$ và ban đầu bể không có nước. Sau $5$ giây, thể tích nước trong bể là $15 m^3$, sau $10$ giây, thì thể tích trong bể là $110 m^3$. Thể tích nước trong bể sau khi bơm được $20$ giây bằng",
+    "image": "",
+    "correct": "220",
+    "solution": "Trả lời: $220$\n\nTa có $V(t) = \\int (at^2 + bt) \\mathrm{d}t = \\frac{at^3}{3} + \\frac{bt^2}{2} + C$\n\nLúc đầu, bể không có nước, nên $V(0) = 0$, suy ra $C = 0$, và $V(t) = \\frac{at^3}{3} + \\frac{bt^2}{2}$\n\nSau $5$ giây, thể tích nước trong bể là $15 m^3$, nên ta có $\\frac{a \\cdot 5^3}{3} + \\frac{b \\cdot 5^2}{2} = 15$\n\nSau $10$ giây, thể tích nước trong bể là $110 m^3$, nên ta có $\\frac{a \\cdot 10^3}{3} + \\frac{b \\cdot 10^2}{2} = 110$\n\nXét hệ phương trình: $\\begin{cases} \\frac{a \\cdot 5^3}{3} + \\frac{b \\cdot 5^2}{2} = 15 <br> \\frac{a \\cdot 10^3}{3} + \\frac{b \\cdot 10^2}{2} = 110 \\end{cases} \\Leftrightarrow \\begin{cases} a = \\frac{3}{10} <br> b = \\frac{1}{5} \\end{cases}$\n\nThể tích của bể sau $20$ giây là $V(20) = \\frac{20^3}{10} + \\frac{20^2}{10} = 840m^3$"
+  },
+  {
+    "id": "42",
+    "title": "Câu 42",
+    "type": "short_answer",
+    "text": "Một bể ban đầu chứa đầy nước, bể có dạng hình trụ với chiều cao bằng $9 m$ và bán kính đáy bằng $2 m$. Nước bắt đầu chảy ra từ một vòi nước ở đáy bể. Gọi $V(t)$ là thể tích chất lỏng đã thoát ra tại thời điểm $t$ (phút) sau khi mở vòi thì $V'(t) = k(45 - t), (0 \\le t \\le 45)$. Biết sau $15$ phút độ cao của mực nước trong bể bằng $4 m$.\n\nSau $42$ phút, thể tích chất lỏng còn lại trong bể là bao nhiêu lít (làm tròn kết quả đến đơn vị).",
+    "image": "data/im/NH4-41.png",
+    "correct": "503",
+    "solution": "Theo đề bài, ta có:\n\nChiều cao bể $H = 9 m$\n\nBán kinh đáy bể $R = 2 m$\n\nThể tích ban đầu của bể: $V_{be} = \\pi R^2H = \\pi(2^2)(9) = 36\\pi (m^3)$\n\nTốc độ thoát nước: $V'(t) = k(45 - t) (m^3 / phut)$.\n\nSau $15$ phút, độ cao mực nước trong bể là $4 m$.\n\n$V(t)$ là thể tích chất lỏng đã thoát ra tại thời điểm $t$ (phút) sau khi mở vòi.\n\nLấy nguyên hàm: $V(t) = \\int V'(t) \\mathrm{d}t = \\int k(45 - t) \\mathrm{d}t$\n\n$V(t) = k\\int (45 - t) \\mathrm{d}t = k\\left(\\int 45 \\mathrm{d}t - \\int t \\mathrm{d}t\\right) \\Rightarrow V(t) = k\\left(45t - \\frac{t^2}{2}\\right) + C$\n\nBiết tại thời điểm ban đầu ($t = 0$) bể đầy nước nên $V(0) = 0$\n\n$\\Rightarrow V(0) = k\\left(45 \\cdot 0 - \\frac{0^2}{2}\\right) + C = 0 \\Rightarrow C = 0$. Vậy $V(t) = k\\left(45t - \\frac{t^2}{2}\\right)$.\n\nSau $15$ phút, độ cao mực nước trong bể là $4 m$, vậy nước thoát ra là $5 m$.\n\nThể tích nước còn lại sau $15$ phút là: $V(15) = \\pi R^2h(15) = \\pi(2^2)(4) = 16\\pi (m^3)$\n\nThể tích nước đã thoát ra sau $15$ phút là: $V(15) = V_{be} - V_{conlai} = 36\\pi - 16\\pi = 20\\pi$\n\nThay $t = 15$ và $V(15) = 20\\pi$ vào công thức $V(t)$:\n\n$\\Rightarrow 20\\pi = k\\left(45 \\cdot 15 - \\frac{15^2}{2}\\right) \\Rightarrow k(562,5) = 20\\pi \\Rightarrow k = \\frac{8\\pi}{225} \\Rightarrow V(t) = \\frac{8\\pi}{225}\\left(45t - \\frac{t^2}{2}\\right)$\n\nTính $V(42)$: $V(42) = \\frac{8\\pi}{225}\\left(45 \\cdot 42 - \\frac{42^2}{2}\\right) = \\frac{8064\\pi}{225} (m^3)$.\n\nVậy thể tích chất lỏng còn lại trong bể là: $V = 36\\pi - \\frac{8064\\pi}{225} = \\frac{36\\pi}{225} = \\frac{4\\pi}{25} (m^3)$\n\nĐổi: $\\Rightarrow V = \\frac{4\\pi}{25} \\cdot 1000 = 160\\pi \\approx 503(l)$\n\nKết quả: Sau $42$ phút, thể tích chất lỏng còn lại trong bể là khoảng $503$ lít."
+  },
+  {
+    "id": "43",
+    "title": "Câu 43",
+    "type": "short_answer",
+    "text": "Gọi $h(t) (cm)$ là mức nước ở một bồn chứa sau khi bơm nước vào bồn được $t$ giây. Biết rằng $h'(t) = k \\cdot \\sqrt[3]{t}$ và lúc đầu bồn không có nước. Sau $162$ giây, mực nước của bồn là $27 cm$. Biết bồn chứa nước cao $12,96 m$, hỏi sau bao nhiêu giây bồn chứa nước sẽ đầy.",
+    "image": "data/im/NH4-42.png",
+    "correct": "2954",
+    "solution": "Trả lời: $2954$\n\nTheo bài ta có: $h'(t) = k \\cdot \\sqrt[3]{t} \\Rightarrow h(t) = \\frac{3}{4}k \\cdot t^{\\frac{4}{3}} + c$\n\nTại: $t = 0 \\rightarrow h = 0 \\Rightarrow c = 0$\n\nTại: $t = 162 \\rightarrow h = 27 cm$\n\nTa đổi: $12,96 m = 1296 cm$\n\n$\\Rightarrow h(162) = \\frac{3}{4}k \\cdot 162^{\\frac{4}{3}} = 27 \\Rightarrow \\frac{h(t)}{h(162)} = \\frac{1296}{27} \\Leftrightarrow \\frac{\\frac{3}{4}k \\cdot t^{\\frac{4}{3}}}{\\frac{3}{4}k \\cdot 162^{\\frac{4}{3}}} = \\left(\\frac{t}{162}\\right)^{\\frac{4}{3}} = \\frac{1296}{27} \\Leftrightarrow t \\approx 2954$\n\nĐáp án: $\\Leftrightarrow t \\approx 2954$"
+  },
+  {
+    "id": "44",
+    "title": "Câu 44",
+    "type": "short_answer",
+    "text": "Một bể nước hình hộp chữ nhật cao $1 m$ và có đáy là hình vuông cạnh $2 m$. Ban đầu bể đầy nước. Người ta mở một cái vòi ở đáy, nước chảy ra với tốc độ tỷ lệ thuận với căn bậc hai của độ cao của nước tại bất kì thời điểm nào. Giả sử độ cao của nước trong bể tại thời điểm $t$ là $h(t)$ và $V(t)$ là thể tích của nước hiện tại sau $t$ phút mở vòi thì ta có $V'(t) = k \\cdot \\sqrt{h(t)} (k \\in \\mathbb{R})$. Biết rằng, mực nước giảm $19 cm$ sau $2$ phút, hỏi sau bao nhiêu phút thì bể cạn nước.",
+    "image": "data/im/NH4-43.png",
+    "correct": "20",
+    "solution": "Trả lời: $20$\n\nVì bể nước có dạng hình hộp chữ nhật có chiều cao $h(t)$ và có đáy luôn là hình vuông cạnh $2 m$ nên thể tích của hình hộp tại thời điểm $t$ là $V(t) = 2^2 \\cdot h(t) = 4h(t)$\n\nSuy ra $V'(t) = 4h'(t)$\n\nTa có $V'(t) = k \\cdot \\sqrt{h(t)} \\Leftrightarrow 4h'(t) = k \\cdot \\sqrt{h(t)} \\Leftrightarrow \\frac{h'(t)}{\\sqrt{h(t)}} = \\frac{k}{4} \\Leftrightarrow (2\\sqrt{h(t)})' = \\frac{k}{4} \\Leftrightarrow (\\sqrt{h(t)})' = \\frac{k}{8}$\n\nNguyên hàm 2 vế, ta được $\\sqrt{h(t)} = \\int \\frac{k}{8} \\mathrm{d}t = \\frac{k}{8}t + C$\n\nTa có độ cao của nước tại thời điểm ban đầu bằng $1 m$ tức $h(0) = 1$ nên ta có\n\n$\\sqrt{h(0)} = \\sqrt{1} = \\frac{k}{8} \\cdot 0 + C \\Rightarrow C = 1$\n\nSuy ra $\\sqrt{h(t)} = \\frac{k}{8}t + 1$\n\nLại có, sau $2$ phút, mực nước giảm $19 cm$ (hay $0,19 m$) thì độ cao của nước trong bể bằng $h = 1 - 0,19 = 0,81$ nên ta có $h(2) = 0,81$\n\n$\\Leftrightarrow \\sqrt{h(2)} = \\sqrt{0,81} = \\frac{k}{8} \\cdot 2 + 1 \\Leftrightarrow k = -0,4$\n\nVậy $\\sqrt{h(t)} = \\frac{-0,4}{8}t + 1 = -0,05t + 1$\n\nBể cạn nước khi chiều cao của nước trong bể bằng $0$ hay $h(t) = 0 \\Rightarrow -0,05t + 1 = 0 \\Rightarrow t = 20$.\n\nVậy sau $20$ phút thì bể cạn nước."
+  },
+  {
+    "id": "45",
+    "title": "Câu 45",
+    "type": "short_answer",
+    "text": "Một miếng thịt nướng được lấy ra khỏi ngăn đá của tủ lạnh và để trên bàn để rã đông. Nhiệt độ của miếng thịt nướng khi nó được lấy ra khỏi ngăn đá là $-4^\\circC$ và $t$ giờ sau đó, nhiệt độ của miếng thịt nướng tăng với tốc độ $T'(t) = 7e^{-0,35t} {}^{\\circ}C$. Nhiệt độ của miếng thịt sau $2$ giờ là bao nhiêu $^\\circC$ (kết quả làm tròn đến hàng phần chục).",
+    "image": "",
+    "correct": "6,1",
+    "solution": "Trả lời: $6,1$\n\nB1: Tìm hàm nhiệt độ\n\nNhiệt độ $T(t)$ là nguyên hàm của tốc độ thay đổi nhiệt độ $T'(t)$\n\n$T(t) = \\int T'(t) \\mathrm{d}t = \\int 7e^{-0,35t} \\mathrm{d}t$\n\nSử dụng công thức nguyên hàm của $e^{ax}$: $\\int e^{ax} \\mathrm{d}x = \\frac{1}{a}e^{ax} + C$.\n\n$T(t) = 7 \\cdot \\frac{1}{-0,35}e^{-0,35t} + C = -20e^{-0,35t} + C$\n\nB2: Tìm $C$:\n\nNhiệt độ của miếng thịt khi nó được lấy ra khỏi ngăn đá là $-4^\\circC$. Điều này có nghĩa là tại thời điểm $t = 0, T(0) = -4$.\n\n$T(0) = -20e^{-0,35 \\cdot 0} + C = -4 \\Rightarrow -20e^0 + C = -4 \\Rightarrow C = 16$\n\n$T(t) = -20e^{-0,35t} + 16$\n\nB3: Tính nhiệt độ của miếng thịt sau $2$ giờ ($t = 2$): $T(2) = -20e^{-0,35 \\cdot 2} + 16 \\approx 6,1^\\circC$\n\nKết luận: Vậy nhiệt độ của miếng thịt sau $2$ giờ là khoảng $6,1^\\circC$."
+  },
+  {
+    "id": "46",
+    "title": "Câu 46",
+    "type": "short_answer",
+    "text": "Một cái cây được gieo trồng từ hạt trong một chiếc chậu. Chiều cao của nó sau $t$ (năm) được cho bởi hàm số $h(t)$ (đơn vị mét). Tốc độ thay đổi chiều cao của nó sau $t$ (năm) là $h'(t) = 0,2t + 0,15$ (mét/năm) với ($0 \\le t \\le 4$). Sau khi trồng được $4$ năm, cây được lấy ra khỏi chậu và trồng xuống đất, chiều cao của nó theo thời gian khi này thay đổi với tốc độ $h'(t) = \\frac{11}{t} (t \\ge 4)$. Hỏi sau $4$ năm trồng xuống đất cây cao bao nhiêu mét? (kết quả làm tròn đến hàng phần mười).",
+    "image": "",
+    "correct": "9,8",
+    "solution": "Trả lời: $9,8$\n\nB1. Tính chiều cao của cây sau $4$ năm đầu (trong chậu):\n\nĐể tìm $h(t)$, ta lấy nguyên hàm của $h'(t)$:\n\n$h(t) = \\int (0,2t + 0,15) \\mathrm{d}t = 0,2\\frac{t^2}{2} + 0,15t + C = 0,1t^2 + 0,15t + C$\n\nVì cây gieo từ hạt, chiều cao ban đầu tại $t = 0$ là $h(0) = 0$\n\n$h(0) = 0,1(0)^2 + 0,15(0) + C = 0 \\Rightarrow C = 0$\n\nVậy, $h(t) = 0,1t^2 + 0,15t$\n\nChiều cao của cây sau $4$ năm (khi lấy ra khỏi chậu) là $h(4)$:\n\n$h(4) = 0,1(4)^2 + 0,15(4) = 0,1(16) + 0,6 = 1,6 + 0,6 = 2,2$ (mét)\n\nB2. Tính chiều cao tăng thêm của cây sau $4$ năm trồng xuống đất:\n\nTốc độ thay đổi chiều cao trong giai đoạn này là $h'(t) = \\frac{11}{t}$ cho $t \\ge 4$\n\nChiều cao tăng thêm trong giai đoạn này là tích phân của $h'(t)$ từ $t = 4$ đến $t = 8$:\n\n$\\Delta h = \\int_4^8 \\frac{11}{t} \\mathrm{d}t = 11 \\cdot [\\ln|t|]_4^8 \\Rightarrow \\Delta h = 11(\\ln(8) - \\ln(4)) = 11\\ln(2) \\approx 7,62$\n\nB3. Tính tổng chiều cao của cây sau $4$ năm trổng xuống đất (tức là tổng cộng $8$ năm):\n\nTổng chiều cao = Chiều cao sau $4$ năm đầu + Chiều cao tăng thêm sau $4$ năm trồng xuống đất\n\nTổng chiều cao $= h(4) + \\Delta h$\n\nTổng chiều cao $= 2,2 + 7,62 = 9,82 \\approx 9,8$ mét."
+  },
+  {
+    "id": "47",
+    "title": "Câu 47",
+    "type": "short_answer",
+    "text": "Vi khuẩn HP (Helicobacter pylori) gây đau dạ dày sau ngày thứ $t (t \\ge 1)$ với số lượng là $F(t)$ nếu phát hiện sớm thì bệnh nhân sẽ được cứu chữa. Biết rằng $F'(t) = \\frac{1100}{3t} + 1$ và sau $1$ ngày bệnh nhân có $2000$ con vi khẩn trong dạ dày. Sau $15$ ngày bệnh nhân phát hiện ra bị bệnh. Hỏi khi đó có bao nhiêu con vi khuẩn trong dạ dày. Viết kết quả làm tròn đến hàng đơn vị...",
+    "image": "data/im/NH4-46.png",
+    "correct": "3007",
+    "solution": "Trả lời: $3007$\n\nTa có $F(t) = \\int F'(t) \\mathrm{d}t = \\int \\left(\\frac{1100}{3t} + 1\\right) \\mathrm{d}t = \\frac{1100}{3}\\ln t + t + C$\n\nCó $F(1) = 2000 \\Rightarrow 1 + C = 2000 \\Rightarrow C = 1999 \\Rightarrow F(t) = \\frac{1100}{3}\\ln t + t + 1999$\n\nVậy sau $15$ ngày thì số con vi khuẩn trong dạ dày là $F(15) = \\frac{1100}{3}\\ln 15 + 15 + 1999 \\approx 3007$ (con)"
+  },
+  {
+    "id": "48",
+    "title": "Câu 48",
+    "type": "short_answer",
+    "text": "Vì nước và dầu không hoà tan vào nhau nên nếu dầu đổ vào nước sẽ tạo thành một mảng hình trụ trên bề mặt nước. Bán kính $r(t)$ của mảng này lan ra với tốc độ tỉ lệ thuận với chiều cao $h(t)$ của mảng dầu. Giả sử một lít dầu bị đổ trên mặt hồ tĩnh lặng. Bán kính ban đầu của vết tràn là $20 cm$ và sau $2$ giây nó tăng lên $50 cm$. Hỏi sau bao nhiêu phút (làm tròn đến hàng phằn mười) thì bán kính vết tràn đạt $5$ mét?",
+    "image": "",
+    "correct": "35,6",
+    "solution": "Trả lời: $35,6$\n\nVì mảng dầu này lan có dạng hình trụ, nên ta có thể tích khối dầu $V = \\pi \\cdot r^2(t) \\cdot h(t)$ (thể tích này là không đổi) $\\Rightarrow h(t) = \\frac{V}{\\pi r^2(t)}$\n\nBán kính $r(t)$ của mảng dầu lan ra với tốc độ $r'(t)$, mà tốc độ lan ra $r'(t)$ tỉ lệ thuận với chiều cao $h(t)$ của mảng dầu nên theo tính chất của hai đại lượng tỉ lệ thuận, ta có\n\n$r'(t) = k \\cdot h(t)$ (*)\n\nThay $h(t) = \\frac{V}{\\pi r^2(t)}$ vào biểu thức (*) ta được $r'(t) = k\\frac{V}{\\pi r^2(t)}$\n\nVì $k\\frac{V}{\\pi}$ là $1$ đại lượng không đổi nên đặt $k\\frac{V}{\\pi} = a$\n\nKhi đó $r'(t) = k\\frac{V}{\\pi r^2(t)} \\Leftrightarrow r'(t) = \\frac{a}{r^2(t)} \\Leftrightarrow 3r'(t) \\cdot r^2(t) = 3a \\Leftrightarrow \\left[r^3(t)\\right]' = 3a$\n\nNguyên hàm 2 vế, ta được $r^3(t) = \\int 3a \\mathrm{d}t \\Leftrightarrow r^3(t) = 3at + C$\n\nTừ giả thiết: bán kính ban đầu của vết tràn là $20 cm$ và sau $2$ giây nó tăng lên $50 cm$, ta có hệ phương trình $\\begin{cases} r(0) = 20 <br> r(2) = 50 \\end{cases} \\Leftrightarrow \\begin{cases} C = 20^3 = 8000 <br> 3 \\cdot 2a + C = 50^3 \\end{cases}$\n\n$\\Leftrightarrow \\begin{cases} C = 8000 <br> a = 19500 \\end{cases} \\Rightarrow r^3(t) = 58500t + 8000 (cm)$\n\nĐổi $5 m = 500 cm$\n\nBán kính vết tràn đạt $4 m$ tương đương với $r(t) = 500 \\Rightarrow 500^3 = 58500t + 8000$\n\n$\\Rightarrow t = \\frac{500^3 - 8000}{58500} \\approx 2136,61 (s) \\approx 35,6$ phút"
+  },
+  {
+    "id": "49",
+    "title": "Câu 49",
+    "type": "short_answer",
+    "text": "Theo định luật làm mát của Newton thì tốc độ làm mát của một vật tỉ lệ thuận với chênh lệch nhiệt độ giữa vật đó và môi trường xung quanh, với điều kiện là chênh lệch này không quá lớn. Giả sử $T(t)$ là nhiệt độ của vật thể (đơn vị: độ C) tại thời điểm $t$ (đơn vị: phút) và $T_s$ là nhiệt độ của môi trường xung quanh, chênh lệch giữa nhiệt độ của vật thể và môi trường xung quanh là $y(t) = T(t) - T_s$ thì $y'(t) = k \\cdot y(t)$ với $k$ là hằng số. Một cốc nước đang ở nhiệt độ phòng là $22^\\circC$ được đưa vào ngăn mát tủ lạnh có nhiệt độ là $5^\\circC$. Sau $30$ phút, nhiệt độ của cốc nước được đo lại là $16^\\circC$. Hỏi sau một tiếng trong tủ lạnh, nhiệt độ cốc nước là bao nhiêu độ $C$ (kết quả làm tròn đến hàng đơn vị).",
+    "image": "data/im/NH4-48.png",
+    "correct": "12",
+    "solution": "Trả lời: $12$\n\nĐổi $1$ giờ = $60$ phút;\n\nYCBT là xác định nhiệt độ của cốc nước sau $1$ giờ hay $T(60)$.\n\nTa có $y'(t) = k \\cdot y(t) \\Rightarrow \\frac{y'(t)}{y(t)} = k \\Leftrightarrow [\\ln y(t)]' = k$\n\nNguyên hàm 2 vế, ta được $\\ln y(t) = \\int k \\mathrm{d}t = kt + C \\Rightarrow y(t) = e^{kt + C}$\n\n(Khi đặt cốc nước vào tủ lạnh thì khi đó nhiệt độ môi trường xung quanh $T_s = 5$)\n\nKhi đó $y(t) = T(t) - T_s$ tương đương với $e^{kt + C} = T(t) - 5 \\Rightarrow e^{kt + C} + 5 = T(t)$\n\nTa có $e^{k \\cdot 0 + C} + 5 = T(0) \\Leftrightarrow e^C + 5 = 22 \\Leftrightarrow e^C = 17 \\Leftrightarrow C = \\ln 17$\n\nSuy ra $T(t) = e^{kt + \\ln 17} + 5$\n\nBiết: sau $30$ phút, nhiệt độ của cốc nước là $16^\\circC$ nên ta có\n\n$T(30) = 16 \\Leftrightarrow e^{30k + \\ln 17} + 5 = 16 \\Leftrightarrow e^{30k + \\ln 17} = 11 \\Leftrightarrow 30k + \\ln 17 = \\ln 11$\n\n$\\Leftrightarrow 30k = \\ln 11 - \\ln 17 = \\ln \\frac{11}{17} \\Leftrightarrow k = \\frac{1}{30}\\ln \\frac{11}{17}$\n\nSuy ra $T(t) = e^{\\frac{1}{30}\\ln \\frac{11}{17}t + \\ln 17} + 5$\n\nVậy nhiệt độ của cốc nước sau $1$ giờ trong tủ lạnh là $T(60) = e^{60\\frac{1}{30}\\ln \\frac{11}{17} + \\ln 17} + 5 \\approx 12^\\circC$."
+  }
+
+  
+]

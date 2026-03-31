@@ -1,5 +1,5 @@
 [
-  {
+{
     "id": "1",
     "title": "Câu 1",
     "type": "short_answer",
@@ -772,5 +772,5 @@
     "image": "",
     "correct": "",
     "solution": "\\begin{enumerate}<br>    \\item Gọi $x$ là khoảng cách từ trung điểm $C$ của cái kim $EG$ tới đường thẳng gần nhất (kí hiệu là đường thẳng $h$ như trong hình vẽ), gọi $\\varphi$ là góc hợp bởi cái kim và các đường thẳng song song.<br>    \\begin{center}<br>    \\noteImage[width=0.5\\linewidth]{XSDK5-39a.png}<br>    \\end{center}<br>    Như trong hình, ta có $N_1N_2 = a, CD = x, EG = b, \\widehat{ECF} = \\varphi, EF = \\dfrac{b}{2} \\sin \\varphi$.<br>    Khi đó $\\Omega = \\left\\{(x;\\varphi) \\in \\mathbb{R}^2 | 0 \\le x \\le \\dfrac{a}{2}; 0 \\le \\varphi \\le \\dfrac{\\pi}{2}\\right\\}$ và $S(\\Omega) = \\dfrac{a}{2} \\cdot \\dfrac{\\pi}{2}$.<br>    Gọi $A$ là biến cố cần tính xác suất thì $A = \\left\\{(x;\\varphi) \\in \\mathbb{R}^2 | 0 \\le x \\le \\dfrac{b}{2} \\sin \\varphi; 0 \\le \\varphi \\le \\dfrac{\\pi}{2}\\right\\}$.<br>    \\begin{center}<br>    \\noteImage[width=0.5\\linewidth]{XSDK5-39b.png}<br>    \\end{center}<br>    Diện tích miền hình phẳng $A$ là $S(A) = \\int_{0}^{\\frac{\\pi}{2}} \\dfrac{b}{2} \\sin \\varphi d\\varphi = \\left(-\\dfrac{b}{2} \\cos \\varphi\\right) \\bigg|_0^{\\frac{\\pi}{2}} = \\dfrac{b}{2}$.<br>    Vậy $P(A) = \\dfrac{S(A)}{S(\\Omega)} = \\dfrac{2b}{\\pi a}$.<br>    \\item Gọi $B$ là biến cố: \"Cây kim tạo với một đường thẳng góc không quá $\\dfrac{\\pi}{4}$\". Ta phải tính xác suất $P(B|A)$. Để ý rằng $A \\cap B = \\left\\{(x;\\varphi) \\in \\mathbb{R}^2 | 0 \\le x \\le \\dfrac{b}{2} \\sin \\varphi; 0 \\le \\varphi \\le \\dfrac{\\pi}{4}\\right\\}$.<br>    Do đó $S(A \\cap B) = \\int_{0}^{\\frac{\\pi}{4}} \\dfrac{b}{2} \\sin \\varphi d\\varphi = \\left(-\\dfrac{b}{2} \\cos \\varphi\\right) \\bigg|_0^{\\frac{\\pi}{4}} = \\dfrac{b}{2} \\left(1 - \\dfrac{\\sqrt{2}}{2}\\right)$.<br>    Vậy $P(B|A) = \\dfrac{P(A \\cap B)}{P(A)} = \\dfrac{S(A \\cap B)}{S(A)} = 1 - \\dfrac{\\sqrt{2}}{2}$.<br>    \\item Ta có $B = \\left\\{(x;\\varphi) \\in \\mathbb{R}^2 | 0 \\le x \\le \\dfrac{a}{2}; 0 \\le \\varphi \\le \\dfrac{\\pi}{4}\\right\\}, S(B) = \\dfrac{a}{2} \\cdot \\dfrac{\\pi}{4}$.<br>    Vậy $P(A|B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{S(A \\cap B)}{S(B)} = \\dfrac{4b}{a\\pi} \\left(1 - \\dfrac{\\sqrt{2}}{2}\\right)$.<br>\\end{enumerate}"
-  }
+  }  
 ]

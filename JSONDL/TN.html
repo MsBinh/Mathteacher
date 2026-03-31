@@ -1321,8 +1321,8 @@
         }
 
         // Hàm xử lý dữ liệu linh hoạt - hỗ trợ nhiều định dạng JSON
-        function processQuestionsData(data, examId, allKeys) {
-            let questions = [];
+       function processQuestionsData(data, examId, allKeys) {
+            let questions =[];
             
             // Trường hợp 1: Data là array trực tiếp
             if (Array.isArray(data)) {
@@ -1343,7 +1343,7 @@
             
             if (questions.length === 0) {
                 console.warn("Không tìm thấy câu hỏi trong dữ liệu:", data);
-                return [];
+                return[];
             }
             
             // Chuẩn hóa từng câu hỏi
@@ -1364,23 +1364,26 @@
                 else if (q.content) text = q.content;
                 else text = `Câu ${index + 1}`;
                 
-                // Xử lý các lựa chọn
-                let options = [];
-                if (q.options && Array.isArray(q.options)) {
-                    options = q.options;
-                } else if (q.choices && Array.isArray(q.choices)) {
-                    options = q.choices;
-                } else if (q.dapAn && Array.isArray(q.dapAn)) {
-                    options = q.dapAn;
+                // =======================================================
+                // ĐÃ NÂNG CẤP: Xử lý các lựa chọn (Hỗ trợ cả Array và Object)
+                // =======================================================
+                let options =[];
+                if (q.options) {
+                    options = Array.isArray(q.options) ? q.options : Object.values(q.options);
+                } else if (q.choices) {
+                    options = Array.isArray(q.choices) ? q.choices : Object.values(q.choices);
+                } else if (q.dapAn) {
+                    options = Array.isArray(q.dapAn) ? q.dapAn : Object.values(q.dapAn);
                 } else {
-                    // Mặc định tạo 4 lựa chọn
-                    options = ["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"];
+                    // Mặc định tạo 4 lựa chọn nếu JSON bị thiếu
+                    options =["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"];
                 }
                 
-                // Đảm bảo có đủ 4 lựa chọn
+                // Đảm bảo có đủ 4 lựa chọn (Nếu tool xuất thiếu)
                 while (options.length < 4) {
                     options.push(`Lựa chọn ${String.fromCharCode(65 + options.length)}`);
                 }
+                // =======================================================
                 
                 // Xử lý đáp án đúng
                 let correct = '';
@@ -1409,7 +1412,7 @@
                 }
                 
                 // Xử lý hình ảnh
-                let images = [];
+                let images =[];
                 if (q.images && Array.isArray(q.images)) {
                     images = q.images;
                 } else if (q.image) {
@@ -1684,7 +1687,7 @@
 
         // ==================== PREVIEW QUESTION ====================
         function previewQuestion(qId) {
-            const q = currentQuestions.find(q => q.id === qId);
+            const q = currentQuestions.find(q => String(q.id) === String(qId));
             if (!q) return;
 
             currentPreviewQuestion = q;

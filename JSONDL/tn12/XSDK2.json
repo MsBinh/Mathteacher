@@ -1,0 +1,1037 @@
+[
+  {
+    "id": 1,
+    "title": "Câu 1",
+    "type": "multiple_choice",
+    "text": "Nếu $A, B$ là hai biến cố bất kì thì",
+    "image": "",
+    "options": {
+      "A": "$P(A \\cap B) = P(A).P(B)$",
+      "B": "$P(A \\cap B) = P(A).P(B \\mid A)$",
+      "C": "$P(A \\cap B) = P(B).P(B \\mid A)$",
+      "D": "$P(A \\cap B) = P(A).(P A \\mid B)$"
+    },
+    "correct": "B",
+    "solution": "Chọn B."
+  },
+  {
+    "id": 2,
+    "title": "Câu 2",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ với $P(B)>0$ thì xác suất của biến cố $A$ với điều kiện biến cố $B$ đã xảy ra là",
+    "image": "",
+    "options": {
+      "A": "$P(A \\mid B) = \\dfrac{P(A)}{P(B)}$",
+      "B": "$P(A \\mid B) = P(A).P(B)$",
+      "C": "$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$",
+      "D": "$P(A \\mid B) = \\dfrac{P(A \\cup B)}{P(B)}$"
+    },
+    "correct": "C",
+    "solution": "Cho hai biến cố $A$ và $B$ với $P(B)>0$ thì xác suất của biến cố $A$ với điều kiện biến cố $B$ đã xảy ra là $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$."
+  },
+  {
+    "id": 3,
+    "title": "Câu 3",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ bất kì với $P(A)>0, P(B)>0$. Chọn khẳng định đúng trong các khẳng định sau là",
+    "image": "",
+    "options": {
+      "A": "$P(A \\cup B) = P(A \\mid B).P(B)$",
+      "B": "$P(A \\cap B) = P(A \\mid B).P(A)$",
+      "C": "$P(A \\mid B).P(A) = P(B \\mid A).P(B)$",
+      "D": "$P(A \\mid B).P(B) = P(B \\mid A).P(A)$"
+    },
+    "correct": "D",
+    "solution": "Nếu $A$ và $B$ là hai biến cố bất kì thì $P(A \\cap B) = P(A \\mid B).P(B) = P(B \\mid A).P(A)$."
+  },
+  {
+    "id": 4,
+    "title": "Câu 4",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố độc lập $A$ và $B$ với $0 < P(A) < 1$, $0 < P(B) < 1$. Chọn khẳng định \\textbf{đúng} trong các khẳng định sau",
+    "image": "",
+    "options": {
+      "A": "$P(A) = P(\\overline{B} \\mid A)$",
+      "B": "$P(A) = P(B \\mid A).P(A \\cap B)$",
+      "C": "$P(A) = P(A \\mid \\overline{B})$",
+      "D": "$P(A) = P(A \\mid B).P(B)$"
+    },
+    "correct": "C",
+    "solution": "Cho hai biến cố độc lập $A$ và $B$ với $0 < P(A) < 1$, $0 < P(B) < 1$ thì $P(A) = P(A \\mid B) = P(A \\mid \\overline{B})$."
+  },
+  {
+    "id": 5,
+    "title": "Câu 5",
+    "type": "multiple_choice",
+    "text": "Gieo con xúc xắc 1 lần. Gọi $A$ là biến cố xuất hiện mặt 2 chấm. $B$ là biến cố xuất hiện mặt chẵn. Xác suất $P(A \\mid B)$ là",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{1}{3}$",
+      "C": "$\\dfrac{2}{3}$",
+      "D": "$\\dfrac{1}{6}$"
+    },
+    "correct": "B",
+    "solution": "Theo định nghĩa xác suất có điều kiện ta có: $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{1/6}{3/6} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 6,
+    "title": "Câu 6",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ có $P(A)=0{,}3; P(B)=0{,}6; P(A \\cap B)=0{,}2$. Xác suất $P(A \\mid B)$ là",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{1}{3}$",
+      "C": "$\\dfrac{2}{3}$",
+      "D": "$\\dfrac{1}{6}$"
+    },
+    "correct": "B",
+    "solution": "Theo định nghĩa xác suất có điều kiện ta có: $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}2}{0{,}6} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 7,
+    "title": "Câu 7",
+    "type": "multiple_choice",
+    "text": "Từ một hộp có 4 tấm thẻ cùng loại được ghi số lần lượt từ 1 đến 4. Bạn An lấy ra một cách ngẫu nhiên một thẻ từ hộp, bỏ thẻ đó ra ngoài và lại lấy một cách ngẫu nhiên thêm một thẻ nữa. Xét biến cố $A$ là ``thẻ lấy ra lần thứ nhất ghi số 3''. Số các kết quả thuận lợi của biến cố $A$ là",
+    "image": "",
+    "options": {
+      "A": "3",
+      "B": "2",
+      "C": "4",
+      "D": "1"
+    },
+    "correct": "A",
+    "solution": "Tập hợp các kết quả thuận lợi cho biến cố $A$ là $\\{(3;1), (3;2), (3;4)\\}$.<br>\t\tVậy $n(A) = 3$."
+  },
+  {
+    "id": 8,
+    "title": "Câu 8",
+    "type": "multiple_choice",
+    "text": "Cho hai biến độc lập $A, B$ với $P(A)=0{,}8; P(B)=0{,}3$. Khi đó, $P(A \\mid B)$ bằng",
+    "image": "",
+    "options": {
+      "A": "0{,}8",
+      "B": "0{,}3",
+      "C": "0{,}4",
+      "D": "0{,}6"
+    },
+    "correct": "A",
+    "solution": "Do $A, B$ là hai biến cố độc lập nên $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{P(A).P(B)}{P(B)} = P(A) = 0{,}8$."
+  },
+  {
+    "id": 9,
+    "title": "Câu 9",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A, B$ với $P(B)=0{,}7; P(AB)=0{,}3$. Tính $P(A \\mid B)$",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{7}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "$\\dfrac{6}{7}$",
+      "D": "$\\dfrac{1}{7}$"
+    },
+    "correct": "A",
+    "solution": "Ta có $P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{0{,}3}{0{,}7} = \\dfrac{3}{7}$."
+  },
+  {
+    "id": 10,
+    "title": "Câu 10",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A, B$ với $P(B)=0{,}8; P(A \\mid B)=0{,}5$. Tính $P(AB)$",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{7}$",
+      "B": "0{,}4",
+      "C": "0{,}8",
+      "D": "0{,}5"
+    },
+    "correct": "B",
+    "solution": "Ta có $P(AB) = P(A \\mid B)P(B) = 0{,}5 \\cdot 0{,}8 = 0{,}4$."
+  },
+  {
+    "id": 11,
+    "title": "Câu 11",
+    "type": "multiple_choice",
+    "text": "Một hộp chứa 8 bi xanh, 2 bi đỏ. Lần lượt bốc từng bi. Giả sử lần đầu tiên bốc được bi xanh. Xác định xác suất lần thứ 2 bốc được bi đỏ.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{10}$",
+      "B": "$\\dfrac{2}{9}$",
+      "C": "$\\dfrac{8}{9}$",
+      "D": "$\\dfrac{2}{5}$"
+    },
+    "correct": "B",
+    "solution": "Gọi $A$ là biến cố lần 1 bốc được bi xanh.<br>\t\tGọi $B$ là biến cố lần 2 bốc được bi đỏ.<br>\t\tXác suất lần 2 bốc được bi đỏ khi lần 1 đã bốc được bi xanh là $P(B \\mid A)$.<br>\t\tTa có $P(A) = \\dfrac{8}{10} = \\dfrac{4}{5}$; $P(AB) = \\dfrac{8}{10} \\cdot \\dfrac{2}{9} = \\dfrac{8}{45}$.<br>\t\tSuy ra $P(B \\mid A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{8/45}{4/5} = \\dfrac{2}{9}$."
+  },
+  {
+    "id": 12,
+    "title": "Câu 12",
+    "type": "multiple_choice",
+    "text": "Lớp 12A có 30 học sinh, trong đó có 17 bạn nữ còn lại là nam. Có 3 bạn tên Hiền, trong đó có 1 bạn nữ và 2 bạn nam. Thầy giáo gọi ngẫu nhiên 1 bạn lên bảng. Xác suất để có tên Hiền, nhưng với điều kiện bạn đó nữ là",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{17}$",
+      "B": "$\\dfrac{3}{17}$",
+      "C": "$\\dfrac{17}{30}$",
+      "D": "$\\dfrac{13}{30}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``bạn học sinh được thầy giáo gọi lên bảng tên là Hiền''.<br>\t\tGọi $B$ là biến cố ``bạn học sinh được thầy giáo gọi lên bảng là nữ''.<br>\t\tTa có $P(B) = \\dfrac{17}{30}$, $P(AB) = \\dfrac{1}{30}$.<br>\t\tXác suất để thầy giáo gọi bạn đó lên bảng có tên Hiền, nhưng với điều kiện bạn đó nữ là<br>\t\t$P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{1/30}{17/30} = \\dfrac{1}{17}$."
+  },
+  {
+    "id": 13,
+    "title": "Câu 13",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ có $P(A)=0{,}2; P(B)=0{,}8$ và $P(A \\mid B)=0{,}5$. Tính $P(\\overline{AB})$ có kết quả là",
+    "image": "",
+    "options": {
+      "A": "$P(\\overline{AB})=0{,}9$",
+      "B": "$P(\\overline{AB})=0{,}6$",
+      "C": "$P(\\overline{AB})=0{,}04$",
+      "D": "$P(\\overline{AB})=0{,}4$"
+    },
+    "correct": "B",
+    "solution": "Theo công thức nhân xác xuất, ta có $P(AB) = P(B).P(A \\mid B) = 0{,}8 \\cdot 0{,}5 = 0{,}4$.<br>\t\tVì $AB$ và $\\overline{AB}$ là hai biến cố xung khắc nên $AB \\cup \\overline{AB} = \\Omega \\Rightarrow P(\\overline{AB}) = 1 - P(AB) = 1 - 0{,}4 = 0{,}6$."
+  },
+  {
+    "id": 14,
+    "title": "Câu 14",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ có $P(B)>0$ và $P(A \\mid B)=0{,}7$. Tính $P(\\overline{A} \\mid B)$ có kết quả là",
+    "image": "",
+    "options": {
+      "A": "$P(\\overline{A} \\mid B)=0{,}5$",
+      "B": "$P(\\overline{A} \\mid B)=0{,}6$",
+      "C": "$P(\\overline{A} \\mid B)=0{,}3$",
+      "D": "$P(\\overline{A} \\mid B)=0{,}4$"
+    },
+    "correct": "C",
+    "solution": "Với mọi biến cố $A$ và $B$, $P(B)>0$ ta có $P(\\overline{A} \\mid B) = 1 - P(A \\mid B) = 1 - 0{,}7 = 0{,}3$."
+  },
+  {
+    "id": 15,
+    "title": "Câu 15",
+    "type": "multiple_choice",
+    "text": "Một lớp học có 40 học sinh, mỗi học sinh giỏi ít nhất một trong hai môn Văn hoặc môn Toán. Biết rằng có 30 học sinh giỏi môn Toán và 15 học sinh giỏi môn Văn. Chọn ngẫu nhiên một học sinh. Tính xác suất để học sinh đó học giỏi môn Toán, biết rằng học sinh đó giỏi môn Văn.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{1}{6}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{1}{5}$"
+    },
+    "correct": "C",
+    "solution": "Gọi $A$ là biến cố: ``Học sinh được chọn giỏi môn Toán'', $B$ là biến cố: ``Học sinh được chọn giỏi môn Văn''.<br>\t\tSố học sinh giỏi cả hai môn là $30 + 15 - 40 = 5$.<br>\t\tTrong 30 học sinh đó có đúng 5 học sinh giỏi môn Văn. Vậy xác suất để học sinh được chọn giỏi môn Toán với điều kiện học sinh đó giỏi môn Văn là $P(A \\mid B) = \\dfrac{5}{15} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 16,
+    "title": "Câu 16",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A, B$ với $P(A)=0{,}5$; $P(B)=0{,}8$ và $P(A \\cap B)=0{,}38$. Tính xác suất của $P(A \\mid B)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}475",
+      "B": "0{,}76",
+      "C": "0{,}52",
+      "D": "0{,}425"
+    },
+    "correct": "A",
+    "solution": "$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}38}{0{,}8} = 0{,}475$."
+  },
+  {
+    "id": 17,
+    "title": "Câu 17",
+    "type": "multiple_choice",
+    "text": "Tung con xúc xắc lần 1. Nếu biết xuất hiện mặt có số chấm chẵn. Tính xác xuất kết quả của phép thử là mặt 2 chấm",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{4}$",
+      "B": "$\\dfrac{1}{3}$",
+      "C": "$\\dfrac{1}{6}$",
+      "D": "$\\dfrac{2}{3}$"
+    },
+    "correct": "B",
+    "solution": "Không gian mẫu $\\Omega = \\{1;2;3;4;5;6\\}$.<br>\t\t$A$: Biến cố xuất hiện mặt 2 chấm $A = \\{2\\}$.<br>\t\t$B$: Biến cố xuất hiện mặt có số chấm chẵn, ta có: $B = \\{2;4;6\\}$.<br>\t\tTa có: $AB = \\{2\\}$.<br>\t\t$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{1/6}{1/2} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 18,
+    "title": "Câu 18",
+    "type": "multiple_choice",
+    "text": "Tung con xúc xắc lần 1. Nếu biết xuất hiện mặt có số chấm chẵn. Tính xác xuất kết quả của phép thử là mặt có số chấm lớn hơn 1 và nhỏ hơn 5",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{2}{3}$",
+      "B": "$\\dfrac{1}{3}$",
+      "C": "$\\dfrac{1}{6}$",
+      "D": "$\\dfrac{1}{2}$"
+    },
+    "correct": "A",
+    "solution": "Không gian mẫu $\\Omega = \\{1;2;3;4;5;6\\}$.<br>\t\t$B$: Biến cố xuất hiện mặt có số chấm chẵn $B = \\{2;4;6\\}$.<br>\t\t$C$: Biến cố xuất hiện mặt mặt có số chấm lớn hơn 1 và nhỏ hơn 5 $C = \\{2;3;4\\}$; $CB = \\{2;4\\}$.<br>\t\t$P(C \\mid B) = \\dfrac{P(C \\cap B)}{P(B)} = \\dfrac{2/6}{1/2} = \\dfrac{2}{3}$."
+  },
+  {
+    "id": 19,
+    "title": "Câu 19",
+    "type": "multiple_choice",
+    "text": "Lớp 12A1 có 25 học sinh nam và 15 học sinh nữ. Trong số đó có 16 bạn nam và 6 bạn nữ thích chơi thể thao. Chọn một bạn bất kì của lớp 12A1, tính xác suất học sinh được chọn thích chơi thể thao, biết rằng học sinh đó là nữ.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{3}{4}$",
+      "C": "$\\dfrac{1}{4}$",
+      "D": "$\\dfrac{2}{5}$"
+    },
+    "correct": "D",
+    "solution": "Số phần tử của không gian mẫu: $n(\\Omega) = C_{40}^1 = 40$.<br>\t\tGọi $A$ là biến cố ``học sinh được chọn là nữ'' và $B$ là biến cố ``học sinh được chọn thích chơi thể thao''.<br>\t\tTa có: $n(A)=15$, $n(B)=16+6=22$.<br>\t\tTa có: $P(B \\mid A) = \\dfrac{P(AB)}{P(A)}$.<br>\t\tTrong đó:<br>\t\t$n(AB) = 6$. Suy ra $P(AB) = \\dfrac{n(AB)}{n(\\Omega)} = \\dfrac{6}{40} = \\dfrac{3}{20}$.<br>\t\t$P(A) = \\dfrac{n(A)}{n(\\Omega)} = \\dfrac{15}{40} = \\dfrac{3}{8}$.<br>\t\tVậy xác suất cần tìm là: $P(B \\mid A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{3/20}{3/8} = \\dfrac{2}{5}$."
+  },
+  {
+    "id": 20,
+    "title": "Câu 20",
+    "type": "multiple_choice",
+    "text": "Gieo đồng thời hai con xúc xắc cân đối, đồng chất. Tính xác suất để tổng số chấm xuất hiện trên hai mặt không nhỏ hơn 10, biết rằng xuất hiện ít nhất có một mặt 6 chấm.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{4}$",
+      "B": "$\\dfrac{1}{4}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{5}{11}$"
+    },
+    "correct": "D",
+    "solution": "Gọi $A$ là biến cố ``xuất hiện ít nhất có một mặt 6 chấm'' và $B$ là biến cố ``tổng số chấm xuất hiện trên hai mặt không nhỏ hơn 10''.<br>\t\tTa có: $A = \\{(1;6),(2;6),(3;6),(4;6),(5;6),(6;6),(6;5),(6;4),(6;3),(6;2),(6;1)\\}$. Số phần tử của $A$ là 11.<br>\t\tTrong $A$ có 5 phần tử thỏa mãn biến cố $B$ đó là: $(4;6),(5;6),(6;4),(6;5),(6;6)$.<br>\t\tDo đó, xác suất xảy ra của biến cố $B$ với điều kiện $A$ là: $P(B \\mid A) = \\dfrac{5}{11}$."
+  },
+  {
+    "id": 21,
+    "title": "Câu 21",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(A)=0{,}5$, $P(B)=0{,}8$, $P(A \\cap B)=0{,}3$. Tính $P(\\overline{B} \\mid A)$.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{4}$",
+      "B": "$\\dfrac{2}{5}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{1}{2}$"
+    },
+    "correct": "B",
+    "solution": "Ta có: $P(\\overline{B} \\mid A) = 1 - P(B \\mid A) = 1 - \\dfrac{P(A \\cap B)}{P(A)} = 1 - \\dfrac{0{,}3}{0{,}5} = \\dfrac{2}{5}$."
+  },
+  {
+    "id": 22,
+    "title": "Câu 22",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ với $P(A)=0{,}3$; $P(B)=0{,}5$; $P(B \\mid A)=0{,}9$. Khi đó xác suất của biến cố $A \\cap B$ là",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{3}$",
+      "B": "$\\dfrac{27}{100}$",
+      "C": "$\\dfrac{9}{20}$",
+      "D": "$\\dfrac{3}{20}$"
+    },
+    "correct": "B",
+    "solution": "Ta có $P(A \\cap B) = P(B \\mid A).P(A) = 0{,}9 \\cdot 0{,}3 = \\dfrac{27}{100}$."
+  },
+  {
+    "id": 23,
+    "title": "Câu 23",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A, B$ có $P(A)=0{,}3; P(B)=0{,}7; P(A \\cap B)=0{,}4$. Khi đó, $P(A \\mid B)$ bằng",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{4}$",
+      "B": "$\\dfrac{7}{4}$",
+      "C": "$\\dfrac{4}{7}$",
+      "D": "$\\dfrac{4}{3}$"
+    },
+    "correct": "C",
+    "solution": "Ta có: $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}4}{0{,}7} = \\dfrac{4}{7}$."
+  },
+  {
+    "id": 24,
+    "title": "Câu 24",
+    "type": "multiple_choice",
+    "text": "Một hộp có 10 viên bi trắng và 5 viên bi đỏ, các viên bi có cùng kích thước và khối lượng. Bạn Bình lấy ngẫu nhiên một viên bi trong hộp, không trả lại. Sau đó bạn An lấy ngẫu nhiên một viên bi trong hộp đó.\n\tGọi $A$ là biến cố: ``An lấy được viên bi trắng''; $B$ là biến cố ``Bình lấy được viên bi trắng''.\n\tKhi đó, $P(A \\mid B)$ bằng",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{2}{7}$",
+      "B": "$\\dfrac{3}{7}$",
+      "C": "$\\dfrac{9}{14}$",
+      "D": "$\\dfrac{2}{3}$"
+    },
+    "correct": "C",
+    "solution": "Bạn Bình có 15 cách chọn, bạn An có 14 cách chọn một viên bi trong hộp. Do đó $n(\\Omega) = 15.14$.<br>\t\tBạn Bình có 10 cách chọn một viên bi trắng, bạn An có 14 cách chọn từ 14 viên bi còn lại.<br>\t\tDo đó $n(B) = 10.14$ và $P(B) = \\dfrac{n(B)}{n(\\Omega)} = \\dfrac{10.14}{15.14} = \\dfrac{2}{3}$.<br>\t\tBạn Bình có 10 cách chọn một viên bi trắng, bạn An có 9 cách chọn một viên bi trắng trong 9 viên bi trắng còn lại.<br>\t\tKhi đó $n(A \\cap B) = 10.9$ và $P(A \\cap B) = \\dfrac{n(A \\cap B)}{n(\\Omega)} = \\dfrac{10.9}{15.14} = \\dfrac{3}{7}$.<br>\t\tVậy $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{3}{7} : \\dfrac{2}{3} = \\dfrac{9}{14}$."
+  },
+  {
+    "id": 25,
+    "title": "Câu 25",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố độc lập $A, B$ với $P(A)=0{,}6, P(B)=0{,}45$. Khi đó, $P(B \\mid A)$ bằng",
+    "image": "",
+    "options": {
+      "A": "0{,}45",
+      "B": "0{,}6",
+      "C": "0{,}75",
+      "D": "0{,}15"
+    },
+    "correct": "A",
+    "solution": "Vì $A, B$ là hai biến cố độc lập nên $P(B) = P(B \\mid A) = 0{,}45$."
+  },
+  {
+    "id": 26,
+    "title": "Câu 26",
+    "type": "multiple_choice",
+    "text": "Trong một hộp kín có 5 chiếc bút màu xanh và 3 chiếc bút màu đen, các chiếc bút có cùng kích thước và khối lượng. Bạn Mai lấy ngẫu nhiên một chiếc bút từ trong hộp, không trả lại. Sau đó bạn Quỳnh lấy ngẫu nhiên một trong 7 chiếc bút còn lại. Tính xác suất để bạn Mai lấy được bút màu đen và bạn Quỳnh lấy được bút màu xanh.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{5}{7}$",
+      "B": "$\\dfrac{15}{56}$",
+      "C": "$\\dfrac{5}{8}$",
+      "D": "$\\dfrac{3}{8}$"
+    },
+    "correct": "B",
+    "solution": "Gọi $A$ là biến cố: ``Bạn Mai lấy được bút màu đen''.<br>\t\tGọi $B$ là biến cố: ``Bạn Quỳnh lấy được bút màu xanh''.<br>\t\tKhi đó xác suất để bạn Mai lấy được bút màu đen và bạn Quỳnh lấy được bút màu xanh là $P(A \\cap B)$.<br>\t\tVì $n(A)=3$ nên $P(A)=\\dfrac{3}{8}$.<br>\t\tNếu $A$ xảy ra tức là bạn Mai lấy được bút màu đen thì trong hộp có 7 chiếc bút với 5 chiếc bút màu xanh.<br>\t\tVậy $P(B \\mid A) = \\dfrac{5}{7}$.<br>\t\tTheo công thức nhân xác suất ta có: $P(A \\cap B) = P(A).P(B \\mid A) = \\dfrac{3}{8} \\cdot \\dfrac{5}{7} = \\dfrac{15}{56}$."
+  },
+  {
+    "id": 27,
+    "title": "Câu 27",
+    "type": "multiple_choice",
+    "text": "Một công ty bảo hiểm nhận thấy có 52\\% số người mua bảo hiểm ô tô là đàn ông và có 41{,}6\\% số người mua bảo hiểm ô tô là đàn ông trên 45 tuổi. Biết một người mua bảo hiểm ô tô là đàn ông, tính xác suất người đó trên 45 tuổi.",
+    "image": "",
+    "options": {
+      "A": "0{,}36",
+      "B": "0{,}75",
+      "C": "0{,}8",
+      "D": "0{,}48"
+    },
+    "correct": "C",
+    "solution": "Gọi $A$ là biến cố ``Người mua bảo hiểm ô tô là đàn ông'',<br>\t\t$B$ là biến cố ``Người mua bảo hiểm ô tô trên 45 tuổi''.<br>\t\tTa cần tính $P(B \\mid A)$.<br>\t\tDo có 52\\% người mua bảo hiểm ô tô là đàn ông nên $P(A)=0{,}52$.<br>\t\tDo có 41{,}6\\% số người mua bảo hiểm ô tô là đàn ông trên 45 tuổi nên $P(AB)=0{,}416$.<br>\t\tVậy $P(B \\mid A) = \\dfrac{P(A \\cap B)}{P(A)} = \\dfrac{0{,}416}{0{,}52} = 0{,}8$."
+  },
+  {
+    "id": 28,
+    "title": "Câu 28",
+    "type": "multiple_choice",
+    "text": "Trong nhà sách có hai kệ sách riêng biệt A và B. Xác suất chọn được một quyển sách Toán trên kệ A và trên kệ B lần lượt là 0{,}3 và 0{,}5. Chọn ngẫu nhiên 1 quyển sách trên hai kệ sách. Giả sử quyển sách được chọn là sách Toán, xác suất quyển sách đó trên kệ B là:",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{5}{8}$",
+      "B": "$\\dfrac{3}{8}$",
+      "C": "$\\dfrac{1}{4}$",
+      "D": "$\\dfrac{1}{3}$"
+    },
+    "correct": "A",
+    "solution": "Xét các biến cố:<br>\t\tA: ``Quyển sách được chọn trên kệ B'';<br>\t\tB: ``Quyển sách được chọn là sách Toán'';<br>\t\tC: ``Quyển sách được chọn là sách Toán và trên kệ A'';<br>\t\tD: ``Quyển sách được chọn là sách Toán và trên kệ B''.<br>\t\tNhận thấy $B = C \\cup D$ và C, D là hai biến cố xung khắc nên<br>\t\t$P(B) = P(C) + P(D) = 0{,}3 + 0{,}5 = 0{,}8$.<br>\t\tTa có: $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}5}{0{,}8} = \\dfrac{5}{8}$."
+  },
+  {
+    "id": 29,
+    "title": "Câu 29",
+    "type": "multiple_choice",
+    "text": "Lớp 12A1 có 48 bạn đều giỏi ít nhất một trong hai môn Toán và Lý, trong đó có 36 bạn giỏi Toán, 24 bạn giỏi Lý. Chọn ngẫu nhiên 1 bạn. Xác suất chọn được bạn giỏi Toán, biết bạn đó giỏi Lý là bao nhiêu?",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{5}{8}$",
+      "B": "$\\dfrac{3}{8}$",
+      "C": "$\\dfrac{1}{2}$",
+      "D": "$\\dfrac{1}{3}$"
+    },
+    "correct": "C",
+    "solution": "Xét các biến cố: $A$: ``Chọn được bạn giỏi Toán'';<br>\t\t$B$: ``Chọn được bạn giỏi Lý''.<br>\t\tKhi đó, $P(A) = \\dfrac{36}{48} = 0{,}75$; $P(B) = \\dfrac{24}{48} = 0{,}5$; $P(A \\cup B) = 1$.<br>\t\tSuy ra $P(A \\cap B) = P(A) + P(B) - P(A \\cup B) = 0{,}75 + 0{,}5 - 1 = 0{,}25$.<br>\t\tVậy $P(A \\mid B) = \\dfrac{0{,}25}{0{,}5} = \\dfrac{1}{2}$."
+  },
+  {
+    "id": 30,
+    "title": "Câu 30",
+    "type": "multiple_choice",
+    "text": "Lớp 12A có 40 học sinh, trong đó có 18 học sinh thích môn Tin học, 30 học sinh thích môn Tiếng Anh, 15 học sinh không thích môn nào trong hai môn trên. Chọn ngẫu nhiên 1 học sinh. Xác suất chọn được học sinh thích môn Tin học, biết học sinh đó thích môn Tiếng Anh, là bao nhiêu?",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{5}{8}$",
+      "B": "$\\dfrac{3}{8}$",
+      "C": "$\\dfrac{23}{40}$",
+      "D": "$\\dfrac{23}{30}$"
+    },
+    "correct": "D",
+    "solution": "Xét các biến cố: A: ``Chọn được học sinh thích môn Tin học'';<br>\t\tB: ``Chọn được học sinh thích môn Tiếng Anh''.<br>\t\tKhi đó, $P(A) = \\dfrac{18}{40} = \\dfrac{9}{20}$; $P(B) = \\dfrac{30}{40} = \\dfrac{3}{4}$; $P(A \\cup B) = 1 - \\dfrac{15}{40} = \\dfrac{5}{8}$.<br>\t\tSuy ra $P(A \\cap B) = P(A) + P(B) - P(A \\cup B) = \\dfrac{9}{20} + \\dfrac{3}{4} - \\dfrac{5}{8} = \\dfrac{23}{40}$.<br>\t\tVậy $P(A \\mid B) = \\dfrac{23/40}{3/4} = \\dfrac{23}{30}$."
+  },
+  {
+    "id": 31,
+    "title": "Câu 31",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(A)=0{,}6$, $P(B)=0{,}5$, $P(A \\cap B)=0{,}2$. Tính $P(\\overline{A} \\cap B)$.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{10}$",
+      "B": "$\\dfrac{3}{5}$",
+      "C": "$\\dfrac{3}{4}$",
+      "D": "$\\dfrac{2}{5}$"
+    },
+    "correct": "A",
+    "solution": "Ta có: $P(\\overline{A} \\cap B) = P(\\overline{A} \\mid B).P(B) = (1 - P(A \\mid B)).P(B)$.<br>\t\tTrong đó: $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}2}{0{,}5} = \\dfrac{2}{5}$.<br>\t\tVậy: $P(\\overline{A} \\cap B) = (1 - P(A \\mid B)).P(B) = \\left(1 - \\dfrac{2}{5}\\right).0{,}5 = \\dfrac{3}{10}$."
+  },
+  {
+    "id": 32,
+    "title": "Câu 32",
+    "type": "multiple_choice",
+    "text": "Một gia đình có hai người con. Tính xác suất để cả hai đều là con trai nếu biết rằng ít nhất trong hai người có một người là trai.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{3}{4}$",
+      "C": "$\\dfrac{1}{4}$",
+      "D": "$\\dfrac{1}{3}$"
+    },
+    "correct": "D",
+    "solution": "Ta có: $\\Omega = \\{TT, TG, GT, GG\\} \\Rightarrow n(\\Omega) = 4$.<br>\t\tGọi $A$ là biến cố: ``Cả hai đều là con trai''.<br>\t\t$\\Rightarrow A = \\{TT\\} \\Rightarrow n(A) = 1$.<br>\t\tGọi $B$ là biến cố: ``ít nhất một người con trai''.<br>\t\t$\\Rightarrow B = \\{TT, TG, GT\\} \\Rightarrow n(B) = 3 \\Rightarrow P(B) = \\dfrac{n(B)}{n(\\Omega)} = \\dfrac{3}{4}$.<br>\t\tMặt khác: $A \\cap B = \\{TT\\} \\Rightarrow n(A \\cap B) = 1 \\Rightarrow P(A \\cap B) = \\dfrac{n(A \\cap B)}{n(\\Omega)} = \\dfrac{1}{4}$. Hay $P(AB) = \\dfrac{1}{4}$.<br>\t\tVậy xác suất cả hai đều là con trai biết rằng có ít nhất một người con trai là:<br>\t\t$P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{1/4}{3/4} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 33,
+    "title": "Câu 33",
+    "type": "multiple_choice",
+    "text": "Tung một đồng xu cân đối đồng chất 2 lần liên tiếp. Tính xác suất để cả hai lần đều xuất hiện mặt sấp biết rằng lần thứ nhất xuất hiện mặt sấp.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{4}$",
+      "B": "$\\dfrac{1}{4}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{1}{2}$"
+    },
+    "correct": "D",
+    "solution": "Ta có: $\\Omega = \\{SS, SN, NS, NN\\} \\Rightarrow n(\\Omega) = 4$.<br>\t\tGọi $A$ là biến cố: ``Cả hai lần đều là mặt sấp''. $\\Rightarrow A = \\{SS\\}$.<br>\t\tGọi $B$ là biến cố: ``Lần thứ nhất xuất hiện mặt sấp'' $\\Rightarrow B = \\{SN, SS\\} \\Rightarrow n(B) = 2$.<br>\t\t$\\Rightarrow P(B) = \\dfrac{n(B)}{n(\\Omega)} = \\dfrac{2}{4} = \\dfrac{1}{2}$.<br>\t\tKhi đó: $A \\cap B = \\{SS\\} \\Rightarrow n(A \\cap B) = 1 \\Rightarrow P(A \\cap B) = \\dfrac{n(A \\cap B)}{n(\\Omega)} = \\dfrac{1}{4}$.<br>\t\tVậy xác suất để cả hai lần đều xuất hiện mặt sấp biết rằng lần thứ nhất xuất hiện mặt sấp là:<br>\t\t$P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{1/4}{1/2} = \\dfrac{1}{2}$."
+  },
+  {
+    "id": 34,
+    "title": "Câu 34",
+    "type": "multiple_choice",
+    "text": "Nếu hai biến cố $A, B$ thỏa mãn $P(B)=0{,}7; P(A \\cap B)=0{,}2$ thì $P(A \\mid B)$ bằng:",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{5}{7}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "$\\dfrac{7}{50}$",
+      "D": "$\\dfrac{2}{7}$"
+    },
+    "correct": "D",
+    "solution": "Ta có $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{2}{7}$."
+  },
+  {
+    "id": 35,
+    "title": "Câu 35",
+    "type": "multiple_choice",
+    "text": "Nếu hai biến cố $A, B$ thỏa mãn $P(A)=0{,}4; P(B \\mid A)=0{,}6$ thì $P(A \\cap B)$ bằng:",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{6}{25}$",
+      "B": "$\\dfrac{2}{3}$",
+      "C": "$\\dfrac{1}{5}$",
+      "D": "1"
+    },
+    "correct": "A",
+    "solution": "Ta có $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} \\Rightarrow P(A \\cap B) = P(A \\mid B).P(B)$.<br>\t\t(Lưu ý: Đề bài cho $P(B \\mid A)$ nhưng lời giải lại dùng công thức $P(A \\cap B) = P(B \\mid A).P(A)$).<br>\t\t$P(A \\cap B) = 0{,}6 \\cdot 0{,}4 = 0{,}24 = \\dfrac{6}{25}$."
+  },
+  {
+    "id": 36,
+    "title": "Câu 36",
+    "type": "multiple_choice",
+    "text": "Nếu hai biến cố $A, B$ thỏa mãn $P(A)=0{,}4; P(B \\mid A)=0{,}3$ thì $P(AB)$ bằng:",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{25}$",
+      "B": "$\\dfrac{7}{10}$",
+      "C": "$\\dfrac{1}{10}$",
+      "D": "$\\dfrac{3}{4}$"
+    },
+    "correct": "A",
+    "solution": "Ta có $P(AB) = P(A).P(B \\mid A) = 0{,}4 \\cdot 0{,}3 = 0{,}12 = \\dfrac{3}{25}$."
+  },
+  {
+    "id": 37,
+    "title": "Câu 37",
+    "type": "multiple_choice",
+    "text": "Nếu hai biến cố $A, B$ thỏa mãn $P(B)=0{,}5; P(AB)=0{,}3$ thì $P(\\overline{A}B)$ bằng:",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{20}$",
+      "B": "$\\dfrac{4}{5}$",
+      "C": "$\\dfrac{1}{5}$",
+      "D": "$\\dfrac{3}{5}$"
+    },
+    "correct": "C",
+    "solution": "Vì $\\overline{A}B$ và $AB$ là hai biến cố xung khắc và $\\overline{A}B \\cup AB = B$ nên $P(\\overline{A}B) + P(AB) = P(B)$.<br>\t\tSuy ra $P(\\overline{A}B) = P(B) - P(AB) = 0{,}5 - 0{,}3 = 0{,}2 = \\dfrac{1}{5}$."
+  },
+  {
+    "id": 38,
+    "title": "Câu 38",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ với $P(B)=0{,}5$, $P(A \\cap B)=0{,}2$. Tính $P(\\overline{A} \\mid B)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}4",
+      "B": "0{,}1",
+      "C": "0{,}6",
+      "D": "0{,}3"
+    },
+    "correct": "C",
+    "solution": "Ta có $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}2}{0{,}5} = 0{,}4$.<br>\t\t$P(\\overline{A} \\mid B) = 1 - P(A \\mid B) = 1 - 0{,}4 = 0{,}6$."
+  },
+  {
+    "id": 39,
+    "title": "Câu 39",
+    "type": "multiple_choice",
+    "text": "Gieo ngẫu nhiên một con xúc xắc cân đối và đồng chất hai lần liên tiếp. Tính xác suất để tổng số chấm xuất hiện trong hai lần gieo bằng 8 biết rằng lần gieo thứ nhất xuất hiện mặt 5 chấm.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{36}$",
+      "B": "$\\dfrac{1}{6}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{5}{6}$"
+    },
+    "correct": "B",
+    "solution": "Gọi $A$ là biến cố ``Tổng số chấm xuất hiện trong hai lần gieo bằng 8''.<br>\t\tGọi $B$ là biến cố ``Lần gieo thứ nhất xuất hiện mặt 5 chấm''.<br>\t\t$B = \\{(5;1);(5;2);(5;3);(5;4);(5;5);(5;6)\\}$. Vậy $P(B) = \\dfrac{6}{36} = \\dfrac{1}{6}$.<br>\t\tTa có $A \\cap B = \\{(5;3)\\}$. Nên $P(A \\cap B) = \\dfrac{1}{36}$.<br>\t\t$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{1/36}{1/6} = \\dfrac{1}{6}$.<br>\t\tVậy xác suất để tổng số chấm xuất hiện trong hai lần gieo bằng 8 biết rằng lần gieo thứ nhất xuất hiện mặt 5 chấm là $\\dfrac{1}{6}$."
+  },
+  {
+    "id": 40,
+    "title": "Câu 40",
+    "type": "multiple_choice",
+    "text": "Một công ty xây dựng đấu thầu hai dự án độc lập. Khả năng thắng của dự án thứ nhất là 0{,}5 và dự án thứ hai là 0{,}6. Tính xác suất để công ty thắng thầu dự án thứ hai biết công ty thắng thầu dự án thứ nhất.",
+    "image": "",
+    "options": {
+      "A": "0{,}3",
+      "B": "0{,}7",
+      "C": "0{,}5",
+      "D": "0{,}6"
+    },
+    "correct": "D",
+    "solution": "Gọi $A$ là biến cố ``Công ty thắng thầu dự án thứ nhất''. Ta có $P(A)=0{,}5$.<br>\t\tGọi $B$ là biến cố ``Công ty thắng thầu dự án thứ hai''. Ta có $P(B)=0{,}6$.<br>\t\tVì $A$ và $B$ là hai biến cố độc lập nên ta có $P(B \\mid A) = P(B) = 0{,}6$.<br>\t\tVậy xác suất để công ty thắng thầu dự án thứ hai biết công ty thắng thầu dự án thứ nhất là 0{,}6."
+  },
+  {
+    "id": 41,
+    "title": "Câu 41",
+    "type": "multiple_choice",
+    "text": "Lớp 10A có 45 học sinh trong đó có 20 học sinh nam và 25 học sinh nữ. Trong bài kiểm tra môn Toán cả lớp có 22 học sinh đạt điểm giỏi (trong đó có 10 học sinh nam và 12 học sinh nữ). Giáo viên chọn ngẫu nhiên một học sinh từ danh sách lớp. Tính xác suất để giáo viên chọn được một học sinh đạt điểm giỏi môn Toán biết học sinh đó là học sinh nam.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{4}{5}$",
+      "C": "$\\dfrac{3}{5}$",
+      "D": "$\\dfrac{4}{15}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``Chọn được một học sinh nam''.<br>\t\tGọi $B$ là biến cố ``Chọn được một học sinh đạt điểm giỏi môn Toán''.<br>\t\t$A \\cap B$ là biến cố ``Chọn được một học sinh đạt điểm giỏi môn Toán biết học sinh đó là học sinh nam''.<br>\t\tTa có $P(A \\cap B) = \\dfrac{10}{45} = \\dfrac{2}{9}$; $P(A) = \\dfrac{20}{45} = \\dfrac{4}{9}$.<br>\t\t$P(B \\mid A) = \\dfrac{P(A \\cap B)}{P(A)} = \\dfrac{1}{2}$.<br>\t\tVậy xác suất để giáo viên chọn được một học sinh đạt điểm giỏi môn Toán biết học sinh đó là học sinh nam là $\\dfrac{1}{2}$."
+  },
+  {
+    "id": 42,
+    "title": "Câu 42",
+    "type": "multiple_choice",
+    "text": "Gieo một con xúc xắc cân đối và đồng chất. Tính xác suất số chấm trên con xúc xắc không nhỏ hơn 4, biết rằng con xúc xắc xuất hiện mặt lẻ.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{6}$",
+      "B": "$\\dfrac{2}{3}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{1}{2}$"
+    },
+    "correct": "C",
+    "solution": "Gọi $A$ là biến cố ``số chấm trên xúc xắc không nhỏ hơn 4''.<br>\t\t$B$ là biến cố ``xúc xắc xuất hiện mặt lẻ'', ta cần tính $P(A \\mid B)$.<br>\t\tKết quả thuận lợi của biến cố $A = \\{4;5;6\\}$.<br>\t\tKết quả thuận lợi của biến cố $B = \\{1;3;5\\}$.<br>\t\t$A \\cap B = \\{5\\}$.<br>\t\tVậy $P(A \\mid B) = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 43,
+    "title": "Câu 43",
+    "type": "multiple_choice",
+    "text": "Một cửa hàng thời trang ước lượng rằng có 86\\% khách hàng đến cửa hàng mua quần áo là phụ nữ, và có 25\\% số khách mua hàng là phụ nữ cần nhân viên tư vấn. Biết một người mua quần áo là phụ nữ, tính xác suất người đó cần nhân viên tư vấn.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{4}$",
+      "B": "0{,}86",
+      "C": "$\\dfrac{30}{43}$",
+      "D": "$\\dfrac{25}{86}$"
+    },
+    "correct": "D",
+    "solution": "Gọi $A$ là biến cố ``người mua hàng là phụ nữ''.<br>\t\t$B$ là biến cố ``người mua hàng cần nhân viên tư vấn'', ta cần tính $P(B \\mid A)$.<br>\t\t$P(A)=0{,}86; P(AB)=0{,}25$.<br>\t\tVậy $P(B \\mid A) = \\dfrac{0{,}25}{0{,}86} = \\dfrac{25}{86}$."
+  },
+  {
+    "id": 44,
+    "title": "Câu 44",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ có $P(B)=0{,}4$ và $P(AB)=0{,}1$. Tính $P(A \\mid B)$.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{3}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "$\\dfrac{1}{4}$",
+      "D": "$\\dfrac{1}{5}$"
+    },
+    "correct": "C",
+    "solution": "Ta có $P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{0{,}1}{0{,}4} = \\dfrac{1}{4}$."
+  },
+  {
+    "id": 45,
+    "title": "Câu 45",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ có $P(A)=0{,}3$, $P(B)=0{,}7$ và $P(A \\mid B)=0{,}5$. Tính $P(\\overline{AB})$.",
+    "image": "",
+    "options": {
+      "A": "0{,}35",
+      "B": "0{,}3",
+      "C": "0{,}65",
+      "D": "0{,}55"
+    },
+    "correct": "C",
+    "solution": "Ta có $P(AB) = P(A \\mid B).P(B) = 0{,}5 \\cdot 0{,}7 = 0{,}35$.<br>\t\tVì $\\overline{AB}$ và $AB$ là hai biến cố xung khắc và $\\overline{AB} \\cup AB = \\Omega$ nên<br>\t\t$P(\\overline{AB}) = 1 - P(AB) = 1 - 0{,}35 = 0{,}65$."
+  },
+  {
+    "id": 46,
+    "title": "Câu 46",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ là hai biến cố độc lập, với $P(A)=0{,}2024; P(B)=0{,}2025$. Tính $P(A \\mid B)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}7976",
+      "B": "0{,}7975",
+      "C": "0{,}2025",
+      "D": "0{,}2024"
+    },
+    "correct": "D",
+    "solution": "$A$ và $B$ là hai biến cố độc lập nên: $P(A \\mid B) = P(A) = 0{,}2024$."
+  },
+  {
+    "id": 47,
+    "title": "Câu 47",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(A)=0{,}8; P(B)=0{,}65; P(A \\cap \\overline{B})=0{,}55$. Tính $P(A \\cap B)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}25",
+      "B": "0{,}1",
+      "C": "0{,}15",
+      "D": "0{,}35"
+    },
+    "correct": "A",
+    "solution": "Ta có $P(A \\cap \\overline{B}) + P(A \\cap B) = P(A) \\Rightarrow P(A \\cap B) = P(A) - P(A \\cap \\overline{B}) = 0{,}8 - 0{,}55 = 0{,}25$."
+  },
+  {
+    "id": 48,
+    "title": "Câu 48",
+    "type": "multiple_choice",
+    "text": "Gieo hai con xúc sắc cân đối và đồng chất. Tính xác suất để tổng số chấm xuất hiện trên hai con xúc xắc bằng 6. Biết rằng con xúc xắc thứ nhất xuất hiện mặt 4 chấm.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{2}{6}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "$\\dfrac{1}{6}$",
+      "D": "$\\dfrac{5}{6}$"
+    },
+    "correct": "C",
+    "solution": "Gọi $A$ là biến cố ``con xúc xắc thứ nhất xuất hiện mặt 4 chấm''.<br>\t\tGọi $B$ là biến cố ``Tổng số chấm xuất hiện trên 2 con xác xắc bằng 6''.<br>\t\tKhi con xúc xắc thứ nhất đã xuất hiện mặt 4 chấm thì lần thứ hai xuất hiện 2 chấm thì tổng hai lần xuất hiện là 6 chấm thì $P(B \\mid A) = \\dfrac{1}{6}$."
+  },
+  {
+    "id": 49,
+    "title": "Câu 49",
+    "type": "multiple_choice",
+    "text": "Một lớp có 95 sinh viên, trong đó có 40 nam và 55 nữ. Trong kỳ thi môn Xác suất thống kê có 23 sinh viên đạt điểm giỏi (trong đó có 12 nam và 11 nữ). Gọi ngẫu nhiên một sinh viên trong danh sách lớp. Tìm xác suất gọi được sinh viên đạt điểm giỏi môn Xác suất thông kê, biết rằng sinh viên đó là nữ?",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{5}$",
+      "B": "$\\dfrac{11}{23}$",
+      "C": "$\\dfrac{12}{23}$",
+      "D": "$\\dfrac{11}{19}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``gọi được sinh viên nữ''.<br>\t\tGọi $B$ là biến cố ``gọi được sinh viên đạt điểm giỏi môn Xác suất thống kê''.<br>\t\tTa đi tính $P(B \\mid A)$.<br>\t\tTa có: $n(A) = 55$; $n(A \\cap B) = 11$.<br>\t\tDo đó $P(B \\mid A) = \\dfrac{P(A \\cap B)}{P(A)} = \\dfrac{n(A \\cap B)}{n(A)} = \\dfrac{11}{55} = \\dfrac{1}{5}$."
+  },
+  {
+    "id": 50,
+    "title": "Câu 50",
+    "type": "multiple_choice",
+    "text": "Một mảnh đất chia thành hai khu vườn. Khu A có 150 cây ăn quả, khu B có 200 cây ăn quả. Trong đó, số cây Táo ở khu A và khu B lần lượt là 50 cây và 100 cây. Chọn ngẫu nhiên 1 cây trong mảnh đất. Xác suất cây được chọn là cây Táo, biết rằng cây đó ở khu B, là:",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{2}$",
+      "B": "$\\dfrac{1}{4}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{2}{3}$"
+    },
+    "correct": "A",
+    "solution": "Xét các biến cố: $E$: ``Cây chọn được là cây Táo'', $F$: ``Cây chọn được ở khu B''.<br>\t\tTa có: $P(E \\mid F) = \\dfrac{n(E \\cap F)}{n(F)} = \\dfrac{100}{200} = \\dfrac{1}{2}$.<br>\t\tVậy xác suất cây được chọn là cây Táo, biết rằng cây đó ở Khu B, là $\\dfrac{1}{2}$."
+  },
+  {
+    "id": 51,
+    "title": "Câu 51",
+    "type": "multiple_choice",
+    "text": "Một hộp chứa 8 bi trắng, 2 bi đỏ. Lần lượt bốc từng bi và không trả lại bi được bốc vào hộp. Giả sử lần đầu tiên bốc được bi trắng. Xác suất lần thứ 2 bốc được bi đỏ là",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{2}{9}$",
+      "B": "$\\dfrac{1}{10}$",
+      "C": "$\\dfrac{8}{9}$",
+      "D": "$\\dfrac{2}{5}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``lần 1 bốc được bi trắng''.<br>\t\tGọi $B$ là biến cố ``lần 2 bốc được bi đỏ''.<br>\t\tXác suất lần 2 bốc được bi đỏ khi lần 1 đã bốc được bi trắng là $P(B \\mid A)$.<br>\t\tTa có: $P(A) = \\dfrac{8.9}{10.9} = \\dfrac{4}{5}$; $P(A \\cap B) = \\dfrac{8.2}{10.9} = \\dfrac{8}{45}$.<br>\t\tDo đó: $P(B \\mid A) = \\dfrac{P(A \\cap B)}{P(A)} = \\dfrac{8/45}{4/5} = \\dfrac{2}{9}$."
+  },
+  {
+    "id": 52,
+    "title": "Câu 52",
+    "type": "multiple_choice",
+    "text": "Khảo sát về sở thích uống trà sữa của 200 em học sinh theo giới tính và loại trà sữa ta được bảng số liệu sau:\n\t\\noteImage[width=0.6 \\linewidth]{data/im/14GT-52-1.png}\n\tChọn ngẫu nhiên một bạn học sinh. Nếu đã chọn được một bạn nữ thì xác suất để bạn nữ thích uống vị hồng trà là bao nhiêu?",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{8}{13}$",
+      "B": "$\\dfrac{5}{8}$",
+      "C": "$\\dfrac{3}{4}$",
+      "D": "$\\dfrac{2}{5}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``chọn được bạn nữ'' suy ra $P(A) = \\dfrac{130}{200} = \\dfrac{13}{20}$.<br>\t\t$B$ là biến cố ``chọn được bạn thích uống hồng trà''.<br>\t\tKhi đó $P(AB) = \\dfrac{80}{200} = \\dfrac{2}{5}$.<br>\t\tNếu đã chọn được một bạn nữ thì xác suất để bạn nữ thích uống vị hồng trà là<br>\t\t$P(B \\mid A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{8}{13}$."
+  },
+  {
+    "id": 53,
+    "title": "Câu 53",
+    "type": "multiple_choice",
+    "text": "Lớp 12A có 45 học sinh gồm 25 nam và 20 nữ. Trong kì kiểm tra cuối kì 2 môn Toán có 15 học sinh đạt điểm giỏi trong đó có 8 nam và 7 nữ. Gọi tên ngẫu nhiên một học sinh trong danh sách lớp. Tìm xác suất để gọi được học sinh đạt điểm giỏi môn Toán biết rằng học sinh đó là nữ.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{7}{20}$",
+      "B": "$\\dfrac{4}{5}$",
+      "C": "$\\dfrac{8}{25}$",
+      "D": "$\\dfrac{2}{3}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``Gọi được học sinh đạt điểm giỏi môn Toán''.<br>\t\tGọi $B$ là biến cố ``Gọi được học sinh nữ''.<br>\t\tKhi đó xác suất để gọi được học sinh đạt điểm giỏi môn Toán và là học sinh nữ là xác suất của biến cố $A$ với điều kiện $B$.<br>\t\tTa đi tính $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$.<br>\t\tTa có: $n(\\Omega) = 45$;<br>\t\t$n(B) = 20 \\Rightarrow P(B) = \\dfrac{20}{45}$;<br>\t\t$n(A \\cap B) = 7 \\Rightarrow P(A \\cap B) = \\dfrac{7}{45}$.<br>\t\tSuy ra: $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{7/45}{20/45} = \\dfrac{7}{20}$."
+  },
+  {
+    "id": 54,
+    "title": "Câu 54",
+    "type": "multiple_choice",
+    "text": "Chọn ngẫu nhiên một gia đình có 3 người con. Tính xác suất để gia đình này có hai trai, một gái biết rằng gia đình có con gái.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{8}$",
+      "B": "$\\dfrac{3}{7}$",
+      "C": "$\\dfrac{1}{8}$",
+      "D": "$\\dfrac{1}{4}$"
+    },
+    "correct": "B",
+    "solution": "Không gian mẫu là $\\Omega = \\{TTT, TTG, TGT, TGG, GTT, GTG, GGT, GGG\\}$ trong đó $T$ ký hiệu con trai và $G$ ký hiệu con gái.<br>\t\tGọi $A$ là biến cố ``Có hai trai, một gái''. Ta có $A = \\{TTG, GTT, TGT\\}$.<br>\t\tGọi $B$ là biến cố ``Gia đình có con gái''. Ta có $P(B) = 1 - P(\\overline{B}) = 1 - \\dfrac{1}{8} = \\dfrac{7}{8}$.<br>\t\tCó $A \\cap B = \\{TTG, GTT, TGT\\}$ nên $P(A \\cap B) = \\dfrac{3}{8}$.<br>\t\tVậy $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{3}{7}$."
+  },
+  {
+    "id": 55,
+    "title": "Câu 55",
+    "type": "multiple_choice",
+    "text": "Gieo đồng thời hai con xúc sắc cân đối. Tính xác suất để tổng số chấm xuất hiện trên hai con xúc sắc là 7, biết rằng có ít nhất một con xúc sắc xuất hiện mặt 5 chấm.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{2}{11}$",
+      "B": "$\\dfrac{1}{3}$",
+      "C": "$\\dfrac{9}{11}$",
+      "D": "$\\dfrac{2}{3}$"
+    },
+    "correct": "A",
+    "solution": "Gọi $A$ là biến cố ``Tổng số chấm xuất hiện trên hai con xúc sắc là 7'' và $B$ là biến cố ``Có ít nhất một con xúc sắc xuất hiện mặt 5 chấm''.<br>\t\tTa có $P(B) = 1 - P(\\overline{B}) = 1 - \\dfrac{25}{36} = \\dfrac{11}{36}$;<br>\t\t$A \\cap B = \\{(2;5), (5;2)\\} \\Rightarrow P(A \\cap B) = \\dfrac{2}{36}$.<br>\t\tSuy ra $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{2}{11}$."
+  },
+  {
+    "id": 56,
+    "title": "Câu 56",
+    "type": "multiple_choice",
+    "text": "Để kiểm tra tính chính xác của một xét nghiệm nhằm chẩn đoán bệnh $X$, người ta chọn một mẫu gồm 5282 người, trong đó có 54 người mắc bệnh $X$ và 5228 người không mắc bệnh $X$ để làm xét nghiệm. Trong số 54 người mắc bệnh $X$ có 48 người cho kết quả dương tính. Trong số 5228 người không mắc bệnh có 1307 người cho kết quả dương tính. Chọn ngẫu nhiên một người trong mẫu. Tính xác suất để người đó mắc bệnh $X$ nếu biết rằng người đó có xét nghiệm âm tính.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{6}{3927}$",
+      "B": "$\\dfrac{6}{5282}$",
+      "C": "$\\dfrac{48}{1335}$",
+      "D": "$\\dfrac{48}{5282}$"
+    },
+    "correct": "A",
+    "solution": "Ta có bảng sau đây:<br>\t\t\\noteImage[width=0.6 \\linewidth]{data/im/16GT-56-1.png}<br>\t\tGọi $A$ là biến cố ``Người đó mắc bệnh $X$'', $B$ là biến cố ``Người đó có xét nghiệm âm tính''.<br>\t\tKhi đó $A \\cap B$ là biến cố ``Người đó vừa mắc bệnh $X$, vừa có xét nghiệm âm tính''.<br>\t\tTừ bảng trên, ta có $P(A \\cap B) = \\dfrac{6}{5282}$; $P(B) = \\dfrac{3927}{5282}$.<br>\t\tVậy xác suất cần tính là $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{6}{3927}$."
+  },
+  {
+    "id": 57,
+    "title": "Câu 57",
+    "type": "multiple_choice",
+    "text": "Trong một đội tuyển có ba vận động viên $A, B$ và $C$ thi đấu với xác suất chiến thắng lần lượt là $0{,}6; 0{,}7$ và $0{,}8$. Giả sử mỗi người thi đấu một trận độc lập với nhau. Tính xác suất để $A$ thua trong trường hợp đội tuyển thắng hai trận.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{55}{113}$",
+      "B": "$\\dfrac{57}{113}$",
+      "C": "$\\dfrac{56}{113}$",
+      "D": "$\\dfrac{54}{113}$"
+    },
+    "correct": "C",
+    "solution": "Gọi $A$ là biến cố ``vận động viên $A$ chiến thắng'', ta có $P(A)=0{,}6$;<br>\t\t$B$ là biến cố ``vận động viên $B$ chiến thắng'' thì $P(B)=0{,}7$;<br>\t\t$C$ là biến cố ``vận động viên $C$ chiến thắng'' thì $P(C)=0{,}8$.<br>\t\tGọi $D$ là biến cố ``đội tuyển thắng hai trận''. Ta có<br>\t\t$P(D) = P(\\overline{A}BC) + P(A\\overline{B}C) + P(AB\\overline{C}) = 0{,}452$.<br>\t\tVậy xác suất cần tính là $P(\\overline{A} \\mid D) = \\dfrac{P(\\overline{A}D)}{P(D)} = \\dfrac{P(\\overline{A}BC)}{P(D)} = \\dfrac{0{,}4 \\cdot 0{,}7 \\cdot 0{,}8}{0{,}452} = \\dfrac{56}{113}$."
+  },
+  {
+    "id": 58,
+    "title": "Câu 58",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$ là hai biến cố độc lập, với $P(A)=0{,}2024, P(B)=0{,}2025$. Tính $P(A \\mid B)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}7976",
+      "B": "0{,}7975",
+      "C": "0{,}2025",
+      "D": "0{,}2024"
+    },
+    "correct": "D",
+    "solution": "$A$ và $B$ là hai biến cố độc lập nên: $P(A \\mid B) = P(A) = 0{,}2024$."
+  },
+  {
+    "id": 59,
+    "title": "Câu 59",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(A)=0{,}8, P(B)=0{,}65, P(A \\cap \\overline{B})=0{,}55$. Tính $P(A \\cap B)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}25",
+      "B": "0{,}1",
+      "C": "0{,}15",
+      "D": "0{,}35"
+    },
+    "correct": "A",
+    "solution": "Ta có: $P(A \\cap \\overline{B}) + P(A \\cap B) = P(A) \\Rightarrow P(A \\cap B) = P(A) - P(A \\cap \\overline{B}) = 0{,}8 - 0{,}55 = 0{,}25$."
+  },
+  {
+    "id": 60,
+    "title": "Câu 60",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A$ và $B$, với $P(A)=0{,}6, P(B)=0{,}7, P(A \\cap B)=0{,}3$. Tính $P(\\overline{B} \\mid A)$.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{7}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "$\\dfrac{6}{7}$",
+      "D": "$\\dfrac{1}{7}$"
+    },
+    "correct": "B",
+    "solution": "Ta có: $P(\\overline{B} \\mid A) = 1 - P(B \\mid A) = 1 - \\dfrac{P(A \\cap B)}{P(A)} = 1 - \\dfrac{0{,}3}{0{,}6} = 1 - \\dfrac{1}{2} = \\dfrac{1}{2}$."
+  },
+  {
+    "id": 61,
+    "title": "Câu 61",
+    "type": "multiple_choice",
+    "text": "Gieo lần lượt hai con xúc xắc cân đối và đồng chất. Tính xác suất để tổng số chấm xuất hiện trên hai con xúc xắc bằng 6. Biết rằng con xúc xắc thứ nhất xuất hiện mặt 4 chấm.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{2}{6}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "$\\dfrac{1}{6}$",
+      "D": "$\\dfrac{5}{6}$"
+    },
+    "correct": "C",
+    "solution": "Gọi $A$ là biến cố ``con xúc xắc thứ nhất xuất hiện mặt 4 chấm''.<br>\t\tGọi $B$ là biến cố ``Tổng số chấm xuất hiện trên 2 con xúc xắc bằng 6''.<br>\t\tKhi con xúc xắc thứ nhất đã xuất hiện mặt 4 chấm thì lần thứ hai xuất hiện 2 chấm thì tổng hai lần xuất hiện là 6 chấm thì $P(B \\mid A) = \\dfrac{1}{6}$."
+  },
+  {
+    "id": 62,
+    "title": "Câu 62",
+    "type": "multiple_choice",
+    "text": "Một lớp có 50 học sinh, trong đó có 30 học sinh nam và 20 học sinh nữ. Có 5 học sinh nam được học sinh giỏi và có 6 học sinh nữ được học sinh giỏi. Xác suất để chọn được một bạn nữ là học sinh giỏi",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{5}{9}$",
+      "B": "$\\dfrac{2}{3}$",
+      "C": "$\\dfrac{7}{9}$",
+      "D": "$\\dfrac{3}{10}$"
+    },
+    "correct": "D",
+    "solution": "Gọi $A$ là biến cố chọn được học sinh giỏi.<br>\t\tGọi $B$ là biến cố chọn được học sinh là nữ.<br>\t\tKhi đó $n(A \\cap B) = 6$.<br>\t\tXác suất để chọn được một học sinh nữ và học sinh đó là học sinh giỏi là:<br>\t\t$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{n(A \\cap B)}{n(B)} = \\dfrac{6}{20} = \\dfrac{3}{10}$."
+  },
+  {
+    "id": 63,
+    "title": "Câu 63",
+    "type": "multiple_choice",
+    "text": "Một gia đình có 2 đứa trẻ. Biết rằng có ít nhất 1 đứa trẻ là con gái. Hỏi xác suất 2 đứa trẻ đều là con gái là bao nhiêu? Cho biết xác suất để một đứa trẻ là trai hoặc gái là bằng nhau.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{3}{5}$",
+      "B": "$\\dfrac{3}{4}$",
+      "C": "$\\dfrac{1}{4}$",
+      "D": "$\\dfrac{1}{3}$"
+    },
+    "correct": "D",
+    "solution": "Giới tính cả 2 đứa trẻ là ngẫu nhiên và không liên quan đến nhau.<br>\t\tDo gia đình có 2 đứa trẻ nên sẽ có thể xảy ra 4 khả năng: (trai, trai), (gái, gái), (gái, trai), (trai, gái).<br>\t\tGọi $A$ là biến cố ``Cả hai đứa trẻ đều là con gái''.<br>\t\tGọi $B$ là biến cố ``Có ít nhất một đứa trẻ là con gái''.<br>\t\tTa có $P(A) = \\dfrac{1}{4}; P(B) = \\dfrac{3}{4}$.<br>\t\tDo nếu xảy ra $A$ thì đương nhiên sẽ xảy ra $B$ nên ta có: $P(A \\cap B) = P(A) = \\dfrac{1}{4}$.<br>\t\tSuy ra, xác suất để cả hai đứa trẻ đều là con gái khi biết ít nhất có một đứa trẻ là gái là<br>\t\t$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{1/4}{3/4} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 64,
+    "title": "Câu 64",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A, B$ có xác suất $P(A)=0{,}4; P(B)=0{,}6; P(AB)=0{,}2$. Tính xác suất $P(A \\mid B)$.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{3}$",
+      "B": "$\\dfrac{1}{2}$",
+      "C": "0{,}3",
+      "D": "0{,}25"
+    },
+    "correct": "A",
+    "solution": "Theo định nghĩa xác suất có điều kiện, ta có $P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{0{,}2}{0{,}6} = \\dfrac{1}{3}$."
+  },
+  {
+    "id": 65,
+    "title": "Câu 65",
+    "type": "multiple_choice",
+    "text": "Cho hai biến cố $A, B$ có xác suất $P(A)=0{,}4; P(B)=0{,}3; P(A \\mid B)=0{,}25$. Tính xác suất $P(B \\mid A)$.",
+    "image": "",
+    "options": {
+      "A": "0{,}1875",
+      "B": "0{,}48",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "0{,}95"
+    },
+    "correct": "A",
+    "solution": "Theo định nghĩa xác suất có điều kiện, ta có $P(A \\mid B) = \\dfrac{P(AB)}{P(B)}$.<br>\t\tDo đó $P(AB) = P(A \\mid B).P(B) = 0{,}3 \\cdot 0{,}25 = 0{,}075$.<br>\t\tTừ đó suy ra $P(B \\mid A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{0{,}075}{0{,}4} = 0{,}1875$."
+  },
+  {
+    "id": 66,
+    "title": "Câu 66",
+    "type": "multiple_choice",
+    "text": "Cho một hộp kín có 6 thẻ ATM của ACB và 4 thẻ ATM của Vietcombank. Lấy ngẫu nhiên lần lượt 2 thẻ (lấy không hoàn lại). Tìm xác suất để lần thứ hai lấy được thẻ ATM của Vietcombank nếu biết lần thứ nhất đã lấy được thẻ ATM của ACB.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{3}$",
+      "B": "$\\dfrac{2}{3}$",
+      "C": "$\\dfrac{2}{9}$",
+      "D": "$\\dfrac{4}{9}$"
+    },
+    "correct": "D",
+    "solution": "Gọi $A$ là biến cố ``lần thứ hai lấy được thẻ ATM Vietcombank'', $B$ là biến cố ``lần thứ nhất lấy được thẻ ATM của ACB''. Ta cần tìm $P(A \\mid B)$.<br>\t\tSau khi lấy lần thứ nhất (biến cố $B$ xảy ra) trong hộp còn lại 9 thẻ (trong đó có 4 thẻ Vietcombank) nên $P(A \\mid B) = \\dfrac{4}{9}$."
+  },
+  {
+    "id": 67,
+    "title": "Câu 67",
+    "type": "multiple_choice",
+    "text": "Một nhóm 50 học sinh có 23 bạn biết chơi cầu lông mà không biết chơi bóng đá và 21 bạn biết chơi bóng đá mà không biết chơi cầu lông. Biết rằng mỗi học sinh trong nhóm này biết chơi bóng đá hoặc cầu lông. Chọn ngẫu nhiên một học sinh trong nhóm. Tính xác suất học sinh này biết chơi bóng đá, biết rằng bạn ấy biết chơi cầu lông.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{23}{29}$",
+      "B": "$\\dfrac{6}{29}$",
+      "C": "$\\dfrac{21}{29}$",
+      "D": "$\\dfrac{6}{23}$"
+    },
+    "correct": "B",
+    "solution": "Gọi $A$ là biến cố ``học sinh được chọn biết chơi bóng đá'', $B$ là biến cố ``học sinh được chọn biết chơi cầu lông''.<br>\t\tTa có $n(AB) = 50 - (23 + 21) = 6$ và $n(B) = 23 + 6 = 29$. Do đó $P(A \\mid B) = \\dfrac{P(AB)}{P(B)} = \\dfrac{6}{29}$."
+  },
+  {
+    "id": 68,
+    "title": "Câu 68",
+    "type": "multiple_choice",
+    "text": "Một bình đựng 3 bi xanh và 2 bi trắng. Lấy ngẫu nhiên lần 1 một viên bi (không bỏ vào lại), rồi lần 2 một viên bi. Tính xác suất để lần 1 lấy một viên bi xanh, lần 2 lấy một viên bi trắng.",
+    "image": "",
+    "options": {
+      "A": "$\\dfrac{1}{5}$",
+      "B": "$\\dfrac{1}{10}$",
+      "C": "$\\dfrac{1}{3}$",
+      "D": "$\\dfrac{3}{10}$"
+    },
+    "correct": "D",
+    "solution": "Gọi $A$ là biến cố ``lấy một bi xanh lần thứ nhất'' thì $P(A) = \\dfrac{3}{5}$.<br>\t\tGọi $B$ là biến cố ``lấy một bi trắng lần thứ hai''.<br>\t\tGọi $C$ là biến cố ``lấy lần 1 lấy một viên bi xanh, lần 2 lấy một viên bi trắng''.<br>\t\tNếu $A$ đã xảy ra thì trong bình chỉ còn 2 bi xanh, 2 bi trắng. Khi đó $P(B \\mid A) = \\dfrac{2}{4} = \\dfrac{1}{2}$.<br>\t\tMà $C = AB$, do đó theo công thức nhân ta có $P(C) = P(AB) = P(A).P(B \\mid A) = \\dfrac{3}{5} \\cdot \\dfrac{1}{2} = \\dfrac{3}{10}$."
+  },
+  {
+    "id": 69,
+    "title": "Câu 69",
+    "type": "multiple_choice",
+    "text": "Một công ty đấu thầu 2 dự án. Khả năng thắng thầu của các dự án I và II lần lượt là 0{,}4 và 0{,}5. Khả năng thắng thầu của hai dự án là 0{,}3. Gọi $A, B$ lần lượt là biến cố thắng thầu dự án I và dự án II. Biết công ty thắng thầu dự án I, tìm xác suất công ty thắng thầu dự án II.",
+    "image": "",
+    "options": {
+      "A": "0{,}25",
+      "B": "0{,}5",
+      "C": "0{,}75",
+      "D": "0{,}125"
+    },
+    "correct": "C",
+    "solution": "Gọi $C$ là biến cố ``công ty thắng dự án II biết công ty thắng thầu dự án I''.<br>\t\tTa có $P(C) = P(B \\mid A) = \\dfrac{P(AB)}{P(A)} = \\dfrac{0{,}3}{0{,}4} = 0{,}75$."
+  }
+]
