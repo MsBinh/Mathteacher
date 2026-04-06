@@ -1715,15 +1715,15 @@ async function handleExamSelection() {
                         <div class="scoring-table">
                             <div class="scoring-item">
                                 <div class="scoring-correct">1 ý</div>
-                                <div class="scoring-point">0.1 điểm</div>
-                            </div>
-                            <div class="scoring-item">
-                                <div class="scoring-correct">2 ý</div>
                                 <div class="scoring-point">0.25 điểm</div>
                             </div>
                             <div class="scoring-item">
-                                <div class="scoring-correct">3 ý</div>
+                                <div class="scoring-correct">2 ý</div>
                                 <div class="scoring-point">0.5 điểm</div>
+                            </div>
+                            <div class="scoring-item">
+                                <div class="scoring-correct">3 ý</div>
+                                <div class="scoring-point">0.75 điểm</div>
                             </div>
                             <div class="scoring-item">
                                 <div class="scoring-correct">4 ý</div>
@@ -2366,38 +2366,63 @@ function toggleFloatingSheet() {
             // Re-render để hiện lời giải
             renderAnswerSheet();
         }
-
-        function calculateQuestionPoint(q, userAns, correctAns) {
+function calculateQuestionPoint(q, userAns, correctAns) {
             if (!userAns) return 0;
             
-            if (q.type === 'multiple_choice') {
-                return String(userAns).toUpperCase() === String(correctAns).toUpperCase() ? 0.25 : 0;
-            }
+            // 1. CHẤM TRẮC NGHIỆM (Phần I)
             
-            if (q.type === 'true_false') {
-                if (!Array.isArray(userAns) || !Array.isArray(correctAns)) return 0;
+             if (q.type === 'multiple_choice') {
+                const uAns = String(userAns).trim().toUpperCase(); // Ví dụ: 'D'
+                const cAns = String(correctAns).toUpperCase();     // Ví dụ: 'C, D'
                 
-                let correct = 0;
-                for (let i = 0; i < 4; i++) {
-                    if (userAns[i] === correctAns[i]) correct++;
+                // Nếu chuỗi đáp án của thầy CÓ CHỨA chữ cái học sinh chọn -> Cho điểm
+                return cAns.includes(uAns) ? 0.25 : 0;
+            }
+            // 2. CHẤM ĐÚNG/SAI (Phần II) - ĐÃ FIX
+            if (q.type === 'true_false') {
+                if (!Array.isArray(userAns)) return 0; // Đảm bảo học sinh đã trả lời
+                
+                // Đồng bộ hóa correctAns từ file JSON (chuỗi "T,F,T,F") thành mảng Boolean [true, false, true, false]
+                let normalizedCorrect = [];
+                if (typeof correctAns === 'string') {
+                    normalizedCorrect = correctAns.split(',').map(val => {
+                        let v = val.trim().toUpperCase();
+                        return (v === 'T' || v === 'TRUE' || v === 'Đ' || v === 'ĐÚNG');
+                    });
+                } else if (Array.isArray(correctAns)) {
+                    normalizedCorrect = correctAns;
+                } else {
+                    return 0; // Lỗi định dạng đáp án
                 }
                 
-                if (correct === 1) return 0.1;
-                if (correct === 2) return 0.25;
-                if (correct === 3) return 0.5;
-                if (correct === 4) return 1.0;
+                // Đếm số ý đúng
+                let correctCount = 0;
+                for (let i = 0; i < 4; i++) {
+                    // Nếu userAns[i] chưa chọn (null) thì bỏ qua, chỉ so sánh khi có giá trị
+                    if (userAns[i] !== null && userAns[i] === normalizedCorrect[i]) {
+                        correctCount++;
+                    }
+                }
+                
+                // Tính điểm theo barem 2025
+                if (correctCount === 1) return 0.25;
+                if (correctCount === 2) return 0.5;
+                if (correctCount === 3) return 0.75;
+                if (correctCount === 4) return 1.0;
                 return 0;
             }
             
+            // 3. CHẤM TRẢ LỜI NGẮN (Phần III) - ĐÃ FIX DẤU PHẨY/DẤU CHẤM
             if (q.type === 'short_answer') {
-                const normUser = String(userAns).trim().toLowerCase().replace(/\s+/g, '');
-                const normCorrect = String(correctAns).trim().toLowerCase().replace(/\s+/g, '');
+                // Biến đổi: Xóa khoảng trắng và đổi TẤT CẢ dấu phẩy (,) thành dấu chấm (.)
+                const normUser = String(userAns).trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.');
+                const normCorrect = String(correctAns).trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.');
+                
                 return normUser === normCorrect ? 0.5 : 0;
             }
             
             return 0;
         }
-
 // ==================== HÀM HIỂN THỊ KẾT QUẢ (BẢN CẢI TIẾN) ====================
 function showScoreResult(score, answered, total) {
     // 1. Lấy File Giải từ ID 999 (đã lưu ở window.pdfSolutionUrl từ lúc startExam)
