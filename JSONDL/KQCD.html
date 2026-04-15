@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HỆ THỐNG PHÂN TÍCH CHUYÊN ĐỀ - LỚP TOÁN THẦY BÌNH</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #1a5e1a; --primary-light: #4caf4c; --primary-dark: #0d3f0d; --secondary: #ff8f00; --bg: #f5f5f5; --border: #e0e0e0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 20px; min-height: 100vh; }
+        .container { max-width: 1500px; margin: 0 auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--primary); }
+        
+        #loginSection { max-width: 450px; margin: 80px auto; text-align: center; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-top: 5px solid var(--primary); }
+        #loginSection h2 { color: var(--primary); margin-bottom: 20px; }
+        .login-input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid var(--border); border-radius: 8px; font-size: 1.1rem; text-align: center; outline: none; }
+        .login-input:focus { border-color: var(--primary); }
+        .btn-login { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-login:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        #dashboardSection { display: none; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--border); }
+        .header-title h2 { color: var(--primary); margin-bottom: 5px; }
+        .header-title p { font-size: 0.85rem; color: #555; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: linear-gradient(135deg, #e8f5e9, #fff); padding: 15px; border-radius: 10px; text-align: center; border-left: 4px solid var(--primary); }
+        .stat-value { font-size: 28px; font-weight: bold; color: var(--primary); }
+        .stat-label { font-size: 12px; color: #666; margin-top: 5px; }
+        
+        .filter-group { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; align-items: flex-end; background: #e8f5e9; padding: 15px; border-radius: 8px; }
+        .filter-item { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+        .filter-item label { font-weight: 600; font-size: 0.85rem; color: var(--primary); }
+        .filter-item input, .filter-item select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; outline: none; }
+        
+        button.btn-primary { background: var(--primary); color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; height: 38px; display: inline-flex; align-items: center; gap: 8px; }
+        button.btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); }
+        button.btn-secondary { background: #2e7d32; }
+        
+        .table-container { overflow-x: auto; max-height: 550px; border-radius: 8px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #2e7d32; color: white; position: sticky; top: 0; z-index: 10; white-space: nowrap; }
+        tr:hover { background-color: #f1f8e9; cursor: pointer; }
+        .correct-text { color: #2e7d32; font-weight: bold; }
+        .wrong-text { color: #c62828; font-weight: bold; }
+        .score-text { color: #d84315; font-weight: bold; }
+        .qid-badge { background: #c8e6c9; color: #1b5e20; padding: 3px 8px; border-radius: 12px; font-weight: bold; font-size: 11px; display: inline-block; }
+        .ans-badge { background: #eeeeee; padding: 3px 8px; border-radius: 4px; font-family: monospace; font-size: 0.8rem; display: inline-block; }
+        .type-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; margin-left: 6px; }
+        .type-tln { background: #bbdefb; color: #0d47a1; }
+        .type-tn { background: #fff9c4; color: #f57f17; }
+        .type-ds { background: #e1bee7; color: #6a1b9a; }
+        .detail-btn { background: #2196f3; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+        
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 15px; width: 90%; max-width: 750px; max-height: 85vh; overflow-y: auto; padding: 20px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 15px; }
+        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; }
+        .detail-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .detail-table th, .detail-table td { padding: 10px; border: 1px solid var(--border); text-align: center; }
+        .detail-table th { background: #f5f5f5; color: #333; }
+        .correct-bg { background: #e8f5e9; }
+        .wrong-bg { background: #ffebee; }
+        .summary-box { background: #e3f2fd; padding: 12px; border-radius: 8px; margin-top: 15px; text-align: center; font-weight: bold; }
+        .notification { position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px; color: white; font-weight: bold; z-index: 10001; transform: translateX(400px); transition: transform 0.3s; }
+        .notification.show { transform: translateX(0); }
+        .notification.success { background: #2e7d32; }
+        .notification.error { background: #c62828; }
+        .notification.info { background: #2196f3; }
+        .text-center { text-align: center; }
+        .loading { display: inline-block; width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="loginSection">
+    <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+    <h2>HỆ THỐNG PHÂN TÍCH CHUYÊN ĐỀ</h2>
+    <p style="color: #666; margin-bottom: 20px;">Học sinh nhập Mã HS | Giáo viên nhập Mã GV</p>
+    <input type="text" id="loginCode" class="login-input" placeholder="Nhập mã truy cập..." autocomplete="off" onkeypress="if(event.key === 'Enter') handleLogin()">
+    <button class="btn-login" onclick="handleLogin()" id="btnLoginBtn">
+        <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+    </button>
+</div>
+
+<div class="container" id="dashboardSection">
+    <div class="header">
+        <div class="header-title">
+            <h2><i class="fas fa-brain"></i> PHÂN TÍCH CHI TIẾT BÀI TẬP CHUYÊN ĐỀ</h2>
+            <p>Hỗ trợ 3 dạng câu: Trả lời ngắn (0.5đ) | Trắc nghiệm (0.25đ) | Đúng/Sai (0.1-1đ theo Barem)</p>
+        </div>
+        <div>
+            <span id="userInfo" style="margin-right: 15px; font-weight: bold; background: #e8f5e9; padding: 8px 15px; border-radius: 20px;"></span>
+            <button class="btn-primary" style="background:#607d8b" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card" id="cardStudent"><div class="stat-value" id="totalStudents">0</div><div class="stat-label">Học sinh</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalAnswers">0</div><div class="stat-label">Câu đã làm</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalCorrect">0</div><div class="stat-label">Câu đúng</div></div>
+        <div class="stat-card"><div class="stat-value" id="avgScore">0</div><div class="stat-label">Điểm TB / câu</div></div>
+        <div class="stat-card"><div class="stat-value" id="uniqueExams">0</div><div class="stat-label">Chuyên đề</div></div>
+    </div>
+
+    <div class="filter-group">
+        <div class="filter-item"><label>📅 Từ ngày:</label><input type="date" id="dateFrom"></div>
+        <div class="filter-item"><label>📅 Đến ngày:</label><input type="date" id="dateTo"></div>
+        <div class="filter-item"><label>🔍 Tìm kiếm:</label><input type="text" id="searchKeyword" placeholder="Mã HS / Tên / ID câu..."></div>
+        <div class="filter-item"><label>📚 Lọc ID câu:</label><input type="text" id="filterQuestionId" placeholder="VD: 1,2,3..."></div>
+        <div class="filter-item"><label>🏷️ Dạng câu:</label>
+            <select id="typeFilter">
+                <option value="all">📖 Tất cả</option>
+                <option value="TLN">📝 Trả lời ngắn (0.5đ)</option>
+                <option value="TN">🔘 Trắc nghiệm (0.25đ)</option>
+                <option value="DS">✅ Đúng/Sai (Barem)</option>
+            </select>
+        </div>
+        <button class="btn-primary" onclick="processAndRenderData()"><i class="fas fa-filter"></i> Lọc</button>
+        <button class="btn-primary btn-secondary" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+        <button class="btn-primary" style="background:#607d8b" onclick="resetFilters()"><i class="fas fa-undo"></i> Reset</button>
+    </div>
+
+    <div class="table-container">
+        <table id="resultsTable">
+            <thead>
+                <tr><th>STT</th><th id="colCode">Mã HS</th><th id="colName">Học sinh</th><th>Bài tập</th><th>ID Câu</th><th>Loại</th><th>Đáp án HS</th><th>Đáp án đúng</th><th>Kết quả</th><th>Điểm</th><th>Thời gian</th><th></th></tr>
+            </thead>
+            <tbody id="tableBody"><tr><td colspan="12" class="text-center" style="padding: 40px;"><span class="loading"></span> Đang tải...</td></tr></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3><i class="fas fa-info-circle"></i> CHI TIẾT BÀI LÀM</h3><button class="close-modal" onclick="closeModal()">&times;</button></div>
+        <div id="modalContent"></div>
+    </div>
+</div>
+<div id="notification" class="notification"></div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+        authDomain: "daytoantructuyen-149d9.firebaseapp.com",
+        databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "daytoantructuyen-149d9"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    
+    let rawAttempts = [], currentData = [], userRole = '', userCode = '';
+
+    // ========== HÀM TIỆN ÍCH ==========
+    function normalizeAnswer(str) {
+        if (!str) return '';
+        return String(str).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
+    }
+    
+    function isDeThi(examName) {
+        if (!examName) return false;
+        return examName.toLowerCase().includes('đề');
+    }
+    
+    function getTypeBadge(type) {
+        if (type === 'TLN') return '<span class="type-badge type-tln">📝 TLN</span>';
+        if (type === 'TN') return '<span class="type-badge type-tn">🔘 TN</span>';
+        if (type === 'DS') return '<span class="type-badge type-ds">✅ Đ/S</span>';
+        return '';
+    }
+    
+    function getScoreFromDSCorrect(correctCount) {
+        const barem = [0, 0.1, 0.25, 0.5, 1.0];
+        return barem[correctCount] || 0;
+    }
+
+    // ========== ĐĂNG NHẬP ==========
+    async function handleLogin() {
+        const inputCode = document.getElementById('loginCode').value.trim();
+        const btn = document.getElementById('btnLoginBtn');
+        if (!inputCode) { showNotification('Vui lòng nhập mã!', 'error'); return; }
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang kết nối...';
+        btn.disabled = true;
+        
+        if (inputCode === 'admin79') {
+            userRole = 'admin'; userCode = 'admin79';
+            setupAdminView();
+            await fetchDataFromFirebase(true);
+        } else {
+            userRole = 'student'; userCode = inputCode.toUpperCase();
+            setupStudentView();
+            await fetchDataFromFirebase(false);
+        }
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Đăng Nhập';
+        btn.disabled = false;
+    }
+    
+    function setupAdminView() {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('dashboardSection').style.display = 'block';
+        document.getElementById('userInfo').innerHTML = '👨‍🏫 Giáo viên (Admin)';
+        document.getElementById('cardStudent').style.display = 'block';
+        document.getElementById('colCode').style.display = 'table-cell';
+        document.getElementById('colName').style.display = 'table-cell';
+        setDefaultDates();
+    }
+    
+    function setupStudentView() {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('dashboardSection').style.display = 'block';
+        document.getElementById('userInfo').innerHTML = `🎓 Học sinh: ${userCode}`;
+        document.getElementById('cardStudent').style.display = 'none';
+        document.getElementById('colCode').style.display = 'none';
+        document.getElementById('colName').style.display = 'none';
+        setDefaultDates();
+    }
+    
+    function setDefaultDates() {
+        const today = new Date().toISOString().split('T')[0];
+        const lastMonth = new Date(); lastMonth.setMonth(lastMonth.getMonth() - 1);
+        if (!document.getElementById('dateFrom').value) document.getElementById('dateFrom').value = lastMonth.toISOString().split('T')[0];
+        if (!document.getElementById('dateTo').value) document.getElementById('dateTo').value = today;
+    }
+    
+    function logout() {
+        document.getElementById('dashboardSection').style.display = 'none';
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('loginCode').value = '';
+        rawAttempts = []; currentData = []; userRole = ''; userCode = '';
+    }
+    
+    // ========== LẤY DỮ LIỆU & LỌC ĐỀ THI ==========
+    async function fetchDataFromFirebase(isAdmin) {
+        try {
+            showNotification('Đang tải dữ liệu...', 'info');
+            let snapshot = isAdmin ? await db.ref('attempts').once('value') : await db.ref('attempts').orderByChild('studentCode').equalTo(userCode).once('value');
+            const data = snapshot.val();
+            if (data) {
+                rawAttempts = Object.values(data);
+                // LOẠI BỎ ĐỀ THI: chỉ giữ lại bài tập chuyên đề
+                rawAttempts = rawAttempts.filter(att => !isDeThi(att.examName));
+                showNotification(`Đã tải ${rawAttempts.length} lượt làm bài chuyên đề`, 'success');
+            } else {
+                rawAttempts = [];
+                showNotification('Chưa có dữ liệu!', 'error');
+            }
+            processAndRenderData();
+        } catch (error) {
+            console.error(error);
+            document.getElementById('tableBody').innerHTML = `<tr><td colspan="12" style="color:red;text-align:center;">❌ Lỗi kết nối!</td></tr>`;
+            showNotification('Lỗi kết nối!', 'error');
+        }
+    }
+    
+    // ========== XÂY DỰNG BẢN ĐỒ ĐÁP ÁN THÔNG MINH ==========
+    function buildAnswerMap(questionDetails) {
+        let map = new Map();
+        if (!questionDetails) return map;
+        let qdArray = Array.isArray(questionDetails) ? questionDetails : Object.values(questionDetails);
+        qdArray.forEach(qd => {
+            if (!qd || !qd.id) return;
+            if (qd.statements) {
+                // Dạng Đúng/Sai
+                let statements = Array.isArray(qd.statements) ? qd.statements : Object.values(qd.statements);
+                let keys = statements.map(s => s.correct === true);
+                map.set(String(qd.id), { type: 'DS', key: keys });
+            } else if (qd.correctOption !== undefined) {
+                // Dạng Trắc nghiệm
+                map.set(String(qd.id), { type: 'TN', key: String(qd.correctOption).trim().toUpperCase() });
+            } else if (qd.correctAnswer !== undefined) {
+                // Dạng Trả lời ngắn
+                map.set(String(qd.id), { type: 'TLN', key: String(qd.correctAnswer).trim() });
+            }
+        });
+        return map;
+    }
+    
+    // ========== XỬ LÝ DỮ LIỆU ==========
+    function processAndRenderData() {
+        const dateFrom = new Date(document.getElementById('dateFrom').value + "T00:00:00").getTime();
+        const dateTo = new Date(document.getElementById('dateTo').value + "T23:59:59").getTime();
+        const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
+        const filterQuestionId = document.getElementById('filterQuestionId').value.trim();
+        const typeFilter = document.getElementById('typeFilter').value;
+        
+        let flattened = [];
+        
+        rawAttempts.forEach(attempt => {
+            if (!attempt.answers || typeof attempt.answers !== 'object') return;
+            if (!attempt.timestamp) return;
+            
+            const answerMap = buildAnswerMap(attempt.questionDetails);
+            const ansKeys = Object.keys(attempt.answers);
+            
+            ansKeys.forEach(qId => {
+                let userAnsRaw = attempt.answers[qId];
+                if (userAnsRaw === null || userAnsRaw === undefined) return;
+                if (filterQuestionId) {
+                    const ids = filterQuestionId.split(',').map(id => id.trim());
+                    if (!ids.includes(String(qId))) return;
+                }
+                
+                const answerInfo = answerMap.get(String(qId)) || { type: 'UNKNOWN', key: null };
+                const type = answerInfo.type;
+                if (typeFilter !== 'all' && type !== typeFilter) return;
+                
+                let userDisplay = "", correctDisplay = "", resultText = "", score = 0, correctCount = 0, maxCorrect = 1;
+                let detailData = null;
+                
+                // ===== LUỒNG TLN (Trả lời ngắn) =====
+                if (type === 'TLN') {
+                    let userStr = String(userAnsRaw).trim();
+                    let correctStr = answerInfo.key || "";
+                    let normUser = normalizeAnswer(userStr);
+                    let normCorrect = normalizeAnswer(correctStr);
+                    let isCorrect = (normUser === normCorrect);
+                    score = isCorrect ? 0.5 : 0;
+                    correctCount = isCorrect ? 1 : 0;
+                    userDisplay = userStr || "(trống)";
+                    correctDisplay = correctStr;
+                    resultText = isCorrect ? '✅ Đúng' : '❌ Sai';
+                    detailData = { type: 'TLN', userAnswer: userStr, correctAnswer: correctStr, isCorrect: isCorrect, score: score };
+                }
+                // ===== LUỒNG TN (Trắc nghiệm) =====
+                else if (type === 'TN') {
+                    let userStr = String(userAnsRaw).trim().toUpperCase();
+                    let correctStr = answerInfo.key || "";
+                    let isCorrect = (userStr === correctStr);
+                    score = isCorrect ? 0.25 : 0;
+                    correctCount = isCorrect ? 1 : 0;
+                    userDisplay = userStr || "(chưa chọn)";
+                    correctDisplay = correctStr;
+                    resultText = isCorrect ? '✅ Đúng' : '❌ Sai';
+                    detailData = { type: 'TN', userAnswer: userStr, correctAnswer: correctStr, isCorrect: isCorrect, score: score };
+                }
+                // ===== LUỒNG DS (Đúng/Sai - 4 ý) =====
+                else if (type === 'DS') {
+                    maxCorrect = 4;
+                    let userArray = [];
+                    if (Array.isArray(userAnsRaw)) {
+                        userArray = userAnsRaw;
+                    } else if (typeof userAnsRaw === 'object' && userAnsRaw !== null) {
+                        userArray = [userAnsRaw.a, userAnsRaw.b, userAnsRaw.c, userAnsRaw.d];
+                    }
+                    let correctArray = answerInfo.key || [false, false, false, false];
+                    let details = [];
+                    for (let i = 0; i < 4; i++) {
+                        let userVal = (userArray[i] === true || userArray[i] === 'true' || userArray[i] === 1 || userArray[i] === 'Đ');
+                        let correctVal = correctArray[i] === true;
+                        let isCorrect = (userVal === correctVal);
+                        if (isCorrect) correctCount++;
+                        details.push({
+                            letter: String.fromCharCode(97 + i),
+                            user: userVal ? 'Đúng' : 'Sai',
+                            correct: correctVal ? 'Đúng' : 'Sai',
+                            isCorrect: isCorrect
+                        });
+                    }
+                    score = getScoreFromDSCorrect(correctCount);
+                    userDisplay = details.map(d => `${d.letter.toUpperCase()}:${d.user}`).join(', ');
+                    correctDisplay = details.map(d => `${d.letter.toUpperCase()}:${d.correct}`).join(', ');
+                    resultText = `${correctCount}/4 ý đúng → ${score.toFixed(2)}đ`;
+                    detailData = { type: 'DS', details: details, correctCount: correctCount, score: score };
+                }
+                else {
+                    userDisplay = String(userAnsRaw);
+                    correctDisplay = "?";
+                    resultText = "❓ Không xác định";
+                    score = 0;
+                    detailData = { type: 'UNKNOWN', userAnswer: userAnsRaw };
+                }
+                
+                flattened.push({
+                    studentCode: attempt.studentCode || 'N/A',
+                    studentName: attempt.studentName || 'Học sinh',
+                    examId: attempt.examId,
+                    examName: attempt.examName || attempt.examId || 'Không rõ',
+                    questionId: qId,
+                    type: type,
+                    userDisplay: userDisplay,
+                    correctDisplay: correctDisplay,
+                    resultText: resultText,
+                    score: score,
+                    correctCount: correctCount,
+                    maxCorrect: maxCorrect,
+                    timestamp: attempt.timestamp,
+                    detailData: detailData
+                });
+            });
+        });
+        
+        let filtered = flattened.filter(item => {
+            const matchDate = item.timestamp >= dateFrom && item.timestamp <= dateTo;
+            let matchKeyword = false;
+            if (userRole === 'admin') {
+                matchKeyword = keyword === "" || item.studentCode.toLowerCase().includes(keyword) || item.studentName.toLowerCase().includes(keyword) || item.examName.toLowerCase().includes(keyword) || String(item.questionId).includes(keyword);
+            } else {
+                matchKeyword = keyword === "" || item.examName.toLowerCase().includes(keyword) || String(item.questionId).includes(keyword);
+            }
+            return matchDate && matchKeyword;
+        });
+        
+        const uniqueMap = new Map();
+        filtered.forEach(item => {
+            const key = `${item.studentCode}_${item.examId}_${item.questionId}`;
+            if (!uniqueMap.has(key) || item.timestamp > uniqueMap.get(key).timestamp) uniqueMap.set(key, item);
+        });
+        currentData = Array.from(uniqueMap.values());
+        currentData.sort((a, b) => b.timestamp - a.timestamp);
+        
+        updateStats();
+        renderTable(currentData);
+    }
+    
+    function updateStats() {
+        const uniqueStudents = new Set(currentData.map(d => d.studentCode)).size;
+        const totalAnswers = currentData.length;
+        const totalCorrect = currentData.filter(d => d.correctCount === d.maxCorrect).length;
+        const totalScore = currentData.reduce((sum, d) => sum + d.score, 0);
+        const avgScore = totalAnswers > 0 ? (totalScore / totalAnswers).toFixed(2) : 0;
+        const uniqueExams = new Set(currentData.map(d => d.examId)).size;
+        
+        if (userRole === 'admin') document.getElementById('totalStudents').textContent = uniqueStudents;
+        document.getElementById('totalAnswers').textContent = totalAnswers;
+        document.getElementById('totalCorrect').textContent = totalCorrect;
+        document.getElementById('avgScore').textContent = avgScore;
+        document.getElementById('uniqueExams').textContent = uniqueExams;
+    }
+    
+    function renderTable(data) {
+        const tbody = document.getElementById('tableBody');
+        if (data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="12" class="text-center" style="padding: 40px;">📭 Không có dữ liệu</td></tr>`;
+            return;
+        }
+        let html = '';
+        data.forEach((item, index) => {
+            const timeString = new Date(item.timestamp).toLocaleString('vi-VN');
+            const resultClass = (item.type === 'DS' && item.correctCount === item.maxCorrect) || (item.type !== 'DS' && item.correctCount === 1) ? 'correct-text' : 'wrong-text';
+            html += `<tr onclick="showDetail(${index})">
+                        <td class="text-center">${index + 1}</td>`;
+            if (userRole === 'admin') html += `<td><strong>${escapeHtml(item.studentCode)}</strong></td><td>${escapeHtml(item.studentName)}</td>`;
+            html += `<td>${escapeHtml(item.examName)}</td>
+                     <td class="text-center"><span class="qid-badge">${item.questionId}</span></td>
+                     <td class="text-center">${getTypeBadge(item.type)}</td>
+                     <td class="text-center"><span class="ans-badge">${escapeHtml(item.userDisplay)}</span></td>
+                     <td class="text-center"><span class="ans-badge" style="background:#c8e6c9;">${escapeHtml(item.correctDisplay)}</span></td>
+                     <td class="text-center ${resultClass}">${item.resultText}</td>
+                     <td class="text-center score-text">${item.score.toFixed(2)}</td>
+                     <td style="font-size:0.75rem;">${timeString}</td>
+                     <td class="text-center"><button class="detail-btn" onclick="event.stopPropagation();showDetail(${index})"><i class="fas fa-eye"></i> Xem</button></td>
+                    </tr>`;
+        });
+        tbody.innerHTML = html;
+    }
+    
+    // ========== MODAL HIỂN THỊ CHI TIẾT ==========
+    function showDetail(index) {
+        const item = currentData[index];
+        if (!item) return;
+        
+        let detailHtml = `<div style="margin-bottom:15px;padding:12px;background:#f5f5f5;border-radius:8px;">
+            ${userRole === 'admin' ? `<p><strong><i class="fas fa-user"></i> Học sinh:</strong> ${escapeHtml(item.studentName)} (${escapeHtml(item.studentCode)})</p>` : ''}
+            <p><strong><i class="fas fa-book"></i> Bài tập:</strong> ${escapeHtml(item.examName)}</p>
+            <p><strong><i class="fas fa-hashtag"></i> ID câu hỏi:</strong> <span class="qid-badge">${item.questionId}</span></p>
+            <p><strong><i class="fas fa-tag"></i> Loại câu:</strong> ${item.type === 'TLN' ? 'Trả lời ngắn (0.5đ)' : item.type === 'TN' ? 'Trắc nghiệm (0.25đ)' : 'Đúng/Sai (Barem 0.1-1đ)'}</p>
+            <p><strong><i class="fas fa-calendar"></i> Thời gian:</strong> ${new Date(item.timestamp).toLocaleString('vi-VN')}</p>
+        </div>`;
+        
+        if (item.type === 'DS') {
+            // ===== ĐÚNG/SAI: HIỂN THỊ BẢNG 4 DÒNG =====
+            const details = item.detailData.details;
+            detailHtml += `<table class="detail-table">
+                <thead><tr><th>Ý</th><th>Lựa chọn của HS</th><th>Đáp án đúng</th><th>Kết luận</th></tr></thead>
+                <tbody>`;
+            details.forEach(d => {
+                const isCorrect = d.isCorrect;
+                detailHtml += `<tr class="${isCorrect ? 'correct-bg' : 'wrong-bg'}">
+                    <td><strong>${d.letter.toUpperCase()}</strong></td>
+                    <td>${d.user}</td>
+                    <td>${d.correct}</td>
+                    <td>${isCorrect ? '✅ Trúng' : '❌ Trật'}</td>
+                </tr>`;
+            });
+            detailHtml += `</tbody></table>`;
+            const correctCount = item.detailData.correctCount;
+            detailHtml += `<div class="summary-box">
+                📊 Số ý đúng: ${correctCount}/4 ý → Điểm đạt được: <span style="color:#d84315;font-size:1.2rem;">${item.score.toFixed(2)} điểm</span>
+            </div>`;
+        } else {
+            // ===== TLN & TN: HIỂN THỊ SO SÁNH =====
+            const isCorrect = item.detailData.isCorrect;
+            detailHtml += `<div style="padding: 20px; background: ${isCorrect ? '#e8f5e9' : '#ffebee'}; border-radius: 10px; text-align: center; margin-bottom: 15px;">
+                <h3>${isCorrect ? '✅ CHÍNH XÁC' : '❌ SAI'}</h3>
+                <p style="font-size: 1.2rem; margin: 10px 0;">
+                    <strong>📝 Đáp án của em:</strong> ${escapeHtml(item.detailData.userAnswer)}<br>
+                    <strong>🔑 Đáp án chuẩn:</strong> ${escapeHtml(item.detailData.correctAnswer)}
+                </p>
+                <p><strong>Điểm câu này:</strong> <span style="font-size: 1.5rem; color: #d84315;">${item.score.toFixed(2)}</span> 
+                ${item.type === 'TLN' ? '/ 0.5 điểm' : '/ 0.25 điểm'}</p>
+            </div>`;
+        }
+        
+        detailHtml += `<div style="background: #fff3e0; padding: 12px; border-radius: 8px; margin-top: 10px;">
+            <i class="fas fa-info-circle"></i> <strong>Lưu ý:</strong> 
+            ${item.type === 'TLN' ? 'Câu trả lời ngắn: chuẩn hóa khoảng trắng, dấu phẩy/chấm thập phân.' : 
+              item.type === 'TN' ? 'Câu trắc nghiệm: so sánh chữ cái in hoa, không phân biệt khoảng trắng.' : 
+              'Câu Đúng/Sai: áp dụng Barem Bộ GD (1→0.1đ, 2→0.25đ, 3→0.5đ, 4→1.0đ).'}
+        </div>`;
+        
+        document.getElementById('modalContent').innerHTML = detailHtml;
+        document.getElementById('detailModal').classList.add('active');
+    }
+    
+    function closeModal() { document.getElementById('detailModal').classList.remove('active'); }
+    
+    function resetFilters() {
+        setDefaultDates();
+        document.getElementById('searchKeyword').value = '';
+        document.getElementById('filterQuestionId').value = '';
+        document.getElementById('typeFilter').value = 'all';
+        processAndRenderData();
+    }
+    
+    function exportToExcel() {
+        if (currentData.length === 0) return showNotification('Không có dữ liệu!', 'error');
+        const excelData = [['STT', 'Mã HS', 'Học sinh', 'Bài tập', 'ID Câu', 'Loại', 'Đáp án HS', 'Đáp án đúng', 'Kết quả', 'Điểm', 'Thời gian']];
+        currentData.forEach((item, idx) => {
+            excelData.push([idx + 1, item.studentCode, item.studentName, item.examName, item.questionId,
+                item.type, item.userDisplay, item.correctDisplay, item.resultText, item.score.toFixed(2),
+                new Date(item.timestamp).toLocaleString('vi-VN')]);
+        });
+        const ws = XLSX.utils.aoa_to_sheet(excelData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'PhanTich_ChuyenDe');
+        XLSX.writeFile(wb, `PhanTich_${new Date().toISOString().split('T')[0]}.xlsx`);
+        showNotification('Đã xuất Excel!', 'success');
+    }
+    
+    function showNotification(msg, type) {
+        const n = document.getElementById('notification');
+        n.innerHTML = msg; n.className = `notification ${type} show`;
+        setTimeout(() => n.classList.remove('show'), 3000);
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+    }
+    
+    setDefaultDates();
+</script>
+</body>
+</html>
