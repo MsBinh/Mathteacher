@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MATH PLATFORM - THPT TRẦN TRƯỜNG SINH</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+    
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$']], processEscapes: true }, svg: { fontCache: 'global' }, startup: { typeset: false } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src='https://meet.jit.si/external_api.js'></script>
+
+    <style>
+        /* ================= CSS CHUẨN CỦA HỆ THỐNG ================= */
+        :root { --board-bg: #2c3e50; --toolbar-bg: #34495e; --accent: #2ecc71; --yellow: #f1c40f; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #252526; font-family: 'Times New Roman', serif; user-select: none; touch-action: none; }
+        
+        .app-layout { display: flex; height: 100vh; overflow: hidden; width: 100%; }
+        .main-workspace { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        /* TOOLBAR */
+        .toolbar { height: 50px; background: var(--toolbar-bg); padding: 0 10px; display: flex; align-items: center; border-bottom: 1px solid #555; z-index: 9999; flex-shrink: 0; font-family: 'Segoe UI', sans-serif; }
+        .toolbar-content { display: flex; gap: 8px; align-items: center; width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+        .btn { width: 40px; height: 36px; padding: 0; border-radius: 6px; border: 1px solid #555; cursor: pointer; font-weight: bold; color: #fff; background: #444; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; }
+        .btn:hover { background: #555; }
+        .btn.active { background: var(--accent); border-color: var(--accent); }
+        .sep { width: 1px; height: 25px; background: #666; margin: 0 4px; flex-shrink: 0; }
+        #drawTool { width: 60px; height: 36px; padding: 0 5px; font-size: 18px; text-align: center; background: #eee; border-radius: 6px; cursor: pointer; }
+        
+        /* MATH TOOLBAR */
+        .math-toolbar { height: 40px; background: #2c2c2c; display: flex; align-items: center; padding: 0 10px; gap: 8px; border-bottom: 1px solid #444; overflow-x: auto; z-index: 9998; white-space: nowrap; flex-shrink: 0; font-family: 'Segoe UI', sans-serif; }
+        .snippet-btn { padding: 4px 10px; font-size: 14px; background: #3a3a3a; color: #ddd; border: 1px solid #555; border-radius: 4px; cursor: pointer; flex-shrink: 0; }
+
+        /* BẢNG VẼ & PDF */
+        #boardWrapper { flex: 1; position: relative; background-color: #0b6b3a; background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 25px 25px; overflow: auto; cursor: crosshair; touch-action: pan-y; }
+        #contentContainer { position: relative; min-height: 5000px; width: 100%; }
+        #mainCanvas { position: absolute; top: 0; left: 0; z-index: 200; pointer-events: none; }
+        .drawing-mode #mainCanvas { pointer-events: auto; background: transparent; z-index: 300; }
+        
+        .pdf-container { position: relative; width: 100%; background: white; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .pdf-page { position: relative; width: 100%; display: block; border-bottom: 1px solid #ddd; }
+        
+        /* CÁC BOX NỔI TRÊN BẢNG */
+        .media-box { position: absolute; z-index: 100; cursor: move; border: 2px solid transparent; display: flex; flex-direction: column; }
+        .media-box.selected { border: 2px dashed var(--yellow); z-index: 1000 !important; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        .media-content { width: 100%; height: 100%; position: relative; }
+        .media-content img { width: 100%; display: block; pointer-events: none; }
+        .media-content iframe { width: 100%; height: 100%; border: none; }
+        .img-controls { position: absolute; top: -40px; right: 0; background: rgba(44, 62, 80, 0.95); border-radius: 4px; padding: 4px; display: none; gap: 5px; pointer-events: auto; }
+        .media-box.selected .img-controls { display: flex; }
+        .img-btn { width: 30px; height: 30px; background: #34495e; color: white; border: 1px solid #7f8c8d; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; }
+        
+        .web-container { position: relative; width: 100%; height: 2000px; background: white; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); overflow: hidden; }
+        .web-header { padding: 8px 12px; background: #2c3e50; color: white; cursor: move; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+        .web-iframe { width: 100%; height: calc(100% - 40px); border: none; }
+        .web-blocker { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 10; }
+        .t-handle { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; background: var(--accent); cursor: nw-resize; border-radius: 2px; }
+        
+        .math-box { position: absolute; min-width: 50px; z-index: 400; background-color: rgba(21, 76, 39, 0.95); border-left: 4px solid var(--yellow); border-radius: 4px; box-shadow: 3px 3px 10px rgba(0,0,0,0.5); color: white; font-family: 'Times New Roman', serif; font-size: 14.5pt; display: flex; flex-direction: column; cursor: pointer; transform-origin: center center; }
+        .math-box.active { border: 2px dashed var(--accent); background-color: rgba(21, 76, 39, 1); z-index: 500; box-shadow: 0 0 20px rgba(46, 204, 113, 0.6); }
+        .math-handle { height: 20px; background: rgba(0,0,0,0.3); cursor: move; width: 100%; display: flex; justify-content: flex-end; align-items: center; padding: 0 8px; display: none; border-top-left-radius: 4px; border-top-right-radius: 4px; }
+        .math-box.active .math-handle { display: flex; }
+        .stamp-btn { cursor: pointer; font-size: 14px; margin-left: 5px; color: #fff; background: none; border: none; transition: transform 0.2s; }
+        .math-content { padding: 8px 12px; outline: none; border: none; white-space: pre-wrap; word-wrap: break-word; min-height: 1.5em; line-height: 1.5; pointer-events: none; }
+        
+        .label-box { position: absolute; z-index: 1000; background: transparent; border: 1px dashed transparent; padding: 5px; min-width: 30px; outline: none; transition: border 0.2s; }
+        .label-box:hover, .label-box:focus-within { border: 1px dashed rgba(255,255,255,0.3); }
+        .label-editor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; color: transparent; caret-color: currentColor; outline: none; white-space: pre-wrap; font-size: 18pt; font-weight: bold; font-family: 'Times New Roman', serif; z-index: 2; padding: 5px; }
+        .label-render { position: relative; pointer-events: none; z-index: 1; line-height: 1.4; white-space: pre-wrap; font-size: 18pt; font-weight: bold; font-family: 'Times New Roman', serif; }
+        .label-handle { position: absolute; top: -25px; left: 0; background: var(--accent); color: white; font-size: 14px; padding: 2px 6px; border-radius: 4px; cursor: move; display: none; z-index: 1001; }
+        .label-box:hover .label-handle { display: block; }
+
+        /* UI CONTROLS */
+        #editor-panel { position: fixed; bottom: 20px; left: 20px; width: 350px; height: 200px; background: rgba(44, 62, 80, 0.97); border: 2px solid var(--accent); border-radius: 8px; z-index: 10000; display: none; flex-direction: column; padding: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); font-family: 'Segoe UI', sans-serif; }
+        #editor-title { color: var(--accent); font-size: 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        #latex-input { flex: 1; background: #fff; color: #000; padding: 10px; border-radius: 6px; resize: none; font-family: 'Consolas', monospace; font-size: 14px; border: 1px solid #555; outline: none; }
+        
+        .pagination-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(51, 51, 51, 0.9); padding: 8px 20px; border-radius: 25px; display: flex; gap: 12px; align-items: center; z-index: 8000; border: 2px solid #555; font-family: 'Segoe UI', sans-serif; }
+        #pageIndicator { color: var(--yellow); font-weight: bold; font-size: 15px; min-width: 60px; text-align: center; }
+        #colorStatus { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; margin-left: 5px; cursor: pointer; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        
+        #loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.9); color: white; padding: 20px 40px; border-radius: 12px; display: none; z-index: 9999; font-family: 'Segoe UI', sans-serif; border: 2px solid var(--accent); font-size: 16px; }
+        
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 450px; background: #333; padding: 25px; border-radius: 12px; display: none; z-index: 9000; color: white; font-family: 'Segoe UI', sans-serif; border: 1px solid var(--accent); }
+
+        /* ================= CSS SIDEBAR THI CỬ VÀ ĐỒNG HỒ ================= */
+        .exam-sidebar { width: 0; background: #f8f9fa; border-left: 2px solid #e0e0e0; transition: width 0.3s ease; overflow: hidden; display: flex; flex-direction: column; position: relative; z-index: 9000; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
+        .exam-sidebar.open { width: 400px; } /* Mở rộng xíu cho dễ nhìn */
+        .sidebar-header { background: #1a237e; color: white; padding: 15px 20px; font-family: 'Segoe UI', sans-serif; flex-shrink: 0; }
+        .sidebar-content { flex: 1; overflow-y: auto; padding: 15px; font-family: 'Segoe UI', sans-serif; }
+        
+        .part-title { background: #37474f; color: white; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; margin: 15px 0 10px 0; text-transform: uppercase; }
+        .q-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .q-num { font-weight: bold; color: #1a237e; border-bottom: 1px dashed #eee; padding-bottom: 5px; margin-bottom: 8px; display: block; }
+        
+        .bubble-grid { display: flex; justify-content: space-around; gap: 5px; }
+        .bubble-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid #ccc; background: white; font-weight: bold; cursor: pointer; transition: 0.2s; outline: none; }
+        .bubble-btn:hover { border-color: #1a237e; }
+        .bubble-btn.selected { background: #1a237e; border-color: #1a237e; color: white; transform: scale(1.1); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        
+        .tf-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: #f9f9f9; padding: 5px 10px; border-radius: 6px; border: 1px solid #eee; }
+        .tf-btn { padding: 4px 12px; border-radius: 15px; border: 1px solid #ccc; background: white; font-size: 0.85rem; cursor: pointer; transition: 0.2s; font-weight:bold; }
+        .tf-btn.s-true { background: #2e7d32; color: white; border-color: #2e7d32; }
+        .tf-btn.s-false { background: #c62828; color: white; border-color: #c62828; }
+        
+        .sa-input { width: 100%; padding: 8px; border: 2px solid #ccc; border-radius: 6px; text-align: center; font-size: 1rem; font-weight: bold; color: #1a237e; }
+        .sa-input:focus { border-color: #1a237e; outline: none; }
+        
+        .btn-submit { width: 100%; background: #e74c3c; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.2s; box-shadow: 0 4px 6px rgba(231,76,60,0.3); }
+        .btn-submit:hover { background: #c0392b; transform: translateY(-2px); }
+        
+        .exam-timer-bar { position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: #e74c3c; color: white; padding: 5px 20px; border-radius: 0 0 10px 10px; font-family: 'Segoe UI', sans-serif; font-weight: 900; font-size: 1.2rem; z-index: 10000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; }
+        
+        /* Cửa sổ nổi Jitsi & Casio */
+        #calc-container { display: none; position: fixed; top: 80px; right: 420px; width: 350px; height: 480px; background: #222; border: 2px solid #f39c12; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 9500; overflow: hidden; }
+        .calc-header { height: 35px; background: #333; cursor: move; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; color: white; font-family: 'Segoe UI', sans-serif; font-size: 14px; }
+        
+        #jitsi-container { position: fixed; bottom: 10px; left: 10px; width: 400px; height: 300px; background: #000; border: 3px solid var(--yellow); z-index: 9000; display: none; resize: both; overflow: hidden; border-radius: 8px; }
+        .jitsi-header { height: 35px; background: #222; cursor: move; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; color: white; font-size: 14px; border-bottom: 1px solid #444; font-family: 'Segoe UI', sans-serif; }
+    </style>
+</head>
+<body>
+
+<div id="loading">⏳ Đang khởi động hệ thống...</div>
+
+<div id="topTimerBar" class="exam-timer-bar">
+    <i class="fas fa-hourglass-half"></i> <span id="mainTimerDisplay">--:--</span>
+</div>
+
+<div class="app-layout">
+    
+    <div class="main-workspace">
+        <div class="toolbar">
+            <div class="toolbar-content">
+                <button class="btn" onclick="toggleFullScreen()" title="Toàn màn hình">🖥️</button>
+                <button class="btn" id="btnTheme" onclick="toggleBoardTheme()" title="Đổi màu nền">🎨</button>
+                <button class="btn" id="btnHand" onclick="setTool('hand')" title="Chế độ Cuộn">🖐️</button>
+                <button class="btn" onclick="loadProjectFile()" title="Mở Project (.json)">📂</button>
+                <button class="btn" onclick="saveProjectFile()" title="Lưu Project">💾</button>
+                
+                <div class="sep"></div>
+                <button class="btn" onclick="undoApp()" title="Hoàn tác">↩️</button>
+                <button class="btn" onclick="redoApp()" title="Làm lại">↪️</button>
+                <div class="sep"></div>
+                
+                <select id="drawTool" onchange="setTool(this.value)">
+                    <optgroup label="Cơ bản">
+                        <option value="pen" selected>✏️</option>
+                        <option value="highlighter">🖍️</option>
+                        <option value="line">📏</option>
+                        <option value="dashedLine"> -- </option>
+                    </optgroup>
+                    <optgroup label="Hình học">
+                        <option value="rect">⬛</option>
+                        <option value="parallelogram">▱</option>
+                        <option value="circle">⚪</option>
+                        <option value="cube">📦</option>
+                        <option value="tri_pyramid">🔺</option>
+                        <option value="quad_pyramid">⛺</option>
+                        <option value="cone">🍦</option>
+                        <option value="cylinder">🛢️</option>
+                        <option value="sphere">⚽</option>
+                    </optgroup>
+                </select>
+                
+                <div id="colorStatus" onclick="cycleColor()" title="Đổi màu bút"></div>
+                <button class="btn" id="btnMath" onclick="createCenteredMathBox()" style="color: var(--yellow);">Σ</button>
+                <div class="sep"></div>
+                
+                <button class="btn" id="btnAnnotate" onclick="toggleAnnotation()" style="background:#d35400" title="Chế độ viết">📝</button>
+                <button class="btn" style="background:#27ae60" onclick="document.getElementById('imageInput').click()" title="Chèn ảnh">🖼️</button>
+                <button class="btn" style="background:#8e44ad" onclick="addWebsite()" title="Chèn Web">🌐</button>
+                
+                <button class="btn" style="background:#f39c12" onclick="toggleCalculator()" title="Máy tính">🖩</button>
+                <button class="btn" onclick="toggleLibraryModal()" style="background:#6c5ce7; width:auto; padding:0 10px; margin-left:5px;">📚 Thư viện</button>
+                <button class="btn" style="background:#3498db" onclick="document.getElementById('pdfInput').click()" title="Chèn PDF cục bộ">📄</button>
+                
+                <div class="sep"></div>
+                <button class="btn" style="background:var(--accent)" onclick="exportFullPDF()" title="Xuất PDF">📥</button>
+                <button class="btn" style="color:#c0392b; background:#333;" onclick="toggleLiveModal()" title="Live Jitsi">📡</button>
+                <button class="btn" id="btnSecret" onclick="handleSecretClick(event)" title="Hướng dẫn">❓</button>
+            </div>
+        </div>
+
+        <div class="math-toolbar">
+            <button class="snippet-btn" onclick="insertMath('\\frac{}{}')">Phân số</button>
+            <button class="snippet-btn" onclick="insertMath('\\sqrt{}')">Căn</button>
+            <button class="snippet-btn" onclick="insertMath('^{}')">Mũ</button>
+            <button class="snippet-btn" onclick="insertMath('\\begin{cases} \\end{cases}')">Hệ PT</button>
+            <button class="snippet-btn" onclick="insertMath('\\int_{}^{}')">Tích phân</button>
+            <button class="snippet-btn" onclick="insertMath('\\vec{}')">Vecto</button>
+            <button class="snippet-btn" onclick="insertMath('\\widehat{}')">Góc</button>
+            <button class="snippet-btn" onclick="insertMath('\\perp')">⊥</button>
+            <button class="snippet-btn" onclick="insertMath('\\parallel')">∥</button>
+            <button class="snippet-btn" onclick="insertMath('\\Rightarrow')">⇒</button>
+            <button class="snippet-btn" onclick="insertMath('\\Leftrightarrow')">⇔</button>
+            <button class="snippet-btn" onclick="insertMath('\\infty')">∞</button>
+        </div>
+        
+        <div id="boardWrapper" ondblclick="handleDoubleClick(event)">
+            <div id="contentContainer">
+                <canvas id="mainCanvas"></canvas>
+            </div>
+        </div>
+        
+        <div class="pagination-bar">
+            <button class="btn" onclick="prevPage()" style="padding:6px 15px;">◀</button>
+            <span id="pageIndicator">1/1</span>
+            <button class="btn" onclick="nextPage()" style="padding:6px 15px;">▶</button>
+            <button class="btn" onclick="addPage()" style="background:var(--accent); padding:6px 15px;">➕</button>
+        </div>
+    </div>
+    
+    <div id="examSidebar" class="exam-sidebar">
+        <div class="sidebar-header">
+            <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;" id="sidebarExamName">Phiếu Trả Lời</div>
+            <div style="font-size: 0.9rem; color: #90caf9;">
+                <i class="fas fa-user-graduate"></i> <span id="sidebarStudentName">Học sinh</span> 
+                (<span id="sidebarStudentCode">Mã</span>)
+            </div>
+        </div>
+        <div class="sidebar-content" id="answerSheetContent">
+            </div>
+    </div>
+    
+</div>
+
+<div id="editor-panel">
+    <div id="editor-title">
+        <span>💻 Gõ Latex/Text</span>
+        <span onclick="closeEditor()" style="cursor:pointer; color:#e74c3c; font-weight:bold; padding:0 5px;">✕</span>
+    </div>
+    <textarea id="latex-input"></textarea>
+    <div style="margin-top: 10px; text-align: right;">
+        <button class="btn" style="font-size:13px; padding:6px 15px; background:var(--accent); width:auto;" onclick="renderCurrentBox()">▶️ HIỆN</button>
+    </div>
+</div>
+
+<input type="file" id="imageInput" accept="image/*" style="display: none;">
+<input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+
+<div id="calc-container">
+    <div class="calc-header">
+        <span style="color:#f1c40f;">🧮 Máy tính Khoa học</span>
+        <span onclick="toggleCalculator()" style="color:#e74c3c; cursor:pointer; font-weight:bold; font-size:20px;">✕</span>
+    </div>
+    <iframe src="https://www.desmos.com/scientific?lang=vi" style="width:100%; height:calc(100% - 35px); border:none;"></iframe>
+</div>
+
+<div id="jitsi-container">
+    <div class="jitsi-header">
+        <span style="color:var(--accent);">🎥 Lớp Học: <b id="displayRoomCode"></b></span>
+        <span onclick="closeJitsi()" style="color:red; cursor:pointer; font-weight:bold; font-size:20px;">✕</span>
+    </div>
+    <div id="meet" style="width:100%; height:calc(100% - 35px);"></div>
+</div>
+
+<div id="libraryModal" class="modal" style="width: 500px;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:20px; border-bottom:1px solid #555; padding-bottom:10px;">
+        <strong style="color:#a29bfe; font-size:20px;">📚 KHO HỌC LIỆU SỐ</strong>
+        <span onclick="toggleLibraryModal()" style="cursor:pointer; font-size:24px; color:#ff7675;">✕</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:15px;">
+        <div>
+            <label style="color:#dfe6e9; font-weight:bold;">1. Khối Lớp:</label>
+            <select id="selKhoi" onchange="updateChuong()" style="width:100%; padding:10px; background:#636e72; color:white; border-radius:5px;"><option value="">-- Chọn Khối --</option><option value="K10">Khối 10</option><option value="K11">Khối 11</option><option value="K12">Khối 12</option></select>
+        </div>
+        <div>
+            <label style="color:#dfe6e9; font-weight:bold;">2. Chương:</label>
+            <select id="selChuong" onchange="updateBai()" style="width:100%; padding:10px; background:#636e72; color:white; border-radius:5px;" disabled><option value="">-- Chờ chọn khối --</option></select>
+        </div>
+        <div>
+            <label style="color:#dfe6e9; font-weight:bold;">3. Bài Giảng:</label>
+            <select id="selBai" style="width:100%; padding:10px; background:#636e72; color:white; border-radius:5px;" disabled><option value="">-- Chờ chọn chương --</option></select>
+        </div>
+        <button onclick="confirmLoadLesson()" style="padding:12px; background:#00b894; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">🚀 MỞ BÀI GIẢNG</button>
+    </div>
+</div>
+
+<div id="liveModal" class="modal">
+    <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+        <strong style="color:#e74c3c; font-size:18px;">🎥 LỚP HỌC TRỰC TUYẾN</strong>
+        <span onclick="toggleLiveModal()" style="cursor:pointer; font-size:20px; color:#e74c3c;">✕</span>
+    </div>
+    <div style="background:#444; padding:15px; border-radius:8px; margin-bottom:15px;">
+        <button class="btn" onclick="startJitsi()" style="width:100%; background:#e74c3c;">🎥 Tạo Lớp (GV)</button>
+        <div id="roomInfo" style="margin-top:10px; display:none;">Mã lớp: <b id="roomNameDisplay" style="color:var(--accent);"></b></div>
+    </div>
+    <div style="background:#444; padding:15px; border-radius:8px;">
+        <input type="text" id="roomNameInput" placeholder="Nhập mã lớp..." style="width:100%; padding:10px; margin-bottom:8px; border-radius:5px;">
+        <button class="btn" onclick="joinJitsi()" style="width:100%; background:#3498db;">👀 Vào Lớp (HS)</button>
+    </div>
+</div>
+
+<div id="helpModal" class="modal" style="width: 500px;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+        <strong style="color:#f1c40f; font-size:18px;">📚 HƯỚNG DẪN</strong>
+        <span onclick="toggleHelp()" style="cursor:pointer; font-size:20px; color:#f1c40f;">✕</span>
+    </div>
+    <div style="color:#ddd; font-size:14px; line-height:1.6;">
+        <b>Phím tắt:</b><br>
+        - <b>Ctrl + D</b>: Chèn Nhãn Tên Đỉnh (A, B, C...)<br>
+        - <b>Alt + Số (1-9)</b>: Gõ nhanh công thức (Phân số, Căn, Hệ PT...)<br>
+        - <b>Nháy đúp chuột</b>: Chèn ô công thức lớn.<br>
+        - Nhập mã <b>7979</b> (Nháy đúp nút ❓) để mở kho bảo mật.
+    </div>
+</div>
+
+<script>
+    // =================================================================================
+    // PHẦN 1: FIREBASE VÀ HỆ THỐNG THI CỬ (EXAM MODE)
+    // =================================================================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const teacherId = urlParams.get('t');
+    const examId = urlParams.get('exam');
+    const studentCode = urlParams.get('code') || 'HS_TEST';
+    const studentName = urlParams.get('name') || 'Khách';
+    
+    let examData = null;
+    let masterKeys = [];
+    let studentAnswers = {};
+    let timeRemaining = 0;
+    let timerInterval = null;
+
+    async function initSystem() {
+        console.log("Khởi tạo hệ thống MP...");
+        // Khởi tạo bảng vẽ cơ bản
+        initBoard(); 
+        makeElementDraggable(document.getElementById('calc-container'), document.querySelector('.calc-header'));
+        makeElementDraggable(document.getElementById('jitsi-container'), document.querySelector('.jitsi-header'));
+
+        // Nếu có tham số thi -> ÉP vào chế độ thi
+        if (teacherId && examId) {
+            console.log("Phát hiện chế độ thi!");
+            await enterExamMode();
+        } else {
+            document.getElementById('loading').style.display = 'none';
+        }
+    }
+
+    async function enterExamMode() {
+        const loader = document.getElementById('loading');
+        loader.style.display = 'block';
+        loader.innerText = "🚀 Đang kết nối Đề thi...";
+        
+        try {
+            // Kéo dữ liệu đề
+            const examSnap = await db.ref(`teachers/${teacherId}/exams/${examId}`).once('value');
+            examData = examSnap.val();
+            if (!examData) throw new Error("Đề thi đã bị khóa hoặc không tồn tại!");
+            
+            // Kéo ma trận
+            const keySnap = await db.ref(`teachers/${teacherId}/exam_master_keys/${examId}`).once('value');
+            masterKeys = keySnap.val() || [];
+            
+            // Cập nhật UI Sidebar
+            document.getElementById('sidebarExamName').innerText = examData.name;
+            document.getElementById('sidebarStudentName').innerText = studentName;
+            document.getElementById('sidebarStudentCode').innerText = studentCode;
+            
+            // Tải PDF
+            if(examData.pdfLink) {
+                await loadExamPdfToBoard(examData.pdfLink);
+            }
+            
+            // Mở Sidebar
+            document.getElementById('examSidebar').classList.add('open');
+            renderBubbleSheet();
+            
+            // Bật đồng hồ
+            startExamTimer(examData.duration || 90);
+            
+            loader.style.display = 'none';
+        } catch (err) {
+            alert(err.message);
+            loader.style.display = 'none';
+        }
+    }
+
+    async function loadExamPdfToBoard(url) {
+        if (url.includes('drive.google.com')) {
+            let embedLink = url.replace('/view', '/preview').replace('?usp=sharing', '');
+            const webContainer = document.createElement('div');
+            webContainer.className = 'web-container media-box'; 
+            webContainer.style.width = '650px'; webContainer.style.height = '850px';
+            webContainer.style.left = '20px'; webContainer.style.top = '20px';
+            webContainer.style.zIndex = '100'; webContainer.style.borderRadius = '8px';
+            
+            const header = document.createElement('div');
+            header.className = 'web-header';
+            header.innerHTML = `<span>📄 Đề thi (Drive)</span> <button onclick="toggleWebInteraction(this)" style="background:#e67e22; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">🔓 Mở cuộn trang</button>`;
+            
+            const content = document.createElement('div');
+            content.className = 'media-content'; content.style.height = 'calc(100% - 35px)';
+            content.innerHTML = `<iframe src="${embedLink}" class="web-iframe"></iframe><div class="web-blocker"></div>`;
+            
+            webContainer.appendChild(header); webContainer.appendChild(content);
+            document.getElementById('contentContainer').appendChild(webContainer);
+            makeElementDraggable(webContainer, header);
+        } else {
+            try {
+                const pdfData = await pdfjsLib.getDocument(url).promise;
+                const pdfContainer = document.createElement('div');
+                pdfContainer.className = 'pdf-container';
+                const cWidth = document.getElementById('boardWrapper').offsetWidth - 400; // Trừ sidebar
+                
+                for (let i=1; i<=pdfData.numPages; i++) {
+                    const page = await pdfData.getPage(i);
+                    const viewport = page.getViewport({scale:1});
+                    const scaledViewport = page.getViewport({scale: cWidth / viewport.width});
+                    const canvasPage = document.createElement('canvas');
+                    canvasPage.className = 'pdf-page';
+                    canvasPage.width = scaledViewport.width; canvasPage.height = scaledViewport.height;
+                    await page.render({canvasContext: canvasPage.getContext('2d'), viewport: scaledViewport}).promise;
+                    pdfContainer.appendChild(canvasPage);
+                }
+                document.getElementById('contentContainer').appendChild(pdfContainer);
+                makeElementDraggable(pdfContainer, pdfContainer);
+                updateContainerHeight();
+            } catch(e) { alert("Lỗi tải PDF trực tiếp!"); }
+        }
+    }
+
+    function renderBubbleSheet() {
+        const container = document.getElementById('answerSheetContent');
+        let html = '';
+        let hasP1=false, hasP2=false, hasP3=false;
+
+        masterKeys.forEach(q => {
+            const qId = q.id;
+            if (q.type === 'multiple_choice') {
+                if(!hasP1) { html += `<div class="part-title">PHẦN I. Chọn 1 đáp án</div>`; hasP1=true; }
+                html += `<div class="q-card"><span class="q-num">Câu ${qId}</span><div class="bubble-grid">`;
+                ['A','B','C','D'].map(v => html += `<button class="bubble-btn" id="q_${qId}_${v}" onclick="selectAns(${qId}, '${v}')">${v}</button>`);
+                html += `</div></div>`;
+            }
+            else if (q.type === 'true_false') {
+                if(!hasP2) { html += `<div class="part-title">PHẦN II. Đúng / Sai</div>`; hasP2=true; }
+                studentAnswers[qId] = { a:null, b:null, c:null, d:null };
+                html += `<div class="q-card"><span class="q-num">Câu ${qId}</span>`;
+                ['a','b','c','d'].forEach(l => {
+                    html += `<div class="tf-row"><strong>Ý ${l.toUpperCase()}</strong><div>
+                        <button class="tf-btn" id="q_${qId}_${l}_D" onclick="selectTF(${qId},'${l}',true)">Đúng</button>
+                        <button class="tf-btn" id="q_${qId}_${l}_S" onclick="selectTF(${qId},'${l}',false)">Sai</button>
+                    </div></div>`;
+                });
+                html += `</div>`;
+            }
+            else if (q.type === 'short_answer') {
+                if(!hasP3) { html += `<div class="part-title">PHẦN III. Trả lời ngắn</div>`; hasP3=true; }
+                html += `<div class="q-card"><span class="q-num">Câu ${qId}</span><input type="text" class="sa-input" placeholder="Nhập đáp án..." onchange="selectSA(${qId}, this.value)"></div>`;
+            }
+        });
+        html += `<button class="btn-submit" onclick="submitExam()">📤 NỘP BÀI THI</button>`;
+        container.innerHTML = html;
+    }
+
+    window.selectAns = (qId, val) => {
+        studentAnswers[qId] = val;
+        ['A','B','C','D'].forEach(v => document.getElementById(`q_${qId}_${v}`).classList.remove('selected'));
+        document.getElementById(`q_${qId}_${val}`).classList.add('selected');
+    };
+    window.selectTF = (qId, l, isTrue) => {
+        studentAnswers[qId][l] = isTrue;
+        const bD = document.getElementById(`q_${qId}_${l}_D`), bS = document.getElementById(`q_${qId}_${l}_S`);
+        bD.classList.remove('s-true'); bS.classList.remove('s-false');
+        if(isTrue) bD.classList.add('s-true'); else bS.classList.add('s-false');
+    };
+    window.selectSA = (qId, val) => { studentAnswers[qId] = val.trim(); };
+
+    function startExamTimer(minutes) {
+        document.getElementById('topTimerBar').style.display = 'block';
+        timeRemaining = minutes * 60;
+        timerInterval = setInterval(() => {
+            timeRemaining--;
+            let m = Math.floor(timeRemaining/60), s = timeRemaining%60;
+            document.getElementById('mainTimerDisplay').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            if(timeRemaining <= 0) { clearInterval(timerInterval); submitExam(); }
+        }, 1000);
+    }
+
+    async function submitExam() {
+        if(timeRemaining > 0 && !confirm("Bạn có chắc muốn nộp bài?")) return;
+        clearInterval(timerInterval);
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('loading').innerText = "Đang gửi bài...";
+        
+        let score = 0;
+        masterKeys.forEach(q => {
+            const u = studentAnswers[q.id]; if(u==null) return;
+            if(q.type === 'multiple_choice' && String(u).toUpperCase() === String(q.correct).toUpperCase()) score += 0.25;
+            else if(q.type === 'short_answer' && String(u).replace(/,/g,'.').trim().toLowerCase() === String(q.correct).replace(/,/g,'.').trim().toLowerCase()) score += 0.5;
+            else if(q.type === 'true_false') {
+                let c=0; ['a','b','c','d'].forEach(l => { if(u[l] === (q.correct||{})[l]) c++; });
+                if(c===1) score+=0.1; else if(c===2) score+=0.25; else if(c===3) score+=0.5; else if(c===4) score+=1.0;
+            }
+        });
+        
+        try {
+            await db.ref(`teachers/${teacherId}/attempts`).push({
+                studentCode, studentName, examId, examName: examData.name, answers: studentAnswers, score: parseFloat(score.toFixed(2)), timestamp: firebase.database.ServerValue.TIMESTAMP
+            });
+            alert(`NỘP BÀI THÀNH CÔNG!\nĐiểm của bạn: ${score}`);
+            window.location.href = 'index.html';
+        } catch(e) { alert("Lỗi mạng!"); document.getElementById('loading').style.display = 'none'; }
+    }
+
+
+    // =================================================================================
+    // PHẦN 2: LÕI BẢNG VẼ ĐIỆN TỬ (DRAWING, MATH, 3D, LABEL, UNDO...)
+    // =================================================================================
+    const canvas = document.getElementById('mainCanvas'); 
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('boardWrapper');
+    const contentContainer = document.getElementById('contentContainer');
+    const colorStatus = document.getElementById('colorStatus');
+    const editorPanel = document.getElementById('editor-panel');
+    const latexInput = document.getElementById('latex-input');
+
+    let isDrawing = false, points = [], snapshot;
+    let currentColor = '#ffffff', currentTool = 'pen'; 
+    let activeMathBox = null, selectedMediaBox = null; 
+    let currentPage = 0, pages = [{ canvasData: null }];
+    let appHistory = [], appStep = -1;
+
+    function initBoard() {
+        resizeCanvas();
+        ctx.strokeStyle = currentColor; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        colorStatus.style.background = currentColor;
+        document.body.classList.add('drawing-mode');
+        updatePageIndicator();
+        saveAppState(); // Lưu trang trắng đầu
+    }
+
+    function resizeCanvas() {
+        canvas.width = contentContainer.offsetWidth;
+        canvas.height = contentContainer.offsetHeight;
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = currentColor; ctx.lineWidth = 2.5;
+        if(appStep >= 0) restoreState(appHistory[appStep]);
+    }
+    window.onresize = resizeCanvas;
+
+    // --- DRAWING ENGINE ---
+    function getPointerPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
+    }
+
+    function startDraw(e) {
+        if (currentTool === 'hand') return; 
+        if(e.target.closest('.math-box') || e.target.closest('.media-box') || e.target.closest('.label-box')) return;
+        if(e.cancelable) e.preventDefault(); 
+        isDrawing = true;
+        points = [getPointerPos(e)];
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y);
+    }
+
+    function moveDraw(e) {
+        if (!isDrawing) return;
+        if(e.cancelable) e.preventDefault();
+        const cur = getPointerPos(e);
+        ctx.putImageData(snapshot, 0, 0);
+
+        if (currentTool === 'pen' || currentTool === 'highlighter') {
+            ctx.save();
+            if (currentTool === 'highlighter') { ctx.globalAlpha = 0.3; ctx.lineWidth = 20; ctx.strokeStyle = "yellow"; } 
+            else { ctx.lineWidth = 2.5; ctx.strokeStyle = currentColor; }
+            points.push(cur); 
+            ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length - 2; i++) {
+                const xc = (points[i].x + points[i+1].x) / 2, yc = (points[i].y + points[i+1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            if (points.length > 2) ctx.quadraticCurveTo(points[points.length-2].x, points[points.length-2].y, points[points.length-1].x, points[points.length-1].y);
+            ctx.stroke(); ctx.restore();
+        } else {
+            if (currentTool === 'dashedLine') { ctx.save(); ctx.setLineDash([8,8]); ctx.beginPath(); ctx.moveTo(points[0].x, points[0].y); ctx.lineTo(cur.x, cur.y); ctx.stroke(); ctx.restore(); } 
+            else {
+                ctx.beginPath();
+                if (currentTool === 'line') { ctx.moveTo(points[0].x, points[0].y); ctx.lineTo(cur.x, cur.y); }
+                else if (currentTool === 'rect') ctx.rect(points[0].x, points[0].y, cur.x - points[0].x, cur.y - points[0].y);
+                else if (currentTool === 'circle') { let r = Math.hypot(cur.x - points[0].x, cur.y - points[0].y); ctx.arc(points[0].x, points[0].y, r, 0, 2*Math.PI); }
+                else if (currentTool === 'parallelogram') drawParallelogram(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'cube') drawCube3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'tri_pyramid') drawTriPyramid3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'quad_pyramid') drawQuadPyramid3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'cone') drawCone3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'cylinder') drawCylinder3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'sphere') drawSphere3D(points[0].x, points[0].y, cur.x, cur.y);
+                ctx.stroke();
+            }
+        }
+    }
+    function endDraw() { if(isDrawing) { isDrawing = false; saveAppState(); } }
+
+    canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mousemove', moveDraw); canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('touchstart', startDraw, {passive:false}); canvas.addEventListener('touchmove', moveDraw, {passive:false}); canvas.addEventListener('touchend', endDraw);
+
+    // --- CÁC HÀM VẼ 3D & CƠ BẢN ---
+    function drawParallelogram(x1, y1, x2, y2) { const skew = (x2-x1)*0.2; ctx.moveTo(x1+skew, y1); ctx.lineTo(x2+skew, y1); ctx.lineTo(x2, y2); ctx.lineTo(x1, y2); ctx.closePath(); }
+    function drawTriPyramid3D(x1, y1, x2, y2) { const S={x:x1,y:y1}, w=x2-x1, h=y2-y1, B={x:x1-w,y:y1+h}, C={x:x1+w,y:y1+h}, A={x:x1-w*0.3,y:y1+h-h*0.3}; ctx.setLineDash([8,8]); ctx.moveTo(S.x,S.y); ctx.lineTo(A.x,A.y); ctx.moveTo(B.x,B.y); ctx.lineTo(A.x,A.y); ctx.lineTo(C.x,C.y); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(S.x,S.y); ctx.lineTo(B.x,B.y); ctx.lineTo(C.x,C.y); ctx.lineTo(S.x,S.y); }
+    function drawQuadPyramid3D(x1, y1, x2, y2) { const w=Math.abs(x2-x1), h=Math.abs(y2-y1), cx=x1, cy=y2, top={x:cx,y:y1}, p1={x:cx-w,y:cy+h*0.2}, p2={x:cx+w,y:cy+h*0.2}, p3={x:cx+w*1.3,y:cy-h*0.2}, p4={x:cx-w*0.7,y:cy-h*0.2}; ctx.setLineDash([8,8]); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p4.x,p4.y); ctx.lineTo(p3.x,p3.y); ctx.moveTo(top.x,top.y); ctx.lineTo(p4.x,p4.y); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(top.x,top.y); ctx.lineTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.lineTo(top.x,top.y); ctx.lineTo(p3.x,p3.y); ctx.lineTo(p2.x,p2.y); }
+    function drawCube3D(x1, y1, x2, y2) { const w=x2-x1, h=y2-y1, d=w*0.4; ctx.setLineDash([8,8]); ctx.moveTo(x1,y1+h); ctx.lineTo(x1+d,y1+h-d); ctx.lineTo(x1+d,y1-d); ctx.moveTo(x1+d,y1+h-d); ctx.lineTo(x1+w+d,y1+h-d); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.rect(x1,y1,w,h); ctx.moveTo(x1,y1); ctx.lineTo(x1+d,y1-d); ctx.lineTo(x1+w+d,y1-d); ctx.lineTo(x1+w,y1); ctx.moveTo(x1+w,y1); ctx.lineTo(x1+w+d,y1-d); ctx.lineTo(x1+w+d,y1+h-d); ctx.lineTo(x1+w,y1+h); }
+    function drawCylinder3D(x1, y1, x2, y2) { const rx=Math.abs(x2-x1)/2, ry=rx*0.3, cx=(x1+x2)/2, tY=Math.min(y1,y2), bY=Math.max(y1,y2); ctx.setLineDash([8,8]); ctx.ellipse(cx,bY,rx,ry,0,Math.PI,2*Math.PI); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.ellipse(cx,tY,rx,ry,0,0,2*Math.PI); ctx.moveTo(cx-rx,tY); ctx.lineTo(cx-rx,bY); ctx.moveTo(cx+rx,tY); ctx.lineTo(cx+rx,bY); ctx.ellipse(cx,bY,rx,ry,0,0,Math.PI); }
+    function drawCone3D(x1, y1, x2, y2) { const rx=Math.abs(x2-x1)/2, ry=rx*0.3, cx=(x1+x2)/2, tY=y1, bY=y2; ctx.setLineDash([8,8]); ctx.ellipse(cx,bY,rx,ry,0,Math.PI,2*Math.PI); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(cx-rx,bY); ctx.lineTo(cx,tY); ctx.lineTo(cx+rx,bY); ctx.ellipse(cx,bY,rx,ry,0,0,Math.PI); }
+    function drawSphere3D(x1, y1, x2, y2) { const r=Math.hypot(x2-x1, y2-y1); ctx.setLineDash([8,8]); ctx.ellipse(x1,y1,r,r*0.3,0,Math.PI,2*Math.PI); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.arc(x1,y1,r,0,2*Math.PI); ctx.moveTo(x1+r,y1); ctx.ellipse(x1,y1,r,r*0.3,0,0,Math.PI); }
+
+    function setTool(t) { currentTool = t; document.getElementById('btnHand').classList.toggle('active', t==='hand'); wrapper.style.cursor = t==='hand'?'grab':'crosshair'; }
+    const cPal = ['#ffffff','#ff4757','#ffeb3b','#3498db','#2ecc71','#9b59b6']; let cIdx = 0;
+    function cycleColor() { cIdx=(cIdx+1)%cPal.length; updateColor(cPal[cIdx]); }
+    function updateColor(c) { 
+        currentColor = c; ctx.strokeStyle = c; colorStatus.style.background = c;
+        if(activeMathBox) { activeMathBox.style.color=c; activeMathBox.querySelectorAll('svg').forEach(s=>s.style.fill=c); }
+        const el = document.activeElement;
+        if(el && el.closest('.label-box')) { const b=el.closest('.label-box'); b.style.color=c; const d=b.querySelector('.label-render'); if(d){ d.style.color=c; d.querySelectorAll('svg').forEach(s=>s.style.fill=c); } }
+    }
+
+    // --- MATH BOX ---
+    function handleDoubleClick(e) { if(e.target===canvas||e.target===contentContainer) createMathBox(e.clientX-wrapper.getBoundingClientRect().left+wrapper.scrollLeft, e.clientY-wrapper.getBoundingClientRect().top+wrapper.scrollTop); }
+    function createCenteredMathBox() { createMathBox(wrapper.clientWidth/2, wrapper.clientHeight/2 + wrapper.scrollTop); }
+    function createMathBox(x,y) {
+        const b=document.createElement('div'); b.className='math-box'; b.style.left=x+'px'; b.style.top=y+'px'; b.style.color=currentColor;
+        const h=document.createElement('div'); h.className='math-handle'; 
+        const d=document.createElement('button'); d.className='stamp-btn'; d.innerHTML='✕'; d.style.color='#ff4757'; d.onclick=(e)=>{e.stopPropagation();b.remove();closeEditor();saveAppState();};
+        h.appendChild(d); b.appendChild(h);
+        const c=document.createElement('div'); c.className='math-content'; b.appendChild(c);
+        contentContainer.appendChild(b);
+        b.onmousedown=(e)=>{e.stopPropagation();openEditorFor(b);}; openEditorFor(b); makeElementDraggable(b,h); saveAppState();
+    }
+    function openEditorFor(b) { if(activeMathBox) activeMathBox.classList.remove('active'); activeMathBox=b; b.classList.add('active'); editorPanel.style.display='flex'; latexInput.value=b.dataset.raw||""; latexInput.focus(); }
+    function closeEditor() { if(activeMathBox){ activeMathBox.dataset.raw=latexInput.value; renderCurrentBox(); activeMathBox.classList.remove('active'); activeMathBox=null; } editorPanel.style.display='none'; }
+    function renderCurrentBox() { if(!activeMathBox)return; const r=latexInput.value; activeMathBox.dataset.raw=r; const c=activeMathBox.querySelector('.math-content'); c.innerHTML=r; MathJax.typesetPromise([c]).then(()=>{c.querySelectorAll('svg').forEach(s=>{s.style.fill=currentColor;s.style.stroke=currentColor;});}); }
+    function insertMath(c) { if(!activeMathBox){createCenteredMathBox();setTimeout(()=>insertMath(c),100);return;} latexInput.value+=c; latexInput.focus(); }
+    
+    // --- LABEL BOX ---
+    let mouseX=0, mouseY=0; wrapper.onmousemove=e=>{mouseX=e.clientX;mouseY=e.clientY;};
+    window.onkeydown=(e)=>{
+        if((e.ctrlKey||e.metaKey)&&(e.key==='d'||e.key==='D')){ e.preventDefault(); createLabelBox(mouseX, mouseY); }
+        if(e.ctrlKey&&e.key==='r'){e.preventDefault();renderCurrentBox();}
+        if(e.ctrlKey&&e.key==='Enter'){e.preventDefault();closeEditor();}
+        
+        // BỘ GÕ NHANH
+        const M = {'1':'\\frac{}{}','2':'\\sqrt{}','3':'\\begin{cases}\\end{cases}','4':'\\widehat{}','5':'^\\circ','6':'\\Rightarrow ','7':'\\pm ','8':'\\int_{}^{}','9':'\\perp ','0':'\\infty '};
+        if(e.altKey && M[e.key]) {
+            e.preventDefault(); const c = M[e.key]; const el = document.activeElement;
+            if(el.classList.contains('label-editor')) { document.execCommand('insertText', false, c); el.dispatchEvent(new Event('input')); }
+            else if(el.id==='latex-input') { const s=el.selectionStart, v=el.value; el.value=v.substring(0,s)+c+v.substring(el.selectionEnd); el.selectionStart=el.selectionEnd=s+c.length; }
+        }
+    };
+    function createLabelBox(x,y) {
+        const b=document.createElement('div'); b.className='label-box'; b.style.color=currentColor;
+        const r=wrapper.getBoundingClientRect(); b.style.left=(x-r.left)+'px'; b.style.top=(y-r.top+wrapper.scrollTop)+'px';
+        b.innerHTML=`<div class="label-handle">✥ Move</div><div class="label-editor" contenteditable="true" spellcheck="false">A</div><div class="label-render">A</div>`;
+        contentContainer.appendChild(b);
+        const ed=b.querySelector('.label-editor'), ds=b.querySelector('.label-render'), hd=b.querySelector('.label-handle');
+        ed.oninput=()=>{ let t=ed.innerText; b.dataset.raw=t; if(t.match(/[\^_{}\\]|[=><]/)) ds.innerHTML='$'+t+'$'; else ds.innerText=t; MathJax.typesetPromise([ds]).then(()=>{ds.querySelectorAll('svg').forEach(s=>s.style.fill=b.style.color);}); };
+        ed.onkeydown=e=>{ if(e.key==='Enter'){e.preventDefault();ed.blur();} if(e.ctrlKey&&e.key==='e'){e.preventDefault();b.remove();saveAppState();} };
+        ed.onblur=()=>{ if(!ed.innerText.trim())b.remove(); saveAppState(); };
+        makeElementDraggable(b, hd); setTimeout(()=>{ed.focus();document.execCommand('selectAll',false,null);},10);
+    }
+
+    // --- MEDIA (ẢNH / WEB) ---
+    document.getElementById('imageInput').onchange=e=>{ if(!e.target.files[0])return; const r=new FileReader(); r.onload=ev=>addMedia('img',ev.target.result); r.readAsDataURL(e.target.files[0]); e.target.value=''; };
+    window.onpaste=e=>{ const i=(e.clipboardData).items; for(let j in i){ if(i[j].kind==='file'&&i[j].type.includes('image')){ const r=new FileReader(); r.onload=ev=>addMedia('img',ev.target.result); r.readAsDataURL(i[j].getAsFile()); } } };
+    function addMedia(t, src) {
+        const d=document.createElement('div'); d.className='media-box selected'; d.style.left='100px'; d.style.top=(wrapper.scrollTop+100)+'px'; d.dataset.scale=1; d.dataset.rot=0;
+        if(t==='img') {
+            d.style.maxWidth='600px';
+            d.innerHTML=`<div class="img-controls"><button class="img-btn" onclick="transformMedia(this,0.1,0)">+</button><button class="img-btn" onclick="transformMedia(this,-0.1,0)">-</button><button class="img-btn" onclick="transformMedia(this,0,45)">↻</button><button class="img-btn" style="background:#c0392b;" onclick="this.closest('.media-box').remove();saveAppState();">✕</button></div><div class="media-content"><img src="${src}"></div>`;
+        }
+        contentContainer.appendChild(d);
+        d.onmousedown=e=>{ if(e.target.tagName==='BUTTON'||e.target.closest('.img-controls'))return; e.stopPropagation(); if(selectedMediaBox)selectedMediaBox.classList.remove('selected'); selectedMediaBox=d; d.classList.add('selected'); makeElementDraggable(d,d)(e); };
+        saveAppState();
+    }
+    function transformMedia(b, ds, dr) { window.event.stopPropagation(); const bx=b.closest('.media-box'); bx.dataset.scale=Math.max(0.2, parseFloat(bx.dataset.scale)+ds); bx.dataset.rot=parseFloat(bx.dataset.rot)+dr; bx.style.transform=`scale(${bx.dataset.scale}) rotate(${bx.dataset.rot}deg)`; }
+
+    // --- CHÈN PDF CỤC BỘ ---
+    document.getElementById('pdfInput').onchange = async e => {
+        if(!e.target.files[0])return;
+        document.getElementById('loading').style.display='block';
+        try{ const d = await pdfjsLib.getDocument(URL.createObjectURL(e.target.files[0])).promise; const c = document.createElement('div'); c.className='pdf-container'; const w = wrapper.offsetWidth-40;
+             for(let i=1;i<=d.numPages;i++){ const p=await d.getPage(i); const sc=w/p.getViewport({scale:1}).width; const v=p.getViewport({scale:sc}); const cv=document.createElement('canvas'); cv.className='pdf-page'; cv.width=v.width; cv.height=v.height; await p.render({canvasContext:cv.getContext('2d'),viewport:v}).promise; c.appendChild(cv); }
+             contentContainer.appendChild(c); makeElementDraggable(c,c); updateContainerHeight();
+        }catch(er){alert(er);} document.getElementById('loading').style.display='none'; e.target.value='';
+    };
+
+    // --- DRAG & DROP UTILS ---
+    function makeElementDraggable(el, hd) {
+        if(!hd) return; // Bảo vệ
+        return function mousedownFn(e) {
+            let sX=e.clientX, sY=e.clientY, sL=parseFloat(el.style.left)||0, sT=parseFloat(el.style.top)||0;
+            function move(ev){ el.style.left=(sL+ev.clientX-sX)+'px'; el.style.top=(sT+ev.clientY-sY)+'px'; }
+            function up(){ document.removeEventListener('mousemove',move); document.removeEventListener('mouseup',up); }
+            document.addEventListener('mousemove',move); document.addEventListener('mouseup',up);
+        };
+    }
+    // Gắn kéo thả chủ động
+    function attachDrag(el, handleClass) { const hd = el.querySelector(handleClass); if(hd) hd.onmousedown = makeElementDraggable(el, hd); }
+    setTimeout(()=>{ attachDrag(document.getElementById('jitsi-container'), '.jitsi-header'); attachDrag(document.getElementById('calc-container'), '.calc-header'); }, 500);
+
+    window.toggleWebInteraction = function(btn) { const i=btn.closest('.media-box').querySelector('iframe'), b=btn.closest('.media-box').querySelector('.web-blocker'); if(i.style.pointerEvents==='auto'){i.style.pointerEvents='none';if(b)b.style.display='block';btn.innerText='🔓 Mở cuộn';btn.style.background='#e67e22';}else{i.style.pointerEvents='auto';if(b)b.style.display='none';btn.innerText='🔒 Khóa';btn.style.background='#27ae60';} };
+
+    // --- HISTORY STATE ---
+    function getCurrentState() { 
+        const els=[]; document.querySelectorAll('.math-box, .media-box, .label-box').forEach(e=>{ els.push({outerHTML: e.outerHTML}); });
+        return { canvasData: canvas.toDataURL(), els: els }; 
+    }
+    function restoreState(s) { 
+        ctx.clearRect(0,0,canvas.width,canvas.height); 
+        document.querySelectorAll('.math-box, .media-box, .label-box').forEach(e=>e.remove());
+        if(s.canvasData){ const img=new Image(); img.src=s.canvasData; img.onload=()=>ctx.drawImage(img,0,0); }
+        s.els.forEach(d=>{ const t=document.createElement('div'); t.innerHTML=d.outerHTML; const el=t.firstElementChild; contentContainer.appendChild(el);
+            // Gắn lại event
+            if(el.classList.contains('math-box')){ el.onmousedown=(e)=>{e.stopPropagation();openEditorFor(el);}; makeElementDraggable(el,el.querySelector('.math-handle')); el.querySelector('.stamp-btn').onclick=(e)=>{e.stopPropagation();el.remove();saveAppState();} }
+            else if(el.classList.contains('media-box')){ el.onmousedown=e=>{ if(e.target.tagName==='BUTTON')return; e.stopPropagation(); makeElementDraggable(el,el)(e); }; }
+            else if(el.classList.contains('label-box')){ const ed=el.querySelector('.label-editor'); ed.oninput=()=>{ let text=ed.innerText; const ds=el.querySelector('.label-render'); if(text.match(/[\^_{}\\]|[=><]/))ds.innerHTML='$'+text+'$'; else ds.innerText=text; MathJax.typesetPromise([ds]).then(()=>{ds.querySelectorAll('svg').forEach(sv=>sv.style.fill=el.style.color);}); }; ed.onblur=()=>{if(!ed.innerText.trim())el.remove();}; makeElementDraggable(el,el.querySelector('.label-handle')); }
+        });
+    }
+    function saveAppState() { if(appStep<appHistory.length-1) appHistory=appHistory.slice(0,appStep+1); appHistory.push(getCurrentState()); appStep++; }
+    function undoApp() { if(appStep>0) restoreState(appHistory[--appStep]); }
+    function redoApp() { if(appStep<appHistory.length-1) restoreState(appHistory[++appStep]); }
+
+    // --- BẢNG DẠY CÔNG CỤ KHÁC ---
+    function toggleFullScreen() { if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    function toggleAnnotation() { document.body.classList.toggle('drawing-mode'); const b=document.getElementById('btnAnnotate'); if(document.body.classList.contains('drawing-mode')){b.style.background='#d35400';b.style.border='1px solid #fff';}else{b.style.background='#333';b.style.border='1px solid #555';} }
+    function toggleBoardTheme() { const b=document.getElementById('boardWrapper'), btn=document.getElementById('btnTheme'); if(b.style.backgroundColor==='rgb(255, 255, 255)'){ b.style.backgroundColor='#0b6b3a'; btn.style.background='#555'; btn.style.color='#fff'; document.querySelectorAll('.math-box').forEach(x=>{x.style.backgroundColor="rgba(21,76,39,0.95)"; x.style.color=currentColor; x.style.borderLeft="4px solid var(--yellow)";}); } else { b.style.backgroundColor='#fff'; btn.style.background='#fff'; btn.style.color='#000'; document.querySelectorAll('.math-box').forEach(x=>{x.style.backgroundColor="rgba(240,240,240,0.95)"; x.style.color="#000"; x.style.borderLeft="4px solid #2ecc71";}); } }
+    function toggleCalculator() { const c=document.getElementById('calc-container'); c.style.display=c.style.display==='block'?'none':'block'; }
+    function updateContainerHeight() { let m=0; contentContainer.querySelectorAll('.pdf-container, .web-container, .media-box').forEach(e=>{m=Math.max(m, parseFloat(e.style.top||0)+e.offsetHeight)}); contentContainer.style.minHeight=Math.max(5000, m+500)+'px'; resizeCanvas(); }
+    function prevPage() { if(currentPage>0)switchPage(currentPage-1); } function nextPage() { if(currentPage<pages.length-1)switchPage(currentPage+1); else addPage(); } function addPage() { pages[currentPage].canvasData=canvas.toDataURL(); pages.push({canvasData:null}); switchPage(pages.length-1); } function switchPage(i) { pages[currentPage].canvasData=canvas.toDataURL(); currentPage=i; ctx.clearRect(0,0,canvas.width,canvas.height); if(pages[i].canvasData){ const img=new Image(); img.src=pages[i].canvasData; img.onload=()=>ctx.drawImage(img,0,0); } updatePageIndicator(); } function updatePageIndicator() { document.getElementById('pageIndicator').innerText=`${currentPage+1}/${pages.length}`; }
+
+    // Xuất PDF tự động cắt trang
+    async function exportFullPDF() {
+        const load = document.getElementById('loading'); load.style.display='block'; load.innerText="Đang xuất PDF...";
+        try {
+            const cv = await html2canvas(contentContainer, {scale: 1.5, useCORS: true, backgroundColor: '#ffffff'});
+            const { jsPDF } = window.jspdf; const pdf = new jsPDF('p','mm','a4'); const pw=pdf.internal.pageSize.getWidth(), ph=pdf.internal.pageSize.getHeight();
+            const idata = cv.toDataURL("image/jpeg", 0.9), iw=cv.width, ih=cv.height, p_ih=(iw*ph)/pw; let hl=ih;
+            pdf.addImage(idata, 'JPEG', 0, 0, pw, (ih*pw)/iw); hl-=p_ih;
+            while(hl>0) { pdf.addPage(); const sy = -(ih*pw/iw) + (hl*pw/iw); pdf.addImage(idata, 'JPEG', 0, sy-1, pw, (ih*pw)/iw); hl-=p_ih; }
+            pdf.save("BaiGiang_MP.pdf");
+        } catch(e) { alert(e); } load.style.display='none';
+    }
+
+    // Jitsi
+    let jApi=null, cRoom="";
+    function toggleLiveModal() { const m=document.getElementById('liveModal'); m.style.display=m.style.display==='block'?'none':'block'; }
+    function startJitsi() { cRoom='MPLop_'+Math.floor(Math.random()*10000); document.getElementById('roomNameDisplay').innerText=cRoom; document.getElementById('roomInfo').style.display='block'; document.getElementById('displayRoomCode').innerText=cRoom; openJitsi(cRoom, true); }
+    function joinJitsi() { cRoom=document.getElementById('roomNameInput').value.trim(); if(!cRoom)return; document.getElementById('displayRoomCode').innerText=cRoom; openJitsi(cRoom, false); }
+    function openJitsi(rn, isT) { document.getElementById('liveModal').style.display='none'; document.getElementById('jitsi-container').style.display='block'; jApi = new JitsiMeetExternalAPI('meet.jit.si', { roomName:rn, parentNode:document.getElementById('meet'), configOverwrite:{startWithAudioMuted:!isT, startWithVideoMuted:!isT} }); }
+    function closeJitsi() { if(jApi)jApi.dispose(); document.getElementById('jitsi-container').style.display='none'; }
+
+    // Kho bài giảng
+    let lData={};
+    async function toggleLibraryModal() { const m=document.getElementById('libraryModal'); m.style.display=m.style.display==='block'?'none':'block'; if(Object.keys(lData).length===0){ try{ const r=await fetch('Data/lesson_config.json'); lData=await r.json(); }catch(e){} } }
+    function updateChuong() { const k=document.getElementById('selKhoi').value, c=document.getElementById('selChuong'); c.innerHTML='<option value="">-- Chọn Chương --</option>'; document.getElementById('selBai').disabled=true; if(k&&lData[k]){ c.disabled=false; Object.keys(lData[k]).forEach(v=>c.innerHTML+=`<option value="${v}">${v}</option>`); } else c.disabled=true; }
+    function updateBai() { const k=document.getElementById('selKhoi').value, c=document.getElementById('selChuong').value, b=document.getElementById('selBai'); b.innerHTML='<option value="">-- Chọn bài --</option>'; if(k&&c&&lData[k][c]){ b.disabled=false; lData[k][c].forEach(v=>b.innerHTML+=`<option value="${v.url}">${v.name}</option>`); } else b.disabled=true; }
+    function confirmLoadLesson() { const u=document.getElementById('selBai').value; if(u){ loadExamPdfToBoard(u); document.getElementById('libraryModal').style.display='none'; } }
+    
+    function toggleHelp() { const m=document.getElementById('helpModal'); m.style.display=m.style.display==='block'?'none':'block'; }
+    let cCount=0, cTimer; function handleSecretClick(e){ cCount++; if(cCount===1) cTimer=setTimeout(()=>{toggleHelp();cCount=0;},300); else if(cCount===2){clearTimeout(cTimer);cCount=0; if(prompt("Mã:")==="7979") loadAdminLibrary();} }
+    async function loadAdminLibrary() { try{ const r=await fetch('Data/admin_config.json'); lData=await r.json(); document.getElementById('btnSecret').style.background="#ff7675"; alert("Mở Thư mục bảo mật thành công!"); }catch(e){alert("Lỗi tải kho bí mật!");} }
+
+    // Đẩy hàm System Init lên đầu
+    window.onload = initSystem;
+</script>
+</body>
+</html>

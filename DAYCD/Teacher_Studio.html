@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO TẠO ĐỀ V2 - LỚP TOÁN THẦY BÌNH</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        .header { background: linear-gradient(135deg, #1a237e, #0d1757); color: white; padding: 20px 30px; border-radius: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .header h1 { font-size: 1.5rem; }
+        .teacher-badge { background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 30px; font-size: 0.85rem; }
+        
+        .config-panel { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .config-field { display: flex; flex-direction: column; gap: 8px; }
+        .config-field label { font-weight: 600; color: #1a237e; }
+        .config-field input, .config-field textarea { padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 0.95rem; }
+        .config-field input:focus { border-color: #1a237e; outline: none; }
+        
+        .matrix-panel { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .section-title { font-size: 1.3rem; font-weight: 700; color: #1a237e; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #1a237e; display: inline-block; }
+        
+        .question-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; max-height: 600px; overflow-y: auto; padding-right: 10px; }
+        .question-row { background: #f8f9fa; border-radius: 16px; padding: 15px; border: 1px solid #e0e0e0; transition: 0.2s; }
+        .question-row:hover { background: #f0f2f5; }
+        .question-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; flex-wrap: wrap; }
+        .question-num { background: #1a237e; color: white; padding: 5px 15px; border-radius: 25px; font-weight: 600; font-size: 0.9rem; }
+        .question-type { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .type-mcq { background: #e3f2fd; color: #1565c0; }
+        .type-tf { background: #fff3e0; color: #ef6c00; }
+        .type-sa { background: #e8f5e9; color: #2e7d32; }
+        
+        .answer-area { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+        .mcq-options { display: flex; gap: 12px; }
+        .mcq-btn { width: 50px; height: 50px; border-radius: 12px; border: 2px solid #ccc; background: white; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.2s; }
+        .mcq-btn.selected { background: #1a237e; border-color: #1a237e; color: white; }
+        .tf-group { display: flex; gap: 20px; flex-wrap: wrap; }
+        .tf-item { display: flex; align-items: center; gap: 8px; }
+        .tf-item span { font-weight: 600; min-width: 25px; }
+        .tf-btn { width: 60px; padding: 8px; border-radius: 8px; border: 2px solid #ccc; background: white; cursor: pointer; font-weight: 600; }
+        .tf-btn.true-selected { background: #2e7d32; border-color: #2e7d32; color: white; }
+        .tf-btn.false-selected { background: #c62828; border-color: #c62828; color: white; }
+        .sa-input { width: 200px; padding: 10px; border: 2px solid #ccc; border-radius: 8px; font-size: 0.95rem; text-align: center; }
+        
+        .action-buttons { display: flex; gap: 15px; justify-content: flex-end; margin-top: 25px; }
+        .btn-primary { background: linear-gradient(135deg, #1a237e, #0d1757); color: white; border: none; padding: 14px 30px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,35,126,0.3); }
+        .btn-secondary { background: #2e7d32; }
+        
+        .result-panel { background: #e8eaf6; border-radius: 20px; padding: 20px; margin-top: 25px; display: none; }
+        .result-panel.show { display: block; }
+        .exam-link { background: white; padding: 15px; border-radius: 12px; margin-top: 15px; word-break: break-all; }
+        .exam-link a { color: #1a237e; text-decoration: none; font-weight: 600; }
+        
+        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 12px; color: white; z-index: 9999; animation: slideIn 0.3s; }
+        .notification.success { background: #2e7d32; }
+        .notification.error { background: #c62828; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-pen-fancy"></i> STUDIO TẠO ĐỀ THI THÔNG MINH V2</h1>
+        <div class="teacher-badge" id="teacherInfo">Đang tải...</div>
+    </div>
+    
+    <div class="config-panel">
+        <h3><i class="fas fa-sliders-h"></i> Cấu hình đề thi</h3>
+        <div class="config-grid">
+            <div class="config-field">
+                <label>📝 Tên đề thi *</label>
+                <input type="text" id="examName" placeholder="VD: Đề thi thử số 1 - 2026">
+            </div>
+            <div class="config-field">
+                <label>⏱️ Thời gian (phút)</label>
+                <input type="number" id="duration" value="90" placeholder="90">
+            </div>
+            <div class="config-field">
+                <label>🔗 Link PDF đề thi (Google Drive)</label>
+                <input type="text" id="pdfLink" placeholder="https://drive.google.com/...">
+            </div>
+            <div class="config-field">
+                <label>🏷️ Mã đề (tự động sinh)</label>
+                <input type="text" id="examId" placeholder="Để trống để tự sinh" readonly style="background:#f5f5f5;">
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">💡 Lưu ý: Link PDF nên lấy dạng "Xem trước" hoặc link tải trực tiếp</p>
+    </div>
+    
+    <div class="matrix-panel">
+        <h3><i class="fas fa-table"></i> Ma trận đáp án (22 câu theo cấu trúc Bộ GD)</h3>
+        <div id="questionGrid" class="question-grid"></div>
+        
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="publishExam()"><i class="fas fa-rocket"></i> PHÁT HÀNH ĐỀ THI</button>
+            <button class="btn-primary btn-secondary" onclick="resetForm()"><i class="fas fa-undo"></i> Làm mới</button>
+        </div>
+    </div>
+    
+    <div id="resultPanel" class="result-panel">
+        <h3><i class="fas fa-check-circle"></i> Đề thi đã được phát hành!</h3>
+        <div id="resultContent"></div>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    
+    let currentTeacher = null;
+    
+    const QUESTION_CONFIG = [
+        ...Array(12).fill().map((_, i) => ({ id: i + 1, type: 'multiple_choice' })),
+        ...Array(4).fill().map((_, i) => ({ id: 13 + i, type: 'true_false' })),
+        ...Array(6).fill().map((_, i) => ({ id: 17 + i, type: 'short_answer' }))
+    ];
+    
+    auth.onAuthStateChanged(async (user) => {
+        if (user) {
+            currentTeacher = {
+                uid: user.uid,
+                email: user.email,
+                name: user.displayName || user.email.split('@')[0]
+            };
+            document.getElementById('teacherInfo').innerHTML = `<i class="fas fa-user-check"></i> ${currentTeacher.name}`;
+            document.getElementById('examId').value = generateExamId();
+            renderQuestionGrid();
+        } else {
+            window.location.href = 'login.html';
+        }
+    });
+    
+    function generateExamId() {
+        const prefix = 'EXAM_';
+        const timestamp = Date.now().toString(36).toUpperCase();
+        return prefix + timestamp;
+    }
+    
+    function renderQuestionGrid() {
+        const grid = document.getElementById('questionGrid');
+        let html = '';
+        
+        QUESTION_CONFIG.forEach((q) => {
+            const qNum = q.id;
+            const type = q.type;
+            let typeName = '', typeClass = '', answerHTML = '';
+            
+            if (type === 'multiple_choice') {
+                typeName = 'Trắc nghiệm';
+                typeClass = 'type-mcq';
+                answerHTML = `
+                    <div class="mcq-options">
+                        ${['A', 'B', 'C', 'D'].map(letter => `
+                            <button type="button" class="mcq-btn" data-q="${qNum}" data-val="${letter}" onclick="selectMCQ(${qNum}, '${letter}')">${letter}</button>
+                        `).join('')}
+                    </div>
+                    <input type="hidden" id="ans_${qNum}" value="">
+                `;
+            } 
+            else if (type === 'true_false') {
+                typeName = 'Đúng/Sai (4 ý)';
+                typeClass = 'type-tf';
+                answerHTML = `
+                    <div class="tf-group" id="tf_${qNum}">
+                        ${['a', 'b', 'c', 'd'].map(letter => `
+                            <div class="tf-item">
+                                <span>${letter})</span>
+                                <button type="button" class="tf-btn" data-q="${qNum}" data-letter="${letter}" data-val="true" onclick="selectTF(${qNum}, '${letter}', true)">Đúng</button>
+                                <button type="button" class="tf-btn" data-q="${qNum}" data-letter="${letter}" data-val="false" onclick="selectTF(${qNum}, '${letter}', false)">Sai</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <input type="hidden" id="ans_${qNum}" value="">
+                `;
+            } 
+            else {
+                typeName = 'Trả lời ngắn';
+                typeClass = 'type-sa';
+                answerHTML = `
+                    <input type="text" class="sa-input" id="sa_${qNum}" placeholder="Nhập đáp án số..." onchange="selectSA(${qNum}, this.value)">
+                    <input type="hidden" id="ans_${qNum}" value="">
+                `;
+            }
+            
+            html += `
+                <div class="question-row">
+                    <div class="question-header">
+                        <span class="question-num">Câu ${qNum}</span>
+                        <span class="question-type ${typeClass}">${typeName}</span>
+                    </div>
+                    <div class="answer-area">
+                        ${answerHTML}
+                    </div>
+                </div>
+            `;
+        });
+        
+        grid.innerHTML = html;
+    }
+    
+    window.selectMCQ = (qNum, letter) => {
+        const btns = document.querySelectorAll(`.mcq-btn[data-q="${qNum}"]`);
+        btns.forEach(btn => {
+            if (btn.getAttribute('data-val') === letter) {
+                btn.classList.add('selected');
+            } else {
+                btn.classList.remove('selected');
+            }
+        });
+        document.getElementById(`ans_${qNum}`).value = letter;
+    };
+    
+    window.selectTF = (qNum, letter, value) => {
+        const container = document.getElementById(`tf_${qNum}`);
+        const trueBtn = container.querySelector(`.tf-btn[data-letter="${letter}"][data-val="true"]`);
+        const falseBtn = container.querySelector(`.tf-btn[data-letter="${letter}"][data-val="false"]`);
+        
+        if (value === true) {
+            trueBtn.classList.add('true-selected');
+            falseBtn.classList.remove('false-selected');
+        } else {
+            trueBtn.classList.remove('true-selected');
+            falseBtn.classList.add('false-selected');
+        }
+        
+        let current = JSON.parse(document.getElementById(`ans_${qNum}`).value || '{}');
+        current[letter] = value;
+        document.getElementById(`ans_${qNum}`).value = JSON.stringify(current);
+    };
+    
+    window.selectSA = (qNum, value) => {
+        document.getElementById(`ans_${qNum}`).value = value;
+    };
+    
+    function collectAnswers() {
+        const answers = [];
+        
+        for (let q of QUESTION_CONFIG) {
+            const qNum = q.id;
+            const ansInput = document.getElementById(`ans_${qNum}`);
+            let correct = ansInput.value;
+            
+            if (q.type === 'true_false' && correct) {
+                try {
+                    correct = JSON.parse(correct);
+                } catch(e) { correct = {}; }
+            }
+            
+            answers.push({
+                id: qNum,
+                type: q.type,
+                correct: correct
+            });
+        }
+        
+        return answers;
+    }
+    
+    async function publishExam() {
+        const examName = document.getElementById('examName').value.trim();
+        const duration = parseInt(document.getElementById('duration').value) || 90;
+        const pdfLink = document.getElementById('pdfLink').value.trim();
+        const examId = document.getElementById('examId').value.trim() || generateExamId();
+        
+        if (!examName) {
+            showNotification('Vui lòng nhập tên đề thi!', 'error');
+            return;
+        }
+        
+        if (!currentTeacher) {
+            showNotification('Chưa đăng nhập!', 'error');
+            return;
+        }
+        
+        showNotification('Đang xử lý...', 'info');
+        
+        const answers = collectAnswers();
+        
+        const missing = answers.filter(a => !a.correct || (typeof a.correct === 'object' && Object.keys(a.correct).length === 0) || a.correct === '');
+        if (missing.length > 0) {
+            showNotification(`Còn ${missing.length} câu chưa nhập đáp án!`, 'error');
+            return;
+        }
+        
+        try {
+            // Lưu master key
+            await db.ref(`teachers/${currentTeacher.uid}/exam_master_keys/${examId}`).set(answers);
+            
+            // Lưu thông tin đề
+            await db.ref(`teachers/${currentTeacher.uid}/exams/${examId}`).set({
+                name: examName,
+                duration: duration,
+                pdfLink: pdfLink,
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            });
+            
+            // Tạo link thông minh (TRỎ ĐẾN index.html V2)
+            const baseUrl = window.location.origin + window.location.pathname.replace('Teacher_Studio.html', '');
+            const studentLink = `${baseUrl}index.html?t=${encodeURIComponent(currentTeacher.uid)}&exam=${examId}`;
+            
+            document.getElementById('resultContent').innerHTML = `
+                <p><strong>✅ Đề "${examName}" đã được phát hành thành công!</strong></p>
+                <div class="exam-link">
+                    <p><i class="fas fa-link"></i> <strong>Link cho học sinh (Copy gửi cho lớp):</strong></p>
+                    <a href="${studentLink}" target="_blank">${studentLink}</a>
+                    <button class="btn-primary" style="margin-top:10px; padding:8px 20px;" onclick="copyToClipboard('${studentLink}')"><i class="fas fa-copy"></i> Sao chép link</button>
+                </div>
+                <div class="exam-link" style="margin-top:10px;">
+                    <p><i class="fas fa-qrcode"></i> <strong>Mã đề thi:</strong> ${examId}</p>
+                    <p><i class="fas fa-info-circle"></i> Học sinh click link hoặc nhập mã đề để làm bài. Kết quả tự động lưu vào tài khoản của bạn.</p>
+                </div>
+            `;
+            document.getElementById('resultPanel').classList.add('show');
+            showNotification('Đề thi đã được phát hành thành công!', 'success');
+            
+        } catch (error) {
+            console.error(error);
+            showNotification('Lỗi: ' + error.message, 'error');
+        }
+    }
+    
+    function resetForm() {
+        document.getElementById('examName').value = '';
+        document.getElementById('duration').value = '90';
+        document.getElementById('pdfLink').value = '';
+        document.getElementById('examId').value = generateExamId();
+        renderQuestionGrid();
+        document.getElementById('resultPanel').classList.remove('show');
+    }
+    
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+        showNotification('Đã sao chép link!', 'success');
+    }
+    
+    function showNotification(msg, type) {
+        const notif = document.createElement('div');
+        notif.className = `notification ${type}`;
+        notif.innerHTML = msg;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.remove(), 3000);
+    }
+    
+    document.getElementById('examId').value = generateExamId();
+</script>
+</body>
+</html>

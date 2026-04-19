@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HỆ THỐNG THI THÔNG MINH 2026</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #1a237e, #0d1757); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { max-width: 500px; width: 100%; background: white; border-radius: 30px; padding: 40px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .logo { font-size: 3rem; margin-bottom: 15px; }
+        h1 { color: #1a237e; margin-bottom: 10px; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #1a237e; }
+        .input-group input { width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; }
+        .btn-start { background: linear-gradient(135deg, #1a237e, #0d1757); color: white; border: none; padding: 15px; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%; }
+        .btn-start:hover { transform: translateY(-2px); }
+        .invite-box { background: #e8eaf6; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        .notification { position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px; color: white; z-index: 9999; animation: slideIn 0.3s; }
+        .notification.error { background: #c62828; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+<div class="container" id="mainContainer">
+    <div class="logo">📐</div>
+    <h1>MATH HUB V2</h1>
+    <div id="dynamicContent"></div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const teacherId = urlParams.get('t');
+    const examId = urlParams.get('exam');
+    
+    function showNotification(msg, type) {
+        const notif = document.createElement('div');
+        notif.className = `notification ${type}`;
+        notif.innerHTML = msg;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.remove(), 3000);
+    }
+    
+    async function renderInviteMode() {
+        try {
+            const examSnap = await db.ref(`teachers/${teacherId}/exams/${examId}`).once('value');
+            const examData = examSnap.val();
+            if (!examData) throw new Error('Không tìm thấy đề');
+            
+            document.getElementById('dynamicContent').innerHTML = `
+                <div class="invite-box">
+                    <h3>📝 BẠN ĐƯỢC MỜI LÀM BÀI THI</h3>
+                    <p><strong>Đề thi:</strong> ${examData.name}</p>
+                    <p><strong>Thời gian:</strong> ${examData.duration || 90} phút</p>
+                </div>
+                <div class="input-group"><label>Mã học sinh *</label><input type="text" id="studentCode" placeholder="VD: HS001"></div>
+                <div class="input-group"><label>Họ tên học sinh *</label><input type="text" id="studentName" placeholder="Nhập họ tên đầy đủ"></div>
+                <button class="btn-start" onclick="startExam()">🚀 BẮT ĐẦU LÀM BÀI</button>
+            `;
+        } catch(e) { document.getElementById('dynamicContent').innerHTML = '<p style="color:red;">Không tìm thấy đề thi!</p>'; }
+    }
+    
+    function renderNormalMode() {
+        document.getElementById('dynamicContent').innerHTML = `
+            <div class="input-group"><label>🔗 Nhập link mời hoặc mã đề</label><input type="text" id="inviteCode" placeholder="Dán link hoặc nhập mã đề..."></div>
+            <div class="input-group"><label>Mã học sinh</label><input type="text" id="normalStudentCode" placeholder="VD: HS001"></div>
+            <div class="input-group"><label>Họ tên học sinh</label><input type="text" id="normalStudentName" placeholder="Nhập họ tên đầy đủ"></div>
+            <button class="btn-start" onclick="searchAndStart()">🔍 TRA CỨU & VÀO THI</button>
+        `;
+    }
+    
+    function startExam() {
+        const code = document.getElementById('studentCode')?.value.trim();
+        const name = document.getElementById('studentName')?.value.trim();
+        if (!code || !name) { showNotification('Vui lòng nhập đầy đủ thông tin!', 'error'); return; }
+        window.location.href = `MP.html?t=${teacherId}&exam=${examId}&code=${encodeURIComponent(code)}&name=${encodeURIComponent(name)}`;
+    }
+    
+    async function searchAndStart() {
+        const inviteCode = document.getElementById('inviteCode')?.value.trim();
+        const code = document.getElementById('normalStudentCode')?.value.trim();
+        const name = document.getElementById('normalStudentName')?.value.trim();
+        if (!code || !name) { showNotification('Vui lòng nhập đầy đủ thông tin!', 'error'); return; }
+        
+        let targetTeacher = null, targetExam = null;
+        const linkMatch = inviteCode?.match(/[?&]t=([^&]+)&exam=([^&]+)/);
+        if (linkMatch) { targetTeacher = linkMatch[1]; targetExam = linkMatch[2]; }
+        else { showNotification('Vui lòng nhập link mời hợp lệ!', 'error'); return; }
+        
+        const examSnap = await db.ref(`teachers/${targetTeacher}/exams/${targetExam}`).once('value');
+        if (!examSnap.exists()) { showNotification('Không tìm thấy đề thi!', 'error'); return; }
+        window.location.href = `MP.html?t=${targetTeacher}&exam=${targetExam}&code=${encodeURIComponent(code)}&name=${encodeURIComponent(name)}`;
+    }
+    
+    if (teacherId && examId) renderInviteMode();
+    else renderNormalMode();
+</script>
+</body>
+</html>

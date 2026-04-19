@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KẾT QUẢ ĐỀ THI - LỚP TOÁN THẦY BÌNH</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 20px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
+        .header h2 { color: #1a237e; }
+        .teacher-info { background: #e8eaf6; padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 20px; border-radius: 16px; text-align: center; border-left: 4px solid #1a237e; }
+        .stat-value { font-size: 28px; font-weight: bold; color: #1a237e; }
+        
+        .filter-group { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; align-items: flex-end; background: #f8f9fa; padding: 15px; border-radius: 12px; }
+        .filter-item { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 150px; }
+        .filter-item label { font-weight: 600; font-size: 0.85rem; color: #1a237e; }
+        .filter-item input, .filter-item select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; }
+        
+        button.btn-primary { background: #1a237e; color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button.btn-primary:hover { background: #0d1757; }
+        
+        .table-container { overflow-x: auto; max-height: 500px; border-radius: 12px; border: 1px solid #e0e0e0; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        th { background: #1a237e; color: white; position: sticky; top: 0; }
+        tr:hover { background: #f8f9fa; cursor: pointer; }
+        
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 20px; width: 90%; max-width: 1000px; max-height: 85vh; overflow-y: auto; padding: 25px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1a237e; padding-bottom: 10px; margin-bottom: 15px; }
+        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; }
+        
+        .part-card { margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; }
+        .part-title { background: #37474f; color: white; padding: 12px 15px; font-weight: bold; }
+        .question-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; padding: 15px; }
+        .question-item { padding: 12px; border-radius: 8px; background: #f5f5f5; }
+        .question-item.correct { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+        .question-item.wrong { background: #ffebee; border-left: 4px solid #c62828; }
+        
+        .notification { position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px; color: white; z-index: 10001; transform: translateX(400px); transition: transform 0.3s; }
+        .notification.show { transform: translateX(0); }
+        .notification.success { background: #2e7d32; }
+        .notification.error { background: #c62828; }
+        .text-center { text-align: center; }
+        .loading { display: inline-block; width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #1a237e; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2><i class="fas fa-chart-line"></i> KẾT QUẢ ĐỀ THI</h2>
+        <div class="teacher-info" id="teacherInfo">Đang tải...</div>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value" id="totalSubmissions">0</div><div class="stat-label">Tổng bài thi</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalStudents">0</div><div class="stat-label">Học sinh</div></div>
+        <div class="stat-card"><div class="stat-value" id="avgScore">0</div><div class="stat-label">Điểm TB</div></div>
+        <div class="stat-card"><div class="stat-value" id="highScore">0</div><div class="stat-label">Điểm cao nhất</div></div>
+    </div>
+    
+    <div class="filter-group">
+        <div class="filter-item"><label>📅 Từ ngày:</label><input type="date" id="dateFrom"></div>
+        <div class="filter-item"><label>📅 Đến ngày:</label><input type="date" id="dateTo"></div>
+        <div class="filter-item"><label>📚 Chọn đề:</label><select id="examFilter"><option value="">Tất cả đề</option></select></div>
+        <div class="filter-item"><label>🔍 Tìm HS:</label><input type="text" id="searchKeyword" placeholder="Mã HS / Tên"></div>
+        <button class="btn-primary" onclick="loadResults()"><i class="fas fa-filter"></i> Lọc</button>
+        <button class="btn-primary" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+    </div>
+    
+    <div class="table-container">
+        <table id="resultsTable">
+            <thead><tr><th>STT</th><th>Mã HS</th><th>Học sinh</th><th>Đề thi</th><th>Điểm số</th><th>Thời gian</th><th></th></tr></thead>
+            <tbody id="tableBody"><tr><td colspan="7" class="text-center"><span class="loading"></span> Đang tải...<\/td><\/tr><\/tbody>
+        <\/table>
+    <\/div>
+<\/div>
+
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3>📋 CHI TIẾT BÀI LÀM</h3><button class="close-modal" onclick="closeModal()">&times;</button><\/div>
+        <div id="modalContent"><\/div>
+    <\/div>
+<\/div>
+
+<script>
+    // ==================== CẤU HÌNH FIREBASE V2 MỚI ====================
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43",
+        measurementId: "G-7S2HKST98Z"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    
+    let currentTeacher = null;
+    let allResults = [];
+    
+    function setDefaultDates() {
+        const today = new Date().toISOString().split('T')[0];
+        const lastMonth = new Date(); lastMonth.setMonth(lastMonth.getMonth() - 1);
+        document.getElementById('dateFrom').value = lastMonth.toISOString().split('T')[0];
+        document.getElementById('dateTo').value = today;
+    }
+    
+    auth.onAuthStateChanged(async (user) => {
+        if (user) {
+            currentTeacher = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+            document.getElementById('teacherInfo').innerHTML = `<i class="fas fa-user-check"></i> ${currentTeacher.name}`;
+            setDefaultDates();
+            await loadExamList();
+            await loadResults();
+        } else {
+            window.location.href = 'login.html';
+        }
+    });
+    
+    async function loadExamList() {
+        if (!currentTeacher) return;
+        const snapshot = await db.ref(`teachers/${currentTeacher.uid}/exams`).once('value');
+        const exams = snapshot.val() || {};
+        
+        const select = document.getElementById('examFilter');
+        select.innerHTML = '<option value="all">📖 Tất cả đề thi</option>';
+        for (let [id, exam] of Object.entries(exams)) {
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = exam.name;
+            select.appendChild(option);
+        }
+    }
+    
+    async function loadResults() {
+        if (!currentTeacher) return;
+        
+        const dateFrom = new Date(document.getElementById('dateFrom').value + "T00:00:00").getTime();
+        const dateTo = new Date(document.getElementById('dateTo').value + "T23:59:59").getTime();
+        const examFilter = document.getElementById('examFilter').value;
+        const keyword = document.getElementById('searchKeyword').value.toLowerCase().trim();
+        
+        const snapshot = await db.ref(`teachers/${currentTeacher.uid}/attempts`).once('value');
+        const attempts = snapshot.val() || {};
+        
+        let results = [];
+        for (let [id, attempt] of Object.entries(attempts)) {
+            if (attempt.timestamp < dateFrom || attempt.timestamp > dateTo) continue;
+            if (examFilter !== 'all' && attempt.examId !== examFilter) continue;
+            
+            const studentCode = attempt.studentCode || 'N/A';
+            const studentName = attempt.studentName || 'Học sinh';
+            if (keyword && !studentCode.toLowerCase().includes(keyword) && !studentName.toLowerCase().includes(keyword)) continue;
+            
+            results.push({
+                id: id,
+                studentCode: studentCode,
+                studentName: studentName,
+                examId: attempt.examId,
+                examName: attempt.examName,
+                score: attempt.score || 0,
+                timestamp: attempt.timestamp,
+                rawAttempt: attempt
+            });
+        }
+        
+        results.sort((a, b) => b.timestamp - a.timestamp);
+        allResults = results;
+        renderTable();
+        updateStats();
+    }
+    
+    function renderTable() {
+        const tbody = document.getElementById('tableBody');
+        if (allResults.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center">📭 Không có dữ liệu<\/td><\/tr>';
+            return;
+        }
+        
+        let html = '';
+        allResults.forEach((item, idx) => {
+            const timeString = new Date(item.timestamp).toLocaleString('vi-VN');
+            html += `<tr onclick="showDetail('${item.id}')">
+                        <td>${idx + 1}<\/td>
+                        <td><strong>${escapeHtml(item.studentCode)}<\/strong><\/td>
+                        <td>${escapeHtml(item.studentName)}<\/td>
+                        <td>${escapeHtml(item.examName)}<\/td>
+                        <td style="color:#d84315; font-weight:bold;">${item.score.toFixed(2)}<\/td>
+                        <td style="font-size:0.75rem;">${timeString}<\/td>
+                        <td><button class="btn-primary" style="padding:4px 12px;" onclick="event.stopPropagation();showDetail('${item.id}')"><i class="fas fa-eye"></i> Chi tiết<\/button><\/td>
+                      <\/tr>`;
+        });
+        tbody.innerHTML = html;
+    }
+    
+    function updateStats() {
+        const total = allResults.length;
+        const uniqueStudents = new Set(allResults.map(r => r.studentCode)).size;
+        const avg = total ? (allResults.reduce((s, r) => s + r.score, 0) / total).toFixed(2) : 0;
+        const max = total ? Math.max(...allResults.map(r => r.score)).toFixed(2) : 0;
+        
+        document.getElementById('totalSubmissions').textContent = total;
+        document.getElementById('totalStudents').textContent = uniqueStudents;
+        document.getElementById('avgScore').textContent = avg;
+        document.getElementById('highScore').textContent = max;
+    }
+    
+    async function showDetail(attemptId) {
+        const attempt = allResults.find(r => r.id === attemptId);
+        if (!attempt) return;
+        
+        const masterSnap = await db.ref(`teachers/${currentTeacher.uid}/exam_master_keys/${attempt.examId}`).once('value');
+        const masterKeys = masterSnap.val() || [];
+        const answers = attempt.rawAttempt.answers || {};
+        
+        let html = `<div style="margin-bottom:15px;padding:12px;background:#f5f5f5;border-radius:12px;">
+            <p><strong>👤 Học sinh:</strong> ${escapeHtml(attempt.studentName)} (${escapeHtml(attempt.studentCode)})</p>
+            <p><strong>📝 Đề thi:</strong> ${escapeHtml(attempt.examName)}</p>
+            <p><strong>⏰ Thời gian:</strong> ${new Date(attempt.timestamp).toLocaleString('vi-VN')}</p>
+            <p><strong>🎯 Tổng điểm:</strong> <span style="font-size:1.5rem; color:#d84315;">${attempt.score.toFixed(2)}</span></p>
+        <\/div>`;
+        
+        let tnQuestions = [], dsQuestions = [], tlnQuestions = [];
+        
+        for (let q of masterKeys) {
+            const qId = String(q.id);
+            const userAns = answers[qId];
+            if (userAns === undefined) continue;
+            
+            if (q.type === 'multiple_choice') {
+                const isCorrect = String(userAns).toUpperCase() === String(q.correct).toUpperCase();
+                tnQuestions.push({ id: qId, user: userAns, correct: q.correct, isCorrect: isCorrect });
+            } else if (q.type === 'true_false') {
+                let correctCount = 0;
+                let details = [];
+                for (let [letter, val] of Object.entries(q.correct || {})) {
+                    const userVal = userAns?.[letter];
+                    const isCorrect = (userVal === val);
+                    if (isCorrect) correctCount++;
+                    details.push({ letter, user: userVal ? 'Đúng' : 'Sai', correct: val ? 'Đúng' : 'Sai', isCorrect });
+                }
+                dsQuestions.push({ id: qId, details, correctCount });
+            } else {
+                const isCorrect = normalizeAnswer(userAns) === normalizeAnswer(q.correct);
+                tlnQuestions.push({ id: qId, user: userAns, correct: q.correct, isCorrect });
+            }
+        }
+        
+        if (tnQuestions.length) {
+            html += `<div class="part-card"><div class="part-title">📝 PHẦN I - TRẮC NGHIỆM (0.25đ/câu)</div><div class="question-grid">`;
+            tnQuestions.forEach(q => {
+                html += `<div class="question-item ${q.isCorrect ? 'correct' : 'wrong'}">
+                            <strong>Câu ${q.id}</strong><br>HS: ${escapeHtml(q.user)} | ĐA: ${escapeHtml(q.correct)}<br>${q.isCorrect ? '✅ Đúng' : '❌ Sai'}<\/div>`;
+            });
+            html += `<\/div><\/div>`;
+        }
+        
+        if (dsQuestions.length) {
+            html += `<div class="part-card"><div class="part-title">✅ PHẦN II - ĐÚNG/SAI (mỗi ý 0.25đ)</div><div class="question-grid">`;
+            dsQuestions.forEach(q => {
+                html += `<div class="question-item"><strong>Câu ${q.id}</strong> - Ý đúng: ${q.correctCount}/4<br>`;
+                q.details.forEach(d => {
+                    html += `<span style="display:inline-block; margin-right:10px;">${d.letter}) HS:${d.user} | ĐA:${d.correct} ${d.isCorrect ? '✓' : '✗'}</span>`;
+                });
+                html += `<\/div>`;
+            });
+            html += `<\/div><\/div>`;
+        }
+        
+        if (tlnQuestions.length) {
+            html += `<div class="part-card"><div class="part-title">✍️ PHẦN III - TRẢ LỜI NGẮN (0.5đ/câu)</div><div class="question-grid">`;
+            tlnQuestions.forEach(q => {
+                html += `<div class="question-item ${q.isCorrect ? 'correct' : 'wrong'}">
+                            <strong>Câu ${q.id}</strong><br>HS: ${escapeHtml(q.user)} | ĐA: ${escapeHtml(q.correct)}<br>${q.isCorrect ? '✅ Đúng' : '❌ Sai'}<\/div>`;
+            });
+            html += `<\/div><\/div>`;
+        }
+        
+        document.getElementById('modalContent').innerHTML = html;
+        document.getElementById('detailModal').classList.add('active');
+    }
+    
+    function normalizeAnswer(str) {
+        if (!str) return '';
+        return String(str).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
+    }
+    
+    function closeModal() { document.getElementById('detailModal').classList.remove('active'); }
+    
+    function exportToExcel() {
+        if (allResults.length === 0) return;
+        const data = [['STT', 'Mã HS', 'Học sinh', 'Đề thi', 'Điểm số', 'Thời gian']];
+        allResults.forEach((item, idx) => {
+            data.push([idx + 1, item.studentCode, item.studentName, item.examName, item.score.toFixed(2), new Date(item.timestamp).toLocaleString('vi-VN')]);
+        });
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'KetQua');
+        XLSX.writeFile(wb, `KetQua_${new Date().toISOString().split('T')[0]}.xlsx`);
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CỔNG ĐĂNG NHẬP - TRƯỜNG THPT TRẦN TRƯỜNG SINH</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #0d47a1;
+            --accent: #ffd600;
+            --text-light: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { 
+            background: var(--bg-gradient); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng hạt nền mờ */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+            animation: moveBg 60s linear infinite;
+        }
+
+        @keyframes moveBg { from { transform: translate(0,0); } to { transform: translate(-50%, -50%); } }
+
+        .login-card {
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .school-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            color: var(--accent);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(26,35,126,0.3);
+        }
+
+        h1 { color: var(--primary); font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
+        .sub-title { color: #555; font-size: 0.95rem; margin-bottom: 35px; font-weight: 500; }
+
+        .btn-google {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 16px 24px;
+            border-radius: 16px;
+            width: 100%;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #444;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .btn-google:hover {
+            background: #fafafa;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-google i { font-size: 1.4rem; color: #ea4335; }
+
+        /* Panel Thông tin GV */
+        .teacher-panel {
+            background: #f0f4ff;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: left;
+            border-left: 5px solid var(--primary);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .teacher-panel h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .teacher-info-item { margin-bottom: 10px; font-size: 0.9rem; color: #333; }
+        .teacher-info-item strong { color: var(--secondary); }
+
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .nav-link {
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .nav-link:hover { background: var(--secondary); transform: scale(1.03); }
+        .nav-link.wide { grid-column: span 2; background: #2e7d32; }
+
+        .logout-link { display: block; margin-top: 15px; color: #d32f2f; font-size: 0.85rem; cursor: pointer; text-decoration: underline; font-weight: 600; }
+
+        .hidden { display: none; }
+        .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <div class="school-logo">
+        <i class="fas fa-graduation-cap"></i>
+    </div>
+    <h1>MATH HUB V2</h1>
+    <p class="sub-title">Hệ thống Quản lý Đề thi THPT Trần Trường Sinh</p>
+
+    <div id="loginSection">
+        <button class="btn-google" id="googleBtn" onclick="handleLogin()">
+            <i class="fab fa-google"></i> Đăng nhập bằng Google
+        </button>
+        <p style="font-size: 0.8rem; color: #888;">Dành riêng cho cán bộ giáo viên nhà trường</p>
+    </div>
+
+    <div id="dashboardSection" class="hidden">
+        <div class="teacher-panel">
+            <h3><i class="fas fa-user-tie"></i> Hồ sơ Giáo viên</h3>
+            <div class="teacher-info-item">👤 Họ tên: <strong id="displayName">...</strong></div>
+            <div class="teacher-info-item">📧 Email: <strong id="displayEmail">...</strong></div>
+            
+            <div class="nav-grid">
+                <a href="Teacher_Studio.html" class="nav-link"><i class="fas fa-plus"></i> Tạo đề mới</a>
+                <a href="KQTH.html" class="nav-link"><i class="fas fa-list-check"></i> Điểm đề thi</a>
+                <a href="index.html" class="nav-link wide"><i class="fas fa-chart-pie"></i> Phân tích Chuyên đề</a>
+            </div>
+            <a href="KhoDe.html" class="nav-link" style="background: #ef6c00;"><i class="fas fa-archive"></i> Kho đề của tôi</a>
+            <span class="logout-link" onclick="handleLogout()">Đăng xuất tài khoản</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // === CẤU HÌNH FIREBASE V2 ===
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43",
+        measurementId: "G-7S2HKST98Z"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Lắng nghe trạng thái đăng nhập
+    auth.onAuthStateChanged((user) => {
+        const loginSection = document.getElementById('loginSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+
+        if (user) {
+            document.getElementById('displayName').innerText = user.displayName || "Giáo viên";
+            document.getElementById('displayEmail').innerText = user.email;
+            
+            loginSection.classList.add('hidden');
+            dashboardSection.classList.remove('hidden');
+            console.log("Đã xác thực giáo viên:", user.email);
+        } else {
+            loginSection.classList.remove('hidden');
+            dashboardSection.classList.add('hidden');
+        }
+    });
+
+    // Hàm Đăng nhập tối ưu
+    async function handleLogin() {
+        const btn = document.getElementById('googleBtn');
+        const originalText = btn.innerHTML;
+        
+        try {
+            btn.innerHTML = '<span class="loading-spinner"></span> Đang xác thực...';
+            btn.disabled = true;
+
+            // Bước 1: Ép lưu bộ nhớ cục bộ để phá vỡ vòng lặp
+            await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+            
+            // Bước 2: Sử dụng Popup (Thường ổn định hơn Redirect trên localhost)
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+            
+            await auth.signInWithPopup(provider);
+            console.log("Đăng nhập thành công!");
+            
+        } catch (error) {
+            console.error("Lỗi đăng nhập:", error);
+            // Nếu trình duyệt chặn Popup, tự động chuyển sang Redirect
+            if (error.code === 'auth/popup-blocked') {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                auth.signInWithRedirect(provider);
+            } else {
+                alert("Lỗi: " + error.message);
+            }
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    // Hàm Đăng xuất
+    async function handleLogout() {
+        if (confirm("Giám đốc có chắc chắn muốn đăng xuất?")) {
+            await auth.signOut();
+            window.location.reload();
+        }
+    }
+</script>
+</body>
+</html>

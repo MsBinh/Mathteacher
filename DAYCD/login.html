@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ĐĂNG NHẬP GIÁO VIÊN - MATH HUB</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #1a237e, #0d1757); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { max-width: 450px; width: 100%; background: white; border-radius: 30px; padding: 40px; text-align: center; }
+        .logo { font-size: 3rem; margin-bottom: 15px; }
+        h1 { color: #1a237e; margin-bottom: 10px; }
+        .btn-google { background: white; border: 2px solid #ddd; padding: 15px; border-radius: 50px; width: 100%; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+        .btn-google:hover { background: #f8f9fa; transform: translateY(-2px); }
+        .dashboard-links { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        .dashboard-links a { background: #1a237e; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 600; text-align: center; }
+        .dashboard-links a:hover { background: #0d1757; }
+        .teacher-info { background: #e8eaf6; padding: 20px; border-radius: 20px; margin-bottom: 20px; text-align: left; }
+        .logout-btn { background: #c62828; color: white; border: none; padding: 10px; border-radius: 25px; cursor: pointer; margin-top: 10px; width: 100%; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">📐</div>
+    <h1>MATH HUB V2</h1>
+    
+    <div id="loginPanel">
+        <button class="btn-google" onclick="handleGoogleLogin()"><i class="fab fa-google"></i> Đăng nhập bằng Google</button>
+        <p style="font-size:0.8rem; color:#999;">Chỉ dành cho giáo viên có tài khoản Gmail</p>
+    </div>
+    
+    <div id="teacherPanel" class="hidden">
+        <div class="teacher-info"><strong>👤 Giáo viên:</strong> <span id="teacherName"></span><br><strong>📧 Email:</strong> <span id="teacherEmail"></span></div>
+        <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
+        <div class="dashboard-links">
+            <a href="Teacher_Studio.html"><i class="fas fa-pen-fancy"></i> Studio tạo đề</a>
+            <a href="KQTH.html"><i class="fas fa-chart-line"></i> Kết quả đề thi</a>
+             <a href="index.html" class="nav-link wide"><i class="fas fa-chart-pie"></i> Phân tích Chuyên đề</a>
+            <a href="KhoDe.html"><i class="fas fa-database"></i> Kho đề đã phát hành</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            document.getElementById('loginPanel').classList.add('hidden');
+            document.getElementById('teacherPanel').classList.remove('hidden');
+            document.getElementById('teacherName').innerText = user.displayName || user.email.split('@')[0];
+            document.getElementById('teacherEmail').innerText = user.email;
+            localStorage.setItem('mathhub_teacher', JSON.stringify({ uid: user.uid, email: user.email, name: user.displayName }));
+        } else {
+            document.getElementById('loginPanel').classList.remove('hidden');
+            document.getElementById('teacherPanel').classList.add('hidden');
+            localStorage.removeItem('mathhub_teacher');
+        }
+    });
+    
+    async function handleGoogleLogin() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try { await auth.signInWithPopup(provider); }
+        catch(e) { alert('Lỗi: ' + e.message); }
+    }
+    
+    async function handleLogout() { await auth.signOut(); }
+</script>
+</body>
+</html>

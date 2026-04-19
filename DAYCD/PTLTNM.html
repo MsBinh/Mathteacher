@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MP - MATH PLATFORM | Bảng vẽ thông minh</title>
+    
+    <!-- Firebase V2 -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+    
+    <!-- MathJax -->
+    <script>window.MathJax = { tex: { inlineMath: [['$', '$']], processEscapes: true }, svg: { fontCache: 'global' }, startup: { typeset: false } };</script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <!-- html2canvas & jspdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Desmos Calculator -->
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background: #252526; font-family: 'Times New Roman', serif; }
+        
+        /* LAYOUT CHÍNH: BẢNG VẼ + SIDEBAR */
+        .main-layout { display: flex; height: 100vh; overflow: hidden; }
+        
+        /* BẢNG VẼ (KHỐI CHÍNH) */
+        .board-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        /* TOOLBAR */
+        .toolbar { height: 50px; background: #34495e; padding: 0 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #555; flex-shrink: 0; overflow-x: auto; }
+        .btn { width: 40px; height: 36px; border-radius: 6px; border: 1px solid #555; cursor: pointer; background: #444; color: white; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .btn:hover { background: #555; }
+        .btn.active { background: #2ecc71; border-color: #2ecc71; }
+        .sep { width: 1px; height: 25px; background: #666; margin: 0 4px; }
+        #drawTool { width: 60px; height: 36px; padding: 0 5px; border-radius: 6px; background: #eee; cursor: pointer; }
+        #colorStatus { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; }
+        
+        /* MATH TOOLBAR */
+        .math-toolbar { height: 40px; background: #2c2c2c; display: flex; align-items: center; padding: 0 10px; gap: 8px; overflow-x: auto; flex-shrink: 0; }
+        .snippet-btn { padding: 4px 10px; font-size: 14px; background: #3a3a3a; color: #ddd; border: 1px solid #555; border-radius: 4px; cursor: pointer; }
+        
+        /* BOARD WRAPPER */
+        #boardWrapper { flex: 1; position: relative; background: #0b6b3a; background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 25px 25px; overflow: auto; cursor: crosshair; }
+        #contentContainer { position: relative; min-height: 5000px; width: 100%; }
+        #mainCanvas { position: absolute; top: 0; left: 0; z-index: 200; pointer-events: none; }
+        .drawing-mode #mainCanvas { pointer-events: auto; z-index: 300; }
+        
+        /* PDF CONTAINER */
+        .pdf-container { position: relative; width: 100%; background: white; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .pdf-page { width: 100%; display: block; border-bottom: 1px solid #ddd; }
+        
+        /* MATH BOX */
+        .math-box { position: absolute; min-width: 50px; z-index: 400; background: rgba(21,76,39,0.95); border-left: 4px solid #f1c40f; border-radius: 4px; box-shadow: 3px 3px 10px rgba(0,0,0,0.5); color: white; font-size: 14.5pt; cursor: pointer; }
+        .math-box.active { border: 2px dashed #2ecc71; z-index: 500; }
+        .math-handle { height: 20px; background: rgba(0,0,0,0.3); cursor: move; display: none; justify-content: flex-end; align-items: center; padding: 0 8px; }
+        .math-box.active .math-handle { display: flex; }
+        .math-content { padding: 8px 12px; outline: none; white-space: pre-wrap; word-wrap: break-word; }
+        
+        /* MEDIA BOX */
+        .media-box { position: absolute; z-index: 100; cursor: move; border: 2px solid transparent; }
+        .media-box.selected { border: 2px dashed #f1c40f; z-index: 1000; }
+        .img-controls { position: absolute; top: -40px; right: 0; background: #2c3e50; border-radius: 4px; padding: 4px; display: none; gap: 5px; }
+        .media-box.selected .img-controls { display: flex; }
+        .img-btn { width: 30px; height: 30px; background: #34495e; color: white; border: 1px solid #7f8c8d; border-radius: 3px; cursor: pointer; }
+        
+        /* EDITOR PANEL */
+        #editor-panel { position: fixed; bottom: 20px; right: 20px; width: 350px; height: 200px; background: #2c3e50; border: 2px solid #2ecc71; border-radius: 8px; z-index: 10000; display: none; flex-direction: column; padding: 12px; }
+        #latex-input { flex: 1; background: #fff; padding: 10px; border-radius: 6px; resize: none; font-family: monospace; }
+        
+        /* SIDEBAR THI CỬ */
+        .exam-sidebar { width: 0; background: #2c3e50; border-left: 2px solid #2ecc71; transition: width 0.3s ease; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        .exam-sidebar.open { width: 380px; }
+        .sidebar-toggle { position: absolute; left: -40px; top: 50%; transform: translateY(-50%); background: #2ecc71; border: none; border-radius: 8px 0 0 8px; padding: 12px 8px; cursor: pointer; color: white; font-weight: bold; writing-mode: vertical-rl; }
+        .sidebar-content { padding: 15px; overflow-y: auto; flex: 1; }
+        
+        /* BUBBLE SHEET */
+        .bubble-sheet { background: #fff; border-radius: 12px; padding: 15px; margin-bottom: 20px; }
+        .bubble-sheet h3 { color: #2c3e50; margin-bottom: 15px; font-size: 16px; border-bottom: 2px solid #2ecc71; display: inline-block; }
+        .question-bubbles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .bubble { background: #ecf0f1; border-radius: 8px; padding: 8px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .bubble.selected { background: #2ecc71; color: white; }
+        .bubble.answered { border: 2px solid #2ecc71; }
+        
+        /* CASIO BUTTON */
+        .casio-btn { background: #3498db; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; }
+        .casio-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 500px; background: white; border-radius: 12px; z-index: 20000; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .casio-header { background: #2c3e50; color: white; padding: 10px; display: flex; justify-content: space-between; border-radius: 12px 12px 0 0; }
+        .casio-iframe { flex: 1; border: none; }
+        
+        /* TIMER */
+        .timer { background: #e74c3c; color: white; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 16px; margin-left: auto; }
+        
+        /* PAGINATION */
+        .pagination-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(51,51,51,0.9); padding: 8px 20px; border-radius: 25px; display: flex; gap: 12px; z-index: 8000; }
+        
+        .loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.9); color: white; padding: 20px 40px; border-radius: 12px; display: none; z-index: 9999; }
+    </style>
+</head>
+<body class="drawing-mode">
+<div id="loading">⏳ Đang tải dữ liệu...</div>
+
+<div class="main-layout">
+    <div class="board-area">
+        <div class="toolbar">
+            <button class="btn" onclick="toggleFullScreen()">🖥️</button>
+            <button class="btn" id="btnHand" onclick="setTool('hand')">🖐️</button>
+            <button class="btn" onclick="saveProjectFile()">💾</button>
+            <div class="sep"></div>
+            <button class="btn" onclick="undoApp()">↩️</button>
+            <button class="btn" onclick="redoApp()">↪️</button>
+            <div class="sep"></div>
+            <select id="drawTool" onchange="setTool(this.value)">
+                <option value="pen">✏️</option>
+                <option value="highlighter">🖍️</option>
+                <option value="line">📏</option>
+                <option value="rect">⬛</option>
+                <option value="circle">⚪</option>
+            </select>
+            <div id="colorStatus" onclick="cycleColor()"></div>
+            <button class="btn" onclick="createCenteredMathBox()">Σ</button>
+            <div class="sep"></div>
+            <button class="btn" id="btnAnnotate" onclick="toggleAnnotation()" style="background:#d35400">📝</button>
+            <button class="btn" onclick="document.getElementById('imageInput').click()">🖼️</button>
+            <button class="btn" onclick="document.getElementById('pdfInput').click()">📄</button>
+            <div class="sep"></div>
+            <button class="btn" onclick="exportFullPDF()" style="background:#2ecc71">📥</button>
+            <div id="timer" class="timer">90:00</div>
+        </div>
+        
+        <div class="math-toolbar">
+            <button class="snippet-btn" onclick="insertMath('\\frac{}{}')">Phân số</button>
+            <button class="snippet-btn" onclick="insertMath('\\sqrt{}')">Căn</button>
+            <button class="snippet-btn" onclick="insertMath('^{}')">Mũ</button>
+            <button class="snippet-btn" onclick="insertMath('\\int_{}^{}')">Tích phân</button>
+            <button class="snippet-btn" onclick="insertMath('\\vec{}')">Vecto</button>
+            <button class="snippet-btn" onclick="insertMath('\\widehat{}')">Góc</button>
+            <button class="snippet-btn" onclick="insertMath('\\perp')">⊥</button>
+            <button class="snippet-btn" onclick="insertMath('\\parallel')">∥</button>
+            <button class="snippet-btn" onclick="insertMath('\\Rightarrow')">⇒</button>
+        </div>
+        
+        <div id="boardWrapper">
+            <div id="contentContainer">
+                <canvas id="mainCanvas"></canvas>
+            </div>
+        </div>
+        
+        <div class="pagination-bar">
+            <button class="btn" onclick="prevPage()">◀</button>
+            <span id="pageIndicator">1/1</span>
+            <button class="btn" onclick="nextPage()">▶</button>
+            <button class="btn" onclick="addPage()" style="background:#2ecc71">➕</button>
+        </div>
+    </div>
+    
+    <div class="exam-sidebar" id="examSidebar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">📋 ĐÁP ÁN</button>
+        <div class="sidebar-content" id="sidebarContent"></div>
+    </div>
+</div>
+
+<div id="editor-panel">
+    <div style="display:flex; justify-content:space-between;">
+        <span>📝 Nhập công thức</span>
+        <span onclick="closeEditor()" style="cursor:pointer; color:#e74c3c;">✕</span>
+    </div>
+    <textarea id="latex-input" placeholder="Gõ text hoặc Latex trong $...$"></textarea>
+    <button class="btn" style="margin-top:8px;" onclick="renderCurrentBox()">Hiển thị</button>
+</div>
+
+<div id="casioModal" class="casio-modal">
+    <div class="casio-header">
+        <span>🧮 Máy tính Casio 580</span>
+        <span onclick="closeCasio()" style="cursor:pointer;">✕</span>
+    </div>
+    <iframe class="casio-iframe" src="https://www.upscaleutility.com/casio/fx580VN_X?embed=true"></iframe>
+</div>
+
+<input type="file" id="imageInput" accept="image/*" style="display:none">
+<input type="file" id="pdfInput" accept=".pdf" style="display:none">
+
+<script>
+    // ==================== FIREBASE V2 ====================
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    
+    // ==================== ĐỌC THAM SỐ URL ====================
+    const urlParams = new URLSearchParams(window.location.search);
+    const teacherId = urlParams.get('t');
+    const examId = urlParams.get('exam');
+    const studentCode = urlParams.get('code');
+    const studentName = urlParams.get('name');
+    
+    let currentExam = null;
+    let currentQuestions = [];
+    let studentAnswers = {};
+    let isSubmitted = false;
+    let timerInterval = null;
+    let timeLeft = 5400; // 90 phút = 5400 giây
+    
+    // ==================== KHỞI TẠO THI ====================
+    async function initExam() {
+        if (!teacherId || !examId) return;
+        
+        document.getElementById('loading').style.display = 'block';
+        
+        try {
+            // Lấy thông tin đề
+            const examSnap = await db.ref(`teachers/${teacherId}/exams/${examId}`).once('value');
+            const examData = examSnap.val();
+            
+            if (!examData) throw new Error('Không tìm thấy đề thi');
+            
+            currentExam = { id: examId, name: examData.name, duration: examData.duration || 90, pdfLink: examData.pdfLink };
+            
+            // Lấy master key
+            const masterSnap = await db.ref(`teachers/${teacherId}/exam_master_keys/${examId}`).once('value');
+            currentQuestions = masterSnap.val() || [];
+            
+            // Tải PDF
+            if (currentExam.pdfLink) {
+                await loadPdfFromUrl(currentExam.pdfLink);
+            }
+            
+            // Khởi tạo sidebar
+            renderBubbleSheet();
+            startTimer(currentExam.duration * 60);
+            
+            document.getElementById('loading').style.display = 'none';
+        } catch (error) {
+            console.error(error);
+            document.getElementById('loading').style.display = 'none';
+            alert('Lỗi tải đề: ' + error.message);
+        }
+    }
+    
+    async function loadPdfFromUrl(url) {
+        const loading = document.getElementById('loading');
+        loading.style.display = 'block';
+        
+        try {
+            const pdfData = await pdfjsLib.getDocument(url).promise;
+            const pdfContainer = document.createElement('div');
+            pdfContainer.className = 'pdf-container';
+            const containerWidth = document.getElementById('boardWrapper').offsetWidth - 40;
+            
+            for (let i = 1; i <= pdfData.numPages; i++) {
+                const page = await pdfData.getPage(i);
+                const viewport = page.getViewport({ scale: 1 });
+                const scale = containerWidth / viewport.width;
+                const scaledViewport = page.getViewport({ scale: scale });
+                const canvas = document.createElement('canvas');
+                canvas.className = 'pdf-page';
+                canvas.width = scaledViewport.width;
+                canvas.height = scaledViewport.height;
+                await page.render({ canvasContext: canvas.getContext('2d'), viewport: scaledViewport }).promise;
+                pdfContainer.appendChild(canvas);
+            }
+            
+            document.getElementById('contentContainer').appendChild(pdfContainer);
+            updateContainerHeight();
+        } catch (error) {
+            console.error('PDF error:', error);
+        }
+        
+        loading.style.display = 'none';
+    }
+    
+    // ==================== BUBBLE SHEET ====================
+    function renderBubbleSheet() {
+        const container = document.getElementById('sidebarContent');
+        if (!container) return;
+        
+        let html = `<div class="bubble-sheet">
+            <h3>📝 PHIẾU TRẢ LỜI</h3>
+            <div style="margin-bottom:10px;"><strong>Học sinh:</strong> ${studentName || 'Chưa nhập'} (${studentCode || ''})</div>
+            <div style="margin-bottom:10px;"><strong>Đề thi:</strong> ${currentExam?.name || ''}</div>
+            <div style="margin-bottom:15px;"><strong>⏱️ Thời gian còn lại:</strong> <span id="timerDisplay">${formatTime(timeLeft)}</span></div>
+            <hr style="margin:10px 0;">`;
+        
+        // Phân loại câu hỏi
+        const mcqQuestions = currentQuestions.filter(q => q.type === 'multiple_choice');
+        const tfQuestions = currentQuestions.filter(q => q.type === 'true_false');
+        const saQuestions = currentQuestions.filter(q => q.type === 'short_answer');
+        
+        if (mcqQuestions.length) {
+            html += `<h4>📌 Phần I: Trắc nghiệm (0.25đ/câu)</h4><div class="question-bubbles">`;
+            mcqQuestions.forEach(q => {
+                const answered = studentAnswers[q.id];
+                html += `<div class="bubble ${answered ? 'answered' : ''}" onclick="selectAnswer('${q.id}')">
+                            <strong>Câu ${q.id}</strong><br>
+                            <span style="font-size:12px;">${answered || '❓'}</span>
+                        </div>`;
+            });
+            html += `</div>`;
+        }
+        
+        if (tfQuestions.length) {
+            html += `<h4>✅ Phần II: Đúng/Sai (mỗi ý 0.25đ)</h4><div class="question-bubbles">`;
+            tfQuestions.forEach(q => {
+                const answered = studentAnswers[q.id];
+                const status = answered ? (Array.isArray(answered) ? answered.filter(v => v !== null).length + '/4' : 'Đã làm') : '❓';
+                html += `<div class="bubble ${answered ? 'answered' : ''}" onclick="selectAnswer('${q.id}')">
+                            <strong>Câu ${q.id}</strong><br>
+                            <span style="font-size:12px;">${status}</span>
+                        </div>`;
+            });
+            html += `</div>`;
+        }
+        
+        if (saQuestions.length) {
+            html += `<h4>✍️ Phần III: Trả lời ngắn (0.5đ/câu)</h4><div class="question-bubbles">`;
+            saQuestions.forEach(q => {
+                const answered = studentAnswers[q.id];
+                html += `<div class="bubble ${answered ? 'answered' : ''}" onclick="selectAnswer('${q.id}')">
+                            <strong>Câu ${q.id}</strong><br>
+                            <span style="font-size:12px;">${answered || '❓'}</span>
+                        </div>`;
+            });
+            html += `</div>`;
+        }
+        
+        html += `<button class="casio-btn" onclick="openCasio()">🧮 Mở máy tính Casio</button>
+                <button class="casio-btn" style="background:#e74c3c; margin-top:10px;" onclick="submitExam()">📤 NỘP BÀI</button>`;
+        
+        container.innerHTML = html;
+    }
+    
+    function selectAnswer(qId) {
+        if (isSubmitted) return;
+        
+        const q = currentQuestions.find(q => q.id == qId);
+        if (!q) return;
+        
+        let answer = null;
+        
+        if (q.type === 'multiple_choice') {
+            const val = prompt(`Nhập đáp án câu ${qId} (A/B/C/D):`, studentAnswers[qId] || '').toUpperCase();
+            if (['A','B','C','D'].includes(val)) answer = val;
+            else return;
+        } else if (q.type === 'short_answer') {
+            answer = prompt(`Nhập đáp án câu ${qId}:`, studentAnswers[qId] || '');
+            if (answer === null) return;
+        } else if (q.type === 'true_false') {
+            alert(`Câu ${qId} là Đúng/Sai 4 ý. Vui lòng chọn từng ý trong bảng.`);
+            return;
+        }
+        
+        studentAnswers[qId] = answer;
+        renderBubbleSheet();
+        saveAnswerToFirebase(qId, answer);
+    }
+    
+    // ==================== TIMER ====================
+    function startTimer(seconds) {
+        timeLeft = seconds;
+        updateTimerDisplay();
+        
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitExam();
+            } else {
+                timeLeft--;
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+    
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('timerDisplay').innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+        document.getElementById('timer').innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    }
+    
+    function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    }
+    
+    // ==================== NỘP BÀI ====================
+    async function submitExam() {
+        if (isSubmitted) return;
+        if (!confirm('Bạn có chắc chắn muốn nộp bài?')) return;
+        
+        isSubmitted = true;
+        if (timerInterval) clearInterval(timerInterval);
+        
+        let totalScore = 0;
+        let answered = 0;
+        
+        for (let q of currentQuestions) {
+            const userAns = studentAnswers[q.id];
+            if (!userAns) continue;
+            answered++;
+            
+            if (q.type === 'multiple_choice') {
+                if (String(userAns).toUpperCase() === String(q.correct).toUpperCase()) totalScore += 0.25;
+            } else if (q.type === 'short_answer') {
+                const normUser = String(userAns).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
+                const normCorrect = String(q.correct).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
+                if (normUser === normCorrect) totalScore += 0.5;
+            } else if (q.type === 'true_false' && Array.isArray(userAns)) {
+                let correctCount = 0;
+                for (let i = 0; i < 4; i++) {
+                    if (userAns[i] === q.correct[i]) correctCount++;
+                }
+                totalScore += correctCount * 0.25;
+            }
+        }
+        
+        // Lưu kết quả
+        const attempt = {
+            studentCode: studentCode,
+            studentName: studentName,
+            examId: examId,
+            examName: currentExam?.name,
+            score: totalScore,
+            answered: answered,
+            total: currentQuestions.length,
+            answers: studentAnswers,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        };
+        
+        try {
+            await db.ref(`teachers/${teacherId}/attempts/${examId}_${studentCode}_${Date.now()}`).set(attempt);
+            alert(`✅ Nộp bài thành công!\nĐiểm của bạn: ${totalScore.toFixed(2)}/${(currentQuestions.length * 0.5).toFixed(2)}`);
+        } catch (error) {
+            console.error(error);
+            alert('Lỗi lưu kết quả!');
+        }
+    }
+    
+    async function saveAnswerToFirebase(qId, value) {
+        if (!teacherId || !examId || !studentCode) return;
+        try {
+            await db.ref(`answers_temp/${teacherId}/${examId}/${studentCode}/${qId}`).set(value);
+        } catch(e) { console.error(e); }
+    }
+    
+    // ==================== SIDEBAR ====================
+    function toggleSidebar() {
+        document.getElementById('examSidebar').classList.toggle('open');
+    }
+    
+    function openCasio() {
+        document.getElementById('casioModal').style.display = 'flex';
+    }
+    
+    function closeCasio() {
+        document.getElementById('casioModal').style.display = 'none';
+    }
+    
+    // ==================== BẢNG VẼ (KẾ THỪA TỪ Mb.html) ====================
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('boardWrapper');
+    const contentContainer = document.getElementById('contentContainer');
+    const colorStatus = document.getElementById('colorStatus');
+    
+    let currentColor = '#ffffff';
+    let currentTool = 'pen';
+    let isDrawing = false, points = [], snapshot;
+    let activeMathBox = null;
+    let currentPage = 0;
+    let pages = [{ canvasData: null }];
+    let appHistory = [], appStep = -1;
+    
+    function resizeCanvas() {
+        canvas.width = contentContainer.offsetWidth;
+        canvas.height = contentContainer.offsetHeight;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = 2.5;
+    }
+    
+    function getPointerPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+    }
+    
+    function startDraw(e) {
+        if (currentTool === 'hand') return;
+        e.preventDefault();
+        isDrawing = true;
+        points = [getPointerPos(e)];
+        snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+    }
+    
+    function moveDraw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const cur = getPointerPos(e);
+        ctx.putImageData(snapshot, 0, 0);
+        
+        if (currentTool === 'pen' || currentTool === 'highlighter') {
+            ctx.save();
+            if (currentTool === 'highlighter') { ctx.globalAlpha = 0.3; ctx.lineWidth = 20; ctx.strokeStyle = "yellow"; }
+            points.push(cur);
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length - 2; i++) {
+                const xc = (points[i].x + points[i+1].x) / 2;
+                const yc = (points[i].y + points[i+1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            if (points.length > 2) ctx.quadraticCurveTo(points[points.length-2].x, points[points.length-2].y, points[points.length-1].x, points[points.length-1].y);
+            ctx.stroke();
+            ctx.restore();
+        } else {
+            ctx.beginPath();
+            if (currentTool === 'line') { ctx.moveTo(points[0].x, points[0].y); ctx.lineTo(cur.x, cur.y); }
+            else if (currentTool === 'rect') ctx.rect(points[0].x, points[0].y, cur.x - points[0].x, cur.y - points[0].y);
+            else if (currentTool === 'circle') { let r = Math.hypot(cur.x - points[0].x, cur.y - points[0].y); ctx.arc(points[0].x, points[0].y, r, 0, 2 * Math.PI); }
+            ctx.stroke();
+        }
+    }
+    
+    function endDraw() { if(isDrawing) { isDrawing = false; saveAppState(); } }
+    
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', moveDraw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('touchstart', startDraw, {passive: false});
+    canvas.addEventListener('touchmove', moveDraw, {passive: false});
+    canvas.addEventListener('touchend', endDraw);
+    
+    function setTool(toolName) {
+        currentTool = toolName;
+        document.getElementById('btnHand').classList.toggle('active', toolName === 'hand');
+        wrapper.style.cursor = toolName === 'hand' ? 'grab' : 'crosshair';
+    }
+    
+    const colorPalette = ['#ffffff', '#ff4757', '#ffeb3b', '#3498db', '#2ecc71', '#9b59b6'];
+    let colorIndex = 0;
+    function cycleColor() { colorIndex = (colorIndex + 1) % colorPalette.length; updateColor(colorPalette[colorIndex]); }
+    function updateColor(color) { currentColor = color; ctx.strokeStyle = color; colorStatus.style.background = color; }
+    
+    function createCenteredMathBox() { createMathBox(wrapper.clientWidth/2 - 100, wrapper.clientHeight/2 - 50 + wrapper.scrollTop); }
+    function createMathBox(x, y) {
+        const box = document.createElement('div');
+        box.className = 'math-box';
+        box.style.left = x + 'px';
+        box.style.top = y + 'px';
+        box.style.color = currentColor;
+        const handle = document.createElement('div');
+        handle.className = 'math-handle';
+        const delBtn = document.createElement('button');
+        delBtn.innerHTML = '✕';
+        delBtn.onclick = (e) => { e.stopPropagation(); box.remove(); saveAppState(); };
+        handle.appendChild(delBtn);
+        box.appendChild(handle);
+        const content = document.createElement('div');
+        content.className = 'math-content';
+        box.appendChild(content);
+        contentContainer.appendChild(box);
+        box.addEventListener('mousedown', (e) => { e.stopPropagation(); openEditorFor(box); });
+        openEditorFor(box);
+        makeElementDraggable(box, handle);
+        saveAppState();
+    }
+    
+    function openEditorFor(box) {
+        if (activeMathBox) activeMathBox.classList.remove('active');
+        activeMathBox = box;
+        activeMathBox.classList.add('active');
+        document.getElementById('editor-panel').style.display = 'flex';
+        document.getElementById('latex-input').value = box.dataset.raw || "";
+        document.getElementById('latex-input').focus();
+    }
+    
+    function closeEditor() {
+        document.getElementById('editor-panel').style.display = 'none';
+        if (activeMathBox) activeMathBox.classList.remove('active');
+        activeMathBox = null;
+    }
+    
+    function renderCurrentBox() {
+        if (!activeMathBox) return;
+        const raw = document.getElementById('latex-input').value;
+        activeMathBox.dataset.raw = raw;
+        activeMathBox.querySelector('.math-content').innerHTML = raw;
+        MathJax.typesetPromise([activeMathBox.querySelector('.math-content')]);
+    }
+    
+    function insertMath(code) {
+        if (!activeMathBox) { createCenteredMathBox(); setTimeout(() => insertMath(code), 100); return; }
+        const inp = document.getElementById('latex-input');
+        inp.value += code;
+        inp.focus();
+    }
+    
+    function makeElementDraggable(el, handle) {
+        let isDrag = false, startX, startY, startLeft, startTop;
+        handle.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isDrag = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startLeft = parseFloat(el.style.left) || 0;
+            startTop = parseFloat(el.style.top) || 0;
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+        function onMouseMove(e) { if(!isDrag) return; el.style.left = (startLeft + e.clientX - startX) + 'px'; el.style.top = (startTop + e.clientY - startY) + 'px'; }
+        function onMouseUp() { isDrag = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
+    }
+    
+    function saveAppState() { appHistory.push(getCurrentState()); appStep++; }
+    function undoApp() { if(appStep > 0) restoreState(appHistory[--appStep]); }
+    function redoApp() { if(appStep < appHistory.length-1) restoreState(appHistory[++appStep]); }
+    function getCurrentState() { return { canvasData: canvas.toDataURL() }; }
+    function restoreState(state) { ctx.clearRect(0,0,canvas.width,canvas.height); const img=new Image(); img.src=state.canvasData; img.onload=()=>ctx.drawImage(img,0,0); }
+    
+    function saveProjectFile() { const a=document.createElement('a'); a.href=canvas.toDataURL(); a.download="bai_giang.png"; a.click(); }
+    function exportFullPDF() { alert("Tính năng đang phát triển"); }
+    function toggleFullScreen() { if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    function toggleAnnotation() { document.body.classList.toggle('drawing-mode'); }
+    function updateContainerHeight() { contentContainer.style.minHeight = '5000px'; resizeCanvas(); }
+    function prevPage() { if(currentPage>0) switchPage(currentPage-1); }
+    function nextPage() { if(currentPage<pages.length-1) switchPage(currentPage+1); else addPage(); }
+    function addPage() { pages.push({canvasData:null}); switchPage(pages.length-1); }
+    function switchPage(index) { saveCurrentPageState(); currentPage=index; const p=pages[currentPage]; ctx.clearRect(0,0,canvas.width,canvas.height); if(p.canvasData){ const img=new Image(); img.src=p.canvasData; img.onload=()=>ctx.drawImage(img,0,0); } updatePageIndicator(); }
+    function saveCurrentPageState() { pages[currentPage].canvasData = canvas.toDataURL(); }
+    function updatePageIndicator() { document.getElementById('pageIndicator').innerText = `${currentPage+1}/${pages.length}`; }
+    
+    document.getElementById('imageInput').onchange = function(e) {
+        if(!e.target.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) { addMedia('img', ev.target.result); };
+        reader.readAsDataURL(e.target.files[0]);
+        e.target.value = '';
+    };
+    
+    function addMedia(type, src) {
+        const div = document.createElement('div');
+        div.className = 'media-box';
+        div.style.left = '100px';
+        div.style.top = (wrapper.scrollTop + 100) + 'px';
+        div.innerHTML = `<div class="img-controls"><button class="img-btn" onclick="this.closest('.media-box').remove(); saveAppState();">✕</button></div>
+                        <div class="media-content"><img src="${src}" style="width:100%"></div>`;
+        contentContainer.appendChild(div);
+        makeElementDraggable(div, div);
+        saveAppState();
+    }
+    
+    window.onload = () => {
+        resizeCanvas();
+        updateColor('#ffffff');
+        setTool('pen');
+        saveAppState();
+        initExam();
+    };
+    window.onresize = () => resizeCanvas();
+</script>
+</body>
+</html>

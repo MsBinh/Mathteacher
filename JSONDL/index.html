@@ -171,7 +171,7 @@
         sessionStorage.setItem('teacher_id', teacherId);
         sessionStorage.setItem('exam_id', examId);
         
-        window.location.href = `PTLTNTM.html?t=${teacherId}&exam=${examId}&code=${encodeURIComponent(studentCode)}&name=${encodeURIComponent(studentName)}`;
+        window.location.href = `PTLTNM.html?t=${teacherId}&exam=${examId}&code=${encodeURIComponent(studentCode)}&name=${encodeURIComponent(studentName)}`;
     }
     
     async function searchAndStart() {
@@ -218,7 +218,7 @@
         sessionStorage.setItem('teacher_id', targetTeacherId);
         sessionStorage.setItem('exam_id', targetExamId);
         
-        window.location.href = `PTLTNTM.html?t=${targetTeacherId}&exam=${targetExamId}&code=${encodeURIComponent(studentCode)}&name=${encodeURIComponent(studentName)}`;
+        window.location.href = `PTLTNM.html?t=${targetTeacherId}&exam=${targetExamId}&code=${encodeURIComponent(studentCode)}&name=${encodeURIComponent(studentName)}`;
     }
     
     function escapeHtml(str) {
