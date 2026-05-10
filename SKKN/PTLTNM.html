@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PHÒNG THI TRỰC TUYẾN - MATH HUB V2</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    
+    <style>
+        :root {
+            --primary: #1a237e; --accent: #f59e0b; --success: #10b981; --danger: #ef4444;
+            --bg: #f3f4f6; --card-bg: #ffffff; --border: #e5e7eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* NAVBAR */
+        .navbar {
+            background: white; height: 65px; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 100;
+            border-bottom: 3px solid var(--primary);
+        }
+        .brand { font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .timer-badge {
+            background: var(--accent); color: white; padding: 8px 20px; border-radius: 20px;
+            font-size: 1.2rem; font-weight: 900; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* LAYOUT */
+        .main-container { display: flex; flex: 1; overflow: hidden; }
+        .pdf-section { flex: 1; background: #525659; border-right: 2px solid var(--border); position: relative; }
+        .answer-section { width: 450px; background: white; display: flex; flex-direction: column; }
+
+        /* PHIẾU TRẢ LỜI */
+        .sheet-header { padding: 15px; border-bottom: 1px solid var(--border); text-align: center; }
+        .exam-title { font-weight: 800; color: var(--primary); text-transform: uppercase; }
+        .scroll-area { flex: 1; overflow-y: auto; padding: 20px; }
+        
+        .part-header { 
+            background: var(--primary); color: white; padding: 10px; 
+            border-radius: 5px; font-weight: bold; margin: 20px 0 10px 0; font-size: 0.9rem;
+        }
+
+        .q-card { background: #f8fafc; border-radius: 10px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); }
+        .bubble-grid { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        .bubble { 
+            width: 40px; height: 40px; border-radius: 50%; border: 2px solid #cbd5e1;
+            background: white; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .bubble.selected { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* PHẦN II & III */
+        .tf-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; background: white; padding: 8px; border-radius: 8px; }
+        .tf-btn { padding: 5px 12px; border-radius: 5px; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .tf-btn.t-active { background: var(--success); color: white; border-color: var(--success); }
+        .tf-btn.f-active { background: var(--danger); color: white; border-color: var(--danger); }
+        .sa-input { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; text-align: center; font-weight: bold; font-size: 1.1rem; outline: none; }
+
+        .btn-submit { 
+            width: 100%; padding: 15px; background: var(--primary); color: white;
+            border: none; font-weight: 800; cursor: pointer; font-size: 1.1rem;
+        }
+
+        /* LOADING OVERLAY */
+        .overlay { 
+            position: fixed; inset: 0; background: white; z-index: 9999; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="overlay" id="loader">
+    <div class="spinner"></div>
+    <p style="margin-top: 15px; font-weight: bold; color: var(--primary);">Đang nạp đề thi...</p>
+</div>
+
+<nav class="navbar">
+    <div class="brand">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z"/></svg>
+        MATH HUB V2
+    </div>
+    <div id="studentInfo" style="font-size: 0.85rem; font-weight: 600; color: #666;"></div>
+    <div class="timer-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg>
+        <span id="timer">--:--</span>
+    </div>
+</nav>
+
+<div class="main-container">
+    <div class="pdf-section">
+        <iframe id="pdfView" src="" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+    
+    <div class="answer-section">
+        <div class="sheet-header">
+            <div class="exam-title" id="examName">ĐANG TẢI...</div>
+        </div>
+        <div class="scroll-area" id="sheetArea"></div>
+        <button class="btn-submit" onclick="submitTest()">NỘP BÀI THI</button>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43",
+        measurementId: "G-7S2HKST98Z"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const params = new URLSearchParams(window.location.search);
+    const isDemo = params.get('demo') === 'true';
+    const tid = params.get('t') || 'ADMIN';
+    const eid = params.get('exam');
+    const sCode = params.get('code') || 'KHACH';
+    const sName = params.get('name') || 'Người dùng trải nghiệm';
+
+    let masterKey = [];
+    let userAnswers = {};
+    let time = 0;
+
+    async function init() {
+        if(!eid) return alert("Lỗi: Không tìm thấy mã đề thi trong link!");
+        document.getElementById('studentInfo').innerText = `${sCode} - ${sName}`;
+        
+        try {
+            let examPath = isDemo ? `demo_exams/${eid}` : `teachers/${tid}/exams/${eid}`;
+            let keyPath = isDemo ? `demo_master_keys/${eid}` : `teachers/${tid}/exam_master_keys/${eid}`;
+
+            const examSnap = await db.ref(examPath).once('value');
+            const examData = examSnap.val();
+            
+            if(!examData) {
+                alert("Đề thi không tồn tại hoặc đã bị xóa!");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const keySnap = await db.ref(keyPath).once('value');
+            masterKey = keySnap.val() || [];
+
+            let pdfLink = examData.pdfUrl || examData.pdfLink;
+            if (pdfLink.includes('drive.google.com')) {
+                pdfLink = pdfLink.replace('/view', '/preview');
+            } else if (pdfLink.includes('github.com')) {
+                pdfLink = pdfLink.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+            }
+            
+            document.getElementById('pdfView').src = pdfLink;
+            document.getElementById('examName').innerText = examData.name;
+            
+            renderSheet();
+            startTimer(examData.duration || 90);
+            
+            // Tắt hiệu ứng loading khi mọi thứ đã sẵn sàng
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 500);
+
+        } catch (e) { 
+            console.error(e);
+            alert("Lỗi kết nối Firebase! Vui lòng kiểm tra lại mạng.");
+        }
+    }
+
+    function renderSheet() {
+        const area = document.getElementById('sheetArea');
+        let html = '';
+        let parts = { p1: false, p2: false, p3: false };
+
+        masterKey.forEach(q => {
+            if (q.type === 'multiple_choice') {
+                if (!parts.p1) { html += '<div class="part-header">PHẦN I. TRẮC NGHIỆM</div>'; parts.p1 = true; }
+                html += `<div class="q-card"><b>Câu ${q.id}:</b><div class="bubble-grid">
+                    ${['A','B','C','D'].map(v => `<button class="bubble" id="q_${q.id}_${v}" onclick="pickMCQ(${q.id},'${v}')">${v}</button>`).join('')}
+                </div></div>`;
+            } else if (q.type === 'true_false') {
+                if (!parts.p2) { html += '<div class="part-header">PHẦN II. ĐÚNG/SAI</div>'; parts.p2 = true; }
+                html += `<div class="q-card"><b>Câu ${q.id}:</b><div style="margin-top:10px;">
+                    ${['a','b','c','d'].map(l => `
+                        <div class="tf-row">
+                            <span>${l})</span>
+                            <div class="tf-btns">
+                                <button class="tf-btn" id="tf_${q.id}_${l}_t" onclick="pickTF(${q.id},'${l}',true)">Đúng</button>
+                                <button class="tf-btn" id="tf_${q.id}_${l}_f" onclick="pickTF(${q.id},'${l}',false)">Sai</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div></div>`;
+            } else if (q.type === 'short_answer') {
+                if (!parts.p3) { html += '<div class="part-header">PHẦN III. TRẢ LỜI NGẮN</div>'; parts.p3 = true; }
+                html += `<div class="q-card"><b>Câu ${q.id}:</b><div style="margin-top:10px;">
+                    <input type="text" class="sa-input" placeholder="Nhập đáp số..." onchange="pickSA(${q.id}, this.value)">
+                </div></div>`;
+            }
+        });
+        area.innerHTML = html;
+    }
+
+    window.pickMCQ = (id, val) => {
+        userAnswers[id] = val;
+        ['A','B','C','D'].forEach(v => {
+            const btn = document.getElementById(`q_${id}_${v}`);
+            if(btn) btn.classList.toggle('selected', v === val);
+        });
+    };
+
+    window.pickTF = (id, letter, val) => {
+        if(!userAnswers[id]) userAnswers[id] = {};
+        userAnswers[id][letter] = val;
+        const btnT = document.getElementById(`tf_${id}_${letter}_t`);
+        const btnF = document.getElementById(`tf_${id}_${letter}_f`);
+        btnT.classList.toggle('t-active', val === true);
+        btnF.classList.toggle('f-active', val === false);
+    };
+
+    window.pickSA = (id, val) => { userAnswers[id] = val; };
+
+    function startTimer(m) {
+        time = m * 60;
+        const timerTask = setInterval(() => {
+            if(time <= 0) {
+                clearInterval(timerTask);
+                submitTest(true);
+                return;
+            }
+            time--;
+            let mins = Math.floor(time/60);
+            let secs = time%60;
+            document.getElementById('timer').innerText = `${mins}:${secs < 10 ? '0'+secs : secs}`;
+        }, 1000);
+    }
+
+    function submitTest(isAuto = false) {
+        if(!isAuto && !confirm("Thầy/Cô có chắc chắn muốn nộp bài ngay bây giờ?")) return;
+        
+        const resultData = {
+            tid, eid, sCode, sName, isDemo,
+            answers: userAnswers,
+            submittedAt: new Date().getTime()
+        };
+        
+        localStorage.setItem('lastResult', JSON.stringify(resultData));
+        window.location.href = 'KQ.html';
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>

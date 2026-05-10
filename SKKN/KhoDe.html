@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHO ĐỀ THI - LỚP TOÁN THẦY BÌNH</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #1a237e; --secondary: #0d47a1; --danger: #c62828; --success: #2e7d32; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f0f4ff; padding: 20px; min-height: 100vh; }
+        
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; }
+        .header h1 { color: var(--primary); font-size: 1.8rem; }
+        .teacher-badge { background: #e8eaf6; padding: 8px 15px; border-radius: 20px; color: var(--primary); font-weight: bold; }
+        
+        .table-container { overflow-x: auto; border-radius: 12px; border: 1px solid #e0e0e0; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 15px; border-bottom: 1px solid #eee; }
+        th { background: var(--primary); color: white; position: sticky; top: 0; font-weight: 600; }
+        tr:hover { background-color: #f8f9fa; }
+        
+        .exam-id { font-family: monospace; background: #eee; padding: 4px 8px; border-radius: 6px; font-size: 0.9rem; }
+        .exam-name { font-weight: bold; color: #333; font-size: 1.05rem; }
+        
+        .btn { padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; font-size: 0.85rem; margin-right: 5px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn-copy { background: var(--primary); }
+        .btn-demo { background: var(--success); }
+        .btn-delete { background: var(--danger); margin-right: 0; }
+        
+        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 10px; color: white; font-weight: bold; z-index: 1000; transform: translateX(120%); transition: 0.3s; }
+        .notification.show { transform: translateX(0); }
+        .bg-success { background: var(--success); }
+        .bg-danger { background: var(--danger); }
+        
+        .empty-state { text-align: center; padding: 50px 20px; color: #666; }
+        .empty-state i { font-size: 4rem; color: #ccc; margin-bottom: 15px; }
+        
+        .nav-back { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: bold; }
+        .nav-back:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="login.html" class="nav-back"><i class="fas fa-arrow-left"></i> Quay lại Bảng điều khiển</a>
+    
+    <div class="header">
+        <h1><i class="fas fa-archive"></i> KHO ĐỀ THI CỦA TÔI</h1>
+        <div class="teacher-badge" id="teacherInfo">Đang xác thực...</div>
+    </div>
+    
+    <div class="table-container">
+        <table id="examTable">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã đề</th>
+                    <th>Tên Đề thi</th>
+                    <th>Thời gian</th>
+                    <th>Ngày tạo</th>
+                    <th style="text-align: right;">Thao tác Quản lý</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td colspan="6" style="text-align: center; padding: 30px;">Đang tải dữ liệu kho đề...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="toast" class="notification">Thông báo</div>
+
+<script>
+    // === CẤU HÌNH FIREBASE V2 ===
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    
+    let currentTeacherId = null;
+
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            currentTeacherId = user.uid;
+            document.getElementById('teacherInfo').innerHTML = `<i class="fas fa-user-check"></i> ${user.displayName || user.email}`;
+            loadExams();
+        } else {
+            window.location.href = 'login.html';
+        }
+    });
+
+    async function loadExams() {
+        if (!currentTeacherId) return;
+        
+        try {
+            const snapshot = await db.ref(`teachers/${currentTeacherId}/exams`).once('value');
+            const exams = snapshot.val();
+            const tbody = document.getElementById('tableBody');
+            
+            if (!exams) {
+                tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-folder-open"></i><br>Kho đề trống. Bạn chưa phát hành đề thi nào.</div></td></tr>`;
+                return;
+            }
+
+            // Chuyển Object thành Mảng và sắp xếp mới nhất lên đầu
+            const examList = Object.keys(exams).map(key => ({
+                id: key,
+                ...exams[key]
+            })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+            let html = '';
+            const baseUrl = window.location.origin + window.location.pathname.replace('KhoDe.html', '');
+
+            examList.forEach((exam, index) => {
+                const studentLink = `${baseUrl}index.html?t=${currentTeacherId}&exam=${exam.id}`;
+                const dateStr = exam.createdAt ? new Date(exam.createdAt).toLocaleString('vi-VN') : 'Không rõ';
+                const duration = exam.duration ? `${exam.duration} phút` : 'Không giới hạn';
+
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><span class="exam-id">${exam.id}</span></td>
+                        <td class="exam-name">${exam.name}</td>
+                        <td>${duration}</td>
+                        <td>${dateStr}</td>
+                        <td style="text-align: right; min-width: 300px;">
+                            <button class="btn btn-copy" onclick="copyLink('${studentLink}')">
+                                <i class="fas fa-link"></i> Copy Link
+                            </button>
+                            <button class="btn btn-demo" onclick="openDemo('${studentLink}')">
+                                <i class="fas fa-eye"></i> Xem Demo
+                            </button>
+                            <button class="btn btn-delete" onclick="deleteExam('${exam.id}', '${exam.name}')">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        } catch (error) {
+            console.error("Lỗi tải danh sách đề:", error);
+            showToast("Có lỗi xảy ra khi tải kho đề!", "bg-danger");
+        }
+    }
+
+    function copyLink(link) {
+        navigator.clipboard.writeText(link).then(() => {
+            showToast("Đã copy Link học sinh vào khay nhớ tạm!", "bg-success");
+        });
+    }
+
+    function openDemo(link) {
+        window.open(link, '_blank');
+    }
+
+    async function deleteExam(examId, examName) {
+        if (confirm(`⚠️ CẢNH BÁO: Giám đốc có chắc chắn muốn xóa Đề thi "${examName}"?\nThao tác này sẽ xóa vĩnh viễn cả đề thi và đáp án gốc (Điểm của học sinh đã thi vẫn được giữ lại).`)) {
+            try {
+                await db.ref(`teachers/${currentTeacherId}/exams/${examId}`).remove();
+                await db.ref(`teachers/${currentTeacherId}/exam_master_keys/${examId}`).remove();
+                showToast("Đã xóa đề thi thành công!", "bg-success");
+                loadExams(); // Tải lại bảng
+            } catch (error) {
+                console.error("Lỗi xóa đề:", error);
+                showToast("Xóa đề thi thất bại!", "bg-danger");
+            }
+        }
+    }
+
+    function showToast(msg, bgClass) {
+        const toast = document.getElementById('toast');
+        toast.className = `notification show ${bgClass}`;
+        toast.innerText = msg;
+        setTimeout(() => { toast.classList.remove('show'); }, 3000);
+    }
+</script>
+</body>
+</html>

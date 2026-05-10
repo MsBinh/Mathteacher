@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATH HUB 2026 · STUDIO PRO ADMIN</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #0f172a; --accent: #f59e0b; --bg: #eef2ff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg); padding: 20px; color: #1e293b; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* GIAO DIỆN GLASS-PREMIUM */
+        .glass-card { background: rgba(255, 255, 255, 0.9); border-radius: 24px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid white; margin-bottom: 25px; }
+        
+        .hero-header { background: var(--primary); color: white; padding: 25px 35px; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .branding h1 { font-size: 1.6rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 12px; }
+        .branding h1 i { color: var(--accent); }
+
+        /* CÔNG TẮC CHẾ ĐỘ */
+        .mode-switch { background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 50px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.2); }
+        .switch { position: relative; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; inset: 0; background: #475569; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background: var(--accent); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        /* CONFIG GRID */
+        .grid-config { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .field { display: flex; flex-direction: column; gap: 8px; }
+        .field label { font-weight: 800; font-size: 0.7rem; color: #64748b; text-transform: uppercase; }
+        .field input, .field select { padding: 12px 18px; border: 1px solid #e2e8f0; border-radius: 15px; outline: none; background: #f8fafc; }
+        .field input:focus { border-color: var(--accent); background: white; }
+
+        /* BẢNG ĐÁP ÁN */
+        .question-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; transition: 0.3s; }
+        .question-card:hover { transform: translateX(10px); border-color: var(--accent); }
+        .q-num { background: var(--primary); color: white; width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+        
+        .mcq-group { display: flex; gap: 10px; }
+        .mcq-btn { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #f1f5f9; background: white; font-weight: 800; cursor: pointer; }
+        .mcq-btn.active { background: var(--primary); color: var(--accent); border-color: var(--primary); }
+
+        .tf-unit { display: inline-flex; align-items: center; gap: 5px; margin-left: 15px; }
+        .tf-btn { padding: 8px 15px; border-radius: 10px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .tf-btn.t-active { background: #10b981; color: white; border: none; }
+        .tf-btn.f-active { background: #ef4444; color: white; border: none; }
+
+        .btn-publish { background: var(--primary); color: white; padding: 18px 40px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; transition: 0.3s; width: 100%; max-width: 300px; }
+        .btn-publish:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero-header">
+        <div class="branding">
+            <h1><i class="fas fa-brain"></i> MATH HUB · STUDIO PRO</h1>
+            <div id="userStatus" style="font-size: 0.8rem; margin-top:5px; opacity: 0.8;">🔐 Đang kiểm tra...</div>
+        </div>
+        <div class="mode-switch">
+            <span id="modeText" style="font-weight: 800; font-size: 0.8rem;">CỘNG ĐỒNG</span>
+            <label class="switch">
+                <input type="checkbox" id="modeSwitch" onchange="checkAdmin()">
+                <span class="slider"></span>
+            </label>
+            <span style="color: var(--accent); font-weight: 800;">DEMO 80</span>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <div class="grid-config">
+            <div class="field"><label>Tên đề thi</label><input type="text" id="examName" placeholder="VD: Đề minh họa 2026"></div>
+            <div class="field"><label>Mã định danh (ID)</label><div style="display:flex; gap:10px;"><input type="text" id="examId" placeholder="DE_01" style="flex:1;"><button onclick="loadExam()" style="padding:10px; border-radius:12px; cursor:pointer;"><i class="fas fa-search"></i></button></div></div>
+            <div class="field"><label>Link PDF Đề bài</label><input type="text" id="pdfLink"></div>
+            <div class="field"><label style="color:#10b981;">Link PDF Giải chi tiết</label><input type="text" id="solutionPdf" style="border-color:#10b981;"></div>
+            <div class="field"><label>Thời gian (phút)</label><input type="number" id="duration" value="90"></div>
+        </div>
+        <div style="margin-top:20px; background:#fffbeb; padding:15px; border-radius:15px; border:1px dashed var(--accent);">
+            <label style="font-weight: 800; font-size: 0.7rem;">⚡ NẠP NHANH 22 CÂU (Cách nhau dấu cách):</label>
+            <input type="text" id="bulkInput" style="width:100%; margin-top:10px; padding:12px; border-radius:10px; border:1px solid #fde68a;" placeholder="A B C D... TTFF... 10 25...">
+            <button onclick="applyBulk()" style="margin-top:10px; background:var(--accent); border:none; padding:8px 20px; border-radius:8px; font-weight:800; cursor:pointer;">NẠP NGAY</button>
+        </div>
+    </div>
+
+    <div id="editorGrid"></div>
+    
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+        <button class="btn-publish" onclick="saveData()"><i class="fas fa-cloud-upload-alt"></i> LƯU VÀO HỆ THỐNG</button>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const auth = firebase.auth();
+    
+    const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
+    let masterKey = {};
+
+    auth.onAuthStateChanged(user => {
+        if(user) {
+            document.getElementById('userStatus').innerHTML = `<i class="fas fa-user-check"></i> ${user.email}`;
+            renderEditor();
+        } else { window.location.href = 'login.html'; }
+    });
+
+    function checkAdmin() {
+        const isDemo = document.getElementById('modeSwitch').checked;
+        if(isDemo && auth.currentUser.uid !== ADMIN_UID) {
+            alert("🔒 Chỉ Admin mới được quyền sửa đề Demo!");
+            document.getElementById('modeSwitch').checked = false;
+        }
+        document.getElementById('modeText').innerText = document.getElementById('modeSwitch').checked ? "DEMO MODE" : "CỘNG ĐỒNG";
+    }
+
+    function renderEditor() {
+        const grid = document.getElementById('editorGrid');
+        let html = '';
+        for(let i=1; i<=22; i++) {
+            let type = i<=12 ? 'MCQ' : i<=16 ? 'TF' : 'SA';
+            html += `<div class="question-card">
+                <div style="display:flex; align-items:center; gap:15px;"><div class="q-num">${i}</div><span style="font-weight:700; color:#94a3b8; font-size:0.7rem;">${type}</span></div>
+                <div>
+                    ${type === 'MCQ' ? ['A','B','C','D'].map(v => `<button class="mcq-btn" id="q_${i}_${v}" onclick="setMCQ(${i},'${v}')">${v}</button>`).join('') :
+                      type === 'TF' ? ['a','b','c','d'].map(l => `<div class="tf-unit"><span>${l})</span><button class="tf-btn" id="tf_${i}_${l}_t" onclick="setTF(${i},'${l}',true)">Đ</button><button class="tf-btn" id="tf_${i}_${l}_f" onclick="setTF(${i},'${l}',false)">S</button></div>`).join('') :
+                      `<input type="text" id="sa_${i}" style="width:180px; padding:10px; border-radius:10px; border:1px solid #e2e8f0; text-align:center;" placeholder="Đáp số..." onchange="setSA(${i},this.value)">`}
+                </div>
+            </div>`;
+        }
+        grid.innerHTML = html;
+    }
+
+    window.setMCQ = (id, v) => {
+        masterKey[id] = v;
+        ['A','B','C','D'].forEach(x => {
+            const btn = document.getElementById(`q_${id}_${x}`);
+            if(btn) btn.className = (x === v) ? 'mcq-btn active' : 'mcq-btn';
+        });
+    };
+
+    window.setTF = (id, l, v) => {
+        if(!masterKey[id] || typeof masterKey[id] === 'string') masterKey[id] = {};
+        masterKey[id][l] = v;
+        document.getElementById(`tf_${id}_${l}_t`).className = (v === true) ? 'tf-btn t-active' : 'tf-btn';
+        document.getElementById(`tf_${id}_${l}_f`).className = (v === false) ? 'tf-btn f-active' : 'tf-btn';
+    };
+
+    window.setSA = (id, v) => { masterKey[id] = v; };
+
+    async function loadExam() {
+        const eid = document.getElementById('examId').value;
+        const isDemo = document.getElementById('modeSwitch').checked;
+        const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
+        const keyPath = isDemo ? `demo_master_keys/${eid}` : `teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`;
+        
+        const snap = await db.ref(path).once('value');
+        const keySnap = await db.ref(keyPath).once('value');
+        
+        if(snap.exists()) {
+            const d = snap.val();
+            document.getElementById('examName').value = d.name;
+            document.getElementById('pdfLink').value = d.pdfLink || d.pdfUrl;
+            document.getElementById('solutionPdf').value = d.solutionPdf || "";
+            document.getElementById('duration').value = d.duration;
+            
+            const keys = keySnap.val() || [];
+            keys.forEach(k => {
+                if(k.type === 'multiple_choice') setMCQ(k.id, k.correct);
+                else if(k.type === 'true_false') { ['a','b','c','d'].forEach(l => setTF(k.id, l, k.correct[l])); }
+                else if(k.type === 'short_answer') { document.getElementById(`sa_${k.id}`).value = k.correct; setSA(k.id, k.correct); }
+            });
+            alert("✅ Đã tải dữ liệu đề thành công!");
+        } else { alert("Không tìm thấy mã đề này!"); }
+    }
+
+    async function saveData() {
+        const eid = document.getElementById('examId').value;
+        if(!eid) return alert("Nhập mã đề!");
+        const isDemo = document.getElementById('modeSwitch').checked;
+        
+        if(isDemo && !confirm("⚠️ Thầy đang sửa đề HỆ THỐNG. Tiếp tục?")) return;
+
+        let pdf = document.getElementById('pdfLink').value;
+        if(pdf.includes('github.com')) pdf = pdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+
+        const examData = {
+            name: document.getElementById('examName').value,
+            pdfLink: pdf,
+            solutionPdf: document.getElementById('solutionPdf').value,
+            duration: document.getElementById('duration').value,
+            updatedAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        const keys = [];
+        for(let i=1; i<=22; i++) {
+            keys.push({
+                id: i,
+                type: i<=12 ? 'multiple_choice' : i<=16 ? 'true_false' : 'short_answer',
+                correct: masterKey[i] || (i<=16 && i>=13 ? {a:false,b:false,c:false,d:false} : "")
+            });
+        }
+
+        const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
+        const keyPath = isDemo ? `demo_master_keys/${eid}` : `teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`;
+
+        try {
+            await db.ref(path).update(examData);
+            await db.ref(keyPath).set(keys);
+            alert("🎉 ĐÃ LƯU THÀNH CÔNG!");
+        } catch(e) { alert("Lỗi: " + e.message); }
+    }
+
+    window.applyBulk = () => {
+        const input = document.getElementById('bulkInput').value.trim().split(/\s+/);
+        input.forEach((val, i) => {
+            let qId = i + 1;
+            if(qId <= 12) setMCQ(qId, val.toUpperCase());
+            else if(qId <= 16) {
+                let s = val.toUpperCase();
+                if(s.length === 4) ['a','b','c','d'].forEach((l, idx) => setTF(qId, l, s[idx]==='T'));
+            } else if(qId <= 22) {
+                document.getElementById(`sa_${qId}`).value = val; setSA(qId, val);
+            }
+        });
+    };
+</script>
+</body>
+</html>

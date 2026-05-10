@@ -1,0 +1,560 @@
+\documentclass[12pt,a4paper]{article}
+
+% Nạp file style duy nhất của bạn
+\input{style2s2.tex}
+
+% Bật chế độ Giáo viên để xem Lời giải và Đáp án
+% Thay bằng \TEACHERfalse nếu muốn in đề cho Học sinh
+%\TEACHERtrue
+\TEACHERfalse
+\begin{document}
+\section{TỔ HỢP}
+
+\begin{dn}
+\textbf{1. Hoán vị}
+
+Khi sắp xếp $n$ phần tử của một tập hợp theo một thứ tự, ta được một \textbf{hoán vị} của $n$ phần tử đó.
+
+Số các hoán vị của $n$ phần tử ($n \ge 1$) bằng $P_n = n(n-1)(n-2)\dots 2.1 = n!$.
+\end{dn}
+
+\begin{dn}
+\textbf{2. Chỉnh hợp}
+
+Cho tập hợp $A$ có $n$ phần tử ($n \ge 1$) và số nguyên $k$ với $1 \le k \le n$.
+
+Mỗi cách lấy $k$ phần tử của $A$ và sắp xếp chúng theo một thứ tự gọi là một \textbf{chỉnh hợp} chập $k$ của $n$ phần tử đó.
+
+Số các chỉnh hợp chập $k$ của $n$ phần tử ($1 \le k \le n$) bằng $A_n^k = n(n-1)(n-2)\dots(n-k+1) = \frac{n!}{(n-k)!}$.
+\end{dn}
+
+\begin{dn}
+\textbf{3. Tổ hợp}
+
+Mỗi tập con gồm $k$ phần tử ($1 \le k \le n$) của một tập hợp gồm $n$ phần tử được gọi là một \textbf{tổ hợp} chập $k$ của $n$ phần tử đó.
+
+Số các tổ hợp chập $k$ của $n$ phần tử ($1 \le k \le n$) bằng $C_n^k = \frac{n!}{k!(n-k)!}$.
+\end{dn}
+
+
+
+\subsection{Dạng 1. Tính số các hoán vị}
+
+\begin{ex}
+(CD10) Trong giờ học thể dục, thầy giáo yêu cầu cả lớp chia thành các nhóm tự luyện tập. Nhóm bạn An có bao nhiêu cách xếp thành một hàng dọc? Biết nhóm của An có 6 người.
+\loigiai{
+Mỗi cách xếp thứ tự vị trí cho 6 bạn là một hoán vị của 6 phần tử. Vậy số cách xếp nhóm bạn An thành một hàng dọc là: $P_6 = 6! = 720$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Từ các chữ số $1, 2, 3, 4, 5, 6, 7$, ta lập được bao nhiêu số tự nhiên có 7 chữ số đôi một khác nhau?
+\loigiai{
+Mỗi số tự nhiên lập được là một hoán vị của 7 chữ số đã cho. Số các số tự nhiên có thể lập được là: $P_7 = 7! = 5040$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Từ các chữ số $0, 1, 2, 3, 4, 5, 6, 7$, ta lập được bao nhiêu số tự nhiên có 8 chữ số đôi một khác nhau?
+\loigiai{
+Xét số tự nhiên có dạng $\overline{a_1 a_2 a_3 a_4 a_5 a_6 a_7 a_8}$.
+
+Trường hợp 1: $a_1$ có thể bằng 0 hoặc khác 0.
+Với $a_1$ có thể bằng 0 hoặc khác 0, mỗi số có dạng trên là một hoán vị của 8 chữ số đã cho. Do đó, số các số có thể lập được trong trường hợp 1 là: $P_8 = 8! = 40320$.
+
+Trường hợp 2: $a_1 = 0$.
+Vì $a_1 = 0$ cố định nên 7 chữ số sau $a_1$ đều khác 0 và chỉ có 7 chữ số đó thay đổi. Suy ra, mỗi số có dạng $\overline{0 a_2 a_3 a_4 a_5 a_6 a_7 a_8}$ là một hoán vị của 7 chữ số khác 0 đã cho. Do đó, số các số có thể lập được trong trường hợp 2 là: $P_7 = 7! = 5040$.
+
+Vậy số các số tự nhiên có 8 chữ số đôi một khác nhau có thể lập được là: $40320 - 5040 = 35280$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Bạn Nam có 4 quyển sách Toán, 6 quyển sách Tiếng Anh (các quyển sách là khác nhau). Hỏi có bao nhiêu cách xếp các quyển sách thành hàng ngang sao cho:
+a) Các quyển sách cùng môn thì xếp cạnh nhau (không có quyển sách Toán nào nằm giữa hai quyển sách Tiếng Anh và ngược lại)?
+b) Các quyển sách Toán thì xếp cạnh nhau?
+\loigiai{
+a) Xếp 4 quyển sách Toán cạnh nhau thành một nhóm có $P_4 = 4! = 24$ (cách).
+Xếp 6 quyển sách Tiếng Anh cạnh nhau thành một nhóm có $P_6 = 6! = 720$ (cách).
+Có $P_2 = 2! = 2$ cách xếp hai nhóm sách trên.
+Vậy số cách xếp các quyển sách sao cho các quyển sách cùng môn thì xếp cạnh nhau là: $24 \cdot 720 \cdot 2 = 34560$.
+
+b) Xếp 4 quyển sách Toán cạnh nhau thành một nhóm có $P_4 = 4! = 24$ (cách).
+Coi nhóm sách Toán là một quyển sách, gọi là $A$, xếp quyển sách $A$ và 6 quyển sách Tiếng Anh có $P_7 = 7! = 5040$ (cách).
+Vậy số cách xếp các quyển sách sao cho các quyển sách Toán thì xếp cạnh nhau là: $24 \cdot 5040 = 120960$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Một tổ có 8 học sinh gồm 4 nữ và 4 nam. Có bao nhiêu cách xếp các học sinh trong tổ:
+a) Thành một hàng dọc?
+b) Thành một hàng dọc sao cho nam, nữ đứng xen kẽ nhau?
+\loigiai{
+a) Có $8! = 40320$ cách xếp.
+
+b) Vì số lượng nam và nữ bằng nhau nên có hai trường hợp: nam đứng đầu hàng hoặc nữ đứng đầu hàng.
+Số cách xếp nếu nam đứng đầu hàng là $4! \cdot 4! = 576$.
+Số cách xếp nếu nữ đứng đầu hàng là $4! \cdot 4! = 576$.
+Vậy số cách xếp một hàng dọc sao cho nam, nữ đứng xen kẽ nhau là: $576 + 576 = 1152$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Có 5 cuốn sách Toán học khác nhau và 3 cuốn sách Sinh học khác nhau.
+\noteImage[width=0.6\linewidth]{12T-PT-D1-Q6.png}
+a) Có bao nhiêu cách xếp các cuốn sách này thành một dãy trên giá sách?
+b) Nếu yêu cầu thêm các cuốn sách cùng môn phải được xếp cạnh nhau thì có bao nhiêu cách xếp?
+\loigiai{
+a) Mỗi cách sắp xếp 8 cuốn sách thành một dãy trên giá là một hoán vị của 8 cuốn sách này. Do đó, có $8! = 40320$ cách sắp xếp.
+
+b) Có $5!$ cách sắp xếp 5 cuốn sách Toán học cạnh nhau để thành một dãy. Có $3!$ cách sắp xếp 3 cuốn sách Sinh học cạnh nhau để thành một dãy. Có $2!$ cách sắp xếp 2 dãy trên cạnh nhau để thành một dãy mới. Từ đó, áp dụng quy tắc nhân, số cách sắp xếp các cuốn sách trên thành một dãy sao cho các sách cùng môn được xếp cạnh nhau là $5! \cdot 3! \cdot 2! = 1440$ (cách xếp).
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Sau khi biên soạn 9 câu hỏi trắc nghiệm, cô giáo có thể tạo ra bao nhiêu đề kiểm tra khác nhau bằng cách đảo thứ tự các câu hỏi đó.
+\loigiai{
+Mỗi cách sắp xếp thứ tự để tạo một đề ta được một hoán vị của 9 câu hỏi. Do đó, số đề khác nhau có thể tạo ra là $9! = 362880$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Cần sắp xếp thứ tự 8 tiết mục văn nghệ cho buổi biểu diễn văn nghệ của trường. Ban tổ chức dự kiến xếp 4 tiết mục ca nhạc ở vị trí thứ 1, thứ 2, thứ 5 và thứ 8; 2 tiết mục múa ở vị trí thứ 3 và thứ 6; 2 tiết mục hài ở vị trí thứ 4 và thứ 7. Có bao nhiêu cách xếp khác nhau?
+\loigiai{
+Chia thành 3 công đoạn.
+Công đoạn 1: Sắp xếp 4 tiết mục ca nhạc vào 4 vị trí (1, 2, 5 và 8).
+Công đoạn 2: Sắp xếp 2 tiết mục múa vào 2 vị trí (3 và 6).
+Công đoạn 3: Sắp xếp 2 tiết mục hài vào 2 vị trí (4 và 7).
+Đáp số: $4! \cdot 2! \cdot 2! = 96$.
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Có bao nhiêu số có 5 chữ số, các chữ số là đôi một khác nhau, được tạo thành từ các chữ số $1, 2, 3, 4, 5$?
+\loigiai{
+Mỗi số như vậy tương ứng với một cách sắp xếp có thứ tự các chữ số $1, 2, 3, 4, 5$. Như vậy, số các số có 5 chữ số thoả mãn yêu cầu của bài toán bằng số các hoán vị của 5, nghĩa là có $P_5 = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$ (số).
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Có bao nhiêu cách xếp 6 lá thư khác nhau vào 6 chiếc phong bì khác nhau (mỗi lá thư vào trong một phong bì)?
+\loigiai{
+Số cách xếp như vậy chính là số các hoán vị của 6, nghĩa là bằng $P_6 = 6! = 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 720$ (cách).
+}
+\end{ex}
+
+\subsection{Dạng 2. Tính số các chỉnh hợp}
+
+\begin{ex}
+(CD10) Bạn Dũng mới mua điện thoại và muốn lập mật khẩu có 6 chữ số đôi một khác nhau. Hỏi bạn Dũng có bao nhiêu cách để lập một mật khẩu?
+\noteImage[width=0.6\linewidth]{12T-PT-D1-Q11.png}
+\loigiai{
+Mỗi mật khẩu có thể lập được là một cách chọn 6 chữ số từ 10 chữ số và sắp xếp thứ tự của chúng, tức là một chỉnh hợp chập 6 của 10 phần tử.
+Vậy bạn Dũng có $A_{10}^6 = 151200$ (cách lập mật khẩu).
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Từ các chữ số $1, 2, 3, 4, 5, 6, 7$, ta lập được bao nhiêu số tự nhiên có 5 chữ số đôi một khác nhau?
+\loigiai{
+Mỗi số tự nhiên lập được là một chỉnh hợp chập 5 của 7 chữ số đã cho. Số các số tự nhiên có thể lập được là: $A_7^5 = 2520$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Trong một buổi kỉ niệm ngày thành lập trường, bí thư Đoàn trường cần chọn 4 tiết mục từ 6 tiết mục hát và 4 tiết mục từ 5 tiết mục múa rồi xếp thứ tự biểu diễn. Hỏi có bao nhiêu cách chọn và xếp thứ tự sao cho các tiết mục hát và múa xen kẽ nhau?
+\loigiai{
+Giả sử các tiết mục được biểu diễn đánh số thứ tự từ 1 đến 8. Vì số lượng tiết mục hát và múa bằng nhau nên có hai trường hợp:
+
+Trường hợp 1: Tiết mục hát diễn ra đầu tiên.
+Khi đó, các tiết mục hát có số thứ tự là số lẻ, còn các tiết mục múa có số thứ tự là số chẵn. Như vậy, thứ tự của các tiết mục múa và hát được cố định, chỉ thay đổi thứ tự giữa các tiết mục múa, hoặc giữa các tiết mục hát.
+Chọn 4 tiết mục hát từ 6 tiết mục hát và xếp thứ tự có $A_6^4 = 360$ (cách).
+Chọn 4 tiết mục múa từ 5 tiết mục múa và xếp thứ tự có $A_5^4 = 120$ (cách).
+Khi đó, số cách chọn và xếp thứ tự các tiết mục văn nghệ trong trường hợp tiết mục hát diễn ra đầu tiên là: $360 \cdot 120 = 43200$.
+
+Trường hợp 2: Tiết mục múa diễn ra đầu tiên.
+Tương tự, số cách chọn và xếp thứ tự các tiết mục văn nghệ trong trường hợp tiết mục múa diễn ra đầu tiên là: $120 \cdot 360 = 43200$.
+
+Vậy số cách chọn và xếp thứ tự các tiết mục văn nghệ sao cho các tiết mục hát và múa xen kẽ nhau là: $43200 + 43200 = 86400$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) 90 học sinh được trường tổ chức cho đi xem kịch ở rạp hát thành phố. Các ghế ở rạp được sắp thành các hàng. Mỗi hàng có 30 ghế.
+a) Có bao nhiêu cách sắp xếp 30 học sinh để ngồi vào hàng đầu tiên?
+b) Sau khi sắp xếp xong hàng đầu tiên, có bao nhiêu cách sắp xếp 30 học sinh để ngồi vào hàng thứ hai?
+c) Sau khi sắp xếp xong hai hàng đầu, có bao nhiêu cách sắp xếp 30 học sinh để ngồi vào hàng thứ ba?
+\loigiai{
+a) Có $A_{90}^{30}$ cách sắp xếp 30 học sinh ngồi vào hàng đầu tiên.
+
+b) Sau khi sắp xếp xong hàng đầu tiên, còn 60 học sinh. Khi đó, có $A_{60}^{30}$ cách sắp xếp 30 học sinh ngồi vào hàng thứ hai.
+
+c) Sau khi sắp xếp xong hai hàng đầu, còn 30 học sinh. Khi đó, có $30!$ cách sắp xếp 30 học sinh còn lại ngồi vào hàng thứ ba.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Bạn Đan chọn mật khẩu cho email của mình gồm 6 kí tự đôi một khác nhau, trong đó, 2 kí tự đầu tiên là 2 chữ cái trong bảng gồm 26 chữ cái in thường, 3 kí tự tiếp theo là chữ số, kí tự cuối cùng là 1 trong 3 kí tự đặc biệt. Bạn Đan có bao nhiêu cách tạo ra một mật khẩu?
+\loigiai{
+Có $A_{26}^2 = 650$ cách chọn 2 kí tự đầu. Có $A_{10}^3 = 720$ cách chọn 3 kí tự tiếp theo. Có 3 cách chọn 1 kí tự cuối cùng.
+Vậy số cách tạo ra một mật khẩu là: $650 \cdot 720 \cdot 3 = 1404000$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Một lớp có 40 học sinh chụp ảnh tổng kết năm học. Lớp đó muốn trong bức ảnh có 18 học sinh ngồi ở hàng đầu và 22 học sinh đứng ở hàng sau. Có bao nhiêu cách xếp vị trí chụp ảnh như vậy?
+\loigiai{
+Cách 1: Chọn 18 học sinh ngồi ở hàng đầu có $A_{40}^{18}$ cách.
+Xếp vị trí của 22 học sinh còn lại đứng ở hàng sau có $22!$ cách.
+Vậy số cách xếp vị trí chụp ảnh là $A_{40}^{18} \cdot 22!$.
+
+Cách 2: Vì ta có thể xếp vị trí của 40 học sinh rồi chia 18 học sinh ngồi ở hàng đầu và 22 học sinh đứng ở hàng sau nên số cách xếp vị trí chụp ảnh có thể tính bằng $40!$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Một ga tàu hoả có 6 đường nhánh, mỗi nhánh chỉ đỗ được một đoàn tàu. Hiện các đường nhánh đều đang trống và có 3 đoàn tàu sắp vào ga. Có bao nhiêu cách bố trí nhánh đỗ cho 3 đoàn tàu?
+\noteImage[width=0.6\linewidth]{12T-PT-D1-Q17.png}
+\loigiai{
+Mỗi cách chọn 3 đường nhánh và bố trí nhánh đỗ cho 3 đoàn tàu là một chỉnh hợp chập 3 của 6 đường nhánh. Do đó, số cách bố trí là $A_6^3 = 6 \cdot 5 \cdot 4 = 120$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Từ các chữ số $1; 2; 3; 4; 5; 6$ có thể lập được bao nhiêu số tự nhiên:
+a) Có bốn chữ số khác nhau?
+b) Có bốn chữ số khác nhau và chia hết cho 5?
+c) Có bốn chữ số khác nhau và lớn hơn 4500?
+\loigiai{
+a) Để lập số tự nhiên có 4 chữ số khác nhau từ 6 chữ số đã cho, ta chọn 4 trong 6 chữ số đó và sắp xếp theo một thứ tự. Do đó, có thể coi mỗi số đó là một chỉnh hợp chập 4 của 6 chữ số đó. Do đó, có $A_6^4 = 6 \cdot 5 \cdot 4 \cdot 3 = 360$ số như vậy.
+
+b) Để số lập được chia hết cho 5, chữ số tận cùng của nó phải chia hết cho 5. Vậy chữ số tận cùng là 5. Có $A_5^3$ cách chọn 3 trong 5 chữ số còn lại để viết các chữ số còn lại. Một số chia hết cho 5 thì $A_5^3 = 5 \cdot 4 \cdot 3 = 60$.
+
+c) Kí hiệu $\overline{abcd}$ là số tự nhiên có bốn chữ số thoả mãn yêu cầu.
+Vì $m > 4500$ nên $a \ge 4$.
+
+Trường hợp 1: $a = 4$. Khi đó, để $m > 4500$ điều kiện cần và đủ là $b \ge 5$. Có hai cách chọn chữ số $b$ (5 hoặc 6). Có $A_4^2$ cách chọn hai chữ số còn lại.
+Do đó, trường hợp này có $2 \cdot A_4^2 = 2 \cdot 4 \cdot 3 = 24$ số thoả mãn yêu cầu.
+
+Trường hợp 2: $a \ge 5$. Khi đó, đương nhiên $m > 4500$. Có hai cách chọn chữ số $a$ (5 hoặc 6). Có $A_5^3$ cách chọn ba chữ số còn lại.
+Do đó, trường hợp này có $2 \cdot A_5^3 = 2 \cdot 5 \cdot 4 \cdot 3 = 120$ số thoả mãn yêu cầu. Áp dụng quy tắc cộng, có $24 + 120 = 144$ số tự nhiên thoả mãn yêu cầu.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Cô giáo đã biên soạn 10 câu hỏi trắc nghiệm. Từ 10 câu hỏi này, cô giáo chọn ra 6 câu hỏi và sắp xếp theo thứ tự để tạo nên một đề trắc nghiệm. Cô giáo có thể tạo bao nhiêu đề kiểm tra trắc nghiệm khác nhau?
+\loigiai{
+Mỗi đề được tạo ra là một chỉnh hợp chập 6 của 10 câu hỏi. Do đó, số đề có thể được tạo ra là $A_{10}^6 = \frac{10!}{4!} = 151200$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Chọn 4 trong 6 giống hoa khác nhau và trồng trên 4 mảnh đất khác nhau để thử nghiệm. Có bao nhiêu cách thực hiện khác nhau?
+\loigiai{
+Mỗi cách chọn 4 trong 6 giống hoa khác nhau và trồng trên 4 mảnh đất khác nhau là một chỉnh hợp chập 4 của 6 giống hoa. Do đó, số cách thực hiện là $A_6^4 = \frac{6!}{4!} = 360$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Lấy hai số bất kì từ $1; 3; 5; 7; 9$ và lấy hai số bất kì từ $2; 4; 6; 8$, để lập các số tự nhiên có bốn chữ số khác nhau.
+a) Lập được bao nhiêu số như vậy?
+b) Trong số đó, có bao nhiêu số có chữ số hàng nghìn và hàng đơn vị là chữ số lẻ?
+\loigiai{
+a) Chia thành 3 công đoạn. Công đoạn 1: Chọn 2 trong 5 chữ số lẻ. Công đoạn 2: Chọn 2 trong 4 chữ số chẵn. Công đoạn 3: Sắp xếp 4 chữ số chọn được. Nên ta có: $C_5^2 C_4^2 P_4 = 10 \cdot 6 \cdot 24 = 1440$.
+
+b) Chia thành 2 công đoạn.
+Công đoạn 1: Chọn 2 trong 5 chữ số lẻ và sắp xếp vào 2 vị trí hàng nghìn và hàng đơn vị.
+Công đoạn 2: Chọn 2 trong 4 chữ số chẵn và sắp xếp vào 2 vị trí hàng trăm và hàng chục.
+Nên ta có: $A_5^2 A_4^2 = 20 \cdot 12 = 240$.
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Có 12 thí sinh tham gia một cuộc thi âm nhạc. Hỏi có bao nhiêu cách trao ba giải cao nhất: Nhất, Nhì và Ba của cuộc thi cho các thí sinh?
+\loigiai{
+Số cách trao giải bằng số cách lấy ra 3 người từ 12 thí sinh và xếp có thứ tự giữa họ, do đó chính là: $A_{12}^3 = 12 \cdot 11 \cdot 10 = 1320$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Một nhóm hành khách, gồm 2 nam và 3 nữ, lên một chiếc xe buýt. Trên xe có 10 ghế trống, trong đó có 5 ghế cạnh cửa sổ.
+a) Hỏi họ bao nhiêu cách ngồi?
+b) Các hành khách nữ mong muốn ngồi cạnh cửa sổ. Hỏi số cách ngồi của họ là bao nhiêu?
+\loigiai{
+a) Số cách ngồi của nhóm hành khách chính là số cách chọn ra 5 chiếc ghế có xếp thứ tự từ 10 chiếc ghế trống, nghĩa là: $A_{10}^5 = 10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 = 30240$ (cách).
+
+b) Việc xếp chỗ cho nhóm khách có thể được thực hiện theo 2 công đoạn:
+- Công đoạn 1: xếp chỗ cho những hành khách nữ;
+- Công đoạn 2: xếp chỗ cho những hành khách nam.
+Với công đoạn 1, ta cần xếp chỗ cho 3 hành khách nữ vào 3 trong 5 chiếc ghế cạnh cửa sổ. Số cách xếp là: $A_5^3 = 5 \cdot 4 \cdot 3 = 60$ (cách).
+Đối với công đoạn 2, ta cần xếp chỗ cho 2 hành khác nam vào 2 trong bất kì $10 - 3 = 7$ chiếc ghế còn lại. Số cách xếp là: $A_7^2 = 7 \cdot 6 = 42$ (cách).
+Như vậy, theo quy tắc nhân thì số cách xếp chỗ là: $60 \cdot 42 = 2520$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Để chuẩn bị cho buổi biểu diễn, 3 anh hề phải chọn trang phục biểu diễn cho mình gồm mũ, tóc giả, mũi và quần áo. Đoàn xiếc có 10 chiếc mũ, 6 bộ tóc giả, 5 cái mũi hề và 8 bộ quần áo hề. Hỏi các anh hề có bao nhiêu cách chọn trang phục biểu diễn?
+\loigiai{
+Để chọn trang phục biểu diễn, các anh hề có thể thực hiện 4 công đoạn, gồm:
+- Công đoạn 1: chọn mũ;
+- Công đoạn 2: chọn tóc giả;
+- Công đoạn 3: chọn mũi giả;
+- Công đoạn 4: chọn quần áo.
+Có 3 anh hề và 10 chiếc mũ nên số cách chọn mũ để đội cho 3 anh hề là: $A_{10}^3 = 10 \cdot 9 \cdot 8 = 720$ (cách).
+Tương tự, có $A_6^3 = 6 \cdot 5 \cdot 4 = 120$ cách chọn tóc giả, có $A_5^3 = 5 \cdot 4 \cdot 3 = 60$ cách chọn mũi hề và có $A_8^3 = 8 \cdot 7 \cdot 6 = 336$ cách chọn quần áo.
+Như vậy, theo quy tắc nhân thì số cách chọn trang phục của 3 anh hề là: $720 \cdot 120 \cdot 60 \cdot 336 = 1741824000$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Trong các số tự nhiên từ 1 đến 999 999, có bao nhiêu số chứa đúng một chữ số 1 và đúng một chữ số 2?
+\loigiai{
+Các số từ 1 đến 999999 có thể được viết một cách duy nhất dưới dạng $\overline{abcdef}$, trong đó mỗi kí hiệu $a, b, c, d, e, f$ nhận một trong các giá trị $0; 1; 2; \dots; 9$. Chẳng hạn số $\overline{001234}$ được hiểu là số 1234.
+
+Để tạo thành một số $\overline{abcdef}$ thoả mãn yêu cầu ta có thể tiến hành qua hai công đoạn:
+- Công đoạn 1: chọn ra 2 kí hiệu trong số $a, b, c, d, e, f$ để thay bằng các chữ số 1; 2;
+- Công đoạn 2: thay 4 kí hiệu còn lại, mỗi kí hiệu bằng một chữ số bất kì trong số tám chữ số còn lại $0; 3; 4; \dots; 9$.
+Có $A_6^2 = 6 \cdot 5 = 30$ cách chọn ra 2 kí hiệu từ 6 kí hiệu để thay chúng tương ứng bằng 1; 2.
+Mỗi kí hiệu còn lại có thể được thay bằng 8 cách khác nhau. Do đó có tổng cộng $8 \cdot 8 \cdot 8 \cdot 8 = 4096$ (cách).
+Theo quy tắc nhân, số các số từ 1 đến 999999 cần tìm là: $30 \cdot 4096 = 122880$ (số).
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) a) Có bao nhiêu cách sắp xếp các chữ cái của từ "KHIÊNG" thành một dãy kí tự gồm 6 chữ cái khác nhau (có thể là vô nghĩa)?
+b) Cùng câu hỏi như a) nhưng yêu cầu hai chữ cái đầu tiên là các phụ âm?
+c) Giống câu hỏi a) nhưng yêu cầu các phụ âm phải đứng liên tiếp với nhau.
+\loigiai{
+a) Từ KHIÊNG có 6 chữ cái khác nhau. Do đó, số cách sắp xếp 6 chữ cái khác nhau theo yêu cầu là: $6! = 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 720$ (cách).
+
+b) Từ "KHIÊNG" có 4 phụ âm là K, H, N và G. Việc sắp xếp 6 chữ cái thoả mãn yêu cầu có thể được thực hiện qua hai công đoạn:
+- Công đoạn 1: chọn 2 trong số 4 phụ âm để xếp vào hai vị trí đầu tiên;
+- Công đoạn 2: xếp $6-2=4$ chữ cái còn lại vào 4 vị trí tiếp theo.
+Số các cách chọn ra 2 trong 4 phụ âm để xếp vào hai vị trí đầu tiên là: $A_4^2 = 4 \cdot 3 = 12$ (cách).
+Số các cách xếp 4 chữ cái còn lại vào 4 vị trí tiếp theo là: $P_4 = 4! = 4 \cdot 3 \cdot 2 \cdot 1 = 24$ (cách).
+Theo quy tắc nhân, số cách sắp xếp cần tìm là: $12 \cdot 24 = 288$ (cách).
+
+c) Có 4 phụ âm trong từ KHIÊNG và ta yêu cầu chúng phải đứng liên tiếp nhau, do đó có ba phương án cho vị trí của các phụ âm:
+- Phương án 1: vị trí các phụ âm (từ trái qua phải) là 1, 2, 3, 4;
+- Phương án 2: vị trí các phụ âm (từ trái qua phải) là 2, 3, 4, 5;
+- Phương án 3: vị trí các phụ âm (từ trái qua phải) là 3, 4, 5, 6.
+Đối với phương án 1, việc xếp các chữ cái được thực hiện qua hai công đoạn:
+- Công đoạn 1: xếp 4 phụ âm vào các vị trí 1, 2, 3, 4;
+- Công đoạn 2: xếp 2 nguyên âm vào 2 vị trí còn lại.
+Số các cách xếp 4 phụ âm vào 4 vị trí là: $4! = 4 \cdot 3 \cdot 2 \cdot 1 = 24$ (cách).
+Số các cách xếp 2 nguyên âm vào 2 vị trí còn lại là: $2! = 2 \cdot 1 = 2$ (cách).
+Vậy, theo quy tắc nhân thì số cách xếp theo phương án 1 là: $24 \cdot 2 = 48$ (cách).
+Tương tự, mỗi phương án 2 và 3 có 48 cách sắp xếp. Vì thế, theo quy tắc cộng thì số cách xếp thoả mãn là: $48 + 48 + 48 = 144$ (cách).
+}
+\end{ex}
+
+\subsection{Dạng 3. Tính số tổ hợp}
+
+\begin{ex}
+(CD10) Một lớp có 24 học sinh nam và 16 học sinh nữ. Có bao nhiêu cách chọn:
+a) 3 học sinh làm ban cán sự của lớp?
+b) 3 học sinh làm ban cán sự của lớp sao cho trong đó có 2 học sinh nam?
+c) 3 học sinh làm ban cán sự của lớp sao cho trong đó có ít nhất 1 học sinh nam?
+\loigiai{
+a) Mỗi cách chọn 3 học sinh trong 40 học sinh là một tổ hợp chập 3 của 40. Số cách chọn 3 học sinh làm ban cán sự của lớp là: $C_{40}^3 = 9880$.
+
+b) Mỗi cách chọn 2 học sinh nam trong 24 học sinh nam là một tổ hợp chập 2 của 24. Số cách chọn 2 học sinh nam trong 24 học sinh nam là: $C_{24}^2 = 276$.
+Mỗi cách chọn 1 học sinh nữ trong 16 học sinh nữ là một tổ hợp chập 1 của 16. Số cách chọn 1 học sinh nữ trong 16 học sinh nữ là: $C_{16}^1 = 16$.
+Vậy số cách chọn 3 học sinh làm ban cán sự lớp sao cho trong đó có 2 học sinh nam là: $276 \cdot 16 = 4416$.
+
+c) Cách 1:
+Để ban cán sự lớp có ít nhất 1 học sinh nam thì xảy ra các trường hợp:
+Trường hợp 1: Chọn 1 học sinh nam và 2 học sinh nữ có $C_{24}^1 \cdot C_{16}^2 = 24 \cdot 120 = 2880$ (cách chọn).
+Trường hợp 2: Chọn 2 học sinh nam và 1 học sinh nữ có $C_{24}^2 \cdot C_{16}^1 = 276 \cdot 16 = 4416$ (cách chọn).
+Trường hợp 3: Chọn 3 học sinh nam có $C_{24}^3 = 2024$ (cách chọn).
+Vậy số cách chọn 3 học sinh làm ban cán sự của lớp sao cho trong đó có ít nhất 1 học sinh nam là: $2880 + 4416 + 2024 = 9320$.
+
+Cách 2:
+Số cách chọn 3 học sinh làm ban cán sự của lớp là: $C_{40}^3 = 9880$.
+Số cách chọn 3 học sinh nữ làm ban cán sự của lớp là: $C_{16}^3 = 560$.
+Vậy số cách chọn 3 học sinh làm ban cán sự của lớp sao cho trong đó có ít nhất 1 học sinh nam là: $9880 - 560 = 9320$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Tính số đoạn thẳng có hai đầu mút là 2 trong 10 điểm phân biệt.
+\loigiai{
+Mỗi đoạn thẳng tương ứng với một cặp điểm (không tính thứ tự) chọn trong 10 điểm phân biệt nên có $C_{10}^2 = 45$ đoạn thẳng.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Cho $n$ điểm phân biệt ($n > 1$). Biết rằng, số đoạn thẳng có hai đầu mút là 2 trong $n$ điểm đã cho bằng 78. Tìm $n$.
+\loigiai{
+Số đoạn thẳng có hai đầu mút là 2 trong $n$ điểm đã cho là $C_n^2 = \frac{n!}{2!(n-2)!}$. Theo đề bài, ta có:
+$\frac{n!}{2!(n-2)!} = 78 \Rightarrow \frac{(n-2)!(n-1)n}{(n-2)!} = 156 \Rightarrow n^2 - n - 156 = 0$
+Giải phương trình $n^2 - n - 156 = 0 (n > 1)$ ta có: $n = 13$ hoặc $n = -12$ (loại). Vậy $n = 13$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Tính số đường chéo của một đa giác lồi có 12 đỉnh.
+\loigiai{
+Mỗi đường chéo tương ứng với một cặp đỉnh (không tính cạnh) chọn trong 12 đỉnh của đa giác lồi nên có $C_{12}^2 - 12 = 54$ đường chéo.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Cho đa giác lồi $n$ đỉnh ($n > 3$). Biết rằng, số đường chéo của đa giác đó là 170. Tìm $n$.
+\loigiai{
+Số đường chéo của đa giác lồi $n$ đỉnh là $C_n^2 - n = \frac{n!}{2!(n-2)!} - n$.
+Theo đề bài, ta có: $\frac{n!}{2!(n-2)!} - n = 170 \Rightarrow (n-1)n - 2n = 340 \Rightarrow n^2 - 3n - 340 = 0$.
+Giải phương trình trên ($n > 3$) ta có: $n = 20$ hoặc $n = -17$ (loại).
+Vậy $n = 20$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Bạn Nam đến cửa hàng mua 2 chiếc ghế loại $A$. Tại cửa hàng, ghế loại $A$ màu xanh có 20 chiếc và ghế loại $A$ màu đỏ có 15 chiếc. Hỏi bạn Nam có bao nhiêu cách chọn mua 2 chiếc ghế loại $A$?
+\loigiai{
+Tổng số ghế loại $A$ là: $20 + 15 = 35$ (chiếc)
+Vậy số cách chọn mua 2 chiếc ghế loại $A$ là: $C_{35}^2 = 595$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Một bệnh viện có 12 bác sĩ nội khoa và 10 bác sĩ ngoại khoa. Bệnh viện cần cử 5 bác sĩ tham gia vào đội y tế cứu trợ thiên tai.
+a) Cần cử 3 bác sĩ nội khoa và 2 bác sĩ ngoại khoa. Có bao nhiêu lựa chọn?
+b) Cần cử ít nhất 2 bác sĩ nội khoa và ít nhất 2 bác sĩ ngoại khoa. Có bao nhiêu lựa chọn?
+\loigiai{
+a) Mỗi cách chọn 3 trong 12 bác sĩ nội khoa là một tổ hợp chập 3 của 12 bác sĩ này. Do đó, có $C_{12}^3$ cách chọn 3 trong 12 bác sĩ nội khoa. Có $C_{10}^2$ cách chọn 2 trong 10 bác sĩ ngoại khoa. Áp dụng quy tắc nhân, số cách cử 5 bác sĩ trong đó có 3 bác sĩ nội khoa và 2 bác sĩ ngoại khoa là: $C_{12}^3 C_{10}^2 = 220 \cdot 45 = 9900$ (cách).
+
+b) Có hai phương án thực hiện.
+Phương án 1: Chọn 2 bác sĩ nội khoa và 3 bác sĩ ngoại khoa, có $C_{12}^2 C_{10}^3$ cách chọn.
+Phương án 2: Chọn 3 bác sĩ nội khoa và 2 bác sĩ ngoại khoa, có $C_{12}^3 C_{10}^2$ cách chọn.
+Áp dụng quy tắc cộng, số cách cử 5 bác sĩ trong đó có ít nhất 2 bác sĩ nội khoa và ít nhất 2 bác sĩ ngoại khoa là: $C_{12}^2 C_{10}^3 + C_{12}^3 C_{10}^2 = 66 \cdot 120 + 220 \cdot 45 = 17820$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Trong một lô 100 sản phẩm, có 97 chính phẩm (sản phẩm đạt tiêu chuẩn) và 3 thứ phẩm (sản phẩm không đạt tiêu chuẩn). Từ 100 sản phẩm này, có bao nhiêu cách lấy ra 3 sản phẩm mà:
+a) 3 sản phẩm được lấy bất kì?
+b) trong đó có 2 chính phẩm và 1 thứ phẩm?
+c) trong đó có ít nhất một thứ phẩm?
+\loigiai{
+a) Mỗi cách lấy 3 sản phẩm từ 100 sản phẩm là một tổ hợp chập 3 của 100 sản phẩm. Do đó, số cách lấy 3 sản phẩm bất kì là $C_{100}^3 = 161700$ (cách).
+
+b) Có $C_{97}^2$ cách lấy 2 chính phẩm từ 97 chính phẩm. Có $C_3^1$ cách lấy 1 thứ phẩm từ 3 thứ phẩm. Từ đó, áp dụng quy tắc nhân, số cách lấy 2 chính phẩm và 1 thứ phẩm là $C_{97}^2 C_3^1 = 4656 \cdot 3 = 13968$ (cách).
+
+c) Trong 3 sản phẩm lấy ra có ít nhất 1 thứ phẩm trong 3 trường hợp sau đây.
+Trường hợp 1: Có đúng 1 thứ phẩm. Trường hợp này có $C_{97}^2 C_3^1 = 4656 \cdot 3 = 13968$ cách lấy.
+Trường hợp 2: Có đúng 2 thứ phẩm. Trường hợp này có $C_{97}^1 C_3^2 = 97 \cdot 3 = 291$ cách lấy.
+Trường hợp 3: Có đúng 3 thứ phẩm. Trường hợp này có $C_3^3 = 1$ cách lấy.
+Áp dụng quy tắc cộng, số cách lấy 3 sản phẩm có ít nhất 1 thứ phẩm là $13968 + 291 + 1 = 14260$ (cách).
+
+Cách khác: Có thể giải bài toán bằng cách tìm phần bù. Số cách lấy 3 sản phẩm đều là chính phẩm là $C_{97}^3$. Từ đó, số cách lấy 3 sản phẩm trong đó có ít nhất một thứ phẩm là $C_{100}^3 - C_{97}^3 = 161700 - 147440 = 14260$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Một giải đấu có 4 đội bóng $A, B, C$ và $D$ tham gia. Các đội đấu vòng tròn một lượt để tính điểm và xếp hạng.
+a) Có tất cả bao nhiêu trận đấu?
+b) Có tất cả bao nhiêu khả năng có thể xảy ra về đội vô địch và á quân?
+c) Có bao nhiêu khả năng về bảng xếp hạng sau khi giải đấu kết thúc? Biết rằng không có hai đội nào đồng hạng.
+\loigiai{
+a) Cứ hai đội bất kì thì có một trận đấu. Do đó, số trận đấu của giải bằng số tổ hợp chập 2 của 4 đội, tức bằng $C_4^2 = \frac{4!}{2!2!} = 6$.
+
+b) Mỗi kết quả của giải đấu về đội vô địch và á quân là một chỉnh hợp chập 2 của 4 đội. Do đó, số kết quả này bằng $A_4^2 = 4 \cdot 3 = 12$.
+
+c) Mỗi kết quả về bảng xếp hạng của giải đấu là một hoán vị của 4 đội. Do đó, số kết quả có thể xảy ra là $P_4 = 4! = 24$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Cho 7 điểm trong mặt phẳng.
+a) Có bao nhiêu đoạn thẳng có hai điểm đầu mút là 2 trong 7 điểm đã cho?
+b) Có bao nhiêu vectơ có điểm đầu và điểm cuối là 2 trong 7 điểm đã cho?
+\loigiai{
+a) Mỗi đoạn thẳng tương ứng với một tổ hợp chập 2 của 7 điểm. Số đoạn thẳng bằng $C_7^2 = 21$.
+
+b) Mỗi vectơ tương ứng với một chỉnh hợp chập 2 của 7 điểm. Số vectơ bằng $A_7^2 = 42$.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Một tổ công nhân 9 người làm vệ sinh cho một toà nhà lớn. Cần phân công 3 người lau cửa sổ, 4 người lau sàn và 2 người lau cầu thang. Tổ có bao nhiêu cách phân công?
+\loigiai{
+Có $C_9^3$ cách chọn 3 trong 9 người để lau cửa sổ. Tiếp theo, có $C_6^4$ cách chọn 4 trong 6 người còn lại để lau sàn. Cuối cùng, có $C_2^2$ cách chọn 2 người trong 2 người còn lại để lau cầu thang.
+Áp dụng quy tắc nhân, ta có $C_9^3 C_6^4 C_2^2 = 84 \cdot 15 \cdot 1 = 1260$ cách phân công.
+}
+\end{ex}
+
+\begin{ex}
+(CTST10) Chọn 4 trong số 3 học sinh nam và 5 học sinh nữ tham gia một cuộc thi.
+a) Nếu chọn 2 nam và 2 nữ thì có bao nhiêu cách chọn?
+b) Nếu trong số học sinh được chọn nhất thiết phải có học sinh nam $A$ và học sinh nữ $B$ thì có bao nhiêu cách chọn?
+c) Nếu phải có ít nhất một trong hai học sinh $A$ và $B$ được chọn, thì có bao nhiêu cách chọn?
+d) Nếu trong 4 học sinh được chọn phải có cả học sinh nam và học sinh nữ thì có bao nhiêu cách chọn?
+\loigiai{
+a) Chọn 2 trong 3 học sinh nam, rồi chọn 2 trong 5 học sinh nữ.
+Ta có: $C_3^2 C_5^2 = 3 \cdot 10 = 30$.
+
+b) Sau khi đã có $A$ và $B$, chọn 2 trong 6 học sinh còn lại. Ta có $C_6^2 = 15$.
+
+c) Chia thành 3 phương án: có cả $A$ và $B$; chỉ có $A$; chỉ có $B$.
+Nên ta có: $C_6^2 + C_6^3 + C_6^3 = 15 + 20 + 20 = 55$.
+
+d) Chia thành 3 phương án: có 1 học sinh nam; có 2 học sinh nam; có 3 học sinh nam.
+Nên ta có: $C_3^1 C_5^3 + C_3^2 C_5^2 + C_3^3 C_5^1 = 3 \cdot 10 + 3 \cdot 10 + 1 \cdot 5 = 65$.
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Cửa hàng kem có các vị va ni, sô cô la, dâu, trà xanh, cà phê, chuối, sầu riêng. Lan muốn mua một cốc kem có hai vị khác nhau. Hỏi Lan có bao nhiêu cách chọn?
+\loigiai{
+Có 7 loại kem khác nhau. Lan muốn chọn 2 loại từ 7 loại kem đó. Do đó, số cách chọn là $C_7^2 = \frac{7 \cdot 6}{2} = 21$ (cách).
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Minh có 4 vé xem bóng đá và muốn mời thêm các bạn đi xem cùng. Nhưng Minh có tới 6 người bạn thích bóng đá. Hỏi Minh có bao nhiêu cách mời 3 bạn để đi xem bóng đá cùng mình?
+\loigiai{
+Số cách chọn ra 3 người từ 6 người bạn là: $C_6^3 = \frac{6 \cdot 5 \cdot 4}{3 \cdot 2 \cdot 1} = 20$ (cách).
+Vậy, Minh có tất cả 20 cách mời 3 bạn đi xem bóng đá cùng mình.
+}
+\end{ex}
+
+\begin{ex}
+(KNTT10) Ông An quyết định sơn ngôi nhà 4 tầng mới xây của mình bằng gam màu xanh. Hãng sơn mà ông An chọn có gam màu xanh với 10 màu xanh có mức độ đậm nhạt khác nhau.
+a) Ông An có bao nhiêu cách sơn nhà sao cho 2 tầng khác nhau có màu khác nhau?
+b) Sau khi tham khảo ý kiến của mọi người, ông điều chỉnh ý định ban đầu và bây giờ muốn các tầng sơn màu nhạt dần từ thấp lên cao. Số cách sơn nhà theo yêu cầu mới là bao nhiêu?
+\loigiai{
+a) Để có một cách sơn, ông $A$ cần chọn ra một bộ 4 màu sơn khác nhau, có sắp thứ tự (tương ứng với màu sơn của tầng 1, tầng 2, tầng 3 và tầng 4). Do có 10 màu sơn nên số cách sơn là: $A_{10}^4 = 10 \cdot 9 \cdot 8 \cdot 7 = 5040$ (cách).
+
+b) Để có một cách sơn nhà, ông An cần chọn ra 4 màu khác nhau từ 10 màu xanh rồi với mỗi bộ 4 màu đã chọn ra, ông An sắp thứ tự từ đậm nhất đến nhạt nhất để sơn các tầng từ thấp lên cao theo mong muốn. Nói cách khác, với mỗi bộ 4 màu khác nhau, ông An có một cách sơn. Ngược lại, rõ ràng mỗi cách sơn phải dùng 4 màu khác nhau. Như vậy, số cách sơn bằng số cách chọn ra 4 màu sơn từ 10 màu sơn, nghĩa là có: $C_{10}^4 = \frac{10 \cdot 9 \cdot 8 \cdot 7}{4 \cdot 3 \cdot 2 \cdot 1} = 210$ (cách).
+}
+\end{ex}
+
+\subsection{Dạng 4. Chứng minh hệ thức tổ hợp}
+
+\begin{ex}
+(CD10) Chứng minh rằng:
+a) $C_n^k = C_n^{n-k}$ với $0 \le k \le n$;
+b) $C_{n-1}^{k-1} + C_{n-1}^k = C_n^k$ với $1 \le k < n$.
+\loigiai{
+Ta có:
+a) $C_n^k = \frac{n!}{k!(n-k)!} = \frac{n!}{[n-(n-k)]!(n-k)!} = \frac{n!}{(n-k)![n-(n-k)]!} = C_n^{n-k}$.
+
+b) $C_{n-1}^{k-1} + C_{n-1}^k = \frac{(n-1)!}{(k-1)![(n-1)-(k-1)]!} + \frac{(n-1)!}{k![(n-1)-k]!}$
+$= (n-1)! \left[ \frac{k}{k!(n-k)!} + \frac{n-k}{k!(n-k)!} \right] = \frac{(n-1)!(k+n-k)}{k!(n-k)!} = \frac{n!}{k!(n-k)!} = C_n^k$.
+}
+\end{ex}
+
+\begin{ex}
+(CD10) Chứng minh rằng:
+a) $k C_n^k = n C_{n-1}^{k-1}$ với $1 \le k \le n$;
+b) $\frac{1}{k+1} C_n^k = \frac{1}{n+1} C_{n+1}^{k+1}$ với $0 \le k \le n$.
+\loigiai{
+Ta có:
+a) $k C_n^k = k \frac{n!}{k!(n-k)!} = \frac{k \cdot n!}{k(k-1)!(n-k)!} = n \frac{(n-1)!}{(k-1)![(n-1)-(k-1)]!} = n C_{n-1}^{k-1}$.
+
+b) $\frac{1}{k+1} C_n^k = \frac{1}{k+1} \cdot \frac{n!}{k!(n-k)!} = \frac{n!}{(k+1)!(n-k)!} = \frac{1}{n+1} \cdot \frac{(n+1)!}{(k+1)![(n+1)-(k+1)]!} = \frac{1}{n+1} C_{n+1}^{k+1}$.
+}
+\end{ex}
+
+\end{document}

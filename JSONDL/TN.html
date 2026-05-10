@@ -951,7 +951,7 @@
             <form id="loginForm">
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">Mã đăng nhập:</label>
-                    <input type="password" id="loginCode" placeholder="" 
+                    <input type="text" id="loginCode" placeholder="VD: HS123456 hoặc admin79" 
                            style="width: 100%; padding: 12px; border: 2px solid var(--gray-300); border-radius: 10px;">
                 </div>
                 <div style="margin-bottom: 25px;">
@@ -1204,8 +1204,8 @@
         // ==================== LOAD EXAMS ====================
         async function loadExamList() {
             try {
-                const response = await fetch('matrix_tn.json?v=' + Date.now());
-                if (!response.ok) throw new Error('Không tải được danh sách bài tập TN');
+                const response = await fetch('matrix_cd.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Không tải được danh sách bài tập');
                 
                 const data = await response.json();
                 fullExamList = data.exams || [];
@@ -1214,8 +1214,8 @@
                 populateGroupFilter();
                 
             } catch (error) {
-                console.error("Lỗi tải bài tập TN:", error);
-                showNotification('Không thể tải danh sách bài tập TN', 'error');
+                console.error("Lỗi tải bài tập:", error);
+                showNotification('Không thể tải danh sách bài tập', 'error');
             }
         }
 
@@ -1321,8 +1321,8 @@
         }
 
         // Hàm xử lý dữ liệu linh hoạt - hỗ trợ nhiều định dạng JSON
-       function processQuestionsData(data, examId, allKeys) {
-            let questions =[];
+        function processQuestionsData(data, examId, allKeys) {
+            let questions = [];
             
             // Trường hợp 1: Data là array trực tiếp
             if (Array.isArray(data)) {
@@ -1343,7 +1343,7 @@
             
             if (questions.length === 0) {
                 console.warn("Không tìm thấy câu hỏi trong dữ liệu:", data);
-                return[];
+                return [];
             }
             
             // Chuẩn hóa từng câu hỏi
@@ -1364,26 +1364,23 @@
                 else if (q.content) text = q.content;
                 else text = `Câu ${index + 1}`;
                 
-                // =======================================================
-                // ĐÃ NÂNG CẤP: Xử lý các lựa chọn (Hỗ trợ cả Array và Object)
-                // =======================================================
-                let options =[];
-                if (q.options) {
-                    options = Array.isArray(q.options) ? q.options : Object.values(q.options);
-                } else if (q.choices) {
-                    options = Array.isArray(q.choices) ? q.choices : Object.values(q.choices);
-                } else if (q.dapAn) {
-                    options = Array.isArray(q.dapAn) ? q.dapAn : Object.values(q.dapAn);
+                // Xử lý các lựa chọn
+                let options = [];
+                if (q.options && Array.isArray(q.options)) {
+                    options = q.options;
+                } else if (q.choices && Array.isArray(q.choices)) {
+                    options = q.choices;
+                } else if (q.dapAn && Array.isArray(q.dapAn)) {
+                    options = q.dapAn;
                 } else {
-                    // Mặc định tạo 4 lựa chọn nếu JSON bị thiếu
-                    options =["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"];
+                    // Mặc định tạo 4 lựa chọn
+                    options = ["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"];
                 }
                 
-                // Đảm bảo có đủ 4 lựa chọn (Nếu tool xuất thiếu)
+                // Đảm bảo có đủ 4 lựa chọn
                 while (options.length < 4) {
                     options.push(`Lựa chọn ${String.fromCharCode(65 + options.length)}`);
                 }
-                // =======================================================
                 
                 // Xử lý đáp án đúng
                 let correct = '';
@@ -1412,7 +1409,7 @@
                 }
                 
                 // Xử lý hình ảnh
-                let images =[];
+                let images = [];
                 if (q.images && Array.isArray(q.images)) {
                     images = q.images;
                 } else if (q.image) {
@@ -1687,20 +1684,20 @@
 
         // ==================== PREVIEW QUESTION ====================
         function previewQuestion(qId) {
-            const q = currentQuestions.find(q => String(q.id) === String(qId));
+            const q = currentQuestions.find(q => q.id === qId);
             if (!q) return;
-
+            
             currentPreviewQuestion = q;
-
+            
             const index = currentQuestions.filter(q => String(q.id) !== "0").findIndex(q => q.id === qId) + 1;
             const options = q.options || ["A", "B", "C", "D"];
-
+            
             // Nội dung câu hỏi
             let questionContent = `
                 <h4 style="color: var(--primary); margin-bottom: 15px;">Câu ${index}</h4>
                 <div class="preview-text">${processContent(q.text || q.question || '')}</div>
             `;
-
+            
             if (q.images && Array.isArray(q.images) && q.images.length > 0) {
                 q.images.forEach(src => {
                     questionContent += `<div class="preview-image">${processContent(src)}</div>`;
@@ -1708,7 +1705,7 @@
             } else if (q.image) {
                 questionContent += `<div class="preview-image">${processContent(q.image)}</div>`;
             }
-
+            
             // Các lựa chọn
             let optionsHTML = '<div class="preview-options"><h5 style="margin-bottom: 10px;">Các lựa chọn:</h5>';
             options.forEach((opt, idx) => {
@@ -1718,28 +1715,28 @@
                     <div class="preview-option ${isCorrect ? 'correct' : ''}">
                         <span class="letter">${letter}.</span>
                         <span class="text">${opt}</span>
-                        ${isCorrect && isSubmitted ? '<span style="margin-left: auto; color: var(--success);">✓ Đáp án đúng</span>' : ''}
+                        ${isCorrect ? '<span style="margin-left: auto; color: var(--success);">✓ Đáp án đúng</span>' : ''}
                     </div>
                 `;
             });
             optionsHTML += '</div>';
-
+            
             // Hướng dẫn giải
             let solutionContent = '';
-            if (isSubmitted) {
-                solutionContent = q.solution ? processContent(q.solution) : '<p style="color: var(--text-secondary);">Chưa có hướng dẫn giải cho câu này.</p>';
+            if (q.solution) {
+                solutionContent = processContent(q.solution);
             } else {
-                solutionContent = '<p style="color: var(--warning);">❌ Bạn cần nộp bài trước khi xem hướng dẫn giải.</p>';
+                solutionContent = '<p style="color: var(--text-secondary);">Chưa có hướng dẫn giải cho câu này.</p>';
             }
-
+            
             document.getElementById('previewTitle').innerHTML = `Câu ${index}`;
             document.getElementById('previewContent').innerHTML = questionContent;
             document.getElementById('previewOptions').innerHTML = optionsHTML;
             document.getElementById('solutionContent').innerHTML = solutionContent;
-
+            
             switchPreviewTab('question');
             showModal('preview-modal');
-
+            
             if (window.MathJax) setTimeout(() => MathJax.typesetPromise(), 100);
         }
 

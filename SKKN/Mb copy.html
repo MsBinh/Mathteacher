@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Thống kê Tổng hợp | Hệ thống Math Hub 2026</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #064e3b; --secondary: #065f46; --accent: #fbbf24; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .card { max-width: 850px; width: 100%; background: white; border-radius: 3rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid rgba(255,255,255,0.7); }
+        .header { background: linear-gradient(115deg, var(--primary), var(--secondary)); padding: 40px 30px; color: white; text-align: center; }
+        .header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
+        .status-badge { background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 50px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 35px 30px; background: #fff; }
+        .stat-block { background: #f8fafc; border-radius: 2.2rem; padding: 30px 15px; text-align: center; border: 1px solid #e2e8f0; transition: 0.3s; }
+        .stat-block:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .stat-number { font-size: 3.2rem; font-weight: 800; color: var(--primary); line-height: 1; letter-spacing: -1px; }
+        .stat-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-top: 10px; }
+        .chart-area { padding: 10px 30px 45px; background: white; text-align: center; }
+        canvas { max-width: 320px; margin: 0 auto; }
+        .ratio-badge { margin-top: 30px; font-size: 1rem; font-weight: 800; color: var(--primary); padding: 12px 30px; border-radius: 50px; background: #f0fdf4; display: inline-block; border: 1px solid #dcfce7; }
+        .footer { background: #f9fef7; padding: 18px; text-align: center; font-size: 0.7rem; color: #517a4b; border-top: 1px solid #e2efdf; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <h1><i class="fas fa-chart-line"></i> THỐNG KÊ TỔNG HỢP HỆ THỐNG</h1>
+        <p style="opacity: 0.8; margin-top: 8px;">Dữ liệu gộp từ Chuyên đề cũ và Dự án Cải tiến V2</p>
+        <div class="status-badge" id="syncStatus">
+            <i class="fas fa-circle-notch fa-spin"></i> ĐANG THIẾT LẬP KẾT NỐI SONG SONG...
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-block">
+            <div class="stat-number" id="totalAttempts">0</div>
+            <div class="stat-label">📌 Tổng lượt làm câu</div>
+        </div>
+        <div class="stat-block">
+            <div class="stat-number" id="totalCorrect">0</div>
+            <div class="stat-label">✅ Câu đúng hoàn toàn</div>
+        </div>
+    </div>
+
+    <div class="chart-area">
+        <h3 style="margin-bottom: 25px; color: var(--primary);">Tỉ lệ chính xác gộp toàn hệ thống</h3>
+        <canvas id="mainChart"></canvas>
+        <div class="ratio-badge" id="ratioText">Đang rà soát dữ liệu của các giáo viên...</div>
+    </div>
+
+    <div class="footer">
+        <i class="fas fa-database"></i> Dữ liệu Real-time đồng bộ từ 02 nguồn Firebase khác nhau
+    </div>
+</div>
+
+<script>
+    // 🔴 CẤU HÌNH 2 HỆ THỐNG CỦA THẦY BÌNH
+    const configOld = {
+        apiKey: "AIzaSyDVRsgVDCKk5lIfCRxhSlWiBetNlZBukcc",
+        databaseURL: "https://daytoantructuyen-149d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    };
+    const configNew = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+    };
+
+    // KHỞI TẠO APP: Dự án mới làm Mặc định
+    const appNew = firebase.initializeApp(configNew); 
+    const appOld = firebase.initializeApp(configOld, "OLD");
+    
+    const dbNew = firebase.database(appNew);
+    const dbOld = firebase.database(appOld);
+
+    let myChart = null;
+    let stats = { old: { att: 0, cor: 0 }, v2: { att: 0, cor: 0 } };
+
+    // HÀM XỬ LÝ LOGIC CHẤM ĐIỂM CHUẨN
+    function processItem(item) {
+        let att = 0, cor = 0;
+        const answers = item.answers;
+        if (!answers) return { att, cor };
+
+        const map = new Map();
+        const details = item.questionDetails || [];
+        Object.values(details).forEach(qd => {
+            if (!qd || !qd.id) return;
+            if (qd.statements) map.set(String(qd.id), { type: 'DS', key: Object.values(qd.statements).map(s => s.correct === true) });
+            else if (qd.correctOption !== undefined) map.set(String(qd.id), { type: 'TN', key: String(qd.correctOption).trim().toUpperCase() });
+            else if (qd.correctAnswer !== undefined) map.set(String(qd.id), { type: 'TLN', key: String(qd.correctAnswer).trim() });
+        });
+
+        Object.keys(answers).forEach(qId => {
+            const info = map.get(String(qId));
+            if (!info) return;
+            att++;
+            let isOk = false;
+            const uAns = answers[qId];
+            if (info.type === 'TN') isOk = String(uAns).trim().toUpperCase() === info.key;
+            else if (info.type === 'TLN') isOk = String(uAns).trim().toLowerCase().replace(/,/g,'.') === info.key.toLowerCase().replace(/,/g,'.');
+            else if (info.type === 'DS') {
+                let uArr = Array.isArray(uAns) ? uAns : [uAns.a, uAns.b, uAns.c, uAns.d];
+                isOk = uArr.filter((v, i) => (v === true || v === 'Đ' || v === 'true') === info.key[i]).length === 4;
+            }
+            if (isOk) cor++;
+        });
+        return { att, cor };
+    }
+
+    function startSync() {
+        // 1. Lắng nghe Dự án Cũ (Flat structure)
+        dbOld.ref('attempts').on('value', snap => {
+            let a = 0, c = 0;
+            const data = snap.val() || {};
+            Object.values(data).forEach(item => {
+                if((item.examName || "").toLowerCase().includes('đề')) return;
+                const r = processItem(item); a += r.att; c += r.cor;
+            });
+            stats.old = { att: a, cor: c };
+            updateDashboard();
+        });
+
+        // 2. Lắng nghe Dự án Mới (Quét sâu nhánh teachers của TẤT CẢ giáo viên)
+        dbNew.ref('teachers').on('value', snap => {
+            let a = 0, c = 0;
+            const teachers = snap.val() || {};
+            Object.values(teachers).forEach(t => {
+                // Quét nhánh attempts
+                if (t.attempts) Object.values(t.attempts).forEach(item => {
+                    if((item.examName || "").toLowerCase().includes('đề')) return;
+                    const r = processItem(item); a += r.att; c += r.cor;
+                });
+                // Quét nhánh results
+                if (t.results) Object.values(t.results).forEach(exam => {
+                    Object.values(exam).forEach(item => {
+                        if((item.examName || item.name || "").toLowerCase().includes('đề')) return;
+                        const r = processItem(item); a += r.att; c += r.cor;
+                    });
+                });
+            });
+            stats.v2 = { att: a, cor: c };
+            updateDashboard();
+        });
+    }
+
+    function updateDashboard() {
+        const totalA = stats.old.att + stats.v2.att;
+        const totalC = stats.old.cor + stats.v2.cor;
+        
+        document.getElementById('totalAttempts').innerText = totalA.toLocaleString();
+        document.getElementById('totalCorrect').innerText = totalC.toLocaleString();
+        
+        const ratio = totalA > 0 ? (totalC / totalA * 100).toFixed(1) : 0;
+        document.getElementById('ratioText').innerText = `📊 Tỉ lệ chính xác: ${ratio}% (Hợp nhất 2 nguồn)`;
+
+        document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle" style="color:#6ee7b7"></i> DỮ LIỆU ĐÃ KẾT NỐI REAL-TIME';
+
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        if (myChart) myChart.destroy();
+        myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Câu đúng 100%', 'Câu sai/Thiếu'],
+                datasets: [{ data: [totalC, totalA - totalC], backgroundColor: ['#10b981', '#fbbf24'], borderWidth: 0 }]
+            },
+            options: { cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+        });
+    }
+
+    window.onload = startSync;
+</script>
+</body>
+</html>

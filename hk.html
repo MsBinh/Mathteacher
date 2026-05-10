@@ -20,37 +20,22 @@
         .day-badge-2 { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 5px solid #2563eb; }
         .day-badge-3 { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 5px solid #16a34a; }
         .day-badge-4 { background: linear-gradient(135deg, #fff7ed, #ffedd5); border-left: 5px solid #ea580c; }
+        .day-badge-5 { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-left: 5px solid #8b5cf6; }
         .teacher-row { transition: all 0.2s ease; border-radius: 14px; margin-bottom: 8px; padding: 10px 12px; cursor: pointer; }
-        .teacher-row:hover { transform: translateX(8px); filter: brightness(0.97); }
         .teacher-bg-0 { background: linear-gradient(90deg, #fef2f2 0%, #fff 100%); border-left: 4px solid #ef4444; }
         .teacher-bg-1 { background: linear-gradient(90deg, #eff6ff 0%, #fff 100%); border-left: 4px solid #3b82f6; }
         .teacher-bg-2 { background: linear-gradient(90deg, #f0fdf4 0%, #fff 100%); border-left: 4px solid #22c55e; }
         .teacher-bg-3 { background: linear-gradient(90deg, #fefce8 0%, #fff 100%); border-left: 4px solid #eab308; }
-        .teacher-bg-4 { background: linear-gradient(90deg, #fef3f2 0%, #fff 100%); border-left: 4px solid #f97316; }
-        .teacher-bg-5 { background: linear-gradient(90deg, #f5f3ff 0%, #fff 100%); border-left: 4px solid #8b5cf6; }
-        .teacher-bg-6 { background: linear-gradient(90deg, #fdf4ff 0%, #fff 100%); border-left: 4px solid #d946ef; }
-        .teacher-bg-7 { background: linear-gradient(90deg, #ecfdf5 0%, #fff 100%); border-left: 4px solid #10b981; }
-        .teacher-bg-8 { background: linear-gradient(90deg, #fff7ed 0%, #fff 100%); border-left: 4px solid #f59e0b; }
-        .teacher-bg-9 { background: linear-gradient(90deg, #fef2f2 0%, #fff 100%); border-left: 4px solid #dc2626; }
         .absence-badge { background: #fee2e2; color: #b91c1c; font-size: 10px; font-weight: 800; border-radius: 20px; padding: 3px 10px; }
         .teacher-scroll { max-height: 560px; overflow-y: auto; padding-right: 6px; }
-        .teacher-scroll::-webkit-scrollbar { width: 5px; }
-        .teacher-scroll::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
-        .teacher-scroll::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
         .modal-animate { animation: fadeSlideUp 0.2s ease-out; }
         @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .meet-btn { background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%); transition: all 0.2s; }
-        .meet-btn:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(26,115,232,0.3); }
-        @media (min-width: 1024px) { .teacher-name { font-size: 15px !important; } .room-badge { font-size: 13px !important; } .info-text { font-size: 14px !important; } }
-        .subject-line { white-space: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; }
-        .subject-line::-webkit-scrollbar { height: 3px; }
         .edit-mode { background: #fef9c3 !important; border-left: 4px solid #eab308 !important; }
-        .teacher-select { font-size: 12px; padding: 4px 8px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; }
     </style>
 </head>
 <body>
 
-<!-- Header -->
 <div class="header-glass fixed top-0 left-0 w-full z-50 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
         <div class="flex items-center gap-3">
@@ -77,7 +62,6 @@
     </div>
 </div>
 
-<!-- Main content -->
 <div class="max-w-7xl mx-auto px-3 md:px-6 pt-20 pb-10">
     <div class="mb-6 flex flex-wrap justify-between items-center gap-3">
         <div>
@@ -89,37 +73,12 @@
         </div>
         <div class="text-xs bg-white rounded-full px-4 py-1.5 shadow-sm">
             <i class="fas fa-door-open text-indigo-500 mr-1"></i>
-            <span class="font-semibold">9 phòng thi</span>
+            <span class="font-semibold">10 phòng thi</span>
         </div>
     </div>
     <div id="examContainer" class="space-y-5"></div>
-    <div class="mt-10 border-t border-slate-200 pt-5 text-center text-[9px] md:text-[10px] text-slate-400">
-        <i class="far fa-copyright mr-1"></i> Dữ liệu đồng bộ realtime - Báo vắng được lưu vĩnh viễn
-    </div>
 </div>
 
-<!-- Modal chỉnh sửa phân công -->
-<div id="editAssignmentModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl modal-animate">
-        <div class="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-3 text-white flex justify-between">
-            <h3 id="editModalTitle" class="font-bold text-sm">Chỉnh sửa phân công</h3>
-            <button onclick="closeEditModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="p-5 space-y-4">
-            <div>
-                <label class="text-xs font-bold text-slate-600">Phòng thi:</label>
-                <p id="editRoom" class="text-sm font-bold text-slate-800 mt-1"></p>
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-600">Chọn giám thị:</label>
-                <select id="editTeacherSelect" class="teacher-select w-full mt-2"></select>
-            </div>
-            <button onclick="saveTeacherAssignment()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl">Lưu thay đổi</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Admin -->
 <div id="adminModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl modal-animate">
         <div class="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-3 text-white flex justify-between">
@@ -129,10 +88,24 @@
         <div class="p-5 space-y-4">
             <textarea id="instrInput" rows="3" class="w-full border rounded-xl p-3 text-sm focus:ring-2 focus:ring-blue-400" placeholder="Hướng dẫn coi thi..."></textarea>
             <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl">
-                <span class="font-bold text-sm">Trạng thái</span>
+                <span class="font-bold text-sm">Trạng thái danh sách</span>
                 <button id="lockToggleBtn" onclick="toggleLock()" class="px-4 py-1.5 rounded-xl text-[10px] font-black uppercase"></button>
             </div>
             <button onclick="saveAdminChanges()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl">Lưu thay đổi</button>
+        </div>
+    </div>
+</div>
+
+<div id="editAssignmentModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl modal-animate">
+        <div class="bg-slate-800 px-5 py-3 text-white flex justify-between">
+            <h3 id="editModalTitle" class="font-bold text-sm">Chỉnh sửa phân công</h3>
+            <button onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-5 space-y-4">
+            <div><label class="text-xs font-bold">Phòng:</label><p id="editRoom" class="font-bold"></p></div>
+            <div><label class="text-xs font-bold">Chọn giám thị:</label><select id="editTeacherSelect" class="w-full mt-2 p-2 border rounded-lg text-sm"></select></div>
+            <button onclick="saveTeacherAssignment()" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl">Cập nhật</button>
         </div>
     </div>
 </div>
@@ -148,270 +121,163 @@
     const db = firebase.database();
 
     const teachersByDay = {
-        2: ["Trần Thanh Xuân", "Nguyễn Thị Trung Hiếu", "Bùi Thị Yến Linh", "Huỳnh Văn Thao", "Trần Thị Tiến", "Nguyễn Văn Toàn", "Lưu Thị Arin", "Nguyễn Văn Hậu", "Mai Văn Phước"],
-        3: ["Trần Thanh Xuân", "Phạm Thị Lý", "Bùi Thị Yến Linh", "Huỳnh Văn Thao", "Nguyễn Văn Vũ", "Trần Thị Tiến", "Nguyễn Văn Toàn", "Lưu Thị Arin", "Ngô Văn Châu", "Mai Văn Phước"],
-        4: ["Trần Thanh Xuân", "Phạm Thị Lý", "Bùi Thị Yến Linh", "Huỳnh Văn Thao", "Trần Thị Tiến", "Huỳnh Tấn Khánh", "Nguyễn Văn Toàn", "Lưu Thị Arin", "Ngô Văn Châu", "Mai Văn Phước"]
+        2: ["Phạm Thị Lý", "Đặng Thị Bé Thơ", "Bùi Thị Trúc Phương", "Mai Thị Hồng Thắm", "Nguyễn Văn Vũ", "Võ Thị Quyền", "Huỳnh Tấn Khánh", "Trần Thị Mặn", "Nguyễn Văn Hậu", "Võ Thế Toàn"],
+        3: ["Lê Văn Thu", "Nguyễn Thị Trung Hiếu", "Nguyễn Thị Ngọt", "Nguyễn Văn Hận", "Trần Thế Việt", "Nguyễn Ngọc Tâm Đan", "Nguyễn Duy Khánh", "Trần Thị Mặn", "Nguyễn Văn Hậu", "Võ Thế Toàn"],
+        4: ["Nguyễn Thị Ngọt", "Đặng Thị Bé Thơ", "Bùi Thị Trúc Phương", "Mai Thị Hồng Thắm", "Trần Thế Việt", "Võ Thị Quyền", "Huỳnh Tấn Khánh", "Nguyễn Ngọc Tâm Đan", "Ngô Văn Châu", "Trần Quang Thuật"],
+        5: ["Lê Văn Thu", "Nguyễn Thị Trung Hiếu", "Nguyễn Thị Ngọt", "Mai Thị Hồng Thắm", "Nguyễn Văn Hận", "Trần Thế Việt", "Nguyễn Duy Khánh", "Trần Thị Mặn", "Võ Thế Toàn", "Trần Quang Thuật"]
     };
-    const rooms = ["12A1", "12A2", "12A3", "12A4", "12A5", "PCN1", "PCN2", "PCN3", "P.HT"];
+
+    const gt3ByDay = {
+        2: "Thầy Thu, Thầy Hận, Thầy Thuật",
+        3: "Cô Thơ, Cô Phương",
+        4: "Thầy Vũ, Thầy Khánh",
+        5: "Cô Quyền, Cô Đan"
+    };
+
+    const rooms = ["10A1", "10A2", "10A3", "10A4", "10A5", "11A1", "11A2", "11A3", "11A4", "11A5"];
     const exams = [
-        { id: "V1", day: 2, date: "20/04", subject: "Ngữ Văn", start: "07:00", dur: 90 },
-        { id: "LS", day: 2, date: "20/04", subject: "Lịch sử", start: "08:50", dur: 45 },
-        { id: "TH", day: 2, date: "20/04", subject: "Tin học - CN", start: "09:50", dur: 45 },
-        { id: "TO", day: 3, date: "21/04", subject: "Toán", start: "07:00", dur: 90 },
-        { id: "TA", day: 3, date: "21/04", subject: "Tiếng Anh", start: "08:50", dur: 60 },
-        { id: "VL", day: 4, date: "22/04", subject: "Vật Lý", start: "07:00", dur: 45 },
-        { id: "HD", day: 4, date: "22/04", subject: "Hóa - Địa", start: "08:00", dur: 45 },
-        { id: "SK", day: 4, date: "22/04", subject: "Sinh - KTPL", start: "09:00", dur: 45 }
+        { id: "V1", day: 2, date: "11/05", subject: "Ngữ Văn", start: "07:15", dur: 90 },
+        { id: "LS", day: 2, date: "11/05", subject: "Lịch sử", start: "09:15", dur: 45 },
+        { id: "TO", day: 3, date: "12/05", subject: "Toán", start: "07:15", dur: 90 },
+        { id: "TA", day: 3, date: "12/05", subject: "Tiếng Anh", start: "09:15", dur: 60 },
+        { id: "VL", day: 4, date: "13/05", subject: "Vật Lý", start: "07:15", dur: 45 },
+        { id: "HD", day: 4, date: "13/05", subject: "Hóa - Địa", start: "08:20", dur: 45 },
+        { id: "SK", day: 5, date: "14/05", subject: "Sinh - KTPL", start: "07:15", dur: 45 },
+        { id: "TH", day: 5, date: "14/05", subject: "Tin học - CN", start: "08:20", dur: 45 }
     ];
 
     let isAdmin = false;
     let editingId = null;
     let serverData = {};
     let absenceData = {};
-    let customAssignments = {}; // Lưu phân công thủ công: customAssignments[examId][room] = teacherName
+    let customAssignments = {};
 
     function joinGoogleMeet() { window.open("https://meet.google.com/ktd-gdxo-uyz", "_blank"); }
+    function getSeats() { let s=[]; for(let r=0;r<6;r++){let row=[]; for(let c=0;c<4;c++)row.push(r*4+c+1); if(r%2!==0)row.reverse(); s.push(...row);} return s; }
 
-    function getSeats(day) {
-        let s = [];
-        if(day === 2) { for(let r=0; r<6; r++) { let row=[]; for(let c=0; c<4; c++) row.push(r*4+c+1); if(r%2!==0) row.reverse(); s.push(...row); } }
-        else if(day === 3) s = [1,2,3,4,12,13,14,5,11,16,15,6,10,9,8,7,17,18,19,20,24,23,22,21];
-        else { for(let c=0; c<4; c++) { let col=[]; for(let r=0; r<6; r++) col.push(r*4+c+1); if(c%2!==0) col.reverse(); s.push(...col); } }
-        return s;
-    }
-
-    // Hàm phân công tự động (giữ nguyên logic cũ)
     function getAutoAssigned(day, subject, date) {
-        let seed = 0; const text = subject + date;
-        for(let i=0; i<text.length; i++) seed += text.charCodeAt(i);
-        const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-        let pool = [...teachersByDay[day]];
-        for(let i=pool.length-1; i>0; i--) { let j = Math.floor(rnd() * (i+1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-        const assignedList = [];
-        for(let i = 0; i < rooms.length; i++) assignedList.push(pool[i % pool.length]);
-        return assignedList;
+        let seed=0; const text=subject+date; for(let i=0;i<text.length;i++)seed+=text.charCodeAt(i);
+        const rnd=()=>(seed=(seed*9301+49297)%233280, seed/233280);
+        let pool=[...teachersByDay[day]]; for(let i=pool.length-1;i>0;i--){let j=Math.floor(rnd()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+        return rooms.map((_,i)=>pool[i%pool.length]);
     }
 
-    // Lấy phân công cuối cùng (ưu tiên custom nếu có)
     function getAssigned(examId, day, subject, date) {
-        const autoList = getAutoAssigned(day, subject, date);
-        const customMap = customAssignments[examId] || {};
-        return rooms.map((room, idx) => customMap[room] || autoList[idx]);
+        const auto = getAutoAssigned(day, subject, date);
+        const custom = customAssignments[examId] || {};
+        return rooms.map((r, i) => custom[r] || auto[i]);
     }
 
     function calculateEndTime(start, dur) {
-        let [h, m] = start.split(':').map(Number);
-        let total = h * 60 + m + dur + 5;
-        return `${Math.floor(total/60).toString().padStart(2,'0')}:${(total%60).toString().padStart(2,'0')}`;
-    }
-
-    function getTeacherBgClass(i) { return `teacher-bg-${i % 10}`; }
-
-    async function reportAbsence(examId, roomName, teacherName, event) {
-        event.stopPropagation();
-        let reason = prompt(`✍️ Lý do vắng mặt: ${teacherName} (${roomName})`, "Ốm, công tác...");
-        if(!reason?.trim()) return;
-        const key = `${roomName}|${teacherName}`;
-        await db.ref(`absences/${examId}/${key}`).set({ teacher: teacherName, room: roomName, reason: reason.trim(), timestamp: Date.now() });
-    }
-
-    async function clearAbsence(examId, key) { if(confirm('Xóa báo vắng?')) await db.ref(`absences/${examId}/${key}`).remove(); }
-
-    // Mở modal chỉnh sửa phân công
-    let currentEditExamId = null, currentEditRoom = null, currentEditTeacher = null;
-    function openEditAssignment(examId, room, currentTeacher) {
-        if(!isAdmin) { alert("Chỉ Admin mới có thể điều chỉnh phân công!"); return; }
-        currentEditExamId = examId;
-        currentEditRoom = room;
-        currentEditTeacher = currentTeacher;
-        
-        const exam = exams.find(e => e.id === examId);
-        const day = exam.day;
-        const teacherPool = teachersByDay[day];
-        
-        document.getElementById('editModalTitle').innerHTML = `✏️ Chỉnh sửa phân công - ${exam.subject}`;
-        document.getElementById('editRoom').innerText = `${room}`;
-        
-        const selectEl = document.getElementById('editTeacherSelect');
-        selectEl.innerHTML = '<option value="">-- Chọn giám thị --</option>' + 
-            teacherPool.map(t => `<option value="${t}" ${t === currentTeacher ? 'selected' : ''}>${t}</option>`).join('');
-        
-        document.getElementById('editAssignmentModal').classList.remove('hidden');
-    }
-    
-    function closeEditModal() { document.getElementById('editAssignmentModal').classList.add('hidden'); }
-    
-    function saveTeacherAssignment() {
-        const newTeacher = document.getElementById('editTeacherSelect').value;
-        if(!newTeacher) { alert("Vui lòng chọn giám thị!"); return; }
-        
-        if(!customAssignments[currentEditExamId]) customAssignments[currentEditExamId] = {};
-        customAssignments[currentEditExamId][currentEditRoom] = newTeacher;
-        
-        // Lưu lên Firebase
-        db.ref(`customAssignments/${currentEditExamId}/${currentEditRoom}`).set(newTeacher);
-        
-        closeEditModal();
-        renderExams(); // Render lại để hiển thị thay đổi
-    }
-    
-    // Reset phân công về tự động
-    async function resetToAuto(examId) {
-        if(!isAdmin) return;
-        if(confirm('Reset phân công môn này về chế độ tự động?')) {
-            await db.ref(`customAssignments/${examId}`).remove();
-            if(customAssignments[examId]) delete customAssignments[examId];
-            renderExams();
-        }
+        let [h, m] = start.split(':').map(Number); let t = h*60+m+dur+5;
+        return `${Math.floor(t/60).toString().padStart(2,'0')}:${(t%60).toString().padStart(2,'0')}`;
     }
 
     function renderExams() {
         const container = document.getElementById('examContainer');
-        if(!container) return;
-        
         container.innerHTML = exams.map(exam => {
-            const isUnlocked = serverData[exam.id]?.unlocked || false;
-            const instr = serverData[exam.id]?.instr || "Thực hiện đúng quy chế thi, phát đề đúng giờ, thu bài đủ số lượng.";
+            const data = serverData[exam.id] || { unlocked: false, instr: "" };
+            const gt3 = gt3ByDay[exam.day] || "";
+            const instr = data.instr || `GT3 : ${gt3}. `;
             const assignedList = getAssigned(exam.id, exam.day, exam.subject, exam.date);
-            const seats = getSeats(exam.day);
             const endTime = calculateEndTime(exam.start, exam.dur);
-            const examAbsences = absenceData[exam.id] || {};
+            const absences = absenceData[exam.id] || {};
             const dayClass = `day-badge-${exam.day}`;
-            const hasCustom = customAssignments[exam.id] && Object.keys(customAssignments[exam.id]).length > 0;
-            
+
             let teacherHtml = '';
             for(let i=0; i<rooms.length; i++) {
-                const room = rooms[i];
-                const teacher = assignedList[i];
-                const absenceKey = `${room}|${teacher}`;
-                const abs = examAbsences[absenceKey];
-                const bgClass = getTeacherBgClass(i);
+                const room = rooms[i]; const teacher = assignedList[i];
+                const abs = absences[`${room}|${teacher}`];
                 const isCustom = customAssignments[exam.id] && customAssignments[exam.id][room];
-                
                 teacherHtml += `
-                    <div class="teacher-row ${bgClass} rounded-xl flex items-center justify-between gap-2 ${isCustom ? 'edit-mode' : ''}">
-                        <div class="flex-1 flex items-center gap-3 flex-wrap">
-                            <span class="room-badge font-black text-slate-700 text-xs md:text-sm bg-white/70 px-2 py-1 rounded-full">${room}</span>
-                            <span class="teacher-name font-bold text-slate-800 text-sm md:text-base">${teacher}</span>
-                            ${isCustom ? '<span class="text-[8px] bg-yellow-200 text-yellow-800 px-1.5 py-0.5 rounded-full"><i class="fas fa-hand-sparkles"></i> Đã chỉnh</span>' : ''}
-                            ${abs ? `<span class="absence-badge"><i class="fas fa-exclamation-triangle mr-1"></i>${escapeHtml(abs.reason.substring(0,25))}</span>` : ''}
+                    <div class="teacher-row teacher-bg-${i%4} rounded-xl flex items-center justify-between ${isCustom ? 'edit-mode' : ''}">
+                        <div class="flex items-center gap-3">
+                            <span class="room-badge font-black text-slate-700 bg-white/70 px-2 py-1 rounded-full text-xs">${room}</span>
+                            <span class="teacher-name font-bold text-slate-800 text-sm">${data.unlocked ? teacher : "🔒 Đang khóa"}</span>
+                            ${abs ? `<span class="absence-badge">Vắng: ${abs.reason}</span>` : ''}
                         </div>
                         <div class="flex gap-1">
-                            ${isAdmin ? `<button onclick="openEditAssignment('${exam.id}', '${room}', '${teacher.replace(/'/g, "\\'")}')" class="text-[9px] font-black bg-blue-50 hover:bg-blue-100 text-blue-600 px-2 py-1 rounded-full"><i class="fas fa-pencil-alt"></i> <span class="hidden md:inline">Sửa</span></button>` : ''}
-                            <button onclick="reportAbsence('${exam.id}', '${room}', '${teacher.replace(/'/g, "\\'")}', event)" class="text-[9px] md:text-[10px] font-black bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 md:px-3 py-1 rounded-full shadow-sm"><i class="fas fa-user-slash"></i> <span class="hidden md:inline">Vắng</span></button>
+                            ${isAdmin ? `<button onclick="openEditAssignment('${exam.id}', '${room}', '${teacher}')" class="text-[9px] bg-blue-50 text-blue-600 px-2 py-1 rounded-full">Sửa</button>` : ''}
+                            <button onclick="reportAbsence('${exam.id}', '${room}', '${teacher}')" class="text-[9px] bg-amber-50 text-amber-700 px-2 py-1 rounded-full">Vắng</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }
-            
-            const seatGrid = `<div class="grid grid-cols-4 gap-1 md:gap-2">${seats.map(n => `<div class="seat-laptop">${n}</div>`).join('')}</div>`;
-            
+
             return `
                 <div class="exam-card-horizontal">
-                    <div class="p-3 md:p-4 ${dayClass} border-b border-slate-100">
-                        <div class="flex flex-wrap justify-between items-start gap-2">
-                            <div class="flex-1 min-w-0">
-                                <div class="flex flex-wrap items-center gap-2 text-[10px] md:text-xs">
-                                    <span class="bg-white/80 text-slate-700 font-black px-2 py-1 rounded-full whitespace-nowrap">📅 ${exam.date}</span>
-                                    <span class="bg-blue-100 text-blue-700 font-bold px-2 py-1 rounded-full whitespace-nowrap"><i class="far fa-clock"></i> ${exam.start}</span>
-                                    <span class="bg-amber-100 text-amber-700 font-black px-2 py-1 rounded-full whitespace-nowrap"><i class="fas fa-hourglass-half"></i> ${exam.dur}'</span>
-                                    <span class="bg-purple-100 text-purple-700 font-mono px-2 py-1 rounded-full whitespace-nowrap"><i class="fas fa-check-circle"></i> KT+5': ${endTime}</span>
-                                </div>
-                                <div class="subject-line mt-2 flex items-center gap-2">
-                                    <h3 class="text-xl md:text-2xl font-black text-slate-800 whitespace-nowrap inline-block">${exam.subject}</h3>
-                                    <span class="text-xs bg-slate-200 px-2 py-0.5 rounded-full whitespace-nowrap">${exam.id}</span>
-                                    ${hasCustom && isAdmin ? `<button onclick="resetToAuto('${exam.id}')" class="text-[9px] bg-orange-50 hover:bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full"><i class="fas fa-undo-alt"></i> Reset</button>` : ''}
-                                </div>
+                    <div class="p-4 ${dayClass} border-b border-slate-100 flex justify-between items-start">
+                        <div>
+                            <div class="flex gap-2 text-[10px] font-bold">
+                                <span class="bg-white/80 px-2 py-1 rounded-full">📅 Thứ ${exam.day} (${exam.date})</span>
+                                <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">🕒 ${exam.start} - ${endTime}</span>
                             </div>
-                            <div class="flex gap-2">
-                                ${isAdmin ? `<button onclick="openAdmin('${exam.id}')" class="bg-blue-50 hover:bg-blue-100 w-8 h-8 rounded-full text-blue-600 flex-shrink-0"><i class="fas fa-edit text-sm"></i></button>` : ''}
+                            <h3 class="text-xl font-black text-slate-800 mt-2">${exam.subject}</h3>
+                        </div>
+                        ${isAdmin ? `<button onclick="openAdmin('${exam.id}')" class="bg-blue-50 w-8 h-8 rounded-full text-blue-600 flex-shrink-0"><i class="fas fa-edit"></i></button>` : ''}
+                    </div>
+                    <div class="p-4 grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        <div class="space-y-4">
+                            <div class="bg-slate-50 rounded-xl p-3 border">
+                                <div class="font-black text-slate-500 text-[10px] uppercase mb-2">Sơ đồ chỗ ngồi</div>
+                                <div class="grid grid-cols-4 gap-1">${getSeats().map(n => `<div class="seat-laptop">${n}</div>`).join('')}</div>
+                            </div>
+                            <div class="bg-indigo-50 p-3 rounded-xl border-l-4 border-indigo-400 text-xs">
+                                <span class="font-black text-indigo-700 uppercase">Hướng dẫn coi thi:</span>
+                                <p class="text-slate-700 mt-1">${instr}</p>
                             </div>
                         </div>
+                        <div class="teacher-scroll space-y-2">${teacherHtml}</div>
                     </div>
-                    
-                    <div class="p-3 md:p-5">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                            <div class="space-y-4">
-                                <div class="bg-slate-50 rounded-xl p-3 border border-slate-200">
-                                    <div class="font-black text-slate-500 text-[10px] md:text-xs uppercase mb-2 flex items-center gap-1">
-                                        <i class="fas fa-chair text-indigo-500"></i> SƠ ĐỒ CHỖ NGỒI (24 thí sinh)
-                                    </div>
-                                    ${seatGrid}
-                                </div>
-                                <div class="bg-gradient-to-r from-indigo-50 to-sky-50 p-3 rounded-xl border-l-4 border-indigo-400">
-                                    <div class="flex gap-2">
-                                        <i class="fas fa-bullhorn text-indigo-500 text-sm mt-0.5"></i>
-                                        <div class="flex-1 min-w-0">
-                                            <div class="text-[9px] md:text-[10px] font-black uppercase text-indigo-700">HƯỚNG DẪN COI THI</div>
-                                            <p class="info-text text-xs md:text-sm text-slate-700 mt-1 leading-relaxed break-words">${escapeHtml(instr)}</p>
-                                            <div class="mt-2 text-[9px] md:text-[10px] font-bold text-emerald-700 bg-white/60 inline-block px-2 py-1 rounded-full"><i class="fas fa-stopwatch"></i> Làm bài: ${exam.dur}' + 5' thu bài</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                ${Object.keys(examAbsences).length > 0 && isUnlocked ? `
-                                <div class="bg-rose-50 border border-rose-200 rounded-xl p-2">
-                                    <div class="text-[9px] font-black text-rose-700 flex items-center gap-1"><i class="fas fa-bell"></i> GIÁM THỊ VẮNG MẶT:</div>
-                                    <div class="flex flex-wrap gap-1 mt-1">
-                                        ${Object.entries(examAbsences).map(([key, val]) => `<span class="bg-white text-rose-600 px-2 py-0.5 rounded-full text-[9px] md:text-[10px] font-semibold flex items-center gap-1">${val.room} - ${val.teacher} <button onclick="clearAbsence('${exam.id}', '${key}')" class="hover:text-rose-800"><i class="fas fa-times-circle"></i></button></span>`).join('')}
-                                    </div>
-                                </div>
-                                ` : ''}
-                            </div>
-                            
-                            <div class="relative">
-                                <div class="flex justify-between items-center mb-3">
-                                    <span class="font-black text-slate-500 text-[10px] md:text-xs uppercase flex items-center gap-1"><i class="fas fa-chalkboard-user"></i> PHÂN CÔNG GIÁM THỊ (9 phòng)</span>
-                                    <div class="flex gap-2">
-                                        ${!isUnlocked ? '<span class="text-[8px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full"><i class="fas fa-lock"></i> Khóa</span>' : ''}
-                                        ${isAdmin && isUnlocked ? '<span class="text-[8px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full"><i class="fas fa-mouse-pointer"></i> Click "Sửa" để điều chỉnh</span>' : ''}
-                                    </div>
-                                </div>
-                                <div class="${isUnlocked ? '' : 'blur-sm pointer-events-none'} transition-all">
-                                    <div class="teacher-scroll space-y-2">
-                                        ${teacherHtml}
-                                    </div>
-                                </div>
-                                ${!isUnlocked ? `<div class="absolute inset-0 flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-xl"><div class="bg-slate-800 text-white text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"><i class="fas fa-eye-slash mr-1"></i> Đang khóa</div></div>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-3 text-right border-t border-slate-100 pt-2 text-[8px] md:text-[9px] text-slate-400">
-                        <i class="far fa-flag-checkered text-green-500"></i> Kết thúc thi: ${endTime} (bao gồm 5 phút phát đề và thu bài)
-                    </div>
-                </div>
-            `;
+                </div>`;
         }).join('');
     }
 
-    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+    // --- ADMIN LOGIC ---
+    function adminLogin() { if(prompt("Mã Admin:")==="79"){ isAdmin=true; renderExams(); alert("Chế độ Admin bật"); }else alert("Sai mã"); }
+    function openAdmin(id) { 
+        editingId = id; 
+        let d = serverData[id] || {unlocked:false, instr:""};
+        document.getElementById('instrInput').value = d.instr;
+        let btn = document.getElementById('lockToggleBtn');
+        btn.innerText = d.unlocked ? "🔓 MỞ (Khóa lại)" : "🔒 KHÓA (Mở)";
+        btn.className = d.unlocked ? "px-4 py-1.5 rounded-xl text-[10px] font-black bg-rose-100 text-rose-700" : "px-4 py-1.5 rounded-xl text-[10px] font-black bg-emerald-100 text-emerald-700";
+        document.getElementById('adminModal').classList.remove('hidden'); 
+    }
+    function toggleLock() { 
+        if(!serverData[editingId]) serverData[editingId]={unlocked:false,instr:""};
+        serverData[editingId].unlocked = !serverData[editingId].unlocked;
+        openAdmin(editingId);
+    }
+    function saveAdminChanges() { 
+        let instr = document.getElementById('instrInput').value;
+        let unlocked = serverData[editingId]?.unlocked || false;
+        db.ref('examConfig/'+editingId).set({instr, unlocked}).then(closeAdmin);
+    }
+    function closeAdmin() { document.getElementById('adminModal').classList.add('hidden'); }
 
-    function adminLogin() { if(prompt("Mã Admin:") === "79") { isAdmin = true; renderExams(); alert("✅ Chế độ quản trị - Bạn có thể click 'Sửa' để điều chỉnh phân công"); } else alert("❌ Sai mã"); }
-    function openAdmin(id) { editingId = id; let d=serverData[id]||{unlocked:false,instr:""}; document.getElementById('instrInput').value=d.instr; let btn=document.getElementById('lockToggleBtn'); btn.innerText=d.unlocked?"🔓 MỞ (Khóa lại)":"🔒 KHÓA (Mở)"; btn.className=d.unlocked?"bg-rose-100 text-rose-700":"bg-emerald-100 text-emerald-700"; document.getElementById('adminModal').classList.remove('hidden'); }
-    function toggleLock() { if(!serverData[editingId]) serverData[editingId]={unlocked:false,instr:""}; serverData[editingId].unlocked=!serverData[editingId].unlocked; let btn=document.getElementById('lockToggleBtn'); let s=serverData[editingId].unlocked; btn.innerText=s?"🔓 MỞ (Khóa lại)":"🔒 KHÓA (Mở)"; btn.className=s?"bg-rose-100 text-rose-700":"bg-emerald-100 text-emerald-700"; }
-    function saveAdminChanges() { let instr=document.getElementById('instrInput').value; let unlocked=serverData[editingId]?.unlocked||false; db.ref('examConfig/'+editingId).set({instr,unlocked}).then(()=>{closeAdmin(); alert("Đã lưu");}); }
-    function closeAdmin() { document.getElementById('adminModal').classList.add('hidden'); editingId=null; }
+    function openEditAssignment(exId, rm, curT) {
+        currentEditExamId = exId; currentEditRoom = rm;
+        const ex = exams.find(e => e.id === exId);
+        const select = document.getElementById('editTeacherSelect');
+        select.innerHTML = teachersByDay[ex.day].map(t => `<option value="${t}" ${t===curT?'selected':''}>${t}</option>`).join('');
+        document.getElementById('editRoom').innerText = rm;
+        document.getElementById('editAssignmentModal').classList.remove('hidden');
+    }
+    function saveTeacherAssignment() {
+        const nt = document.getElementById('editTeacherSelect').value;
+        db.ref(`customAssignments/${currentEditExamId}/${currentEditRoom}`).set(nt).then(closeEditModal);
+    }
+    function closeEditModal() { document.getElementById('editAssignmentModal').classList.add('hidden'); }
 
-    // Firebase sync
+    async function reportAbsence(exId, rm, t) {
+        let reason = prompt(`Lý do vắng: ${t} (${rm})`, "Ốm, công tác");
+        if(reason) db.ref(`absences/${exId}/${rm}|${t}`).set({teacher:t, room:rm, reason:reason, timestamp:Date.now()});
+    }
+
     db.ref('examConfig').on('value', snap => { serverData = snap.val() || {}; renderExams(); });
     db.ref('absences').on('value', snap => { absenceData = snap.val() || {}; renderExams(); });
     db.ref('customAssignments').on('value', snap => { customAssignments = snap.val() || {}; renderExams(); });
-    
     setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('vi-VN'); }, 1000);
-    
-    window.joinGoogleMeet = joinGoogleMeet;
-    window.reportAbsence = reportAbsence;
-    window.clearAbsence = clearAbsence;
-    window.adminLogin = adminLogin;
-    window.openAdmin = openAdmin;
-    window.toggleLock = toggleLock;
-    window.saveAdminChanges = saveAdminChanges;
-    window.closeAdmin = closeAdmin;
-    window.openEditAssignment = openEditAssignment;
-    window.closeEditModal = closeEditModal;
-    window.saveTeacherAssignment = saveTeacherAssignment;
-    window.resetToAuto = resetToAuto;
-    
-    renderExams();
 </script>
 </body>
 </html>

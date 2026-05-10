@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>MATH HUB V2 - HỆ THỐNG THI THÔNG MINH 2026</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a237e;
+            --primary-dark: #0d1757;
+            --secondary: #0d47a1;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: var(--bg); color: var(--text-dark); min-height: 100vh; }
+
+        /* HEADER - GIỮ PHONG CÁCH TỔ CODE */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white; padding: 50px 20px; text-align: center; border-bottom: 5px solid var(--accent);
+        }
+        .header h1 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .header h1 i { color: var(--accent); margin-right: 15px; }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 40px 20px; }
+
+        /* MAIN GRID 2 CỘT */
+        .main-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 40px; }
+
+        /* CARD CHUNG */
+        .card {
+            background: var(--card-bg); border-radius: 24px; padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); border: 1px solid var(--border);
+        }
+        .card-title {
+            font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 25px;
+            display: flex; align-items: center; gap: 12px; border-bottom: 3px solid var(--accent); padding-bottom: 12px;
+        }
+
+        /* TABS CHO ĐỀ DEMO [NHÁNH 1] */
+        .tab-container { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 12px 25px; border-radius: 40px; border: 2px solid var(--primary);
+            background: transparent; color: var(--primary); font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; }
+
+        /* DANH SÁCH ĐỀ RENDER TỰ ĐỘNG */
+        .exam-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            max-height: 550px; overflow-y: auto; padding-right: 10px;
+        }
+        .exam-item {
+            background: #f8fafc; padding: 20px; border-radius: 18px;
+            border-left: 5px solid var(--success); transition: 0.3s;
+        }
+        .exam-item:hover { transform: translateX(8px); background: #f1f5f9; }
+        .btn-play {
+            width: 100%; margin-top: 15px; padding: 12px; border-radius: 12px;
+            background: var(--success); color: white; border: none; font-weight: 700; cursor: pointer;
+        }
+
+        /* Ô NHẬP LINK [NHÁNH 2] */
+        .input-box {
+            width: 100%; padding: 15px; border: 2px solid var(--border);
+            border-radius: 15px; font-size: 1rem; margin-bottom: 15px;
+        }
+        .input-box:focus { border-color: var(--primary); outline: none; }
+        .btn-enter {
+            width: 100%; padding: 18px; border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; border: none; font-weight: 800; cursor: pointer; font-size: 1.1rem;
+        }
+
+        /* KHU VỰC GIÁO VIÊN [CỦA THẦY BÌNH] */
+        .teacher-zone {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            border-radius: 30px; padding: 50px; color: white; margin-top: 20px;
+        }
+        .teacher-zone h2 { font-size: 2rem; margin-bottom: 25px; color: var(--accent); text-align: center; }
+        .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin: 35px 0; }
+        .step-card {
+            background: rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .step-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 15px; display: block; }
+        .btn-login {
+            display: inline-flex; align-items: center; gap: 15px; background: white;
+            color: var(--primary); padding: 16px 45px; border-radius: 50px;
+            text-decoration: none; font-weight: 800; font-size: 1.2rem; transition: 0.3s;
+        }
+        .btn-login:hover { transform: scale(1.05); background: var(--accent); color: white; }
+
+        @media (max-width: 900px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .step-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1><i class="fas fa-calculator"></i> MATH HUB V2 · 2026</h1>
+    <p>Hệ thống thi thông minh & Ngân hàng 80 đề ôn thi tốt nghiệp Toán THPT</p>
+</header>
+
+<div class="container">
+    <div class="main-grid">
+        <!-- NHÁNH 1: KHO ĐỀ DEMO (LẤY TỪ GITHUB QUA FIREBASE) -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-layer-group"></i> KHO ĐỀ TRẢI NGHIỆM TRỰC TUYẾN</div>
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="loadExams('K12', this)">🎓 Khối 12 (80 Đề)</button>
+                <button class="tab-btn" onclick="loadExams('K11', this)">📚 Khối 11</button>
+                <button class="tab-btn" onclick="loadExams('K10', this)">📖 Khối 10</button>
+            </div>
+            <div class="exam-list" id="demoList">
+                <div style="grid-column: span 2; text-align: center; padding: 40px; color: #94a3b8;">
+                    <i class="fas fa-spinner fa-spin"></i> Đang nạp ngân hàng đề cố định...
+                </div>
+            </div>
+        </div>
+
+        <!-- NHÁNH 2: VÀO THI THEO LINK (CÁ NHÂN HÓA GIÁO VIÊN) -->
+        <div>
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="card-title"><i class="fas fa-link"></i> VÀO THI THEO LINK</div>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px;">Dán đường link giáo viên chia sẻ để làm bài và lưu điểm riêng.</p>
+                
+                <input type="text" id="inviteLink" class="input-box" placeholder="Dán link tại đây (Ví dụ: https://...t=GV123&exam=DE01)">
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <input type="text" id="stuCode" class="input-box" placeholder="Mã học sinh" style="margin-bottom:0">
+                    <input type="text" id="stuName" class="input-box" placeholder="Họ và tên" style="margin-bottom:0">
+                </div>
+                
+                <button class="btn-enter" onclick="startOfficialExam()">
+                    <i class="fas fa-sign-in-alt"></i> VÀO LÀM BÀI CHÍNH THỨC
+                </button>
+            </div>
+
+            <div class="card" style="background: #fffbeb; border: 1px solid #fde68a;">
+                <div class="card-title" style="font-size: 1.1rem; color: #b45309;"><i class="fas fa-info-circle"></i> LƯU Ý</div>
+                <ul style="font-size: 0.85rem; color: #92400e; padding-left: 20px; line-height: 1.6;">
+                    <li>Hệ thống tự động lưu bài và chấm điểm khi hết giờ.</li>
+                    <li>Nên sử dụng máy tính để xem đề PDF từ Github rõ nhất.</li>
+                    <li>Mọi thắc mắc về đề thi, học sinh liên hệ trực tiếp Giáo viên.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHU VỰC RIÊNG CHO GIÁO VIÊN & CỘNG ĐỒNG -->
+    <div class="teacher-zone">
+        <h2><i class="fas fa-chalkboard-teacher"></i> Dành cho Quý Thầy/Cô Giáo</h2>
+        <div class="step-grid">
+            <div class="step-card">
+                <i class="fas fa-user-check"></i>
+                <strong>1. Đăng nhập</strong>
+                <p>Kích hoạt quyền quản trị bằng tài khoản Google cá nhân.</p>
+            </div>
+            <div class="step-card">
+                <i class="fas fa-file-medical"></i>
+                <strong>2. Soạn đề</strong>
+                <p>Nạp link PDF (Google Drive) và Master Key đáp án 3 phần.</p>
+            </div>
+            <div class="step-card">
+                <i class="fas fa-share-square"></i>
+                <strong>3. Giao bài</strong>
+                <p>Hệ thống tự tạo Link mời. Thầy/Cô gửi link qua Zalo hoặc Facebook.</p>
+            </div>
+            <div class="step-card">
+                <i class="fas fa-poll"></i>
+                <strong>4. Xem điểm</strong>
+                <p>Theo dõi bảng điểm và phân tích kết quả lớp học thời gian thực.</p>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="login.html" class="btn-login"><i class="fab fa-google"></i> ĐĂNG NHẬP QUẢN TRỊ NGAY</a>
+            <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.8;">Hỗ trợ giáo viên Toán chuyển đổi số - Hoàn toàn miễn phí.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FIREBASE CONFIG CỦA THẦY BÌNH
+    const firebaseConfig = { /* Paste Config Tại Đây */ };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // NHÁNH 1: TỰ ĐỘNG LOAD ĐỀ DEMO TỪ FIREBASE
+    async function loadExams(grade, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const list = document.getElementById('demoList');
+        list.innerHTML = '<div style="grid-column:span 2; text-align:center">Đang tải dữ liệu...</div>';
+
+        try {
+            const snap = await db.ref('demo_exams').orderByChild('grade').equalTo(grade).once('value');
+            const data = snap.val();
+            if(!data) {
+                list.innerHTML = '<div style="grid-column:span 2; text-align:center">Chưa có đề mẫu cho khối này.</div>';
+                return;
+            }
+            let html = '';
+            Object.keys(data).forEach(id => {
+                const ex = data[id];
+                html += `
+                <div class="exam-item">
+                    <h4>${ex.name}</h4>
+                    <p style="font-size:0.8rem; color:#64748b">
+                        <i class="far fa-clock"></i> ${ex.duration} phút | <i class="fas fa-signal"></i> ${ex.level}
+                    </p>
+                    <button class="btn-play" onclick="startDemo('${id}')">LÀM THỬ NGAY</button>
+                </div>`;
+            });
+            list.innerHTML = html;
+        } catch(e) { console.error(e); }
+    }
+
+    function startDemo(id) {
+        // Vào Nhánh 1: Không cần mã GV, dùng ADMIN làm mặc định
+        window.location.href = `PTLTNM.html?demo=true&exam=${id}&t=ADMIN&code=DEMO&name=HOC_SINH_TRAI_NGHIEM`;
+    }
+
+    function startOfficialExam() {
+        const link = document.getElementById('inviteLink').value;
+        const code = document.getElementById('stuCode').value;
+        const name = document.getElementById('stuName').value;
+        
+        if(!link || !code || !name) return alert("Vui lòng nhập đầy đủ thông tin!");
+
+        // Tự động bóc tách link của giáo viên
+        const match = link.match(/[?&]t=([^&]+)&exam=([^&]+)/);
+        if(match) {
+            window.location.href = `PTLTNM.html?t=${match[1]}&exam=${match[2]}&code=${code}&name=${encodeURIComponent(name)}`;
+        } else {
+            alert("Link thi không hợp lệ! Thầy/Cô hãy gửi đúng link từ mục 'Giao bài'.");
+        }
+    }
+
+    window.onload = () => loadExams('K12', document.querySelector('.tab-btn.active'));
+</script>
+</body>
+</html>
