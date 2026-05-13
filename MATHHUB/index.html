@@ -439,6 +439,30 @@
         toggle.classList.toggle('open');
     });
     window.startOfficialExam = startOfficialExam;
+    // ========== CƠ CHẾ SMART LINK (1-CHẠM TỪ ZALO) ==========
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlT = urlParams.get('t');
+        const urlExam = urlParams.get('exam');
+        
+        if (urlT && urlExam) {
+            // 1. Tự động điền link ẩn vào ô input để hàm startOfficialExam có thể đọc
+            document.getElementById('inviteLink').value = window.location.href;
+            
+            // 2. Ẩn cái ô "Dán link" đi cho học sinh đỡ rối
+            document.getElementById('inviteLink').parentElement.style.display = 'none';
+            
+            // 3. Đổi câu thông báo để học sinh yên tâm là đã vào đúng phòng
+            const infoText = document.querySelector('.two-columns .glass-card:first-child p');
+            infoText.innerHTML = `
+                <div style="background: rgba(0, 242, 254, 0.15); padding: 12px; border-radius: 12px; border: 1px dashed #00f2fe; margin-bottom: 15px;">
+                    <span style="color:#00f2fe; font-weight:800; font-size:1.1rem;">
+                        <i class="fas fa-check-circle"></i> ĐÃ KẾT NỐI ĐỀ: ${urlExam}
+                    </span><br>
+                    <span style="font-size:0.85rem; color:#e2e8f0;">Vui lòng nhập thông tin bên dưới để bắt đầu làm bài.</span>
+                </div>`;
+        }
+    });
 </script>
 </body>
 </html>
