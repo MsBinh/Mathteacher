@@ -138,7 +138,7 @@
     let masterKey = [];
     let userAnswers = {};
     let time = 0;
-    let examSubject = "Toán"; // Mặc định, có thể lấy từ examData nếu có
+    let examSubject = "Toán";
 
     // ═══════════════════════════════════════════════════════════════
     // HÀM TÍNH ĐIỂM (NORMALIZE THEO ĐÁP ÁN MASTER KEY)
@@ -189,42 +189,27 @@
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // VIỆC 2: GHI DỮ LIỆU THI THỬ VÀO THỐNG KÊ TOÀN HỆ THỐNG
+    // HÀM GHI DỮ LIỆU - LUÔN GHI, KHÔNG CÓ ĐIỀU KIỆN
     // ═══════════════════════════════════════════════════════════════
-    async function submitAttemptSystem(attemptData) {
-        const attemptId = 'ATT_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-        const dateKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-
-        const updates = {};
-
-        // (A) Ghi cho giáo viên (chi tiết lớp học) - nếu không phải chế độ demo
-        if (!isDemo && tid !== 'ADMIN') {
-            updates[`teachers/${tid}/attempts/${attemptId}`] = attemptData;
-        }
-
-        // (B) Ghi cho THỐNG KÊ TOÀN HỆ THỐNG (bắt buộc - Việc 2)
-        updates[`system_stats/attempts/${attemptId}`] = {
-            examId: attemptData.examId,
-            subject: attemptData.subject || "Toán",
-            studentCode: attemptData.studentCode,
-            studentName: attemptData.studentName,
-            score: attemptData.score,
-            timestamp: attemptData.timestamp,
-            teacherId: tid
-        };
-
-        // (C) Ghi thống kê theo NGÀY (để KPI nhẹ & bền)
-        updates[`system_stats/daily/${dateKey}/totalAttempts`] = firebase.database.ServerValue.increment(1);
-        updates[`system_stats/daily/${dateKey}/bySubject/${attemptData.subject || "Toán"}`] = firebase.database.ServerValue.increment(1);
-
-        try {
-            await db.ref().update(updates);
-            return true;
-        } catch (err) {
-            console.error("Lỗi ghi system_stats:", err);
-            return false;
-        }
+    // Trong PTLTNM.html
+async function saveAttemptToFirebase(data) {
+    try {
+        const newRef = db.ref('system_stats/attempts').push();
+        await newRef.set({
+            ...data,
+            teacherId: tid, // Đảm bảo dùng đúng biến tid từ URL
+            timestamp: Date.now()
+        });
+        
+        // Ghi thêm một bản sao vào nhánh riêng của giáo viên để dự phòng
+        await db.ref(`teachers/${tid}/attempts/${newRef.key}`).set(data);
+        
+        return true;
+    } catch (e) {
+        console.error(e);
+        return false;
     }
+}
 
     async function init() {
         if(!eid) return alert("Lỗi: Không tìm thấy mã đề thi trong link!");
@@ -341,7 +326,7 @@
     async function submitTest(isAuto = false) {
         if(!isAuto && !confirm("Bạn có chắc chắn muốn nộp bài ngay bây giờ?")) return;
         
-        // Tính điểm dựa trên masterKey và câu trả lời
+        // Tính điểm
         const finalScore = calculateScore();
         
         const attemptData = {
@@ -364,15 +349,10 @@
         };
         localStorage.setItem('lastResult', JSON.stringify(resultForKQ));
         
-        // Ghi vào Firebase bằng hàm system stats (Việc 2)
-        if (!isDemo) {
-            const success = await submitAttemptSystem(attemptData);
-            if (!success) {
-                console.warn("Ghi system_stats thất bại, nhưng vẫn chuyển sang trang kết quả");
-            }
-        } else {
-            // Chế độ demo: chỉ lưu cục bộ, không ghi Firebase
-            console.log("Chế độ demo: không lưu kết quả vào Firebase");
+        // 🔥 LUÔN GHI VÀO FIREBASE - KHÔNG CÓ ĐIỀU KIỆN 🔥
+        const success = await saveAttemptToFirebase(attemptData);
+        if (!success) {
+            console.warn("Ghi dữ liệu thất bại, nhưng vẫn chuyển sang trang kết quả");
         }
         
         // Chuyển sang trang kết quả

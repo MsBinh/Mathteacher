@@ -283,6 +283,46 @@
 
     // ---- Tải tất cả attempts của giáo viên (cấu trúc V2) ----
     async function loadAttempts(teacherId) {
+    try {
+        // Gọi cả 2 nơi để không sót dữ liệu cũ/mới
+        const [snap1, snap2] = await Promise.all([
+            db.ref(`teachers/${teacherId}/attempts`).once('value'),
+            db.ref('system_stats/attempts').once('value')
+        ]);
+
+        let combined = [];
+        const process = (snap) => {
+            if(snap.exists()){
+                Object.entries(snap.val()).forEach(([id, att]) => {
+                    // Lọc: Nếu là nhánh system_stats thì phải đúng teacherId, 
+                    // nếu là nhánh cá nhân thì lấy hết.
+                    if (!att.teacherId || att.teacherId === teacherId) {
+                        combined.push({ id, ...att });
+                    }
+                });
+            }
+        };
+
+        process(snap1);
+        process(snap2);
+
+        // Khử trùng lặp theo ID
+        allAttempts = Array.from(new Map(combined.map(item => [item.id, item])).values());
+        allAttempts.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+        if (allAttempts.length === 0) {
+            console.warn("Không có dữ liệu cho ID:", teacherId);
+            document.getElementById('tableBody').innerHTML = `<tr><td colspan="6" style="text-align:center;">Chưa có dữ liệu. (ID đang kiểm tra: ${teacherId})</td></tr>`;
+        } else {
+            renderTable(allAttempts);
+            updateFilters(allAttempts);
+        }
+    } catch (err) {
+        console.error("Lỗi quét hệ thống:", err);
+    }
+}
+
+    async function loadAttempts(teacherId) {
         const attemptsRef = db.ref(`teachers/${teacherId}/attempts`);
         const snapshot = await attemptsRef.once('value');
         const data = snapshot.val();
