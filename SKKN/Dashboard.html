@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Dashboard | Trung tâm điều hành - MATH HUB</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
+        .app-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); color: white; display: flex; flex-direction: column; padding: 32px 0 20px 0; box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1); position: sticky; top: 0; height: 100vh; }
+        .logo-area { padding: 0 24px 24px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 24px; }
+        .logo-area h2 { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .logo-area h2 i { color: #f59e0b; }
+        .logo-area p { font-size: 0.7rem; opacity: 0.6; margin-top: 6px; }
+        .nav-item { display: flex; align-items: center; gap: 14px; padding: 14px 24px; margin: 4px 12px; border-radius: 14px; cursor: pointer; transition: all 0.2s; font-weight: 500; color: #e2e8f0; }
+        .nav-item i { width: 24px; font-size: 1.1rem; }
+        .nav-item:hover { background: rgba(245, 158, 11, 0.2); color: #facc15; transform: translateX(4px); }
+        .nav-item.active { background: #f59e0b; color: #0f172a; font-weight: 700; }
+        .nav-item.active i { color: #0f172a; }
+        .logout-item { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 30px; }
+        .main-content { flex: 1; padding: 32px 40px; }
+        .top-bar { background: white; border-radius: 1.5rem; padding: 18px 28px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .greeting h3 { font-size: 1.2rem; font-weight: 700; color: #0f172a; }
+        .greeting p { font-size: 0.75rem; color: #475569; }
+        .teacher-badge { background: #fef3c7; padding: 8px 20px; border-radius: 40px; color: #b45309; font-weight: 600; font-size: 0.85rem; }
+
+        /* KPI chung toàn hệ thống */
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 36px; }
+        .kpi-card { background: white; border-radius: 1.8rem; padding: 24px 20px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.2s; border-bottom: 4px solid #f59e0b; }
+        .kpi-card:hover { transform: translateY(-4px); }
+        .kpi-icon { font-size: 2.2rem; color: #f59e0b; margin-bottom: 12px; }
+        .kpi-number { font-size: 2.5rem; font-weight: 800; color: #0f172a; line-height: 1.1; }
+        .kpi-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #475569; margin-top: 8px; letter-spacing: 0.5px; }
+
+        /* Khu vực riêng cho thống kê toàn hệ thống */
+        .system-stats-section {
+            background: linear-gradient(115deg, #1e3a8a, #1e40af);
+            border-radius: 1.8rem;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            color: white;
+        }
+        .system-stats-section h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .system-stats-section .sub {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .chart-card { background: white; border-radius: 1.8rem; padding: 20px 24px 24px 24px; margin-bottom: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .chart-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: #1e293b; }
+        .double-chart { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .info-card { background: white; border-radius: 1.5rem; padding: 20px; margin-top: 10px; }
+        footer { text-align: center; margin-top: 32px; font-size: 0.7rem; color: #5b6e8c; }
+        @media (max-width: 860px) { .double-chart { grid-template-columns: 1fr; } .sidebar { width: 80px; } .sidebar span { display: none; } .main-content { padding: 20px; } .kpi-number { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="sidebar">
+        <div class="logo-area">
+            <h2><i class="fas fa-chalkboard-user"></i> <span>MATH HUB</span></h2>
+            <p>Giáo viên · Studio</p>
+        </div>
+        <div class="nav-item active" onclick="goToDashboard()"><i class="fas fa-home"></i> <span>Dashboard</span></div>
+        <div class="nav-item" onclick="goToTeacherStudio()"><i class="fas fa-pen-fancy"></i> <span>Tạo / Sửa đề</span></div>
+        <div class="nav-item" onclick="goToKhoDe()"><i class="fas fa-database"></i> <span>Danh sách đề</span></div>
+        <div class="nav-item" onclick="goToKQTH()"><i class="fas fa-chart-line"></i> <span>Kết quả học sinh</span></div>
+        <div class="nav-item" onclick="goToThongKeTongHop()"><i class="fas fa-chart-pie"></i> <span>Thống kê hệ thống</span></div>
+        <div class="logout-item"><div class="nav-item" onclick="logoutTeacher()"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></div></div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="greeting">
+                <h3><i class="fas fa-tachometer-alt"></i> Trung tâm điều hành</h3>
+                <p>Tổng quan hoạt động giảng dạy & dữ liệu thực tế</p>
+            </div>
+            <div class="teacher-badge" id="teacherDisplay"><i class="fas fa-user-check"></i> Đang tải...</div>
+        </div>
+
+        <!-- ========== KHỐI THỐNG KÊ TOÀN HỆ THỐNG (QUY MÔ NỀN TẢNG) ========== -->
+        <div class="system-stats-section">
+            <h3><i class="fas fa-chart-network"></i> THỐNG KÊ TOÀN HỆ THỐNG – QUY MÔ NỀN TẢNG</h3>
+            <div class="sub">Dữ liệu tổng hợp từ tất cả giáo viên và học sinh trên MATH HUB </div>
+            <div class="kpi-row" id="systemKpiRow">
+                <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-list-check"></i></div><div class="kpi-number" id="sys_totalAttempts">--</div><div class="kpi-label">Tổng lượt làm bài</div></div>
+                <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-user-graduate"></i></div><div class="kpi-number" id="sys_uniqueStudents">--</div><div class="kpi-label">Học sinh tham gia</div></div>
+                <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-layer-group"></i></div><div class="kpi-number" id="sys_totalExams">--</div><div class="kpi-label">Tổng số đề thi</div></div>
+                <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-chalkboard-user"></i></div><div class="kpi-number" id="sys_totalTeachers">--</div><div class="kpi-label">Giáo viên đang sử dụng</div></div>
+            </div>
+        </div>
+
+        <!-- Biểu đồ xu hướng theo ngày + phân bố điểm toàn hệ thống -->
+        <div class="double-chart">
+            <div class="chart-card">
+                <div class="chart-title"><i class="fas fa-chart-line" style="color: #f59e0b;"></i> Xu hướng lượt làm bài (30 ngày gần nhất)</div>
+                <canvas id="trendChart" width="400" height="250" style="max-height: 250px;"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title"><i class="fas fa-chart-pie" style="color: #f59e0b;"></i> Phân bố điểm toàn hệ thống</div>
+                <canvas id="sysScoreChart" width="400" height="250" style="max-height: 250px;"></canvas>
+            </div>
+        </div>
+
+        <!-- ========== KHU VỰC CỦA GIÁO VIÊN (THỐNG KÊ CÁ NHÂN) ========== -->
+        <div style="margin: 28px 0 16px 0;"><hr><h4 style="margin: 12px 0;"><i class="fas fa-user"></i> Thống kê lớp học của bạn</h4></div>
+        <div class="kpi-row" id="kpiRow">
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-layer-group"></i></div><div class="kpi-number" id="totalExams">0</div><div class="kpi-label">Đề đã tạo</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-list-check"></i></div><div class="kpi-number" id="totalAttempts">0</div><div class="kpi-label">Lượt làm bài</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-user-graduate"></i></div><div class="kpi-number" id="uniqueStudents">0</div><div class="kpi-label">Học sinh tham gia</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-calendar-week"></i></div><div class="kpi-number" id="activeDays">0</div><div class="kpi-label">Ngày hoạt động (liên tục)</div></div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title"><i class="fas fa-chart-bar" style="color: #f59e0b;"></i> Phân bố điểm lớp học của bạn</div>
+            <canvas id="scoreDistributionChart" width="800" height="280"></canvas>
+        </div>
+
+        <div class="info-card">
+            <h4><i class="fas fa-info-circle"></i> Về thống kê toàn hệ thống</h4>
+            <ul style="margin-top: 12px; margin-left: 20px; color: #334155; font-size: 0.85rem; line-height: 1.6;">
+                <li><strong>📊 Quy mô nền tảng:</strong> Dữ liệu được tổng hợp từ tất cả giáo viên và học sinh trên MATH HUB.</li>
+                <li><strong>👥 Giáo viên:</strong> Mọi giáo viên đều có thể xem thống kê toàn hệ thống (không cần quyền admin).</li>
+                <li><strong>📈 Báo cáo SKKN:</strong> Các số liệu này phục vụ minh chứng quy mô ứng dụng CNTT trong dạy học.</li>
+            </ul>
+        </div>
+        <footer><i class="fas fa-shield-alt"></i> Dữ liệu theo cấu trúc Firebase V2 | Thống kê toàn hệ thống từ system_stats/*</footer>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    let currentTeacherId = null;
+    let chartInstance = null;
+    let trendChart = null;
+    let sysScoreChart = null;
+
+    // ========== HÀM AN TOÀN CHO ĐIỂM (VIỆC 4 - BẮT BUỘC) ==========
+    function safeScore(score) {
+        if (typeof score !== 'number') return null;
+        let s = Math.floor(score);
+        if (s < 0) return null;
+        if (s >= 10) s = 9;
+        return s;
+    }
+
+    // ========== 1. THỐNG KÊ TOÀN HỆ THỐNG ==========
+    // KPI tổng ưu tiên lấy từ system_stats/daily (VIỆC 3 - KHUYẾN NGHỊ MẠNH)
+    async function loadSystemTotalAttempts() {
+        try {
+            const dailySnap = await db.ref('system_stats/daily').once('value');
+            let totalAttempts = 0;
+            Object.values(dailySnap.val() || {}).forEach(day => {
+                totalAttempts += day.totalAttempts || 0;
+            });
+            document.getElementById('sys_totalAttempts').innerText = totalAttempts.toLocaleString();
+            return totalAttempts;
+        } catch (err) {
+            console.error("Lỗi load system total attempts từ daily:", err);
+            return 0;
+        }
+    }
+
+    async function loadSystemStats() {
+        try {
+            // Lấy tổng số đề từ system_stats/exams
+            const examsSnap = await db.ref('system_stats/exams').once('value');
+            const examsCount = examsSnap.val() ? Object.keys(examsSnap.val()).length : 0;
+            document.getElementById('sys_totalExams').innerText = examsCount.toLocaleString();
+
+            // Lấy số giáo viên (đếm từ teachers node)
+            const teachersSnap = await db.ref('teachers').once('value');
+            const teacherCount = teachersSnap.val() ? Object.keys(teachersSnap.val()).length : 0;
+            document.getElementById('sys_totalTeachers').innerText = teacherCount.toLocaleString();
+
+            // Lấy tất cả attempts từ system_stats để tính uniqueStudents và phân bố điểm
+            const attemptsSnap = await db.ref('system_stats/attempts').once('value');
+            const attempts = attemptsSnap.val() ? Object.values(attemptsSnap.val()) : [];
+            
+            // Số học sinh tham gia (unique)
+            const uniqueStudents = new Set(attempts.map(a => a.studentCode)).size;
+            document.getElementById('sys_uniqueStudents').innerText = uniqueStudents.toLocaleString();
+
+            // Vẽ biểu đồ phân bố điểm toàn hệ thống (có dùng safeScore)
+            const scoreRanges = [0,0,0,0,0,0,0,0,0,0];
+            attempts.forEach(att => {
+                const s = safeScore(att.score);
+                if (s !== null && s >= 0 && s < 10) scoreRanges[s]++;
+            });
+            const labels = ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10'];
+            if (sysScoreChart) sysScoreChart.destroy();
+            const ctx = document.getElementById('sysScoreChart').getContext('2d');
+            sysScoreChart = new Chart(ctx, {
+                type: 'bar',
+                data: { labels, datasets: [{ label: 'Số bài', data: scoreRanges, backgroundColor: '#f59e0b', borderRadius: 8 }] },
+                options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } } }
+            });
+
+            // Vẽ biểu đồ xu hướng 30 ngày từ daily stats
+            const dailySnap = await db.ref('system_stats/daily').once('value');
+            const daily = dailySnap.val() || {};
+            const sortedDates = Object.keys(daily).sort().slice(-30);
+            const dailyData = sortedDates.map(d => daily[d]?.totalAttempts || 0);
+            if (trendChart) trendChart.destroy();
+            const ctxTrend = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(ctxTrend, {
+                type: 'line',
+                data: { labels: sortedDates, datasets: [{ label: 'Lượt làm bài', data: dailyData, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', fill: true, tension: 0.3 }] },
+                options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } } }
+            });
+        } catch (err) { console.error("Lỗi load system stats:", err); }
+    }
+
+    // ========== 2. THỐNG KÊ CÁ NHÂN GIÁO VIÊN ==========
+    function getTeacherFromStorage() {
+        const stored = localStorage.getItem('mathhub_teacher');
+        if (stored) { try { return JSON.parse(stored); } catch(e) { return null; } }
+        return null;
+    }
+
+    function displayTeacherInfo() {
+        const teacher = getTeacherFromStorage();
+        const displayDiv = document.getElementById('teacherDisplay');
+        if (teacher && teacher.name) displayDiv.innerHTML = `<i class="fas fa-chalkboard"></i> ${teacher.name}`;
+        else if (teacher && teacher.email) displayDiv.innerHTML = `<i class="fas fa-envelope"></i> ${teacher.email.split('@')[0]}`;
+        else displayDiv.innerHTML = `<i class="fas fa-user"></i> Giáo viên`;
+    }
+
+    async function fetchLiveData(teacherId) {
+        if (!teacherId) return { exams: [], attempts: [] };
+        try {
+            const [examsSnap, attemptsSnap] = await Promise.all([
+                db.ref(`teachers/${teacherId}/exams`).once('value'),
+                db.ref(`teachers/${teacherId}/attempts`).once('value')
+            ]);
+            let exams = [];
+            const examsVal = examsSnap.val();
+            if (examsVal) exams = Object.keys(examsVal).map(id => ({ id, ...examsVal[id] }));
+            let attempts = [];
+            const attemptsVal = attemptsSnap.val();
+            if (attemptsVal) attempts = Object.values(attemptsVal);
+            return { exams, attempts };
+        } catch (err) { return { exams: [], attempts: [] }; }
+    }
+
+    async function updateDashboardStats() {
+        if (!currentTeacherId) return;
+        const { exams, attempts } = await fetchLiveData(currentTeacherId);
+        document.getElementById('totalExams').innerText = exams.length;
+        document.getElementById('totalAttempts').innerText = attempts.length;
+        const uniqueStudentsSet = new Set();
+        attempts.forEach(att => { if (att.studentCode) uniqueStudentsSet.add(att.studentCode); });
+        document.getElementById('uniqueStudents').innerText = uniqueStudentsSet.size;
+        let active = 0;
+        if (attempts.length > 0) {
+            let ts = attempts.map(a => a.timestamp).filter(t => t > 0);
+            if (ts.length > 0) {
+                const diff = Math.ceil((Math.max(...ts) - Math.min(...ts)) / 86400000) + 1;
+                active = diff;
+            }
+        }
+        document.getElementById('activeDays').innerText = active;
+        renderScoreDistribution(attempts);
+    }
+
+    function renderScoreDistribution(attempts) {
+        const labels = ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10'];
+        const counts = new Array(10).fill(0);
+        attempts.forEach(att => {
+            const s = safeScore(att.score);
+            if (s !== null && s >= 0 && s < 10) counts[s]++;
+        });
+        if (chartInstance) chartInstance.destroy();
+        const ctx = document.getElementById('scoreDistributionChart').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Số bài', data: counts, backgroundColor: '#f59e0b', borderRadius: 8 }] },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+    }
+
+    // ========== ĐIỀU HƯỚNG ==========
+    function goToTeacherStudio() { window.location.href = "Teacher_Studio.html"; }
+    function goToKhoDe() { window.location.href = "KhoDe.html"; }
+    function goToKQTH() { window.location.href = "KQTH.html"; }
+    function goToThongKeTongHop() { window.location.href = "thongketonghop.html"; }
+    function goToDashboard() { window.location.href = "Dashboard.html"; }
+    function logoutTeacher() { auth.signOut().then(() => { localStorage.removeItem('mathhub_teacher'); window.location.href = "login.html"; }); }
+
+    // ========== KHỞI TẠO ==========
+    auth.onAuthStateChanged(async (user) => {
+        if (!user) { window.location.href = "login.html"; return; }
+        currentTeacherId = user.uid;
+        displayTeacherInfo();
+        await updateDashboardStats();
+        // Load KPI tổng từ daily (ưu tiên - Việc 3) và các thống kê khác
+        await loadSystemTotalAttempts();
+        await loadSystemStats();
+    });
+</script>
+</body>
+</html>

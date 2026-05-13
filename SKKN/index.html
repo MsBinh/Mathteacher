@@ -3,257 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>MATH HUB V2 - HỆ THỐNG THI THÔNG MINH 2026</title>
-    
+    <title>MATH HUB 2026 – Hệ thống học liệu & thi trực tuyến</title>
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        :root {
-            --primary: #1a237e;
-            --primary-dark: #0d1757;
-            --secondary: #0d47a1;
-            --accent: #f59e0b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: var(--bg); color: var(--text-dark); min-height: 100vh; }
-
-        /* HEADER - GIỮ PHONG CÁCH TỔ CODE */
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white; padding: 50px 20px; text-align: center; border-bottom: 5px solid var(--accent);
-        }
-        .header h1 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
-        .header h1 i { color: var(--accent); margin-right: 15px; }
-
-        .container { max-width: 1300px; margin: 0 auto; padding: 40px 20px; }
-
-        /* MAIN GRID 2 CỘT */
-        .main-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 40px; }
-
-        /* CARD CHUNG */
-        .card {
-            background: var(--card-bg); border-radius: 24px; padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); border: 1px solid var(--border);
-        }
-        .card-title {
-            font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 25px;
-            display: flex; align-items: center; gap: 12px; border-bottom: 3px solid var(--accent); padding-bottom: 12px;
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        /* TABS CHO ĐỀ DEMO [NHÁNH 1] */
-        .tab-container { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
-        .tab-btn {
-            padding: 12px 25px; border-radius: 40px; border: 2px solid var(--primary);
-            background: transparent; color: var(--primary); font-weight: 700; cursor: pointer; transition: 0.3s;
+        /* ========== NAVBAR ========== */
+        .elevator-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s;
         }
-        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; }
+        .elevator-nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #007bff, #00f2fe, #7000ff, #00f2fe, #007bff, transparent);
+            background-size: 200% 100%;
+            animation: gradient-run 3s linear infinite;
+        }
+        @keyframes gradient-run {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+        }
+        .brand-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .brand-logo span:first-child { color: #fff; }
+        .brand-logo span:last-child { color: #007bff; text-shadow: 0 0 10px rgba(0,123,255,0.5); }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 8px #007bff; }
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            transition: 0.3s;
+        }
+        @media (max-width: 768px) {
+            .mobile-toggle { display: flex; }
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 999;
+            }
+            .nav-links.active { display: flex; }
+        }
 
-        /* DANH SÁCH ĐỀ RENDER TỰ ĐỘNG */
-        .exam-list {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-            max-height: 550px; overflow-y: auto; padding-right: 10px;
+        /* ========== HERO ========== */
+        .hero {
+            margin-top: 70px;
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .exam-item {
-            background: #f8fafc; padding: 20px; border-radius: 18px;
-            border-left: 5px solid var(--success); transition: 0.3s;
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .exam-item:hover { transform: translateX(8px); background: #f1f5f9; }
-        .btn-play {
-            width: 100%; margin-top: 15px; padding: 12px; border-radius: 12px;
-            background: var(--success); color: white; border: none; font-weight: 700; cursor: pointer;
-        }
-
-        /* Ô NHẬP LINK [NHÁNH 2] */
-        .input-box {
-            width: 100%; padding: 15px; border: 2px solid var(--border);
-            border-radius: 15px; font-size: 1rem; margin-bottom: 15px;
-        }
-        .input-box:focus { border-color: var(--primary); outline: none; }
-        .btn-enter {
-            width: 100%; padding: 18px; border-radius: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white; border: none; font-weight: 800; cursor: pointer; font-size: 1.1rem;
+        .hero p {
+            margin-top: 16px;
+            color: #94a3b8;
+            font-size: 1.1rem;
         }
 
-        /* KHU VỰC GIÁO VIÊN [CỦA THẦY BÌNH] */
-        .teacher-zone {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            border-radius: 30px; padding: 50px; color: white; margin-top: 20px;
+        /* ========== CONTAINER ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
         }
-        .teacher-zone h2 { font-size: 2rem; margin-bottom: 25px; color: var(--accent); text-align: center; }
-        .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin: 35px 0; }
-        .step-card {
-            background: rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px;
-            text-align: center; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .step-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 15px; display: block; }
-        .btn-login {
-            display: inline-flex; align-items: center; gap: 15px; background: white;
-            color: var(--primary); padding: 16px 45px; border-radius: 50px;
-            text-decoration: none; font-weight: 800; font-size: 1.2rem; transition: 0.3s;
-        }
-        .btn-login:hover { transform: scale(1.05); background: var(--accent); color: white; }
 
-        @media (max-width: 900px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .step-grid { grid-template-columns: repeat(2, 1fr); }
+        /* ========== 2 CỘT HỌC SINH + GIÁO VIÊN ========== */
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 56px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+        .glass-card:hover {
+            border-color: #007bff;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px -12px rgba(0, 123, 255, 0.2);
+        }
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 123, 255, 0.15);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .card-icon i { font-size: 1.8rem; color: #00f2fe; }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
+        .glass-card p { color: #94a3b8; margin-bottom: 24px; font-size: 0.9rem; }
+        .input-group { margin-bottom: 16px; }
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+        }
+        .input-group input:focus { border-color: #007bff; }
+        .flex-row { display: flex; gap: 12px; margin-bottom: 16px; }
+        .flex-row input { flex: 1; }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            border: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-primary:hover { background: #00f2fe; color: #0f172a; transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1px solid #007bff; color: #007bff; }
+        .btn-outline:hover { background: #007bff; color: white; }
+        .divider { margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+
+        /* ========== KHO HỌC LIỆU + VIDEO ========== */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 56px;
+        }
+        .resource-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .resource-header {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .resource-header h4 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+        .resource-body { padding: 24px; }
+        .resource-body ul { list-style: none; margin: 16px 0; }
+        .resource-body li { margin: 12px 0; display: flex; align-items: center; gap: 10px; color: #94a3b8; font-size: 0.85rem; }
+        .resource-body li i { color: #00f2fe; width: 20px; }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #070a0f;
+            padding: 48px 24px 24px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 40px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+        }
+        .footer-brand p { color: #94a3b8; margin-top: 16px; font-size: 0.85rem; }
+        .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .link-group h4 { color: white; margin-bottom: 20px; font-size: 1rem; }
+        .link-group a, .link-group p { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 12px; font-size: 0.8rem; transition: 0.2s; }
+        .link-group a:hover { color: #007bff; padding-left: 5px; }
+        .footer-bottom { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b; font-size: 0.75rem; }
+        @media (max-width: 860px) {
+            .two-columns, .resource-grid, .footer-container, .footer-links { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+        }
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 60px;
+            background: #ef4444;
+            color: white;
+            z-index: 9999;
+            animation: slideIn 0.3s;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<header class="header">
-    <h1><i class="fas fa-calculator"></i> MATH HUB V2 · 2026</h1>
-    <p>Hệ thống thi thông minh & Ngân hàng 80 đề ôn thi tốt nghiệp Toán THPT</p>
-</header>
+<nav class="elevator-nav">
+    <div class="nav-container">
+        <div class="brand-logo" onclick="window.location.reload()"><span>MATH</span><span>HUB</span></div>
+        <div class="mobile-toggle" id="mobileToggle">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a href="KhoHocLieu.html"><i class="fas fa-archive"></i> Kho học liệu</a></li>
+            <li><a href="login.html"><i class="fas fa-chalkboard-user"></i> Giáo viên</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>MATH HUB 2026</h1>
+    <p>Hệ thống thi trực tuyến & kho học liệu thông minh dành cho THPT</p>
+</section>
 
 <div class="container">
-    <div class="main-grid">
-        <!-- NHÁNH 1: KHO ĐỀ DEMO (LẤY TỪ GITHUB QUA FIREBASE) -->
-        <div class="card">
-            <div class="card-title"><i class="fas fa-layer-group"></i> KHO ĐỀ TRẢI NGHIỆM TRỰC TUYẾN</div>
-            <div class="tab-container">
-                <button class="tab-btn active" onclick="loadExams('K12', this)">🎓 Khối 12 (80 Đề)</button>
-                <button class="tab-btn" onclick="loadExams('K11', this)">📚 Khối 11</button>
-                <button class="tab-btn" onclick="loadExams('K10', this)">📖 Khối 10</button>
+    <!-- 2 cột Học sinh + Giáo viên -->
+    <div class="two-columns">
+        <!-- Học sinh -->
+        <div class="glass-card">
+            <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+            <h3>🔗 Học sinh làm bài</h3>
+            <p>Nhập link mời từ giáo viên và thông tin cá nhân để vào phòng thi chính thức.</p>
+            <div class="input-group">
+                <input type="text" id="inviteLink" placeholder="🔗 Dán link thi của giáo viên (vd: ...?t=GV123&exam=DE01)">
             </div>
-            <div class="exam-list" id="demoList">
-                <div style="grid-column: span 2; text-align: center; padding: 40px; color: #94a3b8;">
-                    <i class="fas fa-spinner fa-spin"></i> Đang nạp ngân hàng đề cố định...
-                </div>
+            <div class="flex-row">
+                <input type="text" id="studentCode" placeholder="Mã học sinh">
+                <input type="text" id="studentName" placeholder="Họ tên">
             </div>
+            <button class="btn btn-primary" onclick="startOfficialExam()"><i class="fas fa-sign-in-alt"></i> Vào làm bài chính thức</button>
+            <div class="divider"></div>
+            <button class="btn btn-outline" onclick="window.location.href='TKKQ.html'"><i class="fas fa-chart-line"></i> Xem kết quả đã làm (Tra cứu)</button>
         </div>
 
-        <!-- NHÁNH 2: VÀO THI THEO LINK (CÁ NHÂN HÓA GIÁO VIÊN) -->
-        <div>
-            <div class="card" style="margin-bottom: 30px;">
-                <div class="card-title"><i class="fas fa-link"></i> VÀO THI THEO LINK</div>
-                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px;">Dán đường link giáo viên chia sẻ để làm bài và lưu điểm riêng.</p>
-                
-                <input type="text" id="inviteLink" class="input-box" placeholder="Dán link tại đây (Ví dụ: https://...t=GV123&exam=DE01)">
-                
-                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                    <input type="text" id="stuCode" class="input-box" placeholder="Mã học sinh" style="margin-bottom:0">
-                    <input type="text" id="stuName" class="input-box" placeholder="Họ và tên" style="margin-bottom:0">
-                </div>
-                
-                <button class="btn-enter" onclick="startOfficialExam()">
-                    <i class="fas fa-sign-in-alt"></i> VÀO LÀM BÀI CHÍNH THỨC
-                </button>
-            </div>
-
-            <div class="card" style="background: #fffbeb; border: 1px solid #fde68a;">
-                <div class="card-title" style="font-size: 1.1rem; color: #b45309;"><i class="fas fa-info-circle"></i> LƯU Ý</div>
-                <ul style="font-size: 0.85rem; color: #92400e; padding-left: 20px; line-height: 1.6;">
-                    <li>Hệ thống tự động lưu bài và chấm điểm khi hết giờ.</li>
-                    <li>Nên sử dụng máy tính để xem đề PDF từ Github rõ nhất.</li>
-                    <li>Mọi thắc mắc về đề thi, học sinh liên hệ trực tiếp Giáo viên.</li>
-                </ul>
+        <!-- Giáo viên -->
+        <div class="glass-card">
+            <div class="card-icon"><i class="fas fa-chalkboard"></i></div>
+            <h3>👨‍🏫 Khu vực giáo viên</h3>
+            <p>Đăng nhập để tạo đề, quản lý ngân hàng câu hỏi, giao bài và theo dõi kết quả học sinh.</p>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'"><i class="fab fa-google"></i> Đăng nhập bằng Google</button>
+            <div class="divider"></div>
+            <div style="background: rgba(0,123,255,0.1); padding: 12px 16px; border-radius: 20px; margin-top: 8px;">
+                <p style="font-size: 0.75rem; color: #94a3b8;"><i class="fas fa-lightbulb"></i> Hướng dẫn: Đăng nhập → Tạo đề → Giao link → Xem điểm</p>
             </div>
         </div>
     </div>
 
-    <!-- KHU VỰC RIÊNG CHO GIÁO VIÊN & CỘNG ĐỒNG -->
-    <div class="teacher-zone">
-        <h2><i class="fas fa-chalkboard-teacher"></i> Dành cho Quý Thầy/Cô Giáo</h2>
-        <div class="step-grid">
-            <div class="step-card">
-                <i class="fas fa-user-check"></i>
-                <strong>1. Đăng nhập</strong>
-                <p>Kích hoạt quyền quản trị bằng tài khoản Google cá nhân.</p>
-            </div>
-            <div class="step-card">
-                <i class="fas fa-file-medical"></i>
-                <strong>2. Soạn đề</strong>
-                <p>Nạp link PDF (Google Drive) và Master Key đáp án 3 phần.</p>
-            </div>
-            <div class="step-card">
-                <i class="fas fa-share-square"></i>
-                <strong>3. Giao bài</strong>
-                <p>Hệ thống tự tạo Link mời. Thầy/Cô gửi link qua Zalo hoặc Facebook.</p>
-            </div>
-            <div class="step-card">
-                <i class="fas fa-poll"></i>
-                <strong>4. Xem điểm</strong>
-                <p>Theo dõi bảng điểm và phân tích kết quả lớp học thời gian thực.</p>
+    <!-- Kho học liệu + Video (2 cột) -->
+    <div class="resource-grid">
+        <div class="resource-card">
+            <div class="resource-header"><h4><i class="fas fa-archive"></i> KHO HỌC LIỆU CHÍNH THỨC</h4></div>
+            <div class="resource-body">
+                <p>Hệ thống học liệu phục vụ ôn tập, thi thử và kiểm tra đánh giá.</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> 40+ đề ôn Toán TN THPT 2026</li>
+                    <li><i class="fas fa-check-circle"></i> Đề thi thử Toán – Lý – Hóa – Sinh</li>
+                    <li><i class="fas fa-check-circle"></i> Chuyên đề & kiểm tra định kỳ 10–11–12</li>
+                </ul>
+                <button class="btn btn-primary" onclick="window.location.href='KhoHocLieu.html'" style="background:#f59e0b; color:#0f172a;"><i class="fas fa-folder-open"></i> 👉 Vào kho học liệu</button>
             </div>
         </div>
-        <div style="text-align: center;">
-            <a href="login.html" class="btn-login"><i class="fab fa-google"></i> ĐĂNG NHẬP QUẢN TRỊ NGAY</a>
-            <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.8;">Hỗ trợ giáo viên Toán chuyển đổi số - Hoàn toàn miễn phí.</p>
+        <div class="resource-card">
+            <div class="resource-header" style="background: linear-gradient(115deg, #f59e0b, #d97706);"><h4><i class="fas fa-play-circle"></i> 🎥 Video hướng dẫn sử dụng</h4></div>
+            <div class="resource-body">
+                <p>Hướng dẫn nhanh cho học sinh và giáo viên (3–5 phút).</p>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video hướng dẫn" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p style="font-size:0.7rem; margin-top: 12px;"><i class="fas fa-info-circle"></i> Cách vào phòng thi, tra cứu kết quả, tạo đề và giao bài.</p>
+            </div>
         </div>
     </div>
 </div>
 
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="brand-logo"><span>MATH</span><span>HUB</span></div>
+            <p>Hệ thống thi trực tuyến & kho học liệu số dành cho THPT</p>
+        </div>
+        <div class="footer-links">
+            <div class="link-group"><h4>Hệ thống</h4><a href="index.html">Trang chủ</a><a href="KhoHocLieu.html">Kho học liệu</a><a href="login.html">Đăng nhập GV</a></div>
+            <div class="link-group"><h4>Hỗ trợ</h4><a href="TKKQ.html">Tra cứu kết quả</a><a href="#">Hướng dẫn</a><a href="#">FAQ</a></div>
+            <div class="link-group"><h4>Liên hệ</h4><p><i class="fas fa-envelope"></i> support@mathhub.edu.vn</p><p><i class="fas fa-phone"></i> 0822.351.447</p></div>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2026 MATH HUB - Hệ thống thi thông minh. All rights reserved.</div>
+</footer>
+
 <script>
-    // FIREBASE CONFIG CỦA THẦY BÌNH
-    const firebaseConfig = { /* Paste Config Tại Đây */ };
-    firebase.initializeApp(firebaseConfig);
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // NHÁNH 1: TỰ ĐỘNG LOAD ĐỀ DEMO TỪ FIREBASE
-    async function loadExams(grade, btn) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const list = document.getElementById('demoList');
-        list.innerHTML = '<div style="grid-column:span 2; text-align:center">Đang tải dữ liệu...</div>';
+    function showNotification(msg) {
+        const n = document.createElement('div');
+        n.className = 'notification';
+        n.innerHTML = msg;
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 3000);
+    }
 
+    async function startOfficialExam() {
+        const link = document.getElementById('inviteLink').value.trim();
+        const code = document.getElementById('studentCode').value.trim();
+        const name = document.getElementById('studentName').value.trim();
+        if (!link || !code || !name) return showNotification('❌ Vui lòng nhập đầy đủ thông tin!');
+        let teacherId = null, examId = null;
         try {
-            const snap = await db.ref('demo_exams').orderByChild('grade').equalTo(grade).once('value');
-            const data = snap.val();
-            if(!data) {
-                list.innerHTML = '<div style="grid-column:span 2; text-align:center">Chưa có đề mẫu cho khối này.</div>';
-                return;
-            }
-            let html = '';
-            Object.keys(data).forEach(id => {
-                const ex = data[id];
-                html += `
-                <div class="exam-item">
-                    <h4>${ex.name}</h4>
-                    <p style="font-size:0.8rem; color:#64748b">
-                        <i class="far fa-clock"></i> ${ex.duration} phút | <i class="fas fa-signal"></i> ${ex.level}
-                    </p>
-                    <button class="btn-play" onclick="startDemo('${id}')">LÀM THỬ NGAY</button>
-                </div>`;
-            });
-            list.innerHTML = html;
-        } catch(e) { console.error(e); }
-    }
-
-    function startDemo(id) {
-        // Vào Nhánh 1: Không cần mã GV, dùng ADMIN làm mặc định
-        window.location.href = `PTLTNM.html?demo=true&exam=${id}&t=ADMIN&code=DEMO&name=HOC_SINH_TRAI_NGHIEM`;
-    }
-
-    function startOfficialExam() {
-        const link = document.getElementById('inviteLink').value;
-        const code = document.getElementById('stuCode').value;
-        const name = document.getElementById('stuName').value;
-        
-        if(!link || !code || !name) return alert("Vui lòng nhập đầy đủ thông tin!");
-
-        // Tự động bóc tách link của giáo viên
-        const match = link.match(/[?&]t=([^&]+)&exam=([^&]+)/);
-        if(match) {
-            window.location.href = `PTLTNM.html?t=${match[1]}&exam=${match[2]}&code=${code}&name=${encodeURIComponent(name)}`;
-        } else {
-            alert("Link thi không hợp lệ! Thầy/Cô hãy gửi đúng link từ mục 'Giao bài'.");
+            const url = new URL(link);
+            teacherId = url.searchParams.get('t');
+            examId = url.searchParams.get('exam');
+        } catch(e) {
+            const match = link.match(/[?&]t=([^&]+)&exam=([^&]+)/);
+            if (match) { teacherId = match[1]; examId = match[2]; }
         }
+        if (!teacherId || !examId) return showNotification('🔗 Link không hợp lệ!');
+        const examRef = await db.ref(`teachers/${teacherId}/exams/${examId}`).once('value');
+        if (!examRef.exists()) return showNotification('Đề thi không tồn tại!');
+        window.location.href = `PTLTNM.html?t=${encodeURIComponent(teacherId)}&exam=${encodeURIComponent(examId)}&code=${encodeURIComponent(code)}&name=${encodeURIComponent(name)}`;
     }
 
-    window.onload = () => loadExams('K12', document.querySelector('.tab-btn.active'));
+    // Mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const nav = document.getElementById('navLinks');
+    toggle?.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.classList.toggle('open');
+    });
+    window.startOfficialExam = startOfficialExam;
 </script>
 </body>
 </html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Kho học liệu số | MATH HUB 2026</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f1f5f9 0%, #e6edf4 100%);
+            color: #0f172a;
+            min-height: 100vh;
+        }
+
+        /* Header ấn tượng */
+        .hero {
+            background: linear-gradient(115deg, #0f172a 0%, #1e293b 100%);
+            padding: 48px 24px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #f59e0b;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero h1 i {
+            color: #f59e0b;
+            background: rgba(255,255,240,0.15);
+            padding: 12px;
+            border-radius: 60px;
+        }
+        .hero p {
+            margin-top: 14px;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+        .back-home {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-home:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 44px 28px;
+        }
+
+        /* Thanh lọc cao cấp */
+        .filter-bar {
+            background: white;
+            border-radius: 2rem;
+            padding: 24px 28px;
+            margin-bottom: 36px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eef2ff;
+        }
+        .filter-group {
+            flex: 1;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .filter-group label {
+            font-weight: 800;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #334155;
+        }
+        .filter-group select,
+        .filter-group input {
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            font-weight: 500;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .filter-group select:focus,
+        .filter-group input:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.2);
+        }
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-filter {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-filter:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+        .btn-reset {
+            background: #475569;
+        }
+        .btn-reset:hover {
+            background: #334155;
+            transform: none;
+        }
+
+        /* Thống kê nhanh */
+        .stats-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .stat-badge {
+            background: white;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+        .stat-badge i {
+            color: #f59e0b;
+            margin-right: 8px;
+        }
+
+        /* Grid hiển thị tài nguyên - thẻ linh hoạt */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        .resource-card {
+            background: white;
+            border-radius: 1.8rem;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.08);
+            border: 1px solid #edf2f7;
+            display: flex;
+            flex-direction: column;
+        }
+        .resource-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 22px 32px -14px rgba(0, 0, 0, 0.15);
+            border-color: #fcd34d;
+        }
+        .card-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 14px;
+        }
+        .tag-system {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .tag-community {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .card-body {
+            padding: 24px 24px 16px 24px;
+            flex: 1;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.35;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+        .card-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.75rem;
+            color: #475569;
+            margin-bottom: 16px;
+        }
+        .card-meta i {
+            width: 18px;
+            color: #f59e0b;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: #334155;
+            line-height: 1.45;
+            margin-bottom: 16px;
+        }
+        .card-footer {
+            padding: 16px 24px 24px 24px;
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid #f0f4f9;
+            background: #fefefe;
+        }
+        .btn-primary-card {
+            flex: 1;
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary-card:hover {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+        .btn-pdf-card {
+            flex: 1;
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-pdf-card:hover {
+            background: #dc2626;
+        }
+        .empty-placeholder {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 70px 20px;
+            background: white;
+            border-radius: 2rem;
+            color: #64748b;
+        }
+        footer {
+            text-align: center;
+            margin-top: 56px;
+            padding: 24px;
+            font-size: 0.7rem;
+            color: #5b6e8c;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 760px) {
+            .container { padding: 24px 16px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-actions { justify-content: stretch; }
+            .back-home { position: static; margin-top: 20px; display: inline-flex; width: auto; justify-content: center; }
+            .hero { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1><i class="fas fa-cubes"></i> KHO HỌC LIỆU SỐ MỞ</h1>
+    <p>Kết nối trí tuệ cộng đồng – Đề thi, chuyên đề, tài liệu ôn tập chất lượng cao</p>
+    <div class="back-home" onclick="window.location.href='index.html'">
+        <i class="fas fa-home"></i> Quay về trang chủ
+    </div>
+</div>
+
+<div class="container">
+    <!-- Bộ lọc nâng cao -->
+    <div class="filter-bar">
+        <div class="filter-group">
+            <label><i class="fas fa-tag"></i> Phân loại nguồn</label>
+            <select id="sourceFilter">
+                <option value="all">🌐 Tất cả học liệu</option>
+                <option value="system">⭐ Hệ thống MATH HUB</option>
+                <option value="community">🤝 Giáo viên đóng góp</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label><i class="fas fa-graduation-cap"></i> Khối lớp</label>
+            <select id="gradeFilter">
+                <option value="all">📚 Tất cả khối</option>
+                <option value="12">🎓 Khối 12 (Ôn TN)</option>
+                <option value="11">📖 Khối 11</option>
+                <option value="10">✏️ Khối 10</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label><i class="fas fa-search"></i> Tìm kiếm</label>
+            <input type="text" id="searchInput" placeholder="Nhập tên đề, chuyên đề, ID...">
+        </div>
+        <div class="filter-actions">
+            <button class="btn-filter" onclick="applyFilters()"><i class="fas fa-filter"></i> Lọc ngay</button>
+            <button class="btn-filter btn-reset" onclick="resetFilters()"><i class="fas fa-undo-alt"></i> Reset</button>
+        </div>
+    </div>
+
+    <!-- Thống kê nhanh -->
+    <div class="stats-row" id="statArea">
+        <div class="stat-badge"><i class="fas fa-database"></i> Tổng số tài nguyên: <span id="totalCount">0</span></div>
+        <div class="stat-badge"><i class="fas fa-star"></i> Hệ thống: <span id="systemCount">0</span></div>
+        <div class="stat-badge"><i class="fas fa-users"></i> Cộng đồng: <span id="communityCount">0</span></div>
+    </div>
+
+    <!-- Grid hiển thị tài nguyên -->
+    <div id="resourceGrid" class="resource-grid">
+        <div class="empty-placeholder"><i class="fas fa-spinner fa-pulse"></i> Đang tải kho học liệu...</div>
+    </div>
+    <footer>
+        <i class="fas fa-chalkboard-user"></i> Học liệu được cập nhật liên tục | Giáo viên có thể đóng góp qua hệ thống quản trị
+    </footer>
+</div>
+
+<script>
+    // ---------- CẤU HÌNH FIREBASE (dùng chung cấu trúc V2 + mở rộng learning_resources/community_resources) ----------
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let allResources = [];        // lưu toàn bộ tài nguyên đã gộp
+    let filteredResources = [];
+
+    // ---- Hàm tải dữ liệu từ 3 nguồn: demo_exams (hệ thống đề), learning_resources (chuyên đề hệ thống), community_resources (giáo viên đóng góp) ----
+    async function fetchAllLearningResources() {
+        try {
+            // Chạy song song 3 truy vấn (demo_exams, learning_resources, community_resources)
+            const [demoSnap, sysResSnap, commSnap] = await Promise.all([
+                db.ref('demo_exams').once('value'),
+                db.ref('learning_resources').once('value'),
+                db.ref('community_resources').once('value')
+            ]);
+
+            let tempArray = [];
+
+            // 1. Xử lý Kho đề demo (Hệ thống – dạng đề thi)
+            if (demoSnap.exists()) {
+                const demoData = demoSnap.val();
+                for (const [id, exam] of Object.entries(demoData)) {
+                    let gradeRaw = exam.grade || 'K12';
+                    let gradeNum = gradeRaw.replace('K', '');
+                    tempArray.push({
+                        id: id,
+                        source: 'system',
+                        type: 'exam',
+                        title: exam.name || exam.examName || `Đề ${id}`,
+                        grade: gradeNum,
+                        description: exam.description || `Đề ôn tập chất lượng cao dành cho học sinh lớp ${gradeNum}`,
+                        pdfLink: exam.pdfLink || '',
+                        examId: id,
+                        duration: exam.duration || 90,
+                        author: 'MATH HUB System',
+                        updatedAt: exam.updatedAt || Date.now()
+                    });
+                }
+            }
+
+            // 2. Xử lý Học liệu hệ thống (learning_resources) – các chuyên đề, tài liệu PDF
+            if (sysResSnap.exists()) {
+                const sysData = sysResSnap.val();
+                for (const [id, resource] of Object.entries(sysData)) {
+                    tempArray.push({
+                        id: id,
+                        source: 'system',
+                        type: 'resource',
+                        title: resource.title || resource.name || `Tài liệu ${id}`,
+                        grade: resource.grade || '12',
+                        description: resource.description || 'Chuyên đề học tập chất lượng từ đội ngũ MATH HUB.',
+                        pdfLink: resource.pdfLink || resource.url || '',
+                        author: resource.author || 'MATH HUB',
+                        updatedAt: resource.updatedAt || Date.now()
+                    });
+                }
+            }
+
+            // 3. Xử lý Học liệu cộng đồng (giáo viên đóng góp)
+            if (commSnap.exists()) {
+                const commData = commSnap.val();
+                for (const [id, contrib] of Object.entries(commData)) {
+                    tempArray.push({
+                        id: id,
+                        source: 'community',
+                        type: 'resource',
+                        title: contrib.title || contrib.name || `Đóng góp ${id}`,
+                        grade: contrib.grade || '12',
+                        description: contrib.description || 'Tài liệu do giáo viên chia sẻ, hỗ trợ ôn tập hiệu quả.',
+                        pdfLink: contrib.pdfLink || contrib.url || '',
+                        author: contrib.author || 'Giáo viên cộng đồng',
+                        updatedAt: contrib.updatedAt || Date.now()
+                    });
+                }
+            }
+
+            // Sắp xếp mới nhất lên đầu
+            tempArray.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+            allResources = tempArray;
+            updateStatsPanel();
+            applyFilters();
+        } catch (error) {
+            console.error("Lỗi tải học liệu:", error);
+            document.getElementById('resourceGrid').innerHTML = `<div class="empty-placeholder"><i class="fas fa-exclamation-triangle"></i> Không thể tải dữ liệu. Vui lòng thử lại sau.</div>`;
+        }
+    }
+
+    // Cập nhật thống kê nhanh
+    function updateStatsPanel() {
+        const total = allResources.length;
+        const systemTotal = allResources.filter(r => r.source === 'system').length;
+        const communityTotal = allResources.filter(r => r.source === 'community').length;
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('systemCount').innerText = systemTotal;
+        document.getElementById('communityCount').innerText = communityTotal;
+    }
+
+    // Lọc dữ liệu theo các tiêu chí
+    function applyFilters() {
+        const sourceVal = document.getElementById('sourceFilter').value;
+        const gradeVal = document.getElementById('gradeFilter').value;
+        const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+
+        let filtered = [...allResources];
+
+        if (sourceVal !== 'all') {
+            filtered = filtered.filter(r => r.source === sourceVal);
+        }
+        if (gradeVal !== 'all') {
+            filtered = filtered.filter(r => String(r.grade) === gradeVal);
+        }
+        if (keyword !== '') {
+            filtered = filtered.filter(r => 
+                r.title.toLowerCase().includes(keyword) || 
+                (r.description && r.description.toLowerCase().includes(keyword)) ||
+                (r.author && r.author.toLowerCase().includes(keyword)) ||
+                r.id.toLowerCase().includes(keyword)
+            );
+        }
+
+        filteredResources = filtered;
+        renderResourceGrid(filteredResources);
+    }
+
+    // Reset toàn bộ bộ lọc
+    function resetFilters() {
+        document.getElementById('sourceFilter').value = 'all';
+        document.getElementById('gradeFilter').value = 'all';
+        document.getElementById('searchInput').value = '';
+        applyFilters();
+    }
+
+    // Hàm render giao diện thẻ tài nguyên (đẹp, chuyên nghiệp)
+    function renderResourceGrid(resources) {
+        const gridContainer = document.getElementById('resourceGrid');
+        if (!resources.length) {
+            gridContainer.innerHTML = `<div class="empty-placeholder"><i class="fas fa-folder-open"></i> Không tìm thấy học liệu phù hợp.<br>Hãy thử bộ lọc khác hoặc quay lại sau.</div>`;
+            return;
+        }
+
+        let html = '';
+        for (let res of resources) {
+            const tagClass = res.source === 'system' ? 'tag-system' : 'tag-community';
+            const tagText = res.source === 'system' ? '⭐ Hệ thống' : '🤝 Cộng đồng';
+            const gradeDisplay = `Lớp ${res.grade}`;
+            const limitedDesc = res.description.length > 110 ? res.description.substring(0, 110) + '…' : res.description;
+            
+            // Nếu là đề thi (type === 'exam') -> hiển thị nút "Làm bài", ngược lại nút "Xem PDF"
+            const isExam = (res.type === 'exam');
+            let actionButton = '';
+            if (isExam) {
+                // Sử dụng startExamFromLibrary: truyền examId để vào phòng thi demo
+                actionButton = `<button class="btn-primary-card" onclick="startExamFromLibrary('${res.id}')"><i class="fas fa-play"></i> Làm bài trực tuyến</button>`;
+            } else {
+                // Tài liệu dạng PDF: nếu có link thì mở tab mới
+                const pdfUrl = res.pdfLink || '#';
+                if (pdfUrl !== '#') {
+                    actionButton = `<button class="btn-pdf-card" onclick="window.open('${pdfUrl}', '_blank')"><i class="fas fa-file-pdf"></i> Xem tài liệu PDF</button>`;
+                } else {
+                    actionButton = `<button class="btn-primary-card" disabled style="opacity:0.5; cursor:not-allowed;"><i class="fas fa-link"></i> Chưa có PDF</button>`;
+                }
+            }
+
+            html += `
+                <div class="resource-card">
+                    <div class="card-body">
+                        <span class="card-tag ${tagClass}">${tagText}</span>
+                        <h3 class="card-title">${escapeHtml(res.title)}</h3>
+                        <div class="card-meta">
+                            <span><i class="fas fa-graduation-cap"></i> ${gradeDisplay}</span>
+                            <span><i class="fas fa-user-edit"></i> ${escapeHtml(res.author)}</span>
+                        </div>
+                        <div class="card-desc">${escapeHtml(limitedDesc)}</div>
+                    </div>
+                    <div class="card-footer">
+                        ${actionButton}
+                    </div>
+                </div>
+            `;
+        }
+        gridContainer.innerHTML = html;
+    }
+
+    // Hàm xử lý bắt đầu thi từ kho học liệu (dành cho đề)
+    function startExamFromLibrary(examId) {
+        if (!examId) return;
+        // Tạo mã học sinh demo ngẫu nhiên để trải nghiệm
+        const demoCode = `LIB_${Math.floor(Math.random() * 100000)}_${Date.now()}`;
+        const demoName = `Học sinh (khách)`;
+        // Điều hướng đến PTLTNM.html với chế độ demo
+        window.location.href = `PTLTNM.html?demo=true&exam=${examId}&t=ADMIN&code=${encodeURIComponent(demoCode)}&name=${encodeURIComponent(demoName)}`;
+    }
+
+    // Helper thoát HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Gắn các hàm vào window để dùng inline
+    window.applyFilters = applyFilters;
+    window.resetFilters = resetFilters;
+    window.startExamFromLibrary = startExamFromLibrary;
+
+    // Khởi tạo trang
+    fetchAllLearningResources();
+</script>
+</body>
+</html>

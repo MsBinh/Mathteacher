@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TKKQ | Tra cứu kết quả làm bài của học sinh</title>
+    <!-- Firebase SDK V2 -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 32px 24px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Card tra cứu */
+        .search-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 32px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #f59e0b;
+        }
+
+        .header-icon {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-icon i {
+            font-size: 3rem;
+            color: #f59e0b;
+            background: #fef3c7;
+            padding: 16px;
+            border-radius: 60px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .sub {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 28px;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 240px;
+            padding: 14px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.2);
+        }
+
+        .btn-tra-cuu {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-tra-cuu:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* Thông tin học sinh */
+        .student-info {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 18px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-left: 6px solid #f59e0b;
+        }
+
+        .student-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .student-code-badge {
+            background: #e2e8f0;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Bảng kết quả */
+        .result-card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+
+        .result-card.show {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            background: #f1f5f9;
+            padding: 18px 24px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 500px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        th {
+            background: #ffffff;
+            color: #1e293b;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            background: #fefce8;
+        }
+
+        tr:hover {
+            background: #fef9e6;
+            cursor: pointer;
+        }
+
+        .badge-exam {
+            background: #e0e7ff;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .score-high {
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        .score-mid {
+            font-weight: 700;
+            color: #f59e0b;
+        }
+
+        .score-low {
+            font-weight: 600;
+            color: #ef4444;
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 48px;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* Modal chi tiết */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1.5rem;
+            max-width: 550px;
+            width: 90%;
+            padding: 28px;
+            text-align: left;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f59e0b;
+            padding-bottom: 12px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .detail-row {
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #4b5563;
+        }
+
+        .loading-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e2e8f0;
+            border-top-color: #f59e0b;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 20px 16px; }
+            th, td { padding: 10px 12px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="search-card">
+        <div class="header-icon">
+            <i class="fas fa-search"></i>
+        </div>
+        <h1>Tra cứu kết quả làm bài</h1>
+        <p class="sub">Nhập mã học sinh của em để xem lại các bài thi đã tham gia</p>
+        
+        <div class="input-group">
+            <input type="text" id="studentCodeInput" placeholder="Ví dụ: HS001, 20240001, BINH123..." autocomplete="off">
+            <button class="btn-tra-cuu" onclick="searchStudentResults()">
+                <i class="fas fa-chart-line"></i> Tra cứu ngay
+            </button>
+        </div>
+        <p style="font-size: 0.7rem; text-align: center; color: #94a3b8; margin-top: 12px;">
+            <i class="fas fa-shield-alt"></i> Hệ thống bảo mật, chỉ hiển thị kết quả của đúng mã học sinh nhập
+        </p>
+    </div>
+
+    <!-- Khu vực hiển thị kết quả -->
+    <div id="resultArea" style="display: none;">
+        <div class="student-info" id="studentInfoArea">
+            <span class="student-name" id="studentNameDisplay"></span>
+            <span class="student-code-badge" id="studentCodeDisplay"></span>
+        </div>
+        <div class="result-card" id="resultCard">
+            <div class="card-header">
+                <span><i class="fas fa-history"></i> Lịch sử làm bài</span>
+                <span id="resultCount" style="font-size: 0.75rem; background: #e2e8f0; padding: 4px 12px; border-radius: 30px;">0 bài</span>
+            </div>
+            <div class="table-wrapper">
+                <table id="resultsTable">
+                    <thead>
+                        <tr><th>STT</th><th>Tên đề thi / Chuyên đề</th><th>Điểm số</th><th>Thời gian hoàn thành</th><th>Chi tiết</th></tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr><td colspan="5" style="text-align:center;">📭 Nhập mã học sinh để tra cứu</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-database"></i> Dữ liệu theo cấu trúc Firebase V2: teachers/{teacherId}/attempts
+        <br>⚠️ Chỉ hiển thị kết quả của chính học sinh dựa trên mã số
+    </footer>
+</div>
+
+<!-- Modal chi tiết bài làm -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-file-alt"></i> Chi tiết bài làm</h3>
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+        </div>
+        <div id="modalDetailContent">
+            <p>Đang tải...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // -------------------- FIREBASE V2 --------------------
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Lưu trữ dữ liệu attempts của học sinh sau khi tra cứu
+    let currentStudentAttempts = [];    // danh sách attempts đã lọc
+    let currentStudentCode = "";
+    let currentStudentName = "";
+
+    // Cache: lưu tên đề theo examId (đọc từ tất cả giáo viên? Theo cấu trúc V2, attempts nằm dưới teacher)
+    // Vì attempts được lưu dưới teachers/{teacherId}/attempts, để tra cứu studentCode cần quét toàn bộ teachers.
+    // Nhưng theo yêu cầu: KHÔNG THÊM NODE MỚI, nhưng được phép đọc toàn bộ teachers để lọc theo studentCode.
+    // Giải pháp: Đọc tất cả teachers -> duyệt attempts theo studentCode.
+    // Đồng thời xây dựng map examId -> examName từ tất cả teachers/exams.
+    
+    let globalExamMap = new Map();   // examId -> { name, teacherId } (lấy tên đề)
+    
+    // Hàm quét toàn bộ Firebase V2: teachers/{teacherId}/exams và teachers/{teacherId}/attempts
+    // Mục tiêu: lọc attempts theo studentCode, đồng thời lấy tên đề tương ứng.
+    async function fetchStudentResults(studentCode) {
+        if (!studentCode || studentCode.trim() === "") {
+            alert("Vui lòng nhập mã học sinh!");
+            return [];
+        }
+        
+        const code = studentCode.trim();
+        currentStudentCode = code;
+        
+        // Hiển thị trạng thái loading
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = `<td><td colspan="5" style="text-align:center;"><span class="loading-icon"></span> Đang tra cứu dữ liệu...</td></tr>`;
+        document.getElementById('resultArea').style.display = 'block';
+        document.getElementById('resultCard').classList.add('show');
+        
+        try {
+            // 1. Lấy tất cả teachers (chỉ lấy exams và attempts)
+            const snapshot = await db.ref('teachers').once('value');
+            const teachersData = snapshot.val();
+            
+            if (!teachersData) {
+                return [];
+            }
+            
+            // Xây dựng map examId -> examName (từ tất cả giáo viên)
+            globalExamMap.clear();
+            const teacherIds = Object.keys(teachersData);
+            
+            // Đọc exams từ mỗi giáo viên
+            for (const teacherId of teacherIds) {
+                const teacherNode = teachersData[teacherId];
+                if (teacherNode && teacherNode.exams) {
+                    const exams = teacherNode.exams;
+                    for (const [examId, examInfo] of Object.entries(exams)) {
+                        if (!globalExamMap.has(examId)) {
+                            const examName = examInfo.name || examInfo.examName || examId;
+                            globalExamMap.set(examId, { name: examName, teacherId: teacherId });
+                        }
+                    }
+                }
+            }
+            
+            // 2. Lọc tất cả attempts theo studentCode (không phân biệt giáo viên)
+            const matchedAttempts = [];
+            
+            for (const teacherId of teacherIds) {
+                const teacherNode = teachersData[teacherId];
+                if (teacherNode && teacherNode.attempts) {
+                    const attempts = teacherNode.attempts;
+                    for (const [attemptId, attempt] of Object.entries(attempts)) {
+                        if (attempt.studentCode && attempt.studentCode === code) {
+                            // Lấy tên học sinh từ attempt đầu tiên
+                            if (attempt.studentName && !currentStudentName) {
+                                currentStudentName = attempt.studentName;
+                            }
+                            matchedAttempts.push({
+                                id: attemptId,
+                                teacherId: teacherId,
+                                examId: attempt.examId,
+                                studentCode: attempt.studentCode,
+                                studentName: attempt.studentName || 'Học sinh',
+                                score: typeof attempt.score === 'number' ? attempt.score : 0,
+                                timestamp: attempt.timestamp || 0,
+                                rawData: attempt
+                            });
+                        }
+                    }
+                }
+            }
+            
+            // Sắp xếp theo thời gian mới nhất trước
+            matchedAttempts.sort((a, b) => b.timestamp - a.timestamp);
+            
+            // Nếu không có tên học sinh, dùng mã làm tên tạm
+            if (!currentStudentName && matchedAttempts.length > 0) {
+                currentStudentName = matchedAttempts[0].studentName || `Học sinh ${code}`;
+            } else if (!currentStudentName) {
+                currentStudentName = `Học sinh ${code}`;
+            }
+            
+            return matchedAttempts;
+            
+        } catch (error) {
+            console.error("Lỗi tra cứu:", error);
+            alert("Có lỗi xảy ra khi tra cứu dữ liệu. Vui lòng thử lại sau.");
+            return [];
+        }
+    }
+    
+    // Hiển thị kết quả lên bảng
+    function renderStudentResults(attempts) {
+        const tbody = document.getElementById('tableBody');
+        const resultCountSpan = document.getElementById('resultCount');
+        const studentNameSpan = document.getElementById('studentNameDisplay');
+        const studentCodeSpan = document.getElementById('studentCodeDisplay');
+        
+        // Hiển thị thông tin học sinh
+        studentNameSpan.innerHTML = `<i class="fas fa-user-graduate"></i> ${escapeHtml(currentStudentName)}`;
+        studentCodeSpan.innerHTML = `<i class="fas fa-id-card"></i> ${escapeHtml(currentStudentCode)}`;
+        
+        if (!attempts || attempts.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 40px;">
+                <i class="fas fa-inbox" style="font-size: 2rem; color: #cbd5e1;"></i><br>
+                📭 Không tìm thấy kết quả làm bài nào cho mã <strong>${escapeHtml(currentStudentCode)}</strong>
+            </td></tr>`;
+            resultCountSpan.innerText = "0 bài";
+            return;
+        }
+        
+        resultCountSpan.innerText = `${attempts.length} bài`;
+        let html = '';
+        
+        attempts.forEach((att, idx) => {
+            // Lấy tên đề từ map
+            const examInfo = globalExamMap.get(att.examId);
+            const examName = examInfo ? examInfo.name : (att.examId || 'Đề không xác định');
+            const timeStr = new Date(att.timestamp).toLocaleString('vi-VN');
+            
+            let scoreClass = '';
+            if (att.score >= 8) scoreClass = 'score-high';
+            else if (att.score >= 5) scoreClass = 'score-mid';
+            else scoreClass = 'score-low';
+            
+            html += `<tr onclick="viewAttemptDetail(${idx})">
+                        <td>${idx + 1}</td>
+                        <td><span class="badge-exam">${escapeHtml(examName)}</span><br><span style="font-size:0.7rem; color:#6b7280;">ID: ${escapeHtml(att.examId)}</span></td>
+                        <td class="${scoreClass}"><strong>${att.score.toFixed(2)}</strong> / 10</td>
+                        <td style="font-size:0.8rem;">${timeStr}</td>
+                        <td><button class="btn-tra-cuu" style="padding:6px 14px; font-size:0.7rem; background:#f59e0b; color:#0f172a;" onclick="event.stopPropagation();viewAttemptDetail(${idx})"><i class="fas fa-eye"></i> Xem chi tiết</button></td>
+                     </tr>`;
+        });
+        tbody.innerHTML = html;
+        // Lưu lại attempts để dùng cho modal
+        currentStudentAttempts = attempts;
+    }
+    
+    // Xem chi tiết một attempt (hiển thị thông tin đầy đủ)
+    async function viewAttemptDetail(index) {
+        const attempt = currentStudentAttempts[index];
+        if (!attempt) return;
+        
+        const examInfo = globalExamMap.get(attempt.examId);
+        const examName = examInfo ? examInfo.name : (attempt.examId || 'Đề không xác định');
+        const timeStr = new Date(attempt.timestamp).toLocaleString('vi-VN');
+        const detailData = attempt.rawData;
+        
+        let detailHtml = `
+            <div style="margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+                <p><strong><i class="fas fa-user"></i> Học sinh:</strong> ${escapeHtml(attempt.studentName)} (${escapeHtml(attempt.studentCode)})</p>
+                <p><strong><i class="fas fa-book-open"></i> Đề thi:</strong> ${escapeHtml(examName)}</p>
+                <p><strong><i class="fas fa-tag"></i> Mã đề:</strong> ${escapeHtml(attempt.examId)}</p>
+                <p><strong><i class="fas fa-star"></i> Điểm số:</strong> <span style="font-size:1.4rem; font-weight:800; color:#f59e0b;">${attempt.score.toFixed(2)}</span> / 10</p>
+                <p><strong><i class="fas fa-calendar-alt"></i> Thời gian nộp:</strong> ${timeStr}</p>
+            </div>
+        `;
+        
+        // Nếu có chi tiết câu trả lời (answers) thì hiển thị thêm
+        if (detailData.answers && typeof detailData.answers === 'object') {
+            detailHtml += `<div style="margin-top: 12px;">
+                <h4><i class="fas fa-list-check"></i> Chi tiết câu trả lời</h4>
+                <div style="max-height: 300px; overflow-y: auto; background: #f8fafc; border-radius: 16px; padding: 12px;">`;
+            
+            const answers = detailData.answers;
+            const answerKeys = Object.keys(answers);
+            if (answerKeys.length > 0) {
+                detailHtml += `<table style="width:100%; font-size:0.8rem;">
+                    <thead><tr><th>Câu hỏi</th><th>Đáp án của học sinh</th></tr></thead><tbody>`;
+                for (const qId of answerKeys) {
+                    let userAnswer = answers[qId];
+                    let displayAnswer = "";
+                    if (userAnswer === null || userAnswer === undefined) displayAnswer = "(trống)";
+                    else if (typeof userAnswer === 'object') {
+                        if (userAnswer.a !== undefined) {
+                            // Dạng Đúng/Sai
+                            displayAnswer = `a:${userAnswer.a ? 'Đ' : 'S'}, b:${userAnswer.b ? 'Đ' : 'S'}, c:${userAnswer.c ? 'Đ' : 'S'}, d:${userAnswer.d ? 'Đ' : 'S'}`;
+                        } else {
+                            displayAnswer = JSON.stringify(userAnswer);
+                        }
+                    } else {
+                        displayAnswer = String(userAnswer);
+                    }
+                    detailHtml += `<tr><td><strong>Câu ${qId}</strong></td><td>${escapeHtml(displayAnswer)}</td></tr>`;
+                }
+                detailHtml += `</tbody></table>`;
+            } else {
+                detailHtml += `<p><em>Không có dữ liệu câu trả lời chi tiết</em></p>`;
+            }
+            detailHtml += `</div></div>`;
+        } else {
+            detailHtml += `<div style="margin-top:12px; padding:12px; background:#f1f5f9; border-radius:16px;">
+                <i class="fas fa-info-circle"></i> Dữ liệu chi tiết câu trả lời không khả dụng.
+            </div>`;
+        }
+        
+        detailHtml += `<div style="margin-top: 20px; text-align: center;">
+            <button class="btn-tra-cuu" style="background:#e2e8f0; color:#1e293b;" onclick="closeModal()">Đóng</button>
+        </div>`;
+        
+        document.getElementById('modalDetailContent').innerHTML = detailHtml;
+        document.getElementById('detailModal').classList.add('active');
+    }
+    
+    function closeModal() {
+        document.getElementById('detailModal').classList.remove('active');
+    }
+    
+    // Hàm tra cứu chính
+    async function searchStudentResults() {
+        const inputCode = document.getElementById('studentCodeInput').value.trim();
+        if (!inputCode) {
+            alert("Vui lòng nhập mã học sinh để tra cứu.");
+            return;
+        }
+        
+        // Reset dữ liệu cũ
+        currentStudentAttempts = [];
+        currentStudentName = "";
+        
+        const results = await fetchStudentResults(inputCode);
+        renderStudentResults(results);
+    }
+    
+    // Helper escape HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Cho phép nhấn Enter để tra cứu
+    document.getElementById('studentCodeInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchStudentResults();
+        }
+    });
+    
+    // Gắn hàm global
+    window.searchStudentResults = searchStudentResults;
+    window.viewAttemptDetail = viewAttemptDetail;
+    window.closeModal = closeModal;
+    
+    // Khởi tạo ẩn khu vực kết quả ban đầu
+    document.getElementById('resultArea').style.display = 'none';
+</script>
+</body>
+</html>

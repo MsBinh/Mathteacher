@@ -13,34 +13,51 @@
         .container { max-width: 450px; width: 100%; background: white; border-radius: 30px; padding: 40px; text-align: center; }
         .logo { font-size: 3rem; margin-bottom: 15px; }
         h1 { color: #1a237e; margin-bottom: 10px; }
-        .btn-google { background: white; border: 2px solid #ddd; padding: 15px; border-radius: 50px; width: 100%; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
-        .btn-google:hover { background: #f8f9fa; transform: translateY(-2px); }
-        .dashboard-links { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
-        .dashboard-links a { background: #1a237e; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 600; text-align: center; }
-        .dashboard-links a:hover { background: #0d1757; }
-        .teacher-info { background: #e8eaf6; padding: 20px; border-radius: 20px; margin-bottom: 20px; text-align: left; }
-        .logout-btn { background: #c62828; color: white; border: none; padding: 10px; border-radius: 25px; cursor: pointer; margin-top: 10px; width: 100%; }
+        .btn-google { background: white; border: 2px solid #ddd; padding: 15px; border-radius: 50px; width: 100%; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; transition: all 0.2s; }
+        .btn-google:hover { background: #f8f9fa; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .hidden { display: none; }
+        .loading-message {
+            color: #1a237e;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .loading-message i {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .note {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #999;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="logo">📐</div>
     <h1>MATH HUB V2</h1>
+    <p style="margin-bottom: 20px; color: #666;">Cổng đăng nhập giáo viên</p>
     
     <div id="loginPanel">
-        <button class="btn-google" onclick="handleGoogleLogin()"><i class="fab fa-google"></i> Đăng nhập bằng Google</button>
+        <button class="btn-google" onclick="handleGoogleLogin()">
+            <i class="fab fa-google"></i> Đăng nhập bằng Google
+        </button>
         <p style="font-size:0.8rem; color:#999;">Chỉ dành cho giáo viên có tài khoản Gmail</p>
+        <div class="note">
+            <i class="fas fa-shield-alt"></i> Bảo mật 2 lớp | Dữ liệu được mã hóa
+        </div>
     </div>
     
-    <div id="teacherPanel" class="hidden">
-        <div class="teacher-info"><strong>👤 Giáo viên:</strong> <span id="teacherName"></span><br><strong>📧 Email:</strong> <span id="teacherEmail"></span></div>
-        <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
-        <div class="dashboard-links">
-            <a href="Teacher_Studio.html"><i class="fas fa-pen-fancy"></i> Studio tạo đề</a>
-            <a href="KQTH.html"><i class="fas fa-chart-line"></i> Kết quả đề thi</a>
-             <a href="index.html" class="nav-link wide"><i class="fas fa-chart-pie"></i> Phân tích Chuyên đề</a>
-            <a href="KhoDe.html"><i class="fas fa-database"></i> Kho đề đã phát hành</a>
+    <div id="loadingPanel" class="hidden">
+        <div class="loading-message">
+            <i class="fas fa-spinner"></i> Đang xác thực, vui lòng chờ...
         </div>
     </div>
 </div>
@@ -55,27 +72,86 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     
+    // Hiển thị loading khi đang xử lý đăng nhập
+    function showLoading() {
+        document.getElementById('loginPanel').classList.add('hidden');
+        document.getElementById('loadingPanel').classList.remove('hidden');
+    }
+    
+    function hideLoading() {
+        document.getElementById('loadingPanel').classList.add('hidden');
+        document.getElementById('loginPanel').classList.remove('hidden');
+    }
+    
+    // Điều hướng về Dashboard.html duy nhất
+    function redirectToDashboard() {
+        window.location.href = "Dashboard.html";
+    }
+    
+    // Xử lý đăng nhập thành công: lưu thông tin + redirect về Dashboard.html
+    async function handleGoogleLogin() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        showLoading();
+        
+        try {
+            const result = await auth.signInWithPopup(provider);
+            const user = result.user;
+            
+            if (user) {
+                // Lưu thông tin giáo viên vào localStorage để các trang khác dùng nếu cần
+                const teacherData = {
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || user.email.split('@')[0],
+                    lastLogin: Date.now()
+                };
+                localStorage.setItem('mathhub_teacher', JSON.stringify(teacherData));
+                
+                // Redirect về Dashboard.html (trang trung tâm điều hướng)
+                redirectToDashboard();
+            } else {
+                hideLoading();
+                alert('Đăng nhập thất bại, vui lòng thử lại.');
+            }
+        } catch (error) {
+            hideLoading();
+            console.error("Login error:", error);
+            let errorMsg = "Đăng nhập thất bại: ";
+            if (error.code === 'auth/popup-closed-by-user') {
+                errorMsg += "Bạn đã đóng cửa sổ đăng nhập. Vui lòng thử lại.";
+            } else if (error.code === 'auth/popup-blocked') {
+                errorMsg += "Trình duyệt đã chặn cửa sổ bật lên. Vui lòng cho phép popup và thử lại.";
+            } else {
+                errorMsg += error.message;
+            }
+            alert(errorMsg);
+        }
+    }
+    
+    // Kiểm tra trạng thái đăng nhập khi trang load
     auth.onAuthStateChanged((user) => {
         if (user) {
-            document.getElementById('loginPanel').classList.add('hidden');
-            document.getElementById('teacherPanel').classList.remove('hidden');
-            document.getElementById('teacherName').innerText = user.displayName || user.email.split('@')[0];
-            document.getElementById('teacherEmail').innerText = user.email;
-            localStorage.setItem('mathhub_teacher', JSON.stringify({ uid: user.uid, email: user.email, name: user.displayName }));
+            // Nếu đã đăng nhập, lưu thông tin và chuyển thẳng về Dashboard
+            const teacherData = {
+                uid: user.uid,
+                email: user.email,
+                name: user.displayName || user.email.split('@')[0],
+                lastLogin: Date.now()
+            };
+            localStorage.setItem('mathhub_teacher', JSON.stringify(teacherData));
+            redirectToDashboard();
         } else {
-            document.getElementById('loginPanel').classList.remove('hidden');
-            document.getElementById('teacherPanel').classList.add('hidden');
-            localStorage.removeItem('mathhub_teacher');
+            // Chưa đăng nhập: hiển thị form login
+            hideLoading();
         }
     });
     
-    async function handleGoogleLogin() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        try { await auth.signInWithPopup(provider); }
-        catch(e) { alert('Lỗi: ' + e.message); }
-    }
-    
-    async function handleLogout() { await auth.signOut(); }
+    // Hàm logout (có thể gọi từ nơi khác, nhưng trang này không cần nút logout)
+    window.handleLogout = async function() {
+        await auth.signOut();
+        localStorage.removeItem('mathhub_teacher');
+        // Sau logout sẽ tự động reload và onAuthStateChanged trigger lại
+    };
 </script>
 </body>
 </html>

@@ -71,6 +71,13 @@
         }
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Notification */
+        .notification {
+            position: fixed; bottom: 20px; right: 20px; background: #333; color: white;
+            padding: 12px 20px; border-radius: 10px; z-index: 10000; animation: fadeOut 3s forwards;
+        }
+        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
     </style>
 </head>
 <body>
@@ -131,6 +138,93 @@
     let masterKey = [];
     let userAnswers = {};
     let time = 0;
+    let examSubject = "Toán"; // Mặc định, có thể lấy từ examData nếu có
+
+    // ═══════════════════════════════════════════════════════════════
+    // HÀM TÍNH ĐIỂM (NORMALIZE THEO ĐÁP ÁN MASTER KEY)
+    // ═══════════════════════════════════════════════════════════════
+    function normalizeAnswer(str) {
+        if (!str) return '';
+        return String(str).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
+    }
+
+    function getScoreFromDSCorrect(correctCount) {
+        const barem = [0, 0.1, 0.25, 0.5, 1.0];
+        return barem[correctCount] || 0;
+    }
+
+    function calculateScore() {
+        let totalScore = 0;
+        if (!masterKey || masterKey.length === 0) return 0;
+        
+        masterKey.forEach(q => {
+            const qId = q.id;
+            const type = q.type;
+            const answer = userAnswers[qId];
+            
+            if (type === 'multiple_choice') {
+                if (answer && answer === q.correct) totalScore += 0.25;
+            } 
+            else if (type === 'true_false') {
+                let correctCount = 0;
+                if (answer && typeof answer === 'object') {
+                    const correctMap = q.correct || {a:false,b:false,c:false,d:false};
+                    ['a','b','c','d'].forEach(letter => {
+                        const userVal = answer[letter] === true;
+                        const correctVal = correctMap[letter] === true;
+                        if (userVal === correctVal) correctCount++;
+                    });
+                }
+                totalScore += getScoreFromDSCorrect(correctCount);
+            }
+            else if (type === 'short_answer') {
+                if (answer) {
+                    const normUser = normalizeAnswer(answer);
+                    const normCorrect = normalizeAnswer(q.correct);
+                    if (normUser === normCorrect) totalScore += 0.5;
+                }
+            }
+        });
+        return parseFloat(totalScore.toFixed(2));
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // VIỆC 2: GHI DỮ LIỆU THI THỬ VÀO THỐNG KÊ TOÀN HỆ THỐNG
+    // ═══════════════════════════════════════════════════════════════
+    async function submitAttemptSystem(attemptData) {
+        const attemptId = 'ATT_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        const dateKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+        const updates = {};
+
+        // (A) Ghi cho giáo viên (chi tiết lớp học) - nếu không phải chế độ demo
+        if (!isDemo && tid !== 'ADMIN') {
+            updates[`teachers/${tid}/attempts/${attemptId}`] = attemptData;
+        }
+
+        // (B) Ghi cho THỐNG KÊ TOÀN HỆ THỐNG (bắt buộc - Việc 2)
+        updates[`system_stats/attempts/${attemptId}`] = {
+            examId: attemptData.examId,
+            subject: attemptData.subject || "Toán",
+            studentCode: attemptData.studentCode,
+            studentName: attemptData.studentName,
+            score: attemptData.score,
+            timestamp: attemptData.timestamp,
+            teacherId: tid
+        };
+
+        // (C) Ghi thống kê theo NGÀY (để KPI nhẹ & bền)
+        updates[`system_stats/daily/${dateKey}/totalAttempts`] = firebase.database.ServerValue.increment(1);
+        updates[`system_stats/daily/${dateKey}/bySubject/${attemptData.subject || "Toán"}`] = firebase.database.ServerValue.increment(1);
+
+        try {
+            await db.ref().update(updates);
+            return true;
+        } catch (err) {
+            console.error("Lỗi ghi system_stats:", err);
+            return false;
+        }
+    }
 
     async function init() {
         if(!eid) return alert("Lỗi: Không tìm thấy mã đề thi trong link!");
@@ -151,21 +245,21 @@
 
             const keySnap = await db.ref(keyPath).once('value');
             masterKey = keySnap.val() || [];
+            if (examData.subject) examSubject = examData.subject;
 
             let pdfLink = examData.pdfUrl || examData.pdfLink;
-            if (pdfLink.includes('drive.google.com')) {
+            if (pdfLink && pdfLink.includes('drive.google.com')) {
                 pdfLink = pdfLink.replace('/view', '/preview');
-            } else if (pdfLink.includes('github.com')) {
+            } else if (pdfLink && pdfLink.includes('github.com')) {
                 pdfLink = pdfLink.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
             }
             
-            document.getElementById('pdfView').src = pdfLink;
-            document.getElementById('examName').innerText = examData.name;
+            document.getElementById('pdfView').src = pdfLink || '';
+            document.getElementById('examName').innerText = examData.name || 'Đề thi';
             
             renderSheet();
             startTimer(examData.duration || 90);
             
-            // Tắt hiệu ứng loading khi mọi thứ đã sẵn sàng
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
             }, 500);
@@ -223,8 +317,8 @@
         userAnswers[id][letter] = val;
         const btnT = document.getElementById(`tf_${id}_${letter}_t`);
         const btnF = document.getElementById(`tf_${id}_${letter}_f`);
-        btnT.classList.toggle('t-active', val === true);
-        btnF.classList.toggle('f-active', val === false);
+        if(btnT) btnT.classList.toggle('t-active', val === true);
+        if(btnF) btnF.classList.toggle('f-active', val === false);
     };
 
     window.pickSA = (id, val) => { userAnswers[id] = val; };
@@ -244,16 +338,44 @@
         }, 1000);
     }
 
-    function submitTest(isAuto = false) {
-        if(!isAuto && !confirm("Thầy/Cô có chắc chắn muốn nộp bài ngay bây giờ?")) return;
+    async function submitTest(isAuto = false) {
+        if(!isAuto && !confirm("Bạn có chắc chắn muốn nộp bài ngay bây giờ?")) return;
         
-        const resultData = {
-            tid, eid, sCode, sName, isDemo,
-            answers: userAnswers,
-            submittedAt: new Date().getTime()
+        // Tính điểm dựa trên masterKey và câu trả lời
+        const finalScore = calculateScore();
+        
+        const attemptData = {
+            examId: eid,
+            studentCode: sCode,
+            studentName: sName,
+            score: finalScore,
+            subject: examSubject,
+            timestamp: Date.now(),
+            teacherId: tid,
+            isDemo: isDemo
         };
         
-        localStorage.setItem('lastResult', JSON.stringify(resultData));
+        // Lưu vào localStorage để trang KQ.html hiển thị
+        const resultForKQ = {
+            tid, eid, sCode, sName, isDemo,
+            answers: userAnswers,
+            score: finalScore,
+            submittedAt: Date.now()
+        };
+        localStorage.setItem('lastResult', JSON.stringify(resultForKQ));
+        
+        // Ghi vào Firebase bằng hàm system stats (Việc 2)
+        if (!isDemo) {
+            const success = await submitAttemptSystem(attemptData);
+            if (!success) {
+                console.warn("Ghi system_stats thất bại, nhưng vẫn chuyển sang trang kết quả");
+            }
+        } else {
+            // Chế độ demo: chỉ lưu cục bộ, không ghi Firebase
+            console.log("Chế độ demo: không lưu kết quả vào Firebase");
+        }
+        
+        // Chuyển sang trang kết quả
         window.location.href = 'KQ.html';
     }
 
