@@ -78,6 +78,29 @@
             padding: 12px 20px; border-radius: 10px; z-index: 10000; animation: fadeOut 3s forwards;
         }
         @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        /* ========== HIỂN THỊ CHUYÊN NGHIỆP TRÊN ĐIỆN THOẠI ========== */
+        @media (max-width: 860px) {
+            .main-container { 
+                flex-direction: column; /* Xếp dọc thay vì xếp ngang */
+            }
+            .pdf-section { 
+                width: 100%; 
+                height: 45vh; /* Đề thi chiếm 45% chiều cao màn hình ở trên */
+                flex: none; 
+                border-right: none; 
+                border-bottom: 3px solid var(--primary); 
+            }
+            .answer-section { 
+                width: 100%; 
+                height: 55vh; /* Phiếu trả lời chiếm 55% màn hình ở dưới */
+                flex: none; 
+            }
+            /* Chỉnh nhỏ lại một chút để trên điện thoại nhìn gọn gàng hơn */
+            .bubble { width: 35px; height: 35px; font-size: 0.9rem; }
+            .timer-badge { padding: 6px 12px; font-size: 1rem; }
+            .brand { font-size: 1rem; }
+            #studentInfo { display: none; } /* Ẩn bớt tên để thanh Navbar không bị chật */
+        }
     </style>
 </head>
 <body>
