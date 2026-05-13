@@ -61,7 +61,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const firebaseConfig = {
         apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
@@ -72,7 +71,6 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     
-    // Hiển thị loading khi đang xử lý đăng nhập
     function showLoading() {
         document.getElementById('loginPanel').classList.add('hidden');
         document.getElementById('loadingPanel').classList.remove('hidden');
@@ -83,44 +81,67 @@
         document.getElementById('loginPanel').classList.remove('hidden');
     }
     
-    // Điều hướng về Dashboard.html duy nhất
     function redirectToDashboard() {
         window.location.href = "Dashboard.html";
     }
+
+    // 1. LẮNG NGHE KẾT QUẢ TRẢ VỀ TỪ ĐIỆN THOẠI (SAU KHI REDIRECT)
+    auth.getRedirectResult().then((result) => {
+        if (result.user) {
+            const user = result.user;
+            const teacherData = {
+                uid: user.uid,
+                email: user.email,
+                name: user.displayName || user.email.split('@')[0],
+                lastLogin: Date.now()
+            };
+            localStorage.setItem('mathhub_teacher', JSON.stringify(teacherData));
+            redirectToDashboard();
+        }
+    }).catch((error) => {
+        hideLoading();
+        console.error("Redirect Login Error:", error);
+        alert("Đăng nhập thất bại: " + error.message);
+    });
     
-    // Xử lý đăng nhập thành công: lưu thông tin + redirect về Dashboard.html
+    // 2. HÀM ĐĂNG NHẬP THÔNG MINH (TỰ NHẬN DIỆN THIẾT BỊ)
     async function handleGoogleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
         showLoading();
         
+        // Kiểm tra xem người dùng đang mở bằng điện thoại hay máy tính
+        const isMobile = /iPhone|iPad|iPod|Android|Zalo|Messenger/i.test(navigator.userAgent);
+        
         try {
-            const result = await auth.signInWithPopup(provider);
-            const user = result.user;
-            
-            if (user) {
-                // Lưu thông tin giáo viên vào localStorage để các trang khác dùng nếu cần
-                const teacherData = {
-                    uid: user.uid,
-                    email: user.email,
-                    name: user.displayName || user.email.split('@')[0],
-                    lastLogin: Date.now()
-                };
-                localStorage.setItem('mathhub_teacher', JSON.stringify(teacherData));
-                
-                // Redirect về Dashboard.html (trang trung tâm điều hướng)
-                redirectToDashboard();
+            if (isMobile) {
+                // TRÊN ĐIỆN THOẠI: Chuyển hướng trang (Bất chấp mọi trình duyệt chặn Popup)
+                await auth.signInWithRedirect(provider);
             } else {
-                hideLoading();
-                alert('Đăng nhập thất bại, vui lòng thử lại.');
+                // TRÊN MÁY TÍNH: Bật Popup cho nhanh và mượt
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                
+                if (user) {
+                    const teacherData = {
+                        uid: user.uid,
+                        email: user.email,
+                        name: user.displayName || user.email.split('@')[0],
+                        lastLogin: Date.now()
+                    };
+                    localStorage.setItem('mathhub_teacher', JSON.stringify(teacherData));
+                    redirectToDashboard();
+                } else {
+                    hideLoading();
+                }
             }
         } catch (error) {
             hideLoading();
             console.error("Login error:", error);
             let errorMsg = "Đăng nhập thất bại: ";
             if (error.code === 'auth/popup-closed-by-user') {
-                errorMsg += "Bạn đã đóng cửa sổ đăng nhập. Vui lòng thử lại.";
+                errorMsg += "Bạn đã đóng cửa sổ. Vui lòng thử lại.";
             } else if (error.code === 'auth/popup-blocked') {
-                errorMsg += "Trình duyệt đã chặn cửa sổ bật lên. Vui lòng cho phép popup và thử lại.";
+                errorMsg += "Trình duyệt chặn cửa sổ. Vui lòng thử đăng nhập lại.";
             } else {
                 errorMsg += error.message;
             }
@@ -128,10 +149,9 @@
         }
     }
     
-    // Kiểm tra trạng thái đăng nhập khi trang load
+    // 3. KIỂM TRA TRẠNG THÁI (ĐÃ ĐĂNG NHẬP THÌ VÀO THẲNG)
     auth.onAuthStateChanged((user) => {
         if (user) {
-            // Nếu đã đăng nhập, lưu thông tin và chuyển thẳng về Dashboard
             const teacherData = {
                 uid: user.uid,
                 email: user.email,
@@ -141,16 +161,13 @@
             localStorage.setItem('mathhub_teacher', JSON.stringify(teacherData));
             redirectToDashboard();
         } else {
-            // Chưa đăng nhập: hiển thị form login
             hideLoading();
         }
     });
     
-    // Hàm logout (có thể gọi từ nơi khác, nhưng trang này không cần nút logout)
     window.handleLogout = async function() {
         await auth.signOut();
         localStorage.removeItem('mathhub_teacher');
-        // Sau logout sẽ tự động reload và onAuthStateChanged trigger lại
     };
 </script>
 </body>

@@ -174,20 +174,24 @@
         .glass-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
         .glass-card p { color: #94a3b8; margin-bottom: 24px; font-size: 0.9rem; }
         .input-group { margin-bottom: 16px; }
-        .input-group input {
+        /* Gộp chung style để các ô nhập liệu đều đồng bộ và CAO HƠN */
+        .input-group input, .flex-row input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 18px 20px; /* Tăng từ 14px lên 18px để box cao và thoáng hơn */
             border-radius: 60px;
             border: 1px solid rgba(255,255,255,0.15);
             background: rgba(0,0,0,0.3);
             color: white;
-            font-size: 0.9rem;
+            font-size: 1rem; /* Tăng nhẹ font chữ để cân đối với box to */
             outline: none;
             transition: 0.2s;
         }
-        .input-group input:focus { border-color: #007bff; }
-        .flex-row { display: flex; gap: 12px; margin-bottom: 16px; }
-        .flex-row input { flex: 1; }
+        .input-group input:focus, .flex-row input:focus { 
+            border-color: #007bff; 
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Thêm hiệu ứng phát sáng nhẹ khi bấm vào */
+        }
+        .flex-row { display: flex; gap: 12px; margin-bottom: 20px; }
+        .flex-row input { flex: 1; width: auto; } /* Giữ tính năng chia đôi 2 cột cho Mã HS và Tên */
         .btn {
             width: 100%;
             padding: 14px;
@@ -361,7 +365,8 @@
         <div class="resource-card">
             <div class="resource-header" style="background: linear-gradient(115deg, #f59e0b, #d97706);"><h4><i class="fas fa-play-circle"></i> 🎥 Video hướng dẫn sử dụng</h4></div>
             <div class="resource-body">
-                <p>Hướng dẫn nhanh cho học sinh và giáo viên (3–5 phút).</p>                <div class="video-wrapper">
+                <p>Hướng dẫn nhanh cho học sinh và giáo viên (3–5 phút).</p>
+                <div class="video-wrapper">
                     <iframe src="" title="Video hướng dẫn" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <p style="font-size:0.7rem; margin-top: 12px;"><i class="fas fa-info-circle"></i> Cách vào phòng thi, tra cứu kết quả, tạo đề và giao bài.</p>
