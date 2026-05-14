@@ -175,7 +175,7 @@
         /* Grid hiển thị tài nguyên - thẻ linh hoạt */
         .resource-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 28px;
         }
         .resource-card {
@@ -211,6 +211,19 @@
             background: #dbeafe;
             color: #1e40af;
         }
+        .type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-left: 10px;
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .type-badge.exam { background: #dcfce7; color: #166534; }
+        .type-badge.resource { background: #fef3c7; color: #92400e; }
+        
         .card-body {
             padding: 24px 24px 16px 24px;
             flex: 1;
@@ -221,17 +234,31 @@
             line-height: 1.35;
             margin-bottom: 12px;
             color: #0f172a;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .card-meta {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
             font-size: 0.75rem;
             color: #475569;
             margin-bottom: 16px;
         }
         .card-meta i {
-            width: 18px;
+            width: 16px;
             color: #f59e0b;
+        }
+        .structure-info {
+            font-size: 0.7rem;
+            color: #10b981;
+            margin-top: 8px;
+            padding: 6px 10px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            display: inline-block;
         }
         .card-desc {
             font-size: 0.85rem;
@@ -308,6 +335,7 @@
             .filter-actions { justify-content: stretch; }
             .back-home { position: static; margin-top: 20px; display: inline-flex; width: auto; justify-content: center; }
             .hero { padding: 32px 20px; }
+            .resource-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -368,7 +396,7 @@
 </div>
 
 <script>
-    // ---------- CẤU HÌNH FIREBASE (dùng chung cấu trúc V2 + mở rộng learning_resources/community_resources) ----------
+    // ---------- CẤU HÌNH FIREBASE ----------
     const firebaseConfig = {
         apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
         authDomain: "mathhub-v2-2026.firebaseapp.com",
@@ -381,13 +409,39 @@
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let allResources = [];        // lưu toàn bộ tài nguyên đã gộp
+    let allResources = [];
     let filteredResources = [];
 
-    // ---- Hàm tải dữ liệu từ 3 nguồn: demo_exams (hệ thống đề), learning_resources (chuyên đề hệ thống), community_resources (giáo viên đóng góp) ----
+    // Map mã môn sang tên hiển thị
+    const subjectMap = {
+        'toan': '📐 Toán', 'ly': '⚡ Vật lí', 'hoa': '🧪 Hóa học', 'sinh': '🧬 Sinh học',
+        'su': '📜 Lịch sử', 'dia': '🌍 Địa lí', 'ktpl': '⚖️ KTPL', 'cn': '🔧 Công nghệ',
+        'tinhoc': '💻 Tin học', 'anh': '🌎 Ngoại ngữ'
+    };
+
+    function getSubjectDisplay(subject) {
+        if (!subject) return '📚 Chưa phân loại';
+        return subjectMap[subject] || subject;
+    }
+
+    function getTypeDisplay(type) {
+        if (type === 'exam') return '<span class="type-badge exam">📝 Đề thi</span>';
+        return '<span class="type-badge resource">📚 Chuyên đề</span>';
+    }
+
+    function getStructureDisplay(structure) {
+        if (!structure) return '';
+        let parts = [];
+        if (structure.mcq?.count) parts.push(`${structure.mcq.count} TN (${structure.mcq.score}đ)`);
+        if (structure.tf?.count) parts.push(`${structure.tf.count} Đ/S (0.1-1đ)`);
+        if (structure.sa?.count) parts.push(`${structure.sa.count} TLN (${structure.sa.score}đ)`);
+        if (parts.length === 0) return '';
+        return `<div class="structure-info"><i class="fas fa-chart-simple"></i> Cấu trúc: ${parts.join(' · ')}</div>`;
+    }
+
+    // Tải dữ liệu
     async function fetchAllLearningResources() {
         try {
-            // Chạy song song 3 truy vấn (demo_exams, learning_resources, community_resources)
             const [demoSnap, sysResSnap, commSnap] = await Promise.all([
                 db.ref('demo_exams').once('value'),
                 db.ref('learning_resources').once('value'),
@@ -396,7 +450,7 @@
 
             let tempArray = [];
 
-            // 1. Xử lý Kho đề demo (Hệ thống – dạng đề thi)
+            // 1. Đề thi demo (Hệ thống)
             if (demoSnap.exists()) {
                 const demoData = demoSnap.val();
                 for (const [id, exam] of Object.entries(demoData)) {
@@ -408,53 +462,56 @@
                         type: 'exam',
                         title: exam.name || exam.examName || `Đề ${id}`,
                         grade: gradeNum,
+                        subject: exam.subject || 'toan',
                         description: exam.description || `Đề ôn tập chất lượng cao dành cho học sinh lớp ${gradeNum}`,
                         pdfLink: exam.pdfLink || '',
-                        examId: id,
-                        duration: exam.duration || 90,
                         author: 'MATH HUB System',
+                        structure: exam.structure || null,
                         updatedAt: exam.updatedAt || Date.now()
                     });
                 }
             }
 
-            // 2. Xử lý Học liệu hệ thống (learning_resources) – các chuyên đề, tài liệu PDF
+            // 2. Học liệu hệ thống (learning_resources)
             if (sysResSnap.exists()) {
                 const sysData = sysResSnap.val();
                 for (const [id, resource] of Object.entries(sysData)) {
                     tempArray.push({
                         id: id,
                         source: 'system',
-                        type: 'resource',
+                        type: resource.type || 'resource',
                         title: resource.title || resource.name || `Tài liệu ${id}`,
                         grade: resource.grade || '12',
+                        subject: resource.subject || 'toan',
                         description: resource.description || 'Chuyên đề học tập chất lượng từ đội ngũ MATH HUB.',
                         pdfLink: resource.pdfLink || resource.url || '',
                         author: resource.author || 'MATH HUB',
+                        structure: resource.structure || null,
                         updatedAt: resource.updatedAt || Date.now()
                     });
                 }
             }
 
-            // 3. Xử lý Học liệu cộng đồng (giáo viên đóng góp)
+            // 3. Học liệu cộng đồng
             if (commSnap.exists()) {
                 const commData = commSnap.val();
                 for (const [id, contrib] of Object.entries(commData)) {
                     tempArray.push({
                         id: id,
                         source: 'community',
-                        type: 'resource',
+                        type: contrib.type || 'resource',
                         title: contrib.title || contrib.name || `Đóng góp ${id}`,
                         grade: contrib.grade || '12',
+                        subject: contrib.subject || 'toan',
                         description: contrib.description || 'Tài liệu do giáo viên chia sẻ, hỗ trợ ôn tập hiệu quả.',
                         pdfLink: contrib.pdfLink || contrib.url || '',
                         author: contrib.author || 'Giáo viên cộng đồng',
+                        structure: contrib.structure || null,
                         updatedAt: contrib.updatedAt || Date.now()
                     });
                 }
             }
 
-            // Sắp xếp mới nhất lên đầu
             tempArray.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
             allResources = tempArray;
             updateStatsPanel();
@@ -465,7 +522,6 @@
         }
     }
 
-    // Cập nhật thống kê nhanh
     function updateStatsPanel() {
         const total = allResources.length;
         const systemTotal = allResources.filter(r => r.source === 'system').length;
@@ -475,7 +531,6 @@
         document.getElementById('communityCount').innerText = communityTotal;
     }
 
-    // Lọc dữ liệu theo các tiêu chí
     function applyFilters() {
         const sourceVal = document.getElementById('sourceFilter').value;
         const gradeVal = document.getElementById('gradeFilter').value;
@@ -502,7 +557,6 @@
         renderResourceGrid(filteredResources);
     }
 
-    // Reset toàn bộ bộ lọc
     function resetFilters() {
         document.getElementById('sourceFilter').value = 'all';
         document.getElementById('gradeFilter').value = 'all';
@@ -510,7 +564,6 @@
         applyFilters();
     }
 
-    // Hàm render giao diện thẻ tài nguyên (đẹp, chuyên nghiệp)
     function renderResourceGrid(resources) {
         const gridContainer = document.getElementById('resourceGrid');
         if (!resources.length) {
@@ -522,17 +575,16 @@
         for (let res of resources) {
             const tagClass = res.source === 'system' ? 'tag-system' : 'tag-community';
             const tagText = res.source === 'system' ? '⭐ Hệ thống' : '🤝 Cộng đồng';
-            const gradeDisplay = `Lớp ${res.grade}`;
-            const limitedDesc = res.description.length > 110 ? res.description.substring(0, 110) + '…' : res.description;
+            const subjectDisplay = getSubjectDisplay(res.subject);
+            const typeDisplay = getTypeDisplay(res.type);
+            const structureDisplay = getStructureDisplay(res.structure);
+            const limitedDesc = res.description.length > 100 ? res.description.substring(0, 100) + '…' : res.description;
             
-            // Nếu là đề thi (type === 'exam') -> hiển thị nút "Làm bài", ngược lại nút "Xem PDF"
             const isExam = (res.type === 'exam');
             let actionButton = '';
             if (isExam) {
-                // Sử dụng startExamFromLibrary: truyền examId để vào phòng thi demo
                 actionButton = `<button class="btn-primary-card" onclick="startExamFromLibrary('${res.id}')"><i class="fas fa-play"></i> Làm bài trực tuyến</button>`;
             } else {
-                // Tài liệu dạng PDF: nếu có link thì mở tab mới
                 const pdfUrl = res.pdfLink || '#';
                 if (pdfUrl !== '#') {
                     actionButton = `<button class="btn-pdf-card" onclick="window.open('${pdfUrl}', '_blank')"><i class="fas fa-file-pdf"></i> Xem tài liệu PDF</button>`;
@@ -544,12 +596,19 @@
             html += `
                 <div class="resource-card">
                     <div class="card-body">
-                        <span class="card-tag ${tagClass}">${tagText}</span>
-                        <h3 class="card-title">${escapeHtml(res.title)}</h3>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="card-tag ${tagClass}">${tagText}</span>
+                            ${typeDisplay}
+                        </div>
+                        <h3 class="card-title">
+                            ${escapeHtml(res.title)}
+                        </h3>
                         <div class="card-meta">
-                            <span><i class="fas fa-graduation-cap"></i> ${gradeDisplay}</span>
+                            <span><i class="fas fa-graduation-cap"></i> Lớp ${res.grade}</span>
+                            <span><i class="fas fa-book-open"></i> ${subjectDisplay}</span>
                             <span><i class="fas fa-user-edit"></i> ${escapeHtml(res.author)}</span>
                         </div>
+                        ${structureDisplay}
                         <div class="card-desc">${escapeHtml(limitedDesc)}</div>
                     </div>
                     <div class="card-footer">
@@ -561,17 +620,13 @@
         gridContainer.innerHTML = html;
     }
 
-    // Hàm xử lý bắt đầu thi từ kho học liệu (dành cho đề)
     function startExamFromLibrary(examId) {
         if (!examId) return;
-        // Tạo mã học sinh demo ngẫu nhiên để trải nghiệm
         const demoCode = `LIB_${Math.floor(Math.random() * 100000)}_${Date.now()}`;
         const demoName = `Học sinh (khách)`;
-        // Điều hướng đến PTLTNM.html với chế độ demo
         window.location.href = `PTLTNM.html?demo=true&exam=${examId}&t=ADMIN&code=${encodeURIComponent(demoCode)}&name=${encodeURIComponent(demoName)}`;
     }
 
-    // Helper thoát HTML
     function escapeHtml(str) {
         if (!str) return '';
         return String(str).replace(/[&<>]/g, function(m) {
@@ -582,12 +637,10 @@
         });
     }
 
-    // Gắn các hàm vào window để dùng inline
     window.applyFilters = applyFilters;
     window.resetFilters = resetFilters;
     window.startExamFromLibrary = startExamFromLibrary;
 
-    // Khởi tạo trang
     fetchAllLearningResources();
 </script>
 </body>

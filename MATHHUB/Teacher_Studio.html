@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MATH HUB 2026 · STUDIO PRO ADMIN</title>
+    <title>MATH HUB 2026 · STUDIO PRO - ĐA MÔN & HỌC LIỆU</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #0f172a; --accent: #f59e0b; --bg: #eef2ff; }
+        :root { --primary: #0f172a; --accent: #f59e0b; --success: #10b981; --bg: #eef2ff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg); padding: 20px; color: #1e293b; }
         .container { max-width: 1400px; margin: 0 auto; }
         
         .glass-card { background: rgba(255, 255, 255, 0.95); border-radius: 24px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid white; margin-bottom: 25px; }
         
-        .hero-header { background: var(--primary); color: white; padding: 25px 35px; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .hero-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 25px 35px; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
         .branding h1 { font-size: 1.6rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 12px; }
         .branding h1 i { color: var(--accent); }
         .branding p { font-size: 0.7rem; opacity: 0.7; margin-top: 5px; }
@@ -33,8 +33,11 @@
         .grid-config { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .field { display: flex; flex-direction: column; gap: 8px; }
         .field label { font-weight: 800; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-        .field input, .field select { padding: 12px 18px; border: 1px solid #e2e8f0; border-radius: 15px; outline: none; background: #f8fafc; transition: 0.2s; }
-        .field input:focus { border-color: var(--accent); background: white; }
+        .field label i { margin-right: 5px; color: var(--accent); }
+        .field input, .field select { padding: 12px 18px; border: 1px solid #e2e8f0; border-radius: 15px; outline: none; background: #f8fafc; transition: 0.2s; font-weight: 500; }
+        .field input:focus, .field select:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(245,158,11,0.1); }
+        
+        .info-badge { background: #fef3c7; padding: 8px 15px; border-radius: 12px; font-size: 0.7rem; color: #b45309; display: inline-flex; align-items: center; gap: 8px; }
         
         .question-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; transition: 0.3s; flex-wrap: wrap; gap: 15px; }
         .question-card:hover { transform: translateX(8px); border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
@@ -57,9 +60,10 @@
         .exam-btn { padding: 10px 20px; border-radius: 12px; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: 700; color: var(--primary); transition: 0.3s; margin: 5px; }
         .exam-btn:hover { border-color: var(--accent); background: #fffbeb; transform: translateY(-2px); }
         
+        .section-title { font-weight: 800; font-size: 0.85rem; margin: 20px 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: inline-block; }
+        
         @media (max-width: 860px) {
             .question-card { flex-direction: column; align-items: flex-start; }
-            .mcq-group, .tf-group { flex-wrap: wrap; }
             .hero-header { flex-direction: column; text-align: center; }
             .container { padding: 0 10px; }
         }
@@ -84,12 +88,42 @@
     </div>
 
     <div class="glass-card">
+        <!-- ========== LOẠI NỘI DUNG & MÔN HỌC ========== -->
+        <div class="grid-config" style="margin-bottom: 20px;">
+            <div class="field">
+                <label><i class="fas fa-tag"></i> Loại nội dung</label>
+                <select id="contentType" onchange="toggleContentType()">
+                    <option value="exam">📝 Đề thi</option>
+                    <option value="resource">📚 Chuyên đề học liệu</option>
+                </select>
+            </div>
+            <div class="field">
+                <label><i class="fas fa-book-open"></i> Môn học</label>
+                <select id="subject" onchange="applySubjectStructure()">
+                    <option value="toan">📐 Toán</option>
+                    <option value="ly">⚡ Vật lí</option>
+                    <option value="hoa">🧪 Hóa học</option>
+                    <option value="sinh">🧬 Sinh học</option>
+                    <option value="su">📜 Lịch sử</option>
+                    <option value="dia">🌍 Địa lí</option>
+                    <option value="ktpl">⚖️ Kinh tế & Pháp luật</option>
+                    <option value="cn">🔧 Công nghệ</option>
+                    <option value="tinhoc">💻 Tin học</option>
+                    <option value="anh">🌎 Ngoại ngữ</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Thông báo cấu trúc môn -->
+        <div id="structureInfo" class="info-badge" style="margin-bottom: 20px; display: inline-flex;">
+            <i class="fas fa-info-circle"></i> <span id="structureText">Đang tải cấu trúc...</span>
+        </div>
+        
         <div class="grid-config">
-            <div class="field"><label>Tên đề thi</label><input type="text" id="examName" placeholder="VD: Đề minh họa 2026"></div>
-            <div class="field"><label>Mã định danh (ID)</label><div style="display:flex; gap:10px;"><input type="text" id="examId" placeholder="DE_01" style="flex:1;"><button onclick="loadExam()" style="padding:10px 18px; border-radius:12px; cursor:pointer; background:#e2e8f0; border:none;"><i class="fas fa-search"></i></button></div></div>
-            <div class="field"><label>Link PDF Đề bài</label><input type="text" id="pdfLink" placeholder="https://..."></div>
-            <div class="field"><label style="color:#10b981;">Link PDF Giải chi tiết</label><input type="text" id="solutionPdf" style="border-color:#10b981;"></div>
-            <div class="field"><label>Thời gian (phút)</label><input type="number" id="duration" value="90"></div>
+            <div class="field"><label><i class="fas fa-heading"></i> Tên đề / Chuyên đề</label><input type="text" id="examName" placeholder="VD: Đề minh họa 2026"></div>
+            <div class="field"><label><i class="fas fa-qrcode"></i> Mã định danh (ID)</label><div style="display:flex; gap:10px;"><input type="text" id="examId" placeholder="DE_01" style="flex:1;"><button onclick="loadExam()" style="padding:10px 18px; border-radius:12px; cursor:pointer; background:#e2e8f0; border:none;"><i class="fas fa-search"></i></button></div></div>
+            <div class="field"><label><i class="fas fa-file-pdf"></i> Link PDF</label><input type="text" id="pdfLink" placeholder="https://..."></div>
+            <div class="field"><label><i class="fas fa-clock"></i> Thời gian (phút)</label><input type="number" id="duration" value="90"></div>
         </div>
         
         <!-- DANH SÁCH MÃ ĐỀ HIỆN CÓ -->
@@ -101,7 +135,7 @@
         </div>
         
         <div style="margin-top:20px; background:#fffbeb; padding:15px; border-radius:15px; border:1px dashed var(--accent);">
-            <label style="font-weight: 800; font-size: 0.7rem;">⚡ NẠP NHANH 22 CÂU (Cách nhau dấu cách):</label>
+            <label style="font-weight: 800; font-size: 0.7rem;">⚡ NẠP NHANH ĐÁP ÁN (Cách nhau dấu cách):</label>
             <input type="text" id="bulkInput" style="width:100%; margin-top:10px; padding:12px; border-radius:10px; border:1px solid #fde68a;" placeholder="A B C D... TTFF... 10 25...">
             <button onclick="applyBulk()" style="margin-top:10px; background:var(--accent); border:none; padding:8px 20px; border-radius:8px; font-weight:800; cursor:pointer;">NẠP NGAY</button>
         </div>
@@ -110,7 +144,7 @@
     <div id="editorGrid"></div>
     
     <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
-        <button class="btn-publish" onclick="saveData()"><i class="fas fa-cloud-upload-alt"></i> LƯU VÀO HỆ THỐNG</button>
+        <button class="btn-publish" onclick="saveDataPro()"><i class="fas fa-cloud-upload-alt"></i> LƯU VÀO HỆ THỐNG</button>
     </div>
 </div>
 
@@ -131,15 +165,109 @@
     
     const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
     let masterKey = {};
+    let currentStructure = { mcq: 12, tf: 4, sa: 6, saScore: 0.5, totalQuestions: 22 };
 
     // ================================================================
-    // 1. TRẠNG THÁI ĐĂNG NHẬP + TẢI DANH SÁCH ĐỀ
+    // 1. CẤU HÌNH THEO MÔN HỌC
+    // ================================================================
+    function applySubjectStructure() {
+        const subject = document.getElementById('subject').value;
+        let structure = { mcq: 12, tf: 4, sa: 6, saScore: 0.5, totalQuestions: 22 };
+        let subjectName = "";
+
+        switch(subject) {
+            case 'toan':
+                structure = { mcq: 12, tf: 4, sa: 6, saScore: 0.5, totalQuestions: 22 };
+                subjectName = "Toán";
+                break;
+            case 'ly':
+            case 'hoa':
+            case 'sinh':
+            case 'dia':
+                structure = { mcq: 18, tf: 4, sa: 6, saScore: 0.25, totalQuestions: 28 };
+                subjectName = subject === 'ly' ? "Vật lí" : subject === 'hoa' ? "Hóa học" : subject === 'sinh' ? "Sinh học" : "Địa lí";
+                break;
+            case 'su':
+            case 'ktpl':
+            case 'cn':
+                structure = { mcq: 24, tf: 4, sa: 0, saScore: 0, totalQuestions: 28 };
+                subjectName = subject === 'su' ? "Lịch sử" : subject === 'ktpl' ? "KTPL" : "Công nghệ";
+                break;
+            case 'tinhoc':
+                structure = { mcq: 24, tf: 4, sa: 0, saScore: 0, totalQuestions: 28 };
+                subjectName = "Tin học";
+                break;
+            case 'anh':
+                structure = { mcq: 40, tf: 0, sa: 0, saScore: 0, totalQuestions: 40 };
+                subjectName = "Ngoại ngữ";
+                break;
+            default:
+                structure = { mcq: 12, tf: 4, sa: 6, saScore: 0.5, totalQuestions: 22 };
+                subjectName = "Toán";
+        }
+        
+        currentStructure = structure;
+        
+        // Cập nhật thông báo
+        let infoText = `${subjectName}: `;
+        infoText += `${structure.mcq} câu TN (${structure.mcq * 0.25}đ)`;
+        if(structure.tf > 0) infoText += ` + ${structure.tf} câu Đ/S (thang 0.1-1đ)`;
+        if(structure.sa > 0) infoText += ` + ${structure.sa} câu TLN (${structure.saScore}đ/câu)`;
+        document.getElementById('structureText').innerText = infoText;
+        
+        // Hiển thị thông báo nếu cần render lại editor
+       renderEditorByStructure();
+    }
+    
+    function renderEditorByStructure() {
+        const grid = document.getElementById('editorGrid');
+        let html = '';
+        let qId = 1;
+        
+        // Phần trắc nghiệm
+        if(currentStructure.mcq > 0) {
+            html += `<div class="section-title"><i class="fas fa-check-circle"></i> PHẦN I. TRẮC NGHIỆM (${currentStructure.mcq * 0.25} điểm)</div>`;
+            for(let i = 1; i <= currentStructure.mcq; i++, qId++) {
+                html += `<div class="question-card" data-id="${qId}">
+                    <div style="display:flex; align-items:center; gap:15px;"><div class="q-num">${qId}</div><span style="font-weight:700; color:#94a3b8; font-size:0.7rem;">MCQ</span></div>
+                    <div class="mcq-group">${['A','B','C','D'].map(v => `<button class="mcq-btn" id="q_${qId}_${v}" onclick="setMCQ(${qId},'${v}')">${v}</button>`).join('')}</div>
+                </div>`;
+            }
+        }
+        
+        // Phần đúng/sai
+        if(currentStructure.tf > 0) {
+            html += `<div class="section-title"><i class="fas fa-question-circle"></i> PHẦN II. ĐÚNG/SAI (Thang điểm 0.1 - 1.0)</div>`;
+            for(let i = 1; i <= currentStructure.tf; i++, qId++) {
+                html += `<div class="question-card" data-id="${qId}">
+                    <div style="display:flex; align-items:center; gap:15px;"><div class="q-num">${qId}</div><span style="font-weight:700; color:#94a3b8; font-size:0.7rem;">TF</span></div>
+                    <div class="tf-group">${['a','b','c','d'].map(l => `<div class="tf-unit"><span style="font-weight:800; width:20px;">${l})</span><button class="tf-btn" id="tf_${qId}_${l}_t" onclick="setTF(${qId},'${l}',true)">Đ</button><button class="tf-btn" id="tf_${qId}_${l}_f" onclick="setTF(${qId},'${l}',false)">S</button></div>`).join('')}</div>
+                </div>`;
+            }
+        }
+        
+        // Phần trả lời ngắn
+        if(currentStructure.sa > 0) {
+            html += `<div class="section-title"><i class="fas fa-pen-fancy"></i> PHẦN III. TRẢ LỜI NGẮN (${currentStructure.saScore}đ/câu)</div>`;
+            for(let i = 1; i <= currentStructure.sa; i++, qId++) {
+                html += `<div class="question-card" data-id="${qId}">
+                    <div style="display:flex; align-items:center; gap:15px;"><div class="q-num">${qId}</div><span style="font-weight:700; color:#94a3b8; font-size:0.7rem;">SA</span></div>
+                    <input type="text" id="sa_${qId}" class="sa-input" placeholder="Đáp số..." onchange="setSA(${qId}, this.value)">
+                </div>`;
+            }
+        }
+        
+        grid.innerHTML = html;
+    }
+
+    // ================================================================
+    // 2. TRẠNG THÁI ĐĂNG NHẬP + TẢI DANH SÁCH ĐỀ
     // ================================================================
     auth.onAuthStateChanged(user => {
         if(user) {
             document.getElementById('userStatus').innerHTML = `<i class="fas fa-user-check"></i> ${user.email}`;
-            renderEditor();
-            listMyExams();  // Tải danh sách đề cũ để sửa
+            applySubjectStructure();
+            listMyExams();
         } else { 
             window.location.href = 'login.html'; 
         }
@@ -153,10 +281,18 @@
         }
         document.getElementById('modeText').innerText = document.getElementById('modeSwitch').checked ? "DEMO MODE" : "CỘNG ĐỒNG";
     }
+    
+    function toggleContentType() {
+        const type = document.getElementById('contentType').value;
+        if(type === 'resource') {
+            document.getElementById('duration').disabled = true;
+            document.getElementById('duration').style.opacity = '0.5';
+        } else {
+            document.getElementById('duration').disabled = false;
+            document.getElementById('duration').style.opacity = '1';
+        }
+    }
 
-    // ================================================================
-    // 2. LIỆT KÊ DANH SÁCH ĐỀ THI CỦA GIÁO VIÊN
-    // ================================================================
     async function listMyExams() {
         const user = auth.currentUser;
         if(!user) return;
@@ -179,35 +315,15 @@
         }
     }
 
-    // ================================================================
-    // 3. NẠP NHANH DỮ LIỆU ĐỀ CŨ
-    // ================================================================
     window.quickLoad = (eid) => {
         document.getElementById('examId').value = eid;
-        loadExam(); // Dùng hàm loadExam có sẵn
+        loadExam();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     // ================================================================
-    // 4. GIAO DIỆN 22 CÂU HỎI
+    // 3. CÁC HÀM SET ĐÁP ÁN
     // ================================================================
-    function renderEditor() {
-        const grid = document.getElementById('editorGrid');
-        let html = '';
-        for(let i=1; i<=22; i++) {
-            let type = i<=12 ? 'MCQ' : i<=16 ? 'TF' : 'SA';
-            html += `<div class="question-card">
-                <div style="display:flex; align-items:center; gap:15px;"><div class="q-num">${i}</div><span style="font-weight:700; color:#94a3b8; font-size:0.7rem;">${type}</span></div>
-                <div>
-                    ${type === 'MCQ' ? `<div class="mcq-group">${['A','B','C','D'].map(v => `<button class="mcq-btn" id="q_${i}_${v}" onclick="setMCQ(${i},'${v}')">${v}</button>`).join('')}</div>` :
-                      type === 'TF' ? `<div class="tf-group">${['a','b','c','d'].map(l => `<div class="tf-unit"><span style="font-weight:800; width:20px;">${l})</span><button class="tf-btn" id="tf_${i}_${l}_t" onclick="setTF(${i},'${l}',true)">Đ</button><button class="tf-btn" id="tf_${i}_${l}_f" onclick="setTF(${i},'${l}',false)">S</button></div>`).join('')}</div>` :
-                      `<input type="text" id="sa_${i}" class="sa-input" placeholder="Đáp số..." onchange="setSA(${i},this.value)">`}
-                </div>
-            </div>`;
-        }
-        grid.innerHTML = html;
-    }
-
     window.setMCQ = (id, v) => {
         masterKey[id] = v;
         ['A','B','C','D'].forEach(x => {
@@ -228,7 +344,7 @@
     window.setSA = (id, v) => { masterKey[id] = v; };
 
     // ================================================================
-    // 5. LOAD ĐỀ THI (TỪ FIREBASE LÊN FORM)
+    // 4. LOAD ĐỀ THI
     // ================================================================
     async function loadExam() {
         const eid = document.getElementById('examId').value;
@@ -247,123 +363,182 @@
                 const d = examSnap.val();
                 document.getElementById('examName').value = d.name || '';
                 document.getElementById('pdfLink').value = d.pdfLink || d.pdfUrl || '';
-                document.getElementById('solutionPdf').value = d.solutionPdf || '';
                 document.getElementById('duration').value = d.duration || 90;
                 
-                // Reset masterKey trước khi load
+                // Set môn học nếu có
+                if(d.subject) {
+                    const subSelect = document.getElementById('subject');
+                    for(let i = 0; i < subSelect.options.length; i++) {
+                        if(subSelect.options[i].value === d.subject) {
+                            subSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    applySubjectStructure();
+                }
+                
                 masterKey = {};
                 const keys = keySnap.val() || [];
+                renderEditorByStructure();
+                
                 keys.forEach(k => {
                     if(k.type === 'multiple_choice') setMCQ(k.id, k.correct);
                     else if(k.type === 'true_false') { ['a','b','c','d'].forEach(l => setTF(k.id, l, k.correct?.[l])); }
                     else if(k.type === 'short_answer') { 
-                        document.getElementById(`sa_${k.id}`).value = k.correct; 
+                        const saInput = document.getElementById(`sa_${k.id}`);
+                        if(saInput) saInput.value = k.correct; 
                         setSA(k.id, k.correct);
                     }
                 });
-                alert("✅ Đã tải dữ liệu đề thành công!");
+                alert("✅ Đã tải dữ liệu thành công!");
             } else {
-                alert("Không tìm thấy mã đề này!");
+                alert("Không tìm thấy mã này!");
             }
-        } catch(e) { alert("Lỗi tải đề: " + e.message); }
+        } catch(e) { alert("Lỗi tải: " + e.message); }
     }
 
     // ================================================================
-    // 6. LƯU DỮ LIỆU (KHÓA CHẶT LOGIC & ĐỒNG BỘ HỆ THỐNG)
+    // 5. LƯU DỮ LIỆU (ĐA NĂNG: ĐỀ THI / HỌC LIỆU)
     // ================================================================
-    async function saveData() {
+    async function saveDataPro() {
+        const contentType = document.getElementById('contentType').value;
+        const subject = document.getElementById('subject').value;
+        const name = document.getElementById('examName').value;
+        const pdfLink = document.getElementById('pdfLink').value;
+        
+        if(!name) return alert("Vui lòng nhập tên!");
+        
+        if(contentType === 'resource') {
+            // Lưu chuyên đề học liệu
+            const resourceId = 'RES_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+            const resourceData = {
+                title: name,
+                subject: subject,
+                grade: 12,
+                pdfLink: pdfLink,
+                description: "Chuyên đề học tập",
+                type: 'resource',
+                createdAt: firebase.database.ServerValue.TIMESTAMP,
+                author: auth.currentUser?.email || "Teacher",
+                authorUid: auth.currentUser?.uid
+            };
+            await db.ref(`learning_resources/${resourceId}`).set(resourceData);
+            alert("✅ Đã lưu vào KHO HỌC LIỆU thành công!");
+            return;
+        }
+        
+        // Lưu đề thi
         const eid = document.getElementById('examId').value;
-        if(!eid) return alert("Vui lòng nhập hoặc chọn Mã định danh (ID) đề thi!");
+        if(!eid) return alert("Vui lòng nhập Mã định danh (ID) đề thi!");
         
         const isDemo = document.getElementById('modeSwitch').checked;
         if(isDemo && auth.currentUser.uid !== ADMIN_UID) {
             alert("🔒 Chỉ Admin mới có quyền thay đổi đề Demo!");
             return;
         }
-        if(isDemo && !confirm("⚠️ Thầy đang sửa đề HỆ THỐNG (Demo). Tiếp tục?")) return;
-
-        // Chuẩn hóa link GitHub
-        let pdf = document.getElementById('pdfLink').value;
+        
+        let pdf = pdfLink;
         if(pdf.includes('github.com')) pdf = pdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-
-        // BẢO TOÀN DỮ LIỆU CŨ: Lấy createdAt nếu đã tồn tại
+        
         const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
         const oldSnap = await db.ref(path).once('value');
         const oldData = oldSnap.val();
-
+        
+        // Xác định tổng số câu hỏi dựa trên cấu trúc
+        let totalQuestions = currentStructure.mcq + currentStructure.tf + currentStructure.sa;
+        
         const examData = {
-            name: document.getElementById('examName').value,
+            name: name,
             pdfLink: pdf,
-            solutionPdf: document.getElementById('solutionPdf').value,
             duration: parseInt(document.getElementById('duration').value) || 90,
-            subject: "Toán",
+            subject: subject,
             grade: 12,
-            createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP, // GIỮ NGUYÊN NGÀY TẠO
+            structure: currentStructure,
+            createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
             updatedAt: firebase.database.ServerValue.TIMESTAMP
         };
-
-        // Đóng gói đáp án 22 câu
+        
+        // Đóng gói đáp án theo cấu trúc
         const keys = [];
-        for(let i=1; i<=22; i++) {
-            keys.push({
-                id: i,
-                type: i<=12 ? 'multiple_choice' : i<=16 ? 'true_false' : 'short_answer',
-                correct: masterKey[i] || (i<=16 && i>=13 ? {a:false,b:false,c:false,d:false} : "")
-            });
+        let qId = 1;
+        for(let i = 1; i <= currentStructure.mcq; i++, qId++) {
+            keys.push({ id: qId, type: 'multiple_choice', correct: masterKey[qId] || "" });
         }
-
+        for(let i = 1; i <= currentStructure.tf; i++, qId++) {
+            keys.push({ id: qId, type: 'true_false', correct: masterKey[qId] || {a:false,b:false,c:false,d:false} });
+        }
+        for(let i = 1; i <= currentStructure.sa; i++, qId++) {
+            keys.push({ id: qId, type: 'short_answer', correct: masterKey[qId] || "" });
+        }
+        
         const keyPath = isDemo ? `demo_master_keys/${eid}` : `teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`;
-
+        
         try {
             if (!isDemo) {
-                // ĐỒNG BỘ NHIỀU NHÁNH (Multi-path Update)
                 const updates = {};
                 updates[`teachers/${auth.currentUser.uid}/exams/${eid}`] = examData;
-                // CẬP NHẬT THỐNG KÊ TOÀN HỆ THỐNG
                 updates[`system_stats/exams/${eid}`] = {
                     name: examData.name,
                     teacherId: auth.currentUser.uid,
+                    subject: subject,
                     updatedAt: examData.updatedAt,
                     createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
                     grade: 12,
-                    subject: "Toán"
+                    structure: currentStructure
                 };
                 await db.ref().update(updates);
                 await db.ref(keyPath).set(keys);
             } else {
-                // Chế độ Demo
                 await db.ref(path).update(examData);
                 await db.ref(keyPath).set(keys);
             }
             
             alert("🎉 ĐỀ THI ĐÃ ĐƯỢC LƯU & ĐỒNG BỘ THỐNG KÊ THÀNH CÔNG!");
-            listMyExams(); // Cập nhật lại danh sách
+            listMyExams();
         } catch(e) { 
             alert("Lỗi đồng bộ: " + e.message); 
         }
     }
-
-    // ================================================================
-    // 7. NẠP NHANH BULK ĐÁP ÁN
-    // ================================================================
-    window.applyBulk = () => {
+    
+    function applyBulk() {
         const input = document.getElementById('bulkInput').value.trim().split(/\s+/);
-        input.forEach((val, i) => {
-            let qId = i + 1;
-            if(qId <= 12) setMCQ(qId, val.toUpperCase());
-            else if(qId <= 16) {
+        const totalQuestions = currentStructure.mcq + currentStructure.tf + currentStructure.sa;
+        
+        input.forEach((val, idx) => {
+            let qId = idx + 1;
+            if(qId > totalQuestions) return;
+            
+            if(qId <= currentStructure.mcq) {
+                setMCQ(qId, val.toUpperCase());
+            } else if(qId <= currentStructure.mcq + currentStructure.tf) {
                 let s = val.toUpperCase();
-                if(s.length === 4) ['a','b','c','d'].forEach((l, idx) => setTF(qId, l, s[idx]==='T'));
-            } else if(qId <= 22) {
-                document.getElementById(`sa_${qId}`).value = val; 
+                if(s.length === 4) {
+                    ['a','b','c','d'].forEach((l, i) => setTF(qId, l, s[i] === 'T'));
+                } else if(s === 'T') {
+                    ['a','b','c','d'].forEach(l => setTF(qId, l, true));
+                } else if(s === 'F') {
+                    ['a','b','c','d'].forEach(l => setTF(qId, l, false));
+                }
+            } else {
+                const saInput = document.getElementById(`sa_${qId}`);
+                if(saInput) saInput.value = val;
                 setSA(qId, val);
             }
         });
         alert("✅ Đã nạp bulk đáp án!");
-    };
+    }
     
-    // Hàm loadExam để dùng trong quickLoad
     window.loadExam = loadExam;
+    window.saveDataPro = saveDataPro;
+    window.applySubjectStructure = applySubjectStructure;
+    window.toggleContentType = toggleContentType;
+    window.applyBulk = applyBulk;
+    
+    // Khởi tạo
+    setTimeout(() => {
+        applySubjectStructure();
+        toggleContentType();
+    }, 100);
 </script>
 </body>
 </html>
