@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>ADMIN - Thống kê toàn hệ thống</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+<style>
+body { font-family: Arial; padding: 20px; background:#f4f6f9; }
+h2 { margin-bottom:10px; }
+
+.card {
+  background:white; padding:15px; border-radius:10px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding:10px 20px;
+  border:none;
+  background:#007bff;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+table { width:100%; border-collapse: collapse; }
+th, td { padding:8px; border-bottom:1px solid #ddd; }
+th { background:#f2f2f2; }
+</style>
+</head>
+
+<body>
+
+<h2>📊 THỐNG KÊ TOÀN HỆ THỐNG (ADMIN)</h2>
+
+<div class="card">
+  👥 Học sinh: <b id="totalStudents">0</b> |
+  📝 Lượt làm: <b id="totalAttempts">0</b> |
+  ⭐ TB: <b id="avgScore">0</b>
+</div>
+
+<div class="card">
+  <button onclick="exportExcel()">📥 Xuất Excel</button>
+</div>
+
+<div class="card">
+<table id="table">
+<thead>
+<tr>
+  <th>STT</th>
+  <th>Học sinh</th>
+  <th>Mã</th>
+  <th>Điểm</th>
+  <th>Đề</th>
+  <th>Giáo viên</th>
+  <th>Thời gian làm</th>
+</tr>
+</thead>
+
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+
+// 🔐 ADMIN UID
+const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
+
+// Firebase
+const firebaseConfig = {
+ apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+ authDomain: "mathhub-v2-2026.firebaseapp.com",
+ databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+ projectId: "mathhub-v2-2026"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let globalData = [];
+
+// ===================
+function formatTime(ts) {
+  if (!ts) return "";
+  const d = new Date(ts);
+  return d.toLocaleString("vi-VN");
+}
+
+// ===================
+async function loadData() {
+
+  const snap = await db.ref("teachers").once("value");
+  const teachers = snap.val();
+
+  let list = [];
+  let students = new Set();
+  let totalScore = 0;
+
+  for (let t in teachers) {
+
+    let teacher = teachers[t];
+
+    if (teacher.attempts) {
+      for (let k in teacher.attempts) {
+
+        let a = teacher.attempts[k];
+
+        list.push({
+          name: a.studentName || "",
+          code: a.studentCode || "",
+          score: a.score || 0,
+          exam: a.examId || "",
+          teacher: t,
+          time: a.timestamp || Date.now()
+        });
+
+        students.add(a.studentCode);
+        totalScore += a.score || 0;
+      }
+    }
+  }
+
+  globalData = list;
+
+  // thống kê
+  document.getElementById("totalAttempts").innerText = list.length;
+  document.getElementById("totalStudents").innerText = students.size;
+  document.getElementById("avgScore").innerText =
+    list.length ? (totalScore / list.length).toFixed(2) : 0;
+
+  renderTable();
+}
+
+// ===================
+function renderTable() {
+
+  let html = "";
+  globalData.forEach((r, i) => {
+    html += `
+    <tr>
+      <td>${i+1}</td>
+      <td>${r.name}</td>
+      <td>${r.code}</td>
+      <td>${r.score}</td>
+      <td>${r.exam}</td>
+      <td>${r.teacher}</td>
+      <td>${formatTime(r.time)}</td>
+    </tr>`;
+  });
+
+  document.getElementById("tbody").innerHTML = html;
+}
+
+// ===================
+// ✅ XUẤT EXCEL (CSV)
+// ===================
+function exportExcel() {
+
+  let csv = "STT,Học sinh,Mã,Điểm,Đề,Giáo viên,Thời gian\n";
+
+  globalData.forEach((r, i) => {
+    csv += `${i+1},"${r.name}","${r.code}",${r.score},"${r.exam}","${r.teacher}","${formatTime(r.time)}"\n`;
+  });
+
+  let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+  let link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "ThongKeHocSinh.csv";
+  link.click();
+}
+
+// start
+loadData();
+
+</script>
+
+</body>
+</html>
