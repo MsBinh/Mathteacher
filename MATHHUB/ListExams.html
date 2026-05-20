@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANH MỤC ÔN LUYỆN - MATH HUB</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #1a237e; --accent: #ff9800; --success: #2ecc71; --bg: #f4f6f9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg); padding: 15px; }
+        .header { background: linear-gradient(135deg, var(--primary), #303f9f); color: white; padding: 25px 20px; border-radius: 15px; margin-bottom: 20px; text-align: center; }
+        .header h1 { font-size: 1.3rem; font-weight: 800; }
+        .sub-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .exam-grid { display: flex; flex-direction: column; gap: 12px; }
+        .exam-card { background: white; padding: 18px; border-radius: 12px; display: flex; flex-direction: column; gap: 10px; border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .exam-title { font-size: 1rem; font-weight: 700; color: #2c3e50; }
+        .btn-start { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        #loading { text-align: center; padding: 20px; font-weight: 600; color: #666; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-layer-group"></i> TRUNG TÂM TỰ ÔN LUYỆN</h1>
+    <p style="font-style: italic; font-size: 0.8rem; color: #ffeb3b; margin-top: 5px;"><i class="fas fa-heart"></i> Hãy chọn chuyên đề ôn tập phù hợp - Tránh áp lực thi cử</p>
+</div>
+
+<div class="sub-title"><i class="fas fa-book-open"></i> Chuyên đề khả dụng từ Giáo viên</div>
+<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải cấu trúc dữ liệu kho học liệu...</div>
+<div class="exam-grid" id="examList"></div>
+
+<script>
+    // Cấu hình đồng bộ Firebase của Thầy Bình
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
+        authDomain: "mathhub-v2-2026.firebaseapp.com",
+        databaseURL: "https://mathhub-v2-2026-default-rtdb.firebaseio.com",
+        projectId: "mathhub-v2-2026",
+        storageBucket: "mathhub-v2-2026.firebasestorage.app",
+        messagingSenderId: "1354411258",
+        appId: "1:1354411258:web:406775fcadcc319f82ad43"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // TỰ ĐỘNG BÓC TÁCH MÃ GIÁO VIÊN QUA ĐUÔI LINK (?tid=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const teacherId = urlParams.get('tid') || 'ThayBinh'; // Mặc định là Thầy Bình nếu link lỗi
+
+    async function loadExamsMenu() {
+        try {
+            // Chỉ truy quét đúng nhánh đề thi của giáo viên có ID tương ứng
+            const snapshot = await db.ref(`teachers/${teacherId}/exams`).once('value');
+            const examsData = snapshot.val();
+            document.getElementById('loading').style.display = 'none';
+            const listContainer = document.getElementById('examList');
+            
+            if (!examsData) {
+                listContainer.innerHTML = `<p style="text-align:center; color:#999;">Giáo viên chưa cập nhật học liệu số nào trên hệ thống.</p>`;
+                return;
+            }
+
+            let html = '';
+            Object.entries(examsData).forEach(([eid, exam]) => {
+                html += `
+                    <div class="exam-card">
+                        <div style="font-size: 0.75rem; font-weight: bold; color: #777;"><i class="fas fa-bookmark"></i> CHUYÊN ĐỀ TỰ LUYỆN</div>
+                        <div class="exam-title">${exam.name || 'Đề khảo sát trực tuyến'}</div>
+                        <button class="btn-start" onclick="goTest('${eid}')">
+                            <i class="fas fa-play"></i> BẮT ĐẦU LÀM BÀI NGAY
+                        </button>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+        } catch (error) {
+            console.error(error);
+            document.getElementById('loading').innerText = 'Lỗi kết nối hạ tầng Firebase!';
+        }
+    }
+
+    // Học sinh bấm nút: Chuyển sang phòng thi, truyền cả ID Đề và ID Giáo viên sang
+    function goTest(examId) {
+        window.location.href = `PTLTNM.html?eid=${examId}&tid=${teacherId}`;
+    }
+
+    window.onload = loadExamsMenu;
+</script>
+</body>
+</html>

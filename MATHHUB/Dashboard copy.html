@@ -160,7 +160,7 @@
         <div class="nav-item" onclick="goToTeacherStudio()"><i class="fas fa-pen-fancy"></i> <span>Tạo / Sửa đề</span></div>
         <div class="nav-item" onclick="goToKhoDe()"><i class="fas fa-database"></i> <span>Danh sách đề</span></div>
         <div class="nav-item" onclick="goToKQTH()"><i class="fas fa-chart-line"></i> <span>Kết quả HS</span></div>
-        <div class="nav-item" onclick="goToThongKeTongHop()"><i class="fas fa-chart-pie"></i> <span>LINK TRANG ĐỀ</span></div>
+        <div class="nav-item" onclick="goToThongKeTongHop()"><i class="fas fa-chart-pie"></i> <span>Thống kê</span></div>
         <div class="logout-item"><div class="nav-item" onclick="logoutTeacher()"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></div></div>
     </div>
 
@@ -401,7 +401,7 @@ const uniqueStudents = uniqueStudentsSet.size;
     function goToTeacherStudio() { window.location.href = "Teacher_Studio.html"; }
     function goToKhoDe() { window.location.href = "KhoDe.html"; }
     function goToKQTH() { window.location.href = "KQTH.html"; }
-    function goToThongKeTongHop() { window.location.href = "ListExams.html"; }
+    function goToThongKeTongHop() { window.location.href = "thongketonghop.html"; }
     function goToDashboard() { window.location.href = "Dashboard.html"; }
     function logoutTeacher() { auth.signOut().then(() => { localStorage.removeItem('mathhub_teacher'); window.location.href = "login.html"; }); }
 

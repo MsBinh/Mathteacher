@@ -108,9 +108,6 @@
     <div class="footer-btns">
         <button class="btn-back" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> VỀ TRANG CHỦ</button>
         <button class="btn-back" onclick="window.location.href='TKKQ.html'"><i class="fas fa-chart-line"></i> XEM LỊCH SỬ</button>
-        <button class="btn-back" onclick="window.location.href='ListExams.html' + window.location.search">
-    <i class="fas fa-home"></i> VỀ DANH MỤC ĐỀ
-</button>
     </div>
 </div>
 
@@ -133,6 +130,7 @@
     // =====================================================
     function calculateScorePro(masterKey, userAnswers, structure) {
         let total = 0;
+        
         if (!masterKey || masterKey.length === 0) return 0;
         
         masterKey.forEach(q => {
@@ -176,6 +174,11 @@
     function normalizeAnswer(str) {
         if (!str) return '';
         return String(str).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
+    }
+
+    function getScoreFromDSCorrect(correctCount, scoreMap) {
+        const map = scoreMap || [0, 0.1, 0.25, 0.5, 1.0];
+        return map[correctCount] || 0;
     }
 
     async function showResult() {
@@ -232,8 +235,9 @@
             // Tạo bảng chi tiết
             let html = '';
             let correctCount = 0;
+            let questionScores = [];
             
-            masterKey.forEach((q) => {
+            masterKey.forEach((q, idx) => {
                 const qId = q.id;
                 const userAns = data.answers[qId];
                 let isCorrect = false;
@@ -283,6 +287,7 @@
                     <td><span class="status-tag ${isCorrect?'status-true':'status-false'}">${isCorrect?'ĐÚNG':'SAI'}</span></td>
                     <td class="${isCorrect?'status-true':'status-false'}" style="font-weight:bold;">${scoreDisplay}</td>
                 </tr>`;
+                questionScores.push({ id: qId, score: qScore, isCorrect });
             });
             
             document.getElementById('resultBody').innerHTML = html;
@@ -290,7 +295,19 @@
             document.getElementById('countCorrect').innerText = correctCount;
             document.getElementById('countWrong').innerText = masterKey.length - correctCount;
 
-            // ĐÃ XÓA HOÀN TOÀN ĐOẠN CODE GHN LẠI ATTEMPTS Ở ĐÂY ĐỂ TRÁNH NHÂN ĐÔI DỮ LIỆU
+            // Lưu điểm lên Firebase cho giáo viên (nếu không phải demo)
+            if(!data.isDemo && data.tid && data.tid !== 'ADMIN') {
+                const resultRef = db.ref(`teachers/${data.tid}/attempts`).push();
+                await resultRef.set({
+                    examId: data.eid,
+                    studentCode: data.sCode,
+                    studentName: data.sName,
+                    score: totalScore,
+                    answers: data.answers,
+                    timestamp: Date.now(),
+                    structure: examStructure
+                });
+            }
             
         } catch (error) {
             console.error("Lỗi tải dữ liệu:", error);
