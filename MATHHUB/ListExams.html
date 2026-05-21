@@ -37,7 +37,6 @@
 <div id="dynamicContent"></div>
 
 <script>
-    // === CẤU HÌNH HẠ TẦNG FIREBASE MATH HUB V2 ===
     const firebaseConfig = {
         apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
         authDomain: "mathhub-v2-2026.firebaseapp.com",
@@ -57,7 +56,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
     
-    // Nếu không truyền tid hoặc chạy trang tổng, mặc định gán quyền Admin
     if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
         currentParamTeacherId = ADMIN_UID;
     }
@@ -73,7 +71,7 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // Tải dữ liệu kho phẳng system_stats/exams để phục vụ cấu trúc hiển thị
+            // Tải dữ liệu kho phẳng system_stats/exams
             const publicSnap = await db.ref('system_stats/exams').once('value');
             let publicExamsData = {};
             if (publicSnap.exists()) {
@@ -95,7 +93,6 @@
                 if (personalSnap.exists()) {
                     const pData = personalSnap.val();
                     const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
-                    // Sắp xếp đề thi mới tạo lên đầu
                     pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
                     pArray.forEach(exam => {
@@ -164,10 +161,12 @@
         }
     }
 
+    // ĐÃ CHUẨN HÓA KHAI BÁO NHẬN 3 THAM SỐ (ownerId mặc định phòng hờ nếu không truyền)
     function renderExamCardMarkup(eid, exam, ownerId) {
         let name = exam.name || "Đề khảo sát trực tuyến";
         let sub = exam.subject || "toan";
         let duration = exam.duration || 90;
+        let finalOwnerId = ownerId || exam.teacherId || ADMIN_UID;
 
         let color = sub === 'toan' ? '#1a237e' : '#10b981';
         let subLabel = sub === 'toan' ? '📐 MÔN TOÁN 12' : `📚 MÔN ${sub.toUpperCase()} 12`;
@@ -180,20 +179,18 @@
                     </div>
                     <div class="exam-title" style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 15px; line-height: 1.4;">${name}</div>
                 </div>
-                <button class="btn-start" onclick="goVerifyPage('${eid}', '${ownerId}')" style="background: ${color}">
+                <button class="btn-start" onclick="goVerifyPage('${eid}', '${finalOwnerId}')" style="background: ${color}">
                     <i class="fas fa-play-circle" style="color:#fbbf24;"></i> VÀO LÀM BÀI NGAY
                 </button>
             </div>
         `;
     }
 
-    // 🎯 ĐIỀU HƯỚNG LIÊN THÔNG CHUẨN 100%: Học sinh bấm nút sẽ quay ngược về file index.html tổng của thư mục con MATHHUB để điền thông tin
     function goVerifyPage(examId, teacherId) {
         if (!examId || !teacherId) {
             alert("⚠️ Lỗi cấu trúc link dữ liệu đề thi!");
             return;
         }
-        // ✅ Khớp hoàn toàn với cấu trúc studentLink sinh ra từ KhoDe.html cũ của Thầy Bình
         window.location.href = `index.html?exam=${examId}&t=${teacherId}`;
     }
 
