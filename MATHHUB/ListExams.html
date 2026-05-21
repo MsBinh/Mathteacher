@@ -32,12 +32,11 @@
     <p style="font-style: italic; font-size: 0.8rem; color: #ffeb3b; margin-top: 5px;"><i class="fas fa-heart"></i> Hãy chọn chuyên đề ôn tập phù hợp - Tránh áp lực thi cử</p>
 </div>
 
-<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu học liệu...</div>
+<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang kết nối hạ tầng học liệu số...</div>
 
 <div id="dynamicContent"></div>
 
 <script>
-    // Cấu hình hạ tầng Firebase đồng bộ của Thầy Bình
     const firebaseConfig = {
         apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
         authDomain: "mathhub-v2-2026.firebaseapp.com",
@@ -50,14 +49,12 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // UID quyền lực Admin Thầy Bình
+    // UID tài khoản Admin của Thầy Bình
     const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
 
-    // Bóc tách tham số giáo viên
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
     
-    // Nếu link trống (không có tid), mặc định cấp quyền Admin
     if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
         currentParamTeacherId = ADMIN_UID;
     }
@@ -73,43 +70,50 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // =====================================================================
-            // 1. TẢI ĐỀ CỦA GIÁO VIÊN (MỤC I) - LẤY TRỰC TIẾP TỪ THƯ MỤC CÁ NHÂN
-            // Đảm bảo 100% không bao giờ trượt đề cũ, vì lấy thẳng từ nhánh giáo viên
-            // =====================================================================
-            const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
-            if (personalSnap.exists()) {
-                const pData = personalSnap.val();
-                
-                // Đưa vào mảng để sắp xếp đề mới nhất lên đầu tiên
-                const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
-                pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-                pArray.forEach(exam => {
-                    // ID chủ sở hữu chắc chắn là currentParamTeacherId
-                    personalHtml += renderExamCardMarkup(exam.id, exam, currentParamTeacherId);
-                });
+            // 1. TẢI TOÀN BỘ KHO TỔNG PHẲNG ĐỂ PHỤC VỤ ADMIN VÀ MỤC II
+            const publicSnap = await db.ref('system_stats/exams').once('value');
+            let publicExamsData = {};
+            if (publicSnap.exists()) {
+                publicExamsData = publicSnap.val();
             }
 
             // =====================================================================
-            // 2. TẢI KHO ĐỀ TOÀN TRƯỜNG (MỤC II) - CHỈ ADMIN MỚI ĐƯỢC PHÉP TẢI
+            // XỬ LÝ MỤC I: DANH SÁCH ĐỀ THI CỦA GIÁO VIÊN TIẾP CẬN
             // =====================================================================
             if (isAdmin) {
-                const publicSnap = await db.ref('system_stats/exams').once('value');
-                if (publicSnap.exists()) {
-                    const pubData = publicSnap.val();
-                    Object.entries(pubData).forEach(([eid, exam]) => {
-                        // Nếu đề kho chung có lưu teacherId thì dùng, không thì Admin gánh
-                        let ownerId = exam.teacherId || ADMIN_UID; 
-                        publicHtml += renderExamCardMarkup(eid, exam, ownerId);
+                // NẾU LÀ ADMIN: Đổ toàn bộ dữ liệu từ kho phẳng cũ ra Mục I để tránh bị trống kho
+                Object.entries(publicExamsData).forEach(([eid, exam]) => {
+                    let ownerId = exam.teacherId || ADMIN_UID;
+                    personalHtml += renderExamCardMarkup(eid, exam, ownerId);
+                });
+            } else {
+                // NẾU LÀ GIÁO VIÊN THƯỜNG: Truy cập thẳng "nhà riêng" của họ để bốc đề cá nhân
+                const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
+                if (personalSnap.exists()) {
+                    const pData = personalSnap.val();
+                    const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
+                    pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+                    pArray.forEach(exam => {
+                        personalHtml += renderExamCardMarkup(exam.id, exam, currentParamTeacherId);
                     });
                 }
+            }
+
+            // =====================================================================
+            // XỬ LÝ MỤC II: KHO ĐỀ KHẢO SÁT TOÀN HỆ THỐNG (CHỈ ADMIN THẤY)
+            // =====================================================================
+            if (isAdmin) {
+                Object.entries(publicExamsData).forEach(([eid, exam]) => {
+                    let ownerId = exam.teacherId || ADMIN_UID; 
+                    publicHtml += renderExamCardMarkup(eid, exam, ownerId);
+                });
             }
 
             document.getElementById('loading').style.display = 'none';
             let finalHtml = '';
 
-            // --- BIÊN DỊCH GIAO DIỆN MỤC I ---
+            // --- RENDER MỤC I ---
             finalHtml += `
                 <div class="section-title" style="border-bottom: 3px solid #f59e0b;">
                     <span class="section-tag" style="background: #f59e0b; color: #0f172a;">MỤC I</span>
@@ -127,7 +131,7 @@
                 `;
             }
 
-            // --- BIÊN DỊCH GIAO DIỆN MỤC II ---
+            // --- RENDER MỤC II ---
             if (isAdmin) {
                 finalHtml += `
                     <div class="section-title" style="border-bottom: 3px solid var(--primary); margin-top: 45px;">
@@ -151,7 +155,7 @@
             mainContainer.innerHTML = finalHtml;
 
         } catch (err) {
-            console.error("Lỗi vận hành hệ thống:", err);
+            console.error("Lỗi vận hành:", err);
             document.getElementById('loading').innerText = 'Lỗi kết nối dữ liệu!';
         }
     }
@@ -172,19 +176,21 @@
                     </div>
                     <div class="exam-title" style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 15px; line-height: 1.4;">${name}</div>
                 </div>
-                <button class="btn-start" onclick="goTest('${eid}', '${ownerId}')" style="background: ${color}">
+                <button class="btn-start" onclick="goVerifyPage('${eid}', '${ownerId}')" style="background: ${color}">
                     <i class="fas fa-play-circle" style="color:#fbbf24;"></i> VÀO LÀM BÀI NGAY
                 </button>
             </div>
         `;
     }
 
-    function goTest(examId, teacherId) {
+    // 🎯 ĐIỀU HƯỚNG CHUẨN: Đưa học sinh quay lại trang điền thông tin trước khi thi
+    function goVerifyPage(examId, teacherId) {
         if (!examId || !teacherId) {
-            alert("⚠️ Lỗi cấu trúc: Không tìm thấy mã dữ liệu hợp lệ!");
+            alert("⚠️ Lỗi cấu trúc: Không tìm thấy thông tin đề thi!");
             return;
         }
-        window.location.href = `PTLTNM.html?exam=${examId}&t=${teacherId}`;
+        // Thầy đổi tên file "nganhangde12.html" thành tên file nhập thông tin học sinh thực tế của Thầy nếu có nhé
+        window.location.href = `nganhangde12.html?exam=${examId}&t=${teacherId}`;
     }
 
     window.onload = loadExamsMenu;
