@@ -197,18 +197,24 @@
     // HÀM ĐỘNG: TỰ ĐỘNG SINH LINK & VẼ QR CODE CHO GIÁO VIÊN ĐĂNG NHẬP
     // ================================================================
     function generateTeacherShareAssets(uid) {
-        const originUrl = window.location.origin;
-        const finalLink = `${originUrl}/MATHHUB/ListExams.html?tid=${uid}`;
-        
-        document.getElementById('teacherShareLink').value = finalLink;
-        
-        // Gọi API mở để vẽ mã QR động chuẩn hóa cấu trúc
-        const qrApi = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(finalLink)}&choe=UTF-8`;
-        document.getElementById('teacherQRImage').src = qrApi;
-        
-        document.getElementById('shareHubBlock').style.display = 'flex';
+    let originUrl = window.location.origin;
+    
+    // Cơ chế sửa lỗi: Bù giao thức mạng chuẩn nếu hệ thống trả về link thiếu https://
+    if (!originUrl || originUrl === 'null' || !originUrl.startsWith('http')) {
+        originUrl = 'https://nguyenthanhbinh.edu.vn';
     }
-
+    
+    // Tạo liên kết động chuẩn xác
+    const finalLink = `${originUrl}/MATHHUB/ListExams.html?tid=${uid}`;
+    
+    document.getElementById('teacherShareLink').value = finalLink;
+    
+    // Truyền link hợp lệ sang API Google Chart để vẽ mã QR Code
+    const qrApi = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(finalLink)}&choe=UTF-8`;
+    document.getElementById('teacherQRImage').src = qrApi;
+    
+    document.getElementById('shareHubBlock').style.display = 'flex';
+}
     function copyTeacherLink() {
         const linkInput = document.getElementById("teacherShareLink");
         linkInput.select();
