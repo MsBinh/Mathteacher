@@ -32,7 +32,7 @@
     <p style="font-style: italic; font-size: 0.8rem; color: #ffeb3b; margin-top: 5px;"><i class="fas fa-heart"></i> Hãy chọn chuyên đề ôn tập phù hợp - Tránh áp lực thi cử</p>
 </div>
 
-<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải danh mục học liệu số siêu tốc...</div>
+<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang kết nối hạ tầng học liệu số...</div>
 
 <div id="dynamicContent"></div>
 
@@ -51,9 +51,17 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    // UID Admin tối cao của Thầy Bình
+    const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
+
     // Lấy mã ID giáo viên từ link URL tham chiếu (?tid=...)
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
+    
+    // Nếu không truyền tid hoặc truyền trống, tự động nhận diện là Admin Thầy Bình
+    if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
+        currentParamTeacherId = ADMIN_UID;
+    }
 
     async function loadExamsMenu() {
         try {
@@ -64,43 +72,45 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // ===== CẢI TIẾN: LOAD TOÀN BỘ KHO ĐỀ PHẲNG SIÊU TỐC =====
+            // Tải kho đề phẳng từ nhánh system_stats/exams
             const publicSnap = await db.ref('system_stats/exams').once('value');
             document.getElementById('loading').style.display = 'none';
 
             if (!publicSnap.exists()) {
-                mainContainer.innerHTML = '<div class="empty-msg"><i class="fas fa-folder-open"></i> Kho lưu trữ đề thi số hiện đang trống.</div>';
+                mainContainer.innerHTML = '<div class="empty-msg"><i class="fas fa-folder-open"></i> Kho lưu trữ đề thi hiện đang trống.</div>';
                 return;
             }
 
             const examsData = publicSnap.val();
+            const isAdmin = (currentParamTeacherId === ADMIN_UID);
 
-            // ===== DUYỆT ĐỀ VÀ PHÂN CHIA MỤC TỰ ĐỘNG =====
-            // ===== BỘ LỌC ĐA NGƯỜI DÙNG CHUẨN HOÁ CHO TẤT CẢ GIÁO VIÊN =====
-Object.entries(examsData).forEach(([eid, exam]) => {
-    const card = renderExamCardMarkup(eid, exam);
+            // ===== DUYỆT ĐỀ VÀ PHÂN PHIẾN PHÂN QUYỀN ĐỐI ỨNG =====
+            Object.entries(examsData).forEach(([eid, exam]) => {
+                
+                // Thuật toán cứu dữ liệu cũ: Đề thi nào chưa đóng dấu teacherId sẽ tự động quy về thuộc quyền Admin (Thầy Bình)
+                let examOwnerId = exam.teacherId || ADMIN_UID;
 
-    // 1. Xác định UID thực tế của giáo viên tạo đề (Nếu đề cũ chưa có, mặc định gán 'ThayBinh')
-    let examOwnerId = exam.teacherId || 'ThayBinh'; 
+                // Tạo cấu trúc card HTML chuẩn
+                const card = renderExamCardMarkup(eid, exam, examOwnerId);
 
-    // 2. Xác định mã UID giáo viên mà học sinh đang truy cập qua link URL
-    let currentUrlId = currentParamTeacherId || 'ThayBinh';
+                // LỌC MỤC I: Đề của giáo viên nào chỉ xuất hiện trên link của giáo viên đó
+                if (examOwnerId === currentParamTeacherId) {
+                    personalHtml += card;
+                }
 
-    // KIỂM TRA ĐỒNG BỘ: Đề của giáo viên nào sẽ tự động nhảy vào MỤC I của giáo viên đó
-    if (examOwnerId === currentUrlId) {
-        personalHtml += card;
-    }
+                // GOM MỤC II: Tích lũy toàn bộ kho đề phục vụ quyền kiểm soát của Admin
+                publicHtml += card;
+            });
 
-    // MỤC II: Kho chung toàn trường lúc nào cũng hiện đầy đủ tất cả các đề
-    publicHtml += card;
-});
             let finalHtml = '';
 
-            // ===== HIỂN THỊ MỤC I =====
+            // ===============================================================
+            // HIỂN THỊ MỤC I - DANH SÁCH ĐỀ CỦA GIÁO VIÊN TIẾP CẬN
+            // ===============================================================
             finalHtml += `
                 <div class="section-title" style="border-bottom: 3px solid #f59e0b;">
                     <span class="section-tag" style="background: #f59e0b; color: #0f172a;">MỤC I</span>
-                    <h2 class="section-text" style="color: #0f172a;"><i class="fas fa-user-graduation"></i> ĐỀ THI TỪ GIÁO VIÊN PHỤ TRÁCH</h2>
+                    <h2 class="section-text" style="color: #0f172a;"><i class="fas fa-user-graduation"></i> DANH SÁCH ĐỀ THI CỦA GIÁO VIÊN</h2>
                 </div>
             `;
             if (personalHtml !== '') {
@@ -108,39 +118,49 @@ Object.entries(examsData).forEach(([eid, exam]) => {
             } else {
                 finalHtml += `
                     <div class="empty-msg">
-                        <i class="fas fa-link-slash" style="margin-bottom: 6px; font-size: 1.2rem;"></i><br>
-                        Học sinh chưa quét mã lớp riêng hoặc giáo viên phụ trách chưa có đề thi được đồng bộ lên hệ thống.
+                        <i class="fas fa-folder-open" style="margin-bottom: 6px; font-size: 1.2rem;"></i><br>
+                        Hiện chưa có đề thi nào được phát hành trên phân hệ của Giáo viên này.
                     </div>
                 `;
             }
 
-            // ===== HIỂN THỊ MỤC II =====
-            finalHtml += `
-                <div class="section-title" style="border-bottom: 3px solid var(--primary);">
-                    <span class="section-tag" style="background: var(--primary);">MỤC II</span>
-                    <h2 class="section-text" style="color: var(--primary);"><i class="fas fa-database"></i> KHO ĐỀ KHẢO SÁT CHẤT LƯỢNG TOÀN TRƯỜNG</h2>
-                </div>
-            `;
-            if (publicHtml !== '') {
-                finalHtml += `<div class="exam-grid">${publicHtml}</div>`;
+            // ===============================================================
+            // BIÊN DỊCH MỤC II - CHỈ XUẤT HIỆN DUY NHẤT KHI TRUY CẬP BẰNG QUYỀN ADMIN
+            // ===============================================================
+            if (isAdmin) {
+                finalHtml += `
+                    <div class="section-title" style="border-bottom: 3px solid var(--primary); margin-top: 45px;">
+                        <span class="section-tag" style="background: var(--primary);">MỤC II</span>
+                        <h2 class="section-text" style="color: var(--primary);"><i class="fas fa-shield-alt"></i> KHO ĐỀ KHẢO SÁT TỐT NGHIỆP (QUYỀN BGH/ADMIN)</h2>
+                    </div>
+                `;
+                if (publicHtml !== '') {
+                    finalHtml += `<div class="exam-grid">${publicHtml}</div>`;
+                } else {
+                    finalHtml += '<div class="empty-msg">Kho hệ thống trống.</div>';
+                }
             } else {
-                finalHtml += '<div class="empty-msg">Kho đề thi toàn trường trống.</div>';
+                // Nếu là giáo viên thường, khóa cứng hoặc ẩn hoàn toàn Mục II để tránh áp lực thi cử học đường
+                finalHtml += `
+                    <div style="margin-top: 40px; background: #e2e8f0; border-radius: 16px; padding: 15px; text-align: center; font-size: 0.8rem; color: #64748b; font-style: italic;">
+                        <i class="fas fa-lock"></i> Cổng kết nối dữ liệu khảo sát tốt nghiệp toàn trường đóng. Chỉ mở khi có lệnh điều hành từ Ban Giám Hiệu.
+                    </div>
+                `;
             }
 
             mainContainer.innerHTML = finalHtml;
 
         } catch (err) {
-            console.error("Lỗi nạp menu học liệu:", err);
-            document.getElementById('loading').innerText = 'Lỗi kết nối hạ tầng dữ liệu!';
+            console.error("Lỗi vận hành hệ thống:", err);
+            document.getElementById('loading').innerText = 'Lỗi kết nối máy chủ phân quyền!';
         }
     }
 
-    // Hàm dựng giao diện Card đề thi tối ưu
-    function renderExamCardMarkup(eid, exam) {
+    // Hàm sinh mã HTML cho Card đề thi
+    function renderExamCardMarkup(eid, exam, ownerId) {
         let name = exam.name || "Đề khảo sát trực tuyến";
         let sub = exam.subject || "toan";
         let duration = exam.duration || 90;
-        let tId = exam.teacherId || "ThayBinh"; // Giá trị phòng hờ nếu đề cũ chưa có teacherId
 
         let color = sub === 'toan' ? '#1a237e' : '#10b981';
         let subLabel = sub === 'toan' ? '📐 MÔN TOÁN 12' : `📚 MÔN ${sub.toUpperCase()} 12`;
@@ -151,23 +171,21 @@ Object.entries(examsData).forEach(([eid, exam]) => {
                     <div style="font-size: 0.75rem; font-weight: 800; color: ${color}; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
                         ${subLabel} • ⏱️ ${duration} PHÚT
                     </div>
-                    <div class="exam-title">${name}</div>
+                    <div class="exam-title" style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 15px; line-height: 1.4;">${name}</div>
                 </div>
-                <button class="btn-start" onclick="goTest('${eid}', '${tId}')" style="background: ${color}">
+                <button class="btn-start" onclick="goTest('${eid}', '${ownerId}')" style="background: ${color}">
                     <i class="fas fa-play-circle" style="color:#fbbf24;"></i> VÀO LÀM BÀI NGAY
                 </button>
             </div>
         `;
     }
 
-    // Hàm điều hướng liên thông phòng thi an toàn tuyệt đối
+    // Hàm điều hướng liên thông phòng thi chuẩn cú pháp JavaScript
     function goTest(examId, teacherId) {
-        if (!examId || !teacherId || examId === 'undefined' || teacherId === 'undefined') {
-            alert("⚠️ Lỗi dữ liệu: Cấu trúc liên kết đề thi chưa hoàn chỉnh hoặc thiếu mã định danh!");
+        if (!examId || !teacherId) {
+            alert("⚠️ Lỗi cấu trúc: Không tìm thấy mã dữ liệu hợp lệ!");
             return;
         }
-
-        // ✅ URL ghép nối bằng dấu & đơn chất chuẩn xác 100% của JavaScript, bẻ gãy hoàn toàn lỗi dính &amp;
         window.location.href = `PTLTNM.html?exam=${examId}&t=${teacherId}`;
     }
 
