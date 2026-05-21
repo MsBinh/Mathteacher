@@ -160,15 +160,25 @@
 
     // ĐIỀU HƯỚNG LIÊN THÔNG AN TOÀN
     // Thay đổi từ khóa truyền đi cho khớp với file PTLTNM.html cũ của Thầy
-function goTest(examId) {
+// HÀM ĐIỀU HƯỚNG THÔNG MINH - SỬA LỖI LỆCH NHÁNH FIREBASE
+function goTest(examId, type, originalTeacherId) {
     if (!examId || examId === 'undefined') {
         alert("⚠️ Lỗi cấu trúc: Không bóc tách được Mã đề thi trực tuyến!");
         return;
     }
-    // Sửa eid -> exam, sửa tid -> t
-    window.location.href = `PTLTNM.html?exam=${examId}&t=${teacherId || 'ThayBinh'}`;
-}
 
+    let targetTeacher = teacherId || 'ThayBinh'; // Mặc định theo link giáo viên phụ trách
+
+    // Nếu bấm vào đề ở MỤC II (Kho đề tổng toàn trường)
+    if (type === 'public') {
+        // Nếu trong cấu trúc đề thi có lưu uid người tạo (exam.teacherId), ta lấy luôn uid đó
+        // Nếu không có, ta sẽ ưu tiên điều hướng về nhánh gốc hệ thống hoặc tài khoản quản trị
+        targetTeacher = originalTeacherId || teacherId || 'ThayBinh';
+    }
+
+    // Chuyển hướng khớp hoàn toàn với cấu trúc nhận diện tham số của file PTLTNM.html cũ
+    window.location.href = `PTLTNM.html?exam=${examId}&t=${targetTeacher}`;
+}
     window.onload = loadExamsMenu;
 </script>
 
