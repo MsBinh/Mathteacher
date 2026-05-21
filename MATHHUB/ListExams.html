@@ -31,7 +31,6 @@
 <div class="sub-title"><i class="fas fa-book-open"></i> Chuyên đề khả dụng từ Giáo viên</div>
 <div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải cấu trúc dữ liệu kho học liệu...</div>
 <div class="exam-grid" id="examList"></div>
-
 <script>
     // Cấu hình hạ tầng Firebase đồng bộ của Thầy Bình
     const firebaseConfig = {
@@ -47,7 +46,6 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Lấy mã ID giáo viên từ tham số trên thanh địa chỉ (?tid=...)
     const urlParams = new URLSearchParams(window.location.search);
     let teacherId = urlParams.get('tid');
 
@@ -60,14 +58,14 @@
             let personalExams = null;
             let publicExams = null;
 
-            // 1. TẢI ĐỀ CÁ NHÂN (MỤC I)
+            // 1. TẢI ĐỀ CÁ NHÂN THEO LINK (MỤC I)
             if (teacherId) {
                 const personalSnap = await db.ref(`teachers/${teacherId}/exams`).once('value');
                 if (personalSnap.exists()) personalExams = personalSnap.val();
             }
 
-            // 2. TẢI KHO ĐỀ TOÀN TRƯỜNG (MỤC II)
-            const publicSnap = await db.ref(`system_stats/exams`).once('value');
+            // 2. TẢI KHO ĐỀ KHẢO SÁT TOÀN TRƯỜNG (MỤC II)
+            const publicSnap = await db.ref(`system_stats/exams`).once('value`);
             if (publicSnap.exists()) publicExams = publicSnap.val();
 
             document.getElementById('loading').style.display = 'none';
@@ -128,7 +126,6 @@
         }
     }
 
-    // Hàm thiết kế Card Đề thi tích hợp bộ vá lỗi ID
     function renderExamCard(eid, exam, type) {
         let name = exam.name || exam.title || 'Đề khảo sát trực tuyến';
         let sub = exam.subject || 'toan';
@@ -142,7 +139,7 @@
         }
         if (type === 'personal') cardBorder = "#f59e0b";
 
-        // VÁ LỖI CHÍNH: Ép chuỗi kí tự an toàn để lệnh onclick nhận đúng mã ID đề thi (eid) không bị rỗng link
+        // Gắn loại mục (personal/public) trực tiếp vào hàm click để xử lý logic tìm UID
         return `
             <div class="exam-card" style="border-left: 5px solid ${cardBorder}; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e2e8f0; border-left-width: 5px;">
                 <div>
@@ -151,34 +148,52 @@
                     </div>
                     <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 15px; line-height: 1.4;">${name}</div>
                 </div>
-                <button class="btn-start" onclick="goTest('${eid}')" style="width:100%; padding: 11px; background: ${type === 'personal' ? '#0f172a' : '#1a237e'}; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <button class="btn-start" onclick="goTest('${eid}', '${type}')" style="width:100%; padding: 11px; background: ${type === 'personal' ? '#0f172a' : '#1a237e'}; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fas fa-play-circle" style="color:#fbbf24;"></i> VÀO LÀM BÀI NGAY
                 </button>
             </div>
         `;
     }
 
-    // ĐIỀU HƯỚNG LIÊN THÔNG AN TOÀN
-    // Thay đổi từ khóa truyền đi cho khớp với file PTLTNM.html cũ của Thầy
-// HÀM ĐIỀU HƯỚNG THÔNG MINH - SỬA LỖI LỆCH NHÁNH FIREBASE
-function goTest(examId, type, originalTeacherId) {
-    if (!examId || examId === 'undefined') {
-        alert("⚠️ Lỗi cấu trúc: Không bóc tách được Mã đề thi trực tuyến!");
-        return;
+    // 🚀 BỘ DÒ TÌM UID THÔNG MINH - LIÊN THÔNG TUYỆT ĐỐI VỚI PHÒNG THI PTLTNM CŨ
+    async function goTest(examId, type) {
+        if (!examId || examId === 'undefined') {
+            alert("⚠️ Lỗi cấu trúc: Không định danh được mã đề!");
+            return;
+        }
+
+        // Mặc định ban đầu lấy mã giáo viên trên link quản lý
+        let finalTeacherId = teacherId || 'ThayBinh';
+
+        // Nếu người dùng chọn đề từ KHO CHUNG TOÀN TRƯỜNG (Mục II)
+        if (type === 'public') {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('loading').innerText = '🔄 Đang định tuyến kho học liệu...';
+            
+            try {
+                // Quét ngầm qua toàn bộ danh sách giáo viên để xem ai sở hữu mã đề examId này
+                const teachersSnap = await db.ref('teachers').once('value');
+                if (teachersSnap.exists()) {
+                    const teachersData = teachersSnap.val();
+                    
+                    // Duyệt tìm UID thực sự sở hữu đề thi này
+                    for (const [uid, uData] of Object.entries(teachersData)) {
+                        if (uData.exams && uData.exams[examId]) {
+                            finalTeacherId = uid; // Đã tìm ra chủ nhân thực sự của đề!
+                            break;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Lỗi dò tìm chủ đề:", err);
+            }
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // Truyền thông số khớp 100% với cấu trúc cũ mà phòng thi PTLTNM.html yêu cầu đọc
+        window.location.href = `PTLTNM.html?exam=${examId}&t=${finalTeacherId}`;
     }
 
-    let targetTeacher = teacherId || 'ThayBinh'; // Mặc định theo link giáo viên phụ trách
-
-    // Nếu bấm vào đề ở MỤC II (Kho đề tổng toàn trường)
-    if (type === 'public') {
-        // Nếu trong cấu trúc đề thi có lưu uid người tạo (exam.teacherId), ta lấy luôn uid đó
-        // Nếu không có, ta sẽ ưu tiên điều hướng về nhánh gốc hệ thống hoặc tài khoản quản trị
-        targetTeacher = originalTeacherId || teacherId || 'ThayBinh';
-    }
-
-    // Chuyển hướng khớp hoàn toàn với cấu trúc nhận diện tham số của file PTLTNM.html cũ
-    window.location.href = `PTLTNM.html?exam=${examId}&t=${targetTeacher}`;
-}
     window.onload = loadExamsMenu;
 </script>
 
