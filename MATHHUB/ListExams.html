@@ -157,43 +157,40 @@
 
     // 🚀 BỘ DÒ TÌM UID THÔNG MINH - LIÊN THÔNG TUYỆT ĐỐI VỚI PHÒNG THI PTLTNM CŨ
     async function goTest(examId, type) {
-        if (!examId || examId === 'undefined') {
-            alert("⚠️ Lỗi cấu trúc: Không định danh được mã đề!");
-            return;
+  if (!examId || examId === 'undefined') {
+    alert("⚠️ Lỗi cấu trúc: Không định danh được mã đề!");
+    return;
+  }
+
+  let finalTeacherId = teacherId || "";
+
+  if (type === 'public') {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('loading').innerText = '🔄 Đang định tuyến kho học liệu...';
+
+    try {
+      const teachersSnap = await db.ref('teachers').once('value');
+
+      if (teachersSnap.exists()) {
+        const teachersData = teachersSnap.val();
+
+        for (const [uid, uData] of Object.entries(teachersData)) {
+          if (uData.exams && uData.exams[examId]) {
+            finalTeacherId = uid;
+            break;
+          }
         }
-
-        // Mặc định ban đầu lấy mã giáo viên trên link quản lý
-        let finalTeacherId = teacherId || 'ThayBinh';
-
-        // Nếu người dùng chọn đề từ KHO CHUNG TOÀN TRƯỜNG (Mục II)
-        if (type === 'public') {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('loading').innerText = '🔄 Đang định tuyến kho học liệu...';
-            
-            try {
-                // Quét ngầm qua toàn bộ danh sách giáo viên để xem ai sở hữu mã đề examId này
-                const teachersSnap = await db.ref('teachers').once('value');
-                if (teachersSnap.exists()) {
-                    const teachersData = teachersSnap.val();
-                    
-                    // Duyệt tìm UID thực sự sở hữu đề thi này
-                    for (const [uid, uData] of Object.entries(teachersData)) {
-                        if (uData.exams && uData.exams[examId]) {
-                            finalTeacherId = uid; // Đã tìm ra chủ nhân thực sự của đề!
-                            break;
-                        }
-                    }
-                }
-            } catch (err) {
-                console.error("Lỗi dò tìm chủ đề:", err);
-            }
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        // Truyền thông số khớp 100% với cấu trúc cũ mà phòng thi PTLTNM.html yêu cầu đọc
-        window.location.href = `PTLTNM.html?exam=${examId}&t=${finalTeacherId}`;
+      }
+    } catch (err) {
+      console.error("Lỗi dò tìm chủ đề:", err);
     }
 
+    document.getElementById('loading').style.display = 'none';
+  }
+
+  // ✅ QUAN TRỌNG: đổi "t" → "teacherId"
+  window.location.href = `PTLTNM.html?exam=${examId}&teacherId=${finalTeacherId}`;
+}
     window.onload = loadExamsMenu;
 </script>
 
