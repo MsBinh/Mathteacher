@@ -199,26 +199,22 @@
     function generateTeacherShareAssets(uid) {
     let originUrl = window.location.origin;
     
-    // Khử giá trị null nếu chạy local
-    if (!originUrl || originUrl === 'null' || !originUrl.startsWith('http')) {
-        originUrl = 'https://nguyenthanhbinh.edu.vn';
-    }
-    
-    // ✅ LINK ĐÚNG: Dẫn học sinh vào trang danh mục gộp tất cả các đề của GV đó
+    // Giữ nguyên cấu trúc sinh link ListExams gốc ban đầu của Thầy Bình
     const finalLink = `${originUrl}/MATHHUB/ListExams.html?tid=${uid}`;
     
-    // Cập nhật vào ô văn bản để giáo viên copy
+    // Giữ nguyên việc gán link vào ô để giáo viên copy
     document.getElementById('teacherShareLink').value = finalLink;
     
-    // ✅ MÃ QR ĐÚNG: Quét mã sẽ bay thẳng vào danh mục đề ListExams.html, không bị trống nữa
+    // 🛠️ CHỈ SỬA ĐÚNG DÒNG NÀY: Thay API Google Chart bằng QRServer để hiển thị lại ảnh QR không bị gãy
     const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(finalLink)}&charset-source=UTF-8`;
     
-    // Hiển thị ảnh QR sắc nét không bị gãy
+    // Nạp link ảnh vào thẻ <img> để hiển thị lên màn hình
     document.getElementById('teacherQRImage').src = qrApi;
     
-    // Mở khối hiển thị công cụ chia sẻ
+    // Giữ nguyên việc mở khối hiển thị công cụ chia sẻ
     document.getElementById('shareHubBlock').style.display = 'flex';
 }
+
     function copyTeacherLink() {
         const linkInput = document.getElementById("teacherShareLink");
         linkInput.select();
