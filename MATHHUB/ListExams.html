@@ -47,9 +47,6 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Tài khoản Admin cấp cao của Thầy
-    const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
-
     // Lấy mã ID giáo viên từ tham số trên thanh địa chỉ (?tid=...)
     const urlParams = new URLSearchParams(window.location.search);
     let teacherId = urlParams.get('tid');
@@ -58,35 +55,26 @@
         try {
             document.getElementById('loading').style.display = 'block';
             const listContainer = document.getElementById('examList');
-            listContainer.innerHTML = ''; // Xóa trắng để nạp lại diện mạo mới
+            listContainer.innerHTML = '';
 
             let personalExams = null;
             let publicExams = null;
 
-            // ---------------------------------------------------------------
-            // TIẾN TRÌNH 1: QUÉT DỮ LIỆU CÁ NHÂN (Theo mã tid của Giáo viên)
-            // ---------------------------------------------------------------
+            // 1. TẢI ĐỀ CÁ NHÂN (MỤC I)
             if (teacherId) {
                 const personalSnap = await db.ref(`teachers/${teacherId}/exams`).once('value');
-                if (personalSnap.exists()) {
-                    personalExams = personalSnap.val();
-                }
+                if (personalSnap.exists()) personalExams = personalSnap.val();
             }
 
-            // ---------------------------------------------------------------
-            // TIẾN TRÌNH 2: QUÉT DỮ LIỆU KHO TỔNG TOÀN TRƯỜNG (Dành cho tất cả)
-            // ---------------------------------------------------------------
+            // 2. TẢI KHO ĐỀ TOÀN TRƯỜNG (MỤC II)
             const publicSnap = await db.ref(`system_stats/exams`).once('value');
-            if (publicSnap.exists()) {
-                publicExams = publicSnap.val();
-            }
+            if (publicSnap.exists()) publicExams = publicSnap.val();
 
             document.getElementById('loading').style.display = 'none';
-
             let finalHtml = '';
 
             // ===============================================================
-            // MỤC 1: ĐỀ THI CỦA GIÁO VIÊN (HIỂN THỊ THEO ĐƯỜNG LINK CÁ NHÂN)
+            // GIAO DIỆN MỤC I: ĐỀ TỪ GIÁO VIÊN PHỤ TRÁCH
             // ===============================================================
             finalHtml += `
                 <div style="margin: 25px 0 15px 0; padding-bottom: 8px; border-bottom: 3px solid #f59e0b; display: flex; align-items: center; gap: 10px;">
@@ -105,13 +93,13 @@
                 finalHtml += `
                     <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 16px; padding: 20px; text-align: center; color: #64748b; font-size: 0.85rem;">
                         <i class="fas fa-link-slash" style="margin-bottom: 6px; font-size: 1.2rem;"></i><br>
-                        Link quét chưa khớp mã định danh giáo viên riêng biệt hoặc giáo viên chưa tải đề lên Studio cá nhân.
+                        Học sinh chưa quét mã lớp riêng hoặc giáo viên chưa tải đề lên kho cá nhân.
                     </div>
                 `;
             }
 
             // ===============================================================
-            // MỤC 2: KHO ĐỀ ĐA MÔN TOÀN TRƯỜNG (ADMIN & KHO DỮ LIỆU CHUNG)
+            // GIAO DIỆN MỤC II: KHO ĐỀ KHẢO SÁT CHẤT LƯỢNG TOÀN TRƯỜNG
             // ===============================================================
             finalHtml += `
                 <div style="margin: 40px 0 15px 0; padding-bottom: 8px; border-bottom: 3px solid #1a237e; display: flex; align-items: center; gap: 10px;">
@@ -123,42 +111,38 @@
             if (publicExams) {
                 finalHtml += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">`;
                 Object.entries(publicExams).forEach(([eid, exam]) => {
-                    // Nếu là Admin, hoặc học sinh mở link tổng, hiển thị tất cả đề thi có trong kho hệ thống
                     finalHtml += renderExamCard(eid, exam, 'public');
                 });
                 finalHtml += `</div>`;
             } else {
                 finalHtml += `
                     <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 16px; padding: 20px; text-align: center; color: #64748b; font-size: 0.85rem;">
-                        Kho đề thi số trực tuyến toàn trường hiện đang trống.
+                        Kho đề thi số trực tuyến hiện đang trống.
                     </div>
                 `;
             }
 
-            // Đổ toàn bộ giao diện đã bóc tách rõ ràng ra màn hình học sinh
             listContainer.innerHTML = finalHtml;
-
         } catch (error) {
             console.error(error);
-            document.getElementById('loading').innerText = 'Lỗi truy vấn dữ liệu phân mục từ Firebase!';
         }
     }
 
-    // Hàm phụ trợ vẽ thẻ đề thi chuyên nghiệp theo cấu trúc Glassmorphism
+    // Hàm thiết kế Card Đề thi tích hợp bộ vá lỗi ID
     function renderExamCard(eid, exam, type) {
-        let name = exam.name || exam.title || 'Đề thi khảo sát trực tuyến';
+        let name = exam.name || exam.title || 'Đề khảo sát trực tuyến';
         let sub = exam.subject || 'toan';
         let duration = exam.duration || 90;
         
-        // Chuẩn hóa nhãn hiển thị bộ môn
         let subLabel = "📐 MÔN TOÁN 12";
         let cardBorder = "#1a237e";
         if (sub !== 'toan') {
             subLabel = `📚 MÔN ${sub.toUpperCase()} 12`;
             cardBorder = "#10b981";
         }
-        if (type === 'personal') cardBorder = "#f59e0b"; // Đồng bộ màu sắc cá nhân theo mục
+        if (type === 'personal') cardBorder = "#f59e0b";
 
+        // VÁ LỖI CHÍNH: Ép chuỗi kí tự an toàn để lệnh onclick nhận đúng mã ID đề thi (eid) không bị rỗng link
         return `
             <div class="exam-card" style="border-left: 5px solid ${cardBorder}; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e2e8f0; border-left-width: 5px;">
                 <div>
@@ -167,15 +151,20 @@
                     </div>
                     <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 15px; line-height: 1.4;">${name}</div>
                 </div>
-                <button class="btn-start" onclick="goTest('${eid}')" style="width:100%; padding: 11px; background: ${type === 'personal' ? '#0f172a' : '#1a237e'}; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;">
+                <button class="btn-start" onclick="goTest('${eid}')" style="width:100%; padding: 11px; background: ${type === 'personal' ? '#0f172a' : '#1a237e'}; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fas fa-play-circle" style="color:#fbbf24;"></i> VÀO LÀM BÀI NGAY
                 </button>
             </div>
         `;
     }
 
+    // ĐIỀU HƯỚNG LIÊN THÔNG AN TOÀN
     function goTest(examId) {
-        // Đồng bộ chuyển hướng kèm mã đề thi và truyền tham số an toàn sang phòng thi
+        if (!examId || examId === 'undefined') {
+            alert("⚠️ Lỗi cấu trúc: Không bóc tách được Mã đề thi trực tuyến!");
+            return;
+        }
+        // Chuyển hướng học sinh vào phòng làm bài thi trắc nghiệm đa môn
         window.location.href = `PTLTNM.html?eid=${examId}&tid=${teacherId || 'ThayBinh'}`;
     }
 
