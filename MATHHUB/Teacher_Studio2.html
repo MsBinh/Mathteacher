@@ -196,23 +196,27 @@
     // ================================================================
     // HÀM ĐỘNG: TỰ ĐỘNG SINH LINK & VẼ QR CODE CHO GIÁO VIÊN ĐĂNG NHẬP
     // ================================================================
-    function generateTeacherShareAssets(uid) {
+ function generateTeacherShareAssets(uid) {
     let originUrl = window.location.origin;
     
-    // Cơ chế sửa lỗi: Bù giao thức mạng chuẩn nếu hệ thống trả về link thiếu https://
+    // Cơ chế bù giao thức mạng nếu hệ thống chạy local bị thiếu https://
     if (!originUrl || originUrl === 'null' || !originUrl.startsWith('http')) {
         originUrl = 'https://nguyenthanhbinh.edu.vn';
     }
     
-    // Tạo liên kết động chuẩn xác
-    const finalLink = `${originUrl}/MATHHUB/ListExams.html?tid=${uid}`;
+    // ĐƯỜNG LINK CHUẨN: Học sinh quét QR sẽ chạy thẳng vào index.html tổng của MATHHUB kèm mã tham số
+    const finalLink = `${originUrl}/MATHHUB/index.html?t=${uid}`;
     
+    // Hiển thị đường link lên ô text để Giáo viên dễ dàng bấm "Copy Link"
     document.getElementById('teacherShareLink').value = finalLink;
     
-    // Truyền link hợp lệ sang API Google Chart để vẽ mã QR Code
-    const qrApi = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(finalLink)}&choe=UTF-8`;
+    // 🛠️ THAY THẾ API GOOGLE CHART BẰNG API QRSERVER (CHẠY ỔN ĐỊNH 100%)
+    const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(finalLink)}&charset-source=UTF-8`;
+    
+    // Nạp link ảnh vào thẻ <img> để hiển thị trực quan lên giao diện Studio
     document.getElementById('teacherQRImage').src = qrApi;
     
+    // Mở hộp Share Hub hiển thị công khai
     document.getElementById('shareHubBlock').style.display = 'flex';
 }
     function copyTeacherLink() {
