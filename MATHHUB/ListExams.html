@@ -76,18 +76,24 @@
             const examsData = publicSnap.val();
 
             // ===== DUYỆT ĐỀ VÀ PHÂN CHIA MỤC TỰ ĐỘNG =====
-            Object.entries(examsData).forEach(([eid, exam]) => {
-                const card = renderExamCardMarkup(eid, exam);
+            // ===== BỘ LỌC ĐA NGƯỜI DÙNG CHUẨN HOÁ CHO TẤT CẢ GIÁO VIÊN =====
+Object.entries(examsData).forEach(([eid, exam]) => {
+    const card = renderExamCardMarkup(eid, exam);
 
-                // MỤC I: Kiểm tra nếu đề có teacherId trùng với tham số tid trên URL
-                if (currentParamTeacherId && exam.teacherId === currentParamTeacherId) {
-                    personalHtml += card;
-                }
+    // 1. Xác định UID thực tế của giáo viên tạo đề (Nếu đề cũ chưa có, mặc định gán 'ThayBinh')
+    let examOwnerId = exam.teacherId || 'ThayBinh'; 
 
-                // MỤC II: Tất cả các đề trong kho hệ thống
-                publicHtml += card;
-            });
+    // 2. Xác định mã UID giáo viên mà học sinh đang truy cập qua link URL
+    let currentUrlId = currentParamTeacherId || 'ThayBinh';
 
+    // KIỂM TRA ĐỒNG BỘ: Đề của giáo viên nào sẽ tự động nhảy vào MỤC I của giáo viên đó
+    if (examOwnerId === currentUrlId) {
+        personalHtml += card;
+    }
+
+    // MỤC II: Kho chung toàn trường lúc nào cũng hiện đầy đủ tất cả các đề
+    publicHtml += card;
+});
             let finalHtml = '';
 
             // ===== HIỂN THỊ MỤC I =====
