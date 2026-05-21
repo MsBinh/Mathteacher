@@ -159,14 +159,15 @@
     }
 
     // ĐIỀU HƯỚNG LIÊN THÔNG AN TOÀN
-    function goTest(examId) {
-        if (!examId || examId === 'undefined') {
-            alert("⚠️ Lỗi cấu trúc: Không bóc tách được Mã đề thi trực tuyến!");
-            return;
-        }
-        // Chuyển hướng học sinh vào phòng làm bài thi trắc nghiệm đa môn
-        window.location.href = `PTLTNM.html?eid=${examId}&tid=${teacherId || 'ThayBinh'}`;
+    // Thay đổi từ khóa truyền đi cho khớp với file PTLTNM.html cũ của Thầy
+function goTest(examId) {
+    if (!examId || examId === 'undefined') {
+        alert("⚠️ Lỗi cấu trúc: Không bóc tách được Mã đề thi trực tuyến!");
+        return;
     }
+    // Sửa eid -> exam, sửa tid -> t
+    window.location.href = `PTLTNM.html?exam=${examId}&t=${teacherId || 'ThayBinh'}`;
+}
 
     window.onload = loadExamsMenu;
 </script>
