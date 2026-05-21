@@ -49,18 +49,19 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Định danh Admin tối cao của Thầy Bình
+    // Định danh UID Admin tối cao của Thầy Bình
     const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
 
-    // Trích xuất mã Giáo viên từ tham số link (?tid=...)
+    // LẤY MÃ PHÂN QUYỀN DUY NHẤT DỰA VÀO ĐƯỜNG LINK (KHÔNG LIÊN QUAN ĐĂNG NHẬP HỌC SINH)
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
     
+    // Nếu link không truyền tham số tid, mặc định nhận diện đây là link hệ thống của Admin
     if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
         currentParamTeacherId = ADMIN_UID;
     }
 
-    const isAdmin = (currentParamTeacherId === ADMIN_UID);
+    const isAdminLink = (currentParamTeacherId === ADMIN_UID);
 
     async function loadExamsMenu() {
         try {
@@ -71,7 +72,7 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // Tải dữ liệu kho phẳng system_stats/exams
+            // Tải dữ liệu từ nhánh system_stats/exams để phục vụ hiển thị
             const publicSnap = await db.ref('system_stats/exams').once('value');
             let publicExamsData = {};
             if (publicSnap.exists()) {
@@ -79,16 +80,16 @@
             }
 
             // =====================================================================
-            // XỬ LÝ MỤC I: DANH SÁCH ĐỀ THI CỦA GIÁO VIÊN TIẾP CẬN
+            // XỬ LÝ MỤC I: DANH SÁCH ĐỀ THEO ĐƯỜNG LINK TIẾP CẬN
             // =====================================================================
-            if (isAdmin) {
-                // NẾU LÀ ADMIN: Đổ toàn bộ kho phẳng system_stats ra Mục I để tránh trống danh sách đề thi
+            if (isAdminLink) {
+                // NẾU LÀ LINK ADMIN: Đổ toàn bộ dữ liệu từ kho chung ra Mục I để tránh trống danh sách đề thi
                 Object.entries(publicExamsData).forEach(([eid, exam]) => {
                     let ownerId = exam.teacherId || ADMIN_UID;
                     personalHtml += renderExamCardMarkup(eid, exam, ownerId);
                 });
             } else {
-                // NẾU LÀ GIÁO VIÊN THƯỜNG: Truy cập thẳng kho lưu trữ riêng của họ để tải đề cá nhân đầy đủ
+                // NẾU LÀ LINK GIÁO VIÊN THƯỜNG: Vào thẳng nhánh riêng tư của họ để bốc đề cá nhân đầy đủ
                 const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
                 if (personalSnap.exists()) {
                     const pData = personalSnap.val();
@@ -102,9 +103,9 @@
             }
 
             // =====================================================================
-            // XỬ LÝ MỤC II: KHO ĐỀ KHẢO SÁT TOÀN HỆ THỐNG (CHỈ ADMIN MỚI CÓ)
+            // XỬ LÝ MỤC II: KHO ĐỀ TOÀN TRƯỜNG (CHỈ XUẤT HIỆN KHI LÀ LINK ADMIN)
             // =====================================================================
-            if (isAdmin) {
+            if (isAdminLink) {
                 Object.entries(publicExamsData).forEach(([eid, exam]) => {
                     let ownerId = exam.teacherId || ADMIN_UID; 
                     publicHtml += renderExamCardMarkup(eid, exam, ownerId);
@@ -133,7 +134,7 @@
             }
 
             // --- BIÊN DỊCH GIAO DIỆN MỤC II ---
-            if (isAdmin) {
+            if (isAdminLink) {
                 finalHtml += `
                     <div class="section-title" style="border-bottom: 3px solid var(--primary); margin-top: 45px;">
                         <span class="section-tag" style="background: var(--primary);">MỤC II</span>
@@ -161,7 +162,6 @@
         }
     }
 
-    // ĐÃ CHUẨN HÓA KHAI BÁO NHẬN 3 THAM SỐ (ownerId mặc định phòng hờ nếu không truyền)
     function renderExamCardMarkup(eid, exam, ownerId) {
         let name = exam.name || "Đề khảo sát trực tuyến";
         let sub = exam.subject || "toan";
@@ -186,9 +186,10 @@
         `;
     }
 
+    // ĐIỀU HƯỚNG LIÊN THÔNG: Quay ngược về đúng file index.html tổng để nhập thông tin học sinh
     function goVerifyPage(examId, teacherId) {
         if (!examId || !teacherId) {
-            alert("⚠️ Lỗi cấu trúc link dữ liệu đề thi!");
+            alert("⚠️ Không tìm thấy tham số dữ liệu đề thi hợp lệ!");
             return;
         }
         window.location.href = `index.html?exam=${examId}&t=${teacherId}`;
