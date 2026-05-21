@@ -37,6 +37,7 @@
 <div id="dynamicContent"></div>
 
 <script>
+    // === CẤU HÌNH HẠ TẦNG FIREBASE MATH HUB V2 ===
     const firebaseConfig = {
         apiKey: "AIzaSyCs0lTFawsn0ibf_BsZcoAr8sdQJD68brA",
         authDomain: "mathhub-v2-2026.firebaseapp.com",
@@ -49,12 +50,14 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // UID tài khoản Admin của Thầy Bình
+    // Định danh Admin tối cao của Thầy Bình
     const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
 
+    // Trích xuất mã Giáo viên từ tham số link (?tid=...)
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
     
+    // Nếu không truyền tid hoặc chạy trang tổng, mặc định gán quyền Admin
     if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
         currentParamTeacherId = ADMIN_UID;
     }
@@ -70,7 +73,7 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // 1. TẢI TOÀN BỘ KHO TỔNG PHẲNG ĐỂ PHỤC VỤ ADMIN VÀ MỤC II
+            // Tải dữ liệu kho phẳng system_stats/exams để phục vụ cấu trúc hiển thị
             const publicSnap = await db.ref('system_stats/exams').once('value');
             let publicExamsData = {};
             if (publicSnap.exists()) {
@@ -81,17 +84,18 @@
             // XỬ LÝ MỤC I: DANH SÁCH ĐỀ THI CỦA GIÁO VIÊN TIẾP CẬN
             // =====================================================================
             if (isAdmin) {
-                // NẾU LÀ ADMIN: Đổ toàn bộ dữ liệu từ kho phẳng cũ ra Mục I để tránh bị trống kho
+                // NẾU LÀ ADMIN: Đổ toàn bộ kho phẳng system_stats ra Mục I để tránh trống danh sách đề thi
                 Object.entries(publicExamsData).forEach(([eid, exam]) => {
                     let ownerId = exam.teacherId || ADMIN_UID;
                     personalHtml += renderExamCardMarkup(eid, exam, ownerId);
                 });
             } else {
-                // NẾU LÀ GIÁO VIÊN THƯỜNG: Truy cập thẳng "nhà riêng" của họ để bốc đề cá nhân
+                // NẾU LÀ GIÁO VIÊN THƯỜNG: Truy cập thẳng kho lưu trữ riêng của họ để tải đề cá nhân đầy đủ
                 const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
                 if (personalSnap.exists()) {
                     const pData = personalSnap.val();
                     const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
+                    // Sắp xếp đề thi mới tạo lên đầu
                     pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
                     pArray.forEach(exam => {
@@ -101,7 +105,7 @@
             }
 
             // =====================================================================
-            // XỬ LÝ MỤC II: KHO ĐỀ KHẢO SÁT TOÀN HỆ THỐNG (CHỈ ADMIN THẤY)
+            // XỬ LÝ MỤC II: KHO ĐỀ KHẢO SÁT TOÀN HỆ THỐNG (CHỈ ADMIN MỚI CÓ)
             // =====================================================================
             if (isAdmin) {
                 Object.entries(publicExamsData).forEach(([eid, exam]) => {
@@ -113,7 +117,7 @@
             document.getElementById('loading').style.display = 'none';
             let finalHtml = '';
 
-            // --- RENDER MỤC I ---
+            // --- BIÊN DỊCH GIAO DIỆN MỤC I ---
             finalHtml += `
                 <div class="section-title" style="border-bottom: 3px solid #f59e0b;">
                     <span class="section-tag" style="background: #f59e0b; color: #0f172a;">MỤC I</span>
@@ -126,23 +130,23 @@
                 finalHtml += `
                     <div class="empty-msg">
                         <i class="fas fa-folder-open" style="margin-bottom: 6px; font-size: 1.2rem;"></i><br>
-                        Giáo viên này chưa phát hành đề thi nào trên hệ thống.
+                        Giáo viên phụ trách chưa có đề thi nào được phát hành công khai.
                     </div>
                 `;
             }
 
-            // --- RENDER MỤC II ---
+            // --- BIÊN DỊCH GIAO DIỆN MỤC II ---
             if (isAdmin) {
                 finalHtml += `
                     <div class="section-title" style="border-bottom: 3px solid var(--primary); margin-top: 45px;">
                         <span class="section-tag" style="background: var(--primary);">MỤC II</span>
-                        <h2 class="section-text" style="color: var(--primary);"><i class="fas fa-shield-alt"></i> KHO ĐỀ KHẢO SÁT TỐT NGHIỆP (QUYỀN ADMIN)</h2>
+                        <h2 class="section-text" style="color: var(--primary);"><i class="fas fa-shield-alt"></i> KHO ĐỀ KHẢO SÁT TỐT NGHIỆP (QUYỀN BAN GIÁM HIỆU)</h2>
                     </div>
                 `;
                 if (publicHtml !== '') {
                     finalHtml += `<div class="exam-grid">${publicHtml}</div>`;
                 } else {
-                    finalHtml += '<div class="empty-msg">Kho hệ thống trống.</div>';
+                    finalHtml += '<div class="empty-msg">Kho hệ thống hiện đang trống.</div>';
                 }
             } else {
                 finalHtml += `
@@ -155,8 +159,8 @@
             mainContainer.innerHTML = finalHtml;
 
         } catch (err) {
-            console.error("Lỗi vận hành:", err);
-            document.getElementById('loading').innerText = 'Lỗi kết nối dữ liệu!';
+            console.error("Lỗi vận hành hệ thống:", err);
+            document.getElementById('loading').innerText = 'Lỗi kết nối máy chủ dữ liệu!';
         }
     }
 
@@ -183,14 +187,14 @@
         `;
     }
 
-    // 🎯 ĐIỀU HƯỚNG CHUẨN: Đưa học sinh quay lại trang điền thông tin trước khi thi
+    // 🎯 ĐIỀU HƯỚNG LIÊN THÔNG CHUẨN 100%: Học sinh bấm nút sẽ quay ngược về file index.html tổng của thư mục con MATHHUB để điền thông tin
     function goVerifyPage(examId, teacherId) {
         if (!examId || !teacherId) {
-            alert("⚠️ Lỗi cấu trúc: Không tìm thấy thông tin đề thi!");
+            alert("⚠️ Lỗi cấu trúc link dữ liệu đề thi!");
             return;
         }
-        // Thầy đổi tên file "nganhangde12.html" thành tên file nhập thông tin học sinh thực tế của Thầy nếu có nhé
-        window.location.href = `nganhangde12.html?exam=${examId}&t=${teacherId}`;
+        // ✅ Khớp hoàn toàn với cấu trúc studentLink sinh ra từ KhoDe.html cũ của Thầy Bình
+        window.location.href = `index.html?exam=${examId}&t=${teacherId}`;
     }
 
     window.onload = loadExamsMenu;
