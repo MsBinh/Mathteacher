@@ -32,7 +32,7 @@
     <p style="font-style: italic; font-size: 0.8rem; color: #ffeb3b; margin-top: 5px;"><i class="fas fa-heart"></i> Hãy chọn chuyên đề ôn tập phù hợp - Tránh áp lực thi cử</p>
 </div>
 
-<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang kết nối hạ tầng học liệu số...</div>
+<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu học liệu...</div>
 
 <div id="dynamicContent"></div>
 
@@ -47,21 +47,22 @@
         messagingSenderId: "1354411258",
         appId: "1:1354411258:web:406775fcadcc319f82ad43"
     };
-
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // UID Admin tối cao của Thầy Bình
+    // UID quyền lực Admin Thầy Bình
     const ADMIN_UID = "wowIFDsHHyWb3TQUCDD05LZ3kO22";
 
-    // Lấy mã ID giáo viên từ link URL tham chiếu (?tid=...)
+    // Bóc tách tham số giáo viên
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
     
-    // Nếu không truyền tid hoặc truyền trống, tự động nhận diện là Admin Thầy Bình
+    // Nếu link trống (không có tid), mặc định cấp quyền Admin
     if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
         currentParamTeacherId = ADMIN_UID;
     }
+
+    const isAdmin = (currentParamTeacherId === ADMIN_UID);
 
     async function loadExamsMenu() {
         try {
@@ -72,41 +73,43 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // Tải kho đề phẳng từ nhánh system_stats/exams
-            const publicSnap = await db.ref('system_stats/exams').once('value');
-            document.getElementById('loading').style.display = 'none';
+            // =====================================================================
+            // 1. TẢI ĐỀ CỦA GIÁO VIÊN (MỤC I) - LẤY TRỰC TIẾP TỪ THƯ MỤC CÁ NHÂN
+            // Đảm bảo 100% không bao giờ trượt đề cũ, vì lấy thẳng từ nhánh giáo viên
+            // =====================================================================
+            const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
+            if (personalSnap.exists()) {
+                const pData = personalSnap.val();
+                
+                // Đưa vào mảng để sắp xếp đề mới nhất lên đầu tiên
+                const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
+                pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-            if (!publicSnap.exists()) {
-                mainContainer.innerHTML = '<div class="empty-msg"><i class="fas fa-folder-open"></i> Kho lưu trữ đề thi hiện đang trống.</div>';
-                return;
+                pArray.forEach(exam => {
+                    // ID chủ sở hữu chắc chắn là currentParamTeacherId
+                    personalHtml += renderExamCardMarkup(exam.id, exam, currentParamTeacherId);
+                });
             }
 
-            const examsData = publicSnap.val();
-            const isAdmin = (currentParamTeacherId === ADMIN_UID);
-
-            // ===== DUYỆT ĐỀ VÀ PHÂN PHIẾN PHÂN QUYỀN ĐỐI ỨNG =====
-            Object.entries(examsData).forEach(([eid, exam]) => {
-                
-                // Thuật toán cứu dữ liệu cũ: Đề thi nào chưa đóng dấu teacherId sẽ tự động quy về thuộc quyền Admin (Thầy Bình)
-                let examOwnerId = exam.teacherId || ADMIN_UID;
-
-                // Tạo cấu trúc card HTML chuẩn
-                const card = renderExamCardMarkup(eid, exam, examOwnerId);
-
-                // LỌC MỤC I: Đề của giáo viên nào chỉ xuất hiện trên link của giáo viên đó
-                if (examOwnerId === currentParamTeacherId) {
-                    personalHtml += card;
+            // =====================================================================
+            // 2. TẢI KHO ĐỀ TOÀN TRƯỜNG (MỤC II) - CHỈ ADMIN MỚI ĐƯỢC PHÉP TẢI
+            // =====================================================================
+            if (isAdmin) {
+                const publicSnap = await db.ref('system_stats/exams').once('value');
+                if (publicSnap.exists()) {
+                    const pubData = publicSnap.val();
+                    Object.entries(pubData).forEach(([eid, exam]) => {
+                        // Nếu đề kho chung có lưu teacherId thì dùng, không thì Admin gánh
+                        let ownerId = exam.teacherId || ADMIN_UID; 
+                        publicHtml += renderExamCardMarkup(eid, exam, ownerId);
+                    });
                 }
+            }
 
-                // GOM MỤC II: Tích lũy toàn bộ kho đề phục vụ quyền kiểm soát của Admin
-                publicHtml += card;
-            });
-
+            document.getElementById('loading').style.display = 'none';
             let finalHtml = '';
 
-            // ===============================================================
-            // HIỂN THỊ MỤC I - DANH SÁCH ĐỀ CỦA GIÁO VIÊN TIẾP CẬN
-            // ===============================================================
+            // --- BIÊN DỊCH GIAO DIỆN MỤC I ---
             finalHtml += `
                 <div class="section-title" style="border-bottom: 3px solid #f59e0b;">
                     <span class="section-tag" style="background: #f59e0b; color: #0f172a;">MỤC I</span>
@@ -119,19 +122,17 @@
                 finalHtml += `
                     <div class="empty-msg">
                         <i class="fas fa-folder-open" style="margin-bottom: 6px; font-size: 1.2rem;"></i><br>
-                        Hiện chưa có đề thi nào được phát hành trên phân hệ của Giáo viên này.
+                        Giáo viên này chưa phát hành đề thi nào trên hệ thống.
                     </div>
                 `;
             }
 
-            // ===============================================================
-            // BIÊN DỊCH MỤC II - CHỈ XUẤT HIỆN DUY NHẤT KHI TRUY CẬP BẰNG QUYỀN ADMIN
-            // ===============================================================
+            // --- BIÊN DỊCH GIAO DIỆN MỤC II ---
             if (isAdmin) {
                 finalHtml += `
                     <div class="section-title" style="border-bottom: 3px solid var(--primary); margin-top: 45px;">
                         <span class="section-tag" style="background: var(--primary);">MỤC II</span>
-                        <h2 class="section-text" style="color: var(--primary);"><i class="fas fa-shield-alt"></i> KHO ĐỀ KHẢO SÁT TỐT NGHIỆP (QUYỀN BGH/ADMIN)</h2>
+                        <h2 class="section-text" style="color: var(--primary);"><i class="fas fa-shield-alt"></i> KHO ĐỀ KHẢO SÁT TỐT NGHIỆP (QUYỀN ADMIN)</h2>
                     </div>
                 `;
                 if (publicHtml !== '') {
@@ -140,7 +141,6 @@
                     finalHtml += '<div class="empty-msg">Kho hệ thống trống.</div>';
                 }
             } else {
-                // Nếu là giáo viên thường, khóa cứng hoặc ẩn hoàn toàn Mục II để tránh áp lực thi cử học đường
                 finalHtml += `
                     <div style="margin-top: 40px; background: #e2e8f0; border-radius: 16px; padding: 15px; text-align: center; font-size: 0.8rem; color: #64748b; font-style: italic;">
                         <i class="fas fa-lock"></i> Cổng kết nối dữ liệu khảo sát tốt nghiệp toàn trường đóng. Chỉ mở khi có lệnh điều hành từ Ban Giám Hiệu.
@@ -152,11 +152,10 @@
 
         } catch (err) {
             console.error("Lỗi vận hành hệ thống:", err);
-            document.getElementById('loading').innerText = 'Lỗi kết nối máy chủ phân quyền!';
+            document.getElementById('loading').innerText = 'Lỗi kết nối dữ liệu!';
         }
     }
 
-    // Hàm sinh mã HTML cho Card đề thi
     function renderExamCardMarkup(eid, exam, ownerId) {
         let name = exam.name || "Đề khảo sát trực tuyến";
         let sub = exam.subject || "toan";
@@ -180,7 +179,6 @@
         `;
     }
 
-    // Hàm điều hướng liên thông phòng thi chuẩn cú pháp JavaScript
     function goTest(examId, teacherId) {
         if (!examId || !teacherId) {
             alert("⚠️ Lỗi cấu trúc: Không tìm thấy mã dữ liệu hợp lệ!");
