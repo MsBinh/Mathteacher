@@ -32,7 +32,7 @@
     <p style="font-style: italic; font-size: 0.8rem; color: #ffeb3b; margin-top: 5px;"><i class="fas fa-heart"></i> Hãy chọn chuyên đề ôn tập phù hợp - Tránh áp lực thi cử</p>
 </div>
 
-<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang kết nối hạ tầng học liệu số...</div>
+<div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang kết nối hệ thống học liệu...</div>
 
 <div id="dynamicContent"></div>
 
@@ -49,14 +49,12 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Định danh UID Admin tối cao của Thầy Bình
+    // Mã UID Admin chuẩn xác của hệ thống
     const ADMIN_UID = "X9cBH3YxyXWRXvP3i4uPjFGOKVz2";
 
-    // LẤY MÃ PHÂN QUYỀN DUY NHẤT DỰA VÀO ĐƯỜNG LINK (KHÔNG LIÊN QUAN ĐĂNG NHẬP HỌC SINH)
     const urlParams = new URLSearchParams(window.location.search);
     let currentParamTeacherId = urlParams.get('tid');
     
-    // Nếu link không truyền tham số tid, mặc định nhận diện đây là link hệ thống của Admin
     if (!currentParamTeacherId || currentParamTeacherId.trim() === "") {
         currentParamTeacherId = ADMIN_UID;
     }
@@ -72,50 +70,38 @@
             let personalHtml = '';
             let publicHtml = '';
 
-            // Tải dữ liệu từ nhánh system_stats/exams để phục vụ hiển thị
-            const publicSnap = await db.ref('system_stats/exams').once('value');
-            let publicExamsData = {};
-            if (publicSnap.exists()) {
-                publicExamsData = publicSnap.val();
+            // =====================================================================
+            // MỤC I: LẤY ĐỀ CÁ NHÂN (Tuyệt đối chỉ lấy từ thư mục teachers)
+            // =====================================================================
+            const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
+            if (personalSnap.exists()) {
+                const pData = personalSnap.val();
+                const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
+                pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+                pArray.forEach(exam => {
+                    personalHtml += renderExamCardMarkup(exam.id, exam, currentParamTeacherId);
+                });
             }
 
             // =====================================================================
-            // XỬ LÝ MỤC I: DANH SÁCH ĐỀ THEO ĐƯỜNG LINK TIẾP CẬN
+            // MỤC II: LẤY ĐỀ HỆ THỐNG TOÀN TRƯỜNG (Chỉ mở khóa nếu là Admin)
             // =====================================================================
             if (isAdminLink) {
-                // NẾU LÀ LINK ADMIN: Đổ toàn bộ dữ liệu từ kho chung ra Mục I để tránh trống danh sách đề thi
-                Object.entries(publicExamsData).forEach(([eid, exam]) => {
-                    let ownerId = exam.teacherId || ADMIN_UID;
-                    personalHtml += renderExamCardMarkup(eid, exam, ownerId);
-                });
-            } else {
-                // NẾU LÀ LINK GIÁO VIÊN THƯỜNG: Vào thẳng nhánh riêng tư của họ để bốc đề cá nhân đầy đủ
-                const personalSnap = await db.ref(`teachers/${currentParamTeacherId}/exams`).once('value');
-                if (personalSnap.exists()) {
-                    const pData = personalSnap.val();
-                    const pArray = Object.keys(pData).map(key => ({ id: key, ...pData[key] }));
-                    pArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
-                    pArray.forEach(exam => {
-                        personalHtml += renderExamCardMarkup(exam.id, exam, currentParamTeacherId);
+                const publicSnap = await db.ref('system_stats/exams').once('value');
+                if (publicSnap.exists()) {
+                    const publicExamsData = publicSnap.val();
+                    Object.entries(publicExamsData).forEach(([eid, exam]) => {
+                        let ownerId = exam.teacherId || ADMIN_UID; 
+                        publicHtml += renderExamCardMarkup(eid, exam, ownerId);
                     });
                 }
-            }
-
-            // =====================================================================
-            // XỬ LÝ MỤC II: KHO ĐỀ TOÀN TRƯỜNG (CHỈ XUẤT HIỆN KHI LÀ LINK ADMIN)
-            // =====================================================================
-            if (isAdminLink) {
-                Object.entries(publicExamsData).forEach(([eid, exam]) => {
-                    let ownerId = exam.teacherId || ADMIN_UID; 
-                    publicHtml += renderExamCardMarkup(eid, exam, ownerId);
-                });
             }
 
             document.getElementById('loading').style.display = 'none';
             let finalHtml = '';
 
-            // --- BIÊN DỊCH GIAO DIỆN MỤC I ---
+            // --- BIÊN DỊCH MỤC I ---
             finalHtml += `
                 <div class="section-title" style="border-bottom: 3px solid #f59e0b;">
                     <span class="section-tag" style="background: #f59e0b; color: #0f172a;">MỤC I</span>
@@ -133,7 +119,7 @@
                 `;
             }
 
-            // --- BIÊN DỊCH GIAO DIỆN MỤC II ---
+            // --- BIÊN DỊCH MỤC II ---
             if (isAdminLink) {
                 finalHtml += `
                     <div class="section-title" style="border-bottom: 3px solid var(--primary); margin-top: 45px;">
@@ -157,7 +143,7 @@
             mainContainer.innerHTML = finalHtml;
 
         } catch (err) {
-            console.error("Lỗi vận hành hệ thống:", err);
+            console.error("Lỗi vận hành:", err);
             document.getElementById('loading').innerText = 'Lỗi kết nối máy chủ dữ liệu!';
         }
     }
@@ -186,7 +172,6 @@
         `;
     }
 
-    // ĐIỀU HƯỚNG LIÊN THÔNG: Quay ngược về đúng file index.html tổng để nhập thông tin học sinh
     function goVerifyPage(examId, teacherId) {
         if (!examId || !teacherId) {
             alert("⚠️ Không tìm thấy tham số dữ liệu đề thi hợp lệ!");
