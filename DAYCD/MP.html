@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EduBoard Pro - NguyenThanhBinh</title>
     
+    <link rel="icon" href="data:,">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
     
@@ -21,7 +23,6 @@
     <script src='https://meet.jit.si/external_api.js'></script>
 
     <style>
-        /* [Giữ nguyên toàn bộ CSS cũ] */
         :root { --board-bg: #2c3e50; --toolbar-bg: #34495e; --accent: #2ecc71; --yellow: #f1c40f; }
         body, html { 
             margin: 0; padding: 0; 
@@ -746,6 +747,14 @@
         </div>
         <button onclick="confirmLoadLesson()" style="margin-top:20px; padding:12px; background:#00b894; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">🚀 MỞ BÀI GIẢNG NGAY</button>
     </div>
+</div> <div id="mobileWarningModal" class="modal" style="display:none; text-align:center; border-color: #f39c12; z-index: 99999;">
+    <div style="font-size: 45px; margin-bottom: 10px;">📱</div>
+    <strong style="color:#f1c40f; font-size:18px; display:block; margin-bottom:15px; text-transform: uppercase;">Lưu ý thiết bị sử dụng</strong>
+    <p style="color:#ddd; font-size: 15px; line-height: 1.5; margin-bottom: 20px; text-align: justify;">
+        Hệ thống <b>EduBoard Pro</b> là nền tảng bảng tương tác cần không gian hiển thị rộng.<br><br>
+        Để các tính năng (vẽ hình, hiển thị PDF, chèn Latex) hoạt động đầy đủ và mượt mà nhất, thầy cô vui lòng sử dụng <b>Máy tính (Laptop/PC)</b> hoặc <b>Máy tính bảng (Tablet/iPad)</b> trong quá trình giảng dạy.
+    </p>
+    <button onclick="document.getElementById('mobileWarningModal').style.display='none'" class="btn" style="background:#f39c12; color:#fff; width:100%; padding:10px; font-size: 16px;">Đã hiểu và Tiếp tục</button>
 </div>
 
 <script>
@@ -834,6 +843,11 @@
     }
 
     function init() {
+        // Tự động kiểm tra: Nếu chiều rộng màn hình nhỏ hơn 768px (Điện thoại) thì hiện thông báo
+        if (window.innerWidth < 768) {
+            document.getElementById('mobileWarningModal').style.display = 'block';
+        }
+        
         resizeCanvas();
         ctx.strokeStyle = currentColor; 
         ctx.lineWidth = 2.5; 
@@ -880,7 +894,15 @@
     }
 
     window.onload = init; 
-    window.onresize = () => { resizeCanvas(); };
+    
+    // Đã fix lỗi không bung hộp thoại khi co nhỏ cửa sổ
+    window.onresize = () => { 
+        resizeCanvas(); 
+        if (window.innerWidth < 768) {
+            document.getElementById('mobileWarningModal').style.display = 'block';
+        }
+    };
+    
     wrapper.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
 
     function openEditorFor(box) {
@@ -976,7 +998,7 @@
     }
 
     // ============================================================
-    // DRAWING ENGINE - CẬP NHẬT TÍNH NĂNG TẨY
+    // DRAWING ENGINE
     // ============================================================
     function getPointerPos(e) {
         const rect = canvas.getBoundingClientRect();
@@ -1007,7 +1029,6 @@
         const cur = getPointerPos(e);
         ctx.putImageData(snapshot, 0, 0);
 
-        // Bổ sung điều kiện cho 'eraser'
         if (currentTool === 'pen' || currentTool === 'highlighter' || currentTool === 'eraser') {
             ctx.save();
             if (currentTool === 'highlighter') { 
@@ -1017,7 +1038,7 @@
                 ctx.lineCap = "butt"; 
             } else if (currentTool === 'eraser') {
                 ctx.globalCompositeOperation = 'destination-out';
-                ctx.lineWidth = 30; // Kích thước nét tẩy, có thể điều chỉnh
+                ctx.lineWidth = 30;
                 ctx.lineCap = "round";
                 ctx.lineJoin = "round";
             } else { 
@@ -1084,7 +1105,7 @@
     canvas.addEventListener('touchend', endDraw);
 
     // ============================================================
-    // CÁC HÀM VẼ HÌNH KHỐI VÀ HỖ TRỢ (GIỮ NGUYÊN)
+    // CÁC HÀM VẼ HÌNH KHỐI
     // ============================================================
     function drawTriPyramid3D(x1, y1, x2, y2) {
         const S = {x: x1, y: y1}, width = x2 - x1, height = y2 - y1;

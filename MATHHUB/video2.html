@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATHHUB - Video và Hình ảnh Minh chứng</title>
+    <style>
+        /* Tông màu và font chữ tổng thể */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1c23;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Tiêu đề trang */
+        .page-title {
+            font-size: 2.2rem;
+            color: #f1c40f;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Khung chứa Video */
+        .video-wrapper {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            position: relative;
+            padding-bottom: 45%; 
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 2px solid #2ecc71;
+            background-color: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Lưới chứa 15 Hình ảnh */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #444;
+        }
+
+        .gallery-item {
+            background-color: #2c2f38;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #444;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+        }
+
+        /* Định dạng khung ảnh có hiệu ứng con trỏ Click */
+        .gallery-item img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            background-color: #111;
+            cursor: pointer; /* Biến con trỏ thành bàn tay báo hiệu có thể click */
+            transition: opacity 0.2s;
+        }
+
+        .gallery-item img:hover {
+            opacity: 0.8;
+        }
+
+        .gallery-item p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #bdc3c7;
+            font-weight: bold;
+        }
+
+        .no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 140px;
+            background-color: #222;
+            color: #7f8c8d;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            border: 1px dashed #555;
+            cursor: default;
+        }
+
+        /* TÍNH NĂNG ZOOM ẢNH (LIGHTBOX) */
+        .lightbox-modal {
+            display: none; /* Mặc định ẩn */
+            position: fixed;
+            z-index: 9999;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9); /* Nền đen mờ */
+            backdrop-filter: blur(5px);
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 8px;
+            border: 2px solid #2ecc71;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            animation: zoomIn 0.3s; /* Hiệu ứng zoom mượt */
+        }
+
+        @keyframes zoomIn {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #e74c3c;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="page-title">EduBoard Pro - Video và Hình ảnh Minh chứng</div>
+
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/ITRiuFIWV54" title="Video Hướng dẫn EduBoard Pro" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="ask1.jpg" alt="ask1" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask1</p>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="ask2.jpg" alt="ask2" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask2</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask3.jpg" alt="ask3" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask3</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask4.jpg" alt="ask4" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask4</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask5.jpg" alt="ask5" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask5</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask6.jpg" alt="ask6" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask6</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask7.jpg" alt="ask7" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask7</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask8.jpg" alt="ask8" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask8</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask9.jpg" alt="ask9" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask9</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask10.jpg" alt="ask10" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask10</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask11.jpg" alt="ask11" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask11</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask12.jpg" alt="ask12" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask12</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask13.jpg" alt="ask13" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask13</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask14.jpg" alt="ask14" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask14</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="ask15.jpg" alt="ask15" onclick="openLightbox(this.src)" onerror="this.outerHTML='<div class=\'no-image\'>Đang cập nhật...</div>'">
+                <p>ask15</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="imageLightbox" class="lightbox-modal" onclick="closeLightbox()">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="zoomedImage">
+    </div>
+
+    <script>
+        // Hàm mở ảnh to
+        function openLightbox(imgSrc) {
+            const modal = document.getElementById("imageLightbox");
+            const modalImg = document.getElementById("zoomedImage");
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+            document.body.style.overflow = "hidden"; // Khóa cuộn trang nền
+        }
+
+        // Hàm đóng ảnh
+        function closeLightbox() {
+            const modal = document.getElementById("imageLightbox");
+            modal.style.display = "none";
+            document.body.style.overflow = "auto"; // Mở lại cuộn trang nền
+        }
+    </script>
+
+</body>
+</html>
