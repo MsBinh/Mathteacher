@@ -580,6 +580,7 @@
                     <option value="cone">🍦</option>
                     <option value="cylinder">🛢️</option>
                     <option value="sphere">⚽</option>
+                    <option value="intersection">◯ cắt</option>
                 </optgroup>
             </select>
 
@@ -1084,6 +1085,7 @@
                 else if (currentTool === 'cone') drawCone3D(points[0].x, points[0].y, cur.x, cur.y);
                 else if (currentTool === 'cylinder') drawCylinder3D(points[0].x, points[0].y, cur.x, cur.y);
                 else if (currentTool === 'sphere') drawSphere3D(points[0].x, points[0].y, cur.x, cur.y);
+                else if (currentTool === 'intersection') drawIntersection(points[0].x, points[0].y, cur.x, cur.y);
                 else if (currentTool === 'parallelogram') drawParallelogram(points[0].x, points[0].y, cur.x, cur.y);
                 ctx.stroke();
             }
@@ -1137,7 +1139,24 @@
         ctx.beginPath(); ctx.setLineDash([8, 8]); ctx.ellipse(x1, y1, r, r*0.3, 0, Math.PI, 2*Math.PI); ctx.stroke();
         ctx.setLineDash([]); ctx.beginPath(); ctx.arc(x1, y1, r, 0, 2*Math.PI); ctx.moveTo(x1+r, y1); ctx.ellipse(x1, y1, r, r*0.3, 0, 0, Math.PI); ctx.stroke();
     }
-
+    function drawIntersection(x1, y1, x2, y2) {
+        const rx = Math.abs(x2 - x1) / 2;
+        const ry = rx * 0.3; // Độ dẹt của đường tròn giao tuyến
+        const cx = (x1 + x2) / 2;
+        const cy = y2; // Vị trí mặt phẳng cắt
+        
+        ctx.beginPath();
+        // Vẽ phần nét đứt phía sau
+        ctx.setLineDash([5, 5]);
+        ctx.ellipse(cx, cy, rx, ry, 0, Math.PI, 2 * Math.PI);
+        ctx.stroke();
+        
+        // Vẽ phần nét liền phía trước
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI);
+        ctx.stroke();
+    }
     function drawParallelogram(x1, y1, x2, y2) {
         const w = x2 - x1;
         const skew = w * 0.2; 
@@ -1149,10 +1168,12 @@
         ctx.closePath();
         ctx.stroke();
     }
+    // Hàm vẽ đường tròn giao tuyến thủ công
 
     function addMedia(type, src) {
         const div = document.createElement('div');
         div.className = 'media-box';
+        div.dataset.page = currentPage;
         div.style.left = '100px';
         div.style.top = (wrapper.scrollTop + 100) + 'px';
         div.dataset.scale = 1;
@@ -1439,22 +1460,30 @@
     function updatePageIndicator() { document.getElementById('pageIndicator').innerText = `${currentPage + 1} / ${pages.length}`; }
     
     function switchPage(index) {
-        if(index < 0 || index >= pages.length) return;
-        currentPage = index; 
-        const p = pages[currentPage];
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if(p.canvasData) { 
-            const img = new Image(); 
-            img.src = p.canvasData; 
-            img.onload = () => ctx.drawImage(img, 0, 0); 
-        }
-        document.querySelectorAll('.pdf-container, .web-container, .math-box, .media-box').forEach(el => {
-            if(!el.dataset.page) el.dataset.page = 0; 
-            el.style.display = (parseInt(el.dataset.page) === currentPage) ? 'block' : 'none';
-        });
-        updatePageIndicator();
+    if(index < 0 || index >= pages.length) return;
+    
+    // Lưu trạng thái canvas trước khi chuyển
+    pages[currentPage].canvasData = canvas.toDataURL();
+    
+    currentPage = index; 
+    const p = pages[currentPage];
+    
+    // Xóa và vẽ lại canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(p.canvasData) { 
+        const img = new Image(); 
+        img.src = p.canvasData; 
+        img.onload = () => ctx.drawImage(img, 0, 0); 
     }
     
+    // Ẩn/Hiện đúng các phần tử thuộc trang đó
+    document.querySelectorAll('.pdf-container, .web-container, .math-box, .media-box, .label-box').forEach(el => {
+        const pageOfEl = parseInt(el.dataset.page) || 0;
+        el.style.display = (pageOfEl === currentPage) ? 'block' : 'none';
+    });
+    
+    updatePageIndicator();
+}
     function nextPage() { 
         if(currentPage < pages.length - 1) switchPage(currentPage + 1); 
         else if(confirm("Tạo trang mới?")) addPage(); 
@@ -1467,36 +1496,69 @@
         switchPage(pages.length - 1); 
     }
 
-    async function exportFullPDF() {
-        const loading = document.getElementById('loading');
-        loading.style.display = 'block';
-        loading.innerText = "Đang xử lý ảnh...";
-        try {
-            const canvasFull = await html2canvas(contentContainer, { scale: 1.5, useCORS: true, backgroundColor: '#ffffff', ignoreElements: (el) => el.classList.contains('pagination-bar') || el.classList.contains('img-controls') || el.classList.contains('t-handle') });
-            loading.innerText = "Đang tạo file PDF...";
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfW = pdf.internal.pageSize.getWidth();
-            const pdfH = pdf.internal.pageSize.getHeight();
-            const imgData = canvasFull.toDataURL("image/jpeg", 0.9);
-            const imgW = canvasFull.width;
-            const imgH = canvasFull.height;
-            const pageImgH = (imgW * pdfH) / pdfW;
-            let heightLeft = imgH;
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, (imgH * pdfW) / imgW);
-            heightLeft -= pageImgH;
-            while (heightLeft > 0) {
-                pdf.addPage();
-                const shiftY = -(imgH * pdfW / imgW) + (heightLeft * pdfW / imgW);
-                pdf.addImage(imgData, 'JPEG', 0, shiftY - 1, pdfW, (imgH * pdfW) / imgW);
-                heightLeft -= pageImgH;
-            }
-            pdf.save("BaiGiang_DayDu.pdf");
-        } catch (error) { alert("Lỗi xuất PDF: " + error.message); }
+   async function exportFullPDF() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'block';
+    loading.innerText = "Đang xử lý ảnh...";
+    
+    try {
+        // 1. Lấy màu nền thực tế của bảng (để giữ màu xanh/trắng đúng như khi đang dạy)
+        const boardWrapper = document.getElementById('boardWrapper');
+        const computedStyle = window.getComputedStyle(boardWrapper);
+        const bgColor = computedStyle.backgroundColor;
+
+        // 2. Chụp ảnh container với màu nền vừa lấy được
+        const canvasFull = await html2canvas(contentContainer, { 
+            scale: 1.5, 
+            useCORS: true, 
+            backgroundColor: bgColor, // Tự động lấy màu nền hiện tại
+            ignoreElements: (el) => 
+                el.classList.contains('pagination-bar') || 
+                el.classList.contains('img-controls') || 
+                el.classList.contains('t-handle') ||
+                el.classList.contains('web-blocker') 
+        });
+
+        loading.innerText = "Đang tạo file PDF...";
+        
+        const { jsPDF } = window.jspdf;
+        // Sử dụng đơn vị 'px' để tính toán chuẩn hơn trước khi đổi sang 'mm'
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        
+        const imgWidth = canvasFull.width;
+        const imgHeight = canvasFull.height;
+        
+        // Tính tỷ lệ co giãn để ảnh vừa vặn khổ A4
+        const ratio = pdfWidth / imgWidth;
+        const imgHeightPDF = imgHeight * ratio;
+        
+        let heightLeft = imgHeightPDF;
+        let position = 0;
+
+        // Thêm trang đầu tiên
+        pdf.addImage(canvasFull.toDataURL("image/jpeg", 0.9), 'JPEG', 0, position, pdfWidth, imgHeightPDF);
+        heightLeft -= pdfHeight;
+
+        // Nếu nội dung dài hơn 1 trang, thêm các trang tiếp theo
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeightPDF;
+            pdf.addPage();
+            pdf.addImage(canvasFull.toDataURL("image/jpeg", 0.9), 'JPEG', 0, position, pdfWidth, imgHeightPDF);
+            heightLeft -= pdfHeight;
+        }
+
+        pdf.save("BaiGiang_EduBoard.pdf");
+        
+    } catch (error) {
+        console.error(error);
+        alert("Lỗi xuất PDF: " + error.message);
+    } finally {
         loading.style.display = 'none';
         loading.innerText = "⏳ Đang xử lý...";
     }
-
+}
     function toggleLiveModal() { const m = document.getElementById('liveModal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; }
     function startJitsi() {
         if(jitsiApi) return alert("Đang phát rồi!");

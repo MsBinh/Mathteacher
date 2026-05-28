@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EduBoard Pro - NguyenThanhBinh</title>
     
+    <link rel="icon" href="data:,">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
     
@@ -558,7 +560,6 @@
             <button class="btn" onclick="saveProjectFile()" title="Lưu Project">💾</button>
 
             <div class="sep"></div>
-            <!-- Undo/Redo CHỈ cho vẽ, không ảnh hưởng đối tượng khác -->
             <button class="btn" onclick="undoDraw()" title="Hoàn tác nét vẽ (Undo)">↩️</button>
             <button class="btn" onclick="redoDraw()" title="Làm lại nét vẽ (Redo)">↪️</button>
             <div class="sep"></div>
@@ -567,7 +568,7 @@
                 <optgroup label="Cơ bản">
                     <option value="pen" selected>✏️</option>
                     <option value="highlighter">🖍️</option>
-                    <option value="line">📏</option>
+                    <option value="eraser">🧽 Cục tẩy</option> <option value="line">📏</option>
                     <option value="dashedLine"> -- </option>
                 </optgroup>
                 <optgroup label="Hình học">
@@ -746,6 +747,14 @@
         </div>
         <button onclick="confirmLoadLesson()" style="margin-top:20px; padding:12px; background:#00b894; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">🚀 MỞ BÀI GIẢNG NGAY</button>
     </div>
+</div> <div id="mobileWarningModal" class="modal" style="display:none; text-align:center; border-color: #f39c12; z-index: 99999;">
+    <div style="font-size: 45px; margin-bottom: 10px;">📱</div>
+    <strong style="color:#f1c40f; font-size:18px; display:block; margin-bottom:15px; text-transform: uppercase;">Lưu ý thiết bị sử dụng</strong>
+    <p style="color:#ddd; font-size: 15px; line-height: 1.5; margin-bottom: 20px; text-align: justify;">
+        Hệ thống <b>EduBoard Pro</b> là nền tảng bảng tương tác cần không gian hiển thị rộng.<br><br>
+        Để các tính năng (vẽ hình, hiển thị PDF, chèn Latex) hoạt động đầy đủ và mượt mà nhất, thầy cô vui lòng sử dụng <b>Máy tính (Laptop/PC)</b> hoặc <b>Máy tính bảng (Tablet/iPad)</b> trong quá trình giảng dạy.
+    </p>
+    <button onclick="document.getElementById('mobileWarningModal').style.display='none'" class="btn" style="background:#f39c12; color:#fff; width:100%; padding:10px; font-size: 16px;">Đã hiểu và Tiếp tục</button>
 </div>
 
 <script>
@@ -774,26 +783,22 @@
     // ============================================================
     // LỊCH SỬ CHỈ CHO VẼ (DRAWING HISTORY) - TÁCH BIỆT HOÀN TOÀN
     // ============================================================
-    let drawHistory = [];      // Lưu các ảnh canvas
-    let drawHistoryIndex = -1; // Vị trí hiện tại trong lịch sử vẽ
+    let drawHistory = [];      
+    let drawHistoryIndex = -1; 
     
-    // Lưu trạng thái canvas hiện tại vào lịch sử vẽ
     function saveDrawState() {
         const currentState = canvas.toDataURL();
-        // Nếu đang ở giữa lịch sử (đã undo), cắt bỏ phần phía sau
         if (drawHistoryIndex < drawHistory.length - 1) {
             drawHistory = drawHistory.slice(0, drawHistoryIndex + 1);
         }
         drawHistory.push(currentState);
         drawHistoryIndex++;
-        // Giới hạn số lượng lịch sử (50 bước)
         if (drawHistory.length > 50) {
             drawHistory.shift();
             drawHistoryIndex--;
         }
     }
     
-    // Khôi phục trạng thái canvas từ lịch sử vẽ
     function restoreDrawState(index) {
         if (index >= 0 && index < drawHistory.length) {
             const img = new Image();
@@ -801,7 +806,6 @@
             img.onload = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0);
-                // Khôi phục các thuộc tính vẽ
                 ctx.strokeStyle = currentColor;
                 ctx.lineWidth = 2.5;
                 ctx.lineCap = 'round';
@@ -824,14 +828,8 @@
         }
     }
     
-    // Ghi lại trạng thái canvas sau mỗi lần vẽ
-    function afterDraw() {
-        saveDrawState();
-    }
+    function afterDraw() { saveDrawState(); }
 
-    // ============================================================
-    // RESIZE CANVAS
-    // ============================================================
     function resizeCanvas() {
         canvas.width = contentContainer.offsetWidth;
         canvas.height = contentContainer.offsetHeight;
@@ -839,16 +837,17 @@
         ctx.lineJoin = 'round';
         ctx.strokeStyle = currentColor;
         ctx.lineWidth = 2.5;
-        // Khôi phục lại nội dung canvas từ lịch sử vẽ (nếu có)
         if (drawHistory.length > 0 && drawHistoryIndex >= 0) {
             restoreDrawState(drawHistoryIndex);
         }
     }
 
-    // ============================================================
-    // CÁC HÀM KHỞI TẠO
-    // ============================================================
     function init() {
+        // Tự động kiểm tra: Nếu chiều rộng màn hình nhỏ hơn 768px (Điện thoại) thì hiện thông báo
+        if (window.innerWidth < 768) {
+            document.getElementById('mobileWarningModal').style.display = 'block';
+        }
+        
         resizeCanvas();
         ctx.strokeStyle = currentColor; 
         ctx.lineWidth = 2.5; 
@@ -858,8 +857,6 @@
         document.body.classList.add('drawing-mode');
         updateToolState();
         makeElementDraggable(document.getElementById('jitsi-container'), document.querySelector('.jitsi-header'));
-        
-        // Lưu trạng thái ban đầu vào lịch sử vẽ
         saveDrawState();
         
         document.addEventListener('mousedown', (e) => {
@@ -897,13 +894,17 @@
     }
 
     window.onload = init; 
-    window.onresize = () => { resizeCanvas(); };
+    
+    // Đã fix lỗi không bung hộp thoại khi co nhỏ cửa sổ
+    window.onresize = () => { 
+        resizeCanvas(); 
+        if (window.innerWidth < 768) {
+            document.getElementById('mobileWarningModal').style.display = 'block';
+        }
+    };
     
     wrapper.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
 
-    // ============================================================
-    // EDITOR FUNCTIONS
-    // ============================================================
     function openEditorFor(box) {
         if (activeMathBox) activeMathBox.classList.remove('active');
         activeMathBox = box;
@@ -940,9 +941,6 @@
         }).catch((err) => console.log("MathJax error:", err));
     }
 
-    // ============================================================
-    // TOOL MANAGEMENT
-    // ============================================================
     function setTool(toolName) {
         if(toolName === 'hand') { 
             currentTool = 'hand'; 
@@ -966,9 +964,6 @@
         }
     }
 
-    // ============================================================
-    // COLOR
-    // ============================================================
     const colorPalette = ['#ffffff', '#ff4757', '#ffeb3b', '#3498db', '#2ecc71', '#9b59b6', '#e74c3c', '#1abc9c'];
     let colorIndex = 0;
     
@@ -1003,7 +998,7 @@
     }
 
     // ============================================================
-    // DRAWING ENGINE - CHỈ LƯU LỊCH SỬ SAU KHI VẼ XONG
+    // DRAWING ENGINE
     // ============================================================
     function getPointerPos(e) {
         const rect = canvas.getBoundingClientRect();
@@ -1034,13 +1029,18 @@
         const cur = getPointerPos(e);
         ctx.putImageData(snapshot, 0, 0);
 
-        if (currentTool === 'pen' || currentTool === 'highlighter') {
+        if (currentTool === 'pen' || currentTool === 'highlighter' || currentTool === 'eraser') {
             ctx.save();
             if (currentTool === 'highlighter') { 
                 ctx.globalAlpha = 0.3; 
                 ctx.lineWidth = 20; 
                 ctx.strokeStyle = "yellow"; 
                 ctx.lineCap = "butt"; 
+            } else if (currentTool === 'eraser') {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.lineWidth = 30;
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
             } else { 
                 ctx.lineWidth = 2.5; 
                 ctx.strokeStyle = currentColor; 
@@ -1093,7 +1093,7 @@
     function endDraw() {
         if(isDrawing) {
             isDrawing = false;
-            afterDraw(); // Chỉ lưu lịch sử khi kết thúc vẽ
+            afterDraw(); 
         }
     }
 
@@ -1150,9 +1150,6 @@
         ctx.stroke();
     }
 
-    // ============================================================
-    // CÁC HÀM THÊM ĐỐI TƯỢNG (KHÔNG ẢNH HƯỞNG LỊCH SỬ VẼ)
-    // ============================================================
     function addMedia(type, src) {
         const div = document.createElement('div');
         div.className = 'media-box';
@@ -1439,27 +1436,36 @@
         updateContainerHeight();
     }
 
-    // ============================================================
-    // PAGINATION
-    // ============================================================
     function updatePageIndicator() { document.getElementById('pageIndicator').innerText = `${currentPage + 1} / ${pages.length}`; }
     
     function switchPage(index) {
-        if(index < 0 || index >= pages.length) return;
-        currentPage = index; 
-        const p = pages[currentPage];
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if(p.canvasData) { 
-            const img = new Image(); 
-            img.src = p.canvasData; 
-            img.onload = () => ctx.drawImage(img, 0, 0); 
-        }
-        document.querySelectorAll('.pdf-container, .web-container, .math-box, .media-box').forEach(el => {
-            if(!el.dataset.page) el.dataset.page = 0; 
-            el.style.display = (parseInt(el.dataset.page) === currentPage) ? 'block' : 'none';
-        });
-        updatePageIndicator();
+    if(index < 0 || index >= pages.length) return;
+    
+    // 1. Lưu lại nét vẽ của trang hiện tại trước khi chuyển
+    pages[currentPage].canvasData = canvas.toDataURL();
+    
+    currentPage = index; 
+    const p = pages[currentPage];
+    
+    // 2. Xóa sạch Canvas hiện tại
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 3. Nếu trang mới đã có nét vẽ cũ thì tải lên
+    if(p.canvasData) { 
+        const img = new Image(); 
+        img.src = p.canvasData; 
+        img.onload = () => ctx.drawImage(img, 0, 0); 
     }
+    
+    // 4. QUAN TRỌNG: Ẩn/Hiện đúng các phần tử thuộc trang đó
+    document.querySelectorAll('.pdf-container, .web-container, .math-box, .media-box, .label-box').forEach(el => {
+        // Nếu phần tử không có thuộc tính dataset.page, mặc định cho là trang 0
+        const elPage = parseInt(el.dataset.page) || 0;
+        el.style.display = (elPage === currentPage) ? 'block' : 'none';
+    });
+    
+    updatePageIndicator();
+}
     
     function nextPage() { 
         if(currentPage < pages.length - 1) switchPage(currentPage + 1); 
@@ -1473,9 +1479,6 @@
         switchPage(pages.length - 1); 
     }
 
-    // ============================================================
-    // EXPORT PDF
-    // ============================================================
     async function exportFullPDF() {
         const loading = document.getElementById('loading');
         loading.style.display = 'block';
@@ -1506,9 +1509,6 @@
         loading.innerText = "⏳ Đang xử lý...";
     }
 
-    // ============================================================
-    // JITSI FUNCTIONS
-    // ============================================================
     function toggleLiveModal() { const m = document.getElementById('liveModal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; }
     function startJitsi() {
         if(jitsiApi) return alert("Đang phát rồi!");
@@ -1534,9 +1534,6 @@
     function closeJitsi() { if(jitsiApi) { jitsiApi.dispose(); jitsiApi = null; } document.getElementById('jitsi-container').style.display = 'none'; }
     function copyId() { navigator.clipboard.writeText(document.getElementById('roomNameDisplay').innerText); alert("Đã copy mã lớp!"); }
 
-    // ============================================================
-    // THƯ VIỆN BÀI GIẢNG
-    // ============================================================
     let lessonData = {};
     async function toggleLibraryModal() {
         const m = document.getElementById('libraryModal');
@@ -1621,9 +1618,6 @@
         if(select) select.innerHTML = '<option value="">📚 Thư viện (Đang tải)</option>';
     }
 
-    // ============================================================
-    // CÁC HÀM PHỤ TRỢ
-    // ============================================================
     function toggleFullScreen() { if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
     function toggleBoardTheme() {
         const board = document.getElementById('boardWrapper');
@@ -1686,10 +1680,8 @@
         }
     });
 
-    // Khởi tạo thư viện
     window.addEventListener('load', autoLoadLibrary);
     
-    // Expose global functions
     window.undoDraw = undoDraw;
     window.redoDraw = redoDraw;
     window.setTool = setTool;
@@ -1722,7 +1714,6 @@
     window.saveProjectFile = saveProjectFile;
     window.loadProjectFile = loadProjectFile;
     
-    // Hàm lưu/mở project (tùy chọn, giữ nguyên logic cũ)
     function saveProjectFile() {
         const state = { canvasData: canvas.toDataURL(), elements: [] };
         document.querySelectorAll('.math-box').forEach(el => {
