@@ -408,7 +408,7 @@
     
     if(!name) return alert("Vui lòng nhập tên!");
     
-    // 1. Xử lý lưu Chuyên đề học liệu (Vào Kho Cộng đồng)
+    // --- BẮT ĐẦU ĐOẠN ĐÃ SỬA ---
     if(contentType === 'resource') {
         if(!auth.currentUser) return alert("⚠️ Vui lòng đăng nhập để lưu học liệu!");
         
@@ -421,21 +421,21 @@
             description: "Chuyên đề học tập",
             type: 'resource',
             createdAt: firebase.database.ServerValue.TIMESTAMP,
-            author: auth.currentUser.email || "Teacher",
-            authorUid: auth.currentUser.uid
+            author: auth.currentUser?.email || "Teacher",
+            authorUid: auth.currentUser?.uid
         };
         
         try {
-            // Đã trỏ đúng vào nhánh community_resources đã mở quyền trong Rules
+            // ĐÃ ĐỔI THÀNH community_resources ĐỂ KHÔNG BỊ CHẶN QUYỀN
             await db.ref(`community_resources/${resourceId}`).set(resourceData);
-            alert("✅ Đã lưu vào KHO CỘNG ĐỒNG thành công!");
+            alert("✅ Đã lưu vào KHO DỮ LIỆU thành công!");
         } catch (err) {
             alert("❌ Lỗi khi lưu vào kho cộng đồng: " + err.message);
         }
         return;
     }
+    // --- KẾT THÚC ĐOẠN ĐÃ SỬA ---
     
-    // 2. Xử lý lưu Đề thi
     const eid = document.getElementById('examId').value;
     if(!eid) return alert("Vui lòng nhập Mã định danh (ID) đề thi!");
     
@@ -449,8 +449,22 @@
     if(pdf.includes('github.com')) pdf = pdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
     
     const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
+    const oldSnap = await db.ref(path).once('value');
+    const oldData = oldSnap.val();
     
-    // Đóng gói đáp án theo cấu trúc
+    let totalQuestions = currentStructure.mcq + currentStructure.tf + currentStructure.sa;
+    
+    const examData = {
+        name: name,
+        pdfLink: pdf,
+        duration: parseInt(document.getElementById('duration').value) || 90,
+        subject: subject,
+        grade: 12,
+        structure: currentStructure,
+        createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
+        updatedAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    
     const keys = [];
     let qId = 1;
     for(let i = 1; i <= currentStructure.mcq; i++, qId++) {
@@ -463,38 +477,32 @@
         keys.push({ id: qId, type: 'short_answer', correct: masterKey[qId] || "" });
     }
     
-    const examData = {
-        name: name,
-        pdfLink: pdf,
-        duration: parseInt(document.getElementById('duration').value) || 90,
-        subject: subject,
-        grade: 12,
-        structure: currentStructure,
-        updatedAt: firebase.database.ServerValue.TIMESTAMP
-    };
+    const keyPath = isDemo ? `demo_master_keys/${eid}` : `teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`;
     
     try {
         if (!isDemo) {
             const updates = {};
             updates[`teachers/${auth.currentUser.uid}/exams/${eid}`] = examData;
             updates[`system_stats/exams/${eid}`] = {
-                name: name,
+                name: examData.name,
                 teacherId: auth.currentUser.uid,
                 subject: subject,
                 updatedAt: examData.updatedAt,
-                grade: 12
+                createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
+                grade: 12,
+                structure: currentStructure
             };
             await db.ref().update(updates);
-            await db.ref(`teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`).set(keys);
+            await db.ref(keyPath).set(keys);
         } else {
             await db.ref(path).update(examData);
-            await db.ref(`demo_master_keys/${eid}`).set(keys);
+            await db.ref(keyPath).set(keys);
         }
         
-        alert("🎉 ĐỀ THI ĐÃ LƯU THÀNH CÔNG!");
+        alert("🎉 ĐỀ THI ĐÃ ĐƯỢC LƯU & ĐỒNG BỘ THỐNG KÊ THÀNH CÔNG!");
         listMyExams();
     } catch(e) { 
-        alert("Lỗi đồng bộ Firebase: " + e.message); 
+        alert("Lỗi đồng bộ: " + e.message); 
     }
 }
     function applyBulk() {
