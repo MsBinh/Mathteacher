@@ -401,106 +401,102 @@
     // 5. LƯU DỮ LIỆU (ĐA NĂNG: ĐỀ THI / HỌC LIỆU)
     // ================================================================
     async function saveDataPro() {
-        const contentType = document.getElementById('contentType').value;
-        const subject = document.getElementById('subject').value;
-        const name = document.getElementById('examName').value;
-        const pdfLink = document.getElementById('pdfLink').value;
+    const contentType = document.getElementById('contentType').value;
+    const subject = document.getElementById('subject').value;
+    const name = document.getElementById('examName').value;
+    const pdfLink = document.getElementById('pdfLink').value;
+    
+    if(!name) return alert("Vui lòng nhập tên!");
+    
+    // 1. Xử lý lưu Chuyên đề học liệu (Vào Kho Cộng đồng)
+    if(contentType === 'resource') {
+        if(!auth.currentUser) return alert("⚠️ Vui lòng đăng nhập để lưu học liệu!");
         
-        if(!name) return alert("Vui lòng nhập tên!");
-        
-        if(contentType === 'resource') {
-            // Lưu chuyên đề học liệu
-            const resourceId = 'RES_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
-            const resourceData = {
-                title: name,
-                subject: subject,
-                grade: 12,
-                pdfLink: pdfLink,
-                description: "Chuyên đề học tập",
-                type: 'resource',
-                createdAt: firebase.database.ServerValue.TIMESTAMP,
-                author: auth.currentUser?.email || "Teacher",
-                authorUid: auth.currentUser?.uid
-            };
-            
-            await db.ref(`community_resources/${resourceId}`).set(resourceData);
-            alert("✅ Đã lưu vào KHO HỌC LIỆU thành công!");
-            return;
-        }
-        
-        // Lưu đề thi
-        const eid = document.getElementById('examId').value;
-        if(!eid) return alert("Vui lòng nhập Mã định danh (ID) đề thi!");
-        
-        const isDemo = document.getElementById('modeSwitch').checked;
-        if(isDemo && auth.currentUser.uid !== ADMIN_UID) {
-            alert("🔒 Chỉ Admin mới có quyền thay đổi đề Demo!");
-            return;
-        }
-        
-        let pdf = pdfLink;
-        if(pdf.includes('github.com')) pdf = pdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-        
-        const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
-        const oldSnap = await db.ref(path).once('value');
-        const oldData = oldSnap.val();
-        
-        // Xác định tổng số câu hỏi dựa trên cấu trúc
-        let totalQuestions = currentStructure.mcq + currentStructure.tf + currentStructure.sa;
-        
-        const examData = {
-            name: name,
-            pdfLink: pdf,
-            duration: parseInt(document.getElementById('duration').value) || 90,
+        const resourceId = 'RES_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+        const resourceData = {
+            title: name,
             subject: subject,
             grade: 12,
-            structure: currentStructure,
-            createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
-            updatedAt: firebase.database.ServerValue.TIMESTAMP
+            pdfLink: pdfLink,
+            description: "Chuyên đề học tập",
+            type: 'resource',
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            author: auth.currentUser.email || "Teacher",
+            authorUid: auth.currentUser.uid
         };
         
-        // Đóng gói đáp án theo cấu trúc
-        const keys = [];
-        let qId = 1;
-        for(let i = 1; i <= currentStructure.mcq; i++, qId++) {
-            keys.push({ id: qId, type: 'multiple_choice', correct: masterKey[qId] || "" });
-        }
-        for(let i = 1; i <= currentStructure.tf; i++, qId++) {
-            keys.push({ id: qId, type: 'true_false', correct: masterKey[qId] || {a:false,b:false,c:false,d:false} });
-        }
-        for(let i = 1; i <= currentStructure.sa; i++, qId++) {
-            keys.push({ id: qId, type: 'short_answer', correct: masterKey[qId] || "" });
-        }
-        
-        const keyPath = isDemo ? `demo_master_keys/${eid}` : `teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`;
-        
         try {
-            if (!isDemo) {
-                const updates = {};
-                updates[`teachers/${auth.currentUser.uid}/exams/${eid}`] = examData;
-                updates[`system_stats/exams/${eid}`] = {
-                    name: examData.name,
-                    teacherId: auth.currentUser.uid,
-                    subject: subject,
-                    updatedAt: examData.updatedAt,
-                    createdAt: oldData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
-                    grade: 12,
-                    structure: currentStructure
-                };
-                await db.ref().update(updates);
-                await db.ref(keyPath).set(keys);
-            } else {
-                await db.ref(path).update(examData);
-                await db.ref(keyPath).set(keys);
-            }
-            
-            alert("🎉 ĐỀ THI ĐÃ ĐƯỢC LƯU & ĐỒNG BỘ THỐNG KÊ THÀNH CÔNG!");
-            listMyExams();
-        } catch(e) { 
-            alert("Lỗi đồng bộ: " + e.message); 
+            // Đã trỏ đúng vào nhánh community_resources đã mở quyền trong Rules
+            await db.ref(`community_resources/${resourceId}`).set(resourceData);
+            alert("✅ Đã lưu vào KHO CỘNG ĐỒNG thành công!");
+        } catch (err) {
+            alert("❌ Lỗi khi lưu vào kho cộng đồng: " + err.message);
         }
+        return;
     }
     
+    // 2. Xử lý lưu Đề thi
+    const eid = document.getElementById('examId').value;
+    if(!eid) return alert("Vui lòng nhập Mã định danh (ID) đề thi!");
+    
+    const isDemo = document.getElementById('modeSwitch').checked;
+    if(isDemo && auth.currentUser.uid !== ADMIN_UID) {
+        alert("🔒 Chỉ Admin mới có quyền thay đổi đề Demo!");
+        return;
+    }
+    
+    let pdf = pdfLink;
+    if(pdf.includes('github.com')) pdf = pdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+    
+    const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
+    
+    // Đóng gói đáp án theo cấu trúc
+    const keys = [];
+    let qId = 1;
+    for(let i = 1; i <= currentStructure.mcq; i++, qId++) {
+        keys.push({ id: qId, type: 'multiple_choice', correct: masterKey[qId] || "" });
+    }
+    for(let i = 1; i <= currentStructure.tf; i++, qId++) {
+        keys.push({ id: qId, type: 'true_false', correct: masterKey[qId] || {a:false,b:false,c:false,d:false} });
+    }
+    for(let i = 1; i <= currentStructure.sa; i++, qId++) {
+        keys.push({ id: qId, type: 'short_answer', correct: masterKey[qId] || "" });
+    }
+    
+    const examData = {
+        name: name,
+        pdfLink: pdf,
+        duration: parseInt(document.getElementById('duration').value) || 90,
+        subject: subject,
+        grade: 12,
+        structure: currentStructure,
+        updatedAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    try {
+        if (!isDemo) {
+            const updates = {};
+            updates[`teachers/${auth.currentUser.uid}/exams/${eid}`] = examData;
+            updates[`system_stats/exams/${eid}`] = {
+                name: name,
+                teacherId: auth.currentUser.uid,
+                subject: subject,
+                updatedAt: examData.updatedAt,
+                grade: 12
+            };
+            await db.ref().update(updates);
+            await db.ref(`teachers/${auth.currentUser.uid}/exam_master_keys/${eid}`).set(keys);
+        } else {
+            await db.ref(path).update(examData);
+            await db.ref(`demo_master_keys/${eid}`).set(keys);
+        }
+        
+        alert("🎉 ĐỀ THI ĐÃ LƯU THÀNH CÔNG!");
+        listMyExams();
+    } catch(e) { 
+        alert("Lỗi đồng bộ Firebase: " + e.message); 
+    }
+}
     function applyBulk() {
         const input = document.getElementById('bulkInput').value.trim().split(/\s+/);
         const totalQuestions = currentStructure.mcq + currentStructure.tf + currentStructure.sa;
