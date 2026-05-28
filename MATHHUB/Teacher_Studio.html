@@ -422,7 +422,8 @@
                 author: auth.currentUser?.email || "Teacher",
                 authorUid: auth.currentUser?.uid
             };
-            await db.ref(`learning_resources/${resourceId}`).set(resourceData);
+            
+            await db.ref(`community_resources/${resourceId}`).set(resourceData);
             alert("✅ Đã lưu vào KHO HỌC LIỆU thành công!");
             return;
         }
