@@ -149,7 +149,10 @@
         <div class="grid-config">
             <div class="field"><label><i class="fas fa-heading"></i> Tên đề / Chuyên đề</label><input type="text" id="examName" placeholder="VD: Đề minh họa 2026"></div>
             <div class="field"><label><i class="fas fa-qrcode"></i> Mã định danh (ID)</label><div style="display:flex; gap:10px;"><input type="text" id="examId" placeholder="DE_01" style="flex:1;"><button onclick="loadExam()" style="padding:10px 18px; border-radius:12px; cursor:pointer; background:#e2e8f0; border:none;"><i class="fas fa-search"></i></button></div></div>
-            <div class="field"><label><i class="fas fa-file-pdf"></i> Link PDF</label><input type="text" id="pdfLink" placeholder="https://..."></div>
+            <div class="field"><label><i class="fas fa-file-pdf"></i> Link PDF Đề bài</label><input type="text" id="pdfLink" placeholder="https://..."></div>
+            
+            <div class="field"><label><i class="fas fa-file-signature"></i> Link PDF Hướng dẫn giải</label><input type="text" id="solutionLink" placeholder="Nhập link file đáp án chi tiết..."></div>
+            
             <div class="field"><label><i class="fas fa-clock"></i> Thời gian (phút)</label><input type="number" id="duration" value="90"></div>
         </div>
         
@@ -197,23 +200,13 @@
     // HÀM ĐỘNG: TỰ ĐỘNG SINH LINK & VẼ QR CODE CHO GIÁO VIÊN ĐĂNG NHẬP
     // ================================================================
     function generateTeacherShareAssets(uid) {
-    let originUrl = window.location.origin;
-    
-    // Giữ nguyên cấu trúc sinh link ListExams gốc ban đầu của Thầy Bình
-    const finalLink = `${originUrl}/MATHHUB/ListExams.html?tid=${uid}`;
-    
-    // Giữ nguyên việc gán link vào ô để giáo viên copy
-    document.getElementById('teacherShareLink').value = finalLink;
-    
-    // 🛠️ CHỈ SỬA ĐÚNG DÒNG NÀY: Thay API Google Chart bằng QRServer để hiển thị lại ảnh QR không bị gãy
-    const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(finalLink)}&charset-source=UTF-8`;
-    
-    // Nạp link ảnh vào thẻ <img> để hiển thị lên màn hình
-    document.getElementById('teacherQRImage').src = qrApi;
-    
-    // Giữ nguyên việc mở khối hiển thị công cụ chia sẻ
-    document.getElementById('shareHubBlock').style.display = 'flex';
-}
+        let originUrl = window.location.origin;
+        const finalLink = `${originUrl}/MATHHUB/ListExams.html?tid=${uid}`;
+        document.getElementById('teacherShareLink').value = finalLink;
+        const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(finalLink)}&charset-source=UTF-8`;
+        document.getElementById('teacherQRImage').src = qrApi;
+        document.getElementById('shareHubBlock').style.display = 'flex';
+    }
 
     function copyTeacherLink() {
         const linkInput = document.getElementById("teacherShareLink");
@@ -319,7 +312,6 @@
             document.getElementById('userStatus').innerHTML = `<i class="fas fa-user-check"></i> ${user.email}`;
             applySubjectStructure();
             listMyExams();
-            // KÍCH HOẠT SINH TÀI NGUYÊN ĐĂNG NHẬP CHO TỪNG GIÁO VIÊN
             generateTeacherShareAssets(user.uid);
         } else { 
             window.location.href = 'login.html'; 
@@ -410,6 +402,10 @@
                 const d = examSnap.val();
                 document.getElementById('examName').value = d.name || '';
                 document.getElementById('pdfLink').value = d.pdfLink || d.pdfUrl || '';
+                
+                // ĐÃ THÊM LỆNH TẢI LINK HƯỚNG DẪN GIẢI TỪ DATABASE LÊN GIAO DIỆN
+                document.getElementById('solutionLink').value = d.solutionLink || '';
+                
                 document.getElementById('duration').value = d.duration || 90;
                 
                 if(d.subject) {
@@ -442,15 +438,18 @@
             }
         } catch(e) { alert("Lỗi tải: " + e.message); }
     }
+
 async function saveDataPro() {
     const contentType = document.getElementById('contentType').value;
     const subject = document.getElementById('subject').value;
     const name = document.getElementById('examName').value;
     const pdfLink = document.getElementById('pdfLink').value;
     
+    // ĐÃ THÊM BIẾN ĐỂ LẤY DỮ LIỆU TỪ Ô SOLUTION LINK
+    const solutionLink = document.getElementById('solutionLink').value;
+    
     if(!name) return alert("Vui lòng nhập tên!");
     
-    // --- BẮT ĐẦU ĐOẠN ĐÃ SỬA ---
     if(contentType === 'resource') {
         if(!auth.currentUser) return alert("⚠️ Vui lòng đăng nhập để lưu học liệu!");
         
@@ -468,7 +467,6 @@ async function saveDataPro() {
         };
         
         try {
-            // ĐÃ ĐỔI THÀNH community_resources ĐỂ KHÔNG BỊ CHẶN QUYỀN
             await db.ref(`community_resources/${resourceId}`).set(resourceData);
             alert("✅ Đã lưu vào KHO CỘNG ĐỒNG thành công!");
         } catch (err) {
@@ -476,7 +474,6 @@ async function saveDataPro() {
         }
         return;
     }
-    // --- KẾT THÚC ĐOẠN ĐÃ SỬA ---
     
     const eid = document.getElementById('examId').value;
     if(!eid) return alert("Vui lòng nhập Mã định danh (ID) đề thi!");
@@ -490,6 +487,10 @@ async function saveDataPro() {
     let pdf = pdfLink;
     if(pdf.includes('github.com')) pdf = pdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
     
+    // ĐÃ THÊM LOGIC XỬ LÝ LINK GITHUB CHO BẢN HƯỚNG DẪN GIẢI (GIỐNG HỆT ĐỀ BÀI)
+    let solutionPdf = solutionLink;
+    if(solutionPdf.includes('github.com')) solutionPdf = solutionPdf.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+    
     const path = isDemo ? `demo_exams/${eid}` : `teachers/${auth.currentUser.uid}/exams/${eid}`;
     const oldSnap = await db.ref(path).once('value');
     const oldData = oldSnap.val();
@@ -499,6 +500,7 @@ async function saveDataPro() {
     const examData = {
         name: name,
         pdfLink: pdf,
+        solutionLink: solutionPdf, // ĐÃ ĐÓNG GÓI LINK GIẢI VÀO DỮ LIỆU ĐỂ ĐẨY LÊN FIREBASE
         duration: parseInt(document.getElementById('duration').value) || 90,
         subject: subject,
         grade: 12,
@@ -547,6 +549,7 @@ async function saveDataPro() {
         alert("Lỗi đồng bộ: " + e.message); 
     }
 }
+
     function applyBulk() {
         const input = document.getElementById('bulkInput').value.trim().split(/\s+/);
         const totalQuestions = currentStructure.mcq + currentStructure.tf + currentStructure.sa;
