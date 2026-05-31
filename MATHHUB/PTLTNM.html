@@ -69,13 +69,23 @@
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
+        /* ĐÃ CẢI TIẾN: Thanh điều hướng điện thoại nhỏ gọn chứa 3 nút */
         #mobileNav {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            display: none; gap: 15px; z-index: 999;
-            background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
-            padding: 8px 20px; border-radius: 50px;
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+            display: none; gap: 8px; z-index: 999;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px);
+            padding: 10px 15px; border-radius: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap;
         }
-        #mobileNav button { padding: 10px 20px; border-radius: 40px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
+        #mobileNav button { 
+            padding: 8px 14px; border-radius: 30px; border: none; 
+            background: rgba(255,255,255,0.2); color: white; 
+            font-weight: bold; font-size: 0.85rem; cursor: pointer; transition: 0.2s;
+        }
+        #mobileNav button.btn-submit-mobile {
+            background: var(--accent); color: var(--primary); font-weight: 900;
+        }
 
         @media (max-width: 860px) {
             .main-container { flex-direction: column; }
@@ -85,6 +95,8 @@
             .timer-badge { padding: 6px 12px; font-size: 1rem; }
             .brand { font-size: 1rem; }
             #studentInfo { display: none; }
+            /* Thêm khoảng trống cuối danh sách để nút không che mất câu cuối */
+            .scroll-area { padding-bottom: 80px; } 
         }
     </style>
 </head>
@@ -120,9 +132,11 @@
     </div>
 </div>
 
+<!-- ĐÃ CẢI TIẾN: Thêm nút NỘP BÀI vào thanh Mobile -->
 <div id="mobileNav">
     <button onclick="scrollToPDF()">📄 Đề thi</button>
     <button onclick="scrollToSheet()">📝 Làm bài</button>
+    <button class="btn-submit-mobile" onclick="submitTest()">🚀 NỘP BÀI</button>
 </div>
 
 <script>
@@ -150,23 +164,14 @@
     let userAnswers = {};
     let time = 0;
     let examSubject = "Toán";
-    let examStructure = null; // Cấu trúc điểm từ đề thi
+    let examStructure = null;
+    let examSolutionLink = ""; 
 
-    // ═══════════════════════════════════════════════════════════════
-    // LOGIC CHẤM ĐIỂM PRO – ĐA MÔN THEO STRUCTURE
-    // ═══════════════════════════════════════════════════════════════
     function normalizeAnswer(str) {
         if (!str) return '';
         return String(str).trim().toLowerCase().replace(/,/g, '.').replace(/\s+/g, '');
     }
 
-    /**
-     * Tính điểm dựa hoàn toàn vào structure của đề
-     * @param {Array} masterKey - Mảng đáp án chuẩn
-     * @param {Object} userAnswers - Câu trả lời của học sinh
-     * @param {Object} structure - Cấu trúc điểm (mcq, tf, sa)
-     * @returns {number} - Tổng điểm
-     */
     function calculateScorePro(masterKey, userAnswers, structure) {
         if (!masterKey || masterKey.length === 0) return 0;
         if (!structure) {
@@ -175,8 +180,6 @@
         }
         
         let totalScore = 0;
-        
-        // Chuẩn bị map loại câu để dễ xử lý
         const mcqScores = [];
         const tfScores = [];
         const saScores = [];
@@ -185,7 +188,6 @@
             const ans = userAnswers[q.id];
             const type = q.type;
             
-            // ===== 1. TRẮC NGHIỆM (MULTIPLE CHOICE) =====
             if (type === 'multiple_choice') {
                 let score = 0;
                 if (ans && ans === q.correct) {
@@ -194,8 +196,6 @@
                 mcqScores.push(score);
                 totalScore += score;
             }
-            
-            // ===== 2. ĐÚNG/SAI (TRUE/FALSE - 4 ý mỗi câu) =====
             else if (type === 'true_false') {
                 let correctCount = 0;
                 if (ans && typeof ans === 'object') {
@@ -211,8 +211,6 @@
                 tfScores.push(score);
                 totalScore += score;
             }
-            
-            // ===== 3. TRẢ LỜI NGẮN (SHORT ANSWER) =====
             else if (type === 'short_answer') {
                 let score = 0;
                 if (ans) {
@@ -230,9 +228,6 @@
         return parseFloat(totalScore.toFixed(2));
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    // GHI DỮ LIỆU VÀO FIREBASE
-    // ═══════════════════════════════════════════════════════════════
     async function saveAttemptToFirebase(data) {
         try {
             const newRef = db.ref('system_stats/attempts').push();
@@ -294,10 +289,11 @@
             const keySnap = await db.ref(keyPath).once('value');
             masterKey = keySnap.val() || [];
             
-            // Lấy cấu trúc điểm từ đề thi (quant trọng!)
             examStructure = examData.structure || null;
             examSubject = examData.subject || "Toán";
             
+            examSolutionLink = examData.solutionLink || "";
+
             console.log("Cấu trúc đề thi:", examStructure);
             console.log("Môn học:", examSubject);
 
@@ -333,7 +329,6 @@
             return;
         }
         
-        // Xác định vị trí các phần từ structure nếu có
         let mcqCount = examStructure?.mcq?.count || 12;
         let tfCount = examStructure?.tf?.count || 4;
         let saCount = examStructure?.sa?.count || 6;
@@ -345,7 +340,6 @@
             const qId = q.id || idx + 1;
             const type = q.type;
             
-            // Trắc nghiệm
             if (type === 'multiple_choice') {
                 if (!parts.p1 && (currentIdx < mcqCount || mcqCount > 0)) { 
                     const mcqScore = examStructure?.mcq?.score || 0.25;
@@ -360,7 +354,6 @@
                          </div>`;
                 currentIdx++;
             } 
-            // Đúng/Sai
             else if (type === 'true_false') {
                 if (!parts.p2) { 
                     html += `<div class="part-header">✅ PHẦN II. ĐÚNG/SAI (Thang điểm 0.1 - 1.0)</div>`; 
@@ -382,7 +375,6 @@
                          </div>`;
                 currentIdx++;
             } 
-            // Trả lời ngắn
             else if (type === 'short_answer') {
                 if (!parts.p3) { 
                     const saScore = examStructure?.sa?.score || 0.5;
@@ -401,7 +393,6 @@
         area.innerHTML = html;
     }
 
-    // PICK MCQ - CÓ AUTO NEXT
     window.pickMCQ = (id, val) => {
         userAnswers[id] = val;
         
@@ -461,7 +452,6 @@
     async function submitTest(isAuto = false) {
         if(!isAuto && !confirm("Bạn có chắc chắn muốn nộp bài ngay bây giờ?")) return;
         
-        // ===== TÍNH ĐIỂM THEO STRUCTURE (QUAN TRỌNG) =====
         const finalScore = calculateScorePro(masterKey, userAnswers, examStructure);
         
         console.log("Điểm tính được:", finalScore, "| Structure:", examStructure);
@@ -472,7 +462,7 @@
             studentName: sName,
             score: finalScore,
             subject: examSubject,
-            structure: examStructure, // Lưu lại structure để đối chiếu sau
+            structure: examStructure, 
             timestamp: Date.now(),
             teacherId: tid,
             isDemo: isDemo,
@@ -485,6 +475,7 @@
             score: finalScore,
             subject: examSubject,
             structure: examStructure,
+            solutionLink: examSolutionLink, // Link giải nằm ở đây
             submittedAt: Date.now()
         };
         localStorage.setItem('lastResult', JSON.stringify(resultForKQ));

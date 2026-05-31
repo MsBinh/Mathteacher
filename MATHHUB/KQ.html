@@ -216,14 +216,14 @@
                 structDisplay.style.display = 'inline-block';
             }
 
-            // XỬ LÝ LỜI GIẢI PDF
-            if(examData.solutionPdf) {
-                let solLink = examData.solutionPdf;
+            // ĐÃ CẬP NHẬT: XỬ LÝ LỜI GIẢI PDF TỪ CẢ DATA LOCAL VÀ FIREBASE
+            let solLink = data.solutionLink || examData.solutionLink || examData.solutionPdf || "";
+            if(solLink && solLink.trim() !== "") {
                 if (solLink.includes('github.com')) solLink = solLink.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
                 if (solLink.includes('drive.google.com')) solLink = solLink.replace('/view', '/preview');
                 
                 document.getElementById('solutionFrame').src = solLink;
-                document.getElementById('solutionArea').style.display = 'block';
+                document.getElementById('solutionArea').style.display = 'block'; // Hiển thị nút
             }
 
             // TÍNH ĐIỂM CHUẨN THEO STRUCTURE
@@ -290,8 +290,6 @@
             document.getElementById('countCorrect').innerText = correctCount;
             document.getElementById('countWrong').innerText = masterKey.length - correctCount;
 
-            // ĐÃ XÓA HOÀN TOÀN ĐOẠN CODE GHN LẠI ATTEMPTS Ở ĐÂY ĐỂ TRÁNH NHÂN ĐÔI DỮ LIỆU
-            
         } catch (error) {
             console.error("Lỗi tải dữ liệu:", error);
             document.getElementById('resultBody').innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Lỗi tải dữ liệu đề thi!</td></tr>';
