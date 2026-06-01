@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>MATH HUB 2026 – Hệ thống học liệu & thi trực tuyến</title>
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,9 +16,9 @@
 
         body {
             background-color: #0f172a;
-            color: #ffffff;
+            color: #f8fafc;
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            line-height: 1.5;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
@@ -29,11 +28,11 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
             z-index: 1000;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s;
         }
         .elevator-nav::after {
@@ -43,7 +42,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #007bff, #00f2fe, #7000ff, #00f2fe, #007bff, transparent);
+            background: linear-gradient(90deg, transparent, #3b82f6, #06b6d4, #8b5cf6, #3b82f6, transparent);
             background-size: 200% 100%;
             animation: gradient-run 3s linear infinite;
         }
@@ -60,232 +59,322 @@
             padding: 0 24px;
         }
         .brand-logo {
-            font-size: 1.6rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 900;
             cursor: pointer;
+            letter-spacing: -0.5px;
         }
-        .brand-logo span:first-child { color: #fff; }
-        .brand-logo span:last-child { color: #007bff; text-shadow: 0 0 10px rgba(0,123,255,0.5); }
+        .brand-logo span:first-child { color: #ffffff; }
+        .brand-logo span:last-child { color: #3b82f6; }
+        
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 28px;
+            gap: 32px;
         }
         .nav-links a {
-            color: #aaa;
+            color: #94a3b8;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
             transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 8px #007bff; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; }
+        .nav-links a.active i { color: #3b82f6; }
+        
         .mobile-toggle {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             cursor: pointer;
+            z-index: 1001;
         }
         .mobile-toggle span {
-            width: 25px;
+            width: 28px;
             height: 2px;
             background: white;
             transition: 0.3s;
+            border-radius: 2px;
         }
+        
         @media (max-width: 768px) {
             .mobile-toggle { display: flex; }
             .nav-links {
-                display: none;
+                display: flex;
                 position: fixed;
                 top: 0;
-                left: 0;
+                left: 100%; /* Đẩy ra ngoài màn hình */
                 width: 100%;
                 height: 100vh;
                 background: rgba(15, 23, 42, 0.98);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                z-index: 999;
+                gap: 40px;
+                transition: 0.4s ease-in-out;
             }
-            .nav-links.active { display: flex; }
+            .nav-links.active { left: 0; } /* Trượt vào */
+            .nav-links a { font-size: 1.2rem; }
+            .mobile-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .mobile-toggle.open span:nth-child(2) { opacity: 0; }
+            .mobile-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
         /* ========== HERO ========== */
         .hero {
             margin-top: 70px;
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 80px 20px 40px;
+            background: radial-gradient(circle at center top, rgba(30, 41, 59, 0.8) 0%, #0f172a 100%);
         }
         .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, #00f2fe);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
         }
         .hero p {
-            margin-top: 16px;
             color: #94a3b8;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* ========== CONTAINER ========== */
+        /* ========== CONTAINER & CARDS ========== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px;
+            padding: 20px 24px 60px;
         }
 
-        /* ========== 2 CỘT HỌC SINH + GIÁO VIÊN ========== */
         .two-columns {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            margin-bottom: 56px;
+            gap: 30px;
+            margin-bottom: 50px;
         }
+        
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 32px;
-            transition: all 0.3s;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px 32px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: transparent;
+            transition: 0.3s;
         }
         .glass-card:hover {
-            border-color: #007bff;
+            background: rgba(30, 41, 59, 0.8);
             transform: translateY(-5px);
-            box-shadow: 0 20px 35px -12px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
+        .glass-card:hover::before { background: #3b82f6; }
+        
         .card-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 123, 255, 0.15);
-            border-radius: 30px;
+            width: 54px;
+            height: 54px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 24px;
         }
-        .card-icon i { font-size: 1.8rem; color: #00f2fe; }
-        .glass-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
-        .glass-card p { color: #94a3b8; margin-bottom: 24px; font-size: 0.9rem; }
-        .input-group { margin-bottom: 16px; }
-        /* Gộp chung style để các ô nhập liệu đều đồng bộ và CAO HƠN */
-        .input-group input, .flex-row input {
+        .card-icon i { font-size: 1.5rem; color: #3b82f6; }
+        
+        .glass-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: #f8fafc; }
+        .glass-card p { color: #94a3b8; margin-bottom: 24px; font-size: 0.95rem; }
+
+        /* ========== FORM INPUTS CẢI TIẾN ========== */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 16px;
             width: 100%;
-            padding: 18px 20px; /* Tăng từ 14px lên 18px để box cao và thoáng hơn */
-            border-radius: 60px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(0,0,0,0.3);
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .input-wrapper input {
+            width: 100%;
+            padding: 16px 20px 16px 48px; /* Dành chỗ cho icon */
+            border-radius: 16px; /* Bo góc ăn nhập với thẻ (Card) */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.6);
             color: white;
-            font-size: 1rem; /* Tăng nhẹ font chữ để cân đối với box to */
+            font-size: 1rem;
             outline: none;
-            transition: 0.2s;
+            transition: 0.3s;
         }
-        .input-group input:focus, .flex-row input:focus { 
-            border-color: #007bff; 
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Thêm hiệu ứng phát sáng nhẹ khi bấm vào */
+        .input-wrapper input::placeholder { color: #64748b; }
+        .input-wrapper input:focus {
+            border-color: #3b82f6;
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
         }
-        .flex-row { display: flex; gap: 12px; margin-bottom: 20px; }
-        .flex-row input { flex: 1; width: auto; } /* Giữ tính năng chia đôi 2 cột cho Mã HS và Tên */
+        .input-wrapper input:focus + i, .input-wrapper input:focus ~ i {
+            color: #3b82f6;
+        }
+
+        .flex-row { display: flex; gap: 16px; margin-bottom: 24px; }
+        .flex-row .input-wrapper { margin-bottom: 0; flex: 1; }
+
+        /* Nút bấm (Buttons) */
         .btn {
             width: 100%;
-            padding: 14px;
-            border-radius: 60px;
+            padding: 16px;
+            border-radius: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
             border: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
-        .btn-primary { background: #007bff; color: white; }
-        .btn-primary:hover { background: #00f2fe; color: #0f172a; transform: translateY(-2px); }
-        .btn-outline { background: transparent; border: 1px solid #007bff; color: #007bff; }
-        .btn-outline:hover { background: #007bff; color: white; }
-        .divider { margin: 20px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+        .btn-primary { 
+            background: #3b82f6; 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .btn-primary:hover { 
+            background: #2563eb; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        .btn-outline { 
+            background: transparent; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: #e2e8f0; 
+        }
+        .btn-outline:hover { 
+            background: rgba(255,255,255,0.05); 
+            border-color: #cbd5e1;
+        }
+        
+        .divider { 
+            margin: 24px 0; 
+            display: flex; 
+            align-items: center; 
+            text-align: center; 
+            color: #475569; 
+            font-size: 0.85rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .divider:not(:empty)::before { margin-right: 15px; }
+        .divider:not(:empty)::after { margin-left: 15px; }
+
+        /* Danh sách tính năng cột Giáo viên */
+        .feature-list { list-style: none; margin-bottom: 30px; }
+        .feature-list li { 
+            display: flex; align-items: center; gap: 12px; 
+            margin-bottom: 12px; color: #94a3b8; font-size: 0.95rem;
+        }
+        .feature-list li i { color: #10b981; }
 
         /* ========== KHO HỌC LIỆU + VIDEO ========== */
         .resource-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            margin-bottom: 56px;
+            gap: 30px;
         }
         .resource-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .resource-header {
-            padding: 20px 24px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 24px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
-        .resource-header h4 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
-        .resource-body { padding: 24px; }
-        .resource-body ul { list-style: none; margin: 16px 0; }
-        .resource-body li { margin: 12px 0; display: flex; align-items: center; gap: 10px; color: #94a3b8; font-size: 0.85rem; }
-        .resource-body li i { color: #00f2fe; width: 20px; }
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-top: 16px;
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .resource-header h4 { font-size: 1.2rem; display: flex; align-items: center; gap: 10px; color: #f8fafc; }
+        .resource-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+        
+        /* Thumbnail thay thế cho Video rỗng */
+        .video-placeholder {
             width: 100%;
-            height: 100%;
-            border: 0;
+            height: 200px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #64748b;
+            margin-top: auto;
+            border: 1px dashed rgba(255,255,255,0.1);
         }
+        .video-placeholder i { font-size: 3rem; color: #475569; margin-bottom: 10px; }
 
         /* ========== FOOTER ========== */
         .footer {
-            background: #070a0f;
-            padding: 48px 24px 24px;
+            background: #0b0f19;
+            padding: 60px 24px 30px;
             border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 40px;
         }
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 60px;
+            grid-template-columns: 1.5fr 2fr;
+            gap: 50px;
         }
-        .footer-brand p { color: #94a3b8; margin-top: 16px; font-size: 0.85rem; }
+        .footer-brand p { color: #64748b; margin-top: 15px; font-size: 0.9rem; max-width: 300px; }
         .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .link-group h4 { color: white; margin-bottom: 20px; font-size: 1rem; }
-        .link-group a, .link-group p { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 12px; font-size: 0.8rem; transition: 0.2s; }
-        .link-group a:hover { color: #007bff; padding-left: 5px; }
-        .footer-bottom { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b; font-size: 0.75rem; }
+        .link-group h4 { color: #f8fafc; margin-bottom: 20px; font-size: 1rem; font-weight: 700; }
+        .link-group a, .link-group p { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 12px; font-size: 0.9rem; transition: 0.2s; }
+        .link-group a:hover { color: #3b82f6; transform: translateX(5px); }
+        .footer-bottom { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); color: #475569; font-size: 0.85rem; }
+        
+        /* Tối ưu hóa trên Mobile */
         @media (max-width: 860px) {
             .two-columns, .resource-grid, .footer-container, .footer-links { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2rem; }
+            .hero { padding: 60px 20px 20px; }
+            .glass-card { padding: 30px 20px; }
+            /* Cực kỳ quan trọng: Ép các ô mã/tên xếp dọc trên màn hình nhỏ để bấm không bị nhầm */
+            .flex-row { flex-direction: column; gap: 16px; }
         }
+
         .notification {
             position: fixed;
             top: 80px;
             right: 20px;
-            padding: 12px 20px;
-            border-radius: 60px;
+            padding: 14px 24px;
+            border-radius: 12px;
             background: #ef4444;
             color: white;
+            font-weight: 600;
             z-index: 9999;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
             animation: slideIn 0.3s;
         }
         @keyframes slideIn {
@@ -305,71 +394,96 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
             <li><a href="KhoHocLieu.html"><i class="fas fa-archive"></i> Kho học liệu</a></li>
-            <li><a href="login.html"><i class="fas fa-chalkboard-user"></i> Giáo viên</a></li>
+            <li><a href="login.html"><i class="fas fa-chalkboard-user"></i> Dành cho Giáo viên</a></li>
         </ul>
     </div>
 </nav>
 
 <section class="hero">
     <h1>MATH HUB 2026</h1>
-    <p>Hệ thống thi trực tuyến & kho học liệu thông minh dành cho THPT</p>
+    <p>Nền tảng thi trắc nghiệm trực tuyến & hệ sinh thái học liệu số toàn diện dành riêng cho THPT.</p>
 </section>
 
 <div class="container">
-    <!-- 2 cột Học sinh + Giáo viên -->
     <div class="two-columns">
-        <!-- Học sinh -->
         <div class="glass-card">
             <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
-            <h3>🔗 Học sinh làm bài</h3>
-            <p>Nhập link mời từ giáo viên và thông tin cá nhân để vào phòng thi chính thức.</p>
-            <div class="input-group">
-                <input type="text" id="inviteLink" placeholder="🔗 Dán link thi của giáo viên (vd: ...?t=GV123&exam=DE01)">
+            <h3>Khu vực Học sinh</h3>
+            <p>Nhập mã và thông tin để vào phòng thi trực tuyến.</p>
+            
+            <div id="linkContainer" class="input-wrapper">
+                <i class="fas fa-link"></i>
+                <input type="text" id="inviteLink" placeholder="Dán link bài thi do Giáo viên cấp">
             </div>
+            
             <div class="flex-row">
-                <input type="text" id="studentCode" placeholder="Mã học sinh">
-                <input type="text" id="studentName" placeholder="Họ tên">
+                <div class="input-wrapper">
+                    <i class="fas fa-id-badge"></i>
+                    <input type="text" id="studentCode" placeholder="Mã số học sinh">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-signature"></i>
+                    <input type="text" id="studentName" placeholder="Họ và tên">
+                </div>
             </div>
-            <button class="btn btn-primary" onclick="startOfficialExam()"><i class="fas fa-sign-in-alt"></i> Vào làm bài chính thức</button>
-            <div class="divider"></div>
-            <button class="btn btn-outline" onclick="window.location.href='TKKQ.html'"><i class="fas fa-chart-line"></i> Xem kết quả đã làm (Tra cứu)</button>
+            
+            <button class="btn btn-primary" onclick="startOfficialExam()">
+                Bắt đầu làm bài <i class="fas fa-arrow-right"></i>
+            </button>
+            
+            <div class="divider">HOẶC</div>
+            
+            <button class="btn btn-outline" onclick="window.location.href='TKKQ.html'">
+                <i class="fas fa-search"></i> Tra cứu điểm bài thi cũ
+            </button>
         </div>
 
-        <!-- Giáo viên -->
         <div class="glass-card">
-            <div class="card-icon"><i class="fas fa-chalkboard"></i></div>
-            <h3>👨‍🏫 Khu vực giáo viên</h3>
-            <p>Đăng nhập để tạo đề, quản lý ngân hàng câu hỏi, giao bài và theo dõi kết quả học sinh.</p>
-            <button class="btn btn-primary" onclick="window.location.href='login.html'"><i class="fab fa-google"></i> Đăng nhập bằng Google</button>
-            <div class="divider"></div>
-            <div style="background: rgba(0,123,255,0.1); padding: 12px 16px; border-radius: 20px; margin-top: 8px;">
-                <p style="font-size: 0.75rem; color: #94a3b8;"><i class="fas fa-lightbulb"></i> Hướng dẫn: Đăng nhập → Tạo đề → Giao link → Xem điểm</p>
-            </div>
+            <div class="card-icon" style="background: rgba(16, 185, 129, 0.1);"><i class="fas fa-chalkboard-teacher" style="color: #10b981;"></i></div>
+            <h3>Khu vực Giáo viên</h3>
+            <p>Hệ thống quản trị chuyên môn và dữ liệu học sinh.</p>
+            
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Số hóa ngân hàng câu hỏi & Ma trận đề</li>
+                <li><i class="fas fa-check-circle"></i> Tổ chức thi trực tuyến bảo mật</li>
+                <li><i class="fas fa-check-circle"></i> Phân tích phổ điểm & Thống kê tự động</li>
+            </ul>
+
+            <button class="btn btn-primary" style="background: #10b981; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);" onclick="window.location.href='login.html'">
+                <i class="fab fa-google"></i> Đăng nhập bằng Google Workspace
+            </button>
         </div>
     </div>
 
-    <!-- Kho học liệu + Video (2 cột) -->
     <div class="resource-grid">
         <div class="resource-card">
-            <div class="resource-header"><h4><i class="fas fa-archive"></i> KHO HỌC LIỆU CHÍNH THỨC</h4></div>
+            <div class="resource-header">
+                <h4><i class="fas fa-folder-open" style="color: #f59e0b;"></i> THƯ VIỆN HỌC LIỆU</h4>
+            </div>
             <div class="resource-body">
-                <p>Hệ thống học liệu phục vụ ôn tập, thi thử và kiểm tra đánh giá.</p>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> 40+ đề ôn Toán TN THPT 2026</li>
-                    <li><i class="fas fa-check-circle"></i> Đề thi thử Toán – Lý – Hóa – Sinh</li>
-                    <li><i class="fas fa-check-circle"></i> Chuyên đề & kiểm tra định kỳ 10–11–12</li>
+                <p style="color: #94a3b8; margin-bottom: 20px;">Kho lưu trữ điện tử cung cấp tài liệu tự học, đề minh họa và các chuyên đề luyện thi mở hoàn toàn miễn phí.</p>
+                <ul class="feature-list" style="margin-bottom: auto;">
+                    <li><i class="fas fa-file-pdf" style="color: #ef4444;"></i> Đề minh họa cấu trúc mới 2026</li>
+                    <li><i class="fas fa-file-pdf" style="color: #ef4444;"></i> Ngân hàng câu hỏi Đúng/Sai, Trả lời ngắn</li>
+                    <li><i class="fas fa-file-pdf" style="color: #ef4444;"></i> Tài liệu chuyên đề Toán - Lý - Hóa</li>
                 </ul>
-                <button class="btn btn-primary" onclick="window.location.href='KhoHocLieu.html'" style="background:#f59e0b; color:#0f172a;"><i class="fas fa-folder-open"></i> 👉 Vào kho học liệu</button>
+                <button class="btn btn-outline" style="margin-top: 20px;" onclick="window.location.href='KhoHocLieu.html'">
+                    Mở thư viện ngay <i class="fas fa-external-link-alt"></i>
+                </button>
             </div>
         </div>
+        
         <div class="resource-card">
-            <div class="resource-header" style="background: linear-gradient(115deg, #f59e0b, #d97706);"><h4><i class="fas fa-play-circle"></i> 🎥 Video hướng dẫn sử dụng</h4></div>
+            <div class="resource-header">
+                <h4><i class="fas fa-play-circle" style="color: #ec4899;"></i> HƯỚNG DẪN SỬ DỤNG</h4>
+            </div>
             <div class="resource-body">
-                <p>Hướng dẫn nhanh cho học sinh và giáo viên (3–5 phút).</p>
-                <div class="video-wrapper">
-                    <iframe src="" title="Video hướng dẫn" frameborder="0" allowfullscreen></iframe>
+                <p style="color: #94a3b8; margin-bottom: 20px;">Video giới thiệu thao tác cơ bản: Cách đăng nhập, làm bài thi và tra cứu đáp án chi tiết.</p>
+                
+                <div class="video-placeholder">
+                    <i class="fab fa-youtube"></i>
+                    <span>Video đang được cập nhật</span>
                 </div>
-                <p style="font-size:0.7rem; margin-top: 12px;"><i class="fas fa-info-circle"></i> Cách vào phòng thi, tra cứu kết quả, tạo đề và giao bài.</p>
             </div>
         </div>
     </div>
@@ -379,15 +493,31 @@
     <div class="footer-container">
         <div class="footer-brand">
             <div class="brand-logo"><span>MATH</span><span>HUB</span></div>
-            <p>Hệ thống thi trực tuyến & kho học liệu số dành cho THPT</p>
+            <p>Hệ sinh thái công nghệ giáo dục, mang đến giải pháp đánh giá năng lực toàn diện và thông minh cho Khối THPT.</p>
         </div>
         <div class="footer-links">
-            <div class="link-group"><h4>Hệ thống</h4><a href="index.html">Trang chủ</a><a href="KhoHocLieu.html">Kho học liệu</a><a href="login.html">Đăng nhập GV</a></div>
-            <div class="link-group"><h4>Hỗ trợ</h4><a href="TKKQ.html">Tra cứu kết quả</a><a href="#">Hướng dẫn</a><a href="#">FAQ</a></div>
-            <div class="link-group"><h4>Liên hệ</h4><p><i class="fas fa-envelope"></i> support@mathhub.edu.vn</p><p><i class="fas fa-phone"></i> 0822.351.447</p></div>
+            <div class="link-group">
+                <h4>Hệ thống</h4>
+                <a href="index.html">Trang chủ</a>
+                <a href="KhoHocLieu.html">Kho học liệu chung</a>
+                <a href="login.html">Đăng nhập Giáo viên</a>
+            </div>
+            <div class="link-group">
+                <h4>Học sinh</h4>
+                <a href="TKKQ.html">Tra cứu điểm số</a>
+                <a href="#">Quy chế thi</a>
+                <a href="#">Hỗ trợ kỹ thuật</a>
+            </div>
+            <div class="link-group">
+                <h4>Liên hệ</h4>
+                <p><i class="fas fa-envelope"></i> ntbinh.c3trantruongsinh@vinhlong.edu.vn</p>
+                <p><i class="fas fa-phone"></i> 0822.351.447</p>
+            </div>
         </div>
     </div>
-    <div class="footer-bottom">© 2026 MATH HUB - Hệ thống thi thông minh. All rights reserved.</div>
+    <div class="footer-bottom">
+        © 2026 MATH HUB - Thiết kế & Phát triển cho kỳ thi THPT 2026. All rights reserved.
+    </div>
 </footer>
 
 <script>
@@ -415,7 +545,8 @@
         const link = document.getElementById('inviteLink').value.trim();
         const code = document.getElementById('studentCode').value.trim();
         const name = document.getElementById('studentName').value.trim();
-        if (!link || !code || !name) return showNotification('❌ Vui lòng nhập đầy đủ thông tin!');
+        if (!link || !code || !name) return showNotification('<i class="fas fa-exclamation-triangle"></i> Vui lòng điền đủ thông tin!');
+        
         let teacherId = null, examId = null;
         try {
             const url = new URL(link);
@@ -425,13 +556,16 @@
             const match = link.match(/[?&]t=([^&]+)&exam=([^&]+)/);
             if (match) { teacherId = match[1]; examId = match[2]; }
         }
-        if (!teacherId || !examId) return showNotification('🔗 Link không hợp lệ!');
+        
+        if (!teacherId || !examId) return showNotification('<i class="fas fa-link"></i> Đường dẫn không hợp lệ!');
+        
         const examRef = await db.ref(`teachers/${teacherId}/exams/${examId}`).once('value');
-        if (!examRef.exists()) return showNotification('Đề thi không tồn tại!');
+        if (!examRef.exists()) return showNotification('<i class="fas fa-search-minus"></i> Đề thi không tồn tại hoặc đã đóng!');
+        
         window.location.href = `PTLTNM.html?t=${encodeURIComponent(teacherId)}&exam=${encodeURIComponent(examId)}&code=${encodeURIComponent(code)}&name=${encodeURIComponent(name)}`;
     }
 
-    // Mobile menu
+    // Mobile menu toggle
     const toggle = document.getElementById('mobileToggle');
     const nav = document.getElementById('navLinks');
     toggle?.addEventListener('click', () => {
@@ -439,6 +573,7 @@
         toggle.classList.toggle('open');
     });
     window.startOfficialExam = startOfficialExam;
+
     // ========== CƠ CHẾ SMART LINK (1-CHẠM TỪ ZALO) ==========
     document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -446,20 +581,16 @@
         const urlExam = urlParams.get('exam');
         
         if (urlT && urlExam) {
-            // 1. Tự động điền link ẩn vào ô input để hàm startOfficialExam có thể đọc
             document.getElementById('inviteLink').value = window.location.href;
+            document.getElementById('linkContainer').style.display = 'none';
             
-            // 2. Ẩn cái ô "Dán link" đi cho học sinh đỡ rối
-            document.getElementById('inviteLink').parentElement.style.display = 'none';
-            
-            // 3. Đổi câu thông báo để học sinh yên tâm là đã vào đúng phòng
             const infoText = document.querySelector('.two-columns .glass-card:first-child p');
             infoText.innerHTML = `
-                <div style="background: rgba(0, 242, 254, 0.15); padding: 12px; border-radius: 12px; border: 1px dashed #00f2fe; margin-bottom: 15px;">
-                    <span style="color:#00f2fe; font-weight:800; font-size:1.1rem;">
-                        <i class="fas fa-check-circle"></i> ĐÃ KẾT NỐI ĐỀ: ${urlExam}
-                    </span><br>
-                    <span style="font-size:0.85rem; color:#e2e8f0;">Vui lòng nhập thông tin bên dưới để bắt đầu làm bài.</span>
+                <div style="background: rgba(59, 130, 246, 0.15); padding: 15px; border-radius: 16px; border: 1px dashed rgba(59, 130, 246, 0.5); margin-bottom: 20px;">
+                    <span style="color:#60a5fa; font-weight:700; font-size:1.05rem; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-check-circle" style="color:#10b981;"></i> Đã kết nối mã đề: ${urlExam}
+                    </span>
+                    <div style="font-size:0.85rem; color:#94a3b8; margin-top:5px; line-height:1.4;">Hệ thống đã nhận diện dữ liệu thành công. Vui lòng điền thông tin danh tính bên dưới để vào phòng thi.</div>
                 </div>`;
         }
     });
