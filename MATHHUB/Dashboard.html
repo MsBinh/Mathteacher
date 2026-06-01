@@ -76,24 +76,23 @@
         .greeting p { font-size: 0.65rem; color: #475569; }
         .teacher-badge { background: #fef3c7; padding: 5px 14px; border-radius: 40px; color: #b45309; font-weight: 600; font-size: 0.75rem; }
 
-        /* KPI ROWS - responsive grid */
         .kpi-row { 
             display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
+            grid-template-columns: repeat(5, 1fr); 
             gap: 16px; 
             margin-bottom: 28px; 
         }
         .kpi-card { 
             background: white; 
             border-radius: 1.2rem; 
-            padding: 16px 12px; 
+            padding: 16px 10px; 
             text-align: center; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
             border-bottom: 3px solid #f59e0b; 
         }
-        .kpi-icon { font-size: 1.6rem; color: #f59e0b; margin-bottom: 8px; }
-        .kpi-number { font-size: 1.6rem; font-weight: 800; color: #0f172a; line-height: 1.2; }
-        .kpi-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; color: #475569; margin-top: 6px; letter-spacing: 0.3px; }
+        .kpi-icon { font-size: 1.5rem; color: #f59e0b; margin-bottom: 8px; }
+        .kpi-number { font-size: 1.5rem; font-weight: 800; color: #0f172a; line-height: 1.2; }
+        .kpi-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #475569; margin-top: 6px; letter-spacing: 0.3px; }
 
         .system-stats-section {
             background: linear-gradient(115deg, #1e3a8a, #1e40af);
@@ -117,7 +116,9 @@
         
         canvas { max-height: 200px; width: 100% !important; }
         
-        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .kpi-row { grid-template-columns: repeat(3, 1fr); }
+        }
         @media (max-width: 900px) {
             .sidebar { width: 70px; }
             .sidebar span { display: none; }
@@ -129,7 +130,7 @@
             .logo-area p { display: none; }
             .main-content { padding: 16px; }
             .kpi-row { gap: 10px; }
-            .kpi-number { font-size: 1.2rem; }
+            .kpi-number { font-size: 1.3rem; }
             .kpi-icon { font-size: 1.2rem; }
             .kpi-card { padding: 12px 8px; }
         }
@@ -139,13 +140,6 @@
             .double-chart { grid-template-columns: 1fr; gap: 16px; }
             .system-stats-section { padding: 14px 16px; }
             .top-bar { flex-direction: column; text-align: center; }
-        }
-        
-        @media (max-width: 480px) {
-            .main-content { padding: 12px; }
-            .kpi-number { font-size: 1rem; }
-            .kpi-label { font-size: 0.55rem; }
-            .chart-title { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -160,7 +154,7 @@
         <div class="nav-item" onclick="goToTeacherStudio()"><i class="fas fa-pen-fancy"></i> <span>Tạo / Sửa đề</span></div>
         <div class="nav-item" onclick="goToKhoDe()"><i class="fas fa-database"></i> <span>Danh sách đề</span></div>
         <div class="nav-item" onclick="goToKQTH()"><i class="fas fa-chart-line"></i> <span>Kết quả HS</span></div>
-         <div class="nav-item" onclick="goToKhoHocLieu()"><i class="fas fa-book"></i> <span>Kho học liệu</span></div>
+        <div class="nav-item" onclick="goToKhoHocLieu()"><i class="fas fa-book"></i> <span>Kho học liệu</span></div>
         <div class="nav-item" onclick="goToThongKeTongHop()"><i class="fas fa-chart-pie"></i> <span>LINK TRANG ĐỀ</span></div>
         <div class="logout-item"><div class="nav-item" onclick="logoutTeacher()"><i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span></div></div>
     </div>
@@ -174,7 +168,6 @@
             <div class="teacher-badge" id="teacherDisplay"><i class="fas fa-user-check"></i> Đang tải...</div>
         </div>
 
-        <!-- KHỐI THỐNG KÊ TOÀN HỆ THỐNG -->
         <div class="system-stats-section">
             <h3><i class="fas fa-chart-network"></i> THỐNG KÊ TOÀN HỆ THỐNG</h3>
             <div class="sub">Dữ liệu từ TẤT CẢ giáo viên và học sinh trên MATH HUB</div>
@@ -183,6 +176,7 @@
                 <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-user-graduate"></i></div><div class="kpi-number" id="sys_uniqueStudents">--</div><div class="kpi-label">Học sinh</div></div>
                 <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-layer-group"></i></div><div class="kpi-number" id="sys_totalExams">--</div><div class="kpi-label">Đề thi</div></div>
                 <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-chalkboard-user"></i></div><div class="kpi-number" id="sys_totalTeachers">--</div><div class="kpi-label">Giáo viên</div></div>
+                <div class="kpi-card" style="border-bottom-color: #10b981;"><div class="kpi-icon"><i class="fas fa-book-open" style="color:#10b981;"></i></div><div class="kpi-number" id="sys_totalResources">--</div><div class="kpi-label">Tổng học liệu</div></div>
             </div>
         </div>
 
@@ -197,13 +191,13 @@
             </div>
         </div>
 
-        <!-- KHU VỰC GIÁO VIÊN -->
-        <div style="margin: 16px 0 12px 0;"><hr><h4 style="margin: 10px 0; font-size:0.85rem;"><i class="fas fa-user"></i> Thống kê lớp học của bạn</h4></div>
+        <div style="margin: 16px 0 12px 0;"><hr><h4 style="margin: 10px 0; font-size:0.85rem;"><i class="fas fa-user"></i> Thống kê cá nhân của bạn</h4></div>
         <div class="kpi-row" id="kpiRow">
             <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-layer-group"></i></div><div class="kpi-number" id="totalExams">0</div><div class="kpi-label">Đề đã tạo</div></div>
             <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-list-check"></i></div><div class="kpi-number" id="totalAttempts">0</div><div class="kpi-label">Lượt làm bài</div></div>
             <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-user-graduate"></i></div><div class="kpi-number" id="uniqueStudents">0</div><div class="kpi-label">Học sinh</div></div>
             <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-calendar-week"></i></div><div class="kpi-number" id="activeDays">0</div><div class="kpi-label">Ngày hoạt động</div></div>
+            <div class="kpi-card" style="border-bottom-color: #10b981;"><div class="kpi-icon"><i class="fas fa-book-reader" style="color:#10b981;"></i></div><div class="kpi-number" id="totalResources">0</div><div class="kpi-label">Học liệu đóng góp</div></div>
         </div>
 
         <div class="chart-card">
@@ -215,8 +209,8 @@
             <h4><i class="fas fa-info-circle"></i> Về thống kê toàn hệ thống</h4>
             <ul>
                 <li><strong>📊 Quy mô nền tảng:</strong> Dữ liệu từ tất cả giáo viên và học sinh.</li>
+                <li><strong>📚 Kho học liệu:</strong> Là tài sản chung do tập thể sư phạm cùng đóng góp và xây dựng.</li>
                 <li><strong>👥 Giáo viên:</strong> Mọi giáo viên đều xem được thống kê toàn hệ thống.</li>
-                
             </ul>
         </div>
         <footer><i class="fas fa-shield-alt"></i> Dữ liệu Firebase V2 | Múi giờ Việt Nam (GMT+7)</footer>
@@ -261,15 +255,20 @@
             const sysAttemptsSnap = await db.ref('system_stats/attempts').once('value');
             const sysAttempts = sysAttemptsSnap.val() ? Object.values(sysAttemptsSnap.val()) : [];
 
+            const sysResSnap = await db.ref('community_resources').once('value');
+            const sysResCount = sysResSnap.val() ? Object.keys(sysResSnap.val()).length : 0;
+
             const teachersSnap = await db.ref('teachers').once('value');
             let legacyAttempts = [];
             let legacyExamsCount = 0;
-            const teacherIds = [];
+            
+            // ĐÃ NÂNG CẤP: Dùng Set để lọc trùng lặp và không bỏ sót ai
+            const teacherIds = new Set();
 
             if (teachersSnap.val()) {
                 const teachers = teachersSnap.val();
                 for (const teacherId of Object.keys(teachers)) {
-                    teacherIds.push(teacherId);
+                    teacherIds.add(teacherId);
                     const teacher = teachers[teacherId];
                     if (teacher.exams) legacyExamsCount += Object.keys(teacher.exams).length;
                     if (teacher.attempts) {
@@ -287,29 +286,44 @@
                 }
             }
 
+            // Quét thêm trong hệ thống học liệu xem có ID tác giả nào chưa được đếm không
+            if (sysResSnap.val()) {
+                Object.values(sysResSnap.val()).forEach(r => {
+                    if (r.authorUid) {
+                        teacherIds.add(r.authorUid);
+                    }
+                });
+            }
+
+            // Quét thêm trong hệ thống đề thi thống kê xem có giáo viên nào sót không
+            if (sysExamsSnap.val()) {
+                Object.values(sysExamsSnap.val()).forEach(ex => {
+                    if (ex.teacherId) {
+                        teacherIds.add(ex.teacherId);
+                    }
+                });
+            }
+
             const allAttempts = [...sysAttempts, ...legacyAttempts];
             const totalExams = sysExamsCount + legacyExamsCount;
-            const totalTeachers = teacherIds.length;
+            const totalTeachers = teacherIds.size; // Lấy tổng số lượng thực tế từ tập hợp
           
-const uniqueStudentsSet = new Set();
-
-allAttempts.forEach(a => {
-  let name = (a.studentName || "").trim();
-
-  if (!name) return;
-
-  // chuẩn hóa tên (tránh lệch do viết hoa/thường)
-  name = name.toUpperCase().replace(/\s+/g, " ");
-
-  uniqueStudentsSet.add(name);
-});
-
-const uniqueStudents = uniqueStudentsSet.size;
+            const uniqueStudentsSet = new Set();
+            allAttempts.forEach(a => {
+                let name = (a.studentName || "").trim();
+                if (!name) return;
+                name = name.toUpperCase().replace(/\s+/g, " ");
+                uniqueStudentsSet.add(name);
+            });
+            const uniqueStudents = uniqueStudentsSet.size;
 
             document.getElementById('sys_totalAttempts').innerText = allAttempts.length.toLocaleString();
             document.getElementById('sys_uniqueStudents').innerText = uniqueStudents.toLocaleString();
             document.getElementById('sys_totalExams').innerText = totalExams.toLocaleString();
+            
+            // Số lượng giáo viên đã chuẩn xác
             document.getElementById('sys_totalTeachers').innerText = totalTeachers.toLocaleString();
+            document.getElementById('sys_totalResources').innerText = sysResCount.toLocaleString();
 
             const scoreRanges = [0,0,0,0,0,0,0,0,0,0];
             allAttempts.forEach(att => { const s = safeScore(att.score); if (s !== null && s >= 0 && s < 10) scoreRanges[s]++; });
@@ -356,30 +370,43 @@ const uniqueStudents = uniqueStudentsSet.size;
     }
 
     async function fetchTeacherData(teacherId) {
-        if (!teacherId) return { exams: [], attempts: [] };
+        if (!teacherId) return { exams: [], attempts: [], resourcesCount: 0 };
         try {
-            const [examsSnap, attemptsSnap] = await Promise.all([
+            const [examsSnap, attemptsSnap, resSnap] = await Promise.all([
                 db.ref(`teachers/${teacherId}/exams`).once('value'),
-                db.ref(`teachers/${teacherId}/attempts`).once('value')
+                db.ref(`teachers/${teacherId}/attempts`).once('value'),
+                db.ref(`community_resources`).once('value')
             ]);
+            
             let exams = [];
-            const examsVal = examsSnap.val();
-            if (examsVal) exams = Object.keys(examsVal).map(id => ({ id, ...examsVal[id] }));
+            if (examsSnap.val()) exams = Object.keys(examsSnap.val()).map(id => ({ id, ...examsSnap.val()[id] }));
+            
             let attempts = [];
-            const attemptsVal = attemptsSnap.val();
-            if (attemptsVal) attempts = Object.values(attemptsVal);
-            return { exams, attempts };
-        } catch (err) { return { exams: [], attempts: [] }; }
+            if (attemptsSnap.val()) attempts = Object.values(attemptsSnap.val());
+            
+            let resourcesCount = 0;
+            if (resSnap.val()) {
+                Object.values(resSnap.val()).forEach(r => {
+                    if (r.authorUid === teacherId) resourcesCount++;
+                });
+            }
+            
+            return { exams, attempts, resourcesCount };
+        } catch (err) { return { exams: [], attempts: [], resourcesCount: 0 }; }
     }
 
     async function updateTeacherStats() {
         if (!currentTeacherId) return;
-        const { exams, attempts } = await fetchTeacherData(currentTeacherId);
+        const { exams, attempts, resourcesCount } = await fetchTeacherData(currentTeacherId);
+        
         document.getElementById('totalExams').innerText = exams.length;
         document.getElementById('totalAttempts').innerText = attempts.length;
+        document.getElementById('totalResources').innerText = resourcesCount;
+        
         const uniqueStudentsSet = new Set();
         attempts.forEach(att => { if (att.studentCode) uniqueStudentsSet.add(att.studentCode); });
         document.getElementById('uniqueStudents').innerText = uniqueStudentsSet.size;
+        
         let active = 0;
         if (attempts.length > 0) {
             let ts = attempts.map(a => a.timestamp).filter(t => t > 0);
