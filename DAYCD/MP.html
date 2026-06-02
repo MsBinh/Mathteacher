@@ -587,7 +587,7 @@
             <div id="colorStatus" onclick="cycleColor()" title="Đổi màu bút (Click)"></div>
             <button class="btn" id="btnMath" onclick="createCenteredMathBox()" style="color: var(--yellow);" title="Tạo hộp công thức">Σ</button>
             <div class="sep"></div>
-
+            <button class="btn" onclick="createTitleSlide()" style="color: #fff; background: #e67e22;" title="Tạo Slide Trình chiếu">📽️</button>
             <button class="btn" id="btnAnnotate" onclick="toggleAnnotation()" style="background:#d35400" title="Bật/Tắt chế độ vẽ đè">📝</button>
             
             <button class="btn" style="background:#27ae60" onclick="document.getElementById('imageInput').click()" title="Chèn Ảnh">🖼️</button>
@@ -926,13 +926,71 @@
             activeMathBox = null;
         }
     }
-
-    function renderCurrentBox() {
+function renderCurrentBox() {
         if (!activeMathBox) return;
         const raw = latexInput.value;
         activeMathBox.dataset.raw = raw;
         const contentDiv = activeMathBox.querySelector('.math-content');
-        contentDiv.innerHTML = raw;
+        
+        // 1. NHẬN DIỆN CHẾ ĐỘ (Thông thường vs Trình chiếu)
+        const isPresentation = activeMathBox.dataset.mode === 'presentation';
+        
+        // Điều chỉnh CSS khoảng cách dòng tùy theo chế độ
+        contentDiv.style.lineHeight = isPresentation ? '1.8' : '1.3';
+        if (isPresentation) contentDiv.style.fontSize = '22pt'; // Chữ to hơn cho Slide
+        
+        // 2. TIỀN XỬ LÝ (PRE-PROCESS) CÁC LỆNH TEXT THÔNG DỤNG
+        let processedText = raw;
+        processedText = processedText.replace(/\\textbf{([^}]+)}/g, '<b>$1</b>'); // In đậm
+        processedText = processedText.replace(/\\textit{([^}]+)}/g, '<i>$1</i>'); // In nghiêng
+        processedText = processedText.replace(/\\underline{([^}]+)}/g, '<u>$1</u>'); // Gạch chân
+        processedText = processedText.replace(/\\color{([^}]+)}{([^}]+)}/g, '<span style="color:$1;">$2</span>'); // Đổi màu
+        
+        // Hỗ trợ \Large dạng bọc \Large{...} hoặc viết cách \Large ...
+        processedText = processedText.replace(/\\Large{([^}]+)}/g, '<span style="font-size: 1.5em;">$1</span>');
+        processedText = processedText.replace(/\\Large\s+([^\[\n]+)/g, '<span style="font-size: 1.5em;">$1</span>');
+        
+        // 3. XỬ LÝ HIỆU ỨNG TỪNG BƯỚC [STEP]
+        if (processedText.includes('[STEP]')) {
+            const steps = processedText.split('[STEP]');
+            let htmlContent = '';
+            
+            steps.forEach((step, index) => {
+                let cleanStep = step.trim(); // QUAN TRỌNG: Cắt bỏ khoảng trắng và \n thừa gây giãn dòng
+                if(!cleanStep) return; 
+                
+                // CẢI TIẾN: Bước chưa hiện sẽ bị "gấp gọn" (display: none) để không chiếm dụng không gian trang
+                const isHidden = index > 0 
+                    ? 'display: none; opacity: 0; transition: opacity 0.4s ease;' 
+                    : 'display: block; opacity: 1; transition: opacity 0.4s ease;';
+                
+                htmlContent += `<div class="math-step" style="${isHidden} margin-bottom: 6px;" data-step="${index}">${cleanStep}</div>`;
+            });
+            contentDiv.innerHTML = htmlContent;
+            
+            contentDiv.style.pointerEvents = 'auto';
+            contentDiv.style.cursor = 'pointer';
+            
+            // Logic Click hiện từng bước có nhịp điệu
+            contentDiv.onclick = function(e) {
+                const hiddenSteps = contentDiv.querySelectorAll('.math-step[style*="display: none"]');
+                if (hiddenSteps.length > 0) {
+                    const nextStep = hiddenSteps[0];
+                    nextStep.style.display = 'block'; // Trả lại không gian cho dòng đó
+                    
+                    // Đợi 20ms để trình duyệt kịp xếp dòng, sau đó mới chạy hiệu ứng mờ sang rõ
+                    setTimeout(() => {
+                        nextStep.style.opacity = '1';
+                    }, 20);
+                }
+            };
+        } else {
+            // Không có [STEP] thì render bình thường
+            contentDiv.innerHTML = processedText.trim();
+            contentDiv.style.pointerEvents = 'none';
+        }
+
+        // 4. RENDER CÔNG THỨC TOÁN HỌC BẰNG MATHJAX
         MathJax.typesetPromise([contentDiv]).then(() => {
             contentDiv.querySelectorAll('svg').forEach(svg => {
                 svg.style.fill = currentColor;
@@ -941,7 +999,6 @@
             });
         }).catch((err) => console.log("MathJax error:", err));
     }
-
     function setTool(toolName) {
         if(toolName === 'hand') { 
             currentTool = 'hand'; 
@@ -1783,7 +1840,25 @@
         a.click();
         URL.revokeObjectURL(url);
     }
-    
+    // --- TÍNH NĂNG BỔ SUNG: TẠO SLIDE TRÌNH CHIẾU CHO KỊCH BẢN VIDEO ---
+    function createTitleSlide() {
+        createCenteredMathBox();
+        const box = document.querySelector('.math-box:last-child');
+        
+        // ĐÁNH DẤU CHẾ ĐỘ TRÌNH CHIẾU
+        box.dataset.mode = 'presentation'; 
+        
+        box.style.backgroundColor = 'transparent';
+        box.style.border = 'none';
+        box.style.boxShadow = 'none';
+        box.style.color = '#f1c40f'; // Màu vàng (Thầy có thể đổi thành '#ffffff' nếu muốn)
+        box.style.textAlign = 'center';
+        box.style.width = '80%';
+        box.style.left = '10%';
+        
+        openEditorFor(box);
+    }
+    window.createTitleSlide = createTitleSlide;
     function loadProjectFile() {
         const input = document.createElement('input');
         input.type = 'file';
